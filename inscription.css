@@ -1,0 +1,340 @@
+@media all and (min-width: 1000px){
+		/*HEADER*/
+		header{
+			height: 10vh;
+		    padding-bottom: 20px;
+		    border-bottom: 1px dotted #CFCFD9;	
+		}
+		#inscr_logo{
+			margin: 0 auto;
+		    display: flex;
+		    max-width: 20%;
+		    height: 100%;
+		}
+		#inscr_capsule{
+			width: 75%;
+    		margin: 0 auto;
+		}
+		/*FORMULAIRE*/
+		#inscr_container{
+			width: 45%;
+			height: 50vh;
+		    padding-right: 5%;
+		    display: inline-block;
+		    vertical-align: top;
+		    border-right: 1px dotted black;
+		}
+		#compte_exis{
+			display: inline-block;
+			height: 50vh;
+    		width: 30vw;
+    		padding: 0% 2vw;
+    		vertical-align: top;
+		}
+		/*Texte de présentation*/
+		h4{
+			text-align: center;
+		}
+		#inscr_infos{
+			padding: 3vh 0;
+		    width: 50%;
+		    height: 140px;
+		    margin: 0 auto;
+		}
+		#inscr_infos li{
+			width: 40%;
+		}
+		li:nth-child(2n+1){
+			float: left;
+		}
+		li:nth-child(2n){
+			float: right;
+		}
+		/*Champ du formulaire*/
+		#inscr_coord, #inscr_connec{
+	   		padding: 0vh 6vw;
+		}
+		#inscr_coord input, #inscr_connec input{
+			width: 99%;
+			height: 5vh;
+	    	font-size: 90%;
+	    	margin-bottom: 10px;
+		}
+		/*Boutons d'envoi ou de connexion*/
+		button{
+			display: block;
+			cursor: pointer;
+		}
+		#inscr_coord+input, #inscr_connec+{
+			width: 100%;
+		}
+		#inscr_cgu, #mdp_forgot{
+			font-size: 13px;
+	    	color: #454343;
+	    	text-align: center;
+		}
+		#inscr_envoi, #inscr_log{
+			width: 100%;
+			height: 100px;
+		    font-weight: bold;
+		    border: solid #666 1px;
+		    font-size: 100%;
+		    color: black;
+		    text-transform: uppercase;
+		    border-radius: 20px;
+		    margin: 2vh 0px;
+			transition: background-color 1s
+		}
+		#inscr_envoi{
+			background-color: #B0F4B0;
+		}
+		#inscr_envoi:hover{
+		    background-color: #3DDC3D;
+		}
+		#inscr_log{
+			background-color: lightskyblue;
+		}
+		#inscr_log:hover{
+			background-color: #0CA2FF;
+		}
+		#inscr_nouv, #inscr_compte{
+			border-bottom: 1px solid #dfe0e6;
+		    display: block;
+		    width: 100%;
+		    text-align: center;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    font-size: 17px;
+		}
+		/*Captcha Google*/
+		.g-recaptcha{
+			width: 70%;
+			margin: 0 auto;
+		}
+	}
+	@media all and (min-width: 600px) and (max-width:1000px){
+		/*HEADER*/
+		header{
+			height: 10vh;
+		    padding-bottom: 20px;
+		    border-bottom: 1px dotted #CFCFD9;	
+		}
+		#inscr_logo{
+			margin: 0 auto;
+		    display: flex;
+		    max-width: 20%;
+		    height: 100%;
+		}
+		#inscr_capsule{
+			width: 75%;
+    		margin: 0 auto;
+		}
+		/*FORMULAIRE*/
+		#inscr_container{
+			width: 100%;
+			height: 50vh;
+		    display: inline-block;
+		    vertical-align: top;
+		    margin-bottom: 30px;
+		}
+		#compte_exis{
+			display: inline-block;
+			height: 50vh;
+    		width: 100%;
+    		vertical-align: top;
+    		text-align: center;
+		}
+		/*Texte de présentation*/
+		h4{
+			text-align: center;
+		}
+		#inscr_infos{
+			padding: 3vh 0;
+		    width: 50%;
+		    height: 140px;
+		    margin: 0 auto;
+		}
+		#inscr_infos li{
+			width: 40%;
+			margin: 10px 0;
+		}
+		li:nth-child(2n+1){
+			float: left;
+		}
+		li:nth-child(2n){
+			float: right;
+		}
+		/*Champ du formulaire*/
+		#inscr_coord, #inscr_connec{
+	   		padding: 0vh 6vw;
+		}
+		#inscr_coord input, #inscr_connec input{
+			width: 99%;
+			height: 5vh;
+	    	font-size: 90%;
+	    	margin-bottom: 10px;
+		}
+		/*Boutons d'envoi ou de connexion*/
+		button{
+			display: block;
+			cursor: pointer;
+		}
+		#inscr_coord+input, #inscr_connec+{
+			width: 100%;
+		}
+		#inscr_cgu, #mdp_forgot{
+			font-size: 13px;
+	    	color: #454343;
+	    	text-align: center;
+		}
+		#inscr_envoi, #inscr_log{
+			width: 100%;
+			height: 100px;
+		    font-weight: bold;
+		    border: solid #666 1px;
+		    font-size: 100%;
+		    color: black;
+		    text-transform: uppercase;
+		    border-radius: 20px;
+		    margin: 2vh 0px;
+			transition: background-color 1s
+		}
+		#inscr_envoi{
+			background-color: #B0F4B0;
+		}
+		#inscr_envoi:hover{
+		    background-color: #3DDC3D;
+		}
+		#inscr_log{
+			background-color: lightskyblue;
+		}
+		#inscr_log:hover{
+			background-color: #0CA2FF;
+		}
+		#inscr_nouv, #inscr_compte{
+			border-bottom: 1px solid #dfe0e6;
+		    display: block;
+		    width: 100%;
+		    text-align: center;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    font-size: 17px;
+		}
+		/*Captcha Google*/
+		.g-recaptcha{
+			width: 70%;
+			margin: 0 auto;
+		}
+	}
+	@media all and (max-width: 600px){
+		/*HEADER*/
+		header{
+			height: 10vh;
+		    padding-bottom: 20px;
+		    border-bottom: 1px dotted #CFCFD9;	
+		}
+		#inscr_logo{
+			margin: 0 auto;
+		    display: flex;
+		    max-width: 20%;
+		    height: 100%;
+		}
+		#inscr_capsule{
+			width: 90%;
+    		margin: 0 auto;
+		}
+		/*FORMULAIRE*/
+		#inscr_container{
+			width: 100%;
+		    display: inline-block;
+		    vertical-align: top;
+		    border-bottom:1px dotted black; 
+		    /*margin-bottom: 10vh;*/
+		}
+		#compte_exis{
+			display: block;
+    		width: 100%;
+    		vertical-align: top;
+    		text-align: center;
+		}
+		/*Texte de présentation*/
+		h4{
+			text-align: center;
+		}
+		#inscr_infos{
+		    width: 90%;
+		    height: 140px;
+		    margin: 0 auto;
+		}
+		#inscr_infos li{
+			width: 100%;
+			margin: 10px 0;
+		}
+		li:nth-child(2n+1){
+			float: left;
+		}
+		li:nth-child(2n){
+			float: right;
+		}
+		/*Champ du formulaire*/
+		#inscr_coord, #inscr_connec{
+	   		padding: 0vh 6vw;
+		}
+		#inscr_coord input, #inscr_connec input{
+			width: 99%;
+			height: 5vh;
+	    	font-size: 90%;
+	    	margin-bottom: 10px;
+		}
+		/*Boutons d'envoi ou de connexion*/
+		button{
+			display: block;
+			cursor: pointer;
+		}
+		#inscr_coord+input, #inscr_connec+{
+			width: 100%;
+		}
+		#inscr_cgu, #mdp_forgot{
+			font-size: 13px;
+	    	color: #454343;
+	    	text-align: center;
+		}
+		#inscr_envoi, #inscr_log{
+			width: 100%;
+			height: 100px;
+		    font-weight: bold;
+		    border: solid #666 1px;
+		    font-size: 100%;
+		    color: black;
+		    text-transform: uppercase;
+		    border-radius: 20px;
+		    margin: 2vh 0px;
+			transition: background-color 1s
+		}
+		#inscr_envoi{
+			background-color: #B0F4B0;
+		}
+		#inscr_envoi:hover{
+		    background-color: #3DDC3D;
+		}
+		#inscr_log{
+			background-color: lightskyblue;
+		}
+		#inscr_log:hover{
+			background-color: #0CA2FF;
+		}
+		#inscr_nouv, #inscr_compte{
+			border-bottom: 1px solid #dfe0e6;
+		    display: block;
+		    width: 100%;
+		    text-align: center;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    font-size: 17px;
+		}
+		/*Captcha Google*/
+		.g-recaptcha{
+			width: 70%;
+			margin: 0 auto;
+		}
+	}
