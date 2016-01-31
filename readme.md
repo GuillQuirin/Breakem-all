@@ -1,3 +1,5 @@
+#README
+
 git init : initialiser git sur vos machines (dossier .git)
 git config --global user.email "votreemail@gmail.com" : permet de s'identifier pour faire du versionning
 git config --global user.name "Meghan Wlo" : "idem"
