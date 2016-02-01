@@ -13,11 +13,11 @@
 		<header>
 
 			<h1> Projet Annuel </h1>
-
+			
 			<nav>
-
+				
 			</nav>
 
 		</header>
-
+		
 		<section>
