@@ -3,21 +3,17 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<title>Break'em all</title>
-		<meta name="description" content="Tournoi de jeux vidéo">
-		<link rel="stylesheet" href="vue/public/css/style.css">
+		<meta name="description" content="Tournois de jeux vidéo">
+		<link rel="stylesheet" href="public/css/style.css">
 	</head>
 
 	<body>
 
-		<header>
-
-			<h1> Projet Annuel </h1>
-			
-			<nav>
-				
+		<header>			
+			<nav>				
 			</nav>
-
 		</header>
 		
-		<section>
+		<div>

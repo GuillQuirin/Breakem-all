@@ -1,3 +1,49 @@
+.absolute{
+	position: absolute;
+}
+.relative{
+	position: relative;
+}
+
 body{
-	background-color: #f0f0f0;
+	width: 100%;
+	background-color: inherit;
+}
+body > *{
+	max-width: 200vh;
+	width: 95%;
+	margin: auto;
+}
+
+.tournoi-choix-jeu{
+	width: 100%;
+	margin: 0 auto;
+	margin-top: 4vh;
+	text-align: center;
+}
+.choix-jeu{
+	display: inline-block;
+	width: 35vh;
+	height: 49.666vh;
+	margin: 6vh 4vh 0 4vh;
+	border: 0.2vh solid red;
+}
+.choix-jeu h4{
+	display: inline-block;
+	vertical-align: middle;
+}
+.hover-only{
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 1;
+	height: 100%;
+	width: auto;
+	transform: scale(0);
+	transition: all .5 ease-in-out;
+}
+.choix-jeu:hover .hover-only{
+	opacity: 0.8;
+	z-index: -1;
+	transform: scale(1);
 }
