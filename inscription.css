@@ -1,340 +1,239 @@
+/*HEADER*/
+	header{
+		height: 10vh;
+	    padding-bottom: 20px;
+	    border-bottom: 1px dotted #CFCFD9;
+	    text-align: center;	
+	}
+	header img{
+		margin: 0 auto;
+	    max-width: 20%;
+	    height: 100%;
+	}
+	span.animation{
+		height: 10vh;
+	    width: 20vw;
+	    position: absolute;
+	    z-index: 3;
+	    left: 40%;
+	    margin: 0 auto;
+	}
+	#inscr_logo{
+		position: relative;
+		z-index: 2; 
+	}
+	#img_left{
+		opacity: 0;
+		position: relative;
+	}
+	#img_right{
+		opacity: 0;
+	}
+	.animation:hover~#img_left{
+		animation-name: fadeInL;
+	    animation-iteration-count: infinite;
+	    animation-duration: 3s;
+	}
+	.animation:hover~#img_right{
+		animation-name: fadeInR;
+	    animation-iteration-count: infinite;
+	    animation-duration: 3s;
+	}
+	.animation:hover~#inscr_logo
+	{ 
+		animation-name: rotation;
+	    animation-iteration-count: infinite;
+	    animation-duration: 3s;
+	}
+
+/*CONTAINER*/ 
+	h4{
+		text-align: center;
+	}
+
+	li:nth-child(2n+1){
+		float: left;
+	}
+	li:nth-child(2n){
+		float: right;
+	}
+
+
+/*Champ du formulaire*/
+	#inscr_coord, #inscr_connec{
+			padding: 0vh 6vw;
+	}
+	#inscr_coord input, #inscr_connec input{
+		width: 99%;
+		height: 5vh;
+		font-size: 90%;
+		margin-bottom: 10px;
+	}
+	#inscr_nouv, #inscr_compte{
+		border-bottom: 1px solid #dfe0e6;
+	    display: block;
+	    width: 100%;
+	    text-align: center;
+	    font-weight: bold;
+	    text-transform: uppercase;
+	    font-size: 17px;
+	}
+	#inscr_cgu, #mdp_forgot{
+		font-size: 13px;
+		color: #454343;
+		text-align: center;
+	}
+
+/*Boutons d'envoi ou de connexion*/
+	button{
+		margin: 2vh auto;
+	    display: block;
+		width: 40%;
+		height: 50px;
+	    font-weight: bold;
+	    font-size: 100%;
+	    color: black;
+	    text-transform: uppercase;
+	    border-radius: 20px;
+	    border: dotted #666 1px;
+		cursor: pointer;
+		transition: background-color 1s, width 1s, border-style 1s;
+	}
+	button:hover{
+		width: 80%;
+		border-style: solid;
+	}
+	#inscr_envoi{
+		background-color: #B0F4B0;
+	}
+	#inscr_envoi:hover{
+	    background-color: #3DDC3D;
+	}
+
+	#inscr_log{
+		background-color: lightskyblue;
+	}
+	#inscr_log:hover{
+		background-color: #0CA2FF;
+	}
+
 @media all and (min-width: 1000px){
-		/*HEADER*/
-		header{
-			height: 10vh;
-		    padding-bottom: 20px;
-		    border-bottom: 1px dotted #CFCFD9;	
-		}
-		#inscr_logo{
-			margin: 0 auto;
-		    display: flex;
-		    max-width: 20%;
-		    height: 100%;
-		}
-		#inscr_capsule{
-			width: 75%;
-    		margin: 0 auto;
-		}
-		/*FORMULAIRE*/
-		#inscr_container{
-			width: 45%;
-			height: 50vh;
-		    padding-right: 5%;
-		    display: inline-block;
-		    vertical-align: top;
-		    border-right: 1px dotted black;
-		}
-		#compte_exis{
-			display: inline-block;
-			height: 50vh;
-    		width: 30vw;
-    		padding: 0% 2vw;
-    		vertical-align: top;
-		}
-		/*Texte de présentation*/
-		h4{
-			text-align: center;
-		}
-		#inscr_infos{
-			padding: 3vh 0;
-		    width: 50%;
-		    height: 140px;
-		    margin: 0 auto;
-		}
-		#inscr_infos li{
-			width: 40%;
-		}
-		li:nth-child(2n+1){
-			float: left;
-		}
-		li:nth-child(2n){
-			float: right;
-		}
-		/*Champ du formulaire*/
-		#inscr_coord, #inscr_connec{
-	   		padding: 0vh 6vw;
-		}
-		#inscr_coord input, #inscr_connec input{
-			width: 99%;
-			height: 5vh;
-	    	font-size: 90%;
-	    	margin-bottom: 10px;
-		}
-		/*Boutons d'envoi ou de connexion*/
-		button{
-			display: block;
-			cursor: pointer;
-		}
-		#inscr_coord+input, #inscr_connec+{
-			width: 100%;
-		}
-		#inscr_cgu, #mdp_forgot{
-			font-size: 13px;
-	    	color: #454343;
-	    	text-align: center;
-		}
-		#inscr_envoi, #inscr_log{
-			width: 100%;
-			height: 100px;
-		    font-weight: bold;
-		    border: solid #666 1px;
-		    font-size: 100%;
-		    color: black;
-		    text-transform: uppercase;
-		    border-radius: 20px;
-		    margin: 2vh 0px;
-			transition: background-color 1s
-		}
-		#inscr_envoi{
-			background-color: #B0F4B0;
-		}
-		#inscr_envoi:hover{
-		    background-color: #3DDC3D;
-		}
-		#inscr_log{
-			background-color: lightskyblue;
-		}
-		#inscr_log:hover{
-			background-color: #0CA2FF;
-		}
-		#inscr_nouv, #inscr_compte{
-			border-bottom: 1px solid #dfe0e6;
-		    display: block;
-		    width: 100%;
-		    text-align: center;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		    font-size: 17px;
-		}
-		/*Captcha Google*/
-		.g-recaptcha{
-			width: 70%;
-			margin: 0 auto;
-		}
+	#inscr_capsule{
+		width: 75%;
+		margin: 0 auto;
 	}
-	@media all and (min-width: 600px) and (max-width:1000px){
-		/*HEADER*/
-		header{
-			height: 10vh;
-		    padding-bottom: 20px;
-		    border-bottom: 1px dotted #CFCFD9;	
-		}
-		#inscr_logo{
-			margin: 0 auto;
-		    display: flex;
-		    max-width: 20%;
-		    height: 100%;
-		}
-		#inscr_capsule{
-			width: 75%;
-    		margin: 0 auto;
-		}
-		/*FORMULAIRE*/
-		#inscr_container{
-			width: 100%;
-			height: 50vh;
-		    display: inline-block;
-		    vertical-align: top;
-		    margin-bottom: 30px;
-		}
-		#compte_exis{
-			display: inline-block;
-			height: 50vh;
-    		width: 100%;
-    		vertical-align: top;
-    		text-align: center;
-		}
-		/*Texte de présentation*/
-		h4{
-			text-align: center;
-		}
-		#inscr_infos{
-			padding: 3vh 0;
-		    width: 50%;
-		    height: 140px;
-		    margin: 0 auto;
-		}
-		#inscr_infos li{
-			width: 40%;
-			margin: 10px 0;
-		}
-		li:nth-child(2n+1){
-			float: left;
-		}
-		li:nth-child(2n){
-			float: right;
-		}
-		/*Champ du formulaire*/
-		#inscr_coord, #inscr_connec{
-	   		padding: 0vh 6vw;
-		}
-		#inscr_coord input, #inscr_connec input{
-			width: 99%;
-			height: 5vh;
-	    	font-size: 90%;
-	    	margin-bottom: 10px;
-		}
-		/*Boutons d'envoi ou de connexion*/
-		button{
-			display: block;
-			cursor: pointer;
-		}
-		#inscr_coord+input, #inscr_connec+{
-			width: 100%;
-		}
-		#inscr_cgu, #mdp_forgot{
-			font-size: 13px;
-	    	color: #454343;
-	    	text-align: center;
-		}
-		#inscr_envoi, #inscr_log{
-			width: 100%;
-			height: 100px;
-		    font-weight: bold;
-		    border: solid #666 1px;
-		    font-size: 100%;
-		    color: black;
-		    text-transform: uppercase;
-		    border-radius: 20px;
-		    margin: 2vh 0px;
-			transition: background-color 1s
-		}
-		#inscr_envoi{
-			background-color: #B0F4B0;
-		}
-		#inscr_envoi:hover{
-		    background-color: #3DDC3D;
-		}
-		#inscr_log{
-			background-color: lightskyblue;
-		}
-		#inscr_log:hover{
-			background-color: #0CA2FF;
-		}
-		#inscr_nouv, #inscr_compte{
-			border-bottom: 1px solid #dfe0e6;
-		    display: block;
-		    width: 100%;
-		    text-align: center;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		    font-size: 17px;
-		}
-		/*Captcha Google*/
-		.g-recaptcha{
-			width: 70%;
-			margin: 0 auto;
-		}
+
+	/*FORMULAIRE*/
+	#inscr_container{
+		width: 45%;
+		height: 50vh;
+	    padding-right: 5%;
+	    display: inline-block;
+	    vertical-align: top;
+	    border-right: 1px dotted black;
 	}
-	@media all and (max-width: 600px){
-		/*HEADER*/
-		header{
-			height: 10vh;
-		    padding-bottom: 20px;
-		    border-bottom: 1px dotted #CFCFD9;	
-		}
-		#inscr_logo{
-			margin: 0 auto;
-		    display: flex;
-		    max-width: 20%;
-		    height: 100%;
-		}
-		#inscr_capsule{
-			width: 90%;
-    		margin: 0 auto;
-		}
-		/*FORMULAIRE*/
-		#inscr_container{
-			width: 100%;
-		    display: inline-block;
-		    vertical-align: top;
-		    border-bottom:1px dotted black; 
-		    /*margin-bottom: 10vh;*/
-		}
-		#compte_exis{
-			display: block;
-    		width: 100%;
-    		vertical-align: top;
-    		text-align: center;
-		}
-		/*Texte de présentation*/
-		h4{
-			text-align: center;
-		}
-		#inscr_infos{
-		    width: 90%;
-		    height: 140px;
-		    margin: 0 auto;
-		}
-		#inscr_infos li{
-			width: 100%;
-			margin: 10px 0;
-		}
-		li:nth-child(2n+1){
-			float: left;
-		}
-		li:nth-child(2n){
-			float: right;
-		}
-		/*Champ du formulaire*/
-		#inscr_coord, #inscr_connec{
-	   		padding: 0vh 6vw;
-		}
-		#inscr_coord input, #inscr_connec input{
-			width: 99%;
-			height: 5vh;
-	    	font-size: 90%;
-	    	margin-bottom: 10px;
-		}
-		/*Boutons d'envoi ou de connexion*/
-		button{
-			display: block;
-			cursor: pointer;
-		}
-		#inscr_coord+input, #inscr_connec+{
-			width: 100%;
-		}
-		#inscr_cgu, #mdp_forgot{
-			font-size: 13px;
-	    	color: #454343;
-	    	text-align: center;
-		}
-		#inscr_envoi, #inscr_log{
-			width: 100%;
-			height: 100px;
-		    font-weight: bold;
-		    border: solid #666 1px;
-		    font-size: 100%;
-		    color: black;
-		    text-transform: uppercase;
-		    border-radius: 20px;
-		    margin: 2vh 0px;
-			transition: background-color 1s
-		}
-		#inscr_envoi{
-			background-color: #B0F4B0;
-		}
-		#inscr_envoi:hover{
-		    background-color: #3DDC3D;
-		}
-		#inscr_log{
-			background-color: lightskyblue;
-		}
-		#inscr_log:hover{
-			background-color: #0CA2FF;
-		}
-		#inscr_nouv, #inscr_compte{
-			border-bottom: 1px solid #dfe0e6;
-		    display: block;
-		    width: 100%;
-		    text-align: center;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		    font-size: 17px;
-		}
-		/*Captcha Google*/
-		.g-recaptcha{
-			width: 70%;
-			margin: 0 auto;
-		}
+	#compte_exis{
+		display: inline-block;
+		height: 50vh;
+		width: 30vw;
+		padding: 0% 2vw;
+		vertical-align: top;
 	}
+
+	/*Texte de présentation*/
+	#inscr_infos{
+		padding: 3vh 0;
+	    width: 50%;
+	    height: 140px;
+	    margin: 0 auto;
+	}
+	#inscr_infos li{
+		width: 40%;
+	}
+}
+
+@media all and (min-width: 600px) and (max-width:1000px){
+	#inscr_capsule{
+		width: 75%;
+		margin: 0 auto;
+	}
+
+	/*FORMULAIRE*/
+	#inscr_container{
+		width: 100%;
+	    display: inline-block;
+	    vertical-align: top;
+	    margin-bottom: 30px;
+	}
+	#compte_exis{
+		display: inline-block;
+		height: 50vh;
+		width: 100%;
+		vertical-align: top;
+		text-align: center;
+	}
+
+	/*Texte de présentation*/
+	#inscr_infos{
+		padding: 3vh 0;
+	    width: 50%;
+	    height: 140px;
+	    margin: 0 auto;
+	}
+	#inscr_infos li{
+		width: 40%;
+		margin: 10px 0;
+	}
+}
+
+@media all and (max-width: 600px){
+	#inscr_capsule{
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	/*FORMULAIRE*/
+	#inscr_container{
+		width: 100%;
+	    display: inline-block;
+	    vertical-align: top;
+	    border-bottom:1px dotted black; 
+	}
+	#compte_exis{
+		display: block;
+		width: 100%;
+		vertical-align: top;
+		text-align: center;
+	}
+
+	/*Texte de présentation*/
+	#inscr_infos{
+	    width: 90%;
+	    height: 140px;
+	    margin: 0 auto;
+	}
+	#inscr_infos li{
+		width: 100%;
+		margin: 10px 0;
+	}
+}
+
+/* KEYFRAME */
+
+/*IMAGE HEADER*/
+@keyframes rotation {
+	0%{transform: rotate(0deg);}
+	33%{transform: rotate(-60deg);}
+	66%{transform: rotate(60deg);}
+	100%{transform: rotate(0deg);}
+}
+@keyframes fadeInL { 
+	0%{opacity:0;} 
+	33%{opacity:1;}
+	66%{opacity:0;}
+}
+@keyframes fadeInR { 
+	33%{opacity:0;} 
+	66%{opacity:1;}
+	100%{opacity:0;} 
+}
