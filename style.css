@@ -1,7 +1,13 @@
+@font-face{
+     font-family: 'helvetica';
+     src: url('helvetica.otf') format ('truetype');
+}
+
 body{
      width:100%;
      padding:0;
      margin:0;
+     font-family: 'helvetica';
 }
 
 header{
@@ -17,89 +23,26 @@ header{
     z-index:3;
 }
 
-
-
-/*
-#circle_white{
-     left:35%;
-     margin-top:-250px;
-     position: absolute;
-     background:#ffffff;
-     border-radius:50%;
-     width:390px;
-     height:390px;
-     z-index:3;
-}
-#demi_circle{
-     width: 200px;
-     height: 50px;
-     -webkit-border-radius: 50% / 60% 60% 40% 40%;
-     border-radius: 50% / 100% 100% 0 0;
-     border-bottom: none;
-     background-color: #630202;
-     border:7px solid white;
-     position:absolute;
-     left:41.5%;
-     margin-top:123px;
-     z-index:5;
-}
-#trophy{
-     position: absolute;
-     margin-top: 45px;
-     height:135px;
-     left:45%;
-     z-index:6;
-}
-#manette{
-     position: absolute;
-     margin-top:5px;
-     left:45.5%;
-     z-index:6;
-     height:60px;
-}
-hr{
-     position:absolute;
-     border:1px solid #630202;
-     width:100%;
-     margin-top:110px;
-}
-#heartbeat_left{
-     position:absolute;
-     margin-top:90px;
-     z-index: 3;
-}
-#heartbeat_right{
-     position: relative;
-     margin-top:90px;
-     float:right;
-     z-index: 3;
-}*/
 #header_right{
-     width: 200px;
+     width: 270px;
      height: 80px;
      float:right;
-     background: #e3e3e2;
-     border-bottom:1px solid white;
+     background: #bfbdbd;
+     border-bottom:5px solid white;
+     border-left:5px solid white;
 }
 #connexion{
-     float:right;
-     margin-right:15px;
-     width: 300px;
-     height: 80px;
-     -webkit-transform: skew(-15deg);
-     -moz-transform: skew(-15deg);
-     -o-transform: skew(-15deg);
-     background: #e3e3e2;
-     border-left:1px solid white;
-     border-bottom:1px solid white;
+     margin: 32px 0 0 30px;
 }
+
 .bouton{
      background-color:black;
-     color:white;
+     color:#bfbdbd;
      padding:15px 15px 15px 15px;
      text-decoration: none;
-     text-align: center;
-    
+}
+.bouton:hover{
+     color:white;
 }
 
 #menu{
@@ -135,11 +78,12 @@ hr{
      text-decoration:none;
      padding:15px;
      text-transform: uppercase;
-     font-family: "";
+     font-family: 'helvetica';
      color:#bfbdbd;
      font-size: 14px;
      z-index:5;
      position: relative;
+
 }
 #menu li a:hover {
      color:#fff;
@@ -155,5 +99,15 @@ hr{
 }
 #menu li ul {
      position:absolute;
+}
+
+#copyright{
+     text-align: center;
+     line-height:50px;
+     color:#bfbdbd;
+     font-family: 'helvetica';
+     width:100%;
+     height:50px;
+     background-color: #272822;
 }
 
