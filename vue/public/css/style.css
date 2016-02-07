@@ -1,49 +1,168 @@
-.absolute{
-	position: absolute;
-}
-.relative{
-	position: relative;
-}
-
-body{
-	width: 100%;
-	background-color: inherit;
-}
-body > *{
-	max-width: 200vh;
-	width: 95%;
-	margin: auto;
-}
-
+/* ################## TOURNOI - CHOIX/JEU ################# */
 .tournoi-choix-jeu{
 	width: 100%;
-	margin: 0 auto;
+	margin: 0;
 	margin-top: 4vh;
 	text-align: center;
+	overflow: hidden;
 }
-.choix-jeu{
-	display: inline-block;
-	width: 35vh;
-	height: 49.666vh;
-	margin: 6vh 4vh 0 4vh;
-	border: 0.2vh solid red;
+@keyframes anim-jeu-bg {
+	0%{
+		opacity: 1;
+	}
+	1%{
+		opacity: 0;
+	}
+	50%{
+		opacity: 0.5;
+	}
+	100%{
+		opacity: 1;
+	}
 }
-.choix-jeu h4{
+/* ########################################################## */
+
+
+
+/* ################## TOURNOI - DESCRIPTION ################# */
+.tournoi-description div{
+	text-align: center;
+	padding: 6vh 0 6vh 0;
+}
+.tournoi-description h3{
+	font-size: 2.8vh;
+	font-style: italic;
+}
+.tournoi-description p{
+	margin-top: 3vh;
+	font-size: 2vh;
+}
+/* ######################################################### */
+
+
+/* ################ TOURNOI - MODE OFF/ON ################## */
+.tournoi-choix-mode div.absolute{
+	width: 100%;
+	top: 4vh;
+	left: 0;
+	z-index: 2;
+}
+.tournoi-choix-mode .max-container > div{
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+	width: 100%;
+	min-height: 15vh;
+	display: block;
+    line-height: 15vh;
+    overflow: hidden;
+}
+.tournoi-choix-mode .max-container div img{
+	top: calc(-50%);
+	left: 0;
+	opacity: 1;
+	z-index: -1;
+	transition: all .2s ease-in-out;
+	width: 100%;
+	height: auto;
+}
+.tournoi-choix-mode .max-container div:hover img{
+	/*opacity: 0.9;*/
+	top: calc(-60%);
+	left: calc(-5%);
+	width: 110%;
+}
+.choix-online{
+	border-top: 0.4vh groove #000;
+}
+.tournoi-choix-mode .max-container .title-container{
+	width: 100%;
+	height: auto;
+	cursor: pointer;
+	line-height: 1;
+	display: block;
+	margin-top: 6vh;
+	transition: all .2s ease-in-out;
+}
+.title-container > h3{
+	color: white;
+}
+.tournoi-choix-mode div h3{
+	text-transform: uppercase;
+	font-weight: 900;
+	font-size: 3vh;
+	transition: background .2s ease-in-out;
+}
+.tournoi-choix-mode .max-container .title-container:hover h3{
+	background: rgba(0, 0, 0, 0.1);
+}
+/* ######################################################### */
+
+
+/* ############### TOURNOI - CHOIX/CONSOLE ################# */
+
+/* ######################################################### */
+
+
+/* ############### TOURNOI - CHOIX/DATE ################# */
+.tri-calendrier{
+	margin-top: 2vh;
+}
+.tri-calendrier > div{
 	display: inline-block;
 	vertical-align: middle;
+	padding: 1vh;
+	background: #ccc;
 }
-.hover-only{
-	top: 0;
-	left: 0;
-	opacity: 0;
-	z-index: 1;
-	height: 100%;
-	width: auto;
-	transform: scale(0);
-	transition: all .5 ease-in-out;
+div.tri-date-actif{
+	background: #888;
 }
-.choix-jeu:hover .hover-only{
-	opacity: 0.8;
-	z-index: -1;
-	transform: scale(1);
+.prochains-tournois-tries table{
+	width: 100%;
+	/*border: 0.2vh solid red;*/
 }
+.prochains-tournois-tries table thead, .prochains-tournois-tries table tfoot{
+	background: #fff;
+}
+.prochains-tournois-tries table thead tr th{
+	vertical-align: top;
+	font-family: 'symbols-html';
+ 	cursor: pointer;
+}
+.prochains-tournois-tries table thead tr th:after{
+	content: " \e092";
+}
+.prochains-tournois-tries table thead tr th.tri-actif:after{
+	content: " \e094";
+}
+.prochains-tournois-tries table > caption + thead > tr:first-child > th,
+.prochains-tournois-tries table > colgroup + thead > tr:first-child > th,
+.prochains-tournois-tries table > thead:first-child > tr:first-child > th,
+.prochains-tournois-tries table > caption + thead > tr:first-child > td,
+.prochains-tournois-tries table > colgroup + thead > tr:first-child > td,
+.prochains-tournois-tries table > thead:first-child > tr:first-child > td {
+	border-top: 0;
+}
+.prochains-tournois-tries table tbody tr:nth-of-type(even) {
+	background-color: #ccc;
+}
+.prochains-tournois-tries table tbody tr:hover {
+	background-color: #888;
+}
+.prochains-tournois-tries table tbody {
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
+}
+.prochains-tournois-tries table tbody td{
+	border: 0.2vh solid #ccc;
+}
+.prochains-tournois-tries > table > tbody > tr> td.colonne-triee{
+	background: #5c5c5c;
+}
+.prochains-tournois-tries table td, .tournoi-choix-date table th{
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
+}
+/* ######################################################### */
