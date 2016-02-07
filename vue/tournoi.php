@@ -106,17 +106,7 @@
 					<li><a>xbox</a></li>
 				</ul>
 			</div>
-			<div class="container-choix-jeu">
-				<article class="choix-jeu choix-jeu-bf3">
-					<h4>Battlefield3</h4>				
-					<div class="hover-title-only"><p>Battlefield3</p></div>
-					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>6 tournois à venir</p></div>
-						<button title="rechercher les prochains tournois bf3" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement bf3" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
+			<div class="container-choix-jeu">				
 				<article class="choix-jeu choix-jeu-css">
 					<h4>Counter Strike Source</h4>		
 					<div class="hover-title-only"><p>Counter Strike Source</p></div>
@@ -137,6 +127,16 @@
 						<button title="ajouter lol aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
+				<article class="choix-jeu choix-jeu-bf3">
+					<h4>Battlefield3</h4>				
+					<div class="hover-title-only"><p>Battlefield3</p></div>
+					<div class="btn-container relative">
+						<div class="hover-desc-only absolute"><p>6 tournois à venir</p></div>
+						<button title="rechercher les prochains tournois bf3" class="search-btn absolute"><span class="absolute"></span></button>
+						<button title="classement bf3" class="fight-btn absolute"><span class="absolute"></span></button>
+						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
+					</div>
+				</article>
 			</div>
 		</div>
 	</section>
@@ -152,30 +152,30 @@
 			<h2 class="bande-titre">Tournois par date</h2>
 			<div class="tri-calendrier">
 				<div class="tri-jours">
-					<label for="jour">Prochains jours</label>
+					<label for="jour">Jours</label>
 					<select name="jour">
-						<option value="j1">j+1</option>
-						<option value="j2">j+2</option>
-						<option value="j3">j+3</option>
-						<option value="j4">j+4</option>
-						<option value="j5">j+5</option>
-						<option value="j6">j+6</option>
+						<option value="j1">jour j+1</option>
+						<option value="j2">jour j+2</option>
+						<option value="j3">jour j+3</option>
+						<option value="j4">jour j+4</option>
+						<option value="j5">jour j+5</option>
+						<option value="j6">jour j+6</option>
 					</select>
 				</div>
 				<div class="tri-semaines">
-					<label for="semaine">Prochaines semaines</label>
+					<label for="semaine">Semaines</label>
 					<select name="semaine">
-						<option value="n1">n+1</option>
-						<option value="n2">n+2</option>
-						<option value="n3">n+3</option>
+						<option value="n1">semaine n+1</option>
+						<option value="n2">semaine n+2</option>
+						<option value="n3">semaine n+3</option>
 					</select>
 				</div>
 				<div class="tri-date-actif tri-mois">
-					<label for="mois">Prochains mois</label>
+					<label for="mois">Mois</label>
 					<select name="mois">
-						<option value="m1">m+1</option>
-						<option value="m2">m+2</option>
-						<option value="m3">m+3</option>
+						<option value="m1">mois m+1</option>
+						<option selected value="m2">mois m+2</option>
+						<option value="m3">mois m+3</option>
 					</select>
 				</div>
 			</div>
