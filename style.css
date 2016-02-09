@@ -1,19 +1,36 @@
 @font-face{
-     font-family: 'helvetica';
-     src: url('helvetica.otf') format ('truetype');
+    font-family: 'helvetica';
+    src: url('helvetica.otf') format ('truetype');
 }
 
 body{
-     width:100%;
-     padding:0;
-     margin:0;
-     font-family: 'helvetica';
+    width:100%;
+    padding:0;
+    margin:0;
+    font-family: 'helvetica';
 }
 
 header{
-     background-color: #272822;
-     width:100%;
+    background-color: #272822;
+    width:100%;
 }
+section{
+    width:90%;
+    position:absolute;
+}
+
+input{
+    padding:3px;
+    border:1px solid #272822;
+    border-radius:5px;
+    width:200px;
+    box-shadow:1px 1px 2px #C0C0C0 inset;
+    margin-top:5px;
+}
+h3{
+    font-weight: bold;
+}
+
 .logo{
     background-color: white;
     width:391px;
@@ -22,35 +39,50 @@ header{
     position:relative;
     z-index:3;
 }
+.ligne{
+    background-color:#7f1819; 
+    height:15px;
+    margin:0 auto;
+}
+#ligne1{
+    width:95%;
+}
+#ligne2{
+    width:75%;
+}
+#ligne3{
+    width:50%;
+}
 
 #header_right{
-     width: 270px;
-     height: 80px;
-     float:right;
-     background: #bfbdbd;
-     border-bottom:5px solid white;
-     border-left:5px solid white;
+    width: 270px;
+    height: 80px;
+    float:right;
+    background: #bfbdbd;
+    border-bottom:5px solid white;
+    border-left:5px solid white;
 }
 #connexion{
-     margin: 32px 0 0 30px;
+    margin: 32px 0 0 30px;
 }
 
 .bouton{
-     background-color:black;
-     color:#bfbdbd;
-     padding:15px 15px 15px 15px;
-     text-decoration: none;
+    background-color:black;
+    color:#bfbdbd;
+    padding:15px 15px 15px 15px;
+    text-decoration: none;
+    border:3px solid #7f1819;
 }
 .bouton:hover{
-     color:white;
+    color:white;
 }
 
 #menu{
-     width:100%;
-     background-color: #272822;
-     position:absolute;
-     text-align: center;
-     margin-top:-50px;
+    width:100%;
+    background-color: #272822;
+    position:absolute;
+    text-align: center;
+    margin-top:-50px;
 }
 
 #menu ul #decalage{
@@ -58,56 +90,86 @@ header{
     margin:0 0 0 200px;
 }
 #menu ul {
-     margin:0;
-     padding:0;
-     list-style-type:none;
-     text-align:center;
-     display:inline-block;
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    text-align:center;
+    display:inline-block;
     
 }
 #menu li {
-     float:left;
-     margin:auto;
-     padding:0;
-     background-color:#272822;
+    float:left;
+    margin:auto;
+    padding:0;
+    background-color:#272822;
 }
 #menu li a {
-     display:block;
-     width:150px;
-     color:white;
-     text-decoration:none;
-     padding:15px;
-     text-transform: uppercase;
-     font-family: 'helvetica';
-     color:#bfbdbd;
-     font-size: 14px;
-     z-index:5;
-     position: relative;
+    display:block;
+    width:130px;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    text-transform: uppercase;
+    font-family: 'helvetica';
+    color:#bfbdbd;
+    font-size: 14px;
+    z-index:5;
+    position: relative;
 
 }
 #menu li a:hover {
-     color:#fff;
+    color:#fff;
 }
 #menu ul li ul {
-     display:none;
+    display:none;
 }
 #menu ul li:hover ul {
-     display:block;
+    display:block;
 }
 #menu li:hover ul li {
-     float:none;
+    float:none;
 }
 #menu li ul {
-     position:absolute;
+    position:absolute;
+}
+
+#section{
+    width:100%;
+    height:500px;
+}
+
+#inscription-rapide{
+    margin-top:5px;
+    float:right;
+    width:300px;
+    height:350px;
+    border:10px solid #272822;
+    color:#272822;
+    font-family: 'helvetica';
+    text-align: center;
+}
+
+#btn_sinscrire{
+    margin-top:30px;
+}
+#img_lol{
+    width:650px;
+    height:350px;
+}
+#img_inscription{
+    margin-top:5px;
+    position: absolute;
+    left:15%;
 }
 
 #copyright{
-     text-align: center;
-     line-height:50px;
-     color:#bfbdbd;
-     font-family: 'helvetica';
-     width:100%;
-     height:50px;
-     background-color: #272822;
+    text-align: center;
+    line-height:50px;
+    color:#bfbdbd;
+    font-family: 'helvetica';
+    width:100%;
+    height:50px;
+    background-color: #272822;
+    position:absolute;
 }
 
