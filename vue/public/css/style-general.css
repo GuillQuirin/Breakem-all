@@ -4,6 +4,11 @@
   src: url('../fonts/glyphicons-halflings-regular.eot');
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+@font-face{
+	font-family: 'helvetica';
+	src: url('../fonts/helvetica.otf') format ('truetype');
+}
+
 body{
 	background-color: inherit;
 	padding: 0;
@@ -24,6 +29,12 @@ thead {
 a{
 	cursor: pointer;
 }
+.mobile-only{
+	display: none;
+}
+.clearfix{
+	clear: both;
+}
 .absolute{
 	position: absolute;
 }
@@ -33,11 +44,14 @@ a{
 .ta-center{
 	text-align: center;
 }
+.tablette-only{
+	display: none;
+}
 .max-container{	
 	width: 100%;
 	max-width: 125vh;
 	margin: 0 auto;
-	/*border-top: 0.4vh solid #dec;*/
+	/*border: 0.4vh solid #dec;*/
 	/*border-bottom: 0.4vh solid #dec;*/
 	overflow: hidden;
 }
@@ -63,7 +77,7 @@ a{
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 auto;
-	background: #000;
+	background: #ccc;
 }
 .tournoi-separator .line-sep{
 	width: 90%;
@@ -78,9 +92,27 @@ a{
 }
 .changer-choix-container{
 	width: 100%;
-	margin: 0 auto;
-	/*border-top: 0.2vh solid #ccc;*/
+	padding: 0;
 }
+.changer-choix-container-mobile{
+    width: 100%;
+	margin: 0 auto;
+    padding: 0;
+    background: #ccc;
+}
+.changer-choix-container-mobile > div{
+	padding: 1vh 0 0 0;
+	cursor: pointer;
+}
+.changer-choix-container-mobile div > div{
+    height: 0.4vh;
+    width: 4vh;
+    margin: 0 auto;
+    margin-top: 0.2vh;
+    background: white;
+    border-radius: 1vh;
+}
+
 .changer-choix-container ul{
 	margin: 0 auto;
 	display: -webkit-flex;
@@ -117,8 +149,41 @@ a{
 	height: 100%;
 	padding: 0 4vh 0vh 4vh;
 	line-height: 2.5vh;
-	font-size: 1.65vh;
+	font-size: 2.5vh;
 }
 .changer-choix-container ul li:hover{
 	background: #ccc;
+}
+.menu-opener{
+	height: 3.2vh;
+	transition: height .2s linear;
+}
+.menu-opener ul{
+	top: -500vh;
+	left: 0;
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	border-top: 0.2vh solid #fff;
+	border-bottom: 0.2vh solid #fff;
+	height: 0;
+	transition: all .2s linear;
+	z-index: -99;
+	background: #ccc;
+}
+.menu-opener ul li{
+	border-top: 0.2vh solid #fff;
+	border-bottom: 0.2vh solid #fff;
+	padding: 1.3vh;
+	text-transform: uppercase;
+	color: #fff;
+}
+.changer-choix-container-mobile > .menu-open > ul{
+	z-index: 99999;
+	top: 0;
+	height: auto;
 }

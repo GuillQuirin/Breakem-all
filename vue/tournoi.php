@@ -3,7 +3,7 @@
 ?>
 	<section class="ta-center tournoi-choix-jeu">
 		<div class="max-container relative">
-			<h2 class="bande-titre">En ce moment</h2>
+			<h2 class="bande-titre">Les tendances</h2>
 			<div class="changer-choix-container">
 				<ul>
 					<li><a>bf3</a></li>
@@ -13,6 +13,21 @@
 					<li><a>css</a></li>
 					<li><a>nfs</a></li>
 				</ul>
+			</div>
+			<div class="mobile-only changer-choix-container-mobile">
+				<div class="menu-opener relative">
+					<div></div>
+					<div></div>
+					<div></div>
+					<ul class="absolute">
+						<li><a>bf3</a></li>
+						<li class="choix-actif"><a>ssb</a></li>
+						<li><a>lol</a></li>
+						<li><a>fifa</a></li>
+						<li><a>css</a></li>
+						<li><a>nfs</a></li>
+					</ul>
+				</div>
 			</div>
 			<div class="container-choix-jeu">
 				<article class="choix-jeu choix-jeu-bf3">
@@ -106,6 +121,20 @@
 					<li><a>xbox</a></li>
 				</ul>
 			</div>
+			<div class="mobile-only changer-choix-container-mobile">
+				<div class="menu-opener relative">
+					<div></div>
+					<div></div>
+					<div></div>
+					<ul class="absolute">
+						<li><a>ps</a></li>
+						<li class="choix-actif"><a>pc</a></li>
+						<li><a>wii</a></li>
+						<li><a>n64</a></li>
+						<li><a>xbox</a></li>
+					</ul>
+				</div>
+			</div>
 			<div class="container-choix-jeu">				
 				<article class="choix-jeu choix-jeu-css">
 					<h4>Counter Strike Source</h4>		
@@ -117,7 +146,7 @@
 						<button title="ajouter css aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
-				<article class="choix-jeu choix-jeu-lol">
+				<article class="choix-jeu choix-jeu-actif choix-jeu-lol">
 					<h4>League Of Legends</h4>	
 					<div class="hover-title-only"><p>League Of Legends</p></div>
 					<div class="btn-container relative">
@@ -154,6 +183,7 @@
 				<div class="tri-jours">
 					<label for="jour">Jours</label>
 					<select name="jour">
+						<option selected value="none">tri par jour</option>
 						<option value="j1">jour j+1</option>
 						<option value="j2">jour j+2</option>
 						<option value="j3">jour j+3</option>
@@ -165,6 +195,7 @@
 				<div class="tri-semaines">
 					<label for="semaine">Semaines</label>
 					<select name="semaine">
+						<option selected value="none">tri par mois</option>
 						<option value="n1">semaine n+1</option>
 						<option value="n2">semaine n+2</option>
 						<option value="n3">semaine n+3</option>
@@ -173,6 +204,7 @@
 				<div class="tri-date-actif tri-mois">
 					<label for="mois">Mois</label>
 					<select name="mois">
+						<option value="none">tri par mois</option>
 						<option value="m1">mois m+1</option>
 						<option selected value="m2">mois m+2</option>
 						<option value="m3">mois m+3</option>

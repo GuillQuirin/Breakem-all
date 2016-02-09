@@ -1,0 +1,133 @@
+header{
+    background-color: #272822;
+    width:100%;
+}
+header .max-container{
+    overflow: initial;
+}
+header .logo{
+    width: 28vh;
+    height: 17.121vh;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    z-index:3;
+    overflow: hidden;
+    transition: all .2s linear;
+    background: url('../img/arriere_plan.png') center top no-repeat #fff;
+    background-size: auto 100%;
+}
+header .logo img{
+    width: 100%;
+    height: auto;
+}
+#header-session{
+    padding: 5vh 5vh 5vh 5vh;
+    position: absolute;
+    right: 6vh;
+    background: #ccc;
+    border-bottom: 0.5vh solid white;
+    border-left: 0.5vh solid white;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: padding .2s linear;
+}
+#header-session .btn{
+    background-color:black;
+    color:#ccc;
+    padding:2vh 2vh 2vh 2vh;
+    text-decoration: none;
+    font-size: 1.6vh;
+}
+#header-session .btn:hover{
+    color:white;
+}
+header nav{
+    width:100%;
+    background-color: #272822;
+    display: block;
+    text-align: center;
+}
+header nav ul {
+    margin:0;
+    padding:0;
+    text-align:center;
+    display:inline-block;
+    vertical-align: middle;
+    margin-top: -5vh;
+}
+header nav > ul:first-of-type{
+    float: left;
+}
+header nav > ul:last-of-type{
+    float: right;
+}
+header nav > ul > li{
+    display: inline-block;
+    vertical-align: middle;
+}
+header nav li {
+    margin: 0 auto;
+    padding: 0;
+    background-color:#272822;
+}
+header nav li a {
+    display:block;
+    color:white;
+    text-decoration:none;
+    text-transform: uppercase;
+    font-family: 'helvetica';
+    color:#bfbdbd;
+    font-size: 1.65vh;
+    padding: 2vh;
+    z-index:2;
+    transition: color .2s linear;
+}
+header nav li a:hover {
+    color:#fff;
+}
+header nav ul li ul {
+    display:none;
+    background: red;
+    top: calc(150%);
+    left: calc(-10%);
+    z-index: 2;
+}
+header nav ul li:hover ul{
+    display:block;
+}
+.header-titre{
+    color: white;
+    font-weight: 900;
+    font-size: 2.2vh;
+    font-family: 'helvetica';
+}
+.derouleur-menu{
+    height: 100%;
+    width: 5vh;
+    position: absolute;
+    left: 1vh;
+    padding-top: 1vh;
+    cursor: pointer;
+}
+.derouleur-menu div{
+    height: 0.4vh;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 0.4vh;
+    background: #fff
+}
+
+footer div{
+    text-align: center;
+    padding: 2vh 0 2vh 0;
+    color:#bfbdbd;
+    font-family: 'helvetica';
+    width:100%;
+    background-color: #272822;
+}

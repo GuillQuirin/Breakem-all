@@ -10,7 +10,10 @@
 		<link rel="stylesheet" href="public/css/style-general.css">
 		<link rel="stylesheet" href="public/css/style-fiches-jeux.css">
 		<link rel="stylesheet" href="public/css/style-reset.css">
+		<link rel="stylesheet" href="public/css/style-header.css">
 		<link rel="stylesheet" href="public/css/style.css">
+		<link rel="stylesheet" href="public/css/style-tablette.css">
+		<link rel="stylesheet" href="public/css/style-mobile.css">
 	</head>
 
 	<body>

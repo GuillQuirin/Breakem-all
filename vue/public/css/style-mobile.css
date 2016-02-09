@@ -1,0 +1,15 @@
+@media screen and (max-width: 580px) {	
+	.mobile-only{
+		display: block;
+	}
+	#header-session{
+	    display: none;
+	}
+	header .derouleur-menu{
+		left:0.1vh;
+	}
+	.changer-choix-container{
+		display: none;
+	}
+}
+

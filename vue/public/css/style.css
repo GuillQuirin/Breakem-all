@@ -28,14 +28,16 @@
 .tournoi-description div{
 	text-align: center;
 	padding: 6vh 0 6vh 0;
+	font-style: italic;
 }
 .tournoi-description h3{
 	font-size: 2.8vh;
-	font-style: italic;
+	font-weight: 900;
 }
 .tournoi-description p{
 	margin-top: 3vh;
 	font-size: 2vh;
+	color: #7F191A;
 }
 /* ######################################################### */
 
@@ -105,6 +107,10 @@
 
 
 /* ############### TOURNOI - CHOIX/DATE ################# */
+.tournoi-choix-date > .max-container{
+	/*overflow-x: scroll;*/
+}
+
 .tri-calendrier{
 	margin-top: 2vh;
 }
@@ -112,35 +118,35 @@
 	display: inline-block;
 	vertical-align: middle;
 	width: 20vh;
-	height: 2.833vh;
-	overflow: hidden;
-	background: url('../img/down_arrow_select.jpg') no-repeat right #ccc;
-	background-size: 18% auto;
+	height: 4.833vh;
 	border: 0.2vh solid #ccc;
 }
 .tri-calendrier > div label{
 	font-size: 1.8vh;	
+	background: #ccc;
+	display: block;
 }
 .tri-calendrier > div select{
-	background: transparent;
-	width: 22.333vh;
 	font-size: 1.8vh;
-	line-height: 1;
 	border: 0;
 	border-radius: 0;
-	height: 2.833vh;
-	-webkit-appearance: none;
 }
-.tri-calendrier > div, .tri-calendrier > div select{
-	/*font-size: 1.9vh;*/
-}
+
 
 div.tri-date-actif{
 	/*background: #888;*/
 }
+.prochains-tournois-tries{
+	width: 100%;
+	overflow-x: scroll;
+}
 .prochains-tournois-tries table{
 	width: 100%;
 	font-size: 1.8vh;
+}
+.prochains-tournois-tries table td, 
+.prochains-tournois-tries table th{
+	min-width: 15vh;
 }
 .prochains-tournois-tries table thead, .prochains-tournois-tries table tfoot{
 	background: #fff;
@@ -155,6 +161,7 @@ div.tri-date-actif{
 }
 .prochains-tournois-tries table thead tr th.tri-actif:after{
 	content: " \e094";
+	color: #ccc;
 }
 .prochains-tournois-tries table > caption + thead > tr:first-child > th,
 .prochains-tournois-tries table > colgroup + thead > tr:first-child > th,
@@ -187,3 +194,4 @@ div.tri-date-actif{
 	border-top: 0.2vh solid #ddd;
 }
 /* ######################################################### */
+
