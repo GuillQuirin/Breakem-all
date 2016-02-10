@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="public/css/style-reset.css">
 		<link rel="stylesheet" href="public/css/style-header.css">
 		<link rel="stylesheet" href="public/css/style.css">
+		<link rel="stylesheet" href="public/css/style-menu-3d.css">
 		<link rel="stylesheet" href="public/css/style-tablette.css">
 		<link rel="stylesheet" href="public/css/style-mobile.css">
 	</head>

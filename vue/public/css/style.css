@@ -2,9 +2,152 @@
 .tournoi-choix-jeu{
 	width: 100%;
 	margin: 0;
-	margin-top: 4vh;
 	text-align: center;
 	overflow: hidden;
+	background: url('../img/fighting-bw-bg.jpg') top center no-repeat #ccc;
+	background-size: 1450px 815px;
+	background-attachment: fixed;
+	min-height: 600px;
+}
+.tournoi-choix-jeu .bande-titre{
+	max-width: 1450px;
+	margin: 0 auto;
+	margin-top: 4vh;
+}
+.tournoi-choix-jeu > .max-container{
+	height: 90%;
+	margin-top: 5%; 
+	overflow: initial;
+	border: 1px solid red;
+}
+.container-choix-jeu-arrow-left,
+.container-choix-jeu-arrow-right{
+	top: calc(50% - 1.5vh);
+	width: 0; 
+	height: 0;
+	border-top: 3vh solid transparent;
+	border-bottom: 3vh solid transparent;
+	cursor: pointer;
+	transition: all .1s linear;
+}
+.container-choix-jeu-arrow-left{
+	left: 1vh;
+	border-right:3vh solid #fff; 
+}
+.container-choix-jeu-arrow-left:hover{
+	border-right-color: #ccc;
+}
+.container-choix-jeu-arrow-right{
+	right: 1vh;
+	border-left: 3vh solid #fff;
+}
+.container-choix-jeu-arrow-right:hover{
+	border-left-color: #ccc;
+}
+.container-choix-jeu{
+	margin: 0 auto;
+	margin-top: 0.4vh;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 1vh 0 1vh 0;
+	background-size: auto 100%;
+	opacity: 0;
+	transform: scale(0.5, 0.5);
+	transition: all .2s ease-in-out;
+	background: rgba(8, 8, 8, 0.2);
+}
+.tournoi-choix-jeu .max-container:hover .container-choix-jeu{
+	opacity: 1;
+	transform: scale(1, 1);
+}
+.tournoi-choix-jeu .changer-choix-container{
+	display: block;
+	width: 100%;
+	padding: 0;
+	position: relative;
+	z-index: 999999;
+	border: 1px solid green;
+	margin-top: 4vh;
+	height: 4vh;
+	line-height: 4vh;
+	width: 100%;
+	/*height: 700px;*/
+	-webkit-perspective: 800; /* For compatibility with iPhone 3.0, we leave off the units here */
+	-webkit-perspective-origin: 50% 225px;
+}
+.tournoi-choix-jeu .changer-choix-container > div{
+	width: 100%;
+	height: 100%;
+	-webkit-transition: -webkit-transform 2s;
+	-webkit-transform-style: preserve-3d;
+	transform: translateZ(-200px);
+}
+.tournoi-choix-jeu .changer-choix-container ul{
+	margin: 0 auto;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	top: 160px;
+	height: 200px;
+	width: 200px;
+	-webkit-transform-style: preserve-3d;
+}
+.tournoi-choix-jeu .changer-choix-container ul li{
+	/*margin: 0;
+	padding: 0;
+	color: #fff;
+	background: inherit;
+	border-collapse: collapse;
+	border-left: 0.2vh solid #ccc;
+	border-right: 0.2vh solid #ccc;
+	transition: background .2s linear;
+	background: rgba(8, 8, 8 0.9);*/
+	position: absolute;
+	height: 200px;
+	width: 200px;
+	border: 1px solid white;
+	-webkit-border-radius: 12px;
+	-webkit-box-sizing: border-box;
+	text-align: center;
+	font-family: Times, serif;
+	font-size: 124pt;
+	color: black;
+	background-color: rgba(255, 255, 255, 0.6);
+	-webkit-transition: -webkit-transform 2s, opacity 2s;
+	-webkit-backface-visibility: hidden;
+	-webkit-animation: spin 8s infinite linear;
+}
+.tournoi-choix-jeu .changer-choix-container ul.backfaces li{
+	-webkit-backface-visibility: visible;
+}
+
+.tournoi-choix-jeu .changer-choix-container .choix-actif{
+	background: #ccc;
+}
+.tournoi-choix-jeu .changer-choix-container ul li a{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	line-height: 0;
+	font-size: inherit;
+}
+.tournoi-choix-jeu .changer-choix-container ul li:hover{
+	/*background: #ccc;*/
+}
+@-webkit-keyframes spin {
+	from { -webkit-transform: rotateY(0); }
+	to   { -webkit-transform: rotateY(-360deg); }
 }
 @keyframes anim-jeu-bg {
 	0%{
@@ -20,6 +163,7 @@
 		opacity: 1;
 	}
 }
+
 /* ########################################################## */
 
 

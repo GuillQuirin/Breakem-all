@@ -2,18 +2,8 @@
 	require_once('template/header.php');
 ?>
 	<section class="ta-center tournoi-choix-jeu">
-		<div class="max-container relative">
-			<h2 class="bande-titre">Les tendances</h2>
-			<div class="changer-choix-container">
-				<ul>
-					<li><a>bf3</a></li>
-					<li class="choix-actif"><a>ssb</a></li>
-					<li><a>lol</a></li>
-					<li><a>fifa</a></li>
-					<li><a>css</a></li>
-					<li><a>nfs</a></li>
-				</ul>
-			</div>
+		<h2 class="bande-titre">Les tendances</h2>
+		<div class="max-container relative">			
 			<div class="mobile-only changer-choix-container-mobile">
 				<div class="menu-opener relative">
 					<div></div>
@@ -21,7 +11,7 @@
 					<div></div>
 					<ul class="absolute">
 						<li><a>bf3</a></li>
-						<li class="choix-actif"><a>ssb</a></li>
+						<li><a>ssb</a></li>
 						<li><a>lol</a></li>
 						<li><a>fifa</a></li>
 						<li><a>css</a></li>
@@ -30,8 +20,7 @@
 				</div>
 			</div>
 			<div class="container-choix-jeu">
-				<article class="choix-jeu choix-jeu-bf3">
-					<h4>Battlefield3</h4>				
+				<article class="choix-jeu choix-jeu-bf3">			
 					<div class="hover-title-only"><p>Battlefield3</p></div>
 					<div class="btn-container relative">
 						<div class="hover-desc-only absolute"><p>6 tournois à venir</p></div>
@@ -40,8 +29,7 @@
 						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
-				<article class="choix-jeu choix-jeu-actif choix-jeu-ssb">
-					<h4>Super Smash Bros Melee</h4>				
+				<article class="choix-jeu choix-jeu-ssb">		
 					<div class="hover-title-only"><p>Super Smash Bros</p></div>
 					<div class="btn-container relative">
 						<div class="hover-desc-only absolute"><p>3 tournois à venir</p></div>
@@ -51,7 +39,6 @@
 					</div>
 				</article>
 				<article class="choix-jeu choix-jeu-lol">
-					<h4>League Of Legends</h4>	
 					<div class="hover-title-only"><p>League Of Legends</p></div>
 					<div class="btn-container relative">
 						<div class="hover-desc-only absolute"><p>8 tournois à venir</p></div>
@@ -60,10 +47,40 @@
 						<button title="ajouter lol aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
-			</div>
+			</div>			
 			<div class="container-choix-jeu-arrow-left absolute"></div>
 			<div class="container-choix-jeu-arrow-right absolute"></div>
-		</div>		
+		</div>	
+		<!-- <div class="changer-choix-container">
+			<div>
+				<ul class="backfaces">
+					<li><a>bf3</a></li>
+					<li><a>ssb</a></li>
+					<li><a>lol</a></li>
+					<li><a>fifa</a></li>
+					<li><a>css</a></li>
+					<li><a>nfs</a></li>
+				</ul>
+			</div>
+		</div> -->
+		<div id="container">
+			<div id="stage" style="transform: translateZ(-200px);">
+			    <div id="shape" class=" backfaces ring">
+			        <div class="plane one">bf3</div>
+			        <div class="plane two">ssb</div>
+			        <div class="plane three">lol</div>
+			        <div class="plane four">fifa</div>
+			        <div class="plane five">css</div>
+			        <div class="plane six">nfs</div>
+			        <div class="plane seven">7</div>
+			        <div class="plane eight">8</div>
+			        <div class="plane nine">9</div>
+			        <div class="plane ten">10</div>
+			        <div class="plane eleven">11</div>
+			        <div class="plane twelve">12</div>
+			    </div>
+			</div>
+		</div>
 	</section>
 
 	<div class="tournoi-separator">

@@ -1,41 +1,4 @@
-.container-choix-jeu-arrow-left,
-.container-choix-jeu-arrow-right{
-	top: calc(50% - 1.5vh);
-	width: 0; 
-	height: 0;
-	border-top: 3vh solid transparent;
-	border-bottom: 3vh solid transparent;
-	cursor: pointer;
-	transition: all .1s linear;
-}
-.container-choix-jeu-arrow-left{
-	left: 1vh;
-	border-right:3vh solid #D06A6A; 
-}
-.container-choix-jeu-arrow-left:hover{
-	border-right-color: #7F191A;
-}
-.container-choix-jeu-arrow-right{
-	right: 1vh;
-	border-left: 3vh solid #D06A6A;
-}
-.container-choix-jeu-arrow-right:hover{
-	border-left-color: #7F191A;
-}
-.container-choix-jeu{
-	margin: 0 auto;
-	margin-top: 0.4vh;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	padding: 1vh 0 1vh 0;
-	background-size: auto 100%;
-}
+
 .choix-jeu{
 	min-width: 25vh;
 	max-width: 25vh;
@@ -46,13 +9,15 @@
 	background-size: auto 100%;
 	background-position: center center;
 	background-repeat: no-repeat;
-	-moz-box-shadow: inset 0px 0px 50vh 0px #ccc;
-	-webkit-box-shadow: inset 0px 0px 50vh 0px #ccc;
-	-o-box-shadow: inset 0px 0px 50vh 0px #ccc;
-	box-shadow: inset 0px 0px 50vh 0px #ccc;
+	-moz-box-shadow: inset 0px 0px 10px 0px #ccc;
+	-webkit-box-shadow: inset 0px 0px 10px 0px #ccc;
+	-o-box-shadow: inset 0px 0px 10px 0px #ccc;
+	box-shadow: inset 0px 0px 10px 0px #ccc;
 	border-radius: 0.4vh;
+	opacity: 0.5;
 }
-.choix-jeu:hover{	
+.choix-jeu:hover{
+	opacity: 0.9;	
 	-moz-box-shadow: inset 0px 0px 2vh 0px #ccc;
 	-webkit-box-shadow: inset 0px 0px 2vh 0px #ccc;
 	-o-box-shadow: inset 0px 0px 2vh 0px #ccc;
@@ -98,21 +63,21 @@
 	left: calc(30% - 2vh);
 }
 .choix-jeu .btn-container .fight-btn span{
-	background-image: url('../img/trophee-red.png');
+	background-image: url('../img/trophee.ico');
 }
 .choix-jeu .btn-container .love-btn{
 	top: calc(35% - 2vh);
 	left: calc(70% - 2vh);
 }
 .choix-jeu .btn-container .love-btn span{
-	background-image: url('../img/love-icon-red.jpg');
+	background-image: url('../img/love-icon.jpg');
 }
 .choix-jeu .btn-container .search-btn{
 	top: calc(50% - 2vh);
 	left: calc(50% - 2vh);
 }
 .choix-jeu .btn-container .search-btn span{
-	background-image: url('../img/search-icon-red.png');
+	background-image: url('../img/search-icon.png');
 }
 .choix-jeu:hover button{
 	opacity: 0.5;
@@ -125,15 +90,16 @@
 	display: none;
 }
 .hover-title-only{
-	top: 0vh;
+	top: -20%;
 	left: 0;
 	opacity: 0;
-	z-index: 3;
+	z-index: -10;
 	width: 100%;	
 	position: absolute;
-	transition: opacity .3s ease-in-out;
+	transition: all .3s ease-in-out;
 	text-align: center;
-	background: black;
+	background: rgba(8, 8, 8, 0.1);
+	transform: scale(0.5, 0.5);
 }
 .hover-title-only p{
 	font-size: 3vh;
@@ -146,16 +112,15 @@
 	line-height: 4vh;
 }
 .hover-desc-only{
-	width: 100%; 
+	width: 85%; 
 	height: 4vh;
-	top: 0;
-	left: 0;
-	background: #000;
-	z-index: 99;
-	margin: 0;
-	padding:0;
 	line-height: 4vh;
-	border-radius: 0.6vh 0.6vh 0 0;	
+	top: calc(50% - 2vh);
+	left: 7.5%;
+	background: rgba(8, 8, 8, 0.5);
+	z-index: 99;
+	padding:0;
+	transition: all .2s ease-in-out;
 }
 .hover-desc-only p{
 	font-size: 2vh;
@@ -167,6 +132,15 @@
 }
 .choix-jeu:hover > .hover-title-only{
 	opacity: 1;
+	z-index: 3;
+	transform: scale(1, 1);
+}
+.choix-jeu:hover .hover-desc-only{
+	width: 100%; 
+	top: 0;
+	left: 0;
+	background: rgba(8, 8, 8, 1);
+	border-radius: 0.6vh 0.6vh 0 0;
 }
 .choix-jeu-bf3{
 	background-image: url('../img/bf3-bg.jpg');
