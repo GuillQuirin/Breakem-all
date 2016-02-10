@@ -1,70 +1,75 @@
-
 /*HEADER*/
+	header{
+		height: 10vh;
+	    padding-bottom: 20px;
+	    border-bottom: 1px dotted #CFCFD9;
+	    text-align: center;	
+	}
+	header img{
+		margin: 0 auto;
+	    max-width: 20%;
+	    height: 100%;
+	}
+	span.animation{
+		height: 10vh;
+	    width: 20vw;
+	    position: absolute;
+	    z-index: 3;
+	    left: 40%;
+	    margin: 0 auto;
+	}
 	#inscr_logo{
 		position: relative;
-		z-index: 2;
-		animation-name: rotation;
-	    animation-iteration-count: infinite;
-	    animation-duration: 3s; 
+		z-index: 2; 
 	}
 	#img_left{
 		opacity: 0;
 		position: relative;
+	}
+	#img_right{
+		opacity: 0;
+	}
+	.animation:hover~#img_left{
 		animation-name: fadeInL;
 	    animation-iteration-count: infinite;
 	    animation-duration: 3s;
 	}
-	#img_right{
-		opacity: 0;
+	.animation:hover~#img_right{
 		animation-name: fadeInR;
 	    animation-iteration-count: infinite;
 	    animation-duration: 3s;
 	}
- 
-	h4{
-		text-align: center;
-		margin: 40px 0;
-		font-size: 25px;
+	.animation:hover~#inscr_logo
+	{ 
+		animation-name: rotation;
+	    animation-iteration-count: infinite;
+	    animation-duration: 3s;
 	}
 
-	#black{
-		width: 100%;
-	    height: 100%;
-	    display: none;
-	    top: 0;
-	    position: fixed;
-	    z-index: 6;
-	    background-color: rgba(29, 28, 28, 0.8);
-	}
-	#naissance input{
-		width: 40px;
-	}
-	#trophee{
-		height: 150px;
+/*CONTAINER*/ 
+	h4{
 		text-align: center;
 	}
-	#trophee img:first-of-type, #trophee img:last-of-type{
-		max-height: 100%;
+
+	li:nth-child(2n+1){
+		float: left;
 	}
-	#inscr_logo{
-		max-height: 50%;
+	li:nth-child(2n){
+		float: right;
 	}
+
+
+/*Champ du formulaire*/
 	#inscr_coord, #inscr_connec{
-			padding: 0vh 2vw;
+			padding: 0vh 6vw;
 	}
-	#naissance{
-		display: block;
+	#inscr_coord input, #inscr_connec input{
+		width: 99%;
+		height: 5vh;
+		font-size: 90%;
+		margin-bottom: 10px;
 	}
-	#formulaire input, #inscr_connec input{
-		width: 75%;
-	    height: 20px;
-	    font-size: 90%;
-	    margin-bottom: 10px;
-	    display: block;
-	    text-align: center;
-	    margin: 9px auto;
-	}
-	#inscr_nouv{
+	#inscr_nouv, #inscr_compte{
 		border-bottom: 1px solid #dfe0e6;
 	    display: block;
 	    width: 100%;
@@ -79,65 +84,81 @@
 		text-align: center;
 	}
 
-	#inscr_capsule{
-	    width: 30%;
-    	display: inline-block;
-    	margin: 24px 0;
+/*Boutons d'envoi ou de connexion*/
+	button{
+		margin: 2vh auto;
+	    display: block;
+		width: 40%;
+		height: 50px;
+	    font-weight: bold;
+	    font-size: 100%;
+	    color: black;
+	    text-transform: uppercase;
+	    border-radius: 20px;
+	    border: dotted #666 1px;
+		cursor: pointer;
+		transition: background-color 1s, width 1s, border-style 1s;
+	}
+	button:hover{
+		width: 80%;
+		border-style: solid;
+	}
+	#inscr_envoi{
+		background-color: #B0F4B0;
+	}
+	#inscr_envoi:hover{
+	    background-color: #3DDC3D;
 	}
 
-	/*FORMULAIRE*/
-	#inscr_container{
-	    float: right;
-	    background-color: rgb(171, 168, 168);
-	    border-radius: 5px;
-	    display: inline-block;
-	    vertical-align: top;
-	    text-align: center;
+	#inscr_log{
+		background-color: lightskyblue;
 	}
-	#compte_exis{
-	    display: none;
-	    width: 25%;
-	    margin: 0 auto;
-	    left: 37%;
-	    background-color: grey;
-	    border-radius: 5px;
-	    position: fixed;
-	    padding: 10px 0;
-	    text-align: center;
-	    z-index: 7;
-	}
-
-	/*Texte de présentation*/
-	#inscr_infos{
-	    padding: 3vh 0;
-	    width: 65%;
-	    margin: 0 auto;
-	    vertical-align: top;
-	    display: inline-block;
-	}
-	#inscr_infos li{
-	    width: 100%;
-	    margin: 25px 0;
-	}
-	#close{
-	    position: absolute;
-	    top: -15px;
-	    right: -20px;
-	    border-radius: 15px;
-	    cursor: pointer;
+	#inscr_log:hover{
+		background-color: #0CA2FF;
 	}
 
 @media all and (min-width: 1000px){
-}
-
-/************************/
-@media all and (min-width: 600px) and (max-width:1000px){
-	/*	#inscr_capsule{
+	#inscr_capsule{
 		width: 75%;
 		margin: 0 auto;
 	}
 
+	/*FORMULAIRE*/
+	#inscr_container{
+		width: 45%;
+		height: 50vh;
+	    padding-right: 5%;
+	    display: inline-block;
+	    vertical-align: top;
+	    border-right: 1px dotted black;
+	}
+	#compte_exis{
+		display: inline-block;
+		height: 50vh;
+		width: 30vw;
+		padding: 0% 2vw;
+		vertical-align: top;
+	}
 
+	/*Texte de présentation*/
+	#inscr_infos{
+		padding: 3vh 0;
+	    width: 50%;
+	    height: 140px;
+	    margin: 0 auto;
+	}
+	#inscr_infos li{
+		width: 40%;
+	}
+}
+
+@media all and (min-width: 600px) and (max-width:1000px){
+	#inscr_capsule{
+		width: 75%;
+		margin: 0 auto;
+	}
+
+	/*FORMULAIRE*/
 	#inscr_container{
 		width: 100%;
 	    display: inline-block;
@@ -152,24 +173,26 @@
 		text-align: center;
 	}
 
+	/*Texte de présentation*/
 	#inscr_infos{
 		padding: 3vh 0;
-	    width: 100%;
-	    height: 40px;
+	    width: 50%;
+	    height: 140px;
 	    margin: 0 auto;
 	}
 	#inscr_infos li{
 		width: 40%;
 		margin: 10px 0;
-	}*/
+	}
 }
 
 @media all and (max-width: 600px){
-	/*#inscr_capsule{
+	#inscr_capsule{
 		width: 90%;
 		margin: 0 auto;
 	}
 
+	/*FORMULAIRE*/
 	#inscr_container{
 		width: 100%;
 	    display: inline-block;
@@ -183,6 +206,7 @@
 		text-align: center;
 	}
 
+	/*Texte de présentation*/
 	#inscr_infos{
 	    width: 90%;
 	    height: 140px;
@@ -191,7 +215,7 @@
 	#inscr_infos li{
 		width: 100%;
 		margin: 10px 0;
-	}*/
+	}
 }
 
 /* KEYFRAME */
@@ -212,182 +236,4 @@
 	33%{opacity:0;} 
 	66%{opacity:1;}
 	100%{opacity:0;} 
-}
-
-
-
-
-
-/**MEGHAN**/
-@font-face{
-    font-family: 'helvetica';
-    src: url('helvetica.otf') format ('truetype');
-}
-
-body{
-    width:100%;
-    padding:0;
-    margin:0;
-    font-family: 'helvetica';
-}
-
-header{
-    background-color: #272822;
-    width:100%;
-    z-index: 3;
-    position: relative;
-}
-
-input{
-    padding:3px;
-    border:1px solid #272822;
-    border-radius:5px;
-    width:200px;
-    box-shadow:1px 1px 2px #C0C0C0 inset;
-    margin-top:5px;
-}
-h3{
-    font-weight: bold;
-}
-
-.logo{
-    background-color: white;
-    width:391px;
-    height:187px;
-    margin:0 auto;
-    position:relative;
-    z-index:3;
-}
-.ligne{
-    background-color:#7f1819; 
-    height:15px;
-    margin:0 auto;
-}
-#ligne1{
-    width:95%;
-}
-#ligne2{
-    width:75%;
-}
-#ligne3{
-    width:50%;
-}
-
-#header_right{
-    width: 270px;
-    height: 80px;
-    float:right;
-    background: #bfbdbd;
-    border-bottom:5px solid white;
-    border-left:5px solid white;
-}
-#connexion{
-    margin: 32px 0 0 30px;
-}
-
-.bouton{
-    background-color:black;
-    color:#bfbdbd;
-    padding:15px 15px 15px 15px;
-    text-decoration: none;
-    border:3px solid #7f1819;
-}
-.bouton:hover{
-    color:white;
-}
-
-#menu{
-    width:100%;
-    background-color: #272822;
-    position:absolute;
-    text-align: center;
-    margin-top:-50px;
-}
-
-#menu ul #decalage{
-    padding:0 15px 0 0;
-    margin:0 0 0 200px;
-}
-#menu ul {
-    margin:0;
-    padding:0;
-    list-style-type:none;
-    text-align:center;
-    display:inline-block;
-    
-}
-#menu li {
-    float:left;
-    margin:auto;
-    padding:0;
-    background-color:#272822;
-}
-#menu li a {
-    display:block;
-    width:130px;
-    color:white;
-    text-decoration:none;
-    padding:15px;
-    text-transform: uppercase;
-    font-family: 'helvetica';
-    color:#bfbdbd;
-    font-size: 14px;
-    z-index:5;
-    position: relative;
-
-}
-#menu li a:hover {
-    color:#fff;
-}
-#menu ul li ul {
-    display:none;
-}
-#menu ul li:hover ul {
-    display:block;
-}
-#menu li:hover ul li {
-    float:none;
-}
-#menu li ul {
-    position:absolute;
-}
-
-#section{
-    width:100%;
-    height:500px;
-}
-
-#inscription-rapide{
-    margin-top:5px;
-    float:right;
-    width:300px;
-    height:350px;
-    border:10px solid #272822;
-    color:#272822;
-    font-family: 'helvetica';
-    text-align: center;
-}
-
-#btn_sinscrire{
-    margin-top:30px;
-}
-#img_lol{
-    width:650px;
-    height:350px;
-}
-#img_inscription{
-    margin-top:5px;
-    position: absolute;
-    left:15%;
-}
-
-#copyright{
-    text-align: center;
-    line-height:50px;
-    color:#bfbdbd;
-    font-family: 'helvetica';
-    width:100%;
-    height:50px;
-    background-color: #272822;
-    position:absolute;
 }
