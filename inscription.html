@@ -5,16 +5,70 @@
 	<title>Breakem-all Inscription</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="inscription.css">	
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("#btn_connexion").click(function(){
+			$("#black").fadeIn();
+			$("#compte_exis").slideDown();
+		});
+		$("#close").click(function(){
+			$("#black").fadeOut();
+			$("#compte_exis").slideUp();
+		});
+		$("#black").click(function(){
+			$("#black").fadeOut();
+			$("#compte_exis").slideUp();
+		});
+	});
+	</script>
 </head>
 <body>
-	<header>	
-		<span class="animation"></span>
+	<header>
+		<div id="header_right">
+			<div id="connexion">
+				<a href="#" id="btn_connexion" class="bouton">Connexion</a>
+				<a href="#" id="btn_inscrip" class="bouton">Inscription</a>
+			</div>
+		</div>
+		<div class="logo">
+			<img src="arriere_plan.png" alt="Trophy" title="Trophy">
+		</div>
+		<nav id="menu" >
+			<ul>
+					<li><a href="#">Accueil</a></li>
+					<li><a href="#">Tournoi</a>
+						<ul> 
+							<li><a href="#">Jeux</a></li>
+							<li><a href="#">Evenement</a></li>
+						</ul>
+					</li>
+				<li><a href="#">Team</a></li>
+
+				<li id="decalage"><a href="#">Joueur</a></li>
+				<li><a href="#">Classement</a></li>
+				<li><a href="#">Mon compte</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="compte_exis">
+			<form action="inscription.html" method="POST">
+				<div id="inscr_connec">
+					<input type="text" placeholder="Pseudo">
+					<input id="connec_pwd" type="password" placeholder="Mot de passe">
+					<a href="#" id="mdp_forgot">Mot de passe oublié ?</a>
+				</div>
+				<button id="inscr_log" class="bouton">CONNEXION</button>
+			</form>
+			<button id="close">X</button>
+		</div>
+	<section id="black"></section>
+	<section id="inscr_infos">
+		<div id="trophee">
 			<img id="img_left" alt="gauche" src="left.png">
 			<img id="inscr_logo" alt="logo" src="https://wiki.teamfortress.com/w/images/thumb/3/3e/Achieved.png/200px-Achieved.png?t=20110424214508">
 			<img id="img_right" alt="droite" src="right.png">
-	</header>
-	<div id="inscr_infos">
+		</div>
 		<h4>Accédez a encore plus de contenus en vous inscrivant !</h4>
 		<ul>
 			<li>Créer votre propre tournoi de A à Z</li>
@@ -22,33 +76,31 @@
 			<li>Organisez ou participez à des évènements sur place</li>
 			<li>Montrez vos talents auprès de toute une communauté</li>
 		</ul>	
-	</div>
-	<div id="inscr_capsule">
+	</section>
+	<section id="inscr_capsule">
 		<div id="inscr_container">
 			<p id="inscr_nouv">Rejoignez-nous !</p>
 			<form action="inscription.html" method="POST">
 				<div id="inscr_coord">
-					<input type="text" placeholder="Pseudo">
-					<input id="insc_pwd" type="password" placeholder="Mot de passe">
-					<input type="email" placeholder="Email">
-					<!-- <div class="g-recaptcha" data-sitekey="6LepgxETAAAAAHweXMQd9A7JMm2fRl3BWEJy0SjC"></div> -->
+					<span id="formulaire">
+						<input type="text" placeholder="Pseudo">
+						<input type="email" placeholder="Email">
+						<input type="email" placeholder="Confirmation E-mail">
+						<input id="insc_pwd" type="password" placeholder="Mot de passe">
+						<input id="insc_pwd" type="password" placeholder="Confirmation du mot de passe">
+					</span>
+					Date de naissance:
+					<span id="naissance">
+						<input type="text" name="day"   placeholder="dd">
+						<input type="text" name="month" placeholder="mm">
+						<input type="text" name="year"  placeholder="yyyy">
+					</span>
 				</div>
 				<p id="inscr_cgu">En cliquant sur Enregistrer, vous acceptez <a href="#">les Conditions Générales d'Utilisation</a> de Break'em all</p>
-			<button id="inscr_envoi" type="submit">Enregistrer</button>
+			<button id="inscr_envoi" class="bouton" type="submit">Enregistrer</button>
 			</form>
 		</div>
-		<div id="compte_exis">
-			<p id="inscr_compte">Je possède déjà un compte</p>
-			<form action="inscription.html" method="POST">
-				<div id="inscr_connec">
-					<input type="text" placeholder="Pseudo">
-					<input id="connec_pwd" type="password" placeholder="Mot de passe">
-					<a href="#" id="mdp_forgot">Mot de passe oublié ?</a>
-				</div>
-				<button id="inscr_log">Me connecter</button>
-			</form>
-		</div>
-	</div>
+	</section>
 	<footer>
 		
 	</footer>
