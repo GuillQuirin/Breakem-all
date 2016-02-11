@@ -6,30 +6,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script>
 	$(document).ready(function(){
-		$("li").each(function(){
-			$(this).mouseover(function() {
-				$(this).css("padding-top", "10px");
-				$(this).css("background-color", "#E5D8C5");
-			});
-			$(this).mouseout(function() {
-				$(this).css("padding-top", "0px");
-				$(this).css("background-color", "#D3D3D3");
-			});
-		});
-		$("#lol").mouseover(function(){
-			$("#lol").css("width", "230px");
-			$("header span").fadeIn();
-		});
-		$("#lol").mouseout(function(){
-			$("header span").fadeOut();
-			$("#lol").css("width", "30px");
-		});
+		
+
 	});
 	</script>
 	<style>
 		header{
 		    background-color: #272822;
-		    height: 90px;
+		    height: 100px;
 		    position: fixed;
 		    width: 100%;
 		    top: 0;
@@ -37,29 +21,48 @@
 		    font-family: sans-serif;
 		    text-align: center;
 		}
-		header a{
+		header>a{
 	        float: left;
-		    width: 30px;
+		    width: 35px;
 		    height: 35px;
 		    background-color: #FFFFFF;
 		    border-radius: 20px;
 		    text-align: left;
+		    text-decoration: none;
+		    z-index: 2;
+    		position: relative;
+		    transition: width 1s;
 		}
-		header a img{
+		header>a:hover{
+			width: 230px;
+		}
+		header>a span{
+			opacity: 0;
+			color: black;
+		    text-decoration: none;
+		    position: absolute;
+		    width: 185px;
+		    left: 35px;
+		    top: 10px;
+		    display: none;
+		}
+		header>a:hover span{
+			opacity: 1;
+			display:inline-block;
+		}
+		header>a img{
 		    max-height: 100%;
 		    vertical-align: middle;
 		}
-		header a span{
-			display: none;
-			color: black;
-		    text-decoration: none;
-		}
 		header p{
-			margin-top: 10px;
-			color: white;
-			font-size: 25px;
+			position: fixed;
+		    color: white;
+		    font-size: 25px;
+		    margin: 10px auto;
+		    width: 100%;
+		    z-index: 1;
 		}
-		ul{
+		header ul{
 			text-align: center;
 		    width: 100%;
 		    display: block;
@@ -68,7 +71,7 @@
 		    padding: 0;
 		    margin: 0;
 		}
-		li{
+		header li{
 		    width: 20%;
 		    display: inline-block;
 		    color: black;
@@ -76,7 +79,28 @@
 		    margin: 0px 2%;
 		    font-size: 20px;
 		    height: 40px;
+		    padding-top:0;
 		    border-radius: 6px 6px 0 0;
+		    transition:padding 1s, background-color 1s;
+		}
+		header li:hover{
+			padding: 10px 0 0 0;
+			background-color: #E5D8C5;
+		}
+		header li>a{
+		    text-decoration: none;
+		    color: black;
+		    vertical-align: sub;
+		    width: 100%;
+		    display: inline-block;
+		    height: 80%;
+		}
+		footer{
+		    display: block;
+		    width: 100%;
+		    height: 50px;
+		    border-radius: 50px 50px 0 0;
+		    background-color: black;
 		}
 	</style>
 </head>
@@ -89,10 +113,10 @@
 <p>PARTIE ADMINISTRATION</p>
 <nav>
 	<ul>
-		<li>Utilisateur</li>
-		<li>Jeux</li>
-		<li>Tournoi</li>
-		<li>Commentaire</li>
+		<li><a href="#">Utilisateur</a></li>
+		<li><a href="#">Jeux</a></li>
+		<li><a href="#">Tournoi</a></li>
+		<li><a href="#">Commentaire</a></li>
 	</ul>
 </nav>
 </header>
