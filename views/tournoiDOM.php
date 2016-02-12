@@ -331,7 +331,7 @@
 	</section>
 </div>	
 <script>
-function getScrollTop(){
+/*function getScrollTop(){
     if(typeof pageYOffset!= 'undefined'){
         //most browsers except IE before #9
         return pageYOffset;
@@ -385,5 +385,5 @@ document.addEventListener('scroll', function() {
             }
         }
     }, 50);
-});
+});*/
 </script>
