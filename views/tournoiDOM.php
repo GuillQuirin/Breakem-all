@@ -7,12 +7,12 @@
 			<h2 class="titre2 ta-left">Les tendances<span><br>Check les tournois du moment</span></h2>
 			<div class="changer-choix-container">
 				<ul>
-					<li><a>bf3</a></li>
-					<li class="choix-actif"><a>ssb</a></li>
-					<li><a>lol</a></li>
-					<li><a>fifa</a></li>
-					<li><a>css</a></li>
-					<li><a>nfs</a></li>
+					<li data-gamename="bf3" class="choix-actif"><a>bf3</a></li>
+					<li data-gamename="ssb"><a>ssb</a></li>
+					<li data-gamename="lol"><a>lol</a></li>
+					<li data-gamename="fifa"><a>fifa</a></li>
+					<li data-gamename="css"><a>css</a></li>
+					<li data-gamename="nfs"><a>nfs</a></li>
 				</ul>
 			</div>
 			<div class="mobile-only changer-choix-container-mobile">
@@ -30,37 +30,80 @@
 					</ul>
 				</div>
 			</div>
-			<div class="container-choix-jeu relative">
-				<article class="choix-jeu choix-jeu-bf3">
-					<div class="hover-title-only"><p>Battlefield3</p></div>
-					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>6 tournois à venir</p></div>
-						<button title="rechercher les prochains tournois bf3" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement bf3" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
+			<div class="tournoi-container-choix-jeu relative">
+				<div class="tournoi-container-overflow relative">
+					<div class="tournoi-moving-container relative">
+						<article data-gamename="bf3" class="tournoi-jeu jeux-actif relative">
+							<h3 class="ta-left titre1"><a>battlefield3</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">L'un des tout meilleurs FPS sur PC. Plongez dans un conflit moderne qui embrase les 4 coins du monde. Avec ses 4 classes customisables, ses armes modifiables, ses nombreux véhicules et son système d'escouade, il s'oriente principalement vers le jeu d'équipe.</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Ruée par équipe</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">32 joueurs online</p>
+								<p class="ta-right tournoi-jeu-description-victoire">1 match de 3 manches</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
+							</div>							
+						</article>
+						<article data-gamename="ssb" class="tournoi-jeu relative">
+							<h3 class="ta-left titre1"><a>super smash bros</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">Voici l'ambiance Nintendo par excellence. Le jeu qui a révolutionné le jeu de combat et façonné tout une génération. Prends contrôle de légendaires pokémon pour taper dans les pif de mario ou link dans un combat passionément amusant.</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Free For All</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">32 joueurs offline</p>
+								<p class="ta-right tournoi-jeu-description-victoire">16 match à élimination directs</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Seul contre tous</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 19h00</p>
+							</div>							
+						</article>
+						<article data-gamename="lol" class="tournoi-jeu relative">
+							<h3 class="ta-left titre1"><a>league of legends</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">Le sport électronique à son paroxisme. Phénomène des cliques depuis plus de 4 ans, League of Legends t'amènera dans une arène de laquelle tu ne pourras plus sortir sans y prendre gout ! Incarne un invocateur et lutte avec tes camarades pour faire tomber l'ennemi.</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Normal 5c5</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">10 joueurs online</p>
+								<p class="ta-right tournoi-jeu-description-victoire">1 match</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
+							</div>							
+						</article>
+						<article data-gamename="fifa" class="tournoi-jeu relative">
+							<h3 class="ta-left titre1"><a>fifa16</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">Le plus reconnu des jeux de foot de notre ère. Avec cette refonte version 2015-2016, Fifa fait la part belle eaux véritables stratèges du foot, vos défenseurs ne sont plus des rails sur un wagon. Pour gagner il faut maintenant s'entrainer. La bataille pour le milieu de terrain est en marche !</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Ruée par équipe</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">16 équipes</p>
+								<p class="ta-right tournoi-jeu-description-victoire">4 matchs de 20min</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
+							</div>							
+						</article>
+						<article data-gamename="css" class="tournoi-jeu relative">
+							<h3 class="ta-left titre1"><a>Counter Strike Source</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">On ne présente plus le légendaire Counter Strike: Source. Pur produit de nolife geek optimisé pour les fous furieux passant leurs temps à headshot leurs adversaires. Avec ou sans visée. Oubliez la signification du mot frustration. La force viendra en persévérant</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Search and Destroy</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">12 joueurs online</p>
+								<p class="ta-right tournoi-jeu-description-victoire">1 match de 3 rounds</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
+							</div>							
+						</article>
+						<article data-gamename="nfs" class="tournoi-jeu relative">
+							<h3 class="ta-left titre1"><a>Need For Speed</a></h3>
+							<p class="margin-auto ta-center tournoi-description-jeu">La tuerie de la conduite de l'année 2015. L'aspect arcade et la violence des chocs vous feront passer l'envie d'essayer d'autres jeux de conduite. Tout y est fait pour exploser vos adversaires, mais attention les dégâts sont cumulatifs. Le but reste toujours de finir la course !</p>
+							<div class="tournoi-description-tournoi">
+								<p class="ta-right tournoi-jeu-description-mode">Free For All</p>
+								<p class="ta-right tournoi-jeu-description-maxjoueurs">8 joueurs online</p>
+								<p class="ta-right tournoi-jeu-description-victoire">3 courses</p>
+								<p class="ta-right tournoi-jeu-description-reglesEquipe">Chacun pour sa peau</p>
+								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
+							</div>							
+						</article>
 					</div>
-				</article>
-				<article class="choix-jeu choix-jeu-ssb">	
-					<div class="hover-title-only"><p>Super Smash Bros</p></div>
-					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>3 tournois à venir</p></div>
-						<button title="rechercher les prochains tournois ssb" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement ssb" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter ssb aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
-				<article class="choix-jeu choix-jeu-lol">	
-					<div class="hover-title-only"><p>League Of Legends</p></div>
-					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>8 tournois à venir</p></div>
-						<button title="rechercher les prochains tournois lol" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement lol" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter lol aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
-			</div>
-			<div class="container-choix-jeu-arrow-left absolute"></div>
-			<div class="container-choix-jeu-arrow-right absolute"></div>
+				</div>
+				<!-- <div class="tournoi-container-choix-jeu-arrow-left absolute"></div>
+				<div class="tournoi-container-choix-jeu-arrow-right absolute"></div> -->
+			</div>			
 		</div>		
 	</section>
 
