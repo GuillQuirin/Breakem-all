@@ -102,7 +102,7 @@ body > .max-container > *:nth-child(n+3){
 		flex-direction: column;
 		border-top: 0.2vh solid #fff;
 		border-bottom: 0.2vh solid #fff;
-		transform: scale(0, 0);
+		transform: scale(0, 1);
 		transition: transform .2s linear;
 		z-index: 9999;
 	}
@@ -251,7 +251,39 @@ body > .max-container > *:nth-child(n+3){
 	.tournoi-container-choix-jeu-arrow-right:hover{
 		border-left-color: #201B3A;
 	}
+	.fadeIn{
+		animation: animation-fadeIn 1s alternate;
+	}
+	.fadeOut{
+		animation: animation-fadeOut .1s alternate;
+	}
+	.li-fadeIn{
+		animation: animation-li-fadeIn 1s alternate;
+	}
+	.li-fadeOut{
+		animation: animation-li-fadeOut 1s alternate;
+	}
+	@keyframes animation-fadeIn {
+	    0% {opacity: 1;}
+	    75% {opacity: 0;}
+	    100% {opacity: 0;}
+	}
+	@keyframes animation-fadeOut {
+	    0% {opacity: 0;}
+	    75% {opacity: 1;}
+	    100% {opacity: 1;}
+	}
 
+	@keyframes animation-li-fadeIn {
+	    0% {background: rgba(120, 104, 134, 0.2);}
+	    75% {background: inherit;}
+	    100% {background: inherit;}
+	}
+	@keyframes animation-li-fadeOut {
+	    0% {background: inherit;}
+	    75% {background: rgba(120, 104, 134, 0.2);}
+	    100% {background: rgba(120, 104, 134, 0.2);}
+	}
 /* ########################################################## */
 
 
