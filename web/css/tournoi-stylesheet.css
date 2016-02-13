@@ -1,9 +1,17 @@
+body {
+	line-height: 1;
+	background: #201B3A;	
+	font-family: lato, sans-serif;
+	/*background: rgba(0,0,0, 0.9);*/
+}
+
 body > .max-container{
 	/*border: 2px solid #fff;*/
 }
 body > .max-container > *:nth-child(n+3){
 	position: relative;
 	z-index: 1;
+	background: #080325;
 }
 /* ################## SEPERATOR ################# */
 	.tournoi-separator{
@@ -68,10 +76,10 @@ body > .max-container > *:nth-child(n+3){
 		border-radius: 0 0 0 0;
 	}
 	.changer-choix-container .choix-actif{
-		background: rgba(120, 104, 134, 0.2);
+		background: rgba(120, 104, 134, 0.4);
 	}
 	.changer-choix-container .choix-actif:hover{
-		background: rgba(120, 104, 134, 0.2);
+		background: rgba(120, 104, 134, 0.4);
 	}
 	.changer-choix-container ul li a{
 		width: 100%;
@@ -79,11 +87,10 @@ body > .max-container > *:nth-child(n+3){
 		padding: 3vh 4vh 3vh 4vh;
 		line-height: 6vh;
 		font-size: 2vh;
-		font-family: Lato;
 		text-transform: uppercase;
 	}
 	.changer-choix-container ul li:hover{
-		background: rgba(120, 104, 134, 0.2);
+		background: rgba(120, 104, 134, 0.4);
 	}
 /* ########################################### */
 
@@ -150,13 +157,11 @@ body > .max-container > *:nth-child(n+3){
 		word-spacing: 1vh;
 		letter-spacing: 0.5vh;
 		text-transform: uppercase;
-		font-family: Lato;
-		font-weight: 900;
 	}
 	.tournoi-choix-jeu .titre2 > span{
 		display: block;
 		margin-left: 5%;
-		font-size: 2.4vh;
+		font-size: 2.3vh;
 		font-weight: 400;
 		letter-spacing: 0.3vh;
 	}
@@ -184,7 +189,6 @@ body > .max-container > *:nth-child(n+3){
 	}
 	.tournoi-jeu{
 		color: #fff;
-		font-family: Lato;
 		transition: background .2s linear, opacity .21s ease-in-out;
 		padding-bottom: 2vh;
 		position: absolute;
@@ -192,9 +196,11 @@ body > .max-container > *:nth-child(n+3){
 		left: 0;
 		top: 0;
 		opacity: 0;
+		z-index: -1;
 	}
 	.jeux-actif{
 		opacity: 1;
+		z-index: 0;
 		transition: background .2s linear, opacity 2s ease-in-out;
 	}
 	.tournoi-jeu h3{
@@ -203,11 +209,12 @@ body > .max-container > *:nth-child(n+3){
 		text-transform: uppercase;
 		border-bottom: 0.2vh groove #fff;
 		cursor: pointer;
-		transition: color .2s linear, border .2s;
+		transition: all .2s linear;
 	}
 	.tournoi-jeu h3:hover{
-		color: rgba(120, 104, 134, 1);
-		border-color: rgba(120, 104, 134, 1);
+		/*color: rgba(120, 104, 134, 1);
+		border-color: rgba(120, 104, 134, 1);*/
+		word-spacing: 0.4vh;
 	}
 	.tournoi-jeu .tournoi-description-jeu{
 		letter-spacing: 0.3vh;
@@ -257,16 +264,14 @@ body > .max-container > *:nth-child(n+3){
 
 /* ################## TOURNOI - DESCRIPTION ################# */
 	.tournoi-description{
-		background: #fff;
+		/*background: #162658;*/
 	}
 	.tournoi-description div{
-		text-align: center;
-		padding: 6vh 0 6vh 0;
-		font-style: italic;
+		padding: 6vh 2vh 6vh 2vh;
 	}
 	.tournoi-description h3{
 		font-size: 2.8vh;
-		font-weight: 900;
+		color: #fff;
 	}
 	.tournoi-description p{
 		margin-top: 3vh;
