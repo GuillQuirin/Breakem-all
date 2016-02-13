@@ -113,19 +113,6 @@
 		<div class="line-sep"></div>
 	</div>
 
-	<section class="tournoi-description ta-center">
-		<div class="max-container ta-left">
-			<h3>Break'em all - Ceci est la phrase punchline</h3>
-			<p>Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>
-		</div>
-	</section>
-
-	<div class="tournoi-separator">
-		<div class="line-sep"></div>
-		<div class="point-sep"></div>
-		<div class="line-sep"></div>
-	</div>
-
 	<section class="ta-center tournoi-choix-mode relative">
 		<div class="max-container">
 			<h2 class="titre2">Où seras tu ?</h2>	
@@ -142,6 +129,19 @@
 				<img class="absolute" src="web/img/online-bw-mode-bg.jpg" alt="mode">
 			</div>
 		</div>		
+	</section>
+
+	<div class="tournoi-separator">
+		<div class="line-sep"></div>
+		<div class="point-sep"></div>
+		<div class="line-sep"></div>
+	</div>
+
+	<section class="tournoi-description ta-center">
+		<div class="max-container ta-left">
+			<h3>Break'em all - Ceci est la phrase punchline</h3>
+			<p>Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>
+		</div>
 	</section>
 
 	<div class="tournoi-separator">
