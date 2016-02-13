@@ -1,6 +1,6 @@
 <div class="max-container">
 	<div class="fixed tournoi-first-image-background">
-		<img class="absolute" src="web/img/first-bg-web.jpg" alt="epic-fights">
+		<img class="absolute" src="web/img/first-bg-clair-web.jpg" alt="epic-fights">
 	</div>
 	<section class="ta-center tournoi-choix-jeu">
 		<div class="max-container relative">
@@ -34,7 +34,7 @@
 				<div class="tournoi-container-overflow relative">
 					<div class="tournoi-moving-container relative">
 						<article data-gamename="bf3" class="tournoi-jeu jeux-actif relative">
-							<h3 class="ta-left titre1"><a>battlefield3</a></h3>
+							<h3 class="ta-left titre1"><a>battlefield 3</a></h3>
 							<p class="margin-auto ta-center tournoi-description-jeu">L'un des tout meilleurs FPS sur PC. Plongez dans un conflit moderne qui embrase les 4 coins du monde. Avec ses 4 classes customisables, ses armes modifiables, ses nombreux véhicules et son système d'escouade, il s'oriente principalement vers le jeu d'équipe.</p>
 							<div class="tournoi-description-tournoi">
 								<p class="ta-right tournoi-jeu-description-mode">Ruée par équipe</p>
@@ -67,7 +67,7 @@
 							</div>							
 						</article>
 						<article data-gamename="fifa" class="tournoi-jeu relative">
-							<h3 class="ta-left titre1"><a>fifa16</a></h3>
+							<h3 class="ta-left titre1"><a>fifa 16</a></h3>
 							<p class="margin-auto ta-center tournoi-description-jeu">Le plus reconnu des jeux de foot de notre ère. Avec cette refonte version 2015-2016, Fifa fait la part belle eaux véritables stratèges du foot, vos défenseurs ne sont plus des rails sur un wagon. Pour gagner il faut maintenant s'entrainer. La bataille pour le milieu de terrain est en marche !</p>
 							<div class="tournoi-description-tournoi">
 								<p class="ta-right tournoi-jeu-description-mode">Ruée par équipe</p>
@@ -113,8 +113,8 @@
 		<div class="line-sep"></div>
 	</div>
 
-	<section class="ta-center tournoi-description">
-		<div class="max-container">
+	<section class="tournoi-description ta-center">
+		<div class="max-container ta-left">
 			<h3>Break'em all - Ceci est la phrase punchline</h3>
 			<p>Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>
 		</div>
