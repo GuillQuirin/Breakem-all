@@ -1,4 +1,5 @@
-function tournoiFunctionsManager(){tfm = this;}
+function tournoiFunctionsManager(){tfm = this;};
+tournoiFunctionsManager.prototype.getTickingChangePeriod = function(){return 12000};
 tournoiFunctionsManager.prototype.repertorierJeuxCaroussel = function() {
 	var caroussel = $('.tournoi-moving-container');
 	var jeux = caroussel.children('.tournoi-jeu');	
@@ -13,6 +14,7 @@ tournoiFunctionsManager.prototype.repertorierJeuxCaroussel = function() {
 		tmp.push(assoc_link);
 		tfm._arr[index] = tmp;
 
+		tfm._clickedArray = 'not-clicked';
 		tfm._activeArr = 0;
 	});
 };
@@ -20,8 +22,25 @@ tournoiFunctionsManager.prototype.getNextFadeIn = function(currIndex){
 	if(currIndex === tfm._gameNumber-1 ){return 0};
 	return currIndex+1;
 };
-tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick) {
-	setInterval(function(){
+tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick, clickedArray) {
+	if(clickedArray >=0 && clickedArray < tfm._gameNumber){	
+		tfm._clickedArray = clickedArray;
+		var toActiv = tfm._arr[clickedArray];
+		var activ = tfm._arr[tfm._activeArr];		
+		setTimeout(function(){
+			activ[0].removeClass('jeux-actif');
+			activ[1].removeClass('choix-actif');
+		}, 100);
+		toActiv[1].addClass('choix-actif');
+		toActiv[0].addClass('jeux-actif');
+
+
+		tfm._activeArr = tfm.getNextFadeIn(clickedArray-1);
+		clearInterval(tfm._intervalReturnID);
+		tfm.lancerChgtsAutoCaroussel(tfm.getTickingChangePeriod());
+		return true;
+	};
+	tfm._intervalReturnID = setInterval(function(){		
 		activeArr= tfm._activeArr;
 
 		var activ = tfm._arr[activeArr];
@@ -36,13 +55,41 @@ tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick) {
 		toActiv[0].addClass('jeux-actif');		
 			
 		tfm._activeArr = tfm.getNextFadeIn(activeArr);
-		console.log(tfm._activeArr);
+	
 	}, tick);
+};
+tournoiFunctionsManager.prototype.lancerChgtsClickCaroussel = function()
+{
+	$('.tournoi-choix-jeu .changer-choix-container li').each(function(index, el) {
+		// console.log(el.innerHTML);
+		if($(el).hasClass('tournoi-caroussel-li-clicked')){
+			$(el).removeClass('tournoi-caroussel-li-clicked');
+			tfm.lancerChgtsAutoCaroussel(false, index);
+		};
+	});
 };
 var funcMan_tournoi = new tournoiFunctionsManager();
 
 
+
+function tournoiEventManager(){tem = this;};
+tournoiEventManager.prototype.associerClickEventsToLiMenuCaroussel = function() {
+
+	$('.tournoi-choix-jeu .changer-choix-container li').each(function() 
+	{
+		$(this).click(function(){
+			$(this).addClass('tournoi-caroussel-li-clicked');
+			funcMan_tournoi.lancerChgtsClickCaroussel();
+		});
+	});
+	
+};
+var eventMan_tournoi = new tournoiEventManager();
+
+
+
 window.onload = function(){
-	funcMan_tournoi.repertorierJeuxCaroussel();
-	funcMan_tournoi.lancerChgtsAutoCaroussel(12000);
+	eventMan_tournoi.associerClickEventsToLiMenuCaroussel();
+	funcMan_tournoi.repertorierJeuxCaroussel();	
+	funcMan_tournoi.lancerChgtsAutoCaroussel(funcMan_tournoi.getTickingChangePeriod());
 }
