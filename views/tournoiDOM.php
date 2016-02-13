@@ -42,7 +42,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">1 match de 3 manches</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 						<article data-gamename="ssb" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>super smash bros</a></h3>
@@ -53,7 +54,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">16 match à élimination directs</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Seul contre tous</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 19h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 						<article data-gamename="lol" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>league of legends</a></h3>
@@ -64,7 +66,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">1 match</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 						<article data-gamename="fifa" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>fifa 16</a></h3>
@@ -75,7 +78,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">4 matchs de 20min</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 						<article data-gamename="css" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>Counter Strike Source</a></h3>
@@ -86,7 +90,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">1 match de 3 rounds</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 						<article data-gamename="nfs" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>Need For Speed</a></h3>
@@ -97,7 +102,8 @@
 								<p class="ta-right tournoi-jeu-description-victoire">3 courses</p>
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Chacun pour sa peau</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
-							</div>							
+							</div>
+							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
 						</article>
 					</div>
 				</div>
