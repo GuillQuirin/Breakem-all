@@ -29,7 +29,8 @@
 	}
 	body {
 		line-height: 1;
-		background: rgba(8,3,37,.9);
+		background: rgba(8,3,37,1);
+		/*background: rgba(0,0,0, 0.9);*/
 	}
 	ol, ul {
 		list-style: none;
@@ -109,6 +110,9 @@
 	.ta-right{
 		text-align: right;
 	}
+	.margin-auto{
+		margin: 0 auto;
+	}
 	.max-container{	
 		width: 100%;
 		max-width: 150vh;
@@ -126,5 +130,9 @@
 	}
 	.titre3{
 		font-size: 2.2vh;
+	}
+
+	.test-border{
+		border: 1px solid red;
 	}
 /* ################################ */

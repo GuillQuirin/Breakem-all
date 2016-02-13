@@ -5,6 +5,118 @@ body > .max-container > *:nth-child(n+3){
 	position: relative;
 	z-index: 1;
 }
+/* ################## SEPERATOR ################# */
+	.tournoi-separator{
+		width: 100%;
+		margin: 0 auto;
+		line-height: 12vh;
+		padding: 0;
+		display: block;
+		text-align: center;
+		background: #080325;
+		display: none;
+	}
+	.tournoi-separator div{
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 auto;
+		background: #ccc;
+	}
+	.tournoi-separator .line-sep{
+		width: 90%;
+		max-width: 15vh;
+		height: 0.4vh;
+		border-radius: 2vh;
+	}
+	.tournoi-separator .point-sep{
+		width: 0.6vh; 
+		height: 0.8vh;
+		border-radius: 100%;
+	}
+/* ########################################### */
+
+/* ################## MENUS ################# */
+	.changer-choix-container{
+		width: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+	.changer-choix-container ul{
+		margin: 0 auto;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-top: 0.25vh groove #fff;
+		border-bottom: 0.25vh groove #fff;
+	}
+	.changer-choix-container ul li{
+		margin: 0;
+		padding: 0;
+		color: #fff;
+		background: inherit;
+		border-collapse: collapse;
+		transition: background .2s linear;
+	}
+	.changer-choix-container ul li:first-child{
+		border-radius: 0 0 0 0;
+	}
+	.changer-choix-container ul li:last-child{
+		border-radius: 0 0 0 0;
+	}
+	.changer-choix-container .choix-actif{
+		background: rgba(120, 104, 134, 0.2);
+	}
+	.changer-choix-container .choix-actif:hover{
+		background: rgba(120, 104, 134, 0.2);
+	}
+	.changer-choix-container ul li a{
+		width: 100%;
+		height: 100%;
+		padding: 3vh 4vh 3vh 4vh;
+		line-height: 6vh;
+		font-size: 2vh;
+		font-family: Lato;
+		text-transform: uppercase;
+	}
+	.changer-choix-container ul li:hover{
+		background: rgba(120, 104, 134, 0.2);
+	}
+/* ########################################### */
+
+/* ################## MENU DROPDOWN ################# */
+	.menu-opener{
+		height: 3.2vh;
+		transition: height .2s linear;
+	}
+	.menu-opener ul{
+		margin-top: 1.7vh;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		flex-direction: column;
+		border-top: 0.2vh solid #fff;
+		border-bottom: 0.2vh solid #fff;
+		transform: scale(0, 0);
+		transition: transform .2s linear;
+		z-index: 9999;
+	}
+	.menu-opener ul li{
+		border-top: 0.2vh solid #fff;
+		border-bottom: 0.2vh solid #fff;
+		padding: 1.3vh;
+		text-transform: uppercase;
+		color: #fff;
+	}
+/* ########################################### */
+
+
+
 /* ############ FIRST BACKGROUND IMAGE ############ */
 	.tournoi-first-image-background{
 		margin: 0 auto;
@@ -21,204 +133,6 @@ body > .max-container > *:nth-child(n+3){
 		height: 880px;
 	}
 /* ########################################### */
-
-/* ############## FICHES JEUX ################ */
-
-	.container-choix-jeu-arrow-left,
-	.container-choix-jeu-arrow-right{
-		top: calc(50% + 3vh);
-		width: 0; 
-		height: 0;
-		border-top: 3vh solid transparent;
-		border-bottom: 3vh solid transparent;
-		cursor: pointer;
-		transition: all .1s linear;
-	}
-	.container-choix-jeu-arrow-left{
-		left: 3vh;
-		border-right:3vh solid #ccc;
-	}
-	.container-choix-jeu-arrow-left:hover{
-		border-right-color: #201B3A;
-	}
-	.container-choix-jeu-arrow-right{
-		right: 3vh;
-		border-left: 3vh solid #ccc;
-	}
-	.container-choix-jeu-arrow-right:hover{
-		border-left-color: #201B3A;
-	}
-	.container-choix-jeu{
-		margin: 0 auto;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-wrap: wrap;
-		padding: 14vh 0 14vh 0;
-		background-size: auto 100%;
-	}
-	.choix-jeu{
-		min-width: 25vh;
-		max-width: 25vh;
-		height: 30vh;
-		padding: 0;
-		margin: 0 4vh 0 4vh;
-		transition: all .2s ease-in-out;
-		background-size: auto 100%;
-		background-position: center center;
-		background-repeat: no-repeat;
-		-moz-box-shadow: inset 0px 0px 50vh 0px #080325;
-		-webkit-box-shadow: inset 0px 0px 50vh 0px #080325;
-		-o-box-shadow: inset 0px 0px 50vh 0px #080325;
-		box-shadow: inset 0px 0px 50vh 0px #080325;
-		border-radius: 0.4vh;
-	}
-	.choix-jeu:hover{	
-		-moz-box-shadow: inset 0px 0px 2vh 0px #080325;
-		-webkit-box-shadow: inset 0px 0px 2vh 0px #080325;
-		-o-box-shadow: inset 0px 0px 2vh 0px #080325;
-		box-shadow: inset 0px 0px 2vh 0px #080325;
-	}
-	.choix-jeu-actif{
-		-moz-box-shadow: inset 0px 0px 2vh 0px #080325;
-		-webkit-box-shadow: inset 0px 0px 2vh 0px #080325;
-		-o-box-shadow: inset 0px 0px 2vh 0px #080325;
-		box-shadow: inset 0px 0px 2vh 0px #080325;
-	}
-	.choix-jeu .btn-container{
-		width: 100%;height: 100%;
-		background: transparent;
-	}
-	.choix-jeu button{
-		opacity: 0;
-		transition: opacity .2s ease-in-out;
-		color: #000;
-		font-size: 4vh;
-		cursor: pointer;
-		border-radius: 100%;
-		background: white;
-		height: 4vh; width: 4vh;
-	}
-	.choix-jeu button span{
-		width: 100%;height: 100%;
-		background-size: 50% 50%;
-		background-position: center center;
-		background-repeat: no-repeat;
-		border-radius: 100%;
-		top: 0; left: 0;
-		transition: background .1s ease-in-out;	
-	}
-	.choix-jeu button span:hover{
-		background-size: 60% 60%;
-	}
-	.choix-jeu > .btn-container > button:hover{
-		opacity: 1;
-	}
-	.choix-jeu .btn-container .fight-btn{
-		top: calc(35% - 2vh);
-		left: calc(30% - 2vh);
-	}
-	.choix-jeu .btn-container .fight-btn span{
-		background-image: url('../img/trophee.ico');
-	}
-	.choix-jeu .btn-container .love-btn{
-		top: calc(35% - 2vh);
-		left: calc(70% - 2vh);
-	}
-	.choix-jeu .btn-container .love-btn span{
-		background-image: url('../img/love-icon.jpg');
-	}
-	.choix-jeu .btn-container .search-btn{
-		top: calc(50% - 2vh);
-		left: calc(50% - 2vh);
-	}
-	.choix-jeu .btn-container .search-btn span{
-		background-image: url('../img/search-icon.png');
-	}
-	.choix-jeu:hover button{
-		opacity: 0.7;
-	}	
-	.hover-title-only{
-		top: 4vh;
-		left: 0;
-		opacity: 0;
-		z-index: -10;
-		width: 100%;	
-		position: absolute;
-		transition: opacity .3s ease-in-out, transform .3s;
-		text-align: center;
-		transform: scale(0.1, 0.1);
-	}
-	.hover-title-only p{
-		font-size: 3vh;
-		display: inline-block;
-		margin: auto;
-		color: white;
-		/*font-family:  Big Noodle Titling;*/
-		/*font-family: Poster Sans Outline;*/
-		font-family: Sheldrake JNL;
-		line-height: 4vh;
-	}
-	.hover-desc-only{
-		width: 100%; 
-		height: 4vh;
-		top: 0;
-		left: 0;
-		background: #080325;
-		z-index: 99;
-		margin: 0;
-		padding:0;
-		line-height: 4vh;
-		border-radius: 0.6vh 0.6vh 0 0;	
-	}
-	.hover-desc-only p{
-		font-size: 2vh;
-		display: inline-block;
-		margin: 0 auto;
-		padding:0;
-		color: white;
-		font-family: Sheldrake JNL;
-	}
-	.choix-jeu:hover > .hover-title-only{
-		opacity: 1;
-		z-index: 1;
-		transform: scale(1, 1);
-	}
-	.choix-jeu-bf3{
-		background-image: url('../img/bf3-bg.jpg');
-	}
-	.choix-jeu-ssb{
-		background-image: url('../img/ssb-bg.jpg');
-	}
-	.choix-jeu-lol{
-		background-image: url('../img/lol-bg.jpg');
-	}
-	.choix-jeu-css{
-		background-image: url('../img/css-bg.png');
-	}
-
-	.changer-choix-container-mobile{
-	    width: 100%;
-	    padding: 1vh 0 0 0;
-	    background: #ccc;
-	}
-	.changer-choix-container-mobile > div{
-		cursor: pointer;
-	}
-	.changer-choix-container-mobile div > div{
-	    height: 0.4vh;
-	    width: 4vh;
-	    margin: 0 auto;
-	    margin-top: 0.2vh;
-	    background: white;
-	    border-radius: 1vh;
-	}
-/* ########################################### */
-
 
 /* ################## TOURNOI - CHOIX/JEU ################# */
 	.tournoi-choix-jeu{
@@ -246,22 +160,99 @@ body > .max-container > *:nth-child(n+3){
 		font-weight: 400;
 		letter-spacing: 0.3vh;
 	}
-	/*@keyframes anim-jeu-bg {
-		0%{
-			opacity: 1;
-		}
-		1%{
-			opacity: 0;
-		}
-		50%{
-			opacity: 0.5;
-		}
-		100%{
-			opacity: 1;
-		}
-	}*/
-/* ########################################################## */
+	.tournoi-container-choix-jeu{
+		height: 50vh;
+	}
+	.tournoi-container-overflow{
+		width: 100%;
+		max-width: 100vh;
+		height: 100%;
+		margin: 0 auto;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		background: rgba(120, 104, 134, 0.05);
+	}
+	.tournoi-moving-container{
+		width: 100%;
+		height: 80%;
+	}
+	.tournoi-jeu{
+		color: #fff;
+		font-family: Lato;
+		display: inline-block;
+		transition: background .2s linear;
+		padding-bottom: 2vh;
+		display: none;
+		position: absolute;
+		width: 100%; height: 100%;
+		left: 0;
+		top: 0;
+	}
+	.jeux-actif{
+		display: block;
+	}
+	.tournoi-jeu h3{
+		margin-top: 4vh; 
+		margin-left: 4vh; 
+		text-transform: uppercase;
+		border-bottom: 0.2vh groove #fff;
+		cursor: pointer;
+		transition: color .2s linear, border .2s;
+	}
+	.tournoi-jeu h3:hover{
+		color: rgba(120, 104, 134, 1);
+		border-color: rgba(120, 104, 134, 1);
+	}
+	.tournoi-jeu .tournoi-description-jeu{
+		letter-spacing: 0.3vh;
+		text-align: center;
+		margin-top: 6vh;
+		width: 90%;
+	}
+	.tournoi-jeu .tournoi-description-tournoi{
+		margin-top: 2vh;
+		margin-right: 3vh;
+	}
+	.tournoi-jeu .tournoi-description-tournoi p{
+		font-size: 2vh;
+		margin-top: 0.4vh;
+		font-style: italic;
+	}
+	.tournoi-jeu .tournoi-jeu-description-date{
+		margin-left: 2vh; 
+	}
+	.tournoi-container-choix-jeu-arrow-left,
+	.tournoi-container-choix-jeu-arrow-right{
+		top: calc(50% - 1.5vh);
+		width: 0; 
+		height: 0;
+		border-top: 3vh solid transparent;
+		border-bottom: 3vh solid transparent;
+		cursor: pointer;
+		transition: all .1s linear;
+	}
+	.tournoi-container-choix-jeu-arrow-left{
+		left: 3vh;
+		border-right:3vh solid #ccc;
+	}
+	.tournoi-container-choix-jeu-arrow-left:hover{
+		border-right-color: #201B3A;
+	}
+	.tournoi-container-choix-jeu-arrow-right{
+		right: 3vh;
+		border-left: 3vh solid #ccc;
+	}
+	.tournoi-container-choix-jeu-arrow-right:hover{
+		border-left-color: #201B3A;
+	}
 
+/* ########################################################## */
 
 
 /* ################## TOURNOI - DESCRIPTION ################# */
@@ -440,109 +431,8 @@ body > .max-container > *:nth-child(n+3){
 /* ########################################### */
 
 /* ############## NON CLASSE ################# */
-	.tournoi-separator{
-		width: 100%;
-		margin: 0 auto;
-		line-height: 12vh;
-		padding: 0;
-		display: block;
-		text-align: center;
-		background: #080325;
-		display: none;
-	}
-	.tournoi-separator div{
-		display: inline-block;
-		vertical-align: middle;
-		margin: 0 auto;
-		background: #ccc;
-	}
-	.tournoi-separator .line-sep{
-		width: 90%;
-		max-width: 15vh;
-		height: 0.4vh;
-		border-radius: 2vh;
-	}
-	.tournoi-separator .point-sep{
-		width: 0.6vh; 
-		height: 0.8vh;
-		border-radius: 100%;
-	}
-	.changer-choix-container{
-		width: 100%;
-		margin: 0 auto;
-		padding: 0;
-	}
-	.changer-choix-container ul{
-		margin: 0 auto;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-top: 0.25vh groove #fff;
-		border-bottom: 0.25vh groove #fff;
-		/*background: #201B3A;*/
-	}
-	.changer-choix-container ul li{
-		margin: 0;
-		padding: 0;
-		color: #fff;
-		background: inherit;
-		border-collapse: collapse;
-		/*border-left: 0.2vh solid #ccc;
-		border-right: 0.2vh solid #ccc;*/
-		transition: background .2s linear;
-		/*background: #201B3A;*/
-	}
-	.changer-choix-container ul li:first-child{
-		border-radius: 0 0 0 0;
-	}
-	.changer-choix-container ul li:last-child{
-		border-radius: 0 0 0 0;
-	}
-	.changer-choix-container .choix-actif{
-		/*background: #ccc;*/
-	}
-	.changer-choix-container ul li a{
-		width: 100%;
-		height: 100%;
-		padding: 3vh 4vh 3vh 4vh;
-		line-height: 6vh;
-		font-size: 2vh;
-		font-family: Lato;
-		text-transform: uppercase;
-	}
-	.changer-choix-container ul li:hover{
-		background: #ccc;
-	}
 
-	.menu-opener{
-		height: 3.2vh;
-		transition: height .2s linear;
-	}
-	.menu-opener ul{
-		margin-top: 1.7vh;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		flex-direction: column;
-		border-top: 0.2vh solid #fff;
-		border-bottom: 0.2vh solid #fff;
-		transform: scale(0, 0);
-		transition: transform .2s linear;
-		z-index: 9999;
-	}
-	.menu-opener ul li{
-		border-top: 0.2vh solid #fff;
-		border-bottom: 0.2vh solid #fff;
-		padding: 1.3vh;
-		text-transform: uppercase;
-		color: #fff;
-	}
+
 	.changer-choix-container-mobile > .menu-open{
 		height: auto;
 	}
