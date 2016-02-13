@@ -61,8 +61,7 @@ tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick, clic
 tournoiFunctionsManager.prototype.lancerChgtsClickCaroussel = function()
 {
 	$('.tournoi-choix-jeu .changer-choix-container li').each(function(index, el) {
-		// console.log(el.innerHTML);
-		if($(el).hasClass('tournoi-caroussel-li-clicked')){
+		if($(el).hasClass('tournoi-caroussel-li-clicked') && !($(el).hasClass('choix-actif'))){
 			$(el).removeClass('tournoi-caroussel-li-clicked');
 			tfm.lancerChgtsAutoCaroussel(false, index);
 		};
