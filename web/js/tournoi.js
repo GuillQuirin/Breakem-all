@@ -12,7 +12,9 @@ tournoiFunctionsManager.prototype.repertorierJeuxCaroussel = function() {
 		tmp.push($(this));
 		tmp.push(assoc_link);
 		tfm._arr[index] = tmp;
-	});	
+
+		tfm._activeArr = 0;
+	});
 };
 tournoiFunctionsManager.prototype.getNextFadeIn = function(currIndex){
 	if(currIndex === tfm._gameNumber-1 ){return 0};
@@ -20,14 +22,7 @@ tournoiFunctionsManager.prototype.getNextFadeIn = function(currIndex){
 };
 tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick) {
 	setInterval(function(){
-		var activeArr = -1;
-		for (var i = 0; i < tfm._gameNumber; i++) {
-			if (tfm._arr[i][0].hasClass('jeux-actif')) {
-				activeArr = i;
-				break;
-			};			
-		};
-		if (activeArr === -1) {return 0};
+		activeArr= tfm._activeArr;
 
 		var activ = tfm._arr[activeArr];
 		var toActiv = tfm._arr[tfm.getNextFadeIn(activeArr)];
@@ -40,7 +35,8 @@ tournoiFunctionsManager.prototype.lancerChgtsAutoCaroussel = function(tick) {
 		toActiv[1].addClass('choix-actif');
 		toActiv[0].addClass('jeux-actif');		
 			
-		tfm._activeArr = toActiv;
+		tfm._activeArr = tfm.getNextFadeIn(activeArr);
+		console.log(tfm._activeArr);
 	}, tick);
 };
 var funcMan_tournoi = new tournoiFunctionsManager();
@@ -48,5 +44,5 @@ var funcMan_tournoi = new tournoiFunctionsManager();
 
 window.onload = function(){
 	funcMan_tournoi.repertorierJeuxCaroussel();
-	funcMan_tournoi.lancerChgtsAutoCaroussel(4000);
+	funcMan_tournoi.lancerChgtsAutoCaroussel(12000);
 }
