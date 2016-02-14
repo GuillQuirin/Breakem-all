@@ -121,16 +121,16 @@
 
 	<section class="ta-center tournoi-choix-mode relative">
 		<div class="max-container">
-			<h2 class="titre2">Où seras tu ?</h2>	
+			<!-- <h2 class="titre2">Où seras tu ?</h2>	 -->
 			<div class="relative choix-offline">
 				<div class="title-container">
-					<h3>offline</h3>
+					<h3 class="titre3">offline</h3>
 				</div>
 				<img class="absolute" src="web/img/offline-mode-bg.jpg" alt="mode">
 			</div>
 			<div class="relative choix-online">
 				<div class="title-container">
-					<h3>online</h3>
+					<h3 class="titre3">online</h3>
 				</div>
 				<img class="absolute" src="web/img/online-bw-mode-bg.jpg" alt="mode">
 			</div>
@@ -144,9 +144,9 @@
 	</div>
 
 	<section class="tournoi-description ta-center">
-		<div class="max-container ta-left">
-			<h3>Break'em all - Ceci est la phrase punchline</h3>
-			<p>Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>
+		<div class="max-container ta-left relative">
+			<h3 class="titre2 ta-left">La phrase punchline</h3>
+			<p class="ta-center">Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>						
 		</div>
 	</section>
 
@@ -224,7 +224,10 @@
 	</div>
 
 	<section class="ta-center tournoi-choix-date">
-		<div class="max-container">
+		<div class="max-container relative">
+			<div class="absolute">
+				<img class="absolute" src="web/img/second-bg.jpg" alt="">
+			</div>
 			<h2 class="titre2">Tournois par date</h2>
 			<div class="tri-calendrier">
 				<div class="tri-jours">

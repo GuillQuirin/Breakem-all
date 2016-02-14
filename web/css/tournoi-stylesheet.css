@@ -149,6 +149,7 @@ body > .max-container > *:nth-child(n+3){
 		overflow: hidden;		
 		background: #080325;
 		padding-top: 10vh;
+		overflow: hidden;
 	}
 	.tournoi-choix-jeu .titre2{
 		color: #fff;
@@ -278,7 +279,7 @@ body > .max-container > *:nth-child(n+3){
 		left: -120%;
 		top: 0;
 		background: rgba(120, 104, 134, 0.5);
-		transition: left .2s linear;
+		transition: left .4s linear;
 		opacity: 0.5;
 		z-index: -1;
 	}
@@ -288,83 +289,74 @@ body > .max-container > *:nth-child(n+3){
 
 /* ########################################################## */
 
-
-/* ################## TOURNOI - DESCRIPTION ################# */
-	.tournoi-description{
-		/*background: #162658;*/
-	}
-	.tournoi-description div{
-		padding: 6vh 2vh 6vh 2vh;
-	}
-	.tournoi-description h3{
-		font-size: 2.8vh;
-		color: #fff;
-	}
-	.tournoi-description p{
-		margin-top: 3vh;
-		font-size: 2vh;
-		color: #7F191A;
-	}
-/* ######################################################### */
-
-
 /* ################ TOURNOI - MODE OFF/ON ################## */
-	.tournoi-choix-mode div.absolute{
-		width: 100%;
-		top: 4vh;
-		left: 0;
-		z-index: 2;
+	.tournoi-choix-mode .max-container{
+		min-height:100%;		
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background:
+		linear-gradient(
+			90deg,
+			rgba(120, 104, 134, 0.5) 50%, rgba(00,50,100,0.5) 50%
+		);
 	}
-	.tournoi-choix-mode .max-container > div{
-		margin: 0 auto;
+	.tournoi-choix-mode div.relative{
 		padding: 0;
 		text-align: center;
-		width: 100%;
+		width: 50%;
 		min-height: 15vh;
-		display: block;
 	    line-height: 15vh;
 	    overflow: hidden;
+	    border: 0;
+		cursor: pointer;	
 	}
-	.tournoi-choix-mode .max-container div img{
-		top: calc(-50%);
+	.tournoi-choix-mode div img{
+		top: calc(-20%);
 		left: 0;
-		opacity: 1;
+		opacity: 0.8;
 		z-index: -1;
 		transition: all .2s ease-in-out;
 		width: 100%;
 		height: auto;
 	}
 	.tournoi-choix-mode .max-container div:hover img{
-		/*opacity: 0.9;*/
-		top: calc(-60%);
+		opacity: 0.9;
+		top: calc(-25%);
 		left: calc(-5%);
 		width: 110%;
 	}
-	.choix-online{
-		border-top: 0.4vh groove #000;
-	}
-	.tournoi-choix-mode .max-container .title-container{
+	.tournoi-choix-mode .title-container{
 		width: 100%;
-		height: auto;
-		cursor: pointer;
-		line-height: 1;
+		height: 100%;
 		display: block;
-		margin-top: 6vh;
-		transition: all .2s ease-in-out;
-	}
-	.title-container > h3{
-		color: white;
-	}
-	.tournoi-choix-mode div h3{
 		text-transform: uppercase;
-		font-weight: 900;
-		font-size: 3vh;
-		transition: background .2s ease-in-out;
-	}
-	.tournoi-choix-mode .max-container .title-container:hover h3{
-		background: rgba(0, 0, 0, 0.1);
+		color: #fff;
 	}
 /* ######################################################### */
+
+
+/* ################## TOURNOI - DESCRIPTION ################# */	
+	.tournoi-description .max-container{
+		padding: 4vh 0 4vh 0;
+		color: #fff;
+	}	
+	.tournoi-description h3{
+		margin-left: 10vh;
+		word-spacing: 0.4vh;
+	}
+	.tournoi-description p{
+		margin-top: 3vh;
+		font-size: 2vh;
+		color: rgb(120, 104, 134);
+	}
+/* ######################################################### */
+
+
 
 
 /* ############### TOURNOI - CHOIX/CONSOLE ################# */
@@ -375,8 +367,27 @@ body > .max-container > *:nth-child(n+3){
 /* ############### TOURNOI - CHOIX/DATE ################# */
 	.tournoi-choix-date > .max-container{
 		/*overflow-x: scroll;*/
+		border: 2px solid red;
+		overflow: hidden;
 	}
-
+	.tournoi-choix-date .max-container > div.absolute{
+		margin: 0 auto;
+		padding: 0;
+		width: 100%;
+		height:100%;
+		z-index: -99;
+		top: 0; left: 0;
+		border: 4px solid green;
+	}
+	.tournoi-choix-date div.absolute img{
+		opacity: 1;
+		padding: 0;
+		top: 0;
+		left: 0;
+		width: 1432px;
+		height: 1076px;
+		z-index: -99;
+	}
 	.tri-calendrier{
 		margin-top: 2vh;
 	}
