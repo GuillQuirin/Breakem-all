@@ -143,10 +143,10 @@
 		<div class="line-sep"></div>
 	</div>
 
-	<section class="tournoi-description ta-center">
+	<section class="tournoi-organisertournoi ta-center">
 		<div class="max-container ta-left relative">
-			<h3 class="titre2 ta-left">La phrase punchline</h3>
-			<p class="ta-center">Break'em all sur les tournois populaires, ou affine ta recherche par mode, console ou date</p>						
+			<h3 class="titre2 ta-left">Organise ton tournoi</h3>
+			<button class="absolute tournoi-btn-creertournoi"></button>
 		</div>
 	</section>
 

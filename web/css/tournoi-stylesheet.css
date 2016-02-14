@@ -340,19 +340,34 @@ body > .max-container > *:nth-child(n+3){
 /* ######################################################### */
 
 
-/* ################## TOURNOI - DESCRIPTION ################# */	
-	.tournoi-description .max-container{
-		padding: 4vh 0 4vh 0;
+/* ################## TOURNOI - LIEN CREER TOURNOI ################# */	
+	.tournoi-organisertournoi .max-container{
+		padding: 4vh 0 8vh 0;
 		color: #fff;
 	}	
-	.tournoi-description h3{
-		margin-left: 10vh;
+	.tournoi-organisertournoi h3{
+		margin-left: 5%;
 		word-spacing: 0.4vh;
 	}
-	.tournoi-description p{
-		margin-top: 3vh;
-		font-size: 2vh;
-		color: rgb(120, 104, 134);
+	.tournoi-organisertournoi .tournoi-btn-creertournoi{
+		height: 6vh;
+		width: 15vh;
+		font-size: 2.4vh;
+		right: calc(5%);
+		bottom: 2vh;
+		position: absolute;
+		background: inherit;
+		color: #fff;
+		transition: background .4s, border .4s;
+		border: 0.4vh solid #fff;
+		cursor: pointer;
+	}
+	.tournoi-organisertournoi .tournoi-btn-creertournoi:after{
+		content: "Go!";
+	}
+	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover {
+		background: #D92B4C;
+		border-color: #D92B4C;
 	}
 /* ######################################################### */
 
