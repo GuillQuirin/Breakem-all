@@ -1,3 +1,4 @@
+
 body {
 	line-height: 1;
 	background: #201B3A;	
@@ -6,11 +7,13 @@ body {
 }
 
 body > .max-container{
-	/*border: 2px solid #fff;*/
+	/*position: relative;
+	transition: top .6s;
+	top: 0;*/
 }
 body > .max-container > *:nth-child(n+3){
 	position: relative;
-	z-index: 1;
+	z-index: 5;
 	background: #080325;
 }
 /* ################## SEPERATOR ################# */
@@ -131,8 +134,9 @@ body > .max-container > *:nth-child(n+3){
 		max-width: 150vh;
 		height: 880px;
 		z-index: 0;
+		overflow: hidden;
 	}
-	.tournoi-first-image-background img{
+	.tournoi-first-image-background > img{
 		opacity: 0.3;
 		top: 0;
 		left: 0;
@@ -145,8 +149,7 @@ body > .max-container > *:nth-child(n+3){
 	.tournoi-choix-jeu{
 		width: 100%;
 		margin: 0;
-		text-align: center;
-		overflow: hidden;		
+		text-align: center;	
 		background: #080325;
 		padding-top: 10vh;
 		overflow: hidden;
@@ -182,7 +185,7 @@ body > .max-container > *:nth-child(n+3){
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-		background: rgba(120, 104, 134, 0.05);
+		/*background: rgba(120, 104, 134, 0.05);*/
 	}
 	.tournoi-moving-container{
 		width: 100%;
@@ -267,11 +270,24 @@ body > .max-container > *:nth-child(n+3){
 		position: absolute;
 		background: inherit;		
 		color: #fff;
-		transition: all .2s linear;
-		border: 0.4vh solid #fff;
+		transition: all .2s linear;		
 		bottom: calc(13.5%);
 		cursor: pointer;
+	}
+	.tournoi-jeu .tournoi-btn-link a{
+		position: absolute;
+		transform: skew(-10deg);
+		top: 0; left: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+		border: 0.4vh solid #fff;
 		overflow: hidden;
+	}
+	.tournoi-jeu .tournoi-btn-link:before{
+		content: "join";
+		text-transform: uppercase;
+		line-height: 6.8vh;
 	}
 	.tournoi-jeu .tournoi-btn-link span.absolute{
 		width: 100%;
@@ -290,6 +306,13 @@ body > .max-container > *:nth-child(n+3){
 /* ########################################################## */
 
 /* ################ TOURNOI - MODE OFF/ON ################## */
+	.tournoi-choix-mode{
+		overflow: hidden;		
+		-moz-box-shadow: inset 0.4vh 0px 4vh 4vh #201B3A;
+		-webkit-box-shadow: inset 0.4vh 0px 4vh 4vh #201B3A;
+		-o-box-shadow: inset 0.4vh 0px 4vh 4vh #201B3A;
+		box-shadow: inset 0.4vh 0px 40vh 40vh #201B3A;
+	}
 	.tournoi-choix-mode .max-container{
 		min-height:100%;		
 		display: -webkit-flex;
@@ -299,21 +322,27 @@ body > .max-container > *:nth-child(n+3){
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background:
-		linear-gradient(
-			90deg,
-			rgba(120, 104, 134, 0.5) 50%, rgba(00,50,100,0.5) 50%
-		);
+		max-width: 160vh;
+		width: 108%;
+		position: relative;
+		left: -4%;
+		transform: skew(-8deg);	
 	}
 	.tournoi-choix-mode div.relative{
 		padding: 0;
 		text-align: center;
 		width: 50%;
-		min-height: 15vh;
-	    line-height: 15vh;
+		min-height: 25vh;
+	    line-height: 25vh;
 	    overflow: hidden;
 	    border: 0;
 		cursor: pointer;	
+	}
+	.tournoi-choix-mode div.relative:nth-child(odd) .title-container{
+		background: rgba(120, 104, 134, 0.3);
+	}
+	.tournoi-choix-mode div.relative:nth-child(even) .title-container{
+		background: rgba(0, 50, 100, 0.3);
 	}
 	.tournoi-choix-mode div img{
 		top: calc(-20%);
@@ -337,37 +366,56 @@ body > .max-container > *:nth-child(n+3){
 		text-transform: uppercase;
 		color: #fff;
 	}
+	.tournoi-choix-mode .title-container h3{
+		transform: skew(8deg);
+	}
 /* ######################################################### */
 
 
 /* ################## TOURNOI - LIEN CREER TOURNOI ################# */	
 	.tournoi-organisertournoi .max-container{
-		padding: 4vh 0 8vh 0;
+		padding: 2vh 0 2vh 0;
 		color: #fff;
-	}	
+	}
 	.tournoi-organisertournoi h3{
-		margin-left: 5%;
+		margin: 2vh 0 0 5%;
 		word-spacing: 0.4vh;
+		display: inline-block;
+		width: 70%;
 	}
 	.tournoi-organisertournoi .tournoi-btn-creertournoi{
 		height: 6vh;
 		width: 15vh;
 		font-size: 2.4vh;
-		right: calc(5%);
-		bottom: 2vh;
-		position: absolute;
+		position: relative;
 		background: inherit;
 		color: #fff;
-		transition: background .4s, border .4s;
-		border: 0.4vh solid #fff;
 		cursor: pointer;
+		display: inline-block;
+		transition: background .4s, border .4s;
 	}
-	.tournoi-organisertournoi .tournoi-btn-creertournoi:after{
+	.tournoi-organisertournoi .tournoi-btn-creertournoi:before{
 		content: "Go!";
+		line-height: 6.8vh;
 	}
-	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover {
+	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover a{
 		background: #D92B4C;
 		border-color: #D92B4C;
+	}
+	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover a:after{		
+		content: "Go!";
+		transform: skew(8deg);
+		line-height: 6vh;
+	}
+	.tournoi-organisertournoi .tournoi-btn-creertournoi a{
+		overflow: hidden;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0; top: 0;
+		border: 0.4vh solid #fff;
+		transform: skew(-8deg);
+		transition: background .4s, border .4s;
 	}
 /* ######################################################### */
 
@@ -375,14 +423,45 @@ body > .max-container > *:nth-child(n+3){
 
 
 /* ############### TOURNOI - CHOIX/CONSOLE ################# */
-
+body > .max-container > .tournoi-choix-console{
+	/*background: rgba(00,50,100,0.5) ;*/
+	/*background: rgba(120, 104, 134, 1);*/
+}
+.tournoi-choix-console{
+	color: #fff;
+}
+.tournoi-choix-console .changer-choix-container{
+	margin-top: 4vh;
+}
+.tournoi-choix-console .container-choix-jeu{
+	border: 0.2vh solid red;
+	padding: 6vh 0 10vh 0;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: skew(-6deg);
+}
+.tournoi-choix-console .container-choix-jeu .choix-jeu{
+	border: 0.2vh solid green;
+	height: 25vh;
+    width: 25vh;
+	/*display: inline-block;*/
+}
+.tournoi-choix-console .container-choix-jeu h4{
+	width: 100%;
+	bottom: -4vh;
+}
 /* ######################################################### */
 
 
 /* ############### TOURNOI - CHOIX/DATE ################# */
 	.tournoi-choix-date > .max-container{
 		/*overflow-x: scroll;*/
-		border: 2px solid red;
+		/*border: 2px solid red;*/
 		overflow: hidden;
 	}
 	.tournoi-choix-date .max-container > div.absolute{
@@ -392,7 +471,7 @@ body > .max-container > *:nth-child(n+3){
 		height:100%;
 		z-index: -99;
 		top: 0; left: 0;
-		border: 4px solid green;
+		/*border: 4px solid green;*/
 	}
 	.tournoi-choix-date div.absolute img{
 		opacity: 1;

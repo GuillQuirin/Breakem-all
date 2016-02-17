@@ -67,11 +67,15 @@ tournoiFunctionsManager.prototype.lancerChgtsClickCaroussel = function()
 		};
 	});
 };
+tournoiFunctionsManager.prototype.activateSmoothScroll = function() 
+{	
+    console.log('scroll detected');
+};
 var funcMan_tournoi = new tournoiFunctionsManager();
 
 
 
-function tournoiEventManager(){tem = this;};
+function tournoiEventManager(){tem = this; tem._oldScrollPos = 0;tem._scrolledOnce = false;};
 tournoiEventManager.prototype.associerClickEventsToLiMenuCaroussel = function() {
 
 	$('.tournoi-choix-jeu .changer-choix-container li').each(function() 
@@ -81,7 +85,43 @@ tournoiEventManager.prototype.associerClickEventsToLiMenuCaroussel = function() 
 			funcMan_tournoi.lancerChgtsClickCaroussel();
 		});
 	});
-	
+};
+tournoiEventManager.prototype.launchScrollListener = function() {
+	$( window ).scroll(function(){
+		console.log("test");
+		// var position = $('.tournoi-choix-mode').scrollTop();
+		// console.log(position);
+		var posScroll; 
+		if(tem._scrolledOnce){
+			console.log('deja scroll une fois');
+			posScroll = parseInt($('body > .max-container').css('top')); 
+		} 
+		else{
+			console.log('jamais scroll');
+			posScroll = $(window).scrollTop();
+		}
+		// var posBody = parseInt($('body > .max-container').css('top'));
+		// $(window).scrollTop(tem._oldScrollPos);
+		// $(window).scrollTo(400);
+		// $('html, body').animate({
+		// 	scrollTop:$('.tournoi-choix-date').offset().top
+		// }, 'slow');
+		// var oldHeight = parseInt($('.tournoi-first-image-background').css('height'));
+		// console.log(oldHeight);
+		console.log(posScroll);
+		if(posScroll > tem._oldScrollPos){
+			// $('body').animate({
+			// 	scrollTop:$('.tournoi-choix-date').offset().top
+			// }, 'slow');
+			$('body > .max-container').css('top', (posScroll-100).toString()+'px');
+			
+		}else{
+			$('body > .max-container').css('top', (posScroll+100).toString()+'px');
+		}
+		tem._oldScrollPos = posScroll;
+		tem._scrolledOnce = true;
+		$(window).scrollTop(0);
+	});
 };
 var eventMan_tournoi = new tournoiEventManager();
 
@@ -89,6 +129,8 @@ var eventMan_tournoi = new tournoiEventManager();
 
 window.onload = function(){
 	eventMan_tournoi.associerClickEventsToLiMenuCaroussel();
+	// eventMan_tournoi.launchScrollListener();
+
 	funcMan_tournoi.repertorierJeuxCaroussel();	
 	funcMan_tournoi.lancerChgtsAutoCaroussel(funcMan_tournoi.getTickingChangePeriod());
 }

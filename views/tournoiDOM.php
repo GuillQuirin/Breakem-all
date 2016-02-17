@@ -1,6 +1,7 @@
 <div class="max-container">
 	<div class="fixed tournoi-first-image-background">
 		<img class="absolute" src="web/img/first-bg-clair-web.jpg" alt="epic-fights">
+		
 	</div>
 	<section class="ta-center tournoi-choix-jeu">
 		<div class="max-container relative">
@@ -43,7 +44,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 						<article data-gamename="ssb" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>super smash bros</a></h3>
@@ -55,7 +56,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Seul contre tous</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 19h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 						<article data-gamename="lol" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>league of legends</a></h3>
@@ -67,7 +68,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes fixes - au choix</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 						<article data-gamename="fifa" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>fifa 16</a></h3>
@@ -79,7 +80,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 						<article data-gamename="css" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>Counter Strike Source</a></h3>
@@ -91,7 +92,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Equipes de guildes only</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 						<article data-gamename="nfs" class="tournoi-jeu relative">
 							<h3 class="ta-left titre1"><a>Need For Speed</a></h3>
@@ -103,7 +104,7 @@
 								<p class="ta-right tournoi-jeu-description-reglesEquipe">Chacun pour sa peau</p>
 								<p class="ta-left tournoi-jeu-description-date">Le 22/03/2015 - 18h00</p>
 							</div>
-							<button class="tournoi-btn-link absolute"><span class="absolute"></span><a>CheckOut</a></button>
+							<button class="tournoi-btn-link absolute"><a><span class="absolute"></span></a></button>
 						</article>
 					</div>
 				</div>
@@ -145,8 +146,8 @@
 
 	<section class="tournoi-organisertournoi ta-center">
 		<div class="max-container ta-left relative">
-			<h3 class="titre2 ta-left">Organise ton tournoi</h3>
-			<button class="absolute tournoi-btn-creertournoi"></button>
+			<h3 class="titre2 ta-left">Organise ton tournoi !</h3>
+			<button class="tournoi-btn-creertournoi relative"><a></a></button>
 		</div>
 	</section>
 
@@ -158,7 +159,7 @@
 
 	<section class="ta-center tournoi-choix-console">		
 		<div class="max-container relative">
-			<h2 class="titre2">Ta console</h2>
+			<h2 class="titre1">Ta console</h2>
 			<div class="changer-choix-container">
 				<ul>
 					<li><a>ps</a></li>
@@ -183,31 +184,25 @@
 				</div>
 			</div>
 			<div class="container-choix-jeu">				
-				<article class="choix-jeu choix-jeu-css">
-					<h4>Counter Strike Source</h4>		
-					<div class="hover-title-only"><p>Counter Strike Source</p></div>
+				<article class="choix-jeu relative choix-jeu-css">
+					<h4 class="absolute ta-center">Counter Strike Source</h4>
 					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>7 tournois à venir</p></div>
 						<button title="rechercher les prochains tournois css" class="search-btn absolute"><span class="absolute"></span></button>
 						<button title="classement css" class="fight-btn absolute"><span class="absolute"></span></button>
 						<button title="ajouter css aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
-				<article class="choix-jeu choix-jeu-actif choix-jeu-lol">
-					<h4>League Of Legends</h4>	
-					<div class="hover-title-only"><p>League Of Legends</p></div>
+				<article class="choix-jeu relative choix-jeu-lol">
+					<h4 class="absolute ta-center">League Of Legends</h4>	
 					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>8 tournois à venir</p></div>
 						<button title="rechercher les prochains tournois lol" class="search-btn absolute"><span class="absolute"></span></button>
 						<button title="classement lol" class="fight-btn absolute"><span class="absolute"></span></button>
 						<button title="ajouter lol aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
 					</div>
 				</article>
-				<article class="choix-jeu choix-jeu-bf3">
-					<h4>Battlefield3</h4>				
-					<div class="hover-title-only"><p>Battlefield3</p></div>
+				<article class="choix-jeu relative choix-jeu-bf3">
+					<h4 class="absolute ta-center">Battlefield 3</h4>
 					<div class="btn-container relative">
-						<div class="hover-desc-only absolute"><p>6 tournois à venir</p></div>
 						<button title="rechercher les prochains tournois bf3" class="search-btn absolute"><span class="absolute"></span></button>
 						<button title="classement bf3" class="fight-btn absolute"><span class="absolute"></span></button>
 						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
@@ -382,60 +377,3 @@
 		</div>
 	</section>
 </div>	
-<script>
-/*function getScrollTop(){
-    if(typeof pageYOffset!= 'undefined'){
-        //most browsers except IE before #9
-        return pageYOffset;
-    } else {
-        var B = document.body; //IE 'quirks'
-        var D = document.documentElement; //IE with doctype
-        D = (D.clientHeight) ? D : B;
-        return D.scrollTop;
-    }
-}
-
-var timeouts = [];
-var scrolling = false;
-var scroller;
-var scrollTop = getScrollTop();
-var timeMs;
-var alter = false;
-var speed = 5;
-document.addEventListener('scroll', function() {
-    if(alter) {
-        var timeDif = new Date().getMilliseconds() - timeMs;
-        speed = 5 - (timeDif / 50);
-        console.log(speed);
-    }
-    timeMs = new Date().getMilliseconds();
-    alter = !alter;
-    var scrollDirection = getScrollTop() - scrollTop;
-    scrollDirection = scrollDirection / Math.abs(scrollDirection);
-    scrollTop = getScrollTop();
-    clearTimeout(scroller);
-    scroller = setTimeout(function(){
-        console.log('smooth scrolling active');
-        if(!scrolling) {
-            timeouts.length = 0;
-            scrolling = true;
-            var steps = 50;
-            var delay = 6;
-            for(var i = 0; i < steps; i++) {
-                (function(i){
-                    var timeout = setTimeout(function(){
-                        var perc = i / steps; 
-                        var val = (perc == 1) ? 1 : (-Math.pow(2, -10 * perc) + 1); 
-                        var scrollY = val * speed * scrollDirection;
-                        window.scrollTo(0, getScrollTop() + scrollY);
-                        setTimeout(function(){
-                            if(i == (steps - 1)) scrolling = false;
-                        }, steps * delay);
-                    }, (i * delay));
-                    timeouts.push(timeout);
-                })(i);
-            }
-        }
-    }, 50);
-});*/
-</script>
