@@ -7,8 +7,6 @@
 			<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 			<link rel="stylesheet" href="web/css/general-stylesheet.css">
-			<link rel="stylesheet" href="web/css/general-tablette-stylesheet.css">
-			<link rel="stylesheet" href="web/css/general-mobile-stylesheet.css">
 			<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 		</head>
 		<body>
