@@ -114,12 +114,6 @@
 		</div>		
 	</section>
 
-	<div class="tournoi-separator">
-		<div class="line-sep"></div>
-		<div class="point-sep"></div>
-		<div class="line-sep"></div>
-	</div>
-
 	<section class="ta-center tournoi-choix-mode relative">
 		<div class="max-container">
 			<!-- <h2 class="titre2">Où seras tu ?</h2>	 -->
@@ -138,24 +132,12 @@
 		</div>		
 	</section>
 
-	<div class="tournoi-separator">
-		<div class="line-sep"></div>
-		<div class="point-sep"></div>
-		<div class="line-sep"></div>
-	</div>
-
 	<section class="tournoi-organisertournoi ta-center">
 		<div class="max-container ta-left relative">
 			<h3 class="titre2 ta-left">Organise ton tournoi !</h3>
 			<button class="tournoi-btn-creertournoi relative"><a></a></button>
 		</div>
 	</section>
-
-	<div class="tournoi-separator">
-		<div class="line-sep"></div>
-		<div class="point-sep"></div>
-		<div class="line-sep"></div>
-	</div>
 
 	<section class="ta-center tournoi-choix-console">		
 		<div class="max-container relative">
@@ -215,47 +197,44 @@
 		</div>
 	</section>
 
-	<div class="tournoi-separator">
-		<div class="line-sep"></div>
-		<div class="point-sep"></div>
-		<div class="line-sep"></div>
-	</div>
-
 	<section class="ta-center tournoi-choix-date">
 		<div class="max-container relative">
-			<div class="absolute">
+			<!-- <div class="absolute">
 				<img class="absolute" src="web/img/second-bg.jpg" alt="">
-			</div>
-			<h2 class="titre2">Tournois par date</h2>
-			<div class="tri-calendrier">
-				<div class="tri-jours">
-					<label for="jour">Jours</label>
-					<select name="jour">
-						<option selected value="none">tri par jour</option>
-						<option value="j1">jour j+1</option>
-						<option value="j2">jour j+2</option>
-						<option value="j3">jour j+3</option>
-						<option value="j4">jour j+4</option>
-						<option value="j5">jour j+5</option>
-						<option value="j6">jour j+6</option>
-					</select>
-				</div>
-				<div class="tri-semaines">
-					<label for="semaine">Semaines</label>
+			</div> -->
+			<h2 class="titre1">Tous les tournois</h2>
+			<div class="tri-input-group">
+				<div class="tri-temps">
+					<label for="semaine">Période</label>
 					<select name="semaine">
-						<option selected value="none">tri par mois</option>
-						<option value="n1">semaine n+1</option>
-						<option value="n2">semaine n+2</option>
-						<option value="n3">semaine n+3</option>
+						<option value="s1">semaine n+1</option>
+						<option value="s2">semaine n+2</option>
+						<option value="s4">semaine n+4</option>
+						<option selected value="s6">semaine n+6</option>
+						<option value="s8">semaine n+8</option>
 					</select>
 				</div>
-				<div class="tri-date-actif tri-mois">
-					<label for="mois">Mois</label>
-					<select name="mois">
-						<option value="none">tri par mois</option>
-						<option value="m1">mois m+1</option>
-						<option selected value="m2">mois m+2</option>
-						<option value="m3">mois m+3</option>
+				<div class="tri-jeu">
+					<label for="jeu">Jeu</label>
+					<select name="jeu">
+						<option class="ta-center" selected value="all">all</option>
+						<option class="ta-center" value="bf3">battlefield 3</option>
+						<option class="ta-center" value="css">counter strike source</option>
+						<option class="ta-center" value="ssb">super smash bros</option>
+						<option class="ta-center" value="lol">league of legends</option>
+					</select>
+				</div>
+				<div class="tri-console">
+					<label for="console">Période</label>
+					<select name="console">
+						<option selected value="all">all</option>
+						<option value="pc">pc</option>
+						<option value="ps3">ps3</option>
+						<option value="ps4">ps4</option>
+						<option value="xbox360">xbox360</option>
+						<option value="xboxone">xbox one</option>
+						<option value="n64">nintendo 64</option>
+						<option value="wii">wii</option>
 					</select>
 				</div>
 			</div>
@@ -379,4 +358,4 @@
 			</div>
 		</div>
 	</section>
-</div>	
+</div>
