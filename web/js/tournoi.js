@@ -75,6 +75,8 @@ var funcMan_tournoi = new tournoiFunctionsManager();
 
 
 
+
+
 function tournoiEventManager(){tem = this; tem._oldScrollPos = 0;tem._scrolledOnce = false;};
 tournoiEventManager.prototype.associerClickEventsToLiMenuCaroussel = function() {
 
@@ -123,12 +125,29 @@ tournoiEventManager.prototype.launchScrollListener = function() {
 		$(window).scrollTop(0);
 	});
 };
+tournoiEventManager.prototype.responsivMenuClickListener = function() {
+	var __this = this;
+	$('.changer-choix-container-tablette li').each(function(index, el) {
+		$(el).click(function(e) {			
+			$('.tournoi-choix-jeu .changer-choix-container li:nth-child('+(index+1)+')').trigger('click');
+		});
+	});
+};
+tournoiEventManager.prototype.responsivMenuToggleListener = function() {
+	$('.changer-choix-container-tablette').each(function() {
+		$(this).click(function(e) {
+			$(this).find('.menu-opener').toggleClass('open');
+		});
+	});
+};
 var eventMan_tournoi = new tournoiEventManager();
 
 
 
 window.onload = function(){
 	eventMan_tournoi.associerClickEventsToLiMenuCaroussel();
+	eventMan_tournoi.responsivMenuClickListener();
+	eventMan_tournoi.responsivMenuToggleListener();
 	// eventMan_tournoi.launchScrollListener();
 
 	funcMan_tournoi.repertorierJeuxCaroussel();	

@@ -16,18 +16,20 @@
 					<li data-gamename="nfs"><a>nfs</a></li>
 				</ul>
 			</div>
-			<div class="mobile-only changer-choix-container-mobile">
+			<div class="tablette-only changer-choix-container-tablette">
 				<div class="menu-opener relative">
-					<div></div>
-					<div></div>
-					<div></div>
+					<div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>					
 					<ul class="absolute">
-						<li><a>bf3</a></li>
-						<li class="choix-actif"><a>ssb</a></li>
-						<li><a>lol</a></li>
-						<li><a>fifa</a></li>
-						<li><a>css</a></li>
-						<li><a>nfs</a></li>
+						<li data-gamename="bf3"><a>bf3</a></li>
+						<li data-gamename="ssb"><a>ssb</a></li>
+						<li data-gamename="lol"><a>lol</a></li>
+						<li data-gamename="fifa"><a>fifa</a></li>
+						<li data-gamename="css"><a>css</a></li>
+						<li data-gamename="nfs"><a>nfs</a></li>
 					</ul>
 				</div>
 			</div>

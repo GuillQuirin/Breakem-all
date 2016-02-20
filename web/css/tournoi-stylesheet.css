@@ -97,35 +97,6 @@ body > .max-container > *:nth-child(n+3){
 	}
 /* ########################################### */
 
-/* ################## MENU DROPDOWN ################# */
-	.menu-opener{
-		height: 3.2vh;
-		transition: height .2s linear;
-	}
-	.menu-opener ul{
-		margin-top: 1.7vh;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		flex-direction: column;
-		border-top: 0.2vh solid #fff;
-		border-bottom: 0.2vh solid #fff;
-		transform: scale(0, 1);
-		transition: transform .2s linear;
-		z-index: 9999;
-	}
-	.menu-opener ul li{
-		border-top: 0.2vh solid #fff;
-		border-bottom: 0.2vh solid #fff;
-		padding: 1.3vh;
-		text-transform: uppercase;
-		color: #fff;
-	}
-/* ########################################### */
-
-
 
 /* ############ FIRST BACKGROUND IMAGE ############ */
 	.tournoi-first-image-background{
@@ -285,7 +256,7 @@ body > .max-container > *:nth-child(n+3){
 		overflow: hidden;
 	}
 	.tournoi-jeu .tournoi-btn-link:before{
-		content: "join";
+		content: "sign up";
 		text-transform: uppercase;
 		line-height: 6.8vh;
 	}
@@ -295,7 +266,7 @@ body > .max-container > *:nth-child(n+3){
 		left: -120%;
 		top: 0;
 		background: rgba(120, 104, 134, 0.5);
-		transition: left .4s linear;
+		transition: left .2s linear;
 		opacity: 0.5;
 		z-index: -1;
 	}
@@ -371,10 +342,9 @@ body > .max-container > *:nth-child(n+3){
 	}
 /* ######################################################### */
 
-
 /* ################## TOURNOI - LIEN CREER TOURNOI ################# */	
 	.tournoi-organisertournoi .max-container{
-		padding: 3vh 0 3vh 0;
+		padding: 3vh 0 3.5vh 0;
 		color: #fff;
 		background: #0A0012;
 	}
@@ -382,6 +352,7 @@ body > .max-container > *:nth-child(n+3){
 		margin: 2vh 0 0 5%;
 		word-spacing: 0.4vh;
 		display: inline-block;
+		vertical-align: middle;
 		width: 70%;
 	}
 	.tournoi-organisertournoi .tournoi-btn-creertournoi{
@@ -393,19 +364,15 @@ body > .max-container > *:nth-child(n+3){
 		color: #fff;
 		cursor: pointer;
 		display: inline-block;
+		vertical-align: middle;
 		transition: background .4s, border .4s;
-	}
-	.tournoi-organisertournoi .tournoi-btn-creertournoi:before{
-		content: "Go!";
-		line-height: 6.8vh;
 	}
 	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover a{
 		background: #D92B4C;
 		border-color: #D92B4C;
 	}
-	.tournoi-organisertournoi .tournoi-btn-creertournoi:hover a:after{		
+	.tournoi-organisertournoi .tournoi-btn-creertournoi a:after{		
 		content: "Go!";
-		transform: skew(8deg);
 		line-height: 6vh;
 	}
 	.tournoi-organisertournoi .tournoi-btn-creertournoi a{
@@ -419,7 +386,6 @@ body > .max-container > *:nth-child(n+3){
 		transition: background .4s, border .4s;
 	}
 /* ######################################################### */
-
 
 /* ############### TOURNOI - CHOIX/CONSOLE ################# */
 	body > .max-container > .tournoi-choix-console{
@@ -478,7 +444,7 @@ body > .max-container > *:nth-child(n+3){
 		transform: skew(6deg);
 		width: 120%;
 		left: -9%; top: -25%;
-		opacity: 0.2;
+		opacity: 0.4;
 		transition: opacity .4s;
 	}
 	.tournoi-choix-console .container-choix-jeu .choix-jeu-description{
@@ -509,7 +475,6 @@ body > .max-container > *:nth-child(n+3){
 		top: calc(50% - 2vh);
 	}
 /* ######################################################### */
-
 
 /* ############### TOURNOI - CHOIX/DATE ################# */
 	.tournoi-choix-date > .max-container{
@@ -623,14 +588,98 @@ body > .max-container > *:nth-child(n+3){
 	/* ######################################################### */
 /* ########################################### */
 
-/* ############## NON CLASSE ################# */
 
 
-	.changer-choix-container-mobile > .menu-open{
+/* ############## RESPONSIV TABLETTE ############### */
+@media screen and (max-width: 801px) {
+    .tablette-only{
+    	display: block;
+    	padding: 0;
+    	margin: 0 auto;
+    }
+    .changer-choix-container{
+    	display: none;
+    }
+    .menu-opener{
+		height: 3.2vh;
+		transition: height .2s linear;
+		padding: 0;
+	}
+	.menu-opener > div{
+		border: 0;
+		margin: 0 auto;
+		padding: 0.4vh 0 0.4vh 0;
+		display: block;
+		line-height: 3.2vh;
+    	border: 0.4vh solid #fff;
+    	cursor: pointer;
+		background: transparent;
+	}
+	.menu-opener > div:hover{
+		background: #080325;		
+	}
+	.menu-opener > div > div:first-of-type{
+		margin-top: 0;
+	}
+	.menu-opener > div > div{
+		height: 5px; width: 35px;
+		border-radius: 5px;
+		background: #fff;
+		margin: 0 auto;
+		margin-top: 5px;
+	}
+	.menu-opener ul{
+		width: 100%;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		flex-direction: column;
+		border-top: 0 solid #fff;
+		border-bottom: 0 solid #fff;
+		/*transform: scale(1, 0);*/
+		height: 0;
+		transition: all .4s linear;
+		z-index: 9999;
+		position: relative;
+		top: -5px;
+	}
+	.menu-opener ul li{
+		border-top: 0 solid #fff;
+		border-bottom: 0 solid #fff;
+		height: 0;
+		text-transform: uppercase;
+		font-size: 0;
+		color: #fff;
+		background: #201B3A;
+		transition: font-size .1s, height: .4s, background .2s ease-in-out;
+	}
+	.menu-opener ul li a{
+		padding: 0;
+		display: block;
+		transition: all .4s;
+	}
+	.open > ul{
+		/*transform: scale(1, 1);	*/
+		height: auto;
+		transition: all .2s;
+		border-top: 0.2vh solid #fff;
+		border-bottom: 0.2vh solid #fff;
+	}
+	.open > ul li{
+		border-top: 0.2vh solid #fff;
+		border-bottom: 0.2vh solid #fff;
+		font-size: 1.6vh;
 		height: auto;
 	}
-	.changer-choix-container-mobile > .menu-open > ul{
-		transform: scale(1, 1);	
+	.open > ul li:hover{
+		background: #080325;
 	}
-/* ########################################### */
-
+	.open > ul li a{
+		padding: 1.3vh;
+	}
+	.changer-choix-container-tablette > .menu-open{
+		height: auto;
+	}
+}
