@@ -465,7 +465,7 @@ body > .max-container > *:nth-child(n+3){
 
 /* ############### TOURNOI - CHOIX/DATE ################# */
 	.tournoi-choix-date > .max-container{
-		background: rgb(10, 5, 32);
+		background: #0A0012;
 		overflow: hidden;
 		padding-top: 3vh;
 		color: #fff;
