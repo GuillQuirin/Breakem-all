@@ -787,17 +787,39 @@ body > .max-container > *:nth-child(n+3){
 	}
 
 /* ############## RESPONSIV MOBILE ############### */
-	@media screen and (max-width: 481px) {   
+	@media screen and (max-width: 481px) {		
+		/* ############ FIRST BACKGROUND IMAGE ############ */
+			.tournoi-first-image-background{
+				display: none;
+			}
 		/*########## TOURNOI - CHOIX/JEU ##########*/
 			.tournoi-container-choix-jeu{
-				height: 68vh;
+				height: 55vh;
 			}
-			.tournoi-jeu .tournoi-jeu-description-mode{
-				padding-top: 4vh;
+			.tournoi-jeu .tournoi-description-jeu {
+			    margin-top: 2vh;
+			    width: 100%;
+			    height: 5vh;
+			    overflow-y: scroll;
+			}
+			.tournoi-jeu .tournoi-description-tournoi {
+			    margin-top: 0vh;
+			    margin-right: 0.4vh;
+			}
+			.tournoi-jeu h3{
+				display: inline-block;
+				margin: 0 auto;
+				margin-top: 4vh;
+				margin-bottom: 0;
+				border: none;
+			}
+			.tournoi-jeu .tournoi-jeu-description-mode,
+			.tournoi-jeu .tournoi-jeu-description-date{
+				padding: 4vh 0 0 0;
 			}
 			.tournoi-jeu .tournoi-jeu-description-date{
-				padding-top: 4vh;
-			}
+				margin-left: 0;
+ 			}
 			.tournoi-jeu .tournoi-btn-link{
 				position: relative;	
 				bottom: 0;
