@@ -183,31 +183,34 @@
 					</ul>
 				</div>
 			</div>
-			<div class="container-choix-jeu">				
-				<article class="choix-jeu relative choix-jeu-css">
-					<h4 class="absolute ta-center">Counter Strike Source</h4>
-					<div class="btn-container relative">
-						<button title="rechercher les prochains tournois css" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement css" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter css aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
-				<article class="choix-jeu relative choix-jeu-lol">
-					<h4 class="absolute ta-center">League Of Legends</h4>	
-					<div class="btn-container relative">
-						<button title="rechercher les prochains tournois lol" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement lol" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter lol aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
-				<article class="choix-jeu relative choix-jeu-bf3">
-					<h4 class="absolute ta-center">Battlefield 3</h4>
-					<div class="btn-container relative">
-						<button title="rechercher les prochains tournois bf3" class="search-btn absolute"><span class="absolute"></span></button>
-						<button title="classement bf3" class="fight-btn absolute"><span class="absolute"></span></button>
-						<button title="ajouter bf3 aux favoris" class="love-btn absolute"><span class="absolute"></span></button>
-					</div>
-				</article>
+			<div data-console="pc" class="container-choix-jeu">				
+				<div class="tournoi-choix-jeu-container relative">
+					<h4 class="absolute titre3 ta-center">Counter Strike Source</h4>
+					<article class="choix-jeu relative choix-jeu-css">
+						<img src="web/img/css-bg.png" alt="CSS" class="absolute">
+						<div class="choix-jeu-description ta-center">
+							<p class="ta-center absolute"><a>Voir les prochains tournois</a></p>
+						</div>					
+					</article>
+				</div>
+				<div class="tournoi-choix-jeu-container relative">
+					<h4 class="absolute titre3 ta-center">League Of Legends</h4>
+					<article class="choix-jeu relative choix-jeu-lol">
+						<img src="web/img/lol-bg.jpg" alt="LOL" class="absolute">	
+						<div class="choix-jeu-description ta-center">
+							<p class="ta-center absolute"><a>Voir les prochains tournois</a></p>
+						</div>
+					</article>
+				</div>
+				<div class="tournoi-choix-jeu-container relative">
+					<h4 class="absolute titre3 ta-center">Battlefield 3</h4>
+					<article class="choix-jeu relative choix-jeu-bf3">
+						<img src="web/img/bf3-bg.jpg" alt="BF3" class="absolute">
+						<div class="choix-jeu-description ta-center">
+							<p class="ta-center absolute"><a>Voir les prochains tournois</a></p>
+						</div>
+					</article>
+				</div>
 			</div>
 		</div>
 	</section>

@@ -429,12 +429,12 @@ body > .max-container > .tournoi-choix-console{
 }
 .tournoi-choix-console{
 	color: #fff;
+	overflow: hidden;
 }
 .tournoi-choix-console .changer-choix-container{
 	margin-top: 4vh;
 }
 .tournoi-choix-console .container-choix-jeu{
-	border: 0.2vh solid red;
 	padding: 6vh 0 10vh 0;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -444,16 +444,65 @@ body > .max-container > .tournoi-choix-console{
 	align-items: center;
 	justify-content: center;
 	transform: skew(-6deg);
+	width: 110%;
+	margin-left: -5%;
 }
 .tournoi-choix-console .container-choix-jeu .choix-jeu{
-	border: 0.2vh solid green;
 	height: 25vh;
     width: 25vh;
-	/*display: inline-block;*/
+    overflow: hidden;
+	-moz-box-shadow: inset 0px 0px 0px 0px rgba(120, 104, 134, .9);
+	-webkit-box-shadow: inset 0px 0px 0px 0px rgba(120, 104, 134, .9);
+	-o-box-shadow: inset 0px 0px 0px 0px rgba(120, 104, 134, .9);
+	box-shadow: inset 0px 0px 0px 0px rgba(120, 104, 134, .9);
+    transition: all .4s;
 }
+.tournoi-choix-console .container-choix-jeu .choix-jeu:hover{
+	transform: scale(1.25, 1.25);
+	-moz-box-shadow: inset 0px 0px 100px 100px rgba(120, 104, 134, .9);
+	-webkit-box-shadow: inset 0px 0px 100px 100px rgba(120, 104, 134, .9);
+	-o-box-shadow: inset 0px 0px 100px 100px rgba(120, 104, 134, .9);
+	box-shadow: inset 0px 0px 100px 100px rgba(120, 104, 134, .9);
+}
+
 .tournoi-choix-console .container-choix-jeu h4{
 	width: 100%;
-	bottom: -4vh;
+	bottom: -5vh;
+	transform: skew(6deg);
+}
+.tournoi-choix-console .container-choix-jeu img{
+	transform: skew(6deg);
+	width: 120%;
+	left: -9%; top: -15%;
+	opacity: 0.2;
+	transition: opacity .4s;
+}
+.tournoi-choix-console .container-choix-jeu .choix-jeu-description{
+	line-height: 25vh;
+	background: transparent;
+}
+.container-choix-jeu .choix-jeu-description p{
+	background: #080325;
+	width: 110%;
+	line-height: 1;
+	transform: skew(6deg);
+	left: -5%;
+	top: 0;
+	transition: top .4s;
+}
+.container-choix-jeu .choix-jeu-description p a{
+	line-height: 3vh;
+	width: 100%;
+	transition: all .2s;
+}
+.container-choix-jeu .choix-jeu-description p a:hover{
+	color: #ccc;	
+}
+.tournoi-choix-console .container-choix-jeu .choix-jeu:hover img{
+	opacity: 0.9;
+}
+.tournoi-choix-console .container-choix-jeu .choix-jeu:hover p{
+	top: calc(50% - 2vh);
 }
 /* ######################################################### */
 
