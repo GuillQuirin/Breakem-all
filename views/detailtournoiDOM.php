@@ -15,6 +15,7 @@
 			<div class="detailtournoi-tournoi-regles flex">
 				<p class="relative detailtournoi-jeu-mode">Mode:<span class="relative">Ruée par équipe<i class="absolute ta-center">jouez en équipe pour attaquer et défendre par tour des points</i></span>
 				</p>
+				<p class="relative detailtournoi-points-gagnants">À gagner : <span class="relative">120 points<i class="absolute ta-center">80% (96 points) à répartir dans l'équipe gagnante</i></span></p>
 				<p class="relative detailtournoi-jeu-console">Console: <span>PC</span></p>
 				<p class="relative detailtournoi-jeu-online">Où: <span>online</span></p>
 				<p class="relative detailtournoi-jeu-maxjoueurs">Joueurs max: <span>32 joueurs</span></p>
