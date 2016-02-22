@@ -153,3 +153,6 @@ window.onload = function(){
 	funcMan_tournoi.repertorierJeuxCaroussel();	
 	funcMan_tournoi.lancerChgtsAutoCaroussel(funcMan_tournoi.getTickingChangePeriod());
 }
+
+
+// Pour calculer et reajuster la position top de la deuxieme image, prendre en compte la taille du premier à block à CHAQUE scroll
