@@ -110,11 +110,11 @@ body {
 		opacity: 0;
 		transition: all .2s;
 	}
-	.detailtournoi-tournoi-regles p span.relative:hover i{
+	.detailtournoi-tournoi-regles p:hover span.relative i{
 		width: 25vh;
 		opacity: 1;
 	}
-	.detailtournoi-tournoi-regles p span.relative:hover i:before{
+	.detailtournoi-tournoi-regles p:hover span.relative i:before{
 		content: "\e091";
 		position: absolute;
 		left: 0.5vh; top: 2vh;
@@ -157,6 +157,12 @@ body {
 	.detailtournoi-participant-pseudo{
 		font-weight: 700;
 		letter-spacing: 1px;
+	}
+	.detailtournoi-participant-pseudo a{
+		transition: color .2s;
+	}
+	.detailtournoi-participant-pseudo a:hover{
+		color: #ccc;
 	}
 	.detailtournoi-participant-points{
 		left: 15vh;
