@@ -3,14 +3,8 @@ body {
 	line-height: 1;
 	background: #201B3A;	
 	font-family: lato, sans-serif;
-	/*background: rgba(0,0,0, 0.9);*/
 }
 
-body > .max-container{
-	/*position: relative;
-	transition: top .6s;
-	top: 0;*/
-}
 body > .max-container > *:nth-child(n+3){
 	position: relative;
 	z-index: 5;
@@ -390,8 +384,10 @@ body > .max-container > *:nth-child(n+3){
 	}
 	.tournoi-choix-console{
 		color: #fff;
-		padding-top: 4vh;
 		overflow: hidden;
+	}
+	.tournoi-choix-console .titre1{
+		padding-top: 4vh;
 	}
 	.tournoi-choix-console .changer-choix-container{
 		margin-top: 4vh;

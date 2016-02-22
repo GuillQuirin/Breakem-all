@@ -1,7 +1,6 @@
 <div class="max-container">
 	<div class="fixed tournoi-first-image-background">
 		<img class="absolute" src="web/img/first-bg-clair-web.jpg" alt="epic-fights">
-		
 	</div>
 	<section class="ta-center tournoi-choix-jeu">
 		<div class="max-container relative">
