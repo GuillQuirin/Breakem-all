@@ -108,6 +108,9 @@
 	.ta-right{
 		text-align: right;
 	}
+	.italic{
+		font-style: italic;
+	}
 	.margin-auto{
 		margin: 0 auto;
 	}
@@ -129,8 +132,23 @@
 	.titre3{
 		font-size: 2.2vh;
 	}
-
-	.test-border{
-		border: 1px solid red;
+	.uppercase{
+		text-transform: uppercase;
+	}
+	.flex-column{		
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.flex{		
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
 	}
 /* ################################ */
