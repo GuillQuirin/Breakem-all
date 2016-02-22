@@ -1,0 +1,143 @@
+@media all and (max-width: 350px){
+    #Img {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Info {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Chat {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Desc {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Last {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #List {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        top: 0px;
+        margin-left: 0px;
+    }
+
+    #Quit {
+
+    }
+
+    #Post {
+
+    }
+}
+
+@media all and (min-width: 1000px) {
+
+    header {
+        position:fixed;
+    }
+
+    body {
+        background-image:url("Image/SFTEAM.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color:white;
+    }
+
+    #Img {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        width: 200px;
+        height: 200px;
+        margin-top: 220px;
+        margin-left: 300px;
+        background-color:rgba(39, 40, 34, 0.85);
+    }
+
+    #Info {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        text-align:center;
+        vertical-align : text-top;
+        width: 600px;
+        height: 200px;
+        margin-top: -205px;
+        margin-left: 720px;
+        background-color:rgba(39, 40, 34, 0.85) ;
+
+    }
+
+    #Desc {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        width: 600px;
+        height: 200px;
+        margin-top: 100px;
+        margin-left: 475px;
+        background-color:rgba(39, 40, 34, 0.85);
+
+    }
+
+    #List {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        width: 600px;
+        height: 200px;
+        margin-top: 100px;
+        margin-left: 475px;
+        background-color:rgba(39, 40, 34, 0.85);
+
+    }
+
+    #Quit {
+        position:relative;
+        top:-70px;
+        right: 57px;
+
+    }
+
+    #Balrog{
+
+        margin-left: 400px;
+
+
+    }
+
+}

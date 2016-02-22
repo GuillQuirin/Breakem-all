@@ -1,3 +1,119 @@
-body{
-	background-color: #f0f0f0;
+@media all and (max-width: 350px){
+    #Img {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Info {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Chat {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Desc {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Last {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #List {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        top: 0px;
+        margin-left: 0px;
+    }
+
+    #Quit {
+
+    }
+
+    #Post {
+
+    }
+}
+
+@media all and (min-width: 1000px) {
+
+    #Img {
+        border: solid;
+        width: 200px;
+        height: 200px;
+        margin-top: 0px;
+        margin-left: 300px;
+    }
+
+    #Info {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Chat {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Desc {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Last {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #List {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        top: 0px;
+        margin-left: 0px;
+    }
+
+    #Quit {
+
+    }
+
+    #Post {
+
+    }
+
 }
