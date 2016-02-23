@@ -216,13 +216,33 @@ body {
 
 /* ################## BRACKET TOURNOI ################### */
 	.detailtournoi-bracket{
+	/*	width: 90%;
+		margin: 0 auto;
+		margin-top: 4vh;*/
+	}
+
+	.detailtournoi-bracket h2{
+		/*padding-bottom: 1vh;
+		border-bottom: 1px solid #fff;
+		display: inline-block;*/
+	}
+
+/* ################## COMMENTAIRES #################### */
+	.detailtournoi-commentaires{
 		width: 90%;
 		margin: 0 auto;
 		margin-top: 4vh;
 	}
-
-	.detailtournoi-bracket h2{
+	.detailtournoi-commentaires h2{
 		padding-bottom: 1vh;
 		border-bottom: 1px solid #fff;
 		display: inline-block;
+	}
+	.detailtournoi-container-commentaires{
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 2vh;
+		background: #fff;
+		border: 5px solid #0A0012;
+		max-height: ;
 	}
