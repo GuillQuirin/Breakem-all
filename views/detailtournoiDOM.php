@@ -119,7 +119,7 @@
 		<h2 class='titre2'>Commentaires</h2>
 		<div class="detailtournoi-container-commentaires">
 			<div class="relative detailtournoi-commentaire">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>16/02 09:08</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -130,7 +130,7 @@
 				</div>
 			</div>
 			<div class="relative detailtournoi-commentaire">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>Lun 02:00</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -141,7 +141,7 @@
 				</div>
 			</div>
 			<div class="relative detailtournoi-commentaire">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>Lun 03:12</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -152,7 +152,7 @@
 				</div>
 			</div>
 			<div class="relative detailtournoi-commentaire">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>Lun 03:17</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -163,7 +163,7 @@
 				</div>
 			</div>
 			<div class="relative detailtournoi-commentaire detailtournoi-commentaire-current-user">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>Mar 19:17</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -174,7 +174,7 @@
 				</div>
 			</div>
 			<div class="relative detailtournoi-commentaire">
-				<div>
+				<div class="detailtournoi-commentaire-date italic ta-right">
 					<h5>Mar 20:12</h5>
 				</div>
 				<div class="detailtournoi-commentaire-pseudo">
@@ -188,7 +188,7 @@
 		<div class="detailtournoi-container-post-commentaire">
 			<div class="detailtournoi-post-container">
 				<form  method="post">
-					<textarea name="commentaire-post" cols="30" rows="10" placeholder"Votre message ici"></textarea>
+					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici"></textarea>
 					<input type="submit" value="" hidden>
 				</form>
 			</div>
