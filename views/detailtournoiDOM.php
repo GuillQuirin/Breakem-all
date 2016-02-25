@@ -24,7 +24,8 @@
 				<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: <span>fixes - random</span></p>
 				<p class="relative detailtournoi-jeu-date">Quand : <span>Le 22/03/2015 - 18h00</span></p>
 				<p class="relative detailtournoi-jeu-organisateur">Orga : <span>Pseudo</span></p>
-			</div>			
+			</div>
+			<button class="tablette-only detailtournoi-btn-inscription relative"><a></a></button>	
 		</article>
 	</section>
 	<section class="detailtournoi-participants">
@@ -188,7 +189,7 @@
 		<div class="detailtournoi-container-post-commentaire">
 			<div class="detailtournoi-post-container">
 				<form  method="post">
-					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici"></textarea>
+					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici.."></textarea>
 					<input type="submit" value="" hidden>
 				</form>
 			</div>

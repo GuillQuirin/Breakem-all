@@ -46,6 +46,9 @@ body {
 		margin: 0 auto;
 		margin-top: 2vh;
 	}
+	.detailtournoi-infos .tablette-only{
+		display: none;
+	}
 	
 	.detailtournoi-infos .detailtournoi-btn-inscription a{
 		overflow: hidden;
@@ -270,12 +273,12 @@ body {
 		color: #201B3A;
 	}
 	.detailtournoi-commentaire-pseudo{
-		color: #0A0012;
+		color: #201B3A;
 		font-weight: 700;
 		display: inline-block;
 	}
 	.detailtournoi-commentaire-pseudo a:hover{
-		color: #201B3A;
+		color: #0A0012;
 	}
 	.detailtournoi-commentaire-userpick{
 		margin: 0 auto;
@@ -344,4 +347,161 @@ body {
 	.detailtournoi-container-post-commentaire textarea:focus::-webkit-input-placeholder{
 		letter-spacing: 1px;
 		line-height: 50px;
+	}
+
+
+
+/* ############## RESPONSIV TABLETTE(855px) ############### */
+	@media screen and (max-width: 855px) {
+	    /* ################## INFOS PRINCIPALES TOURNOI ################### */
+			.detailtournoi-tournoi-regles p span.relative i{
+				top: 2vh; left: -2vh;
+				background: #D92B4C;
+				z-index: 2;
+				border-radius: 5px;
+				display: block;
+				width: 0vh;
+				height: auto;
+				padding: 3vh 2vh 2vh 2vh;
+				overflow: hidden;
+				opacity: 0;
+				transition: all .2s;
+			}
+			.detailtournoi-tournoi-regles p:hover span.relative i{
+				width: 100%;
+			}
+			.detailtournoi-tournoi-regles p:hover span.relative i:before{
+				content: "\e093";
+				text-align: center;
+				width: 100%;
+				display: block;
+				position: absolute;
+				top: 0.5vh;
+				left: 0;
+				font-family: symbols-html;
+			}
+	}
+
+
+/* ############## RESPONSIV TABLETTE(801px) ############### */
+	@media screen and (max-width: 801px) {
+		/* ################## INFOS PRINCIPALES TOURNOI ################### */
+			.detailtournoi-infos{
+				align-items: top;
+				justify-content: center;
+				flex-direction: column;
+			}
+			.detailtournoi-infos article,
+			.detailtournoi-infos aside{
+				padding: 0 0 0 0;
+				width: 90%;
+			}
+			.detailtournoi-infos aside{
+				display: none;
+			}
+			.detailtournoi-infos article h3{
+				margin-top: 2vh;
+				display: inline-block;
+				border-bottom: 1px solid #fff;
+				padding-bottom: 2vh;
+			}
+			.detailtournoi-infos article .tablette-only{
+				display: block;
+			}
+
+		/* ################## JOUEURS PARTICIPANTS ################### */
+			.detailtournoi-participants{
+				margin-top: 8vh;
+			}
+			.detailtournoi-participants h2{
+				padding-bottom: 1vh;
+				border-bottom: 1px solid #fff;
+				display: inline-block;
+			}
+			.detailtournoi-participant-points{
+				left: 15vh;
+				top: calc(50% - .75vh);
+			}
+			.detailtournoi-participant-points:after{
+				content: " points";
+			}
+			.detailtournoi-stats-joueur{
+				display: inline-block;
+				left: -50vh;
+				top: 4vh;
+				background: #080325;
+			}
+			.detailtournoi-participant:nth-child(even) .detailtournoi-stats-joueur{
+				background: #201B3A;
+			}
+			.detailtournoi-participant:hover .detailtournoi-stats-joueur{
+				height: 2vh;
+				width: auto;
+				text-align: center;
+				left: 2vh;
+			}
+		
+		/* ################## COMMENTAIRES ################### */
+			.detailtournoi-container-commentaires{
+				padding: 0;
+			}
+			div.detailtournoi-container-commentaires > div.detailtournoi-commentaire{
+				border: 0;
+				margin: 0 auto;
+				margin-top: 2vh;
+				width: 90%;
+				padding: 2%;
+			}
+		
+	}
+
+/* ############## RESPONSIV MOBILE(401px) ############### */
+	@media screen and (max-width: 481px) {				
+			.detailtournoi-tournoi-regles p{
+				border-top: 1px solid #fff;
+				padding: 2vh 1vh 2vh 1vh;
+				display: block;
+			}
+			.detailtournoi-tournoi-regles span{
+				display: inline-block;
+				position: absolute;
+				left: 14vh;
+			}
+			.detailtournoi-tournoi-regles p span.relative i{
+				display: none;
+			}
+
+
+			.detailtournoi-participants{
+				background: rgba(28, 37, 58, 0.85);
+				width: 100%;
+			}
+			.detailtournoi-participants h2{
+				padding-bottom: 1.2vh;
+				display: block;
+				text-align: center;
+			}
+
+
+			.detailtournoi-liste-participants{	
+				width: 95%;
+				margin: 0 auto;
+				margin-top: 2.5vh;
+				max-height: 50vh;
+				overflow-y: scroll;
+			}
+			.detailtournoi-participant-points{
+				left: 2.5vh;
+				top: calc(100% - 2vh);
+			}
+			.detailtournoi-stats-joueur{
+				display: none;
+			}
+
+			.detailtournoi-commentaires h2{
+				padding-bottom: 1vh;
+				border-bottom: 1px solid #fff;
+				display: block;
+				text-align: center;
+			}
 	}
