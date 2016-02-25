@@ -28,7 +28,7 @@
 			<button class="tablette-only detailtournoi-btn-inscription relative"><a></a></button>	
 		</article>
 	</section>
-	<section class="detailtournoi-participants">
+	<section class="detailtournoi-participants flex-row">
 		<h2 class="titre2">Participants <span class="detailtournoi-nombre-participants">(16)</span></h2>
 		<div class="flex detailtournoi-liste-participants">
 			<div class="detailtournoi-participant relative flex">
@@ -116,7 +116,7 @@
 	<!-- <section class="detailtournoi-bracket">
 		<h2 class="titre2">Resultats des rounds - Bracket</h2>
 	</section> -->
-	<section class="detailtournoi-commentaires">
+	<section class="detailtournoi-commentaires flex-row">
 		<h2 class='titre2'>Commentaires</h2>
 		<div class="detailtournoi-container-commentaires">
 			<div class="relative detailtournoi-commentaire">
@@ -189,7 +189,7 @@
 		<div class="detailtournoi-container-post-commentaire">
 			<div class="detailtournoi-post-container">
 				<form  method="post">
-					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici.."></textarea>
+					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici.." maxlength="255"></textarea>
 					<input type="submit" value="" hidden>
 				</form>
 			</div>
