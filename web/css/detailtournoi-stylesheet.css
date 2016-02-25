@@ -11,6 +11,7 @@ body {
 		margin-top: 15vh;
 		align-items: center;
 		justify-content: center;
+		background: rgba(255, 255, 255, 0.05);
 	}
 	.detailtournoi-infos article,
 	.detailtournoi-infos aside{
@@ -129,9 +130,12 @@ body {
 
 /* ################## JOUEURS PARTICIPANTS ################### */
 	.detailtournoi-participants{
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 		margin-top: 4vh;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		background: rgba(28, 37, 58, 0.85);
 	}
 	.detailtournoi-participants h2{
 		padding-bottom: 1vh;
@@ -232,10 +236,12 @@ body {
 
 /* ################## COMMENTAIRES #################### */
 	.detailtournoi-commentaires{
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 		margin-top: 4vh;
-		padding-bottom: 10vh;
+		padding-top: 4vh;
+		padding-bottom: 4vh;
+		background: rgba(255, 255, 255, 0.05);
 	}
 	.detailtournoi-commentaires h2{
 		padding-bottom: 1vh;
@@ -390,6 +396,7 @@ body {
 				align-items: top;
 				justify-content: center;
 				flex-direction: column;
+				padding-bottom: 4vh;
 			}
 			.detailtournoi-infos article,
 			.detailtournoi-infos aside{
