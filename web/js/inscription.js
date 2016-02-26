@@ -1,16 +1,16 @@
 if($(window).width()>=1000){
 	/*animation sur écran de bureau*/
-	$("#content").mouseenter(function(){
-		$("#left").animate({
-		    left: 0,
-		  }, 1000, function() {});
-	});			
+	// $("#content").mouseenter(function(){
+	// 	$("#left").animate({
+	// 	    left: 0,
+	// 	  }, 1000, function() {});
+	// });			
 
-	$("#content").mouseleave(function(){
-		$("#left").animate({
-		    left: '-26%',
-		  }, 1000, function() {});
-	});	
+	// $("#content").mouseleave(function(){
+	// 	$("#left").animate({
+	// 	    left: '-26%',
+	// 	  }, 1000, function() {});
+	// });	
 }
 
 

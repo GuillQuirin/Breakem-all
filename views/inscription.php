@@ -26,7 +26,7 @@
 		<form action="inscription.html" method="POST">
 			<div id="inscr_coord">
 					<p><!--[if IE 9]>Pseudo:<![endif]-->
-						<input id="insc_pseudo" type="text" placeholder="Pseudo" required>
+						<input id="insc_pseudo" type="text" placeholder="Pseudo" autofocus required>
 						<span class="bullecontent">Ce pseudo est déjà utilisé.</span>
 					</p>
 					<p><!--[if IE 9]>Adresse e-mail:<![endif]-->
