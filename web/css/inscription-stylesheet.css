@@ -12,8 +12,6 @@ section{
 	    background-repeat: no-repeat;
 	    background-position: top center;
 	    background-color: black;
-	    display: -webkit-flex;
-	    display: flex;
 	}
 	#trophee{
 		height: 150px;
@@ -28,7 +26,7 @@ section{
 		animation: rotation 3s infinite;
 	}
 	#entete>p{
-	    width: 15%;
+	    width: 20%;
 	    position: absolute;
 	    left: 44%;
 	    top: 40%;
@@ -108,7 +106,7 @@ section{
 	#inscr_coord{
 		padding: 0 5%;
 	}
-	#inscr_coord p{
+	#inscr_coord p:not(#naissance){
 	    margin: 40px 0;
 	    font-size: 17px;
 	    position: relative;
@@ -118,7 +116,7 @@ section{
 	    width: 50%;
 	    position: absolute;
 	    font-size: 15px;
-	    left: 135px;
+	    left: 35%;
 	    height: 30px;
 	    transition: width 1s, font-size 2s;
 	}
@@ -130,47 +128,10 @@ section{
 		font-weight: bold;
 		font-style: italic;
 	}
-	.cb-slideshow,
-	.cb-slideshow:after {
-	    position: absolute;
-	    width: 100%;
-	    height: 100%;
-	    top: 0;
-	    left: 0;
-	    z-index: 0;
-	}
-	.cb-slideshow li span {
-		width: 100%;
-	    height: 80%;
-	    position: absolute;
-	    top: 50px;
-	    left: 0;
-	    color: transparent;
-	    background-size: cover;
-	    background-position: 0 0;
-	    background-position-x: 0;
-	    background-position-y: 0;
-	    background-repeat: no-repeat;
-	    opacity: 0;
-	    z-index: 0;
-	    animation: imageAnimation 18s linear infinite 0s;
-	}
 
-	.cb-slideshow li:nth-child(1) span { 
-		background-image: url(../img/bf3.jpg) 
-	}
-	.cb-slideshow li:nth-child(2) span {
-	    background-image: url(../img/ac.jpg);
-	    animation-delay: 6s;
-	}
-	.cb-slideshow li:nth-child(3) span {
-	    background-image: url(../img/oot.jpg);
-	    animation-delay: 12s;
-	}
-
-	 .bullecontent {
+	.bullecontent {
 	    position: absolute;
-	    width: 30%;
+	    width: 35%;
 	    line-height: 30px;
 	    background-color: black;
 	    color: #fff;
@@ -182,8 +143,13 @@ section{
 	    padding-left: 10px;
 	    opacity: 0;
 	}
-
 	#naissance{
+		margin-top: 60px;
+		font-size: 17px;
+	    position: relative;
+	    height: 15px;
+	}
+	#naissance span{
 	    display: inline-block;
 	    text-align: center;
 	    width: 50%;
@@ -224,19 +190,122 @@ section{
 		border-top: 1px solid;
 	}
 
+/*DIAPORAMA BACKGROUND*/
+	.cb-slideshow,
+	.cb-slideshow:after {
+	    position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    z-index: 0;
+	}
+	.cb-slideshow li span {
+		width: 100%;
+	    height: 80%;
+	    position: absolute;
+	    top: 50px;
+	    left: 0;
+	    color: transparent;
+	    background-size: cover;
+	    background-position: 0 0;
+	    background-position-x: 0;
+	    background-position-y: 0;
+	    background-repeat: no-repeat;
+	    opacity: 0;
+	    z-index: 0;
+	    animation: imageAnimation 18s linear infinite 0s;
+	}
+
+	.cb-slideshow li:nth-child(1) span { 
+		background-image: url(../img/bf3.jpg) 
+	}
+	.cb-slideshow li:nth-child(2) span {
+	    background-image: url(../img/ac.jpg);
+	    animation-delay: 6s;
+	}
+	.cb-slideshow li:nth-child(3) span {
+	    background-image: url(../img/oot.jpg);
+	    animation-delay: 12s;
+	}
+
 /*MEDIA QUERIES*/
 
-@media all and (min-width: 1000px){
-
-}
-
 @media all and (min-width: 600px) and (max-width:1000px){
-
+	#entete{
+	    position: relative;
+	    height: 25vh;
+	    background-image: url("../img/ryuken.jpg");
+	    background-size: 80% 120%;
+	    background-repeat: no-repeat;
+	    background-position: top center;
+	    background-color: black;
+	}
+	.cb-slideshow, .cb-slideshow:after {
+	    position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    z-index: 0;
+	}
+	#left {
+	    width: 97%;/*Difference avec la valeur du left*/
+	    height: 10%;
+	    position: absolute;
+	    z-index: 1;
+	    left: 3%;
+	}
+	#left p {
+	    float: left;
+	    position: relative;
+	    width: 31%;
+   		margin: 0;
+	    padding-left: 0;
+	    border: 1px solid black;
+	    text-align: center;
+		line-height: 200%;
+	    height: 70px;
+		background: linear-gradient(#D1CFCF, #565555);
+   		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.74), 10px 17px 50px 0 rgba(177, 177, 177, 0.74);
+	}
+	#left img{
+		left: 10px;
+   		bottom: 10px;
+   		top:unset;
+   		right: unset;
+	}
+	#right {
+	    width: 80%;
+	    display: block;
+	    border: 1px solid black;
+	    color: black;
+	    position: absolute;
+	    top: 23%;
+	    background-color: rgba(255, 255, 255, 0.78);
+	    left: 10%;
+	    margin-top:0; 
+	}
+	#inscr_coord>p>input, #naissance span{
+	    width: 50%;
+	    position: absolute;
+	    font-size: 15px;
+	    left: 30%;
+	    height: 30px;
+	    transition: width 1s, font-size 2s;
+	}
+	.bullecontent {
+	    width: 30%;
+	}
+	#inscr_cgu {
+	    font-size: 12px;
+	    width: 90%;
+	    margin: 0 auto;
+	    text-align: center;
+	}
 }
 
-@media all and (max-width: 600px){
 
-}
 
 /* KEYFRAME */
 

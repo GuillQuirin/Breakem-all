@@ -41,8 +41,8 @@
 						<input id="conf_insc_pwd" type="password" placeholder="Confirmation du mot de passe" class="bulle" required>
 						<span class="bullecontent">Les 2 mots de passe doivent être similaires</span>
 					</p>
-					<p>Date de naissance:
-						<span id="naissance">
+					<p id="naissance">Date de naissance:
+						<span>
 							<input type="number" name="day"   placeholder="dd" min="1" max="31">
 							<input type="number" name="month" placeholder="mm" min="1" max="12">
 							<input type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
