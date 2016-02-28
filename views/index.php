@@ -15,7 +15,7 @@
 <section id="section_inscrip">
 	<div id="slider">
 		<img src="web/img/hereos.png" />
-  		<img src="web/img/bowser.png" />
+  		<img src="web/img/battlefield.png" />
   		<img src="web/img/link.jpg" />
   		<img src="web/img/lol.jpg" />
 	</div>
