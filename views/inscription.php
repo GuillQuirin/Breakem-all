@@ -55,6 +55,3 @@
 		</form>
 	</div>
 </section>
-<section id="bas">
-
-</section>
