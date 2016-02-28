@@ -43,17 +43,40 @@
 
 <section id="section_liste_tournoi">
 	<article id="liste_tournoi">
-		<div class="tournoi_accueil">
-			<div class="border_img_tournoi">
-				<span class="helper"></span>
+		<div class="tournoi">
+			<div class="img_tournoi">
 				<img src="web/img/mk.jpg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
 			</div>
-			<div class="descrip_tournoi">
-				<div class="descrip_icon">
-					
+			<div id="description">
+				<div class="name_tournoi">
+					<a href="#">Mario Kart 8</a>
+					<span>, Jeudi 10 Mars 2016 </span>
 				</div>
-				<h4> Tournoi Mario Kart </h4>,Mardi 09 Février 2016
-				<p>  </p>
+				<div class="nb_inscrit">
+					<p> 12/24 Joueurs inscrits / 12 Joueurs minimum / Inscription ouverte</p>
+				</div>
+				<div class="descrip_tournoi">
+					<p> Venez affronter des adversaires venues des quatres coins du monde. Qui va remporte la merveilleuse coupe ? </p>
+					<a href="#" class="float_right">En savoir plus...</a>
+				</div>
+			</div>
+		</div>
+		<div class="tournoi">
+			<div class="img_tournoi">
+				<img src="web/img/lol_tournoi.png" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
+			</div>
+			<div id="description">
+				<div class="name_tournoi">
+					<a href="#"> League Of Legends</a>
+					<span>, Mardi 25 Février 2016 </span>
+				</div>
+				<div class="nb_inscrit">
+					<p> 10/10 Equipes inscrites / 5 Equipes minimum / Résultat</p>
+				</div>
+				<div class="descrip_tournoi">
+					<p> Super tournoi affrontant l'équipe des BrasCasser contre Les Boufbollers Masqués ! Retourner voir ce live magnifique.. </p>
+					<a href="#" class="float_right">En savoir plus...</a>
+				</div>
 			</div>
 		</div>
 	</article>
