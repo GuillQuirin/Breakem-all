@@ -63,7 +63,43 @@
 		</div>
 		<div class="tournoi">
 			<div class="img_tournoi">
-				<img src="web/img/lol_tournoi.png" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
+				<img src="web/img/lol_tournoi.png" alt="League Of Legends" title="League Of Legends" class="img_tournoi">
+			</div>
+			<div id="description">
+				<div class="name_tournoi">
+					<a href="#"> League Of Legends</a>
+					<span>, Mardi 25 Février 2016 </span>
+				</div>
+				<div class="nb_inscrit">
+					<p> 10/10 Equipes inscrites / 5 Equipes minimum / Résultat</p>
+				</div>
+				<div class="descrip_tournoi">
+					<p> Super tournoi affrontant l'équipe des BrasCasser contre Les Boufbollers Masqués ! Retourner voir ce live magnifique.. </p>
+					<a href="#" class="float_right">En savoir plus...</a>
+				</div>
+			</div>
+		</div>
+		<div class="tournoi">
+			<div class="img_tournoi">
+				<img src="web/img/heroes-of.jpg" alt="Hereos of the Storm" title="Hereos of the Storm" class="img_tournoi">
+			</div>
+			<div id="description">
+				<div class="name_tournoi">
+					<a href="#"> Hereos of the Storm</a>
+					<span>, Mardi 25 Février 2016 </span>
+				</div>
+				<div class="nb_inscrit">
+					<p> 10/10 Equipes inscrites / 5 Equipes minimum / Résultat</p>
+				</div>
+				<div class="descrip_tournoi">
+					<p> Super tournoi affrontant l'équipe des BrasCasser contre Les Boufbollers Masqués ! Retourner voir ce live magnifique.. </p>
+					<a href="#" class="float_right">En savoir plus...</a>
+				</div>
+			</div>
+		</div>
+		<div class="tournoi">
+			<div class="img_tournoi">
+				<img src="web/img/rocket.jpeg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
 			</div>
 			<div id="description">
 				<div class="name_tournoi">
