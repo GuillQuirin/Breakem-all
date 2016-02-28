@@ -86,13 +86,13 @@
 			<div id="description">
 				<div class="name_tournoi">
 					<a href="#"> Hereos of the Storm</a>
-					<span>, Mardi 25 Février 2016 </span>
+					<span>, Mardi 22 Mars 2016 </span>
 				</div>
 				<div class="nb_inscrit">
-					<p> 10/10 Equipes inscrites / 5 Equipes minimum / Résultat</p>
+					<p> 15/20 Equipes inscrites / 10 Equipes minimum / En cours</p>
 				</div>
 				<div class="descrip_tournoi">
-					<p> Super tournoi affrontant l'équipe des BrasCasser contre Les Boufbollers Masqués ! Retourner voir ce live magnifique.. </p>
+					<p> Un combat acherné entre des équipes qui veulent gagner ! </p>
 					<a href="#" class="float_right">En savoir plus...</a>
 				</div>
 			</div>
@@ -103,14 +103,14 @@
 			</div>
 			<div id="description">
 				<div class="name_tournoi">
-					<a href="#"> League Of Legends</a>
+					<a href="#"> Rocket League</a>
 					<span>, Mardi 25 Février 2016 </span>
 				</div>
 				<div class="nb_inscrit">
-					<p> 10/10 Equipes inscrites / 5 Equipes minimum / Résultat</p>
+					<p> 5/10 Joueurs inscris / 5 Joueurs minimum / Inscription</p>
 				</div>
 				<div class="descrip_tournoi">
-					<p> Super tournoi affrontant l'équipe des BrasCasser contre Les Boufbollers Masqués ! Retourner voir ce live magnifique.. </p>
+					<p> Débutant sur Rocket League ? Tu veux apprendre de nouvelle technique ? Vien jouer avec des maîtres du ballon, il t'expliqueront tout ce que tu as a savoir. Secret à la clé ! </p>
 					<a href="#" class="float_right">En savoir plus...</a>
 				</div>
 			</div>
