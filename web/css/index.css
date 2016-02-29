@@ -14,6 +14,31 @@ hr{
     display: inline-block;
     margin-top:15px;
 }
+@media screen and (max-width: 930px){
+    #header_right{
+        display:none;
+    }
+    #nom_site{
+        text-align:center;
+        width:100%;
+    }
+    .tournoi{
+        width:500px;
+        height:160px;
+        margin:0 auto;
+        margin-top:20px;
+        color:white;
+        border:1px  solid white;
+        background-color: #0a0019;
+    }
+    #liste_tournoi{
+        border:2px solid white;
+        width:800px;
+        margin:0 auto;
+        height:750px;
+    }
+
+}
 .bouton{
     background-color:black;
     color:#bfbdbd;

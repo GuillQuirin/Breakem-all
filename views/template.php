@@ -11,9 +11,13 @@
 	<body>
 
 		<header>
+			<div id="symbol" class="hide">
+				<span class="symbol">&#9776</span>
+			</div>
 			<div id="logo">
 				<img src="web/img/logo.png" class="logo">
 			</div>
+
 			
 			<nav id="menu" >
 				<ul>

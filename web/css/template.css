@@ -9,16 +9,41 @@ header{
     background-color: #272822;
     width:100%;
 }
-@media screen and (max-width: 930px){
-    .logo{
-        margin-left:-20px;
+@media screen and (min-width: 931px){
+    .hide{
+        display:none;
     }
-    #menu li a {
-        padding:10px;
-        color:red;
+    .logo{
+        margin-top:20px;
     }
 }
+@media screen and (max-width: 930px){
+    #menu ul li{
+        display:none;
+    }
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:20px;
+    }
 
+}
+@media screen and (max-width:480px) {
+    #slider{
+        display:none;
+    }
+}
 #logo{
     width:100px;
     margin:0 auto;
@@ -26,7 +51,6 @@ header{
 .logo{
 	position:fixed;
 	z-index:3;
-	margin-top:20px;
 }
 
 #menu{
