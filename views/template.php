@@ -18,7 +18,11 @@
 
 		<header>
 			<div id="symbol" class="hide">
+<<<<<<< HEAD
 				<span class="symbol" id="menu_icon">&#9776</span>
+=======
+				<span class="symbol">&#9776</span>
+>>>>>>> 4ddc260ace4c8b21d3f96a604562447d099e14e0
 			</div>
 			<div id="logo">
 				<img src="web/img/logo.png" class="logo">
