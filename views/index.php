@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="web/css/index.css" media="screen">
-
 <div id="header">
 	<div id="header_width">
 		<div id="nom_site">

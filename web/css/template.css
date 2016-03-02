@@ -6,19 +6,15 @@ body{
 }
 
 header{
-    background-color: #272822;
+    background-color: #0a0019;
     width:100%;
-}
-@media screen and (max-width: 930px){
-    .logo{
-        margin-left:-20px;
-    }
-    #menu li a {
-        padding:10px;
-        color:red;
-    }
-}
-
+    height:50px;
+    position:fixed;
+    z-index:999;
+    top:0;
+    border-bottom: 1px solid white;  
+ }
+ #content{margin-top:50px;}
 #logo{
     width:100px;
     margin:0 auto;
@@ -26,16 +22,22 @@ header{
 .logo{
 	position:fixed;
 	z-index:3;
-	margin-top:20px;
 }
 
 #menu{
     width:100%;
     background-color: #0a0019;
-    position:fixed;
     text-align: center;
     height:auto;
     z-index:2;
+}
+
+#menu2{
+    text-align: center;
+    z-index:2;
+    padding-top:20px;
+    min-height:30px;
+    display:none;
 }
 
 #menu ul {
@@ -66,7 +68,9 @@ header{
     height:15px;
 
 }
-#menu li a:hover {
+
+
+#menu li a:hover, #menu2 li a:hover {
     color:#fff;
 }
 #menu ul li ul {
@@ -92,3 +96,72 @@ header{
     bottom:0px;
 }
 
+@media screen and (min-width: 981px){
+    .hide{
+        display:none;
+    }
+    .logo{
+        margin-top:20px;
+    }
+}
+
+
+@media screen and (max-width: 980px){
+#menu_icon{cursor:pointer;}
+#menu ul{float:left;}
+#menu{display:none;}
+#menu2{display:block;width:150px;}
+#menu2  ul {
+    list-style-type:none;
+    text-align:left;
+    width:150px;
+    display:none;
+    background-color: #0a0019;
+        }
+#menu2 > ul > li {width:100px;}
+#menu2 > ul > li a{
+display:block;
+    width:100px;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    text-transform: uppercase;
+    font-family: 'helvetica';
+    color:#bfbdbd;
+    font-size: 14px;
+    position: relative;
+    height:15px;
+
+}
+#menu2 > ul > li > ul{display:none;}
+#menu2 > ul > li:hover > ul{
+    display:block;
+    margin-left:100px;
+    position:absolute;
+    margin-top:-45px;
+    background-color:#0a0019;
+    }
+
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:150px;
+    }
+
+}
+@media screen and (max-width:480px) {
+    #slider{
+        display:none;
+    }
+}

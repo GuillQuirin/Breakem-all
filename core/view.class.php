@@ -1,25 +1,22 @@
 <?php
-class view{
+
+class View{
+
 	protected $data = [];
 	protected $view;
 	protected $template;
 
 	public function setView($view, $layout="template"){
-		//$vieux = indexIndex (grâce au indexController.class.php)
-		//Vérification des fichiers de View comme pour l'autoloader
 		$path_view = "views/".$view.".php";
 		$path_template = "views/".$layout.".php";
-		if(file_exists($path_view)){
-			//Le $view est remplacé par $this->view car il cherche un argument de la class. Au dessus on a public $view
-			$this->view =$path_view;
 
-			if(file_exists($path_template)){
-				$this->template =$path_template;
+		if( file_exists($path_view) ){
+			$this->view=$path_view;
+			if ( file_exists($path_template) ) {
+				$this->template=$path_template;
 			}else{
 				die("Le template n'existe pas");
 			}
-
-
 		}else{
 			die("La vue n'existe pas");
 		}
@@ -27,14 +24,22 @@ class view{
 	}
 
 	public function assign($key, $value){
-		$this->data[$key]=$value;
+		$this->data[$key] = $value;
 
 	}
 
+	// Méthode magique appelée seulement lorsque la totalité du code est achevée
+	// Juste avant la fin des process du serveur
 	public function __destruct(){
+		/*
+			include : affiche un warning si le fichier n'existe pas
+			require : creve le process si le fichier n'existe pas
+		*/
+		
 		extract($this->data);
+		
+		// du coup, this->template appelle template.php qui aura accès à toutes les variables définies ici;
 		include $this->template;
-
 	}
 
 }
