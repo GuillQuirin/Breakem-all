@@ -1,13 +1,13 @@
 <?php
 //<<<<<<< HEAD
 
-class indexController{
+// class indexController{
 
-	public function indexAction(){
-		echo "<br> indexAction was called !<br>";
-	}
+// 	public function indexAction(){
+// 		echo "<br> indexAction was called !<br>";
+// 	}
 	
-}
+// }
 
 //=======
 class indexController{
