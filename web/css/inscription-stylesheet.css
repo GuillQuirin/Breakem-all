@@ -54,7 +54,7 @@ section{
 	}
 
 /*CORPS*/
-	#content{
+	#inscrcontenu{
 		height: 90vh;
 	}
 
@@ -94,6 +94,11 @@ section{
 	    text-align: center;
 	    border-bottom: 1px solid black;
 	    line-height: 40px;
+	    background-color: transparent;
+	    width: auto;
+	    position: initial;
+	    z-index:auto;
+	    top: auto;
 	}
 	#arrow{
 		max-width: 5%;
