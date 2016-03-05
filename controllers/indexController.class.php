@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 class indexController{
 
@@ -9,7 +9,7 @@ class indexController{
 	
 }
 
-=======
+//=======
 class indexController{
 
 	public function indexAction($args){
@@ -29,4 +29,4 @@ class indexController{
 		echo "Petit test";
 	}
 }
->>>>>>> master
+//>>>>>>> master
