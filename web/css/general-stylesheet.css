@@ -9,7 +9,11 @@
 	fieldset, form, label, legend,
 	table, caption, tbody, tfoot, thead, tr, th, td,
 	article, aside, canvas, details, embed, 
+<<<<<<< HEAD
 	figure, figcaption, footer, header, hgroup, 
+=======
+	figure, figcaption, footer, hgroup, 
+>>>>>>> master
 	menu, nav, output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
@@ -118,7 +122,10 @@
 		width: 100%;
 		max-width: 150vh;
 		margin: 0 auto;
+<<<<<<< HEAD
 		/*overflow: hidden;*/
+=======
+>>>>>>> master
 	}
 	.titre1{	
 		font-size: 4vh;
@@ -151,4 +158,19 @@
 		display: -o-flex;
 		display: flex;
 	}
+<<<<<<< HEAD
+=======
+	.flex-row{		
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-flow: row wrap;
+	}
+>>>>>>> master
 /* ################################ */
