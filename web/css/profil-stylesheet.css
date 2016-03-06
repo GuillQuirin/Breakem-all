@@ -7,7 +7,7 @@ BODY{
     width: 80%;
 }
 
-section{
+section:not(:last-child){
 	border: 1px solid;
 	background-color: #343452;
 	margin-bottom:20px;
@@ -16,6 +16,21 @@ section{
 h4{
 	text-align: center;
 }
+a{
+    color: #B346FF;
+    text-decoration: none;
+    font-style: italic;
+}
+a:hover{
+	text-decoration: underline;
+	color: #04EAC1;
+}
+ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 #presentation #image img{
 	float: left;
     height: 52px;
@@ -23,6 +38,7 @@ h4{
 }
 #description div{
 	display: inline-block;
+	vertical-align: middle;
 }
 #communication{
 	width: 20%;
@@ -37,8 +53,16 @@ h4{
 }
 #statistiques div{
 	width: 45%;
-	/*vertical-align: top;
-*/}
+	vertical-align: top;
+}
+#statistiques div:first-child p{
+	padding: 15px;
+    background-color: #3F1C53;
+    font-style: italic;
+}
+#statistiques ul{
+	padding-left: 30%;
+}
 #tableaux{
 	text-align: center;
 }
@@ -47,7 +71,23 @@ h4{
 	min-height: 300px;
 	vertical-align: top;
 	display: inline-block;
+	border: 1px solid;
+	background-color: #343452;
+	margin-bottom:20px;
+	padding: 10px 0; 
 }
-#tableaux ul{
-	list-style-type: none;
+#tableaux img{
+	max-width: 50%;
+}
+#tableaux div:first-child{
+	float: left;
+}
+#tableaux div:last-child{
+	float: right;
+}
+#tableaux .win{
+	color: green;
+}
+#tableaux .loo{
+	color: red;
 }

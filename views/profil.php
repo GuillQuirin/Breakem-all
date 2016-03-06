@@ -49,11 +49,11 @@
 			<h4>Jeux favoris</h4>
 			<ul>
 				<li>
-					<a href="#"><img src="" alt="" title=""></a>  
+					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>  
 				<li>
-					<a href="#"><img src="" alt="" title=""></a>
+					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
 				<li>
-					<a href="#"><img src="" alt="" title=""></a>
+					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
 			</ul>
 		</div>
 		<div>
