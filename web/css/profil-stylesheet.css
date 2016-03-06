@@ -36,26 +36,59 @@ ul{
     height: 52px;
     width: 50px;
 }
-#description div{
-	display: inline-block;
-	vertical-align: middle;
+#presentation #image{
+    display: inline-block;
+    width: 15%;
+    margin-left: 50px;
 }
-#communication{
-	width: 20%;
+#presentation #image p{
+	display: inline-block;
+}
+#presentation #image p:nth-of-type(1){
+    margin: 0 10px;
+}
+p.off{
+    width: 50%;
+    margin-left: 10px;
+    font-size: 10px;
+    text-align: center;
+    font-style: italic;
+}
+p.on{
+    margin-left: 10px;
+    color: #0EFC0E;
+    font-weight: bold;
+    font-size: 15px;
+}
+#informations div{
+	display: inline-block;
+}
+#communication, #description, #statistiques{
+	width: 30%;
 }
 #communication button{
 	display: block;
 	cursor: pointer;
 	margin: 0 auto;
 }
-#statistiques{
-	width: 70%;
+#communication button:nth-of-type(1){
+	width: 50%;
+	height: 35px;
+	margin-bottom: 25px;
 }
-#statistiques div{
-	width: 45%;
-	vertical-align: top;
+#communication button:nth-of-type(2){
+	background-color: #882525;
+    width: 20%;
+    height: 30px;
+    border: 1px solid black;
+    position: relative;
 }
-#statistiques div:first-child p{
+#description{
+	margin: auto 3%;
+    padding: 0 10px;
+    vertical-align: top;
+}
+#description p{
 	padding: 15px;
     background-color: #3F1C53;
     font-style: italic;
@@ -75,15 +108,39 @@ ul{
 	background-color: #343452;
 	margin-bottom:20px;
 	padding: 10px 0; 
+	position: relative;
 }
 #tableaux img{
-	max-width: 50%;
+    max-width: 30%;
+    position: absolute;
+    bottom: 20%;
+    z-index: 1;
+    transition: transform 1s;
+}
+a:nth-of-type(1)>img{
+	left: 2%;
+}
+a:nth-of-type(2)>img{
+	left: 35%;
+}
+a:nth-of-type(3)>img{
+	left: 68%;
+}
+#tableaux img:hover{
+	z-index: 2;
+	transform: scale(1.25, 1.25);
 }
 #tableaux div:first-child{
 	float: left;
 }
 #tableaux div:last-child{
 	float: right;
+}
+#tableaux li{
+	margin: 10px 0;
+}
+#tableaux li a, #tableaux li span{
+	margin:0 5%;
 }
 #tableaux .win{
 	color: green;

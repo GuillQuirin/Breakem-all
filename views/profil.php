@@ -2,29 +2,28 @@
 		<div id="image">
 			<img src="" alt="logo">
 			<p>PSEUDO</p>
-			<p>Dernière connexion: </p>
+			<p class="off">Vu le: 15/01/16</p>
+			<?php if(0) echo '<p class="on">Connecté</p>'; ?>
 		</div>
 	</section>
-	<section id="description">
+	<section id="informations">
 		<div id="communication">
-			<button>Contacter</button>
-			<button>/!\</button>
+			<button title="Envoyer un mail au joueur">Contacter</button>
+			<button title="Signaler le joueur">/!\</button>
+		</div>
+		<div id="description">
+			<h4>Description</h4>
+			<p>Ce joueur n'a pas encore rédigé de description.
+			</p>
 		</div>
 		<div id="statistiques">
-			<div>
-				<h4>Description</h4>
-				<p>Ce joueur n'a pas encore rédigé de description.
-				</p>
-			</div>
-			<div>
-				<h4>Statistiques</h4>
-				<ul>
-					<li>Matchs gagnés: 78
-					<li>Matchs perdus: 92
-					<li>Ratio : 0.78
-					<li>Points : 1072
-				</ul>
-			</div>
+			<h4>Statistiques</h4>
+			<ul>
+				<li>Matchs gagnés: 78
+				<li>Matchs perdus: 92
+				<li>Ratio : 0.78
+				<li>Points : 1072
+			</ul>
 		</div>
 	</section>
 	<section id="tableaux">
@@ -47,14 +46,9 @@
 		</div>
 		<div>
 			<h4>Jeux favoris</h4>
-			<ul>
-				<li>
-					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>  
-				<li>
-					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
-				<li>
-					<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
-			</ul>
+			<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>  
+			<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
+			<a href="#"><img src="web/img/css-bg.png" alt="" title=""></a>
 		</div>
 		<div>
 			<h4>Derniers matchs</h4>
