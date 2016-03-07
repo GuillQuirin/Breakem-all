@@ -32,7 +32,6 @@ $(document).ready(function(){
 		}
 		bordure($(this),res);
 	});
-
 	function bordure(that,res){//Message d'avertissement affiché
 		if(res){
 			$(that).css({"border":"2px solid green"});
