@@ -9,7 +9,7 @@
 	<section id="informations">
 		<div id="communication">
 			<button title="Envoyer un mail au joueur">Contacter</button>
-			<button title="Signaler le joueur">/!\</button>
+			<button id="signalement">Signaler le joueur</button>
 		</div>
 		<div id="description">
 			<h4>Description</h4>
@@ -66,5 +66,21 @@
 					<span>Jeux</span>  
 					<span class="win">Victoire</span>
 			</ul>
+		</div>
+	</section>
+	<section id="popup">
+		<div>
+			<ul>
+				<li>Vous trouvez que ce joueur ne respecte pas les <a href="#">Conditions Générales d'Utilisation</a> ?
+				<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
+				<li>Selectionnez la raison de votre signalement:
+					<select>
+						<option></option>
+					</select>
+			</ul>
+			<p>
+				Justifiez votre plainte (obligatoire):
+			</p>
+			<textarea></textarea>
 		</div>
 	</section>

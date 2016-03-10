@@ -11,7 +11,8 @@ section:not(:last-child){
 	border: 1px solid;
 	background-color: #343452;
 	margin-bottom:20px;
-	padding: 10px 0; 
+	padding: 10px 0;
+	position: relative; 
 }
 h4{
 	text-align: center;
@@ -30,7 +31,9 @@ ul{
     margin: 0;
     padding: 0;
 }
-
+button{
+	cursor: pointer;
+}
 #presentation #image img{
 	float: left;
     height: 52px;
@@ -60,6 +63,7 @@ p.on{
     font-weight: bold;
     font-size: 15px;
 }
+
 #informations div{
 	display: inline-block;
 }
@@ -68,7 +72,6 @@ p.on{
 }
 #communication button{
 	display: block;
-	cursor: pointer;
 	margin: 0 auto;
 }
 #communication button:nth-of-type(1){
@@ -76,11 +79,12 @@ p.on{
 	height: 35px;
 	margin-bottom: 25px;
 }
-#communication button:nth-of-type(2){
-	background-color: #882525;
-    width: 20%;
+#signalement{
+    background-color: #A03030;
+    color: white;
+    border: 2px dotted red;
+	width: 50%;
     height: 30px;
-    border: 1px solid black;
     position: relative;
 }
 #description{
@@ -147,4 +151,14 @@ a:nth-of-type(3)>img{
 }
 #tableaux .loo{
 	color: red;
+}
+#popup{
+	position: fixed;
+    top: 25%;
+    background-color: black;
+    width: 50%;
+    left: 25%;
+    height: 200px;
+    color: white;
+    z-index: 5;
 }
