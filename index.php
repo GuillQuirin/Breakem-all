@@ -2,7 +2,6 @@
 require_once "conf.inc.php";
 
 // Reloader automatique
-//		appelé à chaque fois que php ne trouve pas une classe
 function mon_loader($class){
 	if( file_exists("core/".$class.".class.php")){
 		require_once("core/".$class.".class.php");
