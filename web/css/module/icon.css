@@ -1,0 +1,29 @@
+/* a appliquer sur les btns quand tu wrap un icone */
+.icon{
+	vertical-align: middle;
+}
+
+.icon-wrapper:hover{
+	border-radius: 3px;
+}
+
+/* Taille des icones */
+.icon-fs-1{
+	width:5px;
+}
+
+.icon-fs-1-demi{
+	width:7.5px;
+}
+
+.icon-fs-2{
+	width:10px;
+}
+
+.icon-fs-3{
+	width:15px;
+}
+
+.icon-fs-4{
+	width:20px;
+}

@@ -1,0 +1,31 @@
+/* @font-face {
+    font-family: "Caviar";
+    src: url('font/CaviarDreams.ttf');
+}
+@font-face {
+    font-family: "Caviar";
+    font-style: italic;
+    src: url('font/CaviarDreams_Italic.ttf');
+}
+@font-face {
+    font-family: "Caviar";
+    font-weight: bold;
+    src: url('font/CaviarDreams_Bold.ttf');
+}
+
+@font-face {
+    font-family: "Moon";
+    src: url('font/Moon_Flower.ttf');
+}
+
+@font-face {
+    font-family: "Moon";
+    font-weight: bold;
+    src: url('font/Moon_Flower_Bold.ttf');
+}
+
+body{
+	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:13px;
+}
+*/

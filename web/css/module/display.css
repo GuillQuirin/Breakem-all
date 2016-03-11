@@ -1,0 +1,42 @@
+/* DISPLAY */
+.display-block{
+  display:block;
+}
+
+.display-inline{
+	display:inline;
+}
+
+.display-inline-block{
+	display:inline-block;
+}
+
+.display-none{
+	display:inline;
+}
+
+.display-flex{
+	display:flex;
+}
+
+/* TABLE */
+
+.self-center {
+  align-self: center;
+}
+
+.align-middle{
+  vertical-align: middle;
+}
+
+/* HIDDEN */
+
+.hidden{
+  display:none !important;
+}
+
+.hidden-fade{
+  opacity:0 !important;
+  transition: opacity .8s;
+}
+

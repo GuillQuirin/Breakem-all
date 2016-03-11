@@ -1,0 +1,22 @@
+/*input{
+	height:20px;
+	padding:6px 12px;
+	font-size:14px;
+	line-height:1.4;
+	color:#292929;
+	background-color:#fff;
+	background-image: none;
+	border:1px solid #ccc;
+	border-radius: 4px;
+}
+
+input:focus{
+	border:1px solid #3FA08F;
+}
+
+input.confirm{
+	background-color:#3FA08F;
+	cursor:not-allowed;
+	color:#ffffff;
+	border:1px solid #3FA08F;
+}*/
