@@ -8,22 +8,29 @@
   -moz-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }
 
 .navbar.full {
-  height: 80px;
-  line-height: 80px;
+  height: 105px;
+}
+
+.navbar.full li{
+  line-height: 90px;
 }
 
 
 .navbar.shrink {
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
   background: transparent;
+}
+
+.navbar.shrink .navbar-menu span{
+  display:none;
 }
 
 .navbar.shrink .navbar-logo img {
@@ -42,28 +49,39 @@
   display:inline;
 }
 
+.navbar-title{
+  font-size:25px;
+}
+
 .navbar-menu {
   overflow: hidden;
   text-align:center;
 }
 
-.navbar-title{
-  font-size:25px;
-}
-
-.navbar-menu a, .navbar-menu span{
-  color:#ffffff;
-}
-
 .navbar-menu a {
   text-decoration: none;
-  font-size: 14px;
-  color: #292929;
+  font-size: 13px;
+  color:#ffffff;
   padding: 0 15px;
+  text-transform:uppercase;
+  position:relative;
+  font-family: "Roboto" !important;
+}
+
+.navbar-menu span{
+  text-transform:lowercase;
+  position:absolute;
+  bottom:-55px;
+  left:15px;
+  opacity:0.4;
+}
+
+.navbar-icon{
+  padding:0 5px 3px;
 }
 
 .navbar-menu .active {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 

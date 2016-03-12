@@ -11,6 +11,8 @@
 		<link rel="stylesheet" href="web/css/module/navbar.css" media="screen">
 		<link rel="stylesheet" href="web/css/module/position.css" media="screen">
 		<link rel="stylesheet" href="web/css/module/margin.css" media="screen">
+		<link rel="stylesheet" href="web/css/module/fonts.css" media="screen">
+		<link rel="stylesheet" href="web/css/module/icon.css" media="screen">
 		<script src="../web/js/navbar.js"></script>
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -24,24 +26,52 @@
 			 <!-- Navbar top -->
 			  <nav class="navbar full fixed transparent" id="navbar">
 			    <div class="container resultat-container m-a">
-			      <div class="grid-md-5 navbar-menu left">
+			      <div class="grid-md-12 navbar-menu left">
 			      	<ul>
-			      		<li>
+				        <li>
+				        	<a href="" class="active">Accueil 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>News</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">Tournoi 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>avalaible</span>
+				        	</a>
+				        </li>
+				        <li><a href="">Team 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>challenger</span>
+				        	</a>
+				        </li>
+				        <li>
 				        	<a href="#" class="navbar-logo">
-			      				<img src="web/img/logo.png" width="100">
-			      				<span class="navbar-title">Breakthemall</span>
+			      				<img src="web/img/logodown.png">
 			      			</a>
 			      		</li>
-				        <li><a href="" class="active">Lien 1</a></li>
-				        <li><a href="">Lien 2</a></li>
-				        <li><a href="">Lien 3</a></li>
-				        <li><a href="">Lien 4</a></li>
-			        </ul>
-			       </div>
-			      <div class="grid-md-5 grid-md-offset-1 navbar-menu right">
-			      	<ul>
-			      		<li><a href="">Lien 3</a></li>
-				        <li><a href="">Lien 4</a></li>
+				        <li>
+				        	<a href="">Joueur 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>full list</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">Classement 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>rank</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">
+				        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">
+				        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
+				        	</a>
+				        </li>
 			        </ul>
 			       </div>
 			      </div>
