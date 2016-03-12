@@ -1,0 +1,100 @@
+/* Navbar top (ajouté class="fixed" si vous la voulez fix)*/
+.navbar {
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.navbar.full {
+  height: 80px;
+  line-height: 80px;
+}
+
+
+.navbar.shrink {
+  height: 50px;
+  line-height: 50px;
+  background: transparent;
+}
+
+.navbar.shrink .navbar-logo img {
+  width:70px;
+}
+
+.navbar-logo img {
+  vertical-align: middle;
+}
+
+.navbar-menu ul{
+  list-style: none;
+}
+
+.navbar-menu li{
+  display:inline;
+}
+
+.navbar-menu {
+  overflow: hidden;
+  text-align:center;
+}
+
+.navbar-title{
+  font-size:25px;
+}
+
+.navbar-menu a, .navbar-menu span{
+  color:#ffffff;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #292929;
+  padding: 0 15px;
+}
+
+.navbar-menu .active {
+  text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 768px) {
+  
+  .navbar-logo {
+    margin-left: 20px;
+  }
+
+  
+  .navbar-menu {
+    display: none;
+  }
+
+  .responsive.shrink .navbar-menu {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    text-align: center;
+  }
+}
+
+/* Navbar top theme */
+.navbar.full.transparent{
+  background-color:rgba(8,3,37,.4);
+}
+
+.navbar.shrink.transparent{
+  background-color:rgba(8,3,37,1);
+}
+
+/* Fin Navbar top µ/

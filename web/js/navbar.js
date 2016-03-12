@@ -1,3 +1,5 @@
+//N'est pas fonctionnel car je n'arrive pas a lié le script a toute les templates : en cours
+
 function ShrinkNavbar(){
 	$window = $(window);
 	$window.scroll(function(){
