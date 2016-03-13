@@ -70,17 +70,20 @@
 	</section>
 	<section id="popup">
 		<div>
+			<h4>Signaler un joueur</h4>
 			<ul>
 				<li>Vous trouvez que ce joueur ne respecte pas les <a href="#">Conditions Générales d'Utilisation</a> ?
 				<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
 				<li>Selectionnez la raison de votre signalement:
-					<select>
-						<option></option>
+					<select id="liste_plainte">
+						<option value="0"></option>
+						<option value="1">Méchant</option>
 					</select>
 			</ul>
 			<p>
-				Justifiez votre plainte (obligatoire):
+				Veuillez justifier votre plainte (obligatoire):
 			</p>
-			<textarea></textarea>
+			<textarea id="plainte"></textarea>
+			<button id="btn_plainte">Envoyer</button>
 		</div>
 	</section>

@@ -153,12 +153,27 @@ a:nth-of-type(3)>img{
 	color: red;
 }
 #popup{
-	position: fixed;
+	display: none;
+    position: fixed;
     top: 25%;
-    background-color: black;
+    background-color: #27073A;
     width: 50%;
     left: 25%;
     height: 200px;
     color: white;
     z-index: 5;
+    border: 13px #511071 solid;
+    padding: 20px;
+    font-size: 15px;
+}
+#popup textarea{
+    width: 85%;
+    height: 50px;
+    vertical-align: middle;	
+}
+#btn_plainte{
+	width: 13%;
+    background-color: #352F84;
+    color: white;
+    border: 2px #428D84 solid;
 }
