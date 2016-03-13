@@ -80,8 +80,8 @@
   padding:0 5px 3px;
 }
 
-.navbar-menu .active {
-  /*text-decoration: underline;*/
+.navbar-menu li:hover span{
+  opacity:1;
 }
 
 
