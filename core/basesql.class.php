@@ -5,7 +5,7 @@ class basesql{
 	private $pdo;
 	private $columns = [];
 
-	publi)okiokuhiygty_c function __construct(){
+	public function __construct(){
 	
 		$this->table = get_called_class();
 		//echo $this->table;
