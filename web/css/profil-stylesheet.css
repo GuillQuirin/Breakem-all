@@ -50,6 +50,13 @@ button{
 #presentation #image p:nth-of-type(1){
     margin: 0 10px;
 }
+#configuration{
+    width: 15%;
+    height: 35px;
+    float: right;
+    margin-right: 5%;
+    margin-top: 1%;
+}
 p.off{
     width: 50%;
     margin-left: 10px;
@@ -152,7 +159,7 @@ a:nth-of-type(3)>img{
 #tableaux .loo{
 	color: red;
 }
-#popup{
+#formplainte, #formcontact{
 	display: none;
     position: fixed;
     top: 25%;
@@ -166,12 +173,12 @@ a:nth-of-type(3)>img{
     padding: 20px;
     font-size: 15px;
 }
-#popup textarea{
+#formplainte textarea, #formcontact textarea{
     width: 85%;
     height: 50px;
     vertical-align: middle;	
 }
-#btn_plainte{
+#btn_plainte, #btn_contact{
 	width: 13%;
     background-color: #352F84;
     color: white;

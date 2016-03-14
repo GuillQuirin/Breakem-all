@@ -5,10 +5,11 @@
 			<p class="off">Vu le: 15/01/16</p>
 			<?php if(0) echo '<p class="on">Connecté</p>'; ?>
 		</div>
+		<button id="configuration">Configurer mon compte</button>
 	</section>
 	<section id="informations">
 		<div id="communication">
-			<button title="Envoyer un mail au joueur">Contacter</button>
+			<button id="contact" title="Envoyer un mail au joueur">Contacter</button>
 			<button id="signalement">Signaler le joueur</button>
 		</div>
 		<div id="description">
@@ -68,7 +69,7 @@
 			</ul>
 		</div>
 	</section>
-	<section id="popup">
+	<section id="formplainte">
 		<div>
 			<h4>Signaler un joueur</h4>
 			<ul>
@@ -83,7 +84,15 @@
 			<p>
 				Veuillez justifier votre plainte (obligatoire):
 			</p>
-			<textarea id="plainte"></textarea>
+			<textarea id="mess_plainte"></textarea>
 			<button id="btn_plainte">Envoyer</button>
+		</div>
+	</section>
+	<section id="formcontact">
+		<div>
+			<h4>Contacter le joueur</h4>
+			<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
+			<textarea id="mess_contact" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site"></textarea>
+			<button id="btn_contact">Envoyer</button>
 		</div>
 	</section>
