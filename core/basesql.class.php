@@ -5,7 +5,8 @@ class basesql{
 	private $pdo;
 	private $columns = [];
 
-	public function __construct(){
+	publi)okiokuhiygty_c function __construct(){
+	
 		$this->table = get_called_class();
 		//echo $this->table;
 		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
