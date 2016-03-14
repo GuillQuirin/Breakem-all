@@ -6,6 +6,10 @@ class basesql{
 	private $columns = [];
 
 	public function __construct(){
+<<<<<<< HEAD
+=======
+	
+>>>>>>> Meghan
 		$this->table = get_called_class();
 		//echo $this->table;
 		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
