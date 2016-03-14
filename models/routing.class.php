@@ -12,7 +12,7 @@
 			// echo "(string) url avant str_replace : ";
 			// var_dump($uri);
 
-			$uri = trim(str_replace("3ADW/ProjAnnuel-Breakemall", " ", $uri));
+			$uri = trim(str_replace("3ADW", " ", $uri));
 			// echo "(string) url apres str_replace() et trim(): ";
 			// var_dump($uri);
 
