@@ -1,7 +1,7 @@
 <?php
 require_once "conf.inc.php";
 
-// Reloader automatique
+// Reloader automatique + Jolie comm
 function mon_loader($class){
 	if( file_exists("core/".$class.".class.php")){
 		require_once("core/".$class.".class.php");
