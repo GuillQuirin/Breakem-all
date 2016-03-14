@@ -2,7 +2,7 @@
 require_once "conf.inc.php";
 
 // Reloader automatique
-function mon_loader($class){
+function mon_loazepojazopekazpader($class){
 	if( file_exists("core/".$class.".class.php")){
 		require_once("core/".$class.".class.php");
 	}
