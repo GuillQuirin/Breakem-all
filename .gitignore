@@ -1,6 +1,3 @@
 conf.inc.php
-<<<<<<< HEAD
 routing.class.php
-=======
-core/routing.class.php
->>>>>>> master
+
