@@ -22,22 +22,6 @@ body, html{
 
 }
 
-@media (min-width: 768px) {
-  .resultat-container {
-    width: 750px;
-  }
-}
-@media (min-width: 992px) {
-  .resultat-container {
-    width: 970px;
-  }
-}
-@media (min-width: 1200px) {
-  .resultat-container{
-	width:1400px !important;
-  }
-}
-
 /* IMAGE */
 .resultat-avatar{
   width:150px;
