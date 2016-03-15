@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="web/css/general-stylesheet.css">
 <div class="max-container">
 	<div class="fixed tournoi-first-image-background">
 		<img class="absolute" src="web/img/first-bg-clair-web.jpg" alt="epic-fights">

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="web/css/general-stylesheet.css">
 <div class="max-container">
 	<section class="detailtournoi-infos flex">
 		<aside class="ta-center relative">

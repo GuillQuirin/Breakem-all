@@ -13,6 +13,12 @@
 		<link rel="stylesheet" href="web/css/module/margin.css" media="screen">
 		<link rel="stylesheet" href="web/css/module/fonts.css" media="screen">
 		<link rel="stylesheet" href="web/css/module/icon.css" media="screen">
+		<link rel="stylesheet" href="web/css/general-stylesheet.css">
+		<link rel="stylesheet" href="web/css/module/grid.css">
+		<link rel="stylesheet" href="web/css/module/size.css">
+		<link rel="stylesheet" href="web/css/module/text.css">
+		<link rel="stylesheet" href="web/css/module/display.css">
+
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -26,7 +32,9 @@
 			 <!-- Navbar top -->
 			  <nav class="navbar full fixed transparent" id="navbar">
 			    <div class="container resultat-container m-a">
-			      <div class="grid-md-12 navbar-menu left">
+
+			    <!-- MENU -->
+			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu left">
 			      	<ul>
 				        <li>
 				        	<a href="" class="active">Accueil 
@@ -74,6 +82,61 @@
 				        </li>
 			        </ul>
 			       </div>
+			       <!-- FIN MENU -->
+
+			       <!-- MENU TOGGLE -->
+			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu left">
+			       	<img src="web/img/logodown.png" id="navbar-toggle-logo">
+			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
+			       </div>
+			       <!-- FIN MENU TOGGLE -->
+
+			       <!-- NAVBAR SIDE -->
+			       	<div class="navbar-side-menu hidden-md hidden-lg left navbar-collapse">
+			       			<ul>
+				        <li>
+				        	<a href="" class="active">Accueil 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>News</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">Tournoi 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>avalaible</span>
+				        	</a>
+				        </li>
+				        <li><a href="">Team 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>challenger</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">Joueur 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>full list</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">Classement 
+				        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+				        		<span>rank</span>
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">
+				        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
+				        	</a>
+				        </li>
+				        <li>
+				        	<a href="">
+				        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
+				        	</a>
+				        </li>
+			        </ul>
+			       	</div>
+			       <!-- FIN NAVBAR SIDE -->
+
 			      </div>
 			    </div>
 			  </nav>

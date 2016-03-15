@@ -1,5 +1,3 @@
-//N'est pas fonctionnel car je n'arrive pas a lié le script a toute les templates : en cours
-
 function ShrinkNavbar(){
 	$window = $(window);
 	$window.scroll(function(){
@@ -13,7 +11,18 @@ function ShrinkNavbar(){
 	})
 }
 
+function ToggleNavbar(){
+	$('#navbar-toggle').on('click', function(){
+		if($('.navbar-side-menu').hasClass('navbar-collapse')){
+			$('.navbar-side-menu').removeClass('navbar-collapse');
+		}else{
+			$('.navbar-side-menu').addClass('navbar-collapse');
+		}
+	});
+}
+
 $(document).ready(function(){
+	ToggleNavbar();
 	$(window).scroll(function(){
 		ShrinkNavbar();
 	})
