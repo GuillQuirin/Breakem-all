@@ -10,7 +10,7 @@
 		....et affrontez-les !
 	</div>
 </section>
-<section id="content">
+<section id="inscrcontenu">
 	<ul class="cb-slideshow">
 	    <li><span>Image 01</span></li>
 	    <li><span>Image 02</span></li>
@@ -22,7 +22,8 @@
 		<p>Montrez vos talents auprès de toute une communauté<img src="web/img/link.gif"></p>
 	</div>
 	<div id="right">
-		
+		<header><img src="web/img/arrow.png" id="arrow">REJOIGNEZ-NOUS MAINTENANT</header>
+
 		<form action="inscription.html" method="POST">
 			<div id="inscr_coord">
 					<p><!--[if IE 9]>Pseudo:<![endif]-->

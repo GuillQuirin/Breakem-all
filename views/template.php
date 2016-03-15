@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -11,24 +12,18 @@
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<?php echo (isset($js)) ? '<script src="web/js/'.$js.'.js"></script>' : '';?>
+		<?php echo /*(isset($js)) ?*/ '<script src="web/js/'.$js.'.js"></script>' /*: ''*/;?>
 	</head>
 
 	<body>
 
 		<header>
 			<div id="symbol" class="hide">
-<<<<<<< HEAD
 				<span class="symbol" id="menu_icon">&#9776</span>
-=======
-				<span class="symbol">&#9776</span>
->>>>>>> 4ddc260ace4c8b21d3f96a604562447d099e14e0
 			</div>
 			<div id="logo">
 				<img src="web/img/logo.png" class="logo">
-			</div>
-
-			
+			</div>	
 			<nav id="menu" >
 				<ul>
 	 				<li><a href="/esgi/Breakem-all/index">Accueil</a></li>
