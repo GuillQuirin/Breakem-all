@@ -124,7 +124,7 @@
 /* NAVBAR SIDE */
 
 .navbar-side-menu{
-  width:40%;
+  width:30%;
   background:#080325;
   position:fixed;
   top:0;
@@ -148,7 +148,7 @@
 
 .navbar-side-menu a {
   text-decoration: none;
-  font-size: 13px;
+  font-size: 17px;
   color:#ffffff;
   padding: 0 15px;
   text-transform:uppercase;
@@ -157,13 +157,13 @@
 }
 
 .navbar-side-menu li{
-  line-height:50px !important;
+  line-height:70px !important;
 }
 
 .navbar-side-menu span{
   text-transform:lowercase;
   position:absolute;
-  bottom:-30px;
+  bottom:-41px;
   left:15px;
   opacity:0.4;
 }
