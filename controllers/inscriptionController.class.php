@@ -49,4 +49,5 @@ class inscriptionController{
         	$datebdd=date_timestamp_get($date);
         }
         //$datebdd / $pwd / $email / $pseudo
+	}
 }
