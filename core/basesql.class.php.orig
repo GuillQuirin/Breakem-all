@@ -6,6 +6,10 @@ class basesql{
 	private $columns = [];
 
 	public function __construct(){
+<<<<<<< HEAD
+=======
+	
+>>>>>>> Meghan
 		$this->table = get_called_class();
 		//echo $this->table;
 		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
@@ -41,8 +45,4 @@ class basesql{
 			$query->execute($data);
 		}
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f95f2bbab8cff57b5b716031f3db07f243d18d70

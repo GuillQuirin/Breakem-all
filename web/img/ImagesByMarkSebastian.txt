@@ -1,6 +1,20 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 Images by Mark Sebastian: http://www.flickr.com/photos/markjsebastian/
 http://www.markjsebastian.com/
 
 License:
 http://creativecommons.org/licenses/by-sa/2.0/deed.en 
+=======
+>>>>>>> f95f2bbab8cff57b5b716031f3db07f243d18d70
+Images by Mark Sebastian: http://www.flickr.com/photos/markjsebastian/
+http://www.markjsebastian.com/
+
+License:
+http://creativecommons.org/licenses/by-sa/2.0/deed.en 
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> f95f2bbab8cff57b5b716031f3db07f243d18d70
 Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)
