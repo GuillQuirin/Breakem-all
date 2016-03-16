@@ -11,7 +11,10 @@ body {
 		margin-top: 15vh;
 		align-items: center;
 		justify-content: center;
+<<<<<<< HEAD
+=======
 		background: rgba(255, 255, 255, 0.05);
+>>>>>>> master
 	}
 	.detailtournoi-infos article,
 	.detailtournoi-infos aside{
@@ -47,9 +50,12 @@ body {
 		margin: 0 auto;
 		margin-top: 2vh;
 	}
+<<<<<<< HEAD
+=======
 	.detailtournoi-infos .tablette-only{
 		display: none;
 	}
+>>>>>>> master
 	
 	.detailtournoi-infos .detailtournoi-btn-inscription a{
 		overflow: hidden;
@@ -130,12 +136,18 @@ body {
 
 /* ################## JOUEURS PARTICIPANTS ################### */
 	.detailtournoi-participants{
+<<<<<<< HEAD
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 4vh;
+=======
 		width: 100%;
 		margin: 0 auto;
 		margin-top: 4vh;
 		padding-top: 2vh;
 		padding-bottom: 2vh;
 		background: rgba(28, 37, 58, 0.85);
+>>>>>>> master
 	}
 	.detailtournoi-participants h2{
 		padding-bottom: 1vh;
@@ -223,6 +235,18 @@ body {
 
 /* ################## BRACKET TOURNOI ################### */
 	.detailtournoi-bracket{
+<<<<<<< HEAD
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 4vh;
+	}
+
+	.detailtournoi-bracket h2{
+		padding-bottom: 1vh;
+		border-bottom: 1px solid #fff;
+		display: inline-block;
+	}
+=======
 	/*	width: 90%;
 		margin: 0 auto;
 		margin-top: 4vh;*/
@@ -512,3 +536,4 @@ body {
 				text-align: center;
 			}
 	}
+>>>>>>> master

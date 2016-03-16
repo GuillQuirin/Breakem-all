@@ -1,0 +1,47 @@
+BODY{
+	background-color: #201B3A;
+	color: white;
+}
+#content{
+	margin: 50px auto;
+    width: 80%;
+}
+
+section{
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid;
+    background-color: #343452;
+    padding: 10px 0;
+    position: relative;
+    margin-top: 5%;
+}
+#avatar{
+    width: 20%;
+    height: 150px;
+}
+#informations{
+    width: 70%;
+    margin-left: 9%;
+}
+#suppression{
+    width: 70%;
+    background-color: #610B0B;
+    margin-left: 29%;/*width de #avatar (20%) + écart entre avatar et présentation (9%)*/
+}
+h4{
+	text-align: center;
+}
+a{
+    color: #B346FF;
+    text-decoration: none;
+    font-style: italic;
+}
+a:hover{
+	text-decoration: underline;
+	color: #04EAC1;
+}
+
+button{
+	cursor: pointer;
+}

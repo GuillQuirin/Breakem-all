@@ -1,4 +1,15 @@
 <?php
+//<<<<<<< HEAD
+
+// class indexController{
+
+// 	public function indexAction(){
+// 		echo "<br> indexAction was called !<br>";
+// 	}
+	
+// }
+
+//=======
 class indexController{
 
 	public function indexAction($args){
@@ -18,3 +29,4 @@ class indexController{
 		echo "Petit test";
 	}
 }
+//>>>>>>> master
