@@ -75,73 +75,152 @@
 
     }
 
+    }
+
     header {
         position:fixed;
     }
 
     body {
-        background-image:url("web/img/SFTEAM.jpg");
+        background-image:url("../img/SFTEAM.jpg");
         background-repeat: no-repeat;
         background-attachment: fixed;
         color:white;
     }
 
+    #name{
+
+        margin-top: 130px;
+        position:relative;
+
+    }
+
+    #name1{
+        vertical-align : text-top;
+        width:300px;
+        height:75px;
+        border: ridge;
+        border-color:#bfbdbd;
+        border-width: 1px;
+        background-color:#0a0019;
+        opacity: 0.8;
+        position: absolute;
+        margin-top:110px;
+        margin-left:298px;
+        text-align:center;
+        vertical-align : text-top;
+        font-size: 60px;
+    }
+
+    #name2{
+        vertical-align : text-top;
+        width:300px;
+        height:75px;
+        border: ridge;
+        border-color:#bfbdbd;
+        border-width: 1px;
+        background-color:#0a0019;
+        opacity: 0.8;
+        position: absolute;
+        margin-top:-196px;
+        margin-left:902px;
+        text-align:center;
+        font-size: 60px;
+
+
+    }
+
     #Img {
         border: ridge;
         border-color:#bfbdbd;
-        border-style: double;
-        border-width: 11px;
-        width: 200px;
-        height: 200px;
-        margin-top: 220px;
-        margin-left: 300px;
+        border-width: 1px;
+        width: 300px;
+        height: 300px;
+        margin-top: 0px;
+        margin-left: 600px;
         background-color:rgba(39, 40, 34, 0.85);
+        position: relative;
+
     }
 
     #Info {
+        position:relative;
         border: ridge;
         border-color:#bfbdbd;
-        border-style: double;
-        border-width: 11px;
-        border-radius: 50px;
+        border-width: 1px;
         text-align:center;
-        vertical-align : text-top;
-        width: 600px;
-        height: 200px;
-        margin-top: -205px;
-        margin-left: 720px;
-        background-color:rgba(39, 40, 34, 0.85) ;
+        width: 760px;
+        height: 500px;
+        margin-top: 50px;
+        margin-left: 750px;
+        background-color:#0a0019;
+        opacity: 0.8;
+        font-size: 20px;
 
     }
 
+    #Info1 {
+
+        width: 560px;
+        height: 300px;
+        border: ridge;
+        border-color:#bfbdbd;
+        border-width: 1px;
+        margin-top: 100px;
+        margin-left: 105px;
+    }
+
+    #Desc1 {
+
+        width: 560px;
+        height: 300px;
+        border: ridge;
+        border-color: #bfbdbd;
+        border-width: 1px;
+        margin-top: 100px;
+        margin-left: 105px;
+    }
+
+    #List1 {
+
+        width: 1000px;
+        height: 300px;
+        border: ridge;
+        border-color:#bfbdbd;
+        border-width: 1px;
+        margin-top: 100px;
+        margin-left: 140px;
+
+    }
     #Desc {
         border: ridge;
         border-color:#bfbdbd;
-        border-style: double;
-        border-width: 11px;
-        border-radius: 50px;
-        width: 600px;
-        height: 200px;
-        margin-top: 100px;
-        margin-left: 475px;
-        background-color:rgba(39, 40, 34, 0.85);
+        border-width: 1px;
+        width: 760px;
+        height: 500px;
+        margin-top: -502px;
+        margin-left: -10px;
+        background-color:#0a0019;
+        opacity: 0.8;
         text-align: center;
+        font-size: 20px;
 
     }
 
     #List {
         border: ridge;
         border-color:#bfbdbd;
-        border-style: double;
-        border-width: 11px;
-        border-radius: 50px;
-        width: 600px;
-        height: 200px;
-        margin-top: 100px;
-        margin-left: 475px;
-        background-color:rgba(39, 40, 34, 0.85);
-        text-align: center;
 
+        border-width: 1px;
+
+        width: 1300px;
+        height: 500px;
+        margin-top: 0px;
+        margin-left: 100px;
+        background-color:#0a0019;
+        opacity: 0.8;
+        text-align: center;
+        font-size: 20px;
     }
 
     #Quit {
@@ -154,9 +233,8 @@
         filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
         background-color:#ededed;
         border:ridge;
-        border-style: double;
-        border-width: 11px;
-        border-radius: 15px;
+        border-width: 1px;;
+
         height: 100px;
         width:100px;
 
@@ -170,11 +248,12 @@
         text-shadow:0px 1px 0px #ffffff;
     }
 
-    #Balrog{
-
-        margin-left: 400px;
 
 
-    }
+
+#Balrog{
+
+    margin-left: 400px;
+
 
 }
