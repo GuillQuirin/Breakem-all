@@ -1,2 +1,2 @@
 conf.inc.php
-routing.class.php
+core/routing.class.php
