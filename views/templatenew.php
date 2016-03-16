@@ -37,18 +37,18 @@
 			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu left">
 			      	<ul>
 					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
+					        	<a href="/esgi2/index" class="active">Accueil
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>News</span>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
+					        	<a href="/esgi2/tournoi">Tournoi
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>avalaible</span>
 					        	</a>
 					        </li>
-					        <li><a href="/esgi/Breakem-all/team">Team 
+					        <li><a href="/esgi2/team">Team
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>challenger</span>
 					        	</a>
@@ -65,7 +65,7 @@
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
+					        	<a href="/esgi2/resultat">Classement
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>rank</span>
 					        	</a>
@@ -95,18 +95,18 @@
 			       	<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
 				       	<ul>
 					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
+					        	<a href="/esgi2/index" class="active">Accueil
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>News</span>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
+					        	<a href="/esgi2/tournoi">Tournoi
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>avalaible</span>
 					        	</a>
 					        </li>
-					        <li><a href="/esgi/Breakem-all/team">Team 
+					        <li><a href="/esgi2/team">Team
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>challenger</span>
 					        	</a>
@@ -118,7 +118,7 @@
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
+					        	<a href="/esgi2/resultat">Classement
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        		<span>rank</span>
 					        	</a>
