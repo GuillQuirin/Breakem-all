@@ -26,7 +26,7 @@ $path_controller = "controllers/".$name_controller.".class.php";
 if(file_exists($path_controller)){
 	require_once($path_controller);
 	$controller = new $name_controller;
-	$name_action = $route["c"]."Action";
+	$name_action = $route["a"]."Action";
 	// var_dump($name_action);
 	if(method_exists($controller, $name_action)){
 		$controller->$name_action($route["args"]);
