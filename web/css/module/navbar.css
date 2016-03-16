@@ -19,13 +19,12 @@
 }
 
 .navbar.full li{
-  line-height: 90px;
+  line-height: 65px;
 }
 
 
 .navbar.shrink {
   height: 60px;
-  line-height: 60px;
   background: transparent;
 }
 
@@ -71,7 +70,7 @@
 .navbar-menu span{
   text-transform:lowercase;
   position:absolute;
-  bottom:-55px;
+  bottom:-40px;
   left:15px;
   opacity:0.4;
 }
@@ -148,7 +147,7 @@
 
 .navbar-side-menu a {
   text-decoration: none;
-  font-size: 13px;
+  font-size: 17px;
   color:#ffffff;
   padding: 0 15px;
   text-transform:uppercase;
@@ -157,13 +156,13 @@
 }
 
 .navbar-side-menu li{
-  line-height:50px !important;
+  line-height:70px !important;
 }
 
 .navbar-side-menu span{
   text-transform:lowercase;
   position:absolute;
-  bottom:-30px;
+  bottom:-41px;
   left:15px;
   opacity:0.4;
 }
