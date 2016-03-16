@@ -1,6 +1,9 @@
 <section class="full-height">
-	<div class="container resultat-container m-a bg-cover text-center">
+	<div class="full-width m-a bg-cover text-center">
 		<div class="full-height resultat-center-v">
+			<div class="container m-a">
+				
+			</div>
 			<!--<div class="grid-md-6">
 				<div class="grid-md-12">	
 					<img class="resultat-avatar" src="web/img/avatar1.jpg">

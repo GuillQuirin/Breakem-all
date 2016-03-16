@@ -32,6 +32,10 @@
   display:none;
 }
 
+.navbar.full .navbar-logo img {
+  width:100px;
+}
+
 .navbar.shrink .navbar-logo img {
   width:70px;
 }
