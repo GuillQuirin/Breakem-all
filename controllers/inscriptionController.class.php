@@ -38,7 +38,7 @@ class inscriptionController{
         if($filteredinputs['password']!==$filteredinputs['password_check'])
         	die("FAIL pwd");
         else
-        	$pwd=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+        	$password=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
 
         if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
         	die("FAIL date crea");
@@ -46,8 +46,13 @@ class inscriptionController{
         	$date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
         	if(!$date)
         		die("FAIL date format");
-        	$datebdd=date_timestamp_get($date);
+        	$birthday=date_timestamp_get($date);
         }
-        //$datebdd / $pwd / $email / $pseudo
+
+        $user = new usermanager();
+        $exist_pseudo=$user->pseudoExists($pseudo);
+        $exist_email=$user->pseudoExists($email);
+        if($exist_email && $exist_pseudo)
+        	$user->save($pseudo, $birthday, $password, $email);
 	}
 }
