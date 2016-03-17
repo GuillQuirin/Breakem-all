@@ -18,17 +18,25 @@
   height: 105px;
 }
 
-.navbar.full li, .navbar.full li a{
-  line-height: 75px;
+.navbar.full ul{
+  line-height: 105px;
 }
 
 .navbar li:hover{
   background:rgba(75, 62, 99, 0.54) none repeat scroll 0% 0%;
 }
 
+.navbar .hover-none:hover{
+  background:none;
+}
+
 .navbar.shrink {
   height: 60px;
   background: transparent;
+}
+
+.navbar.shrink ul{
+  line-height: 60px;
 }
 
 .navbar.shrink .navbar-menu span{
@@ -49,10 +57,11 @@
 
 .navbar-menu ul{
   list-style: none;
+  margin:0;
 }
 
 .navbar-menu li{
-  display:inline;
+  display:inline-block;
 }
 
 .navbar-title{
@@ -139,7 +148,7 @@
   bottom:0;
   max-width:400px;
   margin:0;
-  padding:95px 30px 30px;
+  padding:95px 0 30px;
   overflow-y:auto;
   max-height:100%;
   border:none;
@@ -157,7 +166,7 @@
   text-decoration: none;
   font-size: 17px;
   color:#ffffff;
-  padding: 0 15px;
+  padding: 0 35px;
   text-transform:uppercase;
   position:relative;
   font-family: "Roboto" !important;
@@ -173,6 +182,11 @@
   bottom:-41px;
   left:15px;
   opacity:0.4;
+}
+
+.navbar-side-menu ul{
+  margin:0;
+  padding:0;
 }
 
 .navbar-side-menu img{

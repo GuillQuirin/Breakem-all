@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="web/css/module/text.css">
 		<link rel="stylesheet" href="web/css/module/display.css">
 		<link rel="stylesheet" href="web/css/module/search.css">
+		<link rel="stylesheet" href="web/css/module/button.css">
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -51,7 +52,7 @@
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>
-					        <li>
+					        <li class="hover-none">
 					        	<a href="#" class="navbar-logo">
 				      				<img src="web/img/logo.png">
 				      			</a>
@@ -66,15 +67,15 @@
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>
-					        <li>
+					        <li class="hover-none">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
 					        </li>
-					        <li>
-					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
-					        	</a>
+					        <li class="hover-none">
+					        	<button type="button" class="search-toggle">
+            						<img src="web/img/icon/icon-search.png">
+       				 			</button>
 					        </li>
 				        </ul>
 			       </div>
@@ -114,15 +115,15 @@
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        	</a>
 					        </li>
-					        <li>
+					        <li class="hover-none">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
 					        </li>
-					        <li>
-					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
-					        	</a>
+					       <li class="hover-none">
+					        	<button type="button" class="search-toggle" style="padding:0 35px;">
+            						<img src="web/img/icon/icon-search.png">
+       				 			</button>
 					        </li>
 				        </ul>
 			       	</div>
@@ -133,16 +134,26 @@
 			  </nav>
 		</header>
 
-		<div class="search-page">
-			<button type="button" class="btn search-close search-toggle" id=""><img src="test.png"></button>
-			<h1>Rechercher un contenu et taper entrer.</h1>
-			<form>
-				<input type="text" name="search" id="search" placeholder="Rechercher.">
-			</form>
-			<div class="result-form grid-md-12">
-
+		<div class="search-page hidden-fade hidden">
+		<div class="container m-a">
+			<div class="grid-md-12">
+				<h2>Recherchez n'importe quoi puis appuyez sur entrer.</h2>
+				<form method="post" class="">
+	                    <!-- Input Search -->
+	                    <div class="grid-md-12">
+	                        <input class="" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
+	                    </div>
+	            </form>
 			</div>
 		</div>
+
+		<button class="btn btn-default circle-button default btn-close">
+	        <span class="circle-greater-than">
+	            <img class="search-close" src="web/img/icon/icon-close.png">
+	        </span>
+	    </button>
+
+</div>
 		
 		<div id="content">
 			<?php include $this->view; ?>
