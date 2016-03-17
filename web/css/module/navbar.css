@@ -20,6 +20,7 @@
 
 .navbar.full ul{
   line-height: 105px;
+  transition:all .5s;
 }
 
 .navbar li:hover{
@@ -37,6 +38,7 @@
 
 .navbar.shrink ul{
   line-height: 60px;
+  transition:all .5s;
 }
 
 .navbar.shrink .navbar-menu span{
@@ -222,3 +224,14 @@
 }
 
 /* Fin Navbar top */
+
+/* PROFILE STYLE */
+
+.navbar-profil-img img{
+  width:35px;
+  vertical-align: middle;
+}
+
+.navbar-profil-img{
+}
+

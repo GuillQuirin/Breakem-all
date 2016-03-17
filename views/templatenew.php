@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="web/css/module/display.css">
 		<link rel="stylesheet" href="web/css/module/search.css">
 		<link rel="stylesheet" href="web/css/module/button.css">
+		<link rel="stylesheet" href="web/css/module/image.css">
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -72,6 +73,11 @@
 			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu left">
 			      		<ul>
 			      			<li class="hover-none">
+			      				<a href="" class="navbar-profil-img">
+			      					<img class="img-circle" src="web/img/avatar3.jpg">
+			      				</a>
+			      			</li>
+			      			<li class="hover-none hidden">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
