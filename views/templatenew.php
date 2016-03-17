@@ -36,8 +36,13 @@
 			    <div class="container resultat-container m-a">
 
 			    <!-- MENU -->
-			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu left">
-			      	<ul>
+			      <div class="grid-md-10 hidden-xs hidden-sm navbar-menu left">
+			      		<ul>
+			      			<li class="hover-none">
+					        	<a href="#" class="navbar-logo">
+				      				<img src="web/img/logo-nb-title.png">
+				      			</a>
+			      			</li>
 					        <li>
 					        	<a href="/esgi/Breakthem-all/index" class="active">Accueil 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
@@ -51,12 +56,7 @@
 					        <li><a href="/esgi/Breakthem-all/team">Team 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
-					        </li>
-					        <li class="hover-none">
-					        	<a href="#" class="navbar-logo">
-				      				<img src="web/img/logo.png">
-				      			</a>
-			      			</li>
+					        </li>	
 					        <li>
 					        	<a href="">Joueur 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					 
@@ -66,8 +66,12 @@
 					        	<a href="/esgi/Breakthem-all/resultat">Classement 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
-					        </li>
-					        <li class="hover-none">
+					        </li>					     
+				        </ul>
+			       </div>
+			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu left">
+			      		<ul>
+			      			<li class="hover-none">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
@@ -77,13 +81,13 @@
             						<img src="web/img/icon/icon-search.png">
        				 			</button>
 					        </li>
-				        </ul>
-			       </div>
+		      			</ul>
+	      			</div>
 			       <!-- FIN MENU -->
 
 			       <!-- MENU TOGGLE -->
 			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu left">
-			       	<img src="web/img/logo.png" id="navbar-toggle-logo">
+			       	<img src="web/img/logo-nb-title.png" id="navbar-toggle-logo">
 			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
 			       </div>
 			       <!-- FIN MENU TOGGLE -->

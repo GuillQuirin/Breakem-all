@@ -43,12 +43,12 @@
   display:none;
 }
 
-.navbar.full .navbar-logo img {
-  width:100px;
+.navbar.full .navbar-logo img{
+  height:45px;
 }
 
-.navbar.shrink .navbar-logo img {
-  width:70px;
+.navbar.shrink .navbar-logo img{
+  height:30px;
 }
 
 .navbar-logo img {
@@ -58,6 +58,7 @@
 .navbar-menu ul{
   list-style: none;
   margin:0;
+  padding:0;
 }
 
 .navbar-menu li{
@@ -104,12 +105,12 @@
 }
 
 .navbar.full #navbar-toggle-logo{
-    width:100px;
+    height:45px;
     margin-top:30px;
 }
 
 .navbar.shrink #navbar-toggle-logo{
-    width:70px;
+    height:30px;
     margin-top:15px;
 }
 

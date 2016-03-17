@@ -22,7 +22,8 @@
 }
 
 .search-toggle img{
-	width:14px;
+	width:15px;
+	vertical-align: middle;
 }
 
 .search-page .btn{
