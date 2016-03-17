@@ -35,7 +35,6 @@ $(document).on('click', '.search-toggle', function(){
     }, 0);
 });   
 
-
 $(document).ready(function(){
 	ToggleNavbar();
 	$(window).scroll(function(){

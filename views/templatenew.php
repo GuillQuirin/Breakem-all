@@ -37,7 +37,7 @@
 			    <div class="container resultat-container m-a">
 
 			    <!-- MENU -->
-			      <div class="grid-md-10 hidden-xs hidden-sm navbar-menu left">
+			      <div class="grid-md-10 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
 					        	<a href="#" class="navbar-logo">
@@ -70,7 +70,7 @@
 					        </li>					     
 				        </ul>
 			       </div>
-			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu left">
+			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
 			      				<a href="" class="navbar-profil-img">
@@ -92,7 +92,7 @@
 			       <!-- FIN MENU -->
 
 			       <!-- MENU TOGGLE -->
-			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu left">
+			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu">
 			       	<img src="web/img/logo-nb-title.png" id="navbar-toggle-logo">
 			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
 			       </div>
