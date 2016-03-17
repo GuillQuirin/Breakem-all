@@ -29,7 +29,11 @@
 		</div>
 	</div>
 </section>
-
+<div id="connexion">
+	Connexion
+	<input type = "text" id="email" placeholder="Taper votre e-mail">
+	<input type = "text" id="pwd" placeholder="Taper votre mot de passe">
+</div>
 <div class="separateur">
 	<div id="title">
 		<hr class="left"> 

@@ -5,12 +5,12 @@ class routing{
 		$uri = $_SERVER['REQUEST_URI'];
 		$explode_uri = explode("?",$uri);
 		$uri = $explode_uri[0];
-		$uri = trim(str_replace("3ADW/ProjetAnnuel/versionne/","",$uri),"/");
+		$uri = trim(str_replace("esgi/Breakthem-all/","",$uri),"/");
 		$explode_uri = explode("/",$uri);
 		//print_r($explode_uri);
 		$c = (!empty($explode_uri[0]))?$explode_uri[0]:"index";
-		$a = (!empty($explode_uri[1]))?$explode_uri[1]:"index";
-
+		$a = (!empty($explode_uri[1]))?$explode_uri[1]:$explode_uri[0];
+		$a = (!empty($a))?$a:"index";
 		unset($explode_uri[0]);
 		unset($explode_uri[1]);
 

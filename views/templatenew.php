@@ -18,6 +18,9 @@
 		<link rel="stylesheet" href="web/css/module/size.css">
 		<link rel="stylesheet" href="web/css/module/text.css">
 		<link rel="stylesheet" href="web/css/module/display.css">
+		<link rel="stylesheet" href="web/css/module/search.css">
+		<link rel="stylesheet" href="web/css/module/button.css">
+		<link rel="stylesheet" href="web/css/module/image.css">
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -34,59 +37,63 @@
 			    <div class="container resultat-container m-a">
 
 			    <!-- MENU -->
-			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu left">
-			      	<ul>
-					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>News</span>
-					        	</a>
-					        </li>
-					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>avalaible</span>
-					        	</a>
-					        </li>
-					        <li><a href="/esgi/Breakem-all/team">Team 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>challenger</span>
-					        	</a>
-					        </li>
-					        <li>
+			      <div class="grid-md-10 hidden-xs hidden-sm navbar-menu">
+			      		<ul>
+			      			<li class="hover-none">
 					        	<a href="#" class="navbar-logo">
-				      				<img src="web/img/logodown.png">
+				      				<img src="web/img/logo-nb-title.png">
 				      			</a>
 			      			</li>
 					        <li>
+					        	<a href="/esgi/Breakthem-all/index" class="active">Accueil 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        	</a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakthem-all/tournoi">Tournoi 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        	</a>
+					        </li>
+					        <li><a href="/esgi/Breakthem-all/team">Team 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
+					        	</a>
+					        </li>	
+					        <li>
 					        	<a href="">Joueur 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>full list</span>
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					 
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>rank</span>
+					        	<a href="/esgi/Breakthem-all/resultat">Classement 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
-					        </li>
-					        <li>
+					        </li>					     
+				        </ul>
+			       </div>
+			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
+			      		<ul>
+			      			<li class="hover-none">
+			      				<a href="" class="navbar-profil-img">
+			      					<img class="img-circle" src="web/img/avatar3.jpg">
+			      				</a>
+			      			</li>
+			      			<li class="hover-none hidden">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
 					        </li>
-					        <li>
-					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
-					        	</a>
+					        <li class="hover-none">
+					        	<button type="button" class="search-toggle">
+            						<img src="web/img/icon/icon-search.png">
+       				 			</button>
 					        </li>
-				        </ul>
-			       </div>
+		      			</ul>
+	      			</div>
 			       <!-- FIN MENU -->
 
 			       <!-- MENU TOGGLE -->
-			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu left">
-			       	<img src="web/img/logodown.png" id="navbar-toggle-logo">
+			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu">
+			       	<img src="web/img/logo-nb-title.png" id="navbar-toggle-logo">
 			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
 			       </div>
 			       <!-- FIN MENU TOGGLE -->
@@ -96,42 +103,37 @@
 				       	<ul>
 					        <li>
 					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>News</span>
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					    
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>avalaible</span>
 					        	</a>
 					        </li>
 					        <li><a href="/esgi/Breakem-all/team">Team 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>challenger</span>
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="">Joueur 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>full list</span>
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="/esgi/Breakem-all/resultat">Classement 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>rank</span>
 					        	</a>
 					        </li>
-					        <li>
+					        <li class="hover-none">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
 					        </li>
-					        <li>
-					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-search.png">
-					        	</a>
+					       <li class="hover-none">
+					        	<button type="button" class="search-toggle" style="padding:0 35px;">
+            						<img src="web/img/icon/icon-search.png">
+       				 			</button>
 					        </li>
 				        </ul>
 			       	</div>
@@ -141,6 +143,27 @@
 			    </div>
 			  </nav>
 		</header>
+
+		<div class="search-page hidden-fade hidden">
+		<div class="container m-a">
+			<div class="grid-md-12">
+				<h2>Recherchez n'importe quoi puis appuyez sur entrer.</h2>
+				<form method="post" class="">
+	                    <!-- Input Search -->
+	                    <div class="grid-md-12">
+	                        <input class="" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
+	                    </div>
+	            </form>
+			</div>
+		</div>
+
+		<button class="btn btn-default circle-button default btn-close">
+	        <span class="circle-greater-than">
+	            <img class="search-close" src="web/img/icon/icon-close.png">
+	        </span>
+	    </button>
+
+</div>
 		
 		<div id="content">
 			<?php include $this->view; ?>

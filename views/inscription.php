@@ -24,22 +24,22 @@
 	<div id="right">
 		<header><img src="web/img/arrow.png" id="arrow">REJOIGNEZ-NOUS MAINTENANT</header>
 
-		<form action="inscription.html" method="POST">
+		<form action=<?php $page=explode('.', $this->view); echo '"'.trim(str_replace('views', '', $page[0]), '/').'/verify"';?> method="POST">
 			<div id="inscr_coord">
 					<p><!--[if IE 9]>Pseudo:<![endif]-->
-						<input id="insc_pseudo" type="text" placeholder="Pseudo" autofocus required>
+						<input name="pseudo" id="insc_pseudo" type="text" placeholder="Pseudo" autofocus required>
 						<span class="bullecontent">Ce pseudo est déjà utilisé.</span>
 					</p>
 					<p><!--[if IE 9]>Adresse e-mail:<![endif]-->
-						<input id="insc_email" type="email" placeholder="Email" class="bulle" required>
+						<input name="email" id="insc_email" type="email" placeholder="Email" class="bulle" required>
 						<span class="bullecontent">L'adresse est mal rédigée </span>
 					</p>
 					<p><!--[if IE 9]>Mot de passe:<![endif]-->
-						<input id="insc_pwd" type="password" placeholder="Mot de passe" class="bulle" required>
+						<input name="password" id="insc_pwd" type="password" placeholder="Mot de passe" class="bulle" required>
 						<span class="bullecontent">1 majuscule et 6 caractères minimum</span>
 					</p>
 					<p><!--[if IE 9]>Confirmation de mot de passe:<![endif]-->
-						<input id="conf_insc_pwd" type="password" placeholder="Confirmation du mot de passe" class="bulle" required>
+						<input name="password_check" id="conf_insc_pwd" type="password" placeholder="Confirmation du mot de passe" class="bulle" required>
 						<span class="bullecontent">Les 2 mots de passe doivent être similaires</span>
 					</p>
 					<p id="naissance">Date de naissance:
