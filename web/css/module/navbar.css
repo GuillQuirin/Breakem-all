@@ -16,6 +16,7 @@
 
 .navbar.full {
   height: 105px;
+  transition:all .5s;
 }
 
 .navbar.full ul{
@@ -34,6 +35,7 @@
 .navbar.shrink {
   height: 60px;
   background: transparent;
+  transition:all .5s;
 }
 
 .navbar.shrink ul{
@@ -47,10 +49,12 @@
 
 .navbar.full .navbar-logo img{
   height:45px;
+  transition:all .5s;
 }
 
 .navbar.shrink .navbar-logo img{
   height:30px;
+  transition:all .5s;
 }
 
 .navbar-logo img {
