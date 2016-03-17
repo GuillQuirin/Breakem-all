@@ -1,4 +1,4 @@
-/*.search-page{
+.search-page{
 	width:100%;
 	height:100%;
 	position:fixed;
@@ -37,6 +37,9 @@
 	margin:0;
 	padding:0;
 	cursor:pointer;
+	position:absolute;
+	right:0;
+	margin:0 25px;
 }
 
 @media screen and (min-width: 200px) and (max-width: 600px) {
@@ -59,4 +62,4 @@
 .search-page .search-close{
 	width:10px;
 }
-}*/
+}

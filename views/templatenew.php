@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="web/css/module/size.css">
 		<link rel="stylesheet" href="web/css/module/text.css">
 		<link rel="stylesheet" href="web/css/module/display.css">
+		<link rel="stylesheet" href="web/css/module/search.css">
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -131,6 +132,17 @@
 			    </div>
 			  </nav>
 		</header>
+
+		<div class="search-page">
+			<button type="button" class="btn search-close search-toggle" id=""><img src="test.png"></button>
+			<h1>Rechercher un contenu et taper entrer.</h1>
+			<form>
+				<input type="text" name="search" id="search" placeholder="Rechercher.">
+			</form>
+			<div class="result-form grid-md-12">
+
+			</div>
+		</div>
 		
 		<div id="content">
 			<?php include $this->view; ?>
