@@ -18,10 +18,13 @@
   height: 105px;
 }
 
-.navbar.full li{
-  line-height: 65px;
+.navbar.full li, .navbar.full li a{
+  line-height: 75px;
 }
 
+.navbar li:hover{
+  background:rgba(75, 62, 99, 0.54) none repeat scroll 0% 0%;
+}
 
 .navbar.shrink {
   height: 60px;
@@ -30,6 +33,10 @@
 
 .navbar.shrink .navbar-menu span{
   display:none;
+}
+
+.navbar.full .navbar-logo img {
+  width:100px;
 }
 
 .navbar.shrink .navbar-logo img {
@@ -88,12 +95,13 @@
 }
 
 .navbar.full #navbar-toggle-logo{
-    margin-top:20px;
+    width:100px;
+    margin-top:30px;
 }
 
 .navbar.shrink #navbar-toggle-logo{
     width:70px;
-    margin-top:10px;
+    margin-top:15px;
 }
 
 .navbar #navbar-toggle{
@@ -123,7 +131,7 @@
 /* NAVBAR SIDE */
 
 .navbar-side-menu{
-  width:40%;
+  width:50%;
   background:#080325;
   position:fixed;
   top:0;

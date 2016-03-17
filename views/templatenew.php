@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="web/css/module/size.css">
 		<link rel="stylesheet" href="web/css/module/text.css">
 		<link rel="stylesheet" href="web/css/module/display.css">
+		<link rel="stylesheet" href="web/css/module/search.css">
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -37,37 +38,32 @@
 			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu left">
 			      	<ul>
 					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
+					        	<a href="/esgi/Breakthem-all/index" class="active">Accueil 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>News</span>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
+					        	<a href="/esgi/Breakthem-all/tournoi">Tournoi 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>avalaible</span>
 					        	</a>
 					        </li>
-					        <li><a href="/esgi/Breakem-all/team">Team 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>challenger</span>
+					        <li><a href="/esgi/Breakthem-all/team">Team 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="#" class="navbar-logo">
-				      				<img src="web/img/logodown.png">
+				      				<img src="web/img/logo.png">
 				      			</a>
 			      			</li>
 					        <li>
 					        	<a href="">Joueur 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>full list</span>
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					 
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>rank</span>
+					        	<a href="/esgi/Breakthem-all/resultat">Classement 
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>
 					        <li>
@@ -86,7 +82,7 @@
 
 			       <!-- MENU TOGGLE -->
 			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu left">
-			       	<img src="web/img/logodown.png" id="navbar-toggle-logo">
+			       	<img src="web/img/logo.png" id="navbar-toggle-logo">
 			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
 			       </div>
 			       <!-- FIN MENU TOGGLE -->
@@ -96,31 +92,26 @@
 				       	<ul>
 					        <li>
 					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>News</span>
+					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					    
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>avalaible</span>
 					        	</a>
 					        </li>
 					        <li><a href="/esgi/Breakem-all/team">Team 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>challenger</span>
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="">Joueur 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>full list</span>
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="/esgi/Breakem-all/resultat">Classement 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        		<span>rank</span>
 					        	</a>
 					        </li>
 					        <li>
@@ -141,6 +132,17 @@
 			    </div>
 			  </nav>
 		</header>
+
+		<div class="search-page">
+			<button type="button" class="btn search-close search-toggle" id=""><img src="test.png"></button>
+			<h1>Rechercher un contenu et taper entrer.</h1>
+			<form>
+				<input type="text" name="search" id="search" placeholder="Rechercher.">
+			</form>
+			<div class="result-form grid-md-12">
+
+			</div>
+		</div>
 		
 		<div id="content">
 			<?php include $this->view; ?>
