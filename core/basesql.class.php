@@ -32,7 +32,6 @@ class basesql{
 			//INSERT
 			$sql = "INSERT INTO ".$this->table." (".implode(",",$this->columns).")
 			VALUES (:".implode(",:", $this->columns).")";
-			//echo $sql;
 			$query = $this->pdo->prepare($sql);
 
 			foreach($this->columns as $columns){
