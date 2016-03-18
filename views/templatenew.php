@@ -45,16 +45,16 @@
 				      			</a>
 			      			</li>
 					        <li>
-					        	<a href="/esgi/Breakthem-all/index" class="active">Accueil 
+					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakthem-all/tournoi">Tournoi 
+					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        	</a>
 					        </li>
-					        <li><a href="/esgi/Breakthem-all/team">Team 
+					        <li><a href="/esgi/Breakem-all/team">Team 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>	
@@ -64,7 +64,7 @@
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakthem-all/resultat">Classement 
+					        	<a href="/esgi/Breakem-all/resultat">Classement 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
 					        </li>					     
