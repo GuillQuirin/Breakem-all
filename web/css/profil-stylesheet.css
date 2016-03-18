@@ -3,7 +3,7 @@ BODY{
 	color: white;
 }
 #content{
-	margin: 50px auto;
+	margin: 100px auto;
     width: 80%;
 }
 
@@ -33,6 +33,11 @@ ul{
 }
 button{
 	cursor: pointer;
+}
+#absfiche{
+    text-align: center;
+    height: 200px;
+    line-height: 200px;
 }
 #presentation #image img{
 	float: left;
