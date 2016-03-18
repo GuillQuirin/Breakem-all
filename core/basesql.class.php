@@ -40,4 +40,11 @@ class basesql{
 			$query->execute($data);
 		}
 	}
+
+	public function get($id){
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE id=' . $id; 
+		$r = $this->pdo->execute($sql)->fetchColumn();
+
+		return $r;
+	}
 }
