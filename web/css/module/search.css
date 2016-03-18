@@ -8,6 +8,15 @@
 	opacity:1;
 }
 
+.search-btn {
+	padding         : 10px 25px 10px 25px;
+	cursor:pointer;
+	color           : #ffffff;
+	text-decoration : none;
+	border          : 1px solid ;
+	border-radius   : 0;
+}
+
 .search-page h1, .search-page h2, .search-page h3, .search-page h4, .search-page h5{
 	color:#ffffff;
 }
@@ -26,7 +35,7 @@
 	vertical-align: middle;
 }
 
-.search-page .btn{
+.search-page .search-btn{
 	position:absolute;
 	top:30px;
 	right:30px;

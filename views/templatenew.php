@@ -67,7 +67,7 @@
 					        	<a href="/esgi/Breakem-all/resultat">Classement 
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
 					        	</a>
-					        </li>					     
+					        </li>					   				     
 				        </ul>
 			       </div>
 			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
@@ -157,7 +157,7 @@
 			</div>
 		</div>
 
-		<button class="btn btn-default circle-button default btn-close">
+		<button class="search-btn btn-default circle-button default btn-close">
 	        <span class="circle-greater-than">
 	            <img class="search-close" src="web/img/icon/icon-close.png">
 	        </span>
