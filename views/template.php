@@ -26,15 +26,15 @@
 			</div>	
 			<nav id="menu" >
 				<ul>
-	 				<li><a href="/esgi/Breakem-all/index">Accueil</a></li>
-	 				<li><a href="/esgi/Breakem-all/tournoi">Tournoi</a>
+	 				<li><a href="/esgi2/index">Accueil</a></li>
+	 				<li><a href="/esgi2/tournoi">Tournoi</a>
 	 					<ul> 
 	 						<li><a href="#">Jeux</a></li>
 	 						<li><a href="#">Evenement</a></li>
 	 					</ul>
 	 				</li>
 
-					<li><a href="/esgi/Breakem-all/team">Team</a></li>
+					<li><a href="/esgi2/team">Team</a></li>
 					<li><a href="#"></a></li>
 					<li><a href="#">Joueur</a></li>
 					<li><a href="#">Classement</a></li>
@@ -43,15 +43,15 @@
 			</nav>
 			<nav id="menu2" >
 				<ul class="hide">
-	 				<li><a href="/esgi/Breakem-all/index">Accueil</a></li>
-	 				<li><a href="/esgi/Breakem-all/tournoi">Tournoi</a>
+	 				<li><a href="/esgi2/index">Accueil</a></li>
+	 				<li><a href="/esgi2/tournoi">Tournoi</a>
 	 					<ul> 
 	 						<li><a href="#">Jeux</a></li>
 	 						<li><a href="#">Evenement</a></li>
 	 					</ul>
 	 				</li>
 
-					<li><a href="/esgi/Breakem-all/team">Team</a></li>
+					<li><a href="/esgi2/team">Team</a></li>
 					<li><a href="#">Joueur</a></li>
 					<li><a href="#">Classement</a></li>
 					<li><a href="#">Mon compte</a></li>
