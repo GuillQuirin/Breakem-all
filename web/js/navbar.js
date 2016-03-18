@@ -21,6 +21,20 @@ function ToggleNavbar(){
 	});
 }
 
+$(document).on('click', '.btn-close', function(e){
+    $(e.currentTarget).parents('.search-page').addClass('hidden-fade');
+    setTimeout(function() {
+        $(".search-page").addClass('hidden');
+    }, 800);
+});   
+
+$(document).on('click', '.search-toggle', function(){
+    $('.search-page').removeClass('hidden-fade');
+    setTimeout(function() {
+        $(".search-page").removeClass('hidden');
+    }, 0);
+});   
+
 $(document).ready(function(){
 	ToggleNavbar();
 	$(window).scroll(function(){
