@@ -13,6 +13,9 @@ function mon_loader($class){
 	if( file_exists("models/".$class.".class.php")){
 		require_once("models/".$class.".class.php");
 	}
+	if( file_exists("models/".$class.".manager.class.php")){
+		require_once("models/".$class.".manager.class.php");
+	}
 }
 spl_autoload_register('mon_loader');
 
