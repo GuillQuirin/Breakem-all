@@ -10,9 +10,5 @@ class inscriptionController{
 		$v->assign("content", "S'inscrire à Break-em all !");
 		$v->setView("inscription");
 	}
-
-	public function verifyAction(){
-		var_dump($_POST);
-	}
 	
 }
