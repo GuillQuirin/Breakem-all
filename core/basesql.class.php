@@ -42,6 +42,7 @@ class basesql{
 		}
 	}
 
+<<<<<<< HEAD
 	public function pseudoExists($pseudo){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();

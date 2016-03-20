@@ -1,9 +1,23 @@
+<?php
+if(isset($err)){
+	?>
+	<section id="absfiche">
+		<div>ERREUR 404, utilisateur introuvable</div>
+	</section>
+	<?php
+}
+else{
+	?>
 	<section id="presentation">
 		<div id="image">
 			<img src="" alt="logo">
-			<p>PSEUDO</p>
-			<p class="off">Vu le: 15/01/16</p>
-			<?php if(0) echo '<p class="on">Connecté</p>'; ?>
+			<p><?php echo $pseudo; ?></p>
+			<?php 
+				if($online)
+					echo '<p class="on">Connecté</p>'; 
+				else
+					echo '<p class="off">Vu le: '.$lastco.'</p>';
+			?>
 		</div>
 		<button id="configuration">Configurer mon compte</button>
 	</section>
@@ -14,7 +28,10 @@
 		</div>
 		<div id="description">
 			<h4>Description</h4>
-			<p>Ce joueur n'a pas encore rédigé de description.
+			<p>
+				<?php 
+					echo (isset($description)) ? $description : "Ce joueur n'a pas encore rédigé de description.";
+				?>
 			</p>
 		</div>
 		<div id="statistiques">
@@ -96,3 +113,6 @@
 			<button id="btn_contact">Envoyer</button>
 		</div>
 	</section>
+	<?php
+}
+?>
