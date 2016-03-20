@@ -1,14 +1,15 @@
 <?php
 class basesql{
 
-	private $table;
-	private $pdo;
-	private $columns = [];
+	protected $table;
+	protected $pdo;
+	protected $columns = [];
 
 	public function __construct(){
 		$this->table = get_called_class();
-		//echo $this->table;
-		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
+		$this->table = str_replace("Manager", "", $this->table);
+		// echo $this->table;
+		$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
 		try{
 			$this->pdo = new PDO($dsn,DBUSER,DBPWD);
 		}catch(Exception $e){
@@ -24,7 +25,7 @@ class basesql{
 		//print_r($this->columns);
 	}
 
-	public function save(){
+	protected function save(){
 		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
 		if(is_numeric($this->id)){
 			//UPDATE
@@ -39,5 +40,19 @@ class basesql{
 			}
 			$query->execute($data);
 		}
+	}
+
+	public function pseudoExists($pseudo){
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
+	}
+
+	public function emailExists($email){		
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE email="' . $email .'"'; 
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
 	}
 }

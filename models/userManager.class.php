@@ -1,86 +1,53 @@
 <?php 
 
 class userManager extends basesql{
-	//Ca doit être un miroir par rapport au nom des colonnes dans la table
-	protected $id;
-	protected $name;
-	protected $firstname;
-	protected $pseudo;
-	protected $birthday;
-	protected $description;
-	protected $kind;
-	protected $city;
-	protected $email;
-	protected $password;
-	protected $status;
-	protected $img_user;
-	protected $idTeam;
-
-	//Permet d'exécuter le construct du parent c'est-à-dire basesql
-	public function __construct(array $data){
-		$this->hydrate($data);
+	public function __construct(){
+		parent::__construct();
 	}
 
-	private function hydrate(array $data){
-		foreach ($data as $key => $value) {
-			$method = 'set'.ucfirst($key);
-			if (method_exists($this, $method)) {
-				$this->$method($value);
+	
+	public function create(user $user){
+		// Check afin de savoir qui appelle cette méthode
+		$e = new Exception();
+		$trace = $e->getTrace();
+		// var_dump($trace);
+		// get calling class:
+		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
+		// get calling method
+		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
+		// var_dump($calling_class, $calling_method);
+
+		if(!$calling_class || !$calling_method)
+			die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe InscriptionController!");
+
+		// Si appelée depuis la page inscription
+		if ($calling_class === "inscriptionController" && $calling_method === "verifyAction"){
+			$this->columns = [];
+			$user_methods = get_class_methods($user);
+			// var_dump($user_methods);
+			foreach ($user_methods as $key => $method) {
+				if(strpos($method, 'get') !== FALSE){
+					$col = lcfirst(str_replace('get', '', $method));
+					$this->columns[$col] = $user->$method();
+				};
 			}
+			$this->columns = array_filter($this->columns);
+			$this->save();
 		}
 	}
 
-	private setId($v){
-		$this->id=$v;
-	}
-	private setName($v){
-		$this->name=$v;
-	}
-	private setFirstname($v){
-		$this->firstname=$v;
-	}
-	private setPseudo($v){
-		$this->pseudo=$v;
-	}
-	private setBirthday($v){
-		$this->birthday=$v;
-	}
-	private setDescription($v){
-		$this->description=$v;
-	}
-	private setKind($v){
-		$this->kind=$v;
-	}
-	private setCity($v){
-		$this->city=$v;
-	}
-	private setEmail($v){
-		$this->email=$v;
-	}
-	private setPassword($v){
-		$this->password=$v;
-	}
-	private setStatus($v){
-		$this->status=$v;
-	}
-	private setImg_user($v){
-		$this->img_user=$v;
-	}
-	private setIdTeam($v){
-		$this->idTeam=$v;
+	protected function save(){
+		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
+		if(isset($this->columns['id'])){
+			// UPDATE
+		}else{
+			//INSERT
+			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
+			VALUES (:".implode(",:", array_keys($this->columns)).")";
+			$query = $this->pdo->prepare($sql);
+			// var_dump($query);
+			$query->execute($this->columns);
+		}
 	}
 
-	public getId(){return $this->id;}
-	public getName(){return	$this->name;}
-	public getFirstname(){return $this->firstname;}
-	public getPseudo(){return $this->pseudo;}
-	public getBirthday(){return	$this->birthday;}
-	public getDescription(){return $this->description;}
-	public getKind(){return	$this->kind;}
-	public getCity(){return	$this->city;}
-	public getEmail(){return $this->email;}
-	public getPassword(){return	$this->password;}
-	public getStatus(){return $this->status;}
-	public getImg_user(){return	$this->img_user;}
-	public getIdTeam(){return $this->idTeam;}
 }

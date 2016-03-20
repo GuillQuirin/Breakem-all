@@ -7,7 +7,7 @@ class inscriptionController{
 		$v->assign("css", "inscription");
 		$v->assign("js", "inscription");
 		$v->assign("title", "Rejoignez-nous !");
-		$v->assign("content", "S'inscrire à Break-em all !");
+		$v->assign("content", "S'inscrire a Break-em all !");
 		$v->setView("inscription");
 	}
 
@@ -22,23 +22,25 @@ class inscriptionController{
 		    'year'   => FILTER_VALIDATE_INT	    
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
+		// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
+		$finalArr = [];
 
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
 				die("FAUX: ".$filteredinputs[$key]);
 		}
 
-		$email = $filteredinputs['email'];
+		$finalArr['email'] = $filteredinputs['email'];
 
 		if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>45)
         	die("FAIL pseudo");	
         else
- 	       $pseudo=trim($filteredinputs['pseudo']);
+ 	       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
         if($filteredinputs['password']!==$filteredinputs['password_check'])
         	die("FAIL pwd");
         else
-        	$password=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+        	$finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
 
         if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
         	die("FAIL date crea");
@@ -46,13 +48,26 @@ class inscriptionController{
         	$date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
         	if(!$date)
         		die("FAIL date format");
-        	$birthday=date_timestamp_get($date);
+        	$finalArr['birthday'] = date_timestamp_get($date);
         }
+        
+        // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
+        $user = new user($finalArr);
+        // var_dump($user);
 
-        $user = new usermanager();
-        $exist_pseudo=$user->pseudoExists($pseudo);
-        $exist_email=$user->pseudoExists($email);
-        if($exist_email && $exist_pseudo)
-        	$user->save($pseudo, $birthday, $password, $email);
+        // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+        $userBDD = new userManager();
+        // On check l'utilisation du pseudo
+        $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
+        if($exist_pseudo)
+        	die("User already used !");
+
+        // On check celle de l'email
+        $exist_email=$userBDD->emailExists($user->getEmail());
+        if($exist_email)
+        	die("Email already used");
+
+        // On enregistre !
+        $userBDD->create($user);
 	}
 }

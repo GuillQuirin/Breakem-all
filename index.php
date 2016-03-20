@@ -9,12 +9,15 @@ require_once "conf.inc.php";
 function mon_loader($class){
 	if( file_exists("core/".$class.".class.php")){
 		require_once("core/".$class.".class.php");
+		return;
 	}
 	if( file_exists("models/".$class.".class.php")){
 		require_once("models/".$class.".class.php");
+		return;
 	}
-	if( file_exists("models/".$class.".manager.class.php")){
-		require_once("models/".$class.".manager.class.php");
+	if( file_exists("models/".$class."Manager.class.php")){
+		require_once("models/".$class."Manager.class.php");
+		return;
 	}
 }
 spl_autoload_register('mon_loader');
@@ -41,10 +44,4 @@ if(file_exists($path_controller)){
 	die("404, controller inexistant!");
 }
 
-
-
-
-
-
-	
 ?>
