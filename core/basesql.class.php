@@ -25,7 +25,7 @@ class basesql{
 		//print_r($this->columns);
 	}
 
-	protected function save(){
+	public function save(){
 		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
 		if(is_numeric($this->id)){
 			//UPDATE
