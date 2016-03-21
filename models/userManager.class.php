@@ -50,4 +50,11 @@ class userManager extends basesql{
 		}
 	}
 
+	public function tryConnect($email){
+		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, password, status, img_user, id_team FROM ".$this->table." WHERE email='".$email."'";
+		$query = $this->pdo->query($sql)->fetch();
+		if($query === FALSE)
+			return false;
+		return new user($query);
+	}
 }

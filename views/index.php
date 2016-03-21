@@ -30,9 +30,12 @@
 	</div>
 </section>
 <div id="connexion">
-	Connexion
-	<input type = "text" id="email" placeholder="Taper votre e-mail">
-	<input type = "text" id="pwd" placeholder="Taper votre mot de passe">
+	<form action=<?php $page=explode('.', $this->view); echo '"'.trim(str_replace('views', '', $page[0]), '/').'/connexion"';?> method="post">
+		Connexion
+		<input type = "text" id="email" name="email" placeholder="Taper votre e-mail">
+		<input type = "password" id="pwd" name="password" placeholder="Taper votre mot de passe">
+		<input type="submit" value="connexion">
+	</form>
 </div>
 <div class="separateur">
 	<div id="title">
