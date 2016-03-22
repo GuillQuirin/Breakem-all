@@ -24,11 +24,11 @@
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="web/js/jquery-1.12.2.min.js"></script>
 		<?php echo (isset($js)) ? '<script src="web/js/'.$js.'.js"></script>' : '';?>
 		<script src="web/js/navbar.js"></script>
-	</head>
 
+	</head>
 	<body>
 
 		<header>
@@ -70,12 +70,14 @@
 					        </li>					   				     
 				        </ul>
 			       </div>
+
 			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
-			      				<a href="" class="navbar-profil-img">
-			      					<img class="img-circle" src="web/img/avatar3.jpg">
+			      				<a href="#" id="btn-connex">
+			      					Connexion/Inscription
 			      				</a>
+			      				
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
@@ -125,6 +127,7 @@
 					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
 					        	</a>
 					        </li>
+
 					        <li class="hover-none">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
@@ -145,26 +148,28 @@
 		</header>
 
 		<div class="search-page hidden-fade hidden">
-		<div class="container m-a">
-			<div class="grid-md-12">
-				<h2>Recherchez n'importe quoi puis appuyez sur entrer.</h2>
-				<form method="post" class="">
-	                    <!-- Input Search -->
-	                    <div class="grid-md-12">
-	                        <input class="" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
-	                    </div>
-	            </form>
+			<div class="container m-a">
+				<div class="grid-md-12">
+					<h2>Recherchez n'importe quoi puis appuyez sur entrer.</h2>
+					<form method="post" class="">
+		                    <!-- Input Search -->
+		                    <div class="grid-md-12">
+		                        <input class="" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
+		                    </div>
+		            </form>
+				</div>
 			</div>
+
+			<button class="search-btn btn-default circle-button default btn-close">
+		        <span class="circle-greater-than">
+		            <img class="search-close" src="web/img/icon/icon-close.png">
+		        </span>
+	    	</button>
+
 		</div>
-
-		<button class="search-btn btn-default circle-button default btn-close">
-	        <span class="circle-greater-than">
-	            <img class="search-close" src="web/img/icon/icon-close.png">
-	        </span>
-	    </button>
-
-</div>
 		
+		<div id="enplus"> Test</div>
+
 		<div id="content">
 			<?php include $this->view; ?>
 		</div>

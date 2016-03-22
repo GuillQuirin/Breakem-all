@@ -14,9 +14,7 @@ hr{
     display: inline-block;
     margin-top:15px;
 }
-<<<<<<< HEAD:web/css/index-stylesheet.css
 
-=======
 @media screen and (max-width: 930px){
     #header_right{
         display:none;
@@ -42,7 +40,7 @@ hr{
     }
 
 }
->>>>>>> 4ddc260ace4c8b21d3f96a604562447d099e14e0:web/css/index.css
+
 .bouton{
     background-color:black;
     color:#bfbdbd;

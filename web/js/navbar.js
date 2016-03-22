@@ -40,4 +40,10 @@ $(document).ready(function(){
 	$(window).scroll(function(){
 		ShrinkNavbar();
 	})
+
+	$('#enplus').hide();
+	$('#btn-connex').click(function() {
+		$('#enplus').show('slow');
+	});
+
 })

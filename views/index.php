@@ -1,3 +1,41 @@
+<style>
+#surcouche{
+display: none;
+position: fixed;               
+top: 0; right:0; bottom:0; left: 0;
+background-color: rgba(255, 255, 255, 0.7);
+z-index : 1000;
+}
+#case{
+    display : none;
+}
+#case:checked + #surcouche{
+    display: block;
+}
+label{
+    cursor: pointer;
+}
+.labelButon{
+    padding: 5px 10px;
+    background-color: #3636A3;
+    color : #fff;
+    position: relative;
+    top: 180px;
+    left :220px;
+    z-index: 1005;
+     
+}
+#msgbox{
+    width: 300px;
+    height: 200px;
+    padding: 15px;
+    position: absolute;
+    top: 25%;
+    left: 34%;
+    background-color: white;
+    border: 10px solid #aaa;
+}
+</style>
 <div id="header">
 	<div id="header_width">
 		<div id="nom_site">
@@ -9,6 +47,15 @@
 		</div>
 	</div>
 </div>
+<label for="case">Cliquez ici pour afficher le masque</label>
+			<input type="checkbox" id="case"/>
+			<div id="surcouche">
+			    <div id="msgbox">
+			        <label for="case" class="labelButon">Fermer</label>
+			        <h3>Bonjour cher ami !</h3>
+			        <p>Vous êtes bien sur mon site ! Je suis content de vous voir. Bonne navigation ! :)</p>
+			    </div>
+			</div>
 
 <section id="section_inscrip">
 	<div id="slider">
@@ -37,6 +84,7 @@
 		<input type="submit" value="connexion">
 	</form>
 </div>
+
 <div class="separateur">
 	<div id="title">
 		<hr class="left"> 
