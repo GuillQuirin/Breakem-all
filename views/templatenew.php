@@ -159,17 +159,14 @@
 		            </form>
 				</div>
 			</div>
-
+			
 			<button class="search-btn btn-default circle-button default btn-close">
 		        <span class="circle-greater-than">
 		            <img class="search-close" src="web/img/icon/icon-close.png">
 		        </span>
 	    	</button>
-
+			
 		</div>
-		
-		<div id="enplus"> Test</div>
-
 		<div id="content">
 			<?php include $this->view; ?>
 		</div>

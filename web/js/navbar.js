@@ -41,9 +41,6 @@ $(document).ready(function(){
 		ShrinkNavbar();
 	})
 
-	$('#enplus').hide();
-	$('#btn-connex').click(function() {
-		$('#enplus').show('slow');
-	});
+
 
 })
