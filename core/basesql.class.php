@@ -27,19 +27,21 @@ class basesql{
 
 	public function save(){
 		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
-		if(is_numeric($this->id)){
-			//UPDATE
-		}else{
+		// if(is_numeric($this->id)){
+		// 	//UPDATE
+		// }else{
 			//INSERT
-			$sql = "INSERT INTO ".$this->table." (".implode(",",$this->columns).")
-			VALUES (:".implode(",:", $this->columns).")";
+			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
+			VALUES (:".implode(",:", array_keys($this->columns)).")";
 			$query = $this->pdo->prepare($sql);
-
-			foreach($this->columns as $columns){
-				$data[$columns] = $this->$columns;
+			var_dump($sql);
+			foreach($this->columns as $key => $value){
+				$data[$key] = $value;
 			}
-			$query->execute($data);
-		}
+			var_dump($data);
+			$r = $query->execute($data);
+			var_dump($r);
+		// }
 	}
 
 	public function pseudoExists($pseudo){
@@ -54,5 +56,20 @@ class basesql{
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
 
 		return $r;
+	}
+
+	public function getUser(array $infos){
+		
+		$cols = array_keys($infos);
+		$data = [];
+		foreach ($cols as $key) {
+			$data[$key] = $key.'="'.$infos[$key].'"';
+		}
+		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, status, img_user, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
+		// var_dump($sql);
+		$query = $this->pdo->query($sql)->fetch();
+		if($query === FALSE)
+			return false;
+		return new user(array_filter($query));
 	}
 }
