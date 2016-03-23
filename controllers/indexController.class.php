@@ -2,12 +2,6 @@
 class indexController{
 
 	public function indexAction($requiredPosts){
-
-		$article = new articles();
-		$article->setTitle("Mon titre");
-		$article->setContent("Description de ma page");
-		$article->save();
-
 		$v = new view();
 		$v->assign("css", "index");
 		$v->assign("js", "index");
