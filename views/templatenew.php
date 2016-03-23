@@ -37,7 +37,7 @@
 			    <div class="container resultat-container m-a">
 
 			    <!-- MENU -->
-			      <div class="grid-md-10 hidden-xs hidden-sm navbar-menu">
+			      <div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
 					        	<a href="#" class="navbar-logo">
@@ -70,12 +70,13 @@
 					        </li>					   				     
 				        </ul>
 			       </div>
-			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
+			       <div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
-			      			<li class="hover-none">
-			      				<a href="" class="navbar-profil-img">
-			      					<img class="img-circle" src="web/img/avatar3.jpg">
-			      				</a>
+			      			<li class="hover-none" style="width:80px;">
+			      				<button type="button" class="btn btn-blue"><a>Subscribe</a></button>
+			      			</li>
+			      			<li class="hover-none" style="width:205px;">
+			      				<button type="button" class="btn btn-blue"><a>Login</a></button>
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
