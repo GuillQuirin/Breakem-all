@@ -73,11 +73,6 @@
 			       <div class="grid-md-2 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
-			      				<a href="" class="navbar-profil-img">
-			      					<img class="img-circle" src="web/img/avatar3.jpg">
-			      				</a>
-			      			</li>
-			      			<li class="hover-none hidden">
 					        	<a href="">
 					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
 					        	</a>
