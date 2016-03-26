@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
 			<title>Break'em All<?php echo (isset($title)) ? ' - '.$title : '';?></title>
+			<link rel="shortcut icon" href="web/img/icon/logo-full.ico" type="image/x-icon" />
 			<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="web/css/template.css" media="screen">
@@ -73,10 +74,10 @@
 			       <div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none" style="width:80px;">
-			      				<button type="button" class="btn btn-blue"><a>Subscribe</a></button>
+			      				<button type="button" class="btn btn-pink"><a>Subscribe</a></button>
 			      			</li>
 			      			<li class="hover-none" style="width:205px;">
-			      				<button type="button" class="btn btn-blue"><a>Login</a></button>
+			      				<button type="button" class="btn btn-pink"><a>Login</a></button>
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
