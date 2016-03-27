@@ -6,7 +6,7 @@ class View{
 	protected $view;
 	protected $template;
 
-	public function setView($view, $layout="template"){
+	public function setView($view, $layout="templatenew"){
 		$path_view = "views/".$view.".php";
 		$path_template = "views/".$layout.".php";
 
