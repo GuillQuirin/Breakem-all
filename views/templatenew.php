@@ -5,33 +5,32 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
 			<title>Break'em All<?php echo (isset($title)) ? ' - '.$title : '';?></title>
-			<link rel="shortcut icon" href="web/img/icon/logo-full.ico" type="image/x-icon" />
+			<?php echo '<link rel="shortcut icon" href="' . WEBPATH . '/web/img/icon/logo-full.ico" type="image/x-icon">';?>
 			<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link rel="stylesheet" href="web/css/template.css" media="screen">
-		<link rel="stylesheet" href="web/css/module/navbar.css" media="screen">
-		<link rel="stylesheet" href="web/css/module/position.css" media="screen">
-		<link rel="stylesheet" href="web/css/module/margin.css" media="screen">
-		<link rel="stylesheet" href="web/css/module/fonts.css" media="screen">
-		<link rel="stylesheet" href="web/css/module/icon.css" media="screen">
-		<link rel="stylesheet" href="web/css/general-stylesheet.css">
-		<link rel="stylesheet" href="web/css/module/grid.css">
-		<link rel="stylesheet" href="web/css/module/size.css">
-		<link rel="stylesheet" href="web/css/module/text.css">
-		<link rel="stylesheet" href="web/css/module/display.css">
-		<link rel="stylesheet" href="web/css/module/search.css">
-		<link rel="stylesheet" href="web/css/module/button.css">
-		<link rel="stylesheet" href="web/css/module/image.css">
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/template.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/navbar.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/position.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/margin.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/fonts.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/icon.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/general-stylesheet.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/grid.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/display.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
 
-		<?php echo (isset($css)) ? '<link rel="stylesheet" href="web/css/'.$css.'-stylesheet.css">' : '';?>
+		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<?php echo (isset($js)) ? '<script src="web/js/'.$js.'.js"></script>' : '';?>
-		<script src="web/js/navbar.js"></script>
+		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
+		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 	</head>
 
 	<body>
-
 		<header>
 			 <!-- Navbar top -->
 			  <nav class="navbar full fixed transparent" id="navbar">
@@ -41,33 +40,22 @@
 			      <div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
-					        	<a href="#" class="navbar-logo">
-				      				<img src="web/img/logo-nb-title.png">
-				      			</a>
+					        	<a href="#" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 			      			</li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        	</a>
+					        	<a href="/esgi/Breakem-all/index" class="active">Accueil<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
-					        	</a>
+					        	<a href="/esgi/Breakem-all/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 					        </li>
-					        <li><a href="/esgi/Breakem-all/team">Team 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
-					        	</a>
+					        <li>
+					        	<a href="/esgi/Breakem-all/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 					        </li>	
 					        <li>
-					        	<a href="">Joueur 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					 
-					        	</a>
+					        	<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					        		
-					        	</a>
+					        	<a href="/esgi/Breakem-all/resultat">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 					        </li>					   				     
 				        </ul>
 			       </div>
@@ -81,12 +69,12 @@
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
 					        	</a>
 					        </li>
 					        <li class="hover-none">
 					        	<button type="button" class="search-toggle">
-            						<img src="web/img/icon/icon-search.png">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
        				 			</button>
 					        </li>
 		      			</ul>
@@ -95,8 +83,8 @@
 
 			       <!-- MENU TOGGLE -->
 			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu">
-			       	<img src="web/img/logo-nb-title.png" id="navbar-toggle-logo">
-			       	<img src="web/img/icon/icon-menu.png" id="navbar-toggle">
+			       	<?php echo '<img id="navbar-toggle-logo" src="'. WEBPATH . '/web/img/logo-nb-title.png">';?>
+			       	<?php echo '<img id="navbar-toggle" src="'. WEBPATH . '/web/img/icon/icon-menu.png">';?>
 			       </div>
 			       <!-- FIN MENU TOGGLE -->
 
@@ -104,37 +92,37 @@
 			       	<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
 				       	<ul>
 					        <li>
-					        	<a href="/esgi/Breakem-all/index" class="active">Accueil 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">					    
+					        	<a href="/esgi/Breakem-all/index" class="active">Accueil
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/tournoi">Tournoi 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        	<a href="/esgi/Breakem-all/tournoi">Tournoi
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 					        	</a>
 					        </li>
 					        <li><a href="/esgi/Breakem-all/team">Team 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="">Joueur 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        	<a href="">Joueur
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 					        	</a>
 					        </li>
 					        <li>
-					        	<a href="/esgi/Breakem-all/resultat">Classement 
-					        		<img class="icon icon-size-1-demi navbar-icon" src="web/img/icon/icon-down.png">
+					        	<a href="/esgi/Breakem-all/resultat">Classement
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 					        	</a>
 					        </li>
 					        <li class="hover-none">
 					        	<a href="">
-					        		<img class="icon icon-size-3 navbar-icon" src="web/img/icon/icon-profil.png">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
 					        	</a>
 					        </li>
 					       <li class="hover-none">
 					        	<button type="button" class="search-toggle" style="padding:0 35px;">
-            						<img src="web/img/icon/icon-search.png">
+            						<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
        				 			</button>
 					        </li>
 				        </ul>
@@ -161,7 +149,7 @@
 
 		<button class="search-btn btn-default circle-button default btn-close">
 	        <span class="circle-greater-than">
-	            <img class="search-close" src="web/img/icon/icon-close.png">
+	        	<?php echo '<img class="search-close" src="'. WEBPATH . '/web/img/icon/icon-close.png">';?>
 	        </span>
 	    </button>
 
