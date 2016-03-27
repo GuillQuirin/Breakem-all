@@ -20,7 +20,6 @@ class View{
 		}else{
 			die("La vue n'existe pas");
 		}
-
 	}
 
 	public function assign($key, $value){
@@ -34,8 +33,10 @@ class View{
 			include : affiche un warning si le fichier n'existe pas
 			require : creve le process si le fichier n'existe pas
 		*/
-		// array_filter se débarasse des variables = NULL, false ou 0
-		extract(array_filter($this->data));
+		// array_filter se débarasse de base des variables = NULL, false, 0 ou les strings vides
+		//		La fonction removeNULL (définie dans functions.php) se débarasse seulement des NULL
+		// var_dump((array_filter($this->data, 'removeNULL')));
+		extract(array_filter($this->data, 'removeNULL'));
 		
 		// du coup, this->template appelle template.php qui aura accès à toutes les variables définies ici;
 		include $this->template;
