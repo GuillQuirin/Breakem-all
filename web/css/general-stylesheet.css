@@ -8,13 +8,7 @@
 	dl, dt, dd, ol, ul, li,
 	fieldset, form, label, legend,
 	table, caption, tbody, tfoot, thead, tr, th, td,
-	article, aside, canvas, details, embed, 
-<<<<<<< HEAD
-	figure, figcaption, footer, header, hgroup, 
-=======
-	figure, figcaption, footer, hgroup, 
->>>>>>> master
-	menu, nav, output, ruby, section, summary,
+	article, aside, canvas, details, embed,figure, figcaption, footer, hgroup,menu, nav, output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
 		padding: 0;
@@ -120,24 +114,19 @@
 	}
 	.max-container{	
 		width: 100%;
-		max-width: 150vh;
 		margin: 0 auto;
-<<<<<<< HEAD
-		/*overflow: hidden;*/
-=======
->>>>>>> master
 	}
 	.titre1{	
-		font-size: 4vh;
+		font-size: 37px;
 	}
 	.titre2{	
-		font-size: 3vh;
+		font-size: 28px;
 	}
 	.titre3{	
-		font-size: 2.5vh;
+		font-size: 24px;
 	}
 	.titre3{
-		font-size: 2.2vh;
+		font-size: 21px;
 	}
 	.uppercase{
 		text-transform: uppercase;
@@ -158,8 +147,6 @@
 		display: -o-flex;
 		display: flex;
 	}
-<<<<<<< HEAD
-=======
 	.flex-row{		
 		display: -webkit-flex;
 		display: -moz-flex;
@@ -172,5 +159,4 @@
 		flex-wrap: wrap;
 		flex-flow: row wrap;
 	}
->>>>>>> master
 /* ################################ */
