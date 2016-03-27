@@ -1,6 +1,6 @@
 <?php
 
-class detailtournoiController{
+class detailtournoiController extends template{
 
 	public function detailtournoiAction(){
 		$v = new View();

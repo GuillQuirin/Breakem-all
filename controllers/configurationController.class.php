@@ -1,6 +1,6 @@
 <?php
 
-class configurationController{
+class configurationController extends template{
 
 	public function configurationAction(){
 		$v = new View();

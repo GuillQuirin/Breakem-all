@@ -1,6 +1,6 @@
 <?php
 
-class inscriptionController{
+class inscriptionController extends template{
 
 	public function inscriptionAction(){
 		$v = new View();

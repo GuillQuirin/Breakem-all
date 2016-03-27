@@ -1,6 +1,6 @@
 <?php
 
-class tournoiController{
+class tournoiController extends template {
 
 	public function tournoiAction(){
 		$v = new View();

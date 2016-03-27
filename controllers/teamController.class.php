@@ -1,5 +1,5 @@
 <?php 
-class teamController{
+class teamController extends template{
 	public function teamAction(){
 		$v = new View();
 		$v->assign("css", "team");
