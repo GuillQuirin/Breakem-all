@@ -25,20 +25,27 @@ class profilController{
 			$user = $userBDD->getUser($filteredinputs);
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
-			// 		Si pbm de requete faire un var_dump de $sql
-			var_dump($user);
+			// Si pbm de requete faire un var_dump de $sql
+			//var_dump($user);
 
-			// else{
-			// 	// $v->assign("err", "1");
-			// }
+			$v = new View();
+			 $v->assign("css", "profil");
+			 $v->assign("js", "profil");
+			 $v->assign("title", "Profil");
+			 $v->assign("content", "Fiche de l'utilisateur");
+			 //$v->assign("pseudo", "test");
+			if($user!==FALSE){
+				$listeCarac = $user->getAll();
+				 foreach ($listeCarac as $key=>$value) {
+				 	$v->assign($key, $value);
+				 }
+			}
+			 else{
+			 	$v->assign("err", "1");
+			 }
 
-			
-			// $v->assign("css", "profil");
-			// $v->assign("js", "profil");
-			// $v->assign("title", "Profil");
-			// $v->assign("content", "Fiche de l'utilisateur");
-			
-			// $v->setView("profil");
+
+			 $v->setView("profil");
 		}
 	}
 }

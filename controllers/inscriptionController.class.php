@@ -69,5 +69,6 @@ class inscriptionController{
 
         // On enregistre !
         $userBDD->create($user);
+        
 	}
 }

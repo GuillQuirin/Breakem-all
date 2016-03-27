@@ -2,7 +2,10 @@
 if(isset($err)){
 	?>
 	<section id="absfiche">
-		<div>ERREUR 404, utilisateur introuvable</div>
+		<div>
+			ERREUR 404, utilisateur introuvable
+			<p><a href="index">Retour à l'accueil</a></p>
+		</div>
 	</section>
 	<?php
 }
@@ -13,7 +16,7 @@ else{
 			<img src="" alt="logo">
 			<p><?php echo $pseudo; ?></p>
 			<?php 
-				if($online)
+				if(1)//($online)
 					echo '<p class="on">Connecté</p>'; 
 				else
 					echo '<p class="off">Vu le: '.$lastco.'</p>';

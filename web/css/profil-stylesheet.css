@@ -36,8 +36,7 @@ button{
 }
 #absfiche{
     text-align: center;
-    height: 200px;
-    line-height: 200px;
+    line-height: 80px;
 }
 #presentation #image img{
 	float: left;

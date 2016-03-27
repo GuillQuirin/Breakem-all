@@ -83,4 +83,12 @@ class user{
 	public function getStatus(){return $this->status;}
 	public function getImg_user(){return	$this->img_user;}
 	public function getIdTeam(){return $this->idTeam;}
+
+	public function getAll(){
+		foreach ($this as $key => $value) {
+			$tab[$key]=$value;
+		}
+		return $tab;
+	}
+	
 }
