@@ -25,7 +25,6 @@ class View{
 
 	public function assign($key, $value){
 		$this->data[$key] = $value;
-
 	}
 
 	// Méthode magique appelée seulement lorsque la totalité du code est achevée
@@ -35,8 +34,8 @@ class View{
 			include : affiche un warning si le fichier n'existe pas
 			require : creve le process si le fichier n'existe pas
 		*/
-		
-		extract($this->data);
+		// array_filter se débarasse des variables = NULL, false ou 0
+		extract(array_filter($this->data));
 		
 		// du coup, this->template appelle template.php qui aura accès à toutes les variables définies ici;
 		include $this->template;

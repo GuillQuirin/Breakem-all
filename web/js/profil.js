@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	//Redirection vers la configuration utilisateur
 	$("#configuration").click(function(){
-		window.location.href = "/esgi/Breakem-all/configuration";
+		window.location.href += "/configuration";
 	});
 
 	//Affichages des popups

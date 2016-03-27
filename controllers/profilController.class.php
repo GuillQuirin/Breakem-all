@@ -35,14 +35,16 @@ class profilController{
 			 $v->assign("content", "Fiche de l'utilisateur");
 			 //$v->assign("pseudo", "test");
 			if($user!==FALSE){
-				$listeCarac = $user->getAll();
-				 foreach ($listeCarac as $key=>$value) {
-				 	$v->assign($key, $value);
-				 }
+				foreach ($args as $key => $value) {
+					$method = 'get'.ucfirst($key);
+					if (method_exists($user, $method)) {
+						$v->assign($key, $user->$method());
+					}
+				}
 			}
-			 else{
-			 	$v->assign("err", "1");
-			 }
+			else{
+				$v->assign("err", "1");
+			}
 
 
 			 $v->setView("profil");
