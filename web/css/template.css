@@ -8,7 +8,6 @@ body{
 header{
     background-color: #0a0019;
     width:100%;
-<<<<<<< HEAD
     height:50px;
     position:fixed;
     z-index:999;
@@ -16,7 +15,6 @@ header{
     border-bottom: 1px solid white;  
  }
  #content{margin-top:50px;}
-=======
 }
 @media screen and (min-width: 931px){
     .hide{
@@ -53,7 +51,6 @@ header{
         display:none;
     }
 }
->>>>>>> 4ddc260ace4c8b21d3f96a604562447d099e14e0
 #logo{
     width:100px;
     margin:0 auto;
