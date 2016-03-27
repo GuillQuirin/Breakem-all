@@ -1,6 +1,6 @@
 <?php
 
-class profilController{
+class profilController extends template{
 
 	public function profilAction(){
 		if(isset($_GET['pseudo'])){

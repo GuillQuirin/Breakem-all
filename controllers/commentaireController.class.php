@@ -1,5 +1,5 @@
 <?php
-class commentaireController{
+class commentaireController extends template{
     public function commentaireAction(){
         $v = new View();
         $v->assign("css", "commentaire");

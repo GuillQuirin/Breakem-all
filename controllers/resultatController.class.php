@@ -1,6 +1,6 @@
 <?php
 
-class resultatController{
+class resultatController extends template{
 
 	public function resultatAction(){
 		$v = new View();
