@@ -1,3 +1,16 @@
+<?php
+if(isset($err)){
+	?>
+	<section id="absfiche">
+		<div>
+			ERREUR 404, utilisateur introuvable
+			<p><a href="index">Retour à l'accueil</a></p>
+		</div>
+	</section>
+	<?php
+}
+else{
+	?>
 	<section id="avatar">
 		<div id="image">
 			<img src="" alt="logo">
@@ -38,3 +51,6 @@
 			</form>
 		</div>
 	</section>
+	<?php
+}
+?>

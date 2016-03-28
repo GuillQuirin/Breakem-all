@@ -3,6 +3,12 @@
 class configurationController extends template{
 
 	public function configurationAction(){
+		$v = new View();
+		$v->assign("css", "configuration");
+		$v->assign("js", "configuration");
+		$v->assign("title", "configuration");
+		$v->assign("content", "Configurer votre profil");
+
 		if(isset($_POST['id'])){
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$userBDD = new userManager();
@@ -26,11 +32,7 @@ class configurationController extends template{
 
 			$user = $userBDD->getUser($filteredinputs);
 
-			$v = new View();
-			$v->assign("css", "configuration");
-			$v->assign("js", "configuration");
-			$v->assign("title", "configuration");
-			$v->assign("content", "Configurer votre profil");
+			
 
 			if(1){//$user!==FALSE){
 					foreach ($args as $key => $value) {
@@ -43,9 +45,11 @@ class configurationController extends template{
 				else{
 					$v->assign("err", "1");
 				}
-
-			$v->setView("configuration");
 		}
+		else{
+			$v->assign("err", "1");
+		}
+		$v->setView("configuration");
 	}
 	
 	public function updateAction(){

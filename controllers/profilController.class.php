@@ -3,6 +3,12 @@
 class profilController extends template{
 
 	public function profilAction(){
+		$v = new View();
+		$v->assign("css", "profil");
+		$v->assign("js", "profil");
+		$v->assign("title", "Profil");
+		$v->assign("content", "Fiche de l'utilisateur");
+
 		if(isset($_GET['pseudo'])){
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$userBDD = new userManager();
@@ -29,12 +35,6 @@ class profilController extends template{
 			// Si pbm de requete faire un var_dump de $sql
 			//var_dump($user);
 
-			$v = new View();
-			 $v->assign("css", "profil");
-			 $v->assign("js", "profil");
-			 $v->assign("title", "Profil");
-			 $v->assign("content", "Fiche de l'utilisateur");
-			 //$v->assign("pseudo", "test");
 			if($user!==FALSE){
 				foreach ($args as $key => $value) {
 					$method = 'get'.ucfirst($key);
@@ -46,9 +46,10 @@ class profilController extends template{
 			else{
 				$v->assign("err", "1");
 			}
-
-
-			 $v->setView("profil");
 		}
+		else{
+			$v->assign("err", "1");
+		}
+		$v->setView("profil");
 	}
 }
