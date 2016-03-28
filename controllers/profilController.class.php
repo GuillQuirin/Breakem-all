@@ -18,7 +18,8 @@ class profilController extends template{
 				'email' => FILTER_VALIDATE_EMAIL,
 				'status' => FILTER_SANITIZE_STRING,
 				'img_user' => FILTER_SANITIZE_STRING,
-				'idTeam' => FILTER_SANITIZE_STRING
+				'idTeam' => FILTER_SANITIZE_STRING,
+				'token' => FILTER_SANITIZE_STRING
 			);
 			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 

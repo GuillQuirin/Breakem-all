@@ -22,7 +22,16 @@ else{
 					echo '<p class="off">Vu le: '.$lastco.'</p>';
 			?>
 		</div>
-		<button id="configuration">Configurer mon compte</button>
+		<?php
+			if(1){//isset($_SESSION['token']) && $token == $_SESSION['token'])
+			$_SESSION['token']="1";
+				?>
+				<form action="configuration" method="POST">
+				<input type="hidden" name="id" value="<?php echo $_SESSION['token']; ?>"></input>
+				<button type="submit" id="configuration">Configurer mon compte</button>
+				<?php
+			}
+		?>
 	</section>
 	<section id="informations">
 		<div id="communication">

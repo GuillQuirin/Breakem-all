@@ -1,9 +1,4 @@
 $(document).ready(function(){
-	//Redirection vers la configuration utilisateur
-	$("#configuration").click(function(){
-		window.location.href += "/configuration";
-	});
-
 	//Affichages des popups
 	$("#signalement").click(function(){
 		$("#formplainte").fadeIn();
