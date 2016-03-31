@@ -1,15 +1,15 @@
 <?php
 final class tournoi extends basesql{
-	private $_id;
-	private $_user;
-	private $_startDate;
-	private $_endDate;
-	private $_description;
-	private $_playerMin;
-	private $_playerMax;
-	private $_idGameVersion;
-	private $_typeTournament;
-	private $_nbMatch;
+	protected $_id;
+	protected $_user;
+	protected $_startDate;
+	protected $_endDate;
+	protected $_description;
+	protected $_playerMin;
+	protected $_playerMax;
+	protected $_idGameVersion;
+	protected $_typeTournament;
+	protected $_nbMatch;
 
 	public function __construct(array $donnees){
 		parent::__construct();
@@ -36,16 +36,16 @@ final class tournoi extends basesql{
 	private function setType_tournament($v){$this->_typeTournament = $v;}
 	private function setNb_match($v){$this->_nbMatch = $v;}
 
-	private function getId(){return $this->_id;}
-	private function getUser(){return $this->_user;}
-	private function getStart_date(){return $this->_startDate;}
-	private function getEnd_date(){return $this->_endDate;}
-	private function getDescription(){return $this->_description;}
-	private function getPlayer_min(){return $this->_playerMin;}
-	private function getPlayer_max(){return $this->_playerMax;}
-	private function getId_game_version(){return $this->_idGameVersion;}
-	private function getType_tournament(){return $this->_typeTournament;}
-	private function getNb_match(){return $this->_nbMatch;}
+	public function getId(){return $this->_id;}
+	public function getUser(){return $this->_user;}
+	public function getStart_date(){return $this->_startDate;}
+	public function getEnd_date(){return $this->_endDate;}
+	public function getDescription(){return $this->_description;}
+	public function getPlayer_min(){return $this->_playerMin;}
+	public function getPlayer_max(){return $this->_playerMax;}
+	public function getId_game_version(){return $this->_idGameVersion;}
+	public function getType_tournament(){return $this->_typeTournament;}
+	public function getNb_match(){return $this->_nbMatch;}
 
 
 }

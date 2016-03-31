@@ -43,6 +43,13 @@ class basesql{
 			var_dump($r);
 		// }
 	}
+	
+	public function idExists($id){
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="' . $id.'"';
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
+	}
 
 	public function pseudoExists($pseudo){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
