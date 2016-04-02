@@ -16,7 +16,7 @@ class tournoiController extends template {
 		/* http://localhost:8888/esgi/Breakem-all/tournoi/verify?
 				id=0&description=%22TEST%22&playerMin=1&playerMax=5&typeTournament=1&status=1&nbMatch=15
 		*/
-
+			/*
 		$args = array(
 			'id'	=>FILTER_VALIDATE_INT,
 		    //'startDate'    => FILTER_SANITIZE_STRING,
@@ -36,12 +36,15 @@ class tournoiController extends template {
 
 		// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 		$finalArr = [];
-
+		var_dump($filteredinputs);
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
 				die("FAUX: ".$filteredinputs[$key]);
-		}
-
+		}*/
+		$finalArr['id']=0;
+		$finalArr['description']="TEST";
+		$finalArr['playerMin']=22;
+		$finalArr['playerMax']=25;
 
 		/*if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>45)
         	die("FAIL pseudo");	
@@ -63,7 +66,7 @@ class tournoiController extends template {
         }*/
         
         // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
-        $tournoi = new tournoi($filteredinputs); //$finalArr);
+        $tournoi = new tournoi($finalArr); //$finalArr);
         // var_dump($user);
 
         // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
@@ -71,7 +74,7 @@ class tournoiController extends template {
 
         // On check l'utilisation du pseudo
         $exist_tournoi=$tournoiBDD->idExists($tournoi->getId());
-        if($exist_pseudo)
+        if($exist_tournoi)
         	die("Tournament already used !");
 
 

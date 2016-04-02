@@ -1,5 +1,5 @@
 <?php
-final class tournoiManager extends sqlManager{
+final class tournoiManager extends basesql{
 
 	public function __construct(){
 		parent::__construct();

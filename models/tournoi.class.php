@@ -26,7 +26,7 @@ final class tournoi extends basesql{
 	}
 
 	private function setId($v){$this->_id = $v;}
-	private function setUser($v){$this->_user = $v;}
+	private function setTournament($v){$this->_user = $v;}
 	private function setStart_date($v){$this->_startDate = $v;}
 	private function setEnd_date($v){$this->_endDate = $v;}
 	private function setDescription($v){$this->_description = $v;}
@@ -37,7 +37,7 @@ final class tournoi extends basesql{
 	private function setNb_match($v){$this->_nbMatch = $v;}
 
 	public function getId(){return $this->_id;}
-	public function getUser(){return $this->_user;}
+	public function getTournament(){return $this->_user;}
 	public function getStart_date(){return $this->_startDate;}
 	public function getEnd_date(){return $this->_endDate;}
 	public function getDescription(){return $this->_description;}

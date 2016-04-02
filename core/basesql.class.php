@@ -45,7 +45,7 @@ class basesql{
 	}
 	
 	public function idExists($id){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="' . $id.'"';
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="'.$id.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
 
 		return $r;
@@ -73,6 +73,21 @@ class basesql{
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
 		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, status, img_user, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
+		// var_dump($sql);
+		$query = $this->pdo->query($sql)->fetch();
+		if($query === FALSE)
+			return false;
+		return new user(array_filter($query));
+	}
+
+	public function getTournament(array $infos){
+		
+		$cols = array_keys($infos);
+		$data = [];
+		foreach ($cols as $key) {
+			$data[$key] = $key.'="'.$infos[$key].'"';
+		}
+		$sql = "SELECT startDate, endDate, description, playerMin, playerMax, typeTournament, status, nbMatch, idUserCreator, idGameVersion, creationDate FROM ".$this->table." WHERE " . implode(',', $data);
 		// var_dump($sql);
 		$query = $this->pdo->query($sql)->fetch();
 		if($query === FALSE)
