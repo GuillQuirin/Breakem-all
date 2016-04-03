@@ -10,22 +10,22 @@
 					<h3 class="titre2 ta-center">Donne lui un nom</h3>
 					<div class="creationtournoi-input-group dis-block">
 						<label for="nom-tournoi">Nom du tournoi : </label>
-						<input class="skew-8 ta-center" type="text" name="nom-tournoi" required placeholder="REQUIRED">
+						<input class="creationTournoi-input skew-8 ta-center" type="text" name="nom-tournoi" required placeholder="REQUIRED">
 					</div>
 					<div class="creationtournoi-input-group dis-block">
 						<label for="date-tournoi">Date du tournoi : </label>
-						<input class="skew-8 ta-center" type="text" name="date-tournoi" required placeholder="REQUIRED">
+						<input class="creationTournoi-input skew-8 ta-center" type="text" name="date-tournoi" required placeholder="REQUIRED">
 					</div>
 				</div>
 				<div class="flex-row">
 					<h3 class="titre2 ta-center">Limite participants</h3>
 					<div class="creationtournoi-input-group dis-block">
 						<label for="min-joueurs">Min joueurs : </label>
-						<input type="number" min="8" max="48" name="min-joueurs" required placeholder="8">
+						<input class="creationTournoi-input" type="number" min="8" max="48" name="min-joueurs" required placeholder="8">
 					</div>
 					<div class="creationtournoi-input-group dis-block">
 						<label for="max-joueurs">Max joueurs : </label>
-						<input type="number" min="16" max="48" name="max-joueurs" required placeholder="16">
+						<input class="creationTournoi-input" type="number" min="16" max="48" name="max-joueurs" required placeholder="16">
 					</div>
 				</div>			
 			</div>
@@ -34,7 +34,7 @@
 					<h3 class="titre2 ta-center dis-block margin-auto">Choisis ton jeu</h3>
 					<div class="creationtournoi-input-group dis-block margin-auto">
 						<label for="jeu">Ton choix</label>
-						<input class="skew-8 ta-center" type="text" name="jeu" value="Battlefield 3" readonly>
+						<input class="creationTournoi-input skew-8 ta-center" type="text" name="jeu" value="Battlefield 3" readonly>
 					</div>
 					<div class="flex caroussel-container relative ov-hidden margin-auto">
 						<div class="caroussel absolute flex-column">
@@ -69,7 +69,7 @@
 					<h3 class="titre2 ta-center dis-block margin-auto">Choisis la console</h3>
 					<div class="creationtournoi-input-group dis-block margin-auto">
 						<label for="console">Ton choix</label>
-						<input class="skew-8 ta-center" type="text" name="console" value="PC" readonly>
+						<input class="creationTournoi-input skew-8 ta-center" type="text" name="console" value="PC" readonly>
 					</div>
 					<div class="flex caroussel-container ov-hidden relative margin-auto">
 						<div class="caroussel absolute flex-column">
@@ -99,7 +99,7 @@
 				<h3 class="titre2 ta-left">Mode de jeu</h3>
 				<div class="creationtournoi-input-group">
 					<label for="modejeu">Ton choix</label>
-					<input class="skew-8 ta-center" type="text" name="modejeu" value="Ruée" readonly>
+					<input class="creationTournoi-input skew-8 ta-center" type="text" name="modejeu" value="Ruée" readonly>
 				</div>
 				<div class="flex caroussel-container ov-hidden relative margin-auto">
 					<div class="caroussel absolute flex-column">
@@ -122,7 +122,7 @@
 				<h3 class="titre2 ta-left">Mode d'équipes</h3>
 				<div class="creationtournoi-input-group">
 					<label for="equipe">Ton choix</label>
-					<input class="skew-8 ta-center" type="text" name="equipe" value="Equipe-random" readonly>
+					<input class="creationTournoi-input skew-8 ta-center" type="text" name="equipe" value="Equipe-random" readonly>
 				</div>
 				<div class="flex caroussel-container ov-hidden relative margin-auto">
 					<div class="caroussel absolute flex-column">
@@ -148,7 +148,7 @@
 				<h3 class="titre2 ta-left">Online / Offline</h3>
 				<div class="creationtournoi-input-group">
 					<label for="online">Ton choix</label>
-					<input class="skew-8 ta-center" type="text" name="online" value="Online" readonly>
+					<input class="creationTournoi-input skew-8 ta-center" type="text" name="online" value="Online" readonly>
 				</div>
 				<div class="creationtournoi-off-on-container flex-column">
 					<div class="skew-8 ov-hidden relative flex-row creationtournoi-off-on">
@@ -172,18 +172,18 @@
 					<div class="creationtournoi-input-group flex-column">			
 						<div>
 							<label>Visible</label>
-							<input class="skew-8 ta-center" type="radio" name="visibilité" value="visible">				
+							<input class="creationTournoi-input skew-8 ta-center" type="radio" name="visibilité" value="visible">				
 						</div>
 						<div>
 							<label>Publication Programmée</label>
-							<input class="skew-8 ta-center" type="radio" name="visibilité" checked value="programmee">
+							<input class="creationTournoi-input skew-8 ta-center" type="radio" name="visibilité" checked value="programmee">
 						</div>						
 					</div>
 				</div>
 				<div class="flex-row">
 					<div class="creationtournoi-input-group">
 						<label for="date-visibilit">Tournoi visible le :</label>
-						<input class="skew-8 ta-center" type="date" name="date-visibilité" required>
+						<input class="creationTournoi-input skew-8 ta-center" type="date" name="date-visibilité" required>
 					</div>
 				</div>
 			</div>
