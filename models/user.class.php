@@ -32,9 +32,9 @@ class user{
 		}
 	}
 
-	private function setId($v){
-		$this->id=$v;
-	}
+	// private function setId($v){
+	// 	$this->id=$v;
+	// }
 	private function setName($v){
 		$this->name=$v;
 	}
