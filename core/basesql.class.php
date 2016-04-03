@@ -72,11 +72,14 @@ class basesql{
 		foreach ($cols as $key) {
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
-		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, status, img_user, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
-		// var_dump($sql);
+
+		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
+		//var_dump($sql);
 		$query = $this->pdo->query($sql)->fetch();
+
 		if($query === FALSE)
 			return false;
+
 		return new user(array_filter($query));
 	}
 

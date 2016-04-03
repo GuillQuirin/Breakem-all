@@ -2,10 +2,12 @@ $(document).ready(function(){
 	//Affichages des popups
 	$("#signalement").click(function(){
 		$("#formplainte").fadeIn();
+		return false;
 	});
 
 	$("#contact").click(function(){
 		$("#formcontact").fadeIn();
+		return false;
 	});
 
 	//Controle des messages
@@ -23,7 +25,9 @@ $(document).ready(function(){
 	        	}
 	        );
 		}
+		return false;
 	});
+
 	$("#btn_contact").click(function(){
 		if($("#mess_contact").val()==""){
 			alert('Veuillez ne pas laisser un message vide.');
@@ -39,6 +43,7 @@ $(document).ready(function(){
 	        );
 		}
 	});
+	return false;
 });
 
 $(document).mouseup(function(e)

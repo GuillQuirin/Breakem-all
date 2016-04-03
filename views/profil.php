@@ -13,7 +13,7 @@ else{
 	?>
 	<section id="presentation">
 		<div id="image">
-			<img src="" alt="logo">
+			<img src="<?php echo $img; ?>" alt="logo">
 			<p><?php echo $pseudo; ?></p>
 			<?php 
 				if(1)//($online)

@@ -23,7 +23,7 @@ class profilController extends template{
 				'city' => FILTER_SANITIZE_STRING,
 				'email' => FILTER_VALIDATE_EMAIL,
 				'status' => FILTER_SANITIZE_STRING,
-				'img_user' => FILTER_SANITIZE_STRING,
+				'img' => FILTER_SANITIZE_STRING,
 				'idTeam' => FILTER_SANITIZE_STRING,
 				'token' => FILTER_SANITIZE_STRING
 			);
