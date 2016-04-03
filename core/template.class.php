@@ -26,7 +26,7 @@ class template{
                 if(password_verify($user->getPassword(), $userDB->getPassword())){
                         $user = $userDB;
                         unset($userManager, $userDB);
-                        var_dump($user);
+                        //var_dump($user);
                         die("Password et email valides !");
                 }else{
                         unset($userManager, $userDB);
