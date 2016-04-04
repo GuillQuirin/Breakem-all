@@ -41,7 +41,8 @@ class userManager extends basesql{
 	}
 
 	public function tryConnect($email){
-		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, password, status, img_user, id_team FROM ".$this->table." WHERE email='".$email."'";
+		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, password, status, img_user, idTeam FROM ".$this->table." WHERE email='".$email."'";
+		// var_dump($sql);
 		$query = $this->pdo->query($sql)->fetch();
 		if(!is_array($query))
 			return false;
