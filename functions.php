@@ -6,3 +6,8 @@ function removeNULL($var)
     if($var !== NULL)
     	return $var;
 }
+
+function getActionPage($view, $action){
+	$path = explode('.', $view); 
+	return '"'.trim(str_replace('views', '', $path[0]), '/').'/'.$action.'"';
+}

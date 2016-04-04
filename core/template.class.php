@@ -24,11 +24,16 @@ class template{
                 // var_dump($userDB);
 
                 if(password_verify($user->getPassword(), $userDB->getPassword())){
-                        $user = $userDB;
-                        unset($userManager, $userDB);
-                        var_dump($user);
-                        die("Password et email valides !");
-                }else{
+                    //var_dump($user);
+                    //var_dump("Password et email valides !");
+                    foreach ($userDB as $key => $value) {
+                        $method = 'get'.ucfirst($value);
+                        if (method_exists($userDB, $method))
+                            $_SESSION['connected'][$key] = $userDB->$method();                            
+                    }
+                    var_dump($_SESSION);
+                }
+                else{
                         unset($userManager, $userDB);
                         die("Password fail !");
                 }

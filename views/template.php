@@ -66,6 +66,11 @@
 			      			</li>
 			      			<li class="hover-none" style="width:205px;">
 			      				<button type="button" class="btn btn-pink"><a>Login</a></button>
+			      				<form action=<?php echo getActionPage($this->view, 'connexion'); ?> method="post">
+			      					<input type="email" name="email" placeholder="email">
+			      					<input type="password" name="password" placeholder="mot de passe">
+			      					<input type="submit">
+			      				</form>
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
