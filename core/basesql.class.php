@@ -58,6 +58,13 @@ class basesql{
 		return $r;
 	}
 
+	public function nameExists($name){
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE name="' . $name.'"';
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
+	}
+
 	public function emailExists($email){		
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE email="' . $email .'"'; 
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
