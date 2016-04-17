@@ -37,24 +37,16 @@ class userManager extends basesql{
 	}
 
 	public function save(){
-		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
-		if(isset($this->columns['id'])){
-			// UPDATE
-		}else{
-			//INSERT
-			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
-			VALUES (:".implode(",:", array_keys($this->columns)).")";
-			$query = $this->pdo->prepare($sql);
-			// var_dump($query);
-			$query->execute($this->columns);
-		}
+		parent::save();	
 	}
 
 	public function tryConnect($email){
-		$sql = "SELECT name, firstname, pseudo, birthday, description, kind, city, email, password, status, img_user, id_team FROM ".$this->table." WHERE email='".$email."'";
+
+		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, password, status, img, idTeam FROM ".$this->table." WHERE email='".$email."'";
 		$query = $this->pdo->query($sql)->fetch();
-		if($query === FALSE)
+		if(!is_array($query))
 			return false;
 		return new user($query);
 	}
+
 }

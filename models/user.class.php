@@ -13,8 +13,10 @@ class user{
 	protected $email = null;
 	protected $password = null;
 	protected $status = null;
-	protected $img_user = null;
+	protected $img = null;
 	protected $idTeam = null;
+	protected $isConnected = null;
+	protected $lastConnexion = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -63,11 +65,17 @@ class user{
 	private function setStatus($v){
 		$this->status=$v;
 	}
-	private function setImg_user($v){
-		$this->img_user=$v;
+	private function setImg($v){
+		$this->img=$v;
 	}
 	private function setIdTeam($v){
 		$this->idTeam=$v;
+	}
+	private function setIsConnected($v){
+		$this->isConnected=$v;
+	}
+	private function setLastConnexion($v){
+		$this->lastConnexion=$v;
 	}
 
 	public function getId(){return $this->id;}
@@ -81,6 +89,9 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg_user(){return	$this->img_user;}
+	public function getImg(){return	"web/img/".$this->img;}
 	public function getIdTeam(){return $this->idTeam;}
+	public function getIsConnected(){return $this->isConnected;}
+	public function getLastConnexion(){return $this->lastConnexion;}
+	
 }

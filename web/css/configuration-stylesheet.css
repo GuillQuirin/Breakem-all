@@ -24,11 +24,6 @@ section{
     width: 70%;
     margin-left: 9%;
 }
-#suppression{
-    width: 70%;
-    background-color: #610B0B;
-    margin-left: 29%;/*width de #avatar (20%) + écart entre avatar et présentation (9%)*/
-}
 h4{
 	text-align: center;
 }

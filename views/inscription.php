@@ -24,7 +24,7 @@
 	<div id="right">
 		<header><img src="web/img/arrow.png" id="arrow">REJOIGNEZ-NOUS MAINTENANT</header>
 
-		<form action=<?php $page=explode('.', $this->view); echo '"'.trim(str_replace('views', '', $page[0]), '/').'/verify"';?> method="POST">
+		<form action=<?php echo getActionPage($this->view, 'verify'); ?> method="POST">
 			<div id="inscr_coord">
 					<p><!--[if IE 9]>Pseudo:<![endif]-->
 						<input name="pseudo" id="insc_pseudo" type="text" placeholder="Pseudo" autofocus required>

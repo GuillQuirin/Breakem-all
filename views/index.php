@@ -1,21 +1,9 @@
-<div id="header">
-	<div id="header_width">
-		<div id="nom_site">
-			<h2> Break'em All </h2>
-		</div>
-		<div id="header_right">
-			<button type="submit" id="btn_connexion" class="bouton">Connexion</a>
-			<button type="submit" id="btn_inscrip" class="bouton">Inscription</a>
-		</div>
-	</div>
-</div>
-
 <section id="section_inscrip">
 	<div id="slider">
-		<img src="web/img/hereos.png" />
-  		<img src="web/img/battlefield.png" />
-  		<img src="web/img/link.jpg" />
-  		<img src="web/img/lol.jpg" />
+		<?php echo '<img src="' . WEBPATH . '/web/img/hereos.png">';?>
+		<?php echo '<img src="' . WEBPATH . '/web/img/battlefield.png">';?>
+		<?php echo '<img src="' . WEBPATH . '/web/img/link.jpg">';?>
+		<?php echo '<img src="' . WEBPATH . '/web/img/lol.jpg">';?>
 	</div>
 	<div id="inscription_rapide">
 		<br>
@@ -51,7 +39,7 @@
 	<article id="liste_tournoi">
 		<div class="tournoi">
 			<div class="img_tournoi">
-				<img src="web/img/mk.jpg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
+				<?php echo '<img src="' . WEBPATH . '/web/img/mk.jpg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">';?>
 			</div>
 			<div id="description">
 				<div class="name_tournoi">
@@ -69,7 +57,7 @@
 		</div>
 		<div class="tournoi">
 			<div class="img_tournoi">
-				<img src="web/img/lol_tournoi.png" alt="League Of Legends" title="League Of Legends" class="img_tournoi">
+				<?php echo '<img src="' . WEBPATH . '/web/img/lol_tournoi.png" alt="League Of Legends" title="League Of Legends" class="img_tournoi">';?>
 			</div>
 			<div id="description">
 				<div class="name_tournoi">
@@ -87,7 +75,7 @@
 		</div>
 		<div class="tournoi">
 			<div class="img_tournoi">
-				<img src="web/img/heroes-of.jpg" alt="Hereos of the Storm" title="Hereos of the Storm" class="img_tournoi">
+				<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg" alt="Hereos of the Storm" title="Hereos of the Storm" class="img_tournoi">';?>
 			</div>
 			<div id="description">
 				<div class="name_tournoi">
@@ -105,7 +93,7 @@
 		</div>
 		<div class="tournoi">
 			<div class="img_tournoi">
-				<img src="web/img/rocket.jpeg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">
+				<?php echo '<img src="' . WEBPATH . '/web/img/rocket.jpeg" alt="Mario Kart" title="Mario Kart" class="img_tournoi">';?>
 			</div>
 			<div id="description">
 				<div class="name_tournoi">

@@ -1,8 +1,12 @@
 <?php
+var_dump($_SESSION);
 if(isset($err)){
 	?>
 	<section id="absfiche">
-		<div>ERREUR 404, utilisateur introuvable</div>
+		<div>
+			ERREUR 404, utilisateur introuvable
+			<p><a href="index">Retour à l'accueil</a></p>
+		</div>
 	</section>
 	<?php
 }
@@ -10,16 +14,25 @@ else{
 	?>
 	<section id="presentation">
 		<div id="image">
-			<img src="" alt="logo">
+			<img src="<?php echo $img; ?>" alt="logo">
 			<p><?php echo $pseudo; ?></p>
 			<?php 
-				if($online)
+				if(1)//($online)
 					echo '<p class="on">Connecté</p>'; 
 				else
 					echo '<p class="off">Vu le: '.$lastco.'</p>';
 			?>
 		</div>
-		<button id="configuration">Configurer mon compte</button>
+		<?php
+			if(1){//isset($_SESSION['token']) && $token == $_SESSION['token'])
+			$_SESSION['token']="1";
+				?>
+				<form action="configuration" method="POST">
+				<input type="hidden" name="id" value="<?php echo $_SESSION['token']; ?>"></input>
+				<button type="submit" id="configuration">Configurer mon compte</button>
+				<?php
+			}
+		?>
 	</section>
 	<section id="informations">
 		<div id="communication">
