@@ -10,8 +10,6 @@ class indexController extends template{
 	}
 
 	public function connectionAction(){
-		echo "this is a test \n";
-
 		$args = array(
     	    'email'   => FILTER_VALIDATE_EMAIL,
     	    'password'   => FILTER_SANITIZE_STRING 
@@ -27,7 +25,6 @@ class indexController extends template{
 		}
 
 		if($requiredInputsReceived){
-			echo "all inputs received ! \n";
 			print_r($filteredinputs);
 		}
 		else{
