@@ -8,4 +8,30 @@ class indexController extends template{
 		$v->setView("Index");
 
 	}
+
+	public function connectionAction(){
+		echo "this is a test \n";
+
+		$args = array(
+    	    'email'   => FILTER_VALIDATE_EMAIL,
+    	    'password'   => FILTER_SANITIZE_STRING 
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+
+		$requiredInputsReceived = true;
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key])){
+				$requiredInputsReceived = false;
+				break;
+			}
+		}
+
+		if($requiredInputsReceived){
+			echo "all inputs received ! \n";
+			print_r($filteredinputs);
+		}
+		else{
+			echo "missing an input ! \n";
+		}
+	}
 }

@@ -22,12 +22,10 @@
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
-		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 	</head>
 
 	<body>
@@ -66,7 +64,7 @@
 			      			</li>
 			      			<li class="hover-none" style="width:205px;">
 			      				<button type="button" class="btn btn-pink"><a>Login</a></button>
-			      				<form action=<?php echo getActionPage($this->view, 'connexion'); ?> method="post">
+			      				<form id="connection-form">
 			      					<input type="email" name="email" placeholder="email">
 			      					<input type="password" name="password" placeholder="mot de passe">
 			      					<input type="submit">
@@ -168,5 +166,8 @@
 				&#169 Copyright 2016 Break'em All. All right reserved.
 			</div>
 		</footer>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
+		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 	</body>
 </html>
