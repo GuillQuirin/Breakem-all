@@ -35,7 +35,7 @@ class configurationController extends template{
 	}
 	
 	public function updateAction(){
-				$v = new View();
+		$v = new View();
 		$v->assign("css", "configuration");
 		$v->assign("js", "configuration");
 		$v->assign("title", "configuration");
