@@ -40,13 +40,30 @@ class userManager extends basesql{
 		parent::save();	
 	}
 
-	public function tryConnect($email){
-
+	/*public function tryConnect($email){
 		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, password, status, img, idTeam FROM ".$this->table." WHERE email='".$email."'";
 		$query = $this->pdo->query($sql)->fetch();
 		if(!is_array($query))
 			return false;
 		return new user($query);
+	}*/
+
+	public function userMailExists(user $user){
+		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
+		$query = (bool) $this->pdo->query($sql)->fetch();
+		return $query;
 	}
 
+	public function tryConnect(user $user){
+		$sql = "SELECT * FROM ".$this->table." WHERE email='".$user->getEmail()."'";
+		$query = $this->pdo->query($sql)->fetch();
+
+		if(!is_array($query))
+			return false;
+
+		$bdUser = new user($query);
+		if(password_verify($user->getPassword(), $bdUser->getPassword()))
+			return $bdUser;
+		return false;
+	}
 }
