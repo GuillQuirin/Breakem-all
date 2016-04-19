@@ -17,6 +17,7 @@ class user{
 	protected $idTeam = null;
 	protected $isConnected = null;
 	protected $lastConnexion = null;
+	protected $token = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -77,6 +78,9 @@ class user{
 	private function setLastConnexion($v){
 		$this->lastConnexion=$v;
 	}
+	private function setToken($v){
+		$this->token=$v;
+	}
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
@@ -93,5 +97,6 @@ class user{
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
+	public function getToken(){return $this->token;}
 	
 }

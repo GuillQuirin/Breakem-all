@@ -1,5 +1,45 @@
 <?php
 class template{
+  public function __construct(){
+    /*Tant que chaque controller herite de template, le token sera vérifié à chaque rafraichissement de page*/
+    $this->checkToken();
+  }
+
+  protected function checkToken(){
+    $args = array(
+      'breakemallemail'   => FILTER_VALIDATE_EMAIL,
+      'breakemalltoken'   => FILTER_SANITIZE_STRING
+    );
+    $filteredcookies = filter_input_array(INPUT_COOKIE, $args);
+
+    $requiredCookiesReceived = true;
+    foreach ($args as $key => $value) {
+      if(!isset($filteredcookies[$key])){
+        $requiredCookiesReceived = false;
+        break;
+      };
+    };
+    if($requiredCookiesReceived){
+      $arr['token'] = $filteredcookies['breakemalltoken'];
+      $arr['email'] = $filteredcookies['breakemallemail'];
+      $user = new user($arr);
+      $userManager = new userManager();
+      $dbUser = $userManager->tokenConnect($user);
+
+      if(!$dbUser){
+        /*REDIRIGER LE MEC VERS LA SORTIE AC UN PTIT SESSION DESTROY OKLM*/
+        echo "COOKIE FAIL MAGGLE";
+        unset($_SESSION);
+        session_destroy();
+      }else{
+        /* LE MEC EST BIEN IDENTIFIE !!!*/
+        $_SESSION['token'] = $dbUser->getToken();
+        $_SESSION['email'] = $dbUser->getEmail();
+        // var_dump($dbUser);
+      }
+    };
+  }
+
   public function connexionAction(){
     $requiredPosts = array(
       'email'   => FILTER_VALIDATE_EMAIL,

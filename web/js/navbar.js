@@ -33,12 +33,7 @@ $(document).on('click', '.search-toggle', function(){
     setTimeout(function() {
         $(".search-page").removeClass('hidden');
     }, 0);
-});   
-
-$(document).ready(function(){
-	
-	
-})
+});
 
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
