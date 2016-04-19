@@ -49,9 +49,17 @@ class teamManager extends basesql{
 	}
 
 	public function setOwnerTeam($idTeam, $idUser){
-		$sql = "INSERT INTO RightsTeam (id,idUser, idTeam, right) VALUES (".$idUser.", ".$idTeam.", 1)";
+		$sql = "INSERT INTO RightsTeam (id, idUser, idTeam, right) VALUES ('', '".$idUser."', '".$idTeam."', '1')";
 		$query = $this->pdo->query($sql);
 		return $query;
 	}
 
+	public function tryBring($name){
+
+		$sql = "SELECT id, name, img, slogan, description FROM Team WHERE name='".$name."'";
+		$query = $this->pdo->query($sql)->fetch();
+		if(!is_array($query))
+			return false;
+		return new team($query);
+	}
 }

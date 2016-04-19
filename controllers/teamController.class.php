@@ -24,45 +24,43 @@ class teamController extends template{
 				die("FAUX: ".$filteredinputs[$key]);
 		}
 
-	if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>45)
-       	die("FAIL name");	
-    else
-       $finalArr['name']=trim($filteredinputs['name']);
+    	if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>45)
+           	die("FAIL name");	
+        else
+           $finalArr['name']=trim($filteredinputs['name']);
 
-   if(strlen($filteredinputs['slogan'])<2 || strlen($filteredinputs['slogan'])>45)
-        die("FAIL slogan");   
-    else
-       $finalArr['name']=trim($filteredinputs['name']);
+       if(strlen($filteredinputs['slogan'])<2 || strlen($filteredinputs['slogan'])>45)
+            die("FAIL slogan");   
+        else
+           $finalArr['name']=trim($filteredinputs['name']);
 
-    if(strlen($filteredinputs['description'])>200)
-        die("FAIL description"); 
-    else
-       $finalArr['description']=trim($filteredinputs['description']);
+        if(strlen($filteredinputs['description'])>200)
+            die("FAIL description"); 
+        else
+           $finalArr['description']=trim($filteredinputs['description']);
 
 
-    $team = new team($finalArr);
+        $teamCrea = new team($finalArr);
+        $teamBDD = new teamManager();
 
-    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-    $teamBDD = new teamManager();
+        //Absence du nom en BDD
+        $teamRecup = $teamBDD->tryBring($teamCrea->getName());
+        var_dump($teamRecup);
+        if($teamRecup)
+            die("Team already exists!");
+
+        //Absence d'appartenance à une autre team
+       // $teamRecup = $teamBDD->rightsExists($_SESSION['id']);
+        //if($teamRecup)
+        //    die("User already has a team !");
+
+        //Créaton team
+        $teamBDD->create($teamCrea);
+
+        $teamRecup = $teamBDD->tryBring($teamCrea->getName());
+
+        //$teamBDD->setOwnerTeam($teamRecup->getId(), 1);
+
     
-    // On check le nom de la team
-    $exist_name=$teamBDD->nameExists($team->getName());
-    if($exist_name)
-    	var_dump("Team already used !");
-
-    // On check le statut de l'utilisateur avec les teams
-    $own_team=$teamBDD->rightsExist($_SESSION['token']);
-    if($own_team)
-    	var_dump("User already has a team !");
-
-    // On enregistre la team
-    //->Fonctionne
-    $teamBDD->create($team);
-
-    $id = $team->getId();
-
-    // On attribue à l'utilisateur le statut de proprietaire de la team
-    //-> Ne fonctionne pas
-    /*$teamBDD->setOwnerTeam(1, $_SESSION['token']);*/
 	}
 }
