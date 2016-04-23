@@ -34,13 +34,14 @@ class basesql{
 			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 			VALUES (:".implode(",:", array_keys($this->columns)).")";
 			$query = $this->pdo->prepare($sql);
-			var_dump($sql);
+			// var_dump($sql);
 			foreach($this->columns as $key => $value){
 				$data[$key] = $value;
 			}
-			var_dump($data);
+			// var_dump($data);
 			$r = $query->execute($data);
-			var_dump($r);
+			// var_dump($r);
+			return $r;
 		// }
 	}
 	
