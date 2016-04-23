@@ -4,6 +4,7 @@ class inscriptionController extends template{
 
 	public function inscriptionAction(){
 		$v = new View();
+        $this->assignConnectedProperties($v);
 		$v->assign("css", "inscription");
 		$v->assign("js", "inscription");
 		$v->assign("title", "Rejoignez-nous !");

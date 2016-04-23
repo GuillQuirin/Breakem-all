@@ -4,6 +4,7 @@ class profilController extends template{
 
 	public function profilAction(){
 		$v = new View();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");
