@@ -16,7 +16,7 @@ class user{
 	protected $img = null;
 	protected $idTeam = null;
 	protected $isConnected = null;
-	protected $lastConnexion = null;
+	protected $lastConnection = null;
 	protected $token = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
@@ -72,14 +72,11 @@ class user{
 	private function setIdTeam($v){
 		$this->idTeam=$v;
 	}
-	private function setIsConnected($v){
+	public function setIsConnected($v){
 		$this->isConnected=$v;
 	}
-	private function setLastConnexion($v){
-		$this->lastConnexion=$v;
-	}
-	private function setToken($v){
-		$this->token=$v;
+	public function setLastConnection($v){
+		$this->lastConnection=$v;
 	}
 
 	public function getId(){return $this->id;}
@@ -96,7 +93,6 @@ class user{
 	public function getImg(){return	"web/img/".$this->img;}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
-	public function getLastConnexion(){return $this->lastConnexion;}
-	public function getToken(){return $this->token;}
+	public function getLastConnection(){return $this->lastConnection;}
 	
 }
