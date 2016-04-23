@@ -43,13 +43,16 @@ window.addEventListener('load', function load(){
 		ShrinkNavbar();
 	});
 	connection.init();
+	// deconnection.init();
 });
 
 
 var connection = {
 	init: function(){
 		this.setFormToWatch();
-		this.sendEvent();
+		if(this.getFormToWatch() instanceof jQuery){
+			this.sendEvent();
+		};		
 	},
 	setFormToWatch: function(){this._form = jQuery("#connection-form");},
 	getFormToWatch: function(){return this._form;},
@@ -75,6 +78,35 @@ var connection = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
+	tryParseServerData: function(rawData){
+		try {
+			var obj = jQuery.parseJSON(rawData);
+			return obj;
+		}
+		catch(err) {
+			console.log(rawData);
+			alert("Problem during server processes \n Check console for details");
+		}
+		return false;
+	},
+	treatParsedJson: function(obj){
+		if(obj.connected){
+			location.reload();
+		}
+		else{
+			this.highlightInput(this._email);
+			this.highlightInput(this._password);
+			if(obj.errors.inputs){
+				// missing input !
+				alert("you are missing an input");
+			}
+			else if(obj.errors.user){
+				// email and pass don't match
+				alert("password and email don't match");
+			}
+		}
+	},
+
 
 	/*### Send Form event ###*/
 	sendEvent: function(){
@@ -82,6 +114,9 @@ var connection = {
 		var _form = this.getFormToWatch();
 		var _email = _form.find("input[name='email']");
 		var _password = _form.find("input[name='password']");
+
+		this._email = _email;
+		this._password = _password;
 
 		_form.submit(function(event) {
 			if (_this.isEmailValid(_email) && _this.isPasswordValid(_password)) {
@@ -96,7 +131,10 @@ var connection = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
-				    console.log(data);
+				    var obj = _this.tryParseServerData(data);
+				    if(obj != false){
+				    	_this.treatParsedJson(obj);
+				    }
 				  },
 				  error: function(xhr, textStatus, errorThrown) {
 				    console.log("request error !! : \t " + errorThrown);
@@ -116,6 +154,33 @@ var connection = {
 		// Le one() permet de ne declencher l'event (keyup ici) qu'une seule fois puis de le supprimer automatiquement
 		jQInput.one('keyup', function() {
 			jQInput.removeClass('failed-input');
+		});
+	}
+}
+var deconnection = {
+	init: function(){
+		this.setFormToWatch();
+		if(this.getFormToWatch() instanceof jQuery){
+			this.setButtonToWatch();
+			if(this.getButtonToWatch() instanceof jQuery){
+				this.clickEvent();
+			};			
+		};		
+	},
+	setFormToWatch: function(){
+		this._form = jQuery("#deconnection-form");
+	},
+	setButtonToWatch: function(){
+		this._btn = _form.find('btn');
+	},
+	getButtonToWatch: function(){return this._btn;},
+	getFormToWatch: function(){return this._btn;},
+
+	clickEvent: function(){
+		_this = this;
+		var _btn = this.btn;
+		_btn.click(function(event) {
+			_this._form.submit();
 		});
 	}
 }
