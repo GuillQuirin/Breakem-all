@@ -40,44 +40,69 @@ class userManager extends basesql{
 		parent::save();	
 	}
 
-	public function tokenConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email='".$user->getEmail()."' AND token='".$user->getToken()."'";
-		$query = $this->pdo->query($sql)->fetch();
-
-		if(!is_array($query))
-			return false;
-
-		return new user($query);
-	}
-
 	public function userMailExists(user $user){
 		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
 		$query = (bool) $this->pdo->query($sql)->fetch();
 		return $query;
 	}
 
-
 	public function tryConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email='".$user->getEmail()."'";
-		$query = $this->pdo->query($sql)->fetch();
-
-		if(!is_array($query))
-			return false;
-
-		$dbUser = new user($query);
-		if(password_verify($user->getPassword(), $dbUser->getPassword())){
-			// définition du token
-			$token = md5($dbUser->getId().$dbUser->getName().$dbUser->getEmail().SALT.date('Ymd'));
-			$query['token'] = $token;
-			// print_r($query);
-			$dbUser = new user($query);
-			$this->changeToken($dbUser);
-			return $dbUser;
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':email' => $user->getEmail()
+		]);
+		$r = $sth->fetchAll();
+		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
+		// ce qui nous interesse est donc de savoir si le $r[0] existe
+		// var_dump($r);
+		// exit;
+		if(isset($r[0])){
+			$dbUser = new user($r[0]);
+			if(password_verify($user->getPassword(), $dbUser->getPassword())){
+				return $dbUser;
+			}
+				
 		}
 		return false;
 	}
-	private function changeToken(user $user){
-		$sql = "UPDATE ".$this->table." SET token='".$user->getToken()."' WHERE id=".$user->getId();
-		$query = $this->pdo->query($sql);
+
+	/*C'est ici que l'on set le isConnected à 1 (true)
+		--> cette methode est appelée à chaque rechargement de page.
+		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
+	*/
+	public function validTokenConnect(user $user){
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':email' => $_SESSION[COOKIE_EMAIL]
+		]);
+		$r = $sth->fetchAll();
+		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
+		// ce qui nous interesse est donc de savoir si le $r[0] existe
+		// var_dump($r);
+		// exit;
+		if(isset($r[0])){
+			$sql = "UPDATE ".$this->table." SET isConnected=1, lastConnexion=:lastConnexion WHERE email=:email";
+			$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+			$sth->execute([
+				':lastConnexion' => $user->getLastConnection(),
+				':email' => $user->getEmail()
+			]);
+			return new user($r[0]);
+		}
+		return false;
+	}
+
+	public function disconnecting(user $user){
+		$sql = "UPDATE ".$this->table." SET isConnected=0, lastConnexion=:lastConnexion WHERE email=:email";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':lastConnexion' => $user->getLastConnection(),
+			':email' => $user->getEmail()
+		]);
+		$r = $sth->fetchAll();
+		// var_dump($r);
+		// exit;
 	}
 }
