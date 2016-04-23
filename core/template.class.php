@@ -25,7 +25,7 @@ class template{
       $v->assign("_name", $this->connectedUser->getName());
       $v->assign("_firstname", $this->connectedUser->getFirstname());
       $v->assign("_idTeam", $this->connectedUser->getIdTeam());
-      // $v->assign("_id", $this->connectedUser->getId());
+      $v->assign("_id", $this->connectedUser->getId());
       // $v->assign("_password", $this->connectedUser->getPassword());
     }
   }
