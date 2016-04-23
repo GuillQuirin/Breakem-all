@@ -10,58 +10,80 @@ class teamController extends template{
 		$v->setView("team");
 	}
 
+    private function isFormStringValid($string, $minLen = 4, $maxLen = 25, $spaceAllowed = false, $optionnalCharsAuthorized = ""){
+        if(!$spaceAllowed){
+            if(strpos($string, ' '))
+                 return false;
+        }else{
+            $string = trim($string);
+            $string = str_replace('  ', ' ', $string);
+        }
+        if(strlen($string) < $minLen || strlen($string) > $maxLen)
+            return false;
+        $regex = '/[^a-z_\-0-9'. $optionnalCharsAuthorized .']/i';
+        if(preg_match($regex, $string))
+            return false;
+        return true;
+    }
+
 	public function verifyAction(){
 		$args = array(
-        'name'     => FILTER_SANITIZE_STRING,    
-        'slogan'     => FILTER_SANITIZE_STRING,   
-	    'description'     => FILTER_SANITIZE_STRING    
+            'name'     => FILTER_SANITIZE_STRING,    
+            'slogan'     => FILTER_SANITIZE_STRING,   
+    	    'description'     => FILTER_SANITIZE_STRING    
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-		// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
-		$finalArr = [];
-        
+        $data = [];
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
-				die("FAUX: ".$filteredinputs[$key]);
+				return json_encode($data["errors"]=["inputs" => "manque: ".$key]);
 		}
+        if(!($this->isFormStringValid($filteredinputs['name'])))
+            return json_encode($data["errors"]=["name" => "le nom ne respecte pas les regles"]);
+        if(!($this->isFormStringValid($filteredinputs['slogan'], 10, 50, true, '?!\.')))
+            return json_encode($data["errors"]=["slogan" => "le slogan ne respecte pas les règles"]);
+        if(!($this->isFormStringValid($filteredinputs['description'], 10, 250, true, '?!\.')))
+            return json_encode($data["errors"]=["description" => "la description ne respecte pas les règles"]);
 
-    	if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>45)
-           	die("FAIL name");	
-        else
-           $finalArr['name']=trim($filteredinputs['name']);
+        $team = new team($filteredinputs);
+        $dbTeam = new teamManager();
 
-       if(strlen($filteredinputs['slogan'])<2 || strlen($filteredinputs['slogan'])>45)
-            die("FAIL slogan");   
-        else
-           $finalArr['name']=trim($filteredinputs['name']);
-
-        if(strlen($filteredinputs['description'])>200)
-            die("FAIL description"); 
-        else
-           $finalArr['description']=trim($filteredinputs['description']);
-
-
-        $teamCrea = new team($finalArr);
-        $teamBDD = new teamManager();
-
-        //Absence du nom en BDD
-        $teamRecup = $teamBDD->tryBring($teamCrea->getName());
-        var_dump($teamRecup);
-        if($teamRecup)
-            die("Team already exists!");
-
-        //Absence d'appartenance à une autre team
-       // $teamRecup = $teamBDD->rightsExists($_SESSION['id']);
-        //if($teamRecup)
-        //    die("User already has a team !");
+        //Presence du nom en BDD
+        if($dbTeam->isNameUsed($team))
+            return json_encode($data["errors"]=["nameused" => "nom déjà utilisé"]);
+        //L'user a-t-il déjà une team
+        if(is_numeric($this->connectedUser->getIdTeam()))
+            return json_encode($data["errors"]=["userhasteam" => "vous avez déjà une team!"]);
 
         //Créaton team
-        $teamBDD->create($teamCrea);
+        $newTeam = $dbTeam->create($team);
+        if(!$newTeam)
+            return json_encode($data["errors"]=["creation" => "pb lors la création de votre team"]);
+        // je crois que ça fermera la connexion actuelle
+        unset($dbTeam);
 
-        $teamRecup = $teamBDD->tryBring($teamCrea->getName());
+        // MàJ de l'idTeam du user connecté
+        $dbUser = new userManager();
+        $newUser = $dbUser->setNewTeam($this->connectedUser, $r);
+        if(!$newUser)
+            return json_encode($data["errors"]=["creation" => "pb lors la màj de votre image d'utilisateur"]);
+        unset($dbUser);
 
-        //$teamBDD->setOwnerTeam($teamRecup->getId(), 1);
+        // MàJ de la table rightsTeam
+        $riTeam = new rightsteam([
+            'id'=>0,
+            'idUser'=>$newUser->getId(),
+            'idTeam'=>$newTeam->getId(),
+            'right'=>1,
+            'title'=>'maitre',
+            'description'=>'Un pour les controler tous'
+        ]);
+        $dbRightsTeam = new rightsteamManager();
+        $newRiTeam = $dbRightsTeam->create($riTeam);
+        if(!$newRiTeam)
+            return json_encode($data["errors"]=["creation" => "pb lors la creation de vos droits"]);
+        unset($dbRightsTeam);
 
-    
+        return json_encode(["success" => true]);    
 	}
 }

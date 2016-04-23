@@ -105,4 +105,14 @@ class userManager extends basesql{
 		// var_dump($r);
 		// exit;
 	}
+
+	public function setNewTeam(user $u, team $t){
+		$sql = "UPDATE ".$this->table." SET idTeam=:idTeam WHERE id=:id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTeam' => $t->getId(),
+			':id' => $u->getId()
+		]);
+		$r = $sth->fetchAll();
+	}
 }
