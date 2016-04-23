@@ -1,11 +1,10 @@
 <?php
 session_start();
+/*flush();
+session_destroy();
+exit;*/
 require_once "conf.inc.php";
 require_once "functions.php";
-
-if(isset($_SESSION['token']) && isset($_SESSION['email'])){
-	// var_dump($_SESSION);
-};
 
 function mon_loader($class){
 	if( file_exists("core/".$class.".class.php")){
