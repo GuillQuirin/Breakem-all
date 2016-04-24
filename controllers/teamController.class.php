@@ -2,7 +2,7 @@
 class teamController extends template{
 	public function teamAction(){
 		$v = new View();
-    $this->assignConnectedProperties($v);
+        $this->assignConnectedProperties($v);
 		$v->assign("css", "team");
 		$v->assign("js", "team");
 		$v->assign("title", "Team");
@@ -10,17 +10,12 @@ class teamController extends template{
 		$v->setView("team");
 	}
 
-    private function isFormStringValid($string, $minLen = 4, $maxLen = 25, $spaceAllowed = false, $optionnalCharsAuthorized = ""){
-        if(!$spaceAllowed){
-            if(strpos($string, ' '))
-                 return false;
-        }else{
-            $string = trim($string);
-            $string = str_replace('  ', ' ', $string);
-        }
+    private function isFormStringValid($string, $minLen = 4, $maxLen = 25, $optionnalCharsAuthorized = ""){
+        $string = trim($string);
+        $string = str_replace('  ', ' ', $string);
         if(strlen($string) < $minLen || strlen($string) > $maxLen)
             return false;
-        $regex = '/[^a-z_\-0-9'. $optionnalCharsAuthorized .']/i';
+        $regex = '/[^a-z_\-0-9 '. $optionnalCharsAuthorized .']/i';
         if(preg_match($regex, $string))
             return false;
         return true;
@@ -40,9 +35,9 @@ class teamController extends template{
 		}
         if(!($this->isFormStringValid($filteredinputs['name'])))
             return json_encode($data["errors"]=["name" => "le nom ne respecte pas les regles"]);
-        if(!($this->isFormStringValid($filteredinputs['slogan'], 10, 50, true, '?!\.')))
+        if(!($this->isFormStringValid($filteredinputs['slogan'], 10, 50, ',\?!\.\+')))
             return json_encode($data["errors"]=["slogan" => "le slogan ne respecte pas les règles"]);
-        if(!($this->isFormStringValid($filteredinputs['description'], 10, 250, true, '?!\.')))
+        if(!($this->isFormStringValid($filteredinputs['description'], 10, 250, ',\?!\.\+')))
             return json_encode($data["errors"]=["description" => "la description ne respecte pas les règles"]);
 
         $team = new team($filteredinputs);
