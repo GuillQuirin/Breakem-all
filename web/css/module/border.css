@@ -1,3 +1,9 @@
 .border-bottom{
 	border:1px solid transparent;
 }
+
+.border-full{
+	border:1px solid #ffffff;
+	padding:15px;
+	transform: skew(-8deg);
+}

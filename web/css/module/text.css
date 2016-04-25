@@ -17,3 +17,12 @@
 .font-bold{
     font-weight: 600;
 }
+
+.header-title{
+	font-size:45px;
+	color:#ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width:300px;
+}
