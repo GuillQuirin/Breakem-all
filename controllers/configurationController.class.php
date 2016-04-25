@@ -4,6 +4,7 @@ class configurationController extends template{
 
 	public function configurationAction(){
 		$v = new View();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "configuration");
 		$v->assign("js", "configuration");
 		$v->assign("title", "configuration");
@@ -35,7 +36,8 @@ class configurationController extends template{
 	}
 	
 	public function updateAction(){
-				$v = new View();
+		$v = new View();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "configuration");
 		$v->assign("js", "configuration");
 		$v->assign("title", "configuration");

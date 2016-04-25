@@ -18,7 +18,7 @@ class teamManager extends basesql{
 		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
 
 		if(!$calling_class || !$calling_method)
-			die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe TeamController!");
+			return false;
 
 		// Si appelée depuis la page team
 		if ($calling_class === "teamController" && $calling_method === "verifyAction"){
@@ -32,26 +32,24 @@ class teamManager extends basesql{
 				};
 			}
 			$this->columns = array_filter($this->columns);
-			$this->save();
+			$r = $this->save();
+			return $r;
 		}
+		return false;
 	}
 
 	public function save(){
 		parent::save();	
 	}
 
-	public function rightsExist($idUser){
-
-		$sql = "SELECT idUser FROM RightsTeam WHERE idUser='".$idUser."'";
-		$query = $this->pdo->query($sql)->fetch();
-		
-		return $query;
-	}
-
-	public function setOwnerTeam($idTeam, $idUser){
-		$sql = "INSERT INTO RightsTeam (id,idUser, idTeam, right) VALUES (".$idUser.", ".$idTeam.", 1)";
+	public function setOwnerTeam(team $t, $idUser){
+		$sql = "INSERT INTO RightsTeam (id, idUser, idTeam, right) VALUES ('', '".$idUser."', '".$idTeam."', '1')";
 		$query = $this->pdo->query($sql);
 		return $query;
 	}
 
+	public function isNameUsed(team $t){
+		$sql = "SELECT COUNT(*) FROM Team WHERE name='".$t->getName()."'";
+		return (bool) $this->pdo->query($sql)->fetch();
+	}
 }
