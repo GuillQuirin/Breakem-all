@@ -8,6 +8,12 @@ team Yes <br></section>
 <div><img id="Balrog" src="web/img/Balrog-gigaton.gif" />
 <button id ="Quit">Quitter le groupe</button></div>
 
+<form id="teamcreation-form">
+	<input type="text" name="name" placeholder="nom">
+	<input type="text" name="slogan" placeholder="slogan">
+	<textarea name="description" placeholder="description"></textarea>
+	<button type="button" class="btn btn-blue"><a>valider</a></button>
+</form>
 <footer>
 </footer>
 

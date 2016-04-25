@@ -34,13 +34,14 @@ class basesql{
 			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 			VALUES (:".implode(",:", array_keys($this->columns)).")";
 			$query = $this->pdo->prepare($sql);
-			var_dump($sql);
+			// var_dump($sql);
 			foreach($this->columns as $key => $value){
 				$data[$key] = $value;
 			}
-			var_dump($data);
+			// var_dump($data);
 			$r = $query->execute($data);
-			var_dump($r);
+			// var_dump($r);
+			return $r;
 		// }
 	}
 	
@@ -53,6 +54,13 @@ class basesql{
 
 	public function pseudoExists($pseudo){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
+	}
+
+	public function nameExists($name){
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE name="' . $name.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
 
 		return $r;
