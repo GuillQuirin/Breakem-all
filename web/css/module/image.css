@@ -1,3 +1,9 @@
 .img-circle{
   border-radius: 50%;
 }
+
+.img-header{
+	opacity: .5;
+	height: auto;
+	width:100%;
+}
