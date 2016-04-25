@@ -30,7 +30,7 @@
 				</div>
 				<div class="grid-md-12" style="border:1px solid #ffffff; margin:15px 0;">
 					<div class="classement-header-ranking-wrapper">
-						<span class="classement-header-ranking">1</span>		
+						<img src="web/img/heroes-of.jpg" class="img-cover">		
 					</div>
 				</div>			
 
