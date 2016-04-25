@@ -1,11 +1,10 @@
-<section class="full-height">
-	<div class="full-width m-a bg-cover text-center">
-		<div class="full-height resultat-center-v">
-			<div class="container m-a">
-				<div class="grid-md-12" style="margin-top:290px;">
-					<span class="header-title border-full">Classement</span>
-				</div>
-			</div>
+<section>
+	<div class="full-width bg-blue">
+		<?php echo '<img src="' . WEBPATH . '/web/img/header.jpg">';?>
+		<div class="">
+			<h1><a>Le Meilleur se cache parmi vous !</a></h1>
 		</div>
 	</div>
 </section>
+
+
