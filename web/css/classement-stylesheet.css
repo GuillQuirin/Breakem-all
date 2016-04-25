@@ -47,7 +47,9 @@ body, html{
 }
 
 .classement-content-wrapper{
-	padding:15px;
+	padding:35px;
+	height:100%;
+	/*overflow:hidden;*/
 }
 
 footer{

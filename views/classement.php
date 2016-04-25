@@ -18,9 +18,23 @@
 </section>
 <section class="classement-content-wrapper">
 
-		<div class="full-height content-border">
-			
+	<div class="container content-border m-a">
+
+		<div class="row">
+
+			<div class="grid-md-12" style="height:200px; border:1px solid #ffffff; margin:15px 0;">
+			</div>
+			<div class="grid-md-12" style="height:200px; border:1px solid #ffffff; margin:15px 0;">
+			</div>
+			<div class="grid-md-12" style="height:200px; border:1px solid #ffffff; margin:15px 0;">
+			</div>
+			<div class="grid-md-12" style="height:200px; border:1px solid #ffffff; margin:15px 0;">
+			</div>
+			<div class="grid-md-12" style="height:200px; border:1px solid #ffffff; margin:15px 0;">
+			</div>
 		</div>
+
+	</div>
 
 </section>
 
