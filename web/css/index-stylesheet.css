@@ -1,267 +1,326 @@
-input{
-    padding: 8px;
-    border: none;
-    border-bottom: solid 2px #c9c9c9;
-    transition: border 0.3s;
-}
-input:focus{
-    border-bottom: solid 2px #969696;
-}
-hr{
-    width:15%;
-    border-top:2px solid #fff;
-    text-align: center;
-    display: inline-block;
-    margin-top:15px;
-}
-
-@media screen and (max-width: 930px){
-    #header_right{
-        display:none;
-    }
-    #nom_site{
-        text-align:center;
-        width:100%;
-    }
-    .tournoi{
-        width:500px;
-        height:160px;
-        margin:0 auto;
-        margin-top:20px;
-        color:white;
-        border:1px  solid white;
-        background-color: #0a0019;
-    }
-    #liste_tournoi{
-        border:2px solid white;
-        width:800px;
-        margin:0 auto;
-        height:750px;
-    }
-
-}
-
-.bouton{
-    background-color:black;
-    color:#bfbdbd;
-    padding:10px 10px 10px 10px;
-    text-decoration: none;
-    font-size:15px;
-   	margin-left:10px;
-    -webkit-transform:skew(-10deg);
-    -moz-transform:skew(-10deg);
-    -o-transform:skew(-10deg);
-    tranform:skew(-10deg);
-    border:none;
-}
-.bouton:hover{
-    color:white;
-}
-.separateur{
-    width:100%;
-    height:35px;
-    background-color: #0a0019;
-    position: relative;
-}
-#title{
-    
-    margin: 0 auto;
-    text-align: center;
-}
-.title{
-    margin-top:10px;
-    display:inline;
-    position: absolute;
-    color:white;
-}
-.left{
-    margin-right:10px;
-}
-.right{
-    margin-left:100px;
-}
-.name_tournoi{
-    margin-top: 10px;
-    font-size: 15px;
-}
-.nb_inscrit p{
-    font-size:13px;
-    border-top:1px solid white;
-    border-bottom:1px solid white;
-}
-.tournoi{
-    width:900px;
-    height:160px;
-    margin:0 auto;
-    margin-top:20px;
-    color:white;
-    border:1px  solid white;
-    background-color: #0a0019;
-}
-.img_tournoi{
-    width:300px;
-    height:160px;
-    position: absolute;
-}
-.float_right{
-    float:right;
+/*Partie haute de la page header + inscription */
+#section_inscrip{
+	background-color:rgba(8,3,37,.4);
 }
 #header{
-	width:100%;
-	height:55px;
-	background-color:#201b3a;
-	color:white;
-	
+	width: 100%;
+	background-color: #160962
 }
-#header_width{
-    width:850px;
-    margin:0 auto;
+#header img{
+	opacity: .5;
+	height:auto;
+	min-width: 300px;
+	width: 100%;
 }
-#nom_site{
-    position: absolute;
-    margin-top:-8px;
+#title_header{
+	position:absolute;
+	top:300px;
+	left:8%;
 }
-#header_right{
-    float:right;
-    margin-top:10px;
+#title_header h1{
+	width:550px;
+	height:100px;
 }
-#section_inscrip{
-    width:850px;
-    margin:0 auto;
-    height:380px;
+#title_header h1 a{
+	border:3px solid;
+	text-align:left;
+	font-size: 50px;
+	text-transform: uppercase;
+	padding:40px;
+	font-family: Roboto !important;
 }
-#slider {
-  position:absolute;
+#sous-title_header{
+	position:absolute;
+	top:500px;
+	left:27.2%;
 }
-
-#slider img {
-    position:absolute;
-    left:0;
-    animation-name: Slider;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-duration: 20s;
+#sous-title_header a {
+	font-family: Roboto !important;
 }
-
-@keyframes Slider {
-  0% {
-    opacity:1;
-  }
-  19% {
-    opacity:1;
-  }
-  25% {
-    opacity:0;
-  }
-  95% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
+#sous-title_header h2{
+	width:220px;
+	margin-right: 10px;
 }
-
-#slider img:nth-of-type(1) {
-  animation-delay: 15s;
+#sous-title_header h3{
+	width:120px;
 }
-#slider img:nth-of-type(2) {
-  animation-delay: 10s;
-}
-#slider img:nth-of-type(3) {
-  animation-delay: 5s;
-}
-#slider img:nth-of-type(4) {
-  animation-delay: 0s;
-}
-
 #inscription_rapide{
-    margin-top:1px;
-    float:right;
-    width:300px;
-    height:330px;
-    border:10px solid #0a0019;
-    color:#272822;
-    font-family: 'helvetica';
-    text-align: center;
+	position:absolute;
+	top:190px;
+	width:380px;
+	height:385px;
+	right:0;
+	background-color:rgba(8,3,37,.8);
+	border-radius: 5px;
+	color:white;
+    padding: 30px;
+    font-family: Roboto !important;
+   	right:8%;
+   	font-size: 13px;
 }
 
-#btn_sinscrire{
-    margin-top:30px;
+/* Contenu de l'index en dessous du header*/
+#container_index{
+	width:100%;
+	height:auto;
+	background-color:#080325;
+	font-family: Roboto !important;
+	color:white;
+}
+#contain{
+	width:96%;
+	margin:0 auto;
+	border-top:3px solid white;
+	border-left:3px solid white;
+	border-right:3px solid white;
+	height:1700px;
+}
+/*Contenu de la page à gauche tous les articles */
+#contain_left{
+	width:800px;
+	position:absolute;
+	margin:5px;
+	left:8%;
+	margin-top:70px;
+
+}
+.tri{
+	float:right;
+	margin-top:-65px;
+}
+select{
+	width:200px;
 }
 
-#section_liste_tournoi{
-    background-color: #201b3a;
+#article1{
+	width:100%;
+	margin-top:80px;
 }
-#liste_tournoi{
-    border:2px solid white;
-    width:1000px;
-    margin:0 auto;
-    height:750px;
+.contain_article{
+	width:765px;
+	height:270px;
+}
+.img_article{
+	width:200px;
+	height:150px;
+	transform: skew(-8deg);
+	background-color: #160962;
+}
+.img_article img{
+	width:200px;
+	height:150px;
+	opacity: .7;
+}
+.img_article img:hover{
+	opacity: .6;
+}
+.text_article{
+	width:500px;
+	margin-top:-145px;
+	float:right;
+	text-align: left;
+}
+.date_article h3{
+	float:right;
+	font-size:12px;
+	color:#6f686e;
+	margin-top:-133px;
+}
+.text_article h2{
+	font-size:28px;
+}
+.tags_article h3{
+	margin-top:15px;
+	font-size:12px;
+	color:#6f686e;
+}
+.icon{
+	content: '\f073';
+}
+.text_article p{
+	font-family: none;
+	margin-top:15px;
+	font-size:16px;
+}
+.btn_article .btn {
+	margin-top:20px;
+	width:120px;
+	height:35px;
+}
+.page li{
+	width:70px;
+	margin-top:20px;
 }
 
-#description{
-    width:550px;
-    float: right; 
-}
-#description a{
-    text-decoration: none;
-    color:#7f1618;
-}
-#description a:hover{
-    color:white;
+/*Contenu de la page à droite : recherche, match...*/
+#contain_right{
+	float:right;
+	width:240px;
+	margin-right:8%;
 }
 
-@media screen and (max-width: 980px){
-    #header_right{
-        display:none;
-    }
-    #nom_site{
-        text-align:center;
-        width:100%;
-    }
-     #section_inscrip{
-        width:980px;
-    }
+#contain_search{
+	margin-top:40px;
+	text-align: right;
+}
+input[name="search"]{
+	text-align: end;
+}
+.title{
+	width:88%;
+	padding:10px;
+	text-align: right;
+	background-color: #211d3b;
+	transform: skew(-8deg);
+}
+.title,label[for='title1']{
+	margin-top:50px;
+}
+.fight{
+	width:100%;
+	text-align: center;
+	margin-top:20px;
+	cursor:pointer;
+}
+.fight:hover h3{
+	color:#d92b4c;
+	transition: .4s;
+}
+.fight img{
+	width:80px;
+	transform: skew(-8deg);
+	margin-top:20px;
+	margin-right:9px;
+	margin-left:9px;
+}
+.fight .date_fight{
+	font-size:12px;
+	color:#6f686e;
+	margin-top:15px;
+}
+.name_fight li{
+	padding:20px;
+	display:inline-block;
+	width:58px;
+}
+.name_fight ul{
+	text-align: center;
+}
+.tab{
+	margin-top:15px;
+	border-bottom:1px solid #201c3a;
+	font-size:13px;
+}
+#match{
+	width:100%;
+	font-size:12px;
+}
+.margin_match{
+	margin-top:25px;
+	cursor: pointer;
+}
+#match img{
+	width:50px;
+	transform: skew(-8deg);
+}
+#match img[name="img2"]{
+	margin-left:22px;
+}
+.statut{
+	width:auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 25px;
+	transform: skew(-8deg);
+	float:right;
+	background-color: #201c3a;
+}
+.date_match{
+	float:right;
+	color:#6f686e;
+	margin-top:10px;
+}
+.versus{
+	position: absolute;
+	margin-left: 55px;
+    margin-top: -32px;
+}
+hr{
+	color:#201c3a;
+	background-color: #201c3a;
+	border:0;
+	height:1px;
+	margin:-0.5em 0;
+	padding: 0;
+	margin-top:35px;
+}
+.game{
+	margin-top:20px;
+}
+.game img{
+	width:80px;
+	transform: skew(-8deg);
+	cursor:pointer;
+}
+.game p{
+	position: absolute;
+    margin-left: 90px;
+    margin-top: -40px;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
-    #section_liste_tournoi{
-        width:980px;
-    }
-    .tournoi{
-        width:980px;
-        
-    }
-    #description{
-        width:550px;
-        margin-right: 100px;
-    }
-    #liste_tournoi{
-        width:980px;
-    }
-
-} 
-@media screen and (max-width: 480px){
-    body{
-        width:480px;
-    }
-    #section_inscrip{
-        width:480px;
-    }
-    .img_tournoi{
-        display:none;
-    }
-
-    #section_liste_tournoi{
-        width:480px;
-    }
-    .tournoi{
-        width:480px;
-        
-    }
-    #description{
-        float:left;
-        width:450px;
-    }
-    #liste_tournoi{
-        width:480px;
-    }
+.categorie{
+	margin-top: 20px;
+}
+.categorie p{
+	text-decoration: underline;
+	cursor: pointer;
+	float:right;
+	font-size: 13px;
+	margin-right:15px;
+}
+#section_social_media{
+	background-color: rgba(8,3,37,.4);
+	color:white;
+}
+#footer{
+	width: 100%;
+    background-color: #160962;
+}
+#footer img{
+	opacity: .8;
+    height: auto;
+    min-width: 300px;
+    width: 100%;
+}
+.title_social{
+	position:absolute;
+	width:100%;
+	text-align: center;
+	top: 2415px;
+    font-size: 20px;
+    font-family: Roboto !important;
+}
+.nw_social{
+	width: 150px;
+    height: 150px;
+    transform: skew(-8deg);
+    opacity: .5;
+    top: 2465px;
+    position: absolute;
+	background-color: #201c3a;
+	cursor:pointer;
+}
+.fb{
+	left:25%;
+}
+.tw{
+	left:38%;
+}
+.st{
+	left:51%;
+}
+.yo{
+	left:64%;
 }

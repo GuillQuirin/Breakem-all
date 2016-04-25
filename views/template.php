@@ -22,6 +22,9 @@
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -64,13 +67,13 @@
 			      			<li class="hover-none" style="width:80px;">
 			      				<button type="button" class="btn btn-pink"><a>Subscribe</a></button>
 			      			</li>
-			      			<li class="hover-none" style="width:205px;">
+			      			<li class="hover-none" style="width:220px;">
 			      				<button type="button" class="btn btn-pink"><a>Login</a></button>
-			      				<form action=<?php echo getActionPage($this->view, 'connexion'); ?> method="post">
+			      			<!--	<form action=<?php echo getActionPage($this->view, 'connexion'); ?> method="post">
 			      					<input type="email" name="email" placeholder="email">
 			      					<input type="password" name="password" placeholder="mot de passe">
 			      					<input type="submit">
-			      				</form>
+			      				</form>-->
 			      			</li>
 			      			<li class="hover-none hidden">
 					        	<a href="">
