@@ -3,7 +3,12 @@
 }
 
 .border-full{
-	border:1px solid #ffffff;
-	padding:15px;
+	border:2px solid #ffffff;
 	transform: skew(-8deg);
+}
+
+.content-border{
+	border:2px solid #ffffff;
+	
+	height:20px;
 }
