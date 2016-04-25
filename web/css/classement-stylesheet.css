@@ -28,7 +28,7 @@ body, html{
 .classement-header-ranking-wrapper{
 	height:200px;
 	width:200px;
-	border:1px solid #ffffff;
+	/*border:1px solid #ffffff;*/
 	margin:10px;
 }
 
@@ -44,12 +44,20 @@ body, html{
 .classement-scroll-down{
 	margin-bottom:15px;
 	position:absolute;
+	cursor:pointer;
 }
 
 .classement-content-wrapper{
 	padding:35px;
 	height:100%;
-	/*overflow:hidden;*/
+}
+
+.classement-content-main{
+	
+}
+
+.classement-content-navbar-side{
+
 }
 
 footer{
