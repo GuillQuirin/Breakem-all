@@ -1,0 +1,104 @@
+/* HEIGHT RESET*/
+
+body, html{
+	height:100%;
+	min-height:100%;
+	font-family:Roboto !important;
+}
+
+#content{
+	height:100%;
+	margin-top:0;
+}
+
+/* HEADER */
+
+.bg-cover{
+	background: linear-gradient(0deg, rgba(255,255,255,0.3), rgba(2,173,231,0.5)), url(../img/header.jpg) center top no-repeat;
+}
+
+.classement-header-title{
+	color:#ffffff;
+	text-transform: uppercase;
+	font-size:45px;
+	margin-right:55px;
+	padding:15px 30px;
+}
+
+.classement-header-ranking{
+	font-size:80px;
+	color:#ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height:200px;
+	width:210px;
+	margin:0 10px;
+	border:1px solid #ffffff;
+}
+
+.classement-scroll-down{
+	margin-bottom:15px;
+	position:absolute;
+	cursor:pointer;
+}
+
+.classement-content-wrapper{
+	padding:35px;
+}
+
+.classement-content-navbar-side{
+
+}
+
+.classement-container{
+	width:95%;
+}
+
+.classement-content-row{
+	margin:0;
+	padding:35px;
+}
+
+.classement-nav-hori-wrapper{
+	margin-bottom:25px !important;
+	display:flex;
+}
+
+.classement-select-hori-wrapper{
+	position:relative;
+	margin-left:45px;
+}
+
+.classement-select-hori{
+	margin:0;
+}
+
+.classement-select-hori-label{
+	color:#ffffff;
+	position:absolute;
+	top:-30px;
+}
+
+.classement-resultat-wrapper{
+
+}
+
+.classement-resultat{
+	padding:20px 25px;
+	transform: skew(-8deg);
+	position:relative;
+}
+
+.classement-ranking-icon{
+	position:absolute;
+	bottom:0;
+	right:0;
+	color:#ffffff;
+	background-color:#211d3b;
+	padding:20px 35px;
+}
+
+footer{
+	display:none;
+}

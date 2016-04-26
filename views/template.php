@@ -22,19 +22,126 @@
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/border.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
 
+		
 		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
 	</head>
 
 	<body>
 		<header>
-			<?php
-				$navbarpath = "views/includes/";
-				$navbarpath .= (isset($_isConnected)) ? "connected/navbar.php" : "visitor/navbar.php";
-				require_once($navbarpath);
-			?>
+			 <!-- Navbar top -->
+			  <nav class="navbar full fixed transparent" id="navbar">
+			    <div class="container resultat-container m-a">
+
+			    <!-- MENU -->
+			      <div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
+			      		<ul>
+			      			<li class="hover-none">
+					        	<a href="index" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+			      			</li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/index" class="active">Accueil<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+					        </li>	
+					        <li>
+					        	<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/resultat">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+					        </li>					   				     
+				        </ul>
+			       </div>
+			       <div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
+			      		<ul>
+			      			<li class="hover-none" style="width:80px;">
+			      				<button type="button" class="btn btn-pink"><a>Subscribe</a></button>
+			      			</li>
+			      			<li class="hover-none" style="width:220px;">
+			      				<button type="button" class="btn btn-pink"><a>Login</a></button>
+			      			<!--	<form action=<?php echo getActionPage($this->view, 'connexion'); ?> method="post">
+			      					<input type="email" name="email" placeholder="email">
+			      					<input type="password" name="password" placeholder="mot de passe">
+			      					<input type="submit">
+			      				</form>-->
+			      			</li>
+			      			<li class="hover-none hidden">
+					        	<a href="">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
+					        	</a>
+					        </li>
+					        <li class="hover-none">
+					        	<button type="button" class="search-toggle">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
+       				 			</button>
+					        </li>
+		      			</ul>
+	      			</div>
+			       <!-- FIN MENU -->
+
+			       <!-- MENU TOGGLE -->
+			       <div class="grid-md-12 hidden-md hidden-lg navbar-menu">
+			       	<?php echo '<img id="navbar-toggle-logo" src="'. WEBPATH . '/web/img/logo-nb-title.png">';?>
+			       	<?php echo '<img id="navbar-toggle" src="'. WEBPATH . '/web/img/icon/icon-menu.png">';?>
+			       </div>
+			       <!-- FIN MENU TOGGLE -->
+
+			       <!-- NAVBAR SIDE -->
+			       	<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
+				       	<ul>
+					        <li>
+					        	<a href="/esgi/Breakem-all/index" class="active">Accueil
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+					        	</a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/tournoi">Tournoi
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+					        	</a>
+					        </li>
+					        <li><a href="/esgi/Breakem-all/team">Team 
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+					        	</a>
+					        </li>
+					        <li>
+					        	<a href="">Joueur
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+					        	</a>
+					        </li>
+					        <li>
+					        	<a href="/esgi/Breakem-all/resultat">Classement
+					        		<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+					        	</a>
+					        </li>
+					        <li class="hover-none">
+					        	<a href="">
+					        		<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
+					        	</a>
+					        </li>
+					       <li class="hover-none">
+					        	<button type="button" class="search-toggle" style="padding:0 35px;">
+            						<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
+       				 			</button>
+					        </li>
+				        </ul>
+			       	</div>
+			       <!-- FIN NAVBAR SIDE -->
+
+			      </div>
+			    </div>
+			  </nav>
 		</header>
 
 		<div class="search-page hidden-fade hidden">

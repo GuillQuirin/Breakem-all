@@ -1,3 +1,13 @@
 .border-bottom{
 	border:1px solid transparent;
 }
+
+.border-full{
+	border:2px solid #ffffff;
+	transform: skew(-8deg);
+}
+
+.content-border{
+	border:2px solid #ffffff;
+	padding:35px;
+}
