@@ -5,22 +5,22 @@
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 						<ul>
 							<li class="hover-none">
-								<a href="index" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+								<a href="<?php echo WEBPATH ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/index" class="active">Accueil<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>" class="active">Accueil<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li>
 								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/resultat">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/resultat">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>		   				     
 						</ul>
 					</div>
@@ -62,17 +62,17 @@
 					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
 						<ul>
 							<li>
-								<a href="/esgi/Breakem-all/index" class="active">Accueil
+								<a href="<?php echo WEBPATH ?>" class="active">Accueil
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/tournoi">Tournoi
+								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/team">Team 
+								<a href="<?php echo WEBPATH ?>/team">Team 
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
@@ -82,7 +82,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="/esgi/Breakem-all/resultat">Classement
+								<a href="<?php echo WEBPATH ?>/resultat">Classement
 								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
