@@ -64,6 +64,8 @@ class template{
         // var_dump($this->connectedUser);
         unset($dbUser, $user);
       }
+      else
+        unset($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
      };
     };
 
@@ -131,6 +133,18 @@ class template{
       session_destroy();
     }
     header('Location: ' . WEBPATH);
+  }
+
+  public function getForm(){
+    return [
+      "options" =>[ "method"=>"POST", "action" => "", "submit"=>"Enregistrer"],
+      "struct" => [
+        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
+        "password"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password", "placeholder" => "Votre Mot de passe", "required"=>1],
+        "password2"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password2", "placeholder" => "Votre Mot de passe", "required"=>1],
+        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
+      ]
+    ];
   }
 
 }
