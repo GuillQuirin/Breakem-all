@@ -36,10 +36,6 @@ class userManager extends basesql{
 		}
 	}
 
-	public function save(){
-		parent::save();	
-	}
-
 	public function userMailExists(user $user){
 		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
 		$query = (bool) $this->pdo->query($sql)->fetch();
@@ -107,12 +103,14 @@ class userManager extends basesql{
 	}
 
 	public function setNewTeam(user $u, team $t){
-		$sql = "UPDATE ".$this->table." SET idTeam=:idTeam WHERE id=:id";
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
-			':idTeam' => $t->getId(),
-			':id' => $u->getId()
+			':id' => $u->getId(),
+			':idTeam' => $t->getId()
 		]);
-		$r = $sth->fetchAll();
 	}
 }
+
+
+// UPDATE user SET idTeam=13 WHERE id=1;
