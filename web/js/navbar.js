@@ -43,7 +43,7 @@ window.addEventListener('load', function load(){
 		ShrinkNavbar();
 	});
 	connection.init();
-	// deconnection.init();
+	deconnection.init();
 });
 
 
@@ -159,28 +159,34 @@ var connection = {
 }
 var deconnection = {
 	init: function(){
-		this.setFormToWatch();
-		if(this.getFormToWatch() instanceof jQuery){
-			this.setButtonToWatch();
-			if(this.getButtonToWatch() instanceof jQuery){
-				this.clickEvent();
-			};			
+		this.setBtnToWatch();
+		if(this.getBtnToWatch() instanceof jQuery){
+			this.clickEvent();			
 		};		
 	},
-	setFormToWatch: function(){
-		this._form = jQuery("#deconnection-form");
+	setBtnToWatch: function(){
+		this._btn = jQuery("#deconnection-btn");
 	},
-	setButtonToWatch: function(){
-		this._btn = _form.find('btn');
-	},
-	getButtonToWatch: function(){return this._btn;},
-	getFormToWatch: function(){return this._btn;},
+	getBtnToWatch: function(){return this._btn;},
 
 	clickEvent: function(){
 		_this = this;
-		var _btn = this.btn;
+		var _btn = this._btn;
 		_btn.click(function(event) {
-			_this._form.submit();
+			jQuery.ajax({
+				url: 'index/deconnection',
+				type: 'POST',
+				data: {},
+				complete: function(xhr, textStatus) {
+					location.reload();
+				},
+				success: function(data, textStatus, xhr) {
+
+				},
+				error: function(xhr, textStatus, errorThrown) {
+
+				}
+			});
 		});
 	}
 }

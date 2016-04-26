@@ -132,7 +132,7 @@ class template{
       unset($_COOKIE[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL]);
       session_destroy();
     }
-    header('Location: ' . WEBPATH);
+    exit;
   }
 
   public function getForm(){
