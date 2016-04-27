@@ -20,13 +20,7 @@ class teamController extends template{
             return false;
         return true;
     }
-
-    private function echoJSONerror($name, $msg){
-        $data['errors'][$name] = $msg;
-        echo json_encode($data);
-        flush();
-        exit;
-    }
+    
 	public function verifyAction(){
         if(!($this->connectedUser instanceof user)){
             $this->echoJSONerror("connection", "vous n'etes pas authentifie !");
