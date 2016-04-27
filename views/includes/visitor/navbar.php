@@ -26,21 +26,16 @@
 							<li class="hover-none" style="width:80px;">
 								<button id="navbar-inscription" type="button" class="btn btn-pink"><a>Subscribe</a></button>
 							</li>
-							<li class="hover-none" style="width:220px;">
+							<li class="hover-none" style="width:80px;margin-left:35px;">
 								<button id="navbar-login" type="button" class="btn btn-pink"><a>Login</a></button>
 							<!-- <form id="connection-form">
 								<input type="email" name="email" placeholder="email">
 								<input type="password" name="password" placeholder="mot de passe">
 								<input type="submit">
 							</form> -->
-							</li>
-							<li class="hover-none hidden">
-								<a href="">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
-								</a>
-							</li>
+							</li>							
 							<li class="hover-none">
-								<button type="button" class="search-toggle">
+								<button type="button" class="search-toggle" style="width:80px;margin-left:20px;">
 								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
 								</button>
 							</li>
