@@ -205,8 +205,8 @@ class template{
 
         // On enregistre !
         $userBDD->create($user);
-
-        header('Location: confirmation');
+        /*IL FAUT REDIRIGER VERS LA PAGE EN TRAIN D ETRE VISITE*/
+        header('Location: '. WEBPATH);
   }
 
 }
