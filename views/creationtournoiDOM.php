@@ -199,34 +199,39 @@
 
  -->
 
-<div class="grid-xs-12" style="height: 100%">
-	<div class="display-flex-column grid-xs-12">
-		<h1 class="capitalize header-title">My title</h1>
-	</div>
-	<div class="display-flex-column grid-xs-12">
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
-		</div>
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
-		</div>
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
-		</div>
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
-		</div>
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
-		</div>
-		<div class="relative creationtournoi-element-choice grid-lg-3 ">
-			<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
-			<h2 class="absolute title title-2 uppercase">fps</h2>
+<div class="display-flex-column display-flex-row" style="height: 100%">
+	<div class="display-flex-column">
+		<div class="display-flex-column grid-xs-12">
+			<h1 class="capitalize header-title">My title</h1>
 		</div>
 	</div>
+	<div class="display-flex-column">
+		<div class="grid-xs-12">
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
+				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+				<h2 class="absolute title title-2 uppercase">fps</h2>
+			</div>
+		</div>
+	</div>
+	
 </div>
