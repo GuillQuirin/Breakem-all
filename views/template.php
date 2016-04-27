@@ -92,7 +92,7 @@
 					    <label for="pwd2">Confirmation mot de passe : </label>
 					    <input class="input-default" type="password" id="pwd2" name="password_check">
 						<p id="naissance">Date de naissance:
-								<span>
+								<span class="index-input-default-date">
 									<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
 									<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
 									<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">

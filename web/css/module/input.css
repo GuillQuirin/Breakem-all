@@ -33,6 +33,19 @@
     border:0;
     color:white;
 }
+
+.input-default[type="number"]{
+    padding: 8px 25px;
+    margin: 16px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    transform: skew(-8deg);
+    background-color: #211d3b;
+    transition: background .4s, border .4s; 
+    border:0;
+    color:white;
+}
+
 .input-default[type=text]:focus, .input-default[type=password]:focus{
 	background-color: white;
 	color:black;

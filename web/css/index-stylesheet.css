@@ -14,6 +14,13 @@
 	text-transform: capitalize;
 }
 
+ #cgu{
+ 	margin:15px 0 0 0;
+ }
+.index-input-default-date{
+	margin-left:10px;
+}
+
 .index-header-btn-pink-width{
 	width:200px; 
 }
