@@ -38,7 +38,10 @@ body, html{
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height:100%;
+	height:200px;
+	width:100%;
+	margin:0 10px;
+	border:1px solid #ffffff;
 }
 
 .classement-scroll-down{
@@ -56,10 +59,17 @@ body, html{
 	
 }
 
-.classement-content-navbar-side{
+.classement-container{
+	width:85%;
+}
 
 }
 
 footer{
 	display:none;
+}
+
+.classement-header-ranking-wrapper{
+	margin:0 10px;
+	width:200px;
 }

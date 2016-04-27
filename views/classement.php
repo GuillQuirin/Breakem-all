@@ -1,7 +1,7 @@
 <section class="middle-height bg-cover relative">
 	
 	<div class="align full-height">
-		<span class="classement-header-title border-full">Classement</span>
+		<span class="classement-header-title border-full text-center">Classement</span>
 		<div class="classement-header-ranking-wrapper">
 			<span class="classement-header-ranking">1</span>		
 		</div>
