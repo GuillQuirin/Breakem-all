@@ -14,9 +14,10 @@
 	text-transform: capitalize;
 }
 
- #cgu{
- 	margin:15px 0 0 0;
- }
+.index-form-submit{
+	margin:25px 0 0 0;
+}
+
 .index-input-default-date{
 	margin-left:10px;
 }

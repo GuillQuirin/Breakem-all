@@ -101,7 +101,7 @@
 					    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
 					    Vous acceptez les Conditions Générales du site Break'em All</label>
 					   
-					    <button type="button" class="btn btn-pink"><a>S'inscrire et jouer</a></button>
+					    <button type="button" class="btn btn-pink index-form-submit"><a>S'inscrire et jouer</a></button>
 			  		</form>
 			  	</div>
 			  	<!-- Fin SF -->
