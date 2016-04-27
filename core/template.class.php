@@ -132,7 +132,7 @@ class template{
       unset($_COOKIE[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL]);
       session_destroy();
     }
-    header('Location: ' . WEBPATH);
+    exit;
   }
 
   public function getForm(){
@@ -205,8 +205,8 @@ class template{
 
         // On enregistre !
         $userBDD->create($user);
-
-        header('Location: confirmation');
+        /*IL FAUT REDIRIGER VERS LA PAGE EN TRAIN D ETRE VISITE*/
+        header('Location: '. WEBPATH);
   }
 
 }
