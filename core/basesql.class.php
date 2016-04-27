@@ -8,7 +8,7 @@ class basesql{
 	public function __construct(){
 		$this->table = get_called_class();
 		$this->table = str_replace("Manager", "", $this->table);
-		// echo $this->table;
+
 		$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
 		try{
 			$this->pdo = new PDO($dsn,DBUSER,DBPWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
@@ -22,7 +22,6 @@ class basesql{
 		//get_class_vars : permet de récupérer les variables de la classe
 		$class_vars = get_class_vars(get_class());
 		$this->columns = array_keys(array_diff_key($all_vars,$class_vars));
-		//print_r($this->columns);
 	}
 
 	public function save(){
@@ -84,7 +83,6 @@ class basesql{
 		}
 
 		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
-		//var_dump($sql);
 		$query = $this->pdo->query($sql)->fetch();
 
 		if($query === FALSE)
