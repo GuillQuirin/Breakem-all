@@ -47,7 +47,7 @@
 				<form method="post" class="">
 	                    <!-- Input Search -->
 	                    <div class="grid-md-12">
-	                        <input class="input-search" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
+	                        <input class="input-search full-width" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
 	                    </div>
 	            </form>
 			</div>
