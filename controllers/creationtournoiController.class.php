@@ -11,5 +11,16 @@ class creationtournoiController extends template{
 		$v->assign("content", "Création Tournoi");
 		$v->setView("creationtournoiDOM");
 	}
+
+	public function getGameTypesAction(){
+		$gm = new typegameManager();
+		$types = $gm->getAllTypes();
+		// print_r($types);
+		$data['types'] = [];
+		foreach ($types as $key => $arr) {
+			$data['types'][] = $arr;
+		}
+		echo json_encode($data);
+	}
 	
 }
