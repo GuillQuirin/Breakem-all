@@ -24,10 +24,10 @@
 					<div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
 						<ul>
 							<li class="hover-none" style="width:80px;">
-								<button type="button" class="btn btn-pink"><a>Subscribe</a></button>
+								<button id="navbar-inscription" type="button" class="btn btn-pink"><a>Subscribe</a></button>
 							</li>
 							<li class="hover-none" style="width:220px;">
-								<button type="button" class="btn btn-pink"><a>Login</a></button>
+								<button id="navbar-login" type="button" class="btn btn-pink"><a>Login</a></button>
 							<!-- <form id="connection-form">
 								<input type="email" name="email" placeholder="email">
 								<input type="password" name="password" placeholder="mot de passe">
