@@ -202,7 +202,7 @@
 <div class="display-flex-column display-flex-row">
 	<div class="display-flex-column">
 		<div class="display-flex-column grid-xs-12">
-			<h1 class="capitalize header-title">My title</h1>
+			<h1 class="capitalize title header-title">My title</h1>
 		</div>
 	</div>
 	<div class="display-flex-column">
