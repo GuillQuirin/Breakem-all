@@ -12,6 +12,10 @@ class confirmationController extends template{
 		$v->assign("MAJ","0");
 
 
+
+
+        /* CONFIGURATION DU MAIL*/
+
 		$adrPHPM = "web/lib/PHPMailer/"; 
 		include $adrPHPM."PHPMailerAutoload.php";
 		$mail = new PHPmailer(); 
@@ -35,6 +39,8 @@ class confirmationController extends template{
         } 
         $mail->SmtpClose(); 
         unset($mail); 
+
+        /*AFFICHAGE DE LA PAGE */
 
 		$v->setView("confirmation");
 	}
