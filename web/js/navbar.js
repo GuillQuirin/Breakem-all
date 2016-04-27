@@ -9,7 +9,8 @@ var navbar = {
         navbar.search.close();
         navbar.form.subscribe();
         navbar.form.login();
-        navbar.form.closeForm();
+        navbar.form.closeFormKey();
+        navbar.form.closeFormClick();
     },
     shrink: function(){
 
@@ -76,11 +77,21 @@ var navbar = {
             });
         },
         closeForm : function(){
-            $(document).keyup(function(e) {
+            $('.index-modal').addClass('hidden-fade').addClass('fade');        
+        },
+        closeFormKey: function(){
+    	 	$(document).keyup(function(e) {
                 if (e.keyCode == 27) {
-                    $('.index-modal').addClass('hidden-fade').addClass('fade');
+                    navbar.form.closeForm();
                 }
             });
+        },
+        closeFormClick: function(){
+        	$('.index-modal-login').on('click', function(e){
+			    if(e.currentTarget != $('.inscription_rapide')) {
+			    	navbar.form.closeForm()
+			    }
+			});
         }
     }
 };
