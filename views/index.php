@@ -9,7 +9,7 @@
 			<h3 class="btn btn-pink"><a>Nos jeux</a><h3>
 		</div>
 		<div id="inscription_rapide">
-			<form action="index.php">
+			<form action=<?php echo getActionPage($this->view, 'register'); ?> method="post">
 			    <label for="pseudo">Pseudo :</label>
 			    <input type="text" id="pseudo" name="pseudo">
 
@@ -17,10 +17,16 @@
 			    <input type="text" id="email" name="email">
 
 			    <label for="pwd1">Mot de passe : </label>
-			    <input type="password" id="pwd1" name="pwd1">
+			    <input type="password" id="pwd1" name="password">
 			    <label for="pwd2">Confirmation mot de passe : </label>
-			    <input type="password" id="pwd2" name="pwd2">
-
+			    <input type="password" id="pwd2" name="password_check">
+				<p id="naissance">Date de naissance:
+						<span>
+							<input type="number" name="day"   placeholder="dd" min="1" max="31">
+							<input type="number" name="month" placeholder="mm" min="1" max="12">
+							<input type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
+						</span>
+					</p>
 			    <input type="checkbox" class="checkbox" id="cgu" name="cgu"><label for="cgu">
 			    Vous acceptez les Conditions Générales du site Break'em All</label>
 			   
