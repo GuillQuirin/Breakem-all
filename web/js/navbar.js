@@ -67,15 +67,76 @@ $('#navbar-inscription').on('click', function(){
 		    $('#login-form').addClass('hidden');
 		});
 
+/*
+
+<form action="Index/register" method="post">
+<label for="pseudo">Pseudo :</label>
+<input class="input-default" type="text" id="pseudo" name="pseudo">
+
+<label for="email">E-mail :</label>
+<input class="input-default" type="text" id="email" name="email">
+
+<label for="pwd1">Mot de passe : </label>
+<input class="input-default" type="password" id="pwd1" name="password">
+<label for="pwd2">Confirmation mot de passe : </label>
+<input class="input-default" type="password" id="pwd2" name="password_check">
+<p id="naissance">Date de naissance:
+		<span>
+			<input class="input-default" type="number" name="day" placeholder="dd" min="1" max="31">
+			<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
+
+*/
+
 var register = {
 	init: function(){
 		this.setFormToWatch();
-		if(this.getFormToWatch() instanceof jQuery){
-			this.sendEvent();
-		};		
+		if(!(this.getFormToWatch() instanceof jQuery)){
+			console.log("Missing form");
+			return;
+		}			
+		this.setPseudoToWatch();
+		if(!(this.getPseudoToWatch() instanceof jQuery)){
+			console.log("Missing pseudo");
+			return;
+		}			
+		this.setEmailToWatch();
+		if(!(this.getEmailToWatch() instanceof jQuery)){
+			console.log("Missing email");
+			return;
+		}
+		this.setPassToWatch();
+		if(!(this.getPassToWatch() instanceof jQuery)){
+			console.log("Missing pass");
+			return;
+		}
+		this.setPassCheckToWatch();
+		if(!(this.getPassCheckToWatch() instanceof jQuery)){
+			console.log("Missing passcheck");
+			return;
+		}
+		this.sendEvent();
 	},
-	setFormToWatch: function(){this._form = jQuery("#connection-form");},
+	setFormToWatch: function(){
+		this._form = jQuery("#register-form");
+	},
+	setPseudoToWatch: function(){
+		this._pseudo = this._form.find('input[name="pseudo"]');
+	},
+	setEmailToWatch: function(){
+		this._email = this._form.find('input[name="email"]');
+	},
+	setPassToWatch: function(){
+		this._mdp = this._form.find('input[name="password"]');
+	},
+	setPassCheckToWatch: function(){
+		this._mdpcheck = this._form.find('input[name="password_check"]');
+	},
 	getFormToWatch: function(){return this._form;},
+	getPseudoToWatch: function(){return this._pseudo;},
+	getEmailToWatch: function(){return this._email;},
+	getPassToWatch: function(){return this._mdp;},
+	getPassCheckToWatch: function(){return this._mdpcheck;},
+
 	isEmailValid: function(jQEmail){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(jQEmail.val().match(mailformat) || jQEmail.val().length == 0){
