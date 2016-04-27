@@ -19,6 +19,12 @@
 	display:flex;
 }
 
+.display-flex-column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* TABLE */
 
 .self-center {
