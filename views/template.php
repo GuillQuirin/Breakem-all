@@ -62,51 +62,49 @@
 		</div>
 
 		<div class="index-modal hidden-fade hidden">
-			<div class="container m-a">
-				<div class="grid-md-12">
-					<div class="index-modal-login">
-					<!-- Login Form -->
-						<div id="login-form" class="grid-md-4 grid-md-offset-4 inscription_rapide">
-							<form action=<?php echo getActionPage($this->view, 'register'); ?> method="post">			    
-							    <label for="email">E-mail :</label>
-							    <input class="input-default" type="text" id="email" name="email">
+				
+			<div class="index-modal-login align">
+			<!-- Login Form -->
+				<div id="login-form" class="grid-md-4 inscription_rapide">
+					<form id="login-form">			    
+					    <label for="email">E-mail :</label>
+					    <input class="input-default" type="text" id="email" name="email">
 
-							    <label for="pwd1">Mot de passe : </label>
-							    <input class="input-default" type="password" id="pwd1" name="password">			 
-							    <input class="input-default" type="submit" value="Se connecter">
-					  		</form>
-					  	</div>
-				  	<!-- Fin Login -->
+					    <label for="pwd1">Mot de passe : </label>
+					    <input class="input-default" type="password" id="pwd1" name="password">			 					   
+					    <button type="button" class="btn btn-pink"><a>Se connecter</a></button>
+			  		</form>
+			  	</div>
+		  	<!-- Fin Login -->
 
-				  	<!-- Subscribe Form -->
-						<div id="subscribe-form" class="grid-md-4 grid-md-offset-4 inscription_rapide">
-							<form action=<?php echo getActionPage($this->view, 'register'); ?> method="post">
-							    <label for="pseudo">Pseudo :</label>
-							    <input class="input-default" type="text" id="pseudo" name="pseudo">
+		  	<!-- Subscribe Form -->
+				<div id="subscribe-form" class="grid-md-4 inscription_rapide">
+					<form id="register-form">
+					    <label for="pseudo">Pseudo :</label>
+					    <input class="input-default" type="text" id="pseudo" name="pseudo">
 
-							    <label for="email">E-mail :</label>
-							    <input class="input-default" type="text" id="email" name="email">
+					    <label for="email">E-mail :</label>
+					    <input class="input-default" type="text" id="email" name="email">
 
-							    <label for="pwd1">Mot de passe : </label>
-							    <input class="input-default" type="password" id="pwd1" name="password">
-							    <label for="pwd2">Confirmation mot de passe : </label>
-							    <input class="input-default" type="password" id="pwd2" name="password_check">
-								<p id="naissance">Date de naissance:
-										<span>
-											<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
-											<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
-											<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
-										</span>
-									</p>
-							    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
-							    Vous acceptez les Conditions Générales du site Break'em All</label>
-							   
-							    <input class="input-default" type="submit" value="S'inscrire et jouer">
-					  		</form>
-					  	</div>
-					  	<!-- Fin SF -->
-					</div>
-				</div>
+					    <label for="pwd1">Mot de passe : </label>
+					    <input class="input-default" type="password" id="pwd1" name="password">
+					    <label for="pwd2">Confirmation mot de passe : </label>
+					    <input class="input-default" type="password" id="pwd2" name="password_check">
+						<p id="naissance">Date de naissance:
+								<span>
+									<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
+									<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
+									<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
+								</span>
+							</p>
+					    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
+					    Vous acceptez les Conditions Générales du site Break'em All</label>
+					   
+					    <button type="button" class="btn btn-pink"><a>S'inscrire et jouer</a></button>
+			  		</form>
+			  	</div>
+			  	<!-- Fin SF -->
+				
 			</div>
 		</div>
 		
