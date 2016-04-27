@@ -88,7 +88,7 @@ var navbar = {
         },
         closeFormClick: function(){
         	$('.index-modal-login').on('click', function(e){
-			    if(e.currentTarget != $('.inscription_rapide')) {
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a')) {
 			    	navbar.form.closeForm()
 			    }
 			});
