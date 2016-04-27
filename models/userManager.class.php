@@ -18,13 +18,13 @@ class userManager extends basesql{
 		// var_dump($calling_class, $calling_method);
 
 		if(!$calling_class || !$calling_method)
-			die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe InscriptionController!");
+			die("Pas de methode appelée pour l'inscription !");
 
-		// Si appelée depuis la page inscription
-		if ($calling_class === "inscriptionController" && $calling_method === "verifyAction"){
+		// Si appelée depuis la page acceuil
+		if ($calling_class === "template" && $calling_method === "registerAction"){
 			$this->columns = [];
 			$user_methods = get_class_methods($user);
-			// var_dump($user_methods);
+
 			foreach ($user_methods as $key => $method) {
 				if(strpos($method, 'get') !== FALSE){
 					$col = lcfirst(str_replace('get', '', $method));
@@ -34,6 +34,8 @@ class userManager extends basesql{
 			$this->columns = array_filter($this->columns);
 			$this->save();
 		}
+		else
+			die("Tentative d'enregistrement depuis une autre methode que registerAction de la classe IndexController!");
 	}
 
 	public function userMailExists(user $user){
