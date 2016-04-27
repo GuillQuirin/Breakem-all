@@ -14,7 +14,12 @@ body, html{
 /* HEADER */
 
 .bg-cover{
-	background: linear-gradient(0deg, rgba(255,255,255,0.3), rgba(2,173,231,0.5)), url(../img/header.jpg) center top no-repeat;
+	/*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/banner-bg.jpg) center top no-repeat;
+	margin:0;
+  	padding:0;
+	-webkit-background-size: cover; 
+	background-size: cover; 
 }
 
 .classement-header-title{
@@ -106,4 +111,13 @@ footer{
 .classement-header-ranking-wrapper{
 	margin:0 10px;
 	width:200px;
+}
+
+.classement-header-title{
+	font-size:45px;
+	color:#ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width:300px;
 }
