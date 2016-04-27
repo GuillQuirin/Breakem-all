@@ -91,30 +91,6 @@ window.addEventListener('load', function load(){
 	deconnection.init();
 });
 
-$('#navbar-login').on('click', function(){
-			$('.index-modal').removeClass('hidden-fade');
-		    setTimeout(function() {
-		        $(".index-modal").removeClass('hidden');
-		    }, 0);
-		    $('#login-form').removeClass('hidden');
-		    $('#subscribe-form').addClass('hidden');
-		});
-
-$('#navbar-inscription').on('click', function(){
-			$('.index-modal').removeClass('hidden-fade');
-		    setTimeout(function() {
-		        $(".index-modal").removeClass('hidden');
-		    }, 0);
-		    $('#subscribe-form').removeClass('hidden');
-		    $('#login-form').addClass('hidden');
-});
-
-$(document).keyup(function(e) {
-    if (e.keyCode == 27) {      	
-	    $('.index-modal').addClass('hidden-fade').addClass('fade');	
-    }
-});
-
 /*
 
 <form action="Index/register" method="post">
