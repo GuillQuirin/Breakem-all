@@ -1,4 +1,20 @@
-<section id="section_inscrip">
+
+<section class="full-height bg-cover-index relative">
+	
+	<div class="align full-height">
+		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
+			<div class="index-header-btn"> 			
+				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Tournoi du moment</a></button>				
+				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
+			</div>
+		</span>	
+	</div>
+	 
+	<?php echo '<img class="icon icon-size-3 down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scroll-down.png">';?>
+
+</section>
+
+<!--<section id="section_inscrip">
 	<div id="header">
 		<?php echo '<img src="' . WEBPATH . '/web/img/header.jpg">';?>
 		<div id="title_header">
@@ -34,7 +50,7 @@
 	  		</form>
 	  	</div>
 	</div>
-</section>
+</section>-->
 
 <section id="container_index">
 	<div id="contain">
@@ -54,7 +70,7 @@
 					<li class="tri">
 						<label>Trier par :</label>
 						<div>
-							<select>
+							<select class="select-default">
 								<option>Tout</option>
 								<option>Jeux</option>
 								<option>Catégorie</option>
@@ -204,7 +220,7 @@
 		<div id="contain_right">
 			<div id="contain_search">
 				<label for="search">Rechercher :</label>
-			    <input type="text" name="search" placeholder="Tournois, teams, joueurs">
+			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
 			</div>
 			<div class="title">
 				<label for="title1">Prochain match</label>

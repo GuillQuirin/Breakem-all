@@ -13,7 +13,7 @@ body, html{
 
 /* HEADER */
 
-.bg-cover{
+.bg-cover-classement{
 	/*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
 	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/banner-bg.jpg) center top no-repeat;
 	margin:0;
@@ -40,12 +40,6 @@ body, html{
 	width:100%;
 	margin:0 10px;
 	border:1px solid #ffffff;
-}
-
-.classement-scroll-down{
-	margin-bottom:15px;
-	position:absolute;
-	cursor:pointer;
 }
 
 .classement-content-wrapper{
