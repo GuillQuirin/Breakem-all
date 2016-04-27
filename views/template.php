@@ -29,7 +29,7 @@
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
-
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
 		
 		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -47,7 +47,7 @@
 				<form method="post" class="">
 	                    <!-- Input Search -->
 	                    <div class="grid-md-12">
-	                        <input class="" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
+	                        <input class="input-search" type="text" name="searchzone" placeholder="Recherchez" autocomplete="off">
 	                    </div>
 	            </form>
 			</div>

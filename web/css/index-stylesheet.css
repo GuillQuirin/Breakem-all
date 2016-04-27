@@ -2,6 +2,31 @@
 #section_inscrip{
 	background-color:rgba(8,3,37,.4);
 }
+
+#content{
+	height:100%;
+}
+
+.index-header-btn{
+	bottom:-50px;
+	right:0px;
+	position:absolute;
+	text-transform: capitalize;
+}
+
+.index-header-btn-pink-width{
+	width:200px; 
+}
+
+.bg-cover-index{
+	/*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/header.jpg) center top no-repeat;
+	margin:0;
+  	padding:0;
+	-webkit-background-size: cover; 
+	background-size: cover; 
+}
+
 #header{
 	width: 100%;
 	background-color: #160962

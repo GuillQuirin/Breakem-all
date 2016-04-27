@@ -1,4 +1,4 @@
-/*input{
+.input-search{
 	height:20px;
 	padding:6px 12px;
 	font-size:14px;
@@ -10,18 +10,18 @@
 	border-radius: 4px;
 }
 
-input:focus{
+.input-search:focus{
 	border:1px solid #3FA08F;
 }
 
-input.confirm{
+.input-search.confirm{
 	background-color:#3FA08F;
 	cursor:not-allowed;
 	color:#ffffff;
 	border:1px solid #3FA08F;
-}*/
+}
 
-input[type=text], input[type=password], select{
+.input-default[type=text], .input-default[type=password], .select-default{
     width: 100%;
     padding: 8px 25px;
     margin: 16px 0;
@@ -33,16 +33,16 @@ input[type=text], input[type=password], select{
     border:0;
     color:white;
 }
-input[type=text]:focus, input[type=password]:focus{
+.input-default[type=text]:focus, .input-default[type=password]:focus{
 	background-color: white;
 	color:black;
 }
-input[type=text]:hover, input[type=password]:hover{
+.input-default[type=text]:hover, .input-default[type=password]:hover{
 	background-color: white;
 	color:black;
 }
 
-input[type=submit] {
+.input-default[type=submit] {
     width: 100%;
     color: white;
     background:inherit;
@@ -56,7 +56,7 @@ input[type=submit] {
 	transition: background .4s, border .4s;
 }
 
-input[type=submit]:hover {
+.input-default[type=submit]:hover {
     background: #D92B4C;
 	border-color: #D92B4C;
 }
