@@ -113,6 +113,3 @@ class userManager extends basesql{
 		]);
 	}
 }
-
-
-// UPDATE user SET idTeam=13 WHERE id=1;
