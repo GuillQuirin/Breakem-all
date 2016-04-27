@@ -2,6 +2,15 @@
 
 class confirmationController extends template{
 
+    public function __construct(){
+        if(!isset($_SESSION['userToCheck'])){
+            header('Location: '.WEBPATH);
+        }
+        else{
+            unset($_SESSION['userToCheck']);
+        }
+    }
+
 	public function confirmationAction(){
 		$v = new View();
 

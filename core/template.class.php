@@ -263,8 +263,12 @@ class template{
     // On enregistre !
     $userBDD->create($user);
 
+    //Initialisation d'une session autorisant 
+    // le visiteur à accèder à la page de confirmation
+    $_SESSION['userToCheck']=1;
+
     //Appel de la methode d'envoi du mail
-    $this->attenteValid($user);
+    //$this->attenteValid($user);
   }
 
 }
