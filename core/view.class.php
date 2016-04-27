@@ -33,9 +33,6 @@ class View{
 
 	public function __destruct(){
 		extract(array_filter($this->data, 'removeNULL'));
-		// var_dump($this->data);
-		// var_dump($this->template);
-		// exit;
 		include $this->template;
 	}
 
