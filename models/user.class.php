@@ -78,6 +78,9 @@ class user{
 	public function setLastConnection($v){
 		$this->lastConnection=$v;
 	}
+	public function setToken($v){
+		$this->token=$v;
+	}
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
@@ -94,5 +97,6 @@ class user{
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnection(){return $this->lastConnection;}
+	public function getToken(){return $this->token;}
 	
 }

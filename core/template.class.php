@@ -168,45 +168,57 @@ class template{
 
    $finalArr['email'] = $filteredinputs['email'];
 
-   if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>45)
-         die("FAIL pseudo"); 
-        else
-           $finalArr['pseudo']=trim($filteredinputs['pseudo']);
+    //Pseudo
+    if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>45)
+     die("FAIL pseudo"); 
+    else
+       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
-        if($filteredinputs['password']!==$filteredinputs['password_check'])
-         die("FAIL pwd");
-        else
-         $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+    //Password
+    if($filteredinputs['password']!==$filteredinputs['password_check'])
+     die("FAIL pwd");
+    else
+     $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
 
-        if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-         die("FAIL date crea");
-        else{
-         $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-         if(!$date)
-           die("FAIL date format");
-         $finalArr['birthday'] = date_timestamp_get($date);
-        }
+    //Date de naissance
+    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+     die("FAIL date crea");
+    
+    else{
+      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
         
-        // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
-        $user = new user($finalArr);
-        // var_dump($user);
+      if(!$date)
+        die("FAIL date format");
+      $finalArr['birthday'] = date_timestamp_get($date);
 
-        // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-        $userBDD = new userManager();
-        // On check l'utilisation du pseudo
-        $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
-        if($exist_pseudo)
-         die("User already used !");
+     //Token
+      $time = time();
+      $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
+      $finalArr['token'] = $token;
 
-        // On check celle de l'email
-        $exist_email=$userBDD->emailExists($user->getEmail());
-        if($exist_email)
-         die("Email already used");
+    }
+        
+    // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
+    $user = new user($finalArr);
 
-        // On enregistre !
-        $userBDD->create($user);
-        /*IL FAUT REDIRIGER VERS LA PAGE EN TRAIN D ETRE VISITE*/
-        header('Location: '. WEBPATH);
+    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+    $userBDD = new userManager();
+
+    // On check l'utilisation du pseudo
+    $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
+    if($exist_pseudo)
+     die("User already used !");
+
+    // On check celle de l'email
+    $exist_email=$userBDD->emailExists($user->getEmail());
+    if($exist_email)
+     die("Email already used");
+
+    // On enregistre !
+    $userBDD->create($user);
+
+    /*IL FAUT REDIRIGER VERS LA PAGE EN TRAIN D ETRE VISITE*/
+    header('Location: '.WEBPATH.'/confirmation');
   }
 
 }
