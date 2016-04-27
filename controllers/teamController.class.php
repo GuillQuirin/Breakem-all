@@ -21,64 +21,73 @@ class teamController extends template{
         return true;
     }
 
+    private function echoJSONerror($name, $msg){
+        $data['errors'][$name] = $msg;
+        echo json_encode($data);
+        flush();
+        exit;
+    }
 	public function verifyAction(){
+        if(!($this->connectedUser instanceof user)){
+            $this->echoJSONerror("connection", "vous n'etes pas authentifie !");
+        }
 		$args = array(
             'name'     => FILTER_SANITIZE_STRING,    
             'slogan'     => FILTER_SANITIZE_STRING,   
     	    'description'     => FILTER_SANITIZE_STRING    
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-        $data = [];
+        // $data = [];
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
-				return json_encode($data["errors"]=["inputs" => "manque: ".$key]);
+				$this->echoJSONerror("inputs", "manque: ".$key);
 		}
         if(!($this->isFormStringValid($filteredinputs['name'])))
-            return json_encode($data["errors"]=["name" => "le nom ne respecte pas les regles"]);
+            $this->echoJSONerror("name", "le nom ne respecte pas les regles");
+         
         if(!($this->isFormStringValid($filteredinputs['slogan'], 10, 50, ',\?!\.\+')))
-            return json_encode($data["errors"]=["slogan" => "le slogan ne respecte pas les règles"]);
+            $this->echoJSONerror("slogan", "le slogan ne respecte pas les règles");
         if(!($this->isFormStringValid($filteredinputs['description'], 10, 250, ',\?!\.\+')))
-            return json_encode($data["errors"]=["description" => "la description ne respecte pas les règles"]);
-
+            $this->echoJSONerror("description", "la description ne respecte pas les règles");
+    
         $team = new team($filteredinputs);
         $dbTeam = new teamManager();
 
         //Presence du nom en BDD
         if($dbTeam->isNameUsed($team))
-            return json_encode($data["errors"]=["nameused" => "nom déjà utilisé"]);
+            $this->echoJSONerror("nameused", "nom déjà utilisé");
+            
         //L'user a-t-il déjà une team
         if(is_numeric($this->connectedUser->getIdTeam()))
-            return json_encode($data["errors"]=["userhasteam" => "vous avez déjà une team!"]);
-
+            $this->echoJSONerror("userhasteam", "vous avez déjà une team!");
+            
         //Créaton team
-        $newTeam = $dbTeam->create($team);
-        if(!$newTeam)
-            return json_encode($data["errors"]=["creation" => "pb lors la création de votre team"]);
-        // je crois que ça fermera la connexion actuelle
+        $dbTeam->create($team);
+        // Récupération team (avec nouvel id)
+        $team = $dbTeam->getTeamFromName($team);
         unset($dbTeam);
+
+        if(!$team)
+            $this->echoJSONerror("creation", "La création de votre team a echoué");
 
         // MàJ de l'idTeam du user connecté
         $dbUser = new userManager();
-        $newUser = $dbUser->setNewTeam($this->connectedUser, $r);
-        if(!$newUser)
-            return json_encode($data["errors"]=["creation" => "pb lors la màj de votre image d'utilisateur"]);
+        $dbUser->setNewTeam($this->connectedUser, $team);
         unset($dbUser);
-
-        // MàJ de la table rightsTeam
+ 
+        // Creation de la ligne rightsTeam
         $riTeam = new rightsteam([
             'id'=>0,
-            'idUser'=>$newUser->getId(),
-            'idTeam'=>$newTeam->getId(),
+            'idUser'=>$this->connectedUser->getId(),
+            'idTeam'=>$team->getId(),
             'right'=>1,
             'title'=>'maitre',
             'description'=>'Un pour les controler tous'
         ]);
         $dbRightsTeam = new rightsteamManager();
-        $newRiTeam = $dbRightsTeam->create($riTeam);
-        if(!$newRiTeam)
-            return json_encode($data["errors"]=["creation" => "pb lors la creation de vos droits"]);
+        $dbRightsTeam->create($riTeam);            
         unset($dbRightsTeam);
 
-        return json_encode(["success" => true]);    
+        echo json_encode(["success" => true]);
 	}
 }
