@@ -29,20 +29,23 @@ $name_page = $route["c"];
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
-// var_dump(['name_page' => $name_page], ['name_controller' => $name_controller], ['path_controller' => $path_controller]);
+
 if(file_exists($path_controller)){
 	require_once($path_controller);
 	$controller = new $name_controller;
 	$name_action = $route["a"]."Action";
-	// var_dump($name_action);
+
 	if(method_exists($controller, $name_action)){
 		$controller->$name_action($route["args"]);
-	}	
+	}	//LoadFailController
 	else{
-		die("404, l'action n'existe pas");
+		require_once("controllers/LoadFailController.class.php");
+		new LoadFailController();
 	}
+
 }else{
-	die("404, controller inexistant!");
+	require_once("controllers/LoadFailController.class.php");
+	new LoadFailController();
 }
 
 ?>
