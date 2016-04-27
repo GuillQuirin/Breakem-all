@@ -10,12 +10,12 @@ class userManager extends basesql{
 		// Check afin de savoir qui appelle cette méthode
 		$e = new Exception();
 		$trace = $e->getTrace();
-		// var_dump($trace);
+
 		// get calling class:
 		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
 		// get calling method
 		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
-		// var_dump($calling_class, $calling_method);
+
 
 		if(!$calling_class || !$calling_method)
 			die("Pas de methode appelée pour l'inscription !");
@@ -51,10 +51,9 @@ class userManager extends basesql{
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();
-		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
+		// $r est toujours un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
-		// var_dump($r);
-		// exit;
+
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
 			if(password_verify($user->getPassword(), $dbUser->getPassword())){
@@ -62,6 +61,19 @@ class userManager extends basesql{
 			}
 				
 		}
+		return false;
+	}
+
+	public function tokenExists(user $user){		
+		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE token=:token";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':token' => $user->getToken()
+		]);
+		$r = $sth->fetchAll();
+		if(isset($r[0]))
+			return true;	
+
 		return false;
 	}
 
@@ -78,8 +90,7 @@ class userManager extends basesql{
 		$r = $sth->fetchAll();
 		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
-		// var_dump($r);
-		// exit;
+
 		if(isset($r[0])){
 			$sql = "UPDATE ".$this->table." SET isConnected=1, lastConnexion=:lastConnexion WHERE email=:email";
 			$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -100,8 +111,6 @@ class userManager extends basesql{
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();
-		// var_dump($r);
-		// exit;
 	}
 
 	public function setNewTeam(user $u, team $t){

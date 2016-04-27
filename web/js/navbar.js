@@ -22,6 +22,7 @@ function ToggleNavbar(){
 }
 
 $(document).on('click', '.btn-close', function(e){
+
     $(e.currentTarget).parents('.search-page').addClass('hidden-fade');
     setTimeout(function() {
         $(".search-page").addClass('hidden');
@@ -65,7 +66,13 @@ $('#navbar-inscription').on('click', function(){
 		    }, 0);
 		    $('#subscribe-form').removeClass('hidden');
 		    $('#login-form').addClass('hidden');
-		});
+});
+
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) {      	
+	    $('.index-modal').addClass('hidden-fade').addClass('fade');	
+    }
+});
 
 /*
 

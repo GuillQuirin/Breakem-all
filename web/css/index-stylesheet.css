@@ -70,12 +70,11 @@
 	width:120px;
 }
 .inscription_rapide{
-	background-color:rgba(8,3,37,.8);
+	background-color:rgba(8,3,37,1);
 	border-radius: 5px;
 	color:white;
     padding: 30px;
     font-family: Roboto !important;
-   	right:8%;
    	font-size: 13px;
 }
 
