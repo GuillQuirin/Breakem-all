@@ -8,49 +8,12 @@
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
 			</div>
 		</span>	
+
 	</div>
 	 
 	<?php echo '<img class="icon icon-size-3 down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scroll-down.png">';?>
 
 </section>
-
-<!--<section id="section_inscrip">
-	<div id="header">
-		<?php echo '<img src="' . WEBPATH . '/web/img/header.jpg">';?>
-		<div id="title_header">
-			<h1 class="btn"><a>Le Meilleur se cache parmi vous !</a></h1>
-		</div>
-		<div id="sous-title_header">
-			<h2 class="btn btn-pink"><a>Tournois du moment</a></h2>
-			<h3 class="btn btn-pink"><a>Nos jeux</a><h3>
-		</div>
-		<div id="inscription_rapide">
-			<form action=<?php echo getActionPage($this->view, 'register'); ?> method="post">
-			    <label for="pseudo">Pseudo :</label>
-			    <input type="text" id="pseudo" name="pseudo">
-
-			    <label for="email">E-mail :</label>
-			    <input type="text" id="email" name="email">
-
-			    <label for="pwd1">Mot de passe : </label>
-			    <input type="password" id="pwd1" name="password">
-			    <label for="pwd2">Confirmation mot de passe : </label>
-			    <input type="password" id="pwd2" name="password_check">
-				<p id="naissance">Date de naissance:
-						<span>
-							<input type="number" name="day"   placeholder="dd" min="1" max="31">
-							<input type="number" name="month" placeholder="mm" min="1" max="12">
-							<input type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
-						</span>
-					</p>
-			    <input type="checkbox" class="checkbox" id="cgu" name="cgu"><label for="cgu">
-			    Vous acceptez les Conditions Générales du site Break'em All</label>
-			   
-			    <input type="submit" value="S'inscrire et jouer !">
-	  		</form>
-	  	</div>
-	</div>
-</section>-->
 
 <section id="container_index">
 	<div id="contain">

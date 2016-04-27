@@ -69,12 +69,7 @@
 #sous-title_header h3{
 	width:120px;
 }
-#inscription_rapide{
-	position:absolute;
-	top:190px;
-	width:380px;
-	height:385px;
-	right:0;
+.inscription_rapide{
 	background-color:rgba(8,3,37,.8);
 	border-radius: 5px;
 	color:white;
@@ -348,4 +343,12 @@ hr{
 }
 .yo{
 	left:64%;
+}
+
+.index-modal-login{
+	width:100%;
+	height:100%;
+	position:fixed;
+	z-index:100000000000;
+	opacity:1;
 }

@@ -44,8 +44,27 @@ window.addEventListener('load', function load(){
 	});
 	connection.init();
 	deconnection.init();
+
+	//$('.index-modal')
 });
 
+$('#navbar-login').on('click', function(){
+			$('.index-modal').removeClass('hidden-fade');
+		    setTimeout(function() {
+		        $(".index-modal").removeClass('hidden');
+		    }, 0);
+		    $('#login-form').removeClass('hidden');
+		    $('#subscribe-form').addClass('hidden');
+		});
+
+$('#navbar-inscription').on('click', function(){
+			$('.index-modal').removeClass('hidden-fade');
+		    setTimeout(function() {
+		        $(".index-modal").removeClass('hidden');
+		    }, 0);
+		    $('#subscribe-form').removeClass('hidden');
+		    $('#login-form').addClass('hidden');
+		});
 
 var connection = {
 	init: function(){
