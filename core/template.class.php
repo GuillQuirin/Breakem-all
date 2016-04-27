@@ -147,6 +147,52 @@ class template{
     ];
   }
 
+
+  private function attenteValid(user $user){
+    /* CONFIGURATION DU MAIL*/
+
+    $adrPHPM = "web/lib/PHPMailer/"; 
+    include $adrPHPM."PHPMailerAutoload.php";
+    $mail = new PHPmailer(); 
+        $mail->IsSMTP(); 
+        //SMTP du FAI
+        $mail->Host='smtp.free.fr'; 
+        //Expediteur (le site)
+        $mail->From='admin@bea.fr'; 
+        $mail->CharSet='UTF-8';
+        //Destinataire (l'utilisateur)
+        $mail->AddAddress($user->getEmail());
+
+        $mail->AddReplyTo('admin@bea.fr');      
+        $mail->Subject='Exemple trouvé sur DVP'; 
+
+        $contenuMail = "
+
+            <html>
+            <head>
+            </head>
+            <body>
+                <h1>Bienvenue sur Break-em-all.com</h1>
+                <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
+                <a href=localhost/".WEBPATH."?token=".$user->getToken().">Valider mon inscription</a>
+            </body>
+
+        ";
+
+        $mail->Body='Voici un exemple d\'e-mail au format Texte'; 
+        if(!$mail->Send()){ //Teste le return code de la fonction 
+          echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
+        } 
+        else{      
+          echo 'Mail envoyé avec succès'; 
+        } 
+        $mail->SmtpClose(); 
+        unset($mail); 
+
+        header('Location: '.WEBPATH.'/confirmation');
+  }
+
+
   public function registerAction(){
    $args = array(
          'pseudo'     => FILTER_SANITIZE_STRING,
@@ -217,8 +263,8 @@ class template{
     // On enregistre !
     $userBDD->create($user);
 
-    /*IL FAUT REDIRIGER VERS LA PAGE EN TRAIN D ETRE VISITE*/
-    header('Location: '.WEBPATH.'/confirmation');
+    //Appel de la methode d'envoi du mail
+    $this->attenteValid($user);
   }
 
 }
