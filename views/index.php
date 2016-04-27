@@ -10,7 +10,7 @@
 		</span>	
 	</div>
 	 
-	<img class="icon icon-size-3 down-center header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
+	<?php echo '<img class="icon icon-size-3 down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scroll-down.png">';?>
 
 </section>
 
