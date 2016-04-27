@@ -30,6 +30,7 @@
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
 		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/animation.css">';?>
 		
 		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
@@ -65,7 +66,7 @@
 				
 			<div class="index-modal-login align">
 			<!-- Login Form -->
-				<div id="login-form" class="grid-md-4 inscription_rapide">
+				<div id="login-form" class="grid-md-4 inscription_rapide animation fadeDown">
 					<form id="login-form">			    
 					    <label for="email">E-mail :</label>
 					    <input class="input-default" type="text" id="email" name="email">
@@ -78,7 +79,7 @@
 		  	<!-- Fin Login -->
 
 		  	<!-- Subscribe Form -->
-				<div id="subscribe-form" class="grid-md-4 inscription_rapide">
+				<div id="subscribe-form" class="grid-md-4 inscription_rapide animation fadeDown">
 					<form id="register-form">
 					    <label for="pseudo">Pseudo :</label>
 					    <input class="input-default" type="text" id="pseudo" name="pseudo">
