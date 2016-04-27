@@ -55,6 +55,7 @@ var navbar = {
     form : {
         subscribe : function(){
             $('#navbar-login').on('click', function(){
+            	$('.index-modal-login').addClass('form-bg-active');
                 $('.index-modal').removeClass('hidden-fade');
                 setTimeout(function() {
                     $(".index-modal").removeClass('hidden');
@@ -64,6 +65,7 @@ var navbar = {
             });
         },
         login : function(){
+        	$('.index-modal-login').addClass('form-bg-active');
             $('#navbar-inscription').on('click', function(){
                 $('.index-modal').removeClass('hidden-fade');
                 setTimeout(function() {

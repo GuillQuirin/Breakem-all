@@ -7,6 +7,10 @@
 	height:100%;
 }
 
+.form-bg-active{
+	background:rgba(38, 36, 71, 0.71) none repeat scroll 0% 0%;
+}
+
 .index-header-btn{
 	bottom:-50px;
 	right:0px;
