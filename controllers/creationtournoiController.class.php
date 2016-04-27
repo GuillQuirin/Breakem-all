@@ -2,6 +2,13 @@
 
 class creationtournoiController extends template{
 
+	public function __construct(){
+		parent::__construct();
+		// if(!($this->isVisitorConnected())){
+		// 	header('Location: ' .WEBPATH);
+		// }
+	}
+
 	public function creationtournoiAction(){
 		$v = new View();
 		$this->assignConnectedProperties($v);
