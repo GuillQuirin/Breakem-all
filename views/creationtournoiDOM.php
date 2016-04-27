@@ -199,7 +199,7 @@
 
  -->
 
-<div class="display-flex-column display-flex-row" style="height: 100%">
+<div class="display-flex-column display-flex-row">
 	<div class="display-flex-column">
 		<div class="display-flex-column grid-xs-12">
 			<h1 class="capitalize header-title">My title</h1>
