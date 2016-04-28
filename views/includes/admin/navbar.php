@@ -4,39 +4,25 @@
 
 					<!-- MENU -->
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
-						<ul>
-							<li class="hover-none">
+						<ul class="navbar-menu-ul">
+							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
-							<li>
+							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH ?>/tournoi">Utilisateur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
-							<li>
+							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH ?>/creationtournoi">Jeux<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
-							<li>
-								<a href="<?php echo WEBPATH ?>/team">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/team">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
-							<li>
-								<a href="">Commentaire<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
-							</li>	   				     
-						</ul>
-					</div>
-					<div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
-						<ul>
-							<li class="hover-none" style="width:220px;">
-							   <button id="deconnection-btn" type="button" class="btn btn-pink"><a>Deconnexion</a></button>
+							<li class="navbar-menu-li">
+								<a href="">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
-							<li class="hover-none hidden">
-								<a href="">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
-								</a>
-							</li>
-							<li class="hover-none">
-								<button type="button" class="search-toggle">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
-								</button>
-							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/resultat">Commentaire<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+							</li>		   				     
 						</ul>
 					</div>
 					<!-- FIN MENU -->
