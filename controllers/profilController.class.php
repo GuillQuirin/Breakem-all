@@ -33,8 +33,6 @@ class profilController extends template{
 			$user = $userBDD->getUser($filteredinputs);
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
-			// Si pbm de requete faire un var_dump de $sql
-			//var_dump($user);
 
 			if($user!==FALSE){
 				foreach ($args as $key => $value) {
