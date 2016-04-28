@@ -35,7 +35,8 @@
 }
 
 .input-default[type="number"]{
-    padding: 8px 25px;
+    width: 70px;
+    padding: 8px 12px;
     margin: 16px 0;
     display: inline-block;
     box-sizing: border-box;
