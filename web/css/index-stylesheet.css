@@ -64,6 +64,17 @@
    	font-size: 13px;
 }
 
+.index-header-btn{
+    bottom:-50px;
+    right:0px;
+    position:absolute;
+    text-transform: capitalize;
+}
+
+.index-header-btn-pink-width{
+    width:200px; 
+}
+
 /* Contenu de l'index en dessous du header*/
 #container_index{
 	width:100%;
