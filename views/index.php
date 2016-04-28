@@ -1,10 +1,10 @@
-<section id="section_inscrip">
-	<div id="header">
+<section id="section_inscrip" class="bg-transparent">
+	<div id="header_index" class="bg-blue">
 		<?php echo '<img src="' . WEBPATH . '/web/img/header.jpg">';?>
-		<div id="title_header">
+		<div id="title_header" class="font-principal">
 			<h1 class="btn"><a>Le Meilleur se cache parmi vous !</a></h1>
 		</div>
-		<div id="sous-title_header">
+		<div id="sous-title_header" class="font-principal">
 			<h2 class="btn btn-pink"><a>Tournois du moment</a></h2>
 			<h3 class="btn btn-pink"><a>Nos jeux</a><h3>
 		</div>
@@ -31,7 +31,7 @@
 </section>
 
 <section id="container_index">
-	<div id="contain">
+	<div id="contain_index">
 		<div id="contain_left">
 			<div class="menu_hori">
 				<ul>
@@ -327,4 +327,4 @@
 			
 		</div>
 	</div>
-</section>
+</section> 

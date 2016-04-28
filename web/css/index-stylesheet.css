@@ -1,12 +1,8 @@
 /*Partie haute de la page header + inscription */
-#section_inscrip{
-	background-color:rgba(8,3,37,.4);
-}
-#header{
+#header_index{
 	width: 100%;
-	background-color: #160962
 }
-#header img{
+#header_index img{
 	opacity: .5;
 	height:auto;
 	min-width: 300px;
@@ -24,6 +20,7 @@
 #title_header h1 a{
 	border:3px solid;
 	text-align:left;
+	cursor:default;
 	font-size: 50px;
 	text-transform: uppercase;
 	padding:40px;
@@ -67,7 +64,7 @@
 	font-family: Roboto !important;
 	color:white;
 }
-#contain{
+#contain_index{
 	width:96%;
 	margin:0 auto;
 	border-top:3px solid white;

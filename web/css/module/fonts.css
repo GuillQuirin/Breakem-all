@@ -8,3 +8,6 @@
     src: url('../../font/Roboto-Regular.ttf');
 }
 
+.font-principal{
+	font-family: Roboto !important;
+}
