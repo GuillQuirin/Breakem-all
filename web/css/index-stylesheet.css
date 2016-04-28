@@ -1,33 +1,7 @@
 /*Partie haute de la page header + inscription */
-#section_inscrip{
-	background-color:rgba(8,3,37,.4);
-}
 
 #content{
 	height:100%;
-}
-
-.form-bg-active{
-	background:rgba(38, 36, 71, 0.71) none repeat scroll 0% 0%;
-}
-
-.index-header-btn{
-	bottom:-50px;
-	right:0px;
-	position:absolute;
-	text-transform: capitalize;
-}
-
-.index-form-submit{
-	margin:25px 0 0 0;
-}
-
-.index-input-default-date{
-	margin-left:10px;
-}
-
-.index-header-btn-pink-width{
-	width:200px; 
 }
 
 .bg-cover-index{
@@ -356,10 +330,4 @@ hr{
 	left:64%;
 }
 
-.index-modal-login{
-	width:100%;
-	height:100%;
-	position:fixed;
-	z-index:100000000000;
-	opacity:1;
-}
+
