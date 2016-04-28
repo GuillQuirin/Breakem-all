@@ -63,6 +63,7 @@ var navbar = {
                 }, 0);
                 $('#login-form').removeClass('hidden');
                 $('#subscribe-form').addClass('hidden');
+                $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
             });
         },
         login : function(){
@@ -74,6 +75,7 @@ var navbar = {
                 }, 0);
                 $('#subscribe-form').removeClass('hidden');
                 $('#login-form').addClass('hidden');
+                $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
             });
         },
         closeForm : function(){
@@ -87,9 +89,15 @@ var navbar = {
             });
         },
         closeFormClick: function(){
+
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a')) {
-			    	navbar.form.closeForm()
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a')) {			    			    			    			   			    		
+
+			    	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
+
+			    	setTimeout(function() {
+                    	navbar.form.closeForm();			    	
+                	}, 700);		    		
 			    }
 			});
         }
