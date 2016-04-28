@@ -60,7 +60,7 @@
 		<div id="fail">
 			<h1>FAIL</h1>
 			<h2>Aucune page n'a pu être trouvée</h2>
-			<button>Retour à l'accueil</button>
+			<a href=<?php echo WEBPATH; ?>>Retour à l'accueil</a>
 		</div>
 	</body>
 </html>

@@ -28,10 +28,12 @@ h2{
 	font-size: 25px;
 }
 
-button{
+a{
     margin: 40px 0;
-    width: 30%;
+    width: 32%;
+    display: inline-block;
     height: 45px;
+    line-height: 45px;
     background-color: #080325;
     color: white;
     font-weight: bold;
