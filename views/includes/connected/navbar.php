@@ -38,7 +38,7 @@
 							<li class="navbar-menu-li">
 								<a class="navbar-profil-title" href="<?php echo WEBPATH ?>/account">Brucew<span>105 PTS</span></a>
 							</li>
-							<li class="navbar-menu-li">
+							<li class="navbar-menu-li navbar-menu-settings">
 								<a href="" class="">
 								<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-settings.png">';?>
 								</a>
