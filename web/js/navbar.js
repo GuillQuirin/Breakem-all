@@ -64,6 +64,7 @@ var navbar = {
                 $('#login-form').removeClass('hidden');
                 $('#subscribe-form').addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
+                $('body').css('overflow', 'hidden');
             });
         },
         login : function(){
@@ -76,10 +77,12 @@ var navbar = {
                 $('#subscribe-form').removeClass('hidden');
                 $('#login-form').addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
+                $('body').css('overflow', 'hidden');
             });
         },
         closeForm : function(){
-            $('.index-modal').addClass('hidden-fade').addClass('fade');        
+            $('.index-modal').addClass('hidden-fade').addClass('fade'); 
+            $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){
     	 	$(document).keyup(function(e) {
