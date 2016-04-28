@@ -76,6 +76,6 @@
 		</footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
-		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
+		<?php //ERREUR DANS LA CONSOLE -> echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 	</body>
 </html>
