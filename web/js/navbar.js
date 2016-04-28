@@ -84,7 +84,12 @@ var navbar = {
         closeFormKey: function(){
     	 	$(document).keyup(function(e) {
                 if (e.keyCode == 27) {
-                    navbar.form.closeForm();
+
+                	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
+                    
+                    setTimeout(function() {
+                    	navbar.form.closeForm();			    	
+                	}, 700);
                 }
             });
         },
