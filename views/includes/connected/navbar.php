@@ -59,7 +59,7 @@
 										</a>
 									</li>								
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a id="nav-deconnection">
 											Deconnexion
 										</a>
 									</li>

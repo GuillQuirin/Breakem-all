@@ -508,7 +508,7 @@ var deconnection = {
 		};		
 	},
 	setBtnToWatch: function(){
-		this._btn = jQuery("#deconnection-btn");
+		this._btn = jQuery("#nav-deconnection");
 	},
 	getBtnToWatch: function(){return this._btn;},
 
