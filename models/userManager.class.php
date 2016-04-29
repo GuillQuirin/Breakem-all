@@ -45,7 +45,7 @@ class userManager extends basesql{
 	}
 
 	public function tryConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status=1";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $user->getEmail()
@@ -95,7 +95,7 @@ class userManager extends basesql{
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
 	*/
 	public function validTokenConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status=1";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $_SESSION[COOKIE_EMAIL]
