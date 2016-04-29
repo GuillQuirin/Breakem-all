@@ -185,7 +185,7 @@
 				<label for="search">Rechercher :</label>
 			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
 			</div>
-			<div class="title">
+			<div class="title_index">
 				<label for="title1">Prochain match</label>
 			</div>
 			<div class="fight">
@@ -256,7 +256,7 @@
 			</div>
 			
 			<div id="game">
-				<div class="title">
+				<div class="title_index">
 					<label for="title2">Les Meilleurs Jeux</label>
 				</div>
 				<div class="game">
@@ -273,7 +273,7 @@
 				</div>
 			</div>
 			<div id="categorie">
-				<div class="title">
+				<div class="title_index">
 					<label for="title3">Catégories</label>
 				</div>
 				<div class="categorie">
@@ -294,22 +294,28 @@
 </section>
 
 <section id="section_social_media">
-	<div id="footer">
-		<?php echo '<img src="' . WEBPATH . '/web/img/footer.jpg">';?>
+	<div id="footer_index">
+		<?php echo '<img class="fond_footer" src="' . WEBPATH . '/web/img/footer.jpg">';?>
+	</div>
+	<div id="reseaux_sociaux">
 		<div class="title_social">
 			<p>Nos réseaux sociaux : Breakem'All</p>
 		</div>
 		<div class="nw_social fb">
-
+			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/fb.png">';?></a>
+			<p> Facebook </p>
 		</div>
 		<div class="nw_social tw">
-			
+			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitter.png">';?></a>
+			<p> Twitter </p>
 		</div>
 		<div class="nw_social st">
-			
+			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitch.png">';?></a>
+			<p> Twitch </p>
 		</div>
 		<div class="nw_social yo">
-			
+			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/youtube.png">';?></a>
+			<p> Youtube </p>
 		</div>
 	</div>
 </section>
