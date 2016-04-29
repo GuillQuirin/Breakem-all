@@ -22,7 +22,8 @@
 				<ul>
 					<nav class="nav_hori">
 						<ul>
-							<li class="border_menu active_menu"><a href="#">Equipe</a></li>
+							<?php //echo $typeJeux; ?>
+						 	<li class="border_menu active_menu"><a href="#">Equipe</a></li>
 							<li class="border_menu"><a href="#">Solo</a></li>
 							<li class="border_menu"><a href="#">5vs5</a></li>
 							<li class="border_menu"><a href="#">2vs2</a></li>
@@ -43,138 +44,49 @@
 					</li>
 				</ul>
 			</div>
-			<article id="article1">
-				<div class="contain_article">
-					<div class="img_article">
-						<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-					</div>
-					<div class="date_article">
-						<i class="icon"></i>
-						<h3>21 mars 2016 créer par Megh</h3>
-					</div>
-					<div class="text_article">
-						<h2> Heroes of the Storm </h2>
-						<div class="tags_article">
-							<h3> Moba, challenger, all-pick, 5vs5</h3>
-						</div>
-						<p>Heroes of the Storm est un jeu vidéo de type arène de bataille en ligne multijoueur (MOBA)
-						 développé par Blizzard Entertainment pour Windows et Mac OS X. Le jeu se déroule dans un univers
-						  fictif dans lequel s’affrontent des héros issus des différentes franchises de Blizzard, 
-						  incluant notamment Warcraft, Diablo, StarCraft et Overwatch.</p>
-						<div class="btn_article">
-							<h3 class="btn btn-pink"><a>Regarder</a><h3>
-						</div>
-					</div>
+			<?php 	
+				//Liste des tournois en cours
+				if(isset($listeTournois)): 
+					foreach ($listeTournois as $key => $value):
+						$tournoi = new tournoi($value);
+			?> 	
+						<article id='article1'>
+							<div class='contain_article'>
+								<div class='img_article'>
+									<img src='".WEBPATH."/web/img/heroes-of.jpg'>
+								</div>
+								<div class='date_article'>
+									<i class='icon'></i>
+									<h3><?php echo $tournoi->getDate(); ?></h3>
+								</div>
+								<div class='text_article'>
+									<h2>".Heroes of the Storm."</h2>
+									<div class='tags_article'>
+										<h3>". Moba, challenger, all-pick, 5vs5."</h3>
+									</div>
+									<p>".."</p>
+									<div class='btn_article'>
+										<h3 class='btn btn-pink'><a>Regarder</a><h3>
+									</div>
+								</div>
+							</div>
+						</article>
+			<?php 
+					endforeach;
+				endif;
+			?>
 
-				</div>
-			</article>
-			<article id="article2">
-				<div class="contain_article">
-					<div class="img_article">
-						<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-					</div>
-					<div class="date_article">
-						<i class="icon"></i>
-						<h3>21 mars 2016 créer par Megh</h3>
-					</div>
-					<div class="text_article">
-						<h2> Heroes of the Storm </h2>
-						<div class="tags_article">
-							<h3> Moba, challenger, all-pick, 5vs5</h3>
-						</div>
-						<p>Heroes of the Storm est un jeu vidéo de type arène de bataille en ligne multijoueur (MOBA)
-						 développé par Blizzard Entertainment pour Windows et Mac OS X. Le jeu se déroule dans un univers
-						  fictif dans lequel s’affrontent des héros issus des différentes franchises de Blizzard, 
-						  incluant notamment Warcraft, Diablo, StarCraft et Overwatch.</p>
-						<div class="btn_article">
-							<h3 class="btn btn-pink"><a>Regarder</a><h3>
-						</div>
-					</div>
-
-				</div>
-			</article>
-			<article id="article3">
-				<div class="contain_article">
-					<div class="img_article">
-						<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-					</div>
-					<div class="date_article">
-						<i class="icon"></i>
-						<h3>21 mars 2016 créer par Megh</h3>
-					</div>
-					<div class="text_article">
-						<h2> Heroes of the Storm </h2>
-						<div class="tags_article">
-							<h3> Moba, challenger, all-pick, 5vs5</h3>
-						</div>
-						<p>Heroes of the Storm est un jeu vidéo de type arène de bataille en ligne multijoueur (MOBA)
-						 développé par Blizzard Entertainment pour Windows et Mac OS X. Le jeu se déroule dans un univers
-						  fictif dans lequel s’affrontent des héros issus des différentes franchises de Blizzard, 
-						  incluant notamment Warcraft, Diablo, StarCraft et Overwatch.</p>
-						<div class="btn_article">
-							<h3 class="btn btn-pink"><a>Regarder</a><h3>
-						</div>
-					</div>
-				</div>
-			</article>
-			<article id="article4">
-				<div class="contain_article">
-					<div class="img_article">
-						<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-					</div>
-					<div class="date_article">
-						<i class="icon"></i>
-						<h3>21 mars 2016 créer par Megh</h3>
-					</div>
-					<div class="text_article">
-						<h2> Heroes of the Storm </h2>
-						<div class="tags_article">
-							<h3> Moba, challenger, all-pick, 5vs5</h3>
-						</div>
-						<p>Heroes of the Storm est un jeu vidéo de type arène de bataille en ligne multijoueur (MOBA)
-						 développé par Blizzard Entertainment pour Windows et Mac OS X. Le jeu se déroule dans un univers
-						  fictif dans lequel s’affrontent des héros issus des différentes franchises de Blizzard, 
-						  incluant notamment Warcraft, Diablo, StarCraft et Overwatch.</p>
-						<div class="btn_article">
-							<h3 class="btn btn-pink"><a>Regarder</a><h3>
-						</div>
-					</div>
-				</div>
-			</article>
-			<article id="article5">
-				<div class="contain_article">
-					<div class="img_article">
-						<?php echo '<img src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-					</div>
-					<div class="date_article">
-						<i class="icon"></i>
-						<h3>21 mars 2016 créer par Megh</h3>
-					</div>
-					<div class="text_article">
-						<h2> Heroes of the Storm </h2>
-						<div class="tags_article">
-							<h3> Moba, challenger, all-pick, 5vs5</h3>
-						</div>
-						<p>Heroes of the Storm est un jeu vidéo de type arène de bataille en ligne multijoueur (MOBA)
-						 développé par Blizzard Entertainment pour Windows et Mac OS X. Le jeu se déroule dans un univers
-						  fictif dans lequel s’affrontent des héros issus des différentes franchises de Blizzard, 
-						  incluant notamment Warcraft, Diablo, StarCraft et Overwatch.</p>
-						<div class="btn_article">
-							<h3 class="btn btn-pink"><a>Regarder</a><h3>
-						</div>
-					</div>
-				</div>
-			</article>
 			<div class="page_article">
 				<ul>
 					<nav class="nav_hori page">
 						<ul>
+							<?php /*echo $pagination; */ ?>
 							<li class="border_menu active_menu"><a href="#">1</a></li>
 							<li class="border_menu"><a href="#">2</a></li>
 							<li class="border_menu"><a href="#">3</a></li>
 							<li class="border_menu"><a href="#">4</a></li>
 							<li class="border_menu"><a href="#">5</a></li>
-							<li class="border_menu"><a href="#">--></a></li>
+							<li class="border_menu"><a href="#">--></a></li> 
 						</ul>
 					</nav>
 				</ul>
@@ -257,37 +169,36 @@
 			
 			<div id="game">
 				<div class="title_index">
-					<label for="title2">Les Meilleurs Jeux</label>
+					<label for="title2">Jeux les plus utlisés</label>
 				</div>
-				<div class="game">
-					<?php echo '<img src="' . WEBPATH . '/web/img/band.jpg">';?>
-					<p>Heroes of the Storm</p>
-				</div>
-				<div class="game">
-					<?php echo '<img src="' . WEBPATH . '/web/img/band.jpg">';?>
-					<p>League of Legends</p>
-				</div>
-				<div class="game">
-					<?php echo '<img src="' . WEBPATH . '/web/img/band.jpg">';?>
-					<p>Counter Strike</p>
-				</div>
+				<?php 
+					if(isset($bestGames)):
+						foreach ($bestGames as $key => $value):
+				?>			
+							<div class='game'><img src='".WEBPATH."/web/img/band.jpg'>
+								<p><?php echo $value['name']; ?></p>
+							</div>
+				<?php
+						endforeach;
+					endif;
+				?>
 			</div>
 			<div id="categorie">
 				<div class="title_index">
 					<label for="title3">Catégories</label>
 				</div>
-				<div class="categorie">
-					<p>Moba</p><br>
-				</div>
-				<div class="categorie">
-					<p>Fps</p><br>
-				</div>
-				<div class="categorie">
-					<p>Fighting</p><br>
-				</div>
-				<div class="categorie">
-					<p>Others</p><br>
-				</div>
+				<?php
+					if(isset($categorie)): 
+						foreach ($categorie as $key => $value):
+							$catego = new tournoi($value);
+				?>
+							<div class='categorie'>
+								<p><?php echo $catego->getName(); ?></p><br>
+							</div>
+				<?php 
+						endforeach;
+					endif;
+				?>
 			</div>
 		</div>
 	</div>
