@@ -1,5 +1,5 @@
 <?php
-final class tournoi extends basesql{
+final class tournoi{
 	protected $_id;
 	protected $_user;
 	protected $_startDate;
@@ -11,9 +11,8 @@ final class tournoi extends basesql{
 	protected $_typeTournament;
 	protected $_nbMatch;
 
-	public function __construct(array $donnees){
-		parent::__construct();
-		$this->hydrate($donnees);
+	public function __construct(array $data){
+		$this->hydrate($data);
 	}
 
 	public function hydrate(array $donnees){
