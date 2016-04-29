@@ -1,3 +1,4 @@
+			<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 				<div class="container resultat-container m-a">
 
@@ -8,37 +9,20 @@
 								<a href="<?php echo WEBPATH ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/tournoi">Utilisateur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/creationtournoi">Jeux<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/team">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/resultat">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/resultat">Commentaire<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 							</li>		   				     
-						</ul>
-					</div>
-					<div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
-						<ul class="navbar-menu-ul">
-							<li class="navbar-menu-li" style="width:80px;">
-								<button id="navbar-inscription" type="button" class="btn btn-pink"><a>Subscribe</a></button>
-							</li>
-							<li class="navbar-menu-li" style="width:80px;margin-left:35px;">
-								<button id="navbar-login" type="button" class="btn btn-pink"><a>Login</a></button>
-							<!-- <form id="connection-form">
-								<input type="email" name="email" placeholder="email">
-								<input type="password" name="password" placeholder="mot de passe">
-								<input type="submit">
-							</form> -->
-							</li>							
-							<li class="navbar-menu-li">
-								<button type="button" class="search-toggle" style="width:80px;margin-left:20px;">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
-								</button>
-							</li>
 						</ul>
 					</div>
 					<!-- FIN MENU -->
@@ -52,38 +36,41 @@
 
 					<!-- NAVBAR SIDE -->
 					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
-						<ul class="navbar-menu-ul">
-							<li class="navbar-menu-li">
+						<ul>
+							<li>
 								<a href="<?php echo WEBPATH ?>" class="active">Accueil
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li>
 								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li>
+								<a href="<?php echo WEBPATH ?>/creationtournoi">Creer<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+							</li>
+							<li>
 								<a href="<?php echo WEBPATH ?>/team">Team 
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li>
 								<a href="">Joueur
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li>
 								<a href="<?php echo WEBPATH ?>/resultat">Classement
 								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li class="hover-none">
 								<a href="">
 								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
+							<li class="hover-none">
 								<button type="button" class="search-toggle" style="padding:0 35px;">
 								<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
 								</button>

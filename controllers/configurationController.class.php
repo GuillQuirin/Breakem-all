@@ -15,7 +15,7 @@ class configurationController extends template{
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$args = array('name','firstname','birthday','description','kind','city','email','status','img','idTeam','token');
 			$user = $_SESSION['connected'];
-			var_dump(get_object_vars($user));
+			//var_dump(get_object_vars($user));
 			if($user!==FALSE){
 				foreach ($args as $key => $value) {
 					$method = 'get'.ucfirst($value);
