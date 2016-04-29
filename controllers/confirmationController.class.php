@@ -39,9 +39,11 @@ class confirmationController extends template{
             $v->assign("css", "confirmation");
             $v->assign("title", "confirmation");
             $v->setView("validationInscription");
+            session_destroy();
             return;
         }
 
+        session_destroy();
         header('Location:' . WEBPATH);
     }
 }
