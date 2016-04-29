@@ -18,10 +18,12 @@
 <section id="container_index">
 	<div id="contain">
 		<div id="contain_left">
+
 			<div class="menu_hori">
 				<ul>
 					<nav class="nav_hori">
 						<ul>
+							<!-- Liste des types de game -->
 							<?php //echo $typeJeux; ?>
 						 	<li class="border_menu active_menu"><a href="#">Equipe</a></li>
 							<li class="border_menu"><a href="#">Solo</a></li>
@@ -34,6 +36,7 @@
 					<li class="tri">
 						<label>Trier par :</label>
 						<div>
+							<?php //echo $tri; ?>
 							<select class="select-default">
 								<option>Tout</option>
 								<option>Jeux</option>
@@ -44,27 +47,28 @@
 					</li>
 				</ul>
 			</div>
+
+			<!-- Liste des tournois en cours -->
 			<?php 	
-				//Liste des tournois en cours
 				if(isset($listeTournois)): 
 					foreach ($listeTournois as $key => $value):
 						$tournoi = new tournoi($value);
 			?> 	
-						<article id='article1'>
+						<article id='article<?php echo $tournoi->getId(); ?>'>
 							<div class='contain_article'>
 								<div class='img_article'>
 									<img src='".WEBPATH."/web/img/heroes-of.jpg'>
 								</div>
 								<div class='date_article'>
 									<i class='icon'></i>
-									<h3><?php echo $tournoi->getDate(); ?></h3>
+									<h3><?php echo $tournoi->getStart_date(); ?></h3>
 								</div>
 								<div class='text_article'>
-									<h2>".Heroes of the Storm."</h2>
+									<h2><?php echo "Heroes of the Storm."; ?></h2>
 									<div class='tags_article'>
-										<h3>". Moba, challenger, all-pick, 5vs5."</h3>
+										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>
-									<p>".."</p>
+									<p><?php echo ""; ?></p>
 									<div class='btn_article'>
 										<h3 class='btn btn-pink'><a>Regarder</a><h3>
 									</div>
@@ -80,27 +84,38 @@
 				<ul>
 					<nav class="nav_hori page">
 						<ul>
-							<?php /*echo $pagination; */ ?>
-							<li class="border_menu active_menu"><a href="#">1</a></li>
-							<li class="border_menu"><a href="#">2</a></li>
-							<li class="border_menu"><a href="#">3</a></li>
-							<li class="border_menu"><a href="#">4</a></li>
-							<li class="border_menu"><a href="#">5</a></li>
-							<li class="border_menu"><a href="#">--></a></li> 
+
+							<!-- Pagination -->
+
+							<?php 
+								if(isset($pagination)):
+									//$nbpages = new tournoi($pagination);
+									$nbpages =5;
+									for($cpt=1; $cpt<=$nbpages; $cpt++):
+										echo ($cpt==1) ? '<li class="border_menu active_menu"><a href="#">1</a></li>' :
+										 '<li class="border_menu"><a href="#">'.$cpt.'</a></li>';
+									endfor;
+								endif;
+							?>
 						</ul>
 					</nav>
 				</ul>
 			</div>
 		</div>
 		<div id="contain_right">
+
 			<div id="contain_search">
 				<label for="search">Rechercher :</label>
 			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
 			</div>
+
 			<div class="title_index">
 				<label for="title1">Prochain match</label>
 			</div>
 			<div class="fight">
+
+				<!-- Match à venir -->
+				<?php //echo $fight; ?>
 				<h3>ESL</h3>
 				<p class="date_fight">1er Avril 2016, 17h00</p>
 				<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
@@ -116,6 +131,8 @@
 				<ul>
 					<nav class="tab_hori">
 						<ul>
+							<!-- Liste des jeux -->
+							<?php //echo $Jeux; ?>
 							<li class=" active_tab"><a href="#">Tous</a></li>
 							<li class=""><a href="#">HOT</a></li>
 							<li class=""><a href="#">DOTA2</a></li>
@@ -124,7 +141,10 @@
 					</nav>
 				</ul>
 			</div>
+
+			<!-- Liste des matchs -->
 			<div id="match">
+				<?php //echo $listematchs; ?>
 				<div id="match1" class="margin_match">
 					<div class="statut">En cours</div>
 					<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
@@ -167,6 +187,7 @@
 				</div>
 			</div>
 			
+			<!-- Classement des 3 premiers jeux -->
 			<div id="game">
 				<div class="title_index">
 					<label for="title2">Jeux les plus utlisés</label>
@@ -183,6 +204,8 @@
 					endif;
 				?>
 			</div>
+
+			<!-- Liste des catégories  -->
 			<div id="categorie">
 				<div class="title_index">
 					<label for="title3">Catégories</label>
@@ -190,7 +213,7 @@
 				<?php
 					if(isset($categorie)): 
 						foreach ($categorie as $key => $value):
-							$catego = new tournoi($value);
+							$catego = new typegame($value);
 				?>
 							<div class='categorie'>
 								<p><?php echo $catego->getName(); ?></p><br>
@@ -212,6 +235,7 @@
 		<div class="title_social">
 			<p>Nos réseaux sociaux : Breakem'All</p>
 		</div>
+		<?php //echo $socials; ?>
 		<div class="nw_social fb">
 			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/fb.png">';?></a>
 			<p> Facebook </p>

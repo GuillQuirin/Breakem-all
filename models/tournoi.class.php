@@ -46,5 +46,4 @@ final class tournoi{
 	public function getType_tournament(){return $this->_typeTournament;}
 	public function getNb_match(){return $this->_nbMatch;}
 
-
 }
