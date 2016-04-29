@@ -99,7 +99,11 @@ class template{
     if($requiredInputsReceived){
       $userManager = new userManager();
       $user = new user($filteredinputs);
+      print_r($user);
+      // exit;
       $dbUser = $userManager->tryConnect($user);
+      // var_dump($dbUser);
+      // exit;
       // unset($_SESSION);
       if(!!$dbUser){
         // définition du token
@@ -158,104 +162,110 @@ class template{
 
     $adrPHPM = "web/lib/PHPMailer/"; 
     include $adrPHPM."PHPMailerAutoload.php";
-    $mail = new PHPmailer(); 
-        $mail->IsSMTP(); 
-        //SMTP du FAI
-        $mail->Host='smtp.free.fr'; 
-        //Expediteur (le site)
-        $mail->From='admin@bea.fr'; 
-        $mail->CharSet='UTF-8';
-        //Destinataire (l'utilisateur)
-        $mail->AddAddress($user->getEmail());
+    try{
+      $mail = new PHPmailer(); 
+      $mail->IsSMTP(); 
+      //SMTP du FAI
+      $mail->Host='smtp.free.fr'; 
+      //Expediteur (le site)
+      $mail->From='admin@bea.fr'; 
+      $mail->CharSet='UTF-8';
+      //Destinataire (l'utilisateur)
+      $mail->AddAddress($user->getEmail());
 
-        $mail->AddReplyTo('admin@bea.fr');      
-        $mail->Subject='Exemple trouvé sur DVP'; 
+      $mail->AddReplyTo('admin@bea.fr');      
+      $mail->Subject='Exemple trouvé sur DVP'; 
 
-        $contenuMail = "
+      $contenuMail = "
+          <html>
+          <head>
+          </head>
+          <body>
+              <h1>Bienvenue sur Break-em-all.com</h1>
+              <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
+              <a href=\"localhost/".WEBPATH."/confirmation/check?token=".$user->getToken()."?mail=".$user->getEmail()." \">Valider mon inscription</a>
+          </body>";
 
-            <html>
-            <head>
-            </head>
-            <body>
-                <h1>Bienvenue sur Break-em-all.com</h1>
-                <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
-                <a href=localhost/".WEBPATH."?token=".$user->getToken().">Valider mon inscription</a>
-            </body>
+      $mail->Body='Voici un exemple d\'e-mail au format Texte'; 
+      if(!$mail->Send()){ //Teste le return code de la fonction 
+        echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
+      } 
+      else{      
+        echo 'Mail envoyé avec succès'; 
+      } 
+      @$mail->SmtpClose(); 
+      unset($mail);
+    }catch(Exception $e){
 
-        ";
+    }
 
-        $mail->Body='Voici un exemple d\'e-mail au format Texte'; 
-        if(!$mail->Send()){ //Teste le return code de la fonction 
-          echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
-        } 
-        else{      
-          echo 'Mail envoyé avec succès'; 
-        } 
-        $mail->SmtpClose(); 
-        unset($mail); 
+    //Initialisation d'une session autorisant 
+    // le visiteur à accèder à la page de confirmation
+    // $_SESSION['userToCheck']=1;
+    echo json_encode(['success' => true]);
+    // header('Location: '.WEBPATH.'/confirmation');
+}
 
-        //Initialisation d'une session autorisant 
-        // le visiteur à accèder à la page de confirmation
-        $_SESSION['userToCheck']=1;
-        echo json_encode(['success' => true]);
-        // header('Location: '.WEBPATH.'/confirmation');
-  }
+  private function checkRegisterInputs(){
+    $args = array(
+      'pseudo'     => FILTER_SANITIZE_STRING,
+      'email'   => FILTER_VALIDATE_EMAIL,
+      'password'   => FILTER_SANITIZE_STRING,
+      'password_check'   => FILTER_SANITIZE_STRING,
+      'day'   => FILTER_VALIDATE_INT,     
+      'month'   => FILTER_VALIDATE_INT,     
+      'year'   => FILTER_VALIDATE_INT     
+    );
+    $filteredinputs = filter_input_array(INPUT_POST, $args);
+    // Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
+    $finalArr = [];
 
+    foreach ($args as $key => $value) {
+      if(!isset($filteredinputs[$key]))
+      $this->echoJSONerror('inputs', 'manque champ '. $key);
+    }
 
-  public function registerAction(){
-   $args = array(
-     'pseudo'     => FILTER_SANITIZE_STRING,
-     'email'   => FILTER_VALIDATE_EMAIL,
-     'password'   => FILTER_SANITIZE_STRING,
-     'password_check'   => FILTER_SANITIZE_STRING,
-     'day'   => FILTER_VALIDATE_INT,     
-     'month'   => FILTER_VALIDATE_INT,     
-     'year'   => FILTER_VALIDATE_INT     
-   );
-   $filteredinputs = filter_input_array(INPUT_POST, $args);
-   // Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
-   $finalArr = [];
-
-   foreach ($args as $key => $value) {
-     if(!isset($filteredinputs[$key]))
-      $this->echoJSONerror('input', 'manque champ '. $key);
-   }
-
-   $finalArr['email'] = $filteredinputs['email'];
+    $finalArr['email'] = $filteredinputs['email'];
 
     //Pseudo
     if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
       $this->echoJSONerror('pseudo', 'votre pseudo doit faire entre 2 et 15 caracteres');
     else
-       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
+      $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
     //Password
-     /* VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD ENCULE STP VTFF */
+    /* VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD ENCULE STP VTFF */
     if($filteredinputs['password']!==$filteredinputs['password_check'])
-     $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
+      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
     else
-     $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+      $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
 
     //Date de naissance
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-     die("FAIL date crea");
-    
+      $this->echoJSONerror('date', 'La date reçue a fail !');
+
     else{
       $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-        
       if(!$date)
         $this->echoJSONerror('date', 'La date reçue a fail !');
       $finalArr['birthday'] = date_timestamp_get($date);
-
-     //Token
-      $time = time();
-      $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
-      $finalArr['token'] = $token;
-
     }
-        
-    // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
-    $user = new user($finalArr);
+    return $finalArr;
+  }
+
+  public function registerAction(){
+    //  checkRegisterInputs valide les champs du formulaire d'inscription et 
+    //    mets automatiquement fin aux process serveurs si elle trouve une erreur
+    $checkedDatas = $this->checkRegisterInputs();
+    
+
+    //Token du visiteur n'ayant pas encore valié son inscription par mail
+    $token = md5($checkedDatas['pseudo'].$checkedDatas['email'].SALT.time());
+    $checkedDatas['token'] = $token;
+
+    $user = new user($checkedDatas);
+    // print_r($user);
+    // exit;
 
     // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
     $userBDD = new userManager();

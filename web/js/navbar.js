@@ -1,5 +1,14 @@
 
 "use strict";
+window.addEventListener('load', function load(){
+	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
+	window.removeEventListener('load', load, false);
+	connection.init();
+	navbar.init();
+	deconnection.init();
+	register.init();
+});
+
 
 var navbar = {
     init: function(){        
@@ -14,7 +23,7 @@ var navbar = {
     },
     preventShrink: false,
     shrink: function(force){
-    	if(this.preventShrink == false){   		
+    	if(!this.preventShrink){   		
 	        $(window).scroll(function(){
 	            if($(window).scrollTop() > 50){
 	                $("#navbar").removeClass('full');
@@ -117,26 +126,18 @@ var navbar = {
     }
 };
 
-window.addEventListener('load', function load(){
-	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
-	window.removeEventListener('load', load, false);
-	connection.init();
-	navbar.init();
-	deconnection.init();
-});
-
 var register = {
 	init: function(){
 		this.setFormToWatch();
 		if(!(this.getFormToWatch() instanceof jQuery)){
 			console.log("Missing form");
 			return;
-		}			
+		}
 		this.setPseudoToWatch();
 		if(!(this.getPseudoToWatch() instanceof jQuery)){
 			console.log("Missing pseudo");
 			return;
-		}			
+		}
 		this.setEmailToWatch();
 		if(!(this.getEmailToWatch() instanceof jQuery)){
 			console.log("Missing email");
@@ -150,6 +151,26 @@ var register = {
 		this.setPassCheckToWatch();
 		if(!(this.getPassCheckToWatch() instanceof jQuery)){
 			console.log("Missing passcheck");
+			return;
+		}
+		this.setCguToWatch();
+		if(!(this.getCguToWatch() instanceof jQuery)){
+			console.log("Missing cgu");
+			return;
+		}
+		this.setDayToWatch();
+		if(!(this.getDayToWatch() instanceof jQuery)){
+			console.log("Missing day");
+			return;
+		}
+		this.setMonthToWatch();
+		if(!(this.getMonthToWatch() instanceof jQuery)){
+			console.log("Missing month");
+			return;
+		}
+		this.setYearToWatch();
+		if(!(this.getYearToWatch() instanceof jQuery)){
+			console.log("Missing year");
 			return;
 		}
 		this.sendEvent();
@@ -169,27 +190,103 @@ var register = {
 	setPassCheckToWatch: function(){
 		this._mdpcheck = this._form.find('input[name="password_check"]');
 	},
+	setCguToWatch: function(){
+		this._cgu = this._form.find('input[name="cgu"]');
+	},
+	setDayToWatch: function(){
+		this._day = this._form.find('input[name="day"]');
+	},
+	setMonthToWatch: function(){
+		this._month = this._form.find('input[name="month"]');
+	},
+	setYearToWatch: function(){
+		this._year = this._form.find('input[name="year"]');
+	},
 	getFormToWatch: function(){return this._form;},
 	getPseudoToWatch: function(){return this._pseudo;},
 	getEmailToWatch: function(){return this._email;},
 	getPassToWatch: function(){return this._mdp;},
 	getPassCheckToWatch: function(){return this._mdpcheck;},
+	getCguToWatch: function(){return this._cgu;},
+	getDayToWatch: function(){return this._day;},
+	getMonthToWatch: function(){return this._month;},
+	getYearToWatch: function(){return this._year;},
 
-	isEmailValid: function(jQEmail){
+	isEmailValid: function(){
+		var jQEmail = this.getEmailToWatch();
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(jQEmail.val().match(mailformat) || jQEmail.val().length == 0){
 			return true;
 		}
 		this.highlightInput(jQEmail);
+		console.log("email fail");
 		return false;
+	},
+	isPseudoValid: function(){
+		var jQPseudo = this.getPseudoToWatch();
+		var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		if(jQPseudo.val().match(unauthorizedChars) || jQPseudo.val().length == 0){
+			this.highlightInput(jQPseudo);
+			console.log("peudo fail");
+			return false;
+		}
+		return true;
 	},
 	isPasswordValid: function(jQPassword){
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
 			this.highlightInput(jQPassword);
+			console.log("pass fail");
 			return false;
 		}
 		return true;
+	},
+	isBirthValid: function(){
+		var d = this.getDayToWatch().val();
+		var m = this.getMonthToWatch().val();
+		var y = this.getYearToWatch().val();
+
+		if (isNaN(Number(d)))
+			return false;
+		if (isNaN(Number(m)))
+			return false;
+		if (isNaN(Number(y)))
+			return false;
+		
+		try {
+			// create the date object with the values sent in (month is zero based)
+			var dt = new Date(y,m-1,d,0,0,0,0);
+
+			// get the month, day, and year from the object we just created 
+			var mon = dt.getMonth() + 1;
+			var day = dt.getDate();
+			var yr  = dt.getYear() + 1900;
+
+			// if they match then the date is valid
+			if ( mon == m && yr == y && day == d )
+				return true;
+			console.log("birth fail");
+			return false;
+		}
+		catch(e) {
+			console.log("birth fail");
+			return false;
+		}
+		
+		return true;
+	},
+	isCguAccepted: function(){
+		if(this.getCguToWatch()[0].checked){
+			return true;
+		}
+		alert("Vous devez accepter les cgu !");
+		return false;
+	},
+	doPasswordsMatch: function(){
+		if(this.getPassToWatch().val() == this.getPassCheckToWatch().val())
+			return true;
+		console.log("passwords don't match");
+		return false;
 	},
 	highlightInput: function(jQinput){
 		jQinput.addClass('failed-input');
@@ -213,15 +310,11 @@ var register = {
 			location.reload();
 		}
 		else{
-			this.highlightInput(this._email);
-			this.highlightInput(this._password);
-			if(obj.errors.inputs){
-				// missing input !
-				alert("you are missing an input");
-			}
-			else if(obj.errors.user){
-				// email and pass don't match
-				alert("password and email don't match");
+			if(obj.errors){
+				alert("Formulaire invalide");
+				for(prop in obj.errors){
+					console.log(obj.errors[prop]);
+				}
 			}
 		}
 	},
@@ -231,20 +324,39 @@ var register = {
 	sendEvent: function(){
 		var _this = this;
 		var _form = this.getFormToWatch();
-		var _email = _form.find("input[name='email']");
-		var _password = _form.find("input[name='password']");
-
-		this._email = _email;
-		this._password = _password;
+		this._pseudo = _form.find("input[name='pseudo']");
+		this._cgu = _form.find("input[name='cgu']");
+		this._btn = _form.find("button");
+		this._birth_day = _form.find("input[name='day']");
+		this._birth_month = _form.find("input[name='month']");
+		this._birth_year = _form.find("input[name='year']");
 
 		_form.submit(function(event) {
-			if (_this.isEmailValid(_email) && _this.isPasswordValid(_password)) {
+			event.preventDefault();
+			return false;
+		});
+
+		this._btn.click(function(event) {
+			if (
+				_this.isEmailValid() 
+				&& _this.isPseudoValid()
+				&& _this.isPasswordValid(_this.getPassToWatch())
+				&& _this.isPasswordValid(_this.getPassCheckToWatch())
+				&& _this.doPasswordsMatch()
+				&& _this.isBirthValid()
+				&& _this.isCguAccepted()
+			) {
 				jQuery.ajax({
-				  url: 'index/connection',
+				  url: 'index/register',
 				  type: 'POST',
 				  data: {
-				  	email: _email.val(),
-				  	password: _password.val()
+					  	pseudo  		: _this.getPseudoToWatch().val(),
+					    email			: _this.getEmailToWatch().val(),
+					    password		: _this.getPassToWatch().val(),
+					    password_check	: _this.getPassCheckToWatch().val(),
+					    day				: _this.getDayToWatch().val(),
+					    month			: _this.getMonthToWatch().val(),
+					    year			: _this.getYearToWatch().val()
 				  },
 				  complete: function(xhr, textStatus) {
 				    // console.log("request complted \n");
@@ -283,7 +395,7 @@ var connection = {
 			this.sendEvent();
 		};		
 	},
-	setFormToWatch: function(){this._form = jQuery("#connection-form");},
+	setFormToWatch: function(){this._form = jQuery("#login-form");},
 	getFormToWatch: function(){return this._form;},
 	isEmailValid: function(jQEmail){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -343,11 +455,13 @@ var connection = {
 		var _form = this.getFormToWatch();
 		var _email = _form.find("input[name='email']");
 		var _password = _form.find("input[name='password']");
+		var _btn = _form.find('button');
 
 		this._email = _email;
 		this._password = _password;
+		this._btn = _btn;
 
-		_form.submit(function(event) {
+		_btn.click(function(event) {
 			if (_this.isEmailValid(_email) && _this.isPasswordValid(_password)) {
 				jQuery.ajax({
 				  url: 'index/connection',

@@ -4,50 +4,44 @@ class confirmationController extends template{
 
     public function __construct(){
         //Si visiteur lambda
-        if(!isset($_SESSION['userToCheck'])){
+        /*if(!isset($_SESSION['userToCheck'])){
             header('Location: '.WEBPATH);
-        }
+        }*/
+        // $this->confirmation();
     }
 
-	public function confirmationAction(){
-		$v = new View();
+	public function checkAction(){
+        $args = array(
+            'token'     => FILTER_SANITIZE_STRING,
+            'email'     => FILTER_VALIDATE_EMAIL
+        );
+        $filteredinputs = filter_input_array(INPUT_GET, $args);
 
-		$v->assign("css", "confirmation");
-		$v->assign("js", "confirmation");
-		$v->assign("title", "confirmation");
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){
+                $v->assign("css", "404");
+                $v->assign("js", "404");
+                $v->assign("title", "Erreur 404");
+                $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
 
-        //Si l'utilisateur vient de valider le formulaire d'inscription
-        if(isset($_POST['email']) && !empty(trim($_POST['email'])))
-            $v->assign("content", "Nous vous avons envoyé un email de confirmation afin d'activer votre compte.");
-
-        //Si l'utilisateur a cliqué sur le lien du mail de confirmation
-        if(isset($_GET['token']) && !empty(trim($_GET['token']))){
-
-            $args = array(
-                'token'     => FILTER_SANITIZE_STRING  
-           );
-           $filteredinputs = filter_input_array(INPUT_GET, $args);
-
-           foreach ($args as $key => $value) {
-             if(!isset($filteredinputs[$key]))
-               die("FAUX: ".$filteredinputs[$key]);
-           }
-
-            // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
-            $user = new user($filteredinputs);
-            // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-            $userBDD = new userManager();
-
-            if($userBDD->tokenExists($user)){
-                unset($_SESSION['userToCheck']);
-
-                $contenuHTML = "Votre compte a correctement été activé, vous pouvez vous authentifier.";
-                $contenuHTML .="<a href='".WEBPATH."'>Retour à la page d'accueil</a>";
-                
-                $v->assign("content", $contenuHTML);
+                $v->setView("templatefail", "templatefail");
+                return;
             }
         }
 
-        $v->setView("confirmation");
+        // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
+        $user = new user($filteredinputs);
+        // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+        $userBDD = new userManager();
+
+        if($userBDD->checkMailToken($user)){
+            $v = new View();
+            $v->assign("css", "confirmation");
+            $v->assign("title", "confirmation");
+            $v->setView("validationInscription");
+            return;
+        }
+
+        header('Location:' . WEBPATH);
     }
 }
