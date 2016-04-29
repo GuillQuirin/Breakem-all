@@ -199,39 +199,40 @@
 
  -->
 
-<div class="display-flex-column display-flex-row">
+<section class="display-flex-row">
 	<div class="display-flex-column">
-		<div class="display-flex-column grid-xs-12">
+		<div class="display-flex-column">
 			<h1 class="capitalize title header-title">My title</h1>
 		</div>
 	</div>
-	<div class="display-flex-column">
-		<div class="grid-xs-12">
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+	<div class="creationtournoi-element-container">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-			<div class="relative creationtournoi-element-choice grid-sm-4 grid-xs-10">
-				<img class="grid-xs-12" src="web/img/typegame-fps.jpg" alt="">
+			<div class="relative creationtournoi-element-choice">
+				<img class="" src="web/img/typegame-fps.jpg" alt="">
 				<h2 class="absolute title title-2 uppercase">fps</h2>
 			</div>
-		</div>
+	</div>	
+	<div class="grid-xs-12 display-flex-column ">
+		<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a>Login</a></button>
 	</div>
 	
-</div>
+</section>
