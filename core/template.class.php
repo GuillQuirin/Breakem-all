@@ -10,6 +10,7 @@ class template{
     $this->checkToken();
   }
 
+  protected function getConnectedUser(){return $this->connectedUser;}
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
