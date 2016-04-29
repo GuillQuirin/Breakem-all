@@ -57,12 +57,7 @@
 										<a>
 											Mes points
 										</a>
-									</li>
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Mes points
-										</a>
-									</li>
+									</li>								
 									<li class="navbar-menu-tooltip-li">
 										<a>
 											Deconnexion

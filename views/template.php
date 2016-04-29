@@ -38,7 +38,7 @@
 
 	<body>
 		<header>
-			<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
+			<?php (!isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
 		</header>
 
 		<div class="search-page hidden-fade hidden">
