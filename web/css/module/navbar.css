@@ -241,7 +241,7 @@
 .navbar-menu-tooltip{
   display:none;
   position:absolute;
-  bottom:-35px;
+  left:0px;
   top:100%;  
   margin-top:15px !important;
   border-radius:3px;
@@ -262,19 +262,29 @@
   content:'';
   display:block;
   top:-14px;
-  right:165px;
+  right:92px;
   z-index:10;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li{
   background-color:rgba(8,3,37,1);
-  width:200px;
+  width:100%;
   line-height:50px;
   text-align:left;
+  padding:0 25px;
+  cursor:pointer;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:hover a{
+  border-bottom:1px solid #ffffff;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li a{
   text-transform:none;
+  margin:0;
+  padding:0;
+  transition: 0.5s ease;
+  border-bottom:1px solid transparent;;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li:first-child{
