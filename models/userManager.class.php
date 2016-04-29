@@ -10,21 +10,21 @@ class userManager extends basesql{
 		// Check afin de savoir qui appelle cette méthode
 		$e = new Exception();
 		$trace = $e->getTrace();
-		// var_dump($trace);
+
 		// get calling class:
 		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
 		// get calling method
 		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
-		// var_dump($calling_class, $calling_method);
+
 
 		if(!$calling_class || !$calling_method)
-			die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe InscriptionController!");
+			die("Pas de methode appelée pour l'inscription !");
 
-		// Si appelée depuis la page inscription
-		if ($calling_class === "inscriptionController" && $calling_method === "verifyAction"){
+		// Si appelée depuis la page acceuil
+		if ($calling_class === "template" && $calling_method === "registerAction"){
 			$this->columns = [];
 			$user_methods = get_class_methods($user);
-			// var_dump($user_methods);
+
 			foreach ($user_methods as $key => $method) {
 				if(strpos($method, 'get') !== FALSE){
 					$col = lcfirst(str_replace('get', '', $method));
@@ -34,10 +34,8 @@ class userManager extends basesql{
 			$this->columns = array_filter($this->columns);
 			$this->save();
 		}
-	}
-
-	public function save(){
-		parent::save();	
+		else
+			die("Tentative d'enregistrement depuis une autre methode que registerAction de la classe IndexController!");
 	}
 
 	public function userMailExists(user $user){
@@ -53,10 +51,9 @@ class userManager extends basesql{
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();
-		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
+		// $r est toujours un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
-		// var_dump($r);
-		// exit;
+
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
 			if(password_verify($user->getPassword(), $dbUser->getPassword())){
@@ -64,6 +61,19 @@ class userManager extends basesql{
 			}
 				
 		}
+		return false;
+	}
+
+	public function tokenExists(user $user){		
+		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE token=:token";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':token' => $user->getToken()
+		]);
+		$r = $sth->fetchAll();
+		if(isset($r[0]))
+			return true;	
+
 		return false;
 	}
 
@@ -80,8 +90,7 @@ class userManager extends basesql{
 		$r = $sth->fetchAll();
 		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
-		// var_dump($r);
-		// exit;
+
 		if(isset($r[0])){
 			$sql = "UPDATE ".$this->table." SET isConnected=1, lastConnexion=:lastConnexion WHERE email=:email";
 			$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -102,17 +111,14 @@ class userManager extends basesql{
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();
-		// var_dump($r);
-		// exit;
 	}
 
 	public function setNewTeam(user $u, team $t){
-		$sql = "UPDATE ".$this->table." SET idTeam=:idTeam WHERE id=:id";
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
-			':idTeam' => $t->getId(),
-			':id' => $u->getId()
+			':id' => $u->getId(),
+			':idTeam' => $t->getId()
 		]);
-		$r = $sth->fetchAll();
 	}
 }

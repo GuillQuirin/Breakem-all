@@ -1,10 +1,10 @@
-<section id="section_inscrip" class="bg-transparent">
-	<div id="header_index" class="bg-blue">
+<section id="section_inscrip">
+	<div id="header">
 		<?php echo '<img src="' . WEBPATH . '/web/img/header.jpg">';?>
-		<div id="title_header" class="font-principal">
+		<div id="title_header">
 			<h1 class="btn"><a>Le Meilleur se cache parmi vous !</a></h1>
 		</div>
-		<div id="sous-title_header" class="font-principal">
+		<div id="sous-title_header">
 			<h2 class="btn btn-pink"><a>Tournois du moment</a></h2>
 			<h3 class="btn btn-pink"><a>Nos jeux</a><h3>
 		</div>
@@ -13,21 +13,20 @@
 			    <label for="pseudo">Pseudo :</label>
 			    <input type="text" id="pseudo" name="pseudo">
 
-			    <label for="email">E-mail :</label>
-			    <input type="text" id="email" name="email">
+<section class="full-height bg-cover-index relative">
+	
+	<div class="align full-height">
+		<span class="header-title border-full relative animation fade">Le Meilleur se cache parmi vous!
+			<div class="index-header-btn"> 			
+				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Tournoi du moment</a></button>				
+				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
+			</div>
+		</span>	
 
-			    <label for="pwd1">Mot de passe : </label>
-			    <input type="password" id="pwd1" name="pwd1">
-			    <label for="pwd2">Confirmation mot de passe : </label>
-			    <input type="password" id="pwd2" name="pwd2">
-
-			    <input type="checkbox" class="checkbox" id="cgu" name="cgu"><label for="cgu">
-			    Vous acceptez les Conditions Générales du site Break'em All</label>
-			   
-			    <input type="submit" value="S'inscrire et jouer !">
-	  		</form>
-	  	</div>
 	</div>
+	 
+	<?php echo '<img class="icon icon-size-3 down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scroll-down.png">';?>
+
 </section>
 
 <section id="container_index">
@@ -48,7 +47,7 @@
 					<li class="tri">
 						<label>Trier par :</label>
 						<div>
-							<select>
+							<select class="select-default">
 								<option>Tout</option>
 								<option>Jeux</option>
 								<option>Catégorie</option>
@@ -198,7 +197,7 @@
 		<div id="contain_right">
 			<div id="contain_search">
 				<label for="search">Rechercher :</label>
-			    <input type="text" name="search" placeholder="Tournois, teams, joueurs">
+			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
 			</div>
 			<div class="title">
 				<label for="title1">Prochain match</label>

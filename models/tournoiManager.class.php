@@ -16,11 +16,11 @@ final class tournoiManager extends basesql{
 		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
 
 
-		if(!$calling_class || !$calling_method)
-			die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe InscriptionController!");
+		// if(!$calling_class || !$calling_method)
+		// 	die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe TournoiController!");
 
-		// Si appelée depuis la page inscription
-		if ($calling_class === "tournoiController" && $calling_method === "verifyAction"){
+		// Si appelée depuis la page tournoi
+		//if ($calling_class === "tournoiController" && $calling_method === "verifyAction"){
 			$this->columns = [];
 			$user_methods = get_class_methods($user);
 
@@ -32,7 +32,7 @@ final class tournoiManager extends basesql{
 			}
 			$this->columns = array_filter($this->columns);
 			$this->save();
-		}
+		//}
 	}
 
 	public function save(){

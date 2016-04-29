@@ -1,3 +1,7 @@
+footer{
+    display:none !important;
+}
+
 body{
     width:100%;
     padding:0;
@@ -197,3 +201,37 @@ display:block;
         display:none;
     }
 }
+
+.index-modal-login{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:100000000000;
+    opacity:1;
+}
+
+#section_inscrip{
+    background-color:rgba(8,3,37,.4);
+}
+
+.form-bg-active{
+    background:rgba(38, 36, 71, 0.71) none repeat scroll 0% 0%;
+}
+
+.index-form-submit{
+    margin:25px 0 0 0;
+}
+
+.index-input-default-date{
+    margin-left:10px;
+}
+
+.inscription_rapide{
+    background-color:rgba(8,3,37,1);
+    border-radius: 5px;
+    color:white;
+    padding: 30px;
+    font-family: Roboto !important;
+    font-size: 13px;
+}
+

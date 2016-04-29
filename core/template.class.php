@@ -64,6 +64,8 @@ class template{
         // var_dump($this->connectedUser);
         unset($dbUser, $user);
       }
+      else
+        unset($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
      };
     };
 
@@ -130,7 +132,149 @@ class template{
       unset($_COOKIE[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL]);
       session_destroy();
     }
-    header('Location: ' . WEBPATH);
+    exit;
+  }
+
+  public function getForm(){
+    return [
+      "options" =>[ "method"=>"POST", "action" => "", "submit"=>"Enregistrer"],
+      "struct" => [
+        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
+        "password"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password", "placeholder" => "Votre Mot de passe", "required"=>1],
+        "password2"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password2", "placeholder" => "Votre Mot de passe", "required"=>1],
+        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
+      ]
+    ];
+  }
+  protected function echoJSONerror($name, $msg){
+    $data['errors'][$name] = $msg;
+    echo json_encode($data);
+    flush();
+    exit;
+  }
+
+  private function attenteValid(user $user){
+    /* CONFIGURATION DU MAIL*/
+
+    $adrPHPM = "web/lib/PHPMailer/"; 
+    include $adrPHPM."PHPMailerAutoload.php";
+    $mail = new PHPmailer(); 
+        $mail->IsSMTP(); 
+        //SMTP du FAI
+        $mail->Host='smtp.free.fr'; 
+        //Expediteur (le site)
+        $mail->From='admin@bea.fr'; 
+        $mail->CharSet='UTF-8';
+        //Destinataire (l'utilisateur)
+        $mail->AddAddress($user->getEmail());
+
+        $mail->AddReplyTo('admin@bea.fr');      
+        $mail->Subject='Exemple trouvé sur DVP'; 
+
+        $contenuMail = "
+
+            <html>
+            <head>
+            </head>
+            <body>
+                <h1>Bienvenue sur Break-em-all.com</h1>
+                <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
+                <a href=localhost/".WEBPATH."?token=".$user->getToken().">Valider mon inscription</a>
+            </body>
+
+        ";
+
+        $mail->Body='Voici un exemple d\'e-mail au format Texte'; 
+        if(!$mail->Send()){ //Teste le return code de la fonction 
+          echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
+        } 
+        else{      
+          echo 'Mail envoyé avec succès'; 
+        } 
+        $mail->SmtpClose(); 
+        unset($mail); 
+
+        //Initialisation d'une session autorisant 
+        // le visiteur à accèder à la page de confirmation
+        $_SESSION['userToCheck']=1;
+        echo json_encode(['success' => true]);
+        // header('Location: '.WEBPATH.'/confirmation');
+  }
+
+
+  public function registerAction(){
+   $args = array(
+     'pseudo'     => FILTER_SANITIZE_STRING,
+     'email'   => FILTER_VALIDATE_EMAIL,
+     'password'   => FILTER_SANITIZE_STRING,
+     'password_check'   => FILTER_SANITIZE_STRING,
+     'day'   => FILTER_VALIDATE_INT,     
+     'month'   => FILTER_VALIDATE_INT,     
+     'year'   => FILTER_VALIDATE_INT     
+   );
+   $filteredinputs = filter_input_array(INPUT_POST, $args);
+   // Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
+   $finalArr = [];
+
+   foreach ($args as $key => $value) {
+     if(!isset($filteredinputs[$key]))
+      $this->echoJSONerror('input', 'manque champ '. $key);
+   }
+
+   $finalArr['email'] = $filteredinputs['email'];
+
+    //Pseudo
+    if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
+      $this->echoJSONerror('pseudo', 'votre pseudo doit faire entre 2 et 15 caracteres');
+    else
+       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
+
+    //Password
+     /* VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD ENCULE STP VTFF */
+    if($filteredinputs['password']!==$filteredinputs['password_check'])
+     $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
+    else
+     $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+
+    //Date de naissance
+    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+     die("FAIL date crea");
+    
+    else{
+      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+        
+      if(!$date)
+        $this->echoJSONerror('date', 'La date reçue a fail !');
+      $finalArr['birthday'] = date_timestamp_get($date);
+
+     //Token
+      $time = time();
+      $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
+      $finalArr['token'] = $token;
+
+    }
+        
+    // Le user ici servira d'image des user recuperes par la bdd et tout juste créés
+    $user = new user($finalArr);
+
+    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+    $userBDD = new userManager();
+
+    // On check l'utilisation du pseudo
+    $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
+    if($exist_pseudo)
+     $this->echoJSONerror('pseudo', 'ce pseudo est déjà utilisé');
+
+    // On check celle de l'email
+    $exist_email=$userBDD->emailExists($user->getEmail());
+    if($exist_email)
+     $this->echoJSONerror('email', 'cet email est déjà utilisé');
+
+    // On enregistre !
+    $userBDD->create($user);
+
+    //Appel de la methode d'envoi du mail
+    $this->attenteValid($user);
   }
 
 }

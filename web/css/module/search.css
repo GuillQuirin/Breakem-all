@@ -19,6 +19,8 @@
 
 .search-page h1, .search-page h2, .search-page h3, .search-page h4, .search-page h5{
 	color:#ffffff;
+	font-size:35px;
+	margin-bottom:15px;
 }
 
 .search-page input{

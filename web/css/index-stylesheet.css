@@ -1,6 +1,23 @@
 /*Partie haute de la page header + inscription */
-#header_index{
+#section_inscrip{
+	background-color:rgba(8,3,37,.4);
+}
+#content{
+	height:100%;
+}
+
+.bg-cover-index{
+	/*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/header.jpg) center top no-repeat;
+	margin:0;
+  	padding:0;
+	-webkit-background-size: cover; 
+	background-size: cover; 
+}
+
+#header{
 	width: 100%;
+	background-color: #160962
 }
 #header_index img{
 	opacity: .5;
@@ -41,19 +58,24 @@
 #sous-title_header h3{
 	width:120px;
 }
-#inscription_rapide{
-	position:absolute;
-	top:190px;
-	width:380px;
-	height:385px;
-	right:0;
-	background-color:rgba(8,3,37,.8);
+.inscription_rapide{
+	background-color:rgba(8,3,37,1);
 	border-radius: 5px;
 	color:white;
     padding: 30px;
     font-family: Roboto !important;
-   	right:8%;
    	font-size: 13px;
+}
+
+.index-header-btn{
+    bottom:-50px;
+    right:0px;
+    position:absolute;
+    text-transform: capitalize;
+}
+
+.index-header-btn-pink-width{
+    width:200px; 
 }
 
 /* Contenu de l'index en dessous du header*/
@@ -321,3 +343,5 @@ hr{
 .yo{
 	left:64%;
 }
+
+
