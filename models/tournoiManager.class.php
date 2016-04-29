@@ -39,6 +39,12 @@ final class tournoiManager extends basesql{
 		parent::save();	
 	}
 
+	public function getCurrentTournament(){
+		$sql = "SELECT * FROM Tournament WHERE endDate > NOW()";
+		$sth = $this->pdo->query($sql);
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 
 }
 
