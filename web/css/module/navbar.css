@@ -241,7 +241,7 @@
 .navbar-menu-tooltip{
   display:none;
   position:absolute;
-  bottom:-35px;
+  left:0px;
   top:100%;  
   margin-top:15px !important;
   border-radius:3px;
@@ -271,6 +271,10 @@
   width:200px;
   line-height:50px;
   text-align:left;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:hover a{
+  text-decoration: underline;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li a{

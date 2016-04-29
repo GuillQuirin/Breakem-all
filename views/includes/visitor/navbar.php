@@ -27,12 +27,7 @@
 								<button id="navbar-inscription" type="button" class="btn btn-pink"><a>Subscribe</a></button>
 							</li>
 							<li class="navbar-menu-li" style="width:80px;margin-left:35px;">
-								<button id="navbar-login" type="button" class="btn btn-pink"><a>Login</a></button>
-							<!-- <form id="connection-form">
-								<input type="email" name="email" placeholder="email">
-								<input type="password" name="password" placeholder="mot de passe">
-								<input type="submit">
-							</form> -->
+								<button id="navbar-login" type="button" class="btn btn-pink"><a>Login</a></button>							
 							</li>							
 							<li class="navbar-menu-li">
 								<button type="button" class="search-toggle" style="width:80px;margin-left:20px;">
