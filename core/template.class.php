@@ -73,12 +73,6 @@ class template{
   }
 
   public function connectionAction(){
-    /*if(isset($_SESSION[COOKIE_EMAIL]){
-      unset($_SESSION[COOKIE_EMAIL]);
-    }
-    if(isset($_SESSION[COOKIE_TOKEN]){
-      unset($_SESSION[COOKIE_TOKEN]);
-    }*/
     $args = array(
           'email'   => FILTER_VALIDATE_EMAIL,
           'password'   => FILTER_SANITIZE_STRING 
@@ -92,26 +86,19 @@ class template{
     foreach ($args as $key => $value) {
       if(!isset($filteredinputs[$key])){
         $requiredInputsReceived = false;        
-        $data["errors"]["inputs"] = "missing input " . $key;
+        $this->echoJSONerror("inputs","missing input " . $key);
       }
     }
 
     if($requiredInputsReceived){
       $userManager = new userManager();
       $user = new user($filteredinputs);
-      print_r($user);
-      // exit;
       $dbUser = $userManager->tryConnect($user);
-      // var_dump($dbUser);
-      // exit;
-      // unset($_SESSION);
       if(!!$dbUser){
         // définition du token
         $time = time();
         $expiration = $time + (86400 * 7);
         $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
-        // var_dump($token);
-        // exit;
         $_SESSION[COOKIE_TOKEN] = $token;
         $_SESSION[COOKIE_EMAIL] = $dbUser->getEmail();
         setcookie(COOKIE_TOKEN, $token, $expiration, "/");
@@ -119,7 +106,7 @@ class template{
         $data["connected"] = true;
         $this->connectedUser = $dbUser;
       }else{
-        $data["errors"]["user"] = "password and email don't match";
+       $this->echoJSONerror("user", "password and email don't match");
       }
     }
 
