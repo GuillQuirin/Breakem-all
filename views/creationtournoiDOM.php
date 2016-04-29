@@ -232,7 +232,7 @@
 			</div>
 	</div>	
 	<div class="grid-xs-12 display-flex-column ">
-		<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a>Login</a></button>
+		<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">valider</a></button>
 	</div>
 	
 </section>
