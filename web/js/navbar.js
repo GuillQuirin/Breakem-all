@@ -12,17 +12,22 @@ var navbar = {
         navbar.form.closeFormKey();
         navbar.form.closeFormClick();
     },
-    shrink: function(){
-
-        $(window).scroll(function(){
-            if($(window).scrollTop() > 50){
-                $("#navbar").removeClass('full');
-                $("#navbar").addClass('shrink');
-            }else{
-                $("#navbar").removeClass('shrink');
-                $("#navbar").addClass('full');
-            }
-        });
+    preventShrink: false,
+    shrink: function(force){
+    	if(this.preventShrink == false){   		
+	        $(window).scroll(function(){
+	            if($(window).scrollTop() > 50){
+	                $("#navbar").removeClass('full');
+	                $("#navbar").addClass('shrink');
+	            }else{
+	                $("#navbar").removeClass('shrink');
+	                $("#navbar").addClass('full');
+	            }
+	        });
+	        return;
+	    }
+	    $("#navbar").removeClass('full');
+        $("#navbar").addClass('shrink');
     },
     openNavbarSide : function(){
         $('#navbar-toggle').on('click', function(){
@@ -103,26 +108,6 @@ window.addEventListener('load', function load(){
 	navbar.init();
 	deconnection.init();
 });
-
-/*
-
-<form action="Index/register" method="post">
-<label for="pseudo">Pseudo :</label>
-<input class="input-default" type="text" id="pseudo" name="pseudo">
-
-<label for="email">E-mail :</label>
-<input class="input-default" type="text" id="email" name="email">
-
-<label for="pwd1">Mot de passe : </label>
-<input class="input-default" type="password" id="pwd1" name="password">
-<label for="pwd2">Confirmation mot de passe : </label>
-<input class="input-default" type="password" id="pwd2" name="password_check">
-<p id="naissance">Date de naissance:
-		<span>
-			<input class="input-default" type="number" name="day" placeholder="dd" min="1" max="31">
-			<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
-
-*/
 
 var register = {
 	init: function(){
@@ -398,7 +383,7 @@ var deconnection = {
 	getBtnToWatch: function(){return this._btn;},
 
 	clickEvent: function(){
-		_this = this;
+		var _this = this;
 		var _btn = this._btn;
 		_btn.click(function(event) {
 			jQuery.ajax({

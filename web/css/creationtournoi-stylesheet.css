@@ -1,8 +1,49 @@
+body{
+	height: 100%;
+}
+.navbar{	
+	background-color: rgba(255, 255, 255, .02)!important;
+}
+#content{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+section{
+	padding-top: 15px;
+}
+section > div{
+	margin-top: 10px;
+}
+.creationtournoi-element-container{
+	width: 97%;
+	min-width: 380px;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+}
+
+.creationtournoi-element-choice{
+	width: 33%;
+	max-width: 500px;
+	min-width: 350px;
+	margin-top: 5px;
+}
 .creationtournoi-element-choice img{
 	opacity: .5;
+	width: 100%;
 }
 .creationtournoi-element-choice .title{
 	height: 100%;
 	width: 100%;
 	top:0;left:0;
+}
+
+#creationtournoi-valider{
+	width: 100%;
+	max-width: 280px;
 }
