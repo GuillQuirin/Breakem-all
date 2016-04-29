@@ -56,6 +56,8 @@ class userManager extends basesql{
 
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
+			// print_r($dbUser);
+			// exit;
 			if(password_verify($user->getPassword(), $dbUser->getPassword())){
 				return $dbUser;
 			}
@@ -64,17 +66,28 @@ class userManager extends basesql{
 		return false;
 	}
 
-	public function tokenExists(user $user){		
-		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE token=:token";
+	public function checkMailToken(user $user){		
+		$sql = "SELECT COUNT(*) as nb FROM ".$this->table." WHERE token=:token AND email=:email AND status=0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
-			':token' => $user->getToken()
+			':token' => $user->getToken(),
+			':email' => $user->getEmail()
 		]);
-		$r = $sth->fetchAll();
-		if(isset($r[0]))
-			return true;	
-
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if( (bool) $r[0]['nb'] ){
+			$this->activateAccount($user);
+			return true;
+		}
 		return false;
+	}
+
+	private function activateAccount(user $u){
+		$sql = "UPDATE ".$this->table." SET status=1, token=NULL WHERE email=:email AND  token=:token";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':token' => $u->getToken(),
+			':email' => $u->getEmail()
+		]);
 	}
 
 	/*C'est ici que l'on set le isConnected à 1 (true)
