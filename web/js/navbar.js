@@ -9,6 +9,19 @@ window.addEventListener('load', function load(){
 	register.init();
 });
 
+// Cette fonction sera utilisée dans beaucoup d'objets utilisant de l'ajax
+//  Voilà pouruqoi elle est définie en tant que fct générale
+function tryParseData(rawData){
+	try {
+		var obj = jQuery.parseJSON(rawData);
+		return obj;
+	}
+	catch(err) {
+		console.log(rawData);
+		alert("Problem during server processes \n Check console for details");
+	}
+	return false;
+}
 
 var navbar = {
     init: function(){        
@@ -294,17 +307,6 @@ var register = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
-	tryParseServerData: function(rawData){
-		try {
-			var obj = jQuery.parseJSON(rawData);
-			return obj;
-		}
-		catch(err) {
-			console.log(rawData);
-			alert("Problem during server processes \n Check console for details");
-		}
-		return false;
-	},
 	treatParsedJson: function(obj){
 		if(obj.success){
 			window.location.assign('confirmation/warningMail');
@@ -368,7 +370,7 @@ var register = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
-				    var obj = _this.tryParseServerData(data);
+				    var obj = tryParseData(data);
 				    if(obj != false){
 				    	_this.treatParsedJson(obj);
 				    }
@@ -425,7 +427,7 @@ var connection = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
-	tryParseServerData: function(rawData){
+	tryParseData: function(rawData){
 		try {
 			var obj = jQuery.parseJSON(rawData);
 			return obj;
@@ -480,7 +482,7 @@ var connection = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
-				    var obj = _this.tryParseServerData(data);
+				    var obj = tryParseData(data);
 				    if(obj != false){
 				    	_this.treatParsedJson(obj);
 				    }
