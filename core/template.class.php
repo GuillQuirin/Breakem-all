@@ -181,7 +181,7 @@ class template{
       else{      
         echo 'Mail envoyé avec succès'; 
       } 
-      @$mail->SmtpClose(); 
+      $mail->SmtpClose(); 
       unset($mail);
     }catch(Exception $e){
 
@@ -192,7 +192,7 @@ class template{
     // $_SESSION['userToCheck']=1;
     echo json_encode(['success' => true]);
     // header('Location: '.WEBPATH.'/confirmation');
-}
+  }
 
   private function checkRegisterInputs(){
     $args = array(
@@ -247,7 +247,7 @@ class template{
     $checkedDatas = $this->checkRegisterInputs();
     
 
-    //Token du visiteur n'ayant pas encore valié son inscription par mail
+    //Token du visiteur à valider par lien sur le mail envoyant un get de l'email et du token
     $token = md5($checkedDatas['pseudo'].$checkedDatas['email'].SALT.time());
     $checkedDatas['token'] = $token;
 
@@ -272,7 +272,11 @@ class template{
     $userBDD->create($user);
 
     //Appel de la methode d'envoi du mail
-    $this->attenteValid($user);
+    //  Décommentez pour réactiver le mail
+    // $this->attenteValid($user);
+
+    echo json_encode(['success' => true]);
+    $_SESSION['visiteur_semi_inscrit'] = time();
   }
 
 }
