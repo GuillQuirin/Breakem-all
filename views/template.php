@@ -121,7 +121,7 @@
 						</ul>
 					</div>
 					
-					<?php (!isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
+					<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
 
 					<!-- FIN MENU -->
 
@@ -180,7 +180,7 @@
 				</div>
 			</nav>	
 
-			<?php (!isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
+			<?php (isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
 
 		</header>
 
