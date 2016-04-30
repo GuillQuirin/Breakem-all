@@ -247,9 +247,28 @@
   border-radius:3px;
 }
 
-.navbar-menu-settings:hover .navbar-menu-tooltip{
+.navbar-menu-settings:hover #navbar-menu-tooltip-settings{
   display:inline;
 }
+
+.navbar-menu-tournoi:hover #navbar-menu-tooltip-tournoi{
+  display:inline;
+}
+
+.navbar-menu-joueur:hover #navbar-menu-tooltip-joueur{
+  display:inline;
+}
+
+.navbar-menu-team:hover #navbar-menu-tooltip-team{
+  display:inline;
+}
+
+.navbar-menu-classement:hover #navbar-menu-tooltip-classement{
+  display:inline;
+}
+
+
+
 
 .navbar-menu-tooltip::before{
   width:0;
@@ -261,13 +280,13 @@
   position:absolute;
   content:'';
   display:block;
-  top:-14px;
-  right:92px;
+  top:-14px;  
+  left:20px;  
   z-index:10;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li{
-  background-color:rgba(8,3,37,1);
+  background-color:rgba(8,3,37,0.8);
   width:100%;
   line-height:50px;
   text-align:left;
