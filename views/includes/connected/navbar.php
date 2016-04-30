@@ -6,7 +6,8 @@
 			</a>
 		</li>
 		<li class="navbar-menu-li">
-			<a class="navbar-profil-title" href="<?php echo WEBPATH ?>/account">Brucew
+			<a class="navbar-profil-title" href="<?php echo WEBPATH ?>/account">
+				<?php echo $_pseudo	?>
 				<!--<span>105 PTS</span>-->
 			</a>
 		</li>
