@@ -196,7 +196,7 @@
 					if(isset($bestGames)):
 						foreach ($bestGames as $key => $value):
 				?>			
-							<div class='game'><img src='".WEBPATH."/web/img/band.jpg'>
+							<div class='game'><img src="echo .WEBPATH. '/web/img/band.jpg'">
 								<p><?php echo $value['name']; ?></p>
 							</div>
 				<?php
