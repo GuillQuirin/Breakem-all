@@ -46,4 +46,22 @@ class confirmationController extends template{
         session_destroy();
         header('Location:' . WEBPATH);
     }
+
+    public function warningMailAction(){
+        if(isset($_SESSION['visiteur_semi_inscrit'])){
+            $startingSessionTime = $_SESSION['visiteur_semi_inscrit'];
+            $curtime = time();
+            /*Sert à définir un timeout de cette session à 12h*/
+            if ($curtime - $startingSessionTime > 43200){
+                unset($_SESSION['visiteur_semi_inscrit']);
+            }else{
+                $v = new View();
+                $v->assign("css", "confirmation");
+                $v->assign("title", "confirmation");
+                $v->setView("confirmation");
+                return;
+            }            
+        }
+        header('Location: '.WEBPATH);
+    }
 }

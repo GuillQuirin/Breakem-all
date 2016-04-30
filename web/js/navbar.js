@@ -306,15 +306,21 @@ var register = {
 		return false;
 	},
 	treatParsedJson: function(obj){
-		if(obj.connected){
-			location.reload();
+		if(obj.success){
+			window.location.assign('confirmation/warningMail');
 		}
 		else{
 			if(obj.errors){
-				alert("Formulaire invalide");
-				for(prop in obj.errors){
-					console.log(obj.errors[prop]);
+				if(obj.errors.pseudo){
+					alert(obj.errors.pseudo);
 				}
+				else if(obj.errors.email){
+					alert(obj.errors.email);
+				}
+				else{
+					console.log(obj.errors);
+					alert("Ton formulaire n'a pu être validé\nCheck la console pour pplus de détails");
+				}			
 			}
 		}
 	},
