@@ -157,10 +157,40 @@
   }
 }
 
-.fadeUp {
-  -webkit-animation-name: fadeUp;
-  animation-name: fadeUp;
+@-webkit-keyframes fadeUpLow {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
 }
+
+@keyframes fadeUpLow {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeUpLow {
+  -webkit-animation-name: fadeUpLow;
+  animation-name: fadeUpLow;
+}
+
+
 
 @-webkit-keyframes fadeOut {
   from {

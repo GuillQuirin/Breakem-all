@@ -8,37 +8,180 @@
 			<?php echo '<link rel="shortcut icon" href="' . WEBPATH . '/web/img/icon/logo-full.ico" type="image/x-icon">';?>
 			<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/template.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/navbar.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/position.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/margin.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/fonts.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/icon.css" media="screen">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/general-stylesheet.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/grid.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/display.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/border.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
-		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/animation.css">';?>
-		
-		<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/template.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/navbar.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/position.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/margin.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/fonts.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/icon.css" media="screen">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/general-stylesheet.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/grid.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/display.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/border.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/animation.css">';?>
+			
+			<?php echo (isset($css)) ? '<link rel="stylesheet" type="text/css" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
 	</head>
 
 	<body>
 		<header>
-			<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
+						<!-- Navbar top -->
+			<nav class="navbar full fixed transparent" id="navbar">
+				<div class="container resultat-container m-a">
+
+					<!-- MENU -->
+					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
+						<ul class="navbar-menu-ul">
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+							</li>
+							<li class="navbar-menu-li navbar-menu-tournoi">
+								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Créer 
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											En cours
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Liste
+										</a>
+									</li>																	
+								</ul>
+							</li>
+							<li class="navbar-menu-li navbar-menu-joueur">
+								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-joueur">
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Créer 
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Liste
+										</a>
+									</li>																							
+								</ul>
+							</li>							
+							<li class="navbar-menu-li navbar-menu-team">
+								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-team">
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Créer 
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Liste
+										</a>
+									</li>																							
+								</ul>
+							</li>							
+							<li class="navbar-menu-li navbar-menu-classement">
+								<a href="<?php echo WEBPATH ?>/classement">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-classement">
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Meilleur joueur 
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Meilleur team
+										</a>
+									</li>
+									<li class="navbar-menu-tooltip-li">
+										<a>
+											Classement total
+										</a>
+									</li>																								
+								</ul>
+							</li>								   			   				    
+						</ul>
+					</div>
+					
+					<?php (!isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
+
+					<!-- FIN MENU -->
+
+					<!-- MENU TOGGLE -->
+					<div class="grid-md-12 hidden-md hidden-lg navbar-menu">
+						<?php echo '<img id="navbar-toggle-logo" src="'. WEBPATH . '/web/img/logo-nb-title.png">';?>
+						<?php echo '<img id="navbar-toggle" src="'. WEBPATH . '/web/img/icon/icon-menu.png">';?>
+					</div>
+					<!-- FIN MENU TOGGLE -->
+
+					<!-- NAVBAR SIDE -->
+					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
+						<ul class="navbar-menu-ul">
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>" class="active">Accueil
+									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi
+									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/creationtournoi">Creer<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/team">Team 
+									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="">Joueur
+									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH ?>/resultat">Classement
+								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="">
+								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<button type="button" class="search-toggle" style="padding:0 35px;">
+								<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
+								</button>
+							</li>
+						</ul>
+					</div>
+					<!-- FIN NAVBAR SIDE -->
+
+				</div>
+			</nav>	
+
+			<?php (!isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
+
 		</header>
 
 		<div class="search-page hidden-fade hidden">
