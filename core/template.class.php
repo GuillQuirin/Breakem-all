@@ -183,7 +183,11 @@ class template{
 
       if(!$mail->Send()){ //Teste le return code de la fonction 
         echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
+      }
+      else{      
+        echo 'Mail envoyé avec succès'; 
       } 
+
 
       $mail->SmtpClose(); 
       unset($mail);
