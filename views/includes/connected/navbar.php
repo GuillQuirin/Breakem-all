@@ -1,12 +1,12 @@
 <div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
 	<ul class="navbar-menu-ul">		
 		<li class="navbar-menu-li">
-			<a href="" class="">
+			<a href="<?php echo WEBPATH.'/profil?pseudo='.$_pseudo; ?>" class="">
 			<?php echo '<img class="navbar-profil-img img-circle" src="' . WEBPATH . '/web/img/avatar3.jpg"><div class="navbar-connected-online"></div>';?>
 			</a>
 		</li>
 		<li class="navbar-menu-li">
-			<a class="navbar-profil-title" href="<?php echo WEBPATH ?>/account">
+			<a class="navbar-profil-title" href="<?php echo WEBPATH.'/profil?pseudo='.$_pseudo; ?>">
 				<?php echo $_pseudo	?>
 				<!--<span>105 PTS</span>-->
 			</a>
