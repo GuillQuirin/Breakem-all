@@ -17,7 +17,7 @@
 			</a>
 			<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-settings">
 				<li class="navbar-menu-tooltip-li">
-					<a>
+					<a href="<?php echo WEBPATH.'/configuration'; ?>">
 						Mon compte
 					</a>
 				</li>

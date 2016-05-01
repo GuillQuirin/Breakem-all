@@ -1,5 +1,5 @@
 <?php
-var_dump($_SESSION);
+
 if(isset($err)){
 	?>
 	<section id="absfiche">

@@ -53,7 +53,6 @@ else{
 					<p>Ancien mot de passe: <input type="text"></p>
 					<p>Nouveau mot de passe: <input type="text"></p>
 				</div>
-				<input type="hidden" name="id" value="<?php echo $id; ?>">
 				<input type="submit">
 			</form>
 		</div>

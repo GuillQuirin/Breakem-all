@@ -11,6 +11,7 @@ class template{
   }
 
   protected function getConnectedUser(){return $this->connectedUser;}
+
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
@@ -57,12 +58,13 @@ class template{
       if(($_SESSION[COOKIE_EMAIL] === $_COOKIE[COOKIE_EMAIL]) && ($_SESSION[COOKIE_TOKEN] === $_COOKIE[COOKIE_TOKEN])){
         // Bien faire attention à bien envoyer un array en parametre constructeur de user
         $user = new user(['email' => $_SESSION[COOKIE_EMAIL]]);
+
         // on met à jour la derniere heure de connexion
         $user->setLastConnection(time());
-        // var_dump($user);
+        
         $dbUser = new userManager();
         $this->connectedUser = $dbUser->validTokenConnect($user);
-        // var_dump($this->connectedUser);
+        
         unset($dbUser, $user);
       }
       else

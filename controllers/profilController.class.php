@@ -2,7 +2,12 @@
 
 class profilController extends template{
 
+	public function __construct(){
+		
+	}
+
 	public function profilAction(){
+		
 		$v = new View();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "profil");
