@@ -156,13 +156,13 @@ class template{
       //SMTP du FAI
       $mail->Host='smtp.free.fr'; 
       //Expediteur (le site)
-      $mail->From='admin@bea.fr'; 
+      $mail->From='admin@Bea.fr'; 
       $mail->CharSet='UTF-8';
       //Destinataire (l'utilisateur)
       $mail->AddAddress($user->getEmail());
 
-      $mail->AddReplyTo('admin@bea.fr');      
-      $mail->Subject='Exemple trouvé sur DVP'; 
+      $mail->AddReplyTo('admin@Bea.fr');      
+      $mail->Subject='Inscription à Breakk em all'; 
 
       $contenuMail = "
           <html>
@@ -171,10 +171,10 @@ class template{
           <body>
               <h1>Bienvenue sur Break-em-all.com</h1>
               <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
-              <a href=\"localhost/".WEBPATH."/confirmation/check?token=".$user->getToken()."?mail=".$user->getEmail()." \">Valider mon inscription</a>
+              <a href=\"localhost/".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".$user->getEmail()." \">Valider mon inscription</a>
           </body>";
 
-      $mail->Body='Voici un exemple d\'e-mail au format Texte'; 
+      $mail->Body=$contenuMail;
       if(!$mail->Send()){ //Teste le return code de la fonction 
         echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
       } 
@@ -273,7 +273,7 @@ class template{
 
     //Appel de la methode d'envoi du mail
     //  Décommentez pour réactiver le mail
-    // $this->attenteValid($user);
+     $this->attenteValid($user);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();

@@ -16,9 +16,9 @@ class confirmationController extends template{
             'email'     => FILTER_VALIDATE_EMAIL
         );
         $filteredinputs = filter_input_array(INPUT_GET, $args);
-
         foreach ($args as $key => $value) {
             if(!isset($filteredinputs[$key])){
+                $v = new View();
                 $v->assign("css", "404");
                 $v->assign("js", "404");
                 $v->assign("title", "Erreur 404");
