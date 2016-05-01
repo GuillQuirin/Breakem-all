@@ -152,29 +152,35 @@ class template{
     include $adrPHPM."PHPMailerAutoload.php";
     try{
       $mail = new PHPmailer(); 
-      $mail->IsSMTP(); 
+      $mail->IsSMTP();
+      $mail->IsHTML(true); 
+
       //SMTP du FAI
-      $mail->Host='smtp.free.fr'; 
+      
+      $mail->Host='smtp.free.fr'; // Free
+      //$mail->Host='smtp.bouygtel.fr'; // Bouygues
+      //$mail->Host='smtp.orange.fr'; //Orange
+      //$mail->Host='smtp.sfr.fr'; //SFR
+      //$mail->Host='smtp.??????.fr'; //OVH
+      
       //Expediteur (le site)
       $mail->From='admin@Bea.fr'; 
-      $mail->CharSet='UTF-8';
+      $mail->AddReplyTo('admin@Bea.fr');      
+      $mail->set('FromName', 'Admin BEA');      
+
       //Destinataire (l'utilisateur)
       $mail->AddAddress($user->getEmail());
-
-      $mail->AddReplyTo('admin@Bea.fr');      
-      $mail->Subject='Inscription à Breakk em all'; 
+      
+      $mail->CharSet='UTF-8';
+      $mail->Subject='Inscription à Break em all'; 
 
       $contenuMail = "
-          <html>
-          <head>
-          </head>
-          <body>
-              <h1>Bienvenue sur Break-em-all.com</h1>
+              <h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>
               <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
-              <a href=\"localhost/".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".$user->getEmail()." \">Valider mon inscription</a>
-          </body>";
+              <a href=\"http://localhost/".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".$user->getEmail()." \">Valider mon inscription</a>";
 
       $mail->Body=$contenuMail;
+
       if(!$mail->Send()){ //Teste le return code de la fonction 
         echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
       } 
@@ -205,7 +211,6 @@ class template{
       'year'   => FILTER_VALIDATE_INT     
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
-    // Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
     $finalArr = [];
 
     foreach ($args as $key => $value) {
@@ -252,8 +257,6 @@ class template{
     $checkedDatas['token'] = $token;
 
     $user = new user($checkedDatas);
-    // print_r($user);
-    // exit;
 
     // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
     $userBDD = new userManager();
@@ -268,12 +271,12 @@ class template{
     if($exist_email)
      $this->echoJSONerror('email', 'cet email est déjà utilisé');
 
-    // On enregistre !
+    // On enregistre
     $userBDD->create($user);
 
     //Appel de la methode d'envoi du mail
     //  Décommentez pour réactiver le mail
-     $this->attenteValid($user);
+     //$this->attenteValid($user);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
