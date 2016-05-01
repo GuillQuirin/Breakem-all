@@ -37,10 +37,15 @@
 	background: #D92B4C;
 	border-color: #D92B4C;
 }
-
+/* BLUE */
 .btn.btn-blue:hover a{
 	background: #2BD9D9;
 	border-color:#2BD9D9;
+}
+/* BLACK */
+.btn.btn-black:hover a{
+	background: #000;
+	border-color:#000;
 }
 
 /* BOUTON CIRCLE */
