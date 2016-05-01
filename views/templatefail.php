@@ -45,7 +45,7 @@
 			      <div class="grid-md-12 hidden-xs hidden-sm navbar-menu">
 			      		<ul>
 			      			<li class="hover-none">
-					        	<a href="#" class="navbar-logo">
+					        	<a href="<?php echo WEBPATH; ?>" class="navbar-logo">
 				      				<img src="web/img/logo-nb-title.png">
 				      			</a>
 			      			</li>		   				     
