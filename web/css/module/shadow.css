@@ -9,3 +9,7 @@
 .text-shadow{
 	 text-shadow:2px 2px #FF0000;
 }
+
+.box-bg-shadow{
+	box-shadow: 0px 0px 30px 0px #fff;
+}
