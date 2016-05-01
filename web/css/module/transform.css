@@ -1,0 +1,6 @@
+.inverse-border-full{
+	transform: skew(8deg);
+}
+.scale-10-percent{
+	transform: scale(1.1, 1.1);
+}
