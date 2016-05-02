@@ -58,7 +58,10 @@ button{
     height: 35px;
     float: right;
     margin-right: 5%;
-    margin-top: 1%;
+    right: 0;
+    margin-bottom: 2%;
+    position: absolute;
+    bottom: 0;
 }
 p.off{
     width: 50%;

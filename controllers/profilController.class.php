@@ -2,10 +2,6 @@
 
 class profilController extends template{
 
-	public function __construct(){
-		
-	}
-
 	public function profilAction(){
 		
 		$v = new View();
@@ -18,6 +14,14 @@ class profilController extends template{
 		if(isset($_GET['pseudo'])){
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$userBDD = new userManager();
+
+			$args = array('pseudo' => FILTER_SANITIZE_STRING );
+
+			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+
+			$user = $userBDD->getUser($filteredinputs);
+
+			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
 
 			$args = array(
 				'pseudo' => FILTER_SANITIZE_STRING,
@@ -33,11 +37,6 @@ class profilController extends template{
 				'idTeam' => FILTER_SANITIZE_STRING,
 				'token' => FILTER_SANITIZE_STRING
 			);
-			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
-
-			$user = $userBDD->getUser($filteredinputs);
-
-			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
 
 			if($user!==FALSE){
 				foreach ($args as $key => $value) {
