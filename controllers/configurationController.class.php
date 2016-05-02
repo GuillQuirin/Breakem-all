@@ -19,20 +19,21 @@ class configurationController extends template{
 		$v->assign("content", "Configurer votre profil");
 
 		/*MAJ du profil effectuée auparavant (/update) ? */
-		if(isset($_SERVER["HTTP_REFERER"])){
+		if(isset($_SESSION['referer_method'])){
 			
 			$e = new Exception();
 			$trace = $e->getTrace();
 
 			// Classe appelante
 			$calling_class = (isset($trace[0]['class'])) ? $trace[0]['class'] : false;
-			echo "<pre>";
-			var_dump($_SERVER);		
+
 			//Methode appelante
-			$calling_method = str_replace("http://".$_SERVER["HTTP_HOST"].WEBPATH."/","",$_SERVER["HTTP_REFERER"]);
-			var_dump($calling_method);
+			$calling_method = $_SESSION['referer_method'];
+
 			if($calling_class === "configurationController" && $calling_method === "update")
 				$v->assign("MAJ","1");
+
+			unset($_SESSION['referer_method']);
 		}
 		
 		/* Affichage des informations */
@@ -69,7 +70,7 @@ class configurationController extends template{
 	}
 	
 	public function updateAction(){
-
+		$_SESSION['referer_method']="update";
 		header("Location: ".WEBPATH."/configuration");
 
 	}
