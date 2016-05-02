@@ -34,6 +34,9 @@ class userManager extends basesql{
 			$this->columns = array_filter($this->columns);
 			$this->save();
 		}
+		else if($calling_class === "configuration" && $calling_method === "updateAction"){
+			die("Mise à jour (userManager.class)");
+		}
 		else
 			die("Tentative d'enregistrement depuis une autre methode que registerAction de la classe IndexController!");
 	}

@@ -50,8 +50,8 @@ else{
 				</div>
 				<div>
 					<h4>Renouveller mon mot de passe</h4>
-					<p>Ancien mot de passe: <input type="text"></p>
-					<p>Nouveau mot de passe: <input type="text"></p>
+					<p>Ancien mot de passe: <input type="password" name="password"></p>
+					<p>Nouveau mot de passe: <input type="password" name="password_new"></p>
 				</div>
 				<input type="submit">
 			</form>
