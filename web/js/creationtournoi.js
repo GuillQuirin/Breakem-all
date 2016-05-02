@@ -1,3 +1,24 @@
+/*
+	--->
+		Il va falloir enregistrer les choix en session pour empecher les carottes
+		et envoyer un gofuck aux "hackers"
+	<---
+
+	1
+		Style de jeu
+	2
+		Jeu
+	3	
+		Console
+	4
+		Version du jeu
+	5
+		LINE/LAN
+	6
+		
+*/
+
+
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
@@ -24,15 +45,16 @@ function loadElementsChoice(arrayJqDOM){
 }
 function loadTitle(titre){
 	var _title = dom.getTitleContainer();
-	// <h1 class="capitalize title header-title">My title</h1>
 	_title.empty();
-	_title.append('<h1 class="title">Choisis ton '+titre+'</span></h1>');
+	_title.append('<h1 class="title">Choisis le '+titre+'</span></h1>');
 }
 function loadBtn(string){
 	var btn = dom.getBtn();
 	btn.empty();
 	btn.append('<a class="uppercase">'+string+'</a>');
 }
+
+
 var dom = {
 	init: function(){
 		this.setTitleContainer();
@@ -175,20 +197,17 @@ var gameChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-		    	console.log(obj);
-		    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
-		    	// On associe les events de choix à chaque élément de l'array
-			    /*for(var prop in obj.types){
-			    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
+			    for(var prop in obj.games){
+			    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.types[prop].name);
+			    	_this.associateChoiceEvent(jQDomElem, obj.games[prop].name);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("style de jeu");
-			    loadBtn("suivant");*/
+			    loadTitle("jeu");
+			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
 		    }		    
@@ -230,7 +249,7 @@ var gameChoice = {
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				gameChoice.init(_this.getChoiceDat());
+				// gameChoice.init(_this.getChoiceDat());
 			};
 		});
 	}
