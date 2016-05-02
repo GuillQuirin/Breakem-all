@@ -13,57 +13,6 @@
 	background-size: cover; 
 }
 
-#header{
-	width: 100%;
-	background-color: #160962
-}
-#header img{
-	opacity: .5;
-	height:auto;
-	min-width: 300px;
-	width: 100%;
-}
-#title_header{
-	position:absolute;
-	top:300px;
-	left:8%;
-}
-#title_header h1{
-	width:550px;
-	height:100px;
-}
-#title_header h1 a{
-	border:3px solid;
-	text-align:left;
-	font-size: 50px;
-	text-transform: uppercase;
-	padding:40px;
-	font-family: Roboto !important;
-}
-#sous-title_header{
-	position:absolute;
-	top:500px;
-	left:27.2%;
-}
-#sous-title_header a {
-	font-family: Roboto !important;
-}
-#sous-title_header h2{
-	width:220px;
-	margin-right: 10px;
-}
-#sous-title_header h3{
-	width:120px;
-}
-.inscription_rapide{
-	background-color:rgba(8,3,37,1);
-	border-radius: 5px;
-	color:white;
-    padding: 30px;
-    font-family: Roboto !important;
-   	font-size: 13px;
-}
-
 .index-header-btn{
     bottom:-50px;
     right:0px;
@@ -89,7 +38,7 @@
 	border-top:3px solid white;
 	border-left:3px solid white;
 	border-right:3px solid white;
-	height:1700px;
+	height:1400px;
 }
 /*Contenu de la page à gauche tous les articles */
 #contain_left{
@@ -297,13 +246,15 @@ hr{
 	margin-right:15px;
 }
 #section_social_media{
-	background-color: rgba(8,3,37,.4);
-	color:white;
+	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/footer.jpg) center top no-repeat;
+	margin:0;
+  	padding:0;
+	-webkit-background-size: cover; 
+	background-size: cover; 
+	position: relative;
+	height:300px;
 }
-#footer_index{
-	width: 100%;
-    background-color: #160962;
-}
+
 .fond_footer{
 	opacity: .8;
     height: auto;
@@ -314,16 +265,16 @@ hr{
 	position:absolute;
 	width:100%;
 	text-align: center;
-	top: 2350px;
+	margin-top:40px;
     font-size: 20px;
     font-family: Roboto !important;
 }
 .nw_social{
+	margin-top:90px;
 	width: 150px;
     height: 150px;
     transform: skew(-8deg);
     opacity: .5;
-    top: 2400px;
     position: absolute;
     text-align: center;
 	background-color: #201c3a;

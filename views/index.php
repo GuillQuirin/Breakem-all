@@ -228,9 +228,6 @@
 </section>
 
 <section id="section_social_media">
-	<div id="footer_index">
-		<?php echo '<img class="fond_footer" src="' . WEBPATH . '/web/img/footer.jpg">';?>
-	</div>
 	<div id="reseaux_sociaux">
 		<div class="title_social">
 			<p>Nos réseaux sociaux : Breakem'All</p>
