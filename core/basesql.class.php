@@ -112,4 +112,10 @@ class basesql{
 			return false;
 		return new user(array_filter($query));
 	}
+
+	public function getAllNames(){
+		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
+		$sth = $this->pdo->query($sql);
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
