@@ -238,15 +238,15 @@
 			<p> Facebook </p>
 		</div>
 		<div class="nw_social tw">
-			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitter.png">';?></a>
+			<a href="https://twitter.com/Breakem_all"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitter.png">';?></a>
 			<p> Twitter </p>
 		</div>
 		<div class="nw_social st">
-			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitch.png">';?></a>
+			<a href="https://www.twitch.tv/breakem_all"><?php echo '<img src="' . WEBPATH . '/web/img/icon/twitch.png">';?></a>
 			<p> Twitch </p>
 		</div>
 		<div class="nw_social yo">
-			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/youtube.png">';?></a>
+			<a href="https://www.youtube.com/channel/UCnVPB635znITQ8t2_v7P0SQ"><?php echo '<img src="' . WEBPATH . '/web/img/icon/youtube.png">';?></a>
 			<p> Youtube </p>
 		</div>
 	</div>
