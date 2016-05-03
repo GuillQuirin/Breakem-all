@@ -36,6 +36,7 @@ class basesql{
 
 		$query->execute($data);
 	}
+	
 
 	public function idExists($id){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="'.$id.'"';

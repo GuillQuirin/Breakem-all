@@ -139,15 +139,32 @@ class userManager extends basesql{
 	}
 
 	public function setUser(user $u, $datas){
-		$sql = "UPDATE User (".implode(",",array_keys($datas)).")
-		VALUES (:".implode(",:", array_keys($datas))." WHERE id=".$u->getId().")";
+		
+		$sql = "UPDATE User SET ";
+			foreach ($datas as $key => $value) {
+				$sql.=" ".$key."=:".$key."";
+				if(end($datas)!=$value)
+					$sql.=", ";
+			}
+		$sql.=" WHERE id=:id";
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		foreach($datas as $key => $value){
-			$data[$key] = $value;
+		
+		foreach ($datas as $key => $value) {
+			$query->bindParam(':'.$key, $value);
 		}
-		echo "<pre>";
-		var_dump($data);
-		$query->execute($data);
+
+		$id = $u->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+
+		$query->execute();
+
+		if(array_key_exists("email", $datas)){
+			$_SESSION[COOKIE_EMAIL]=$datas['email'];
+			setcookie(COOKIE_EMAIL, $datas['email']);
+		}
+		var_dump(in_array("email", $datas));
+		var_dump($_SESSION[COOKIE_EMAIL]);
+		var_dump($_COOKIE[COOKIE_EMAIL]);
 	}
 }

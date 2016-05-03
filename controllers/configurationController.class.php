@@ -73,7 +73,7 @@ class configurationController extends template{
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
 	    $user = parent::getConnectedUser();
-
+		
 		if(isset($user)){
 		    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
 		    $userBDD = new userManager();
@@ -82,7 +82,8 @@ class configurationController extends template{
 		    $userBDD->setUser($user, $checkedDatas);
 		}
 		$_SESSION['referer_method']="update";
-		//header("Location: ".WEBPATH."/configuration");
+		
+		//header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
@@ -100,32 +101,36 @@ class configurationController extends template{
 	    );
 	    $filteredinputs = filter_input_array(INPUT_POST, $args);
 	    $finalArr = [];
+    	
+    	//Si le mdp saisi est OK
+    	if(password_verify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
+    		//Email
+		    if(!isset($filteredinputs['email']))
+				$this->echoJSONerror('inputs', 'adresse email obligatoire');
+			else{
+				$userBDD = new userManager();
 
-	    //Email
-	    if(!isset($filteredinputs['email']))
-			$this->echoJSONerror('inputs', 'adresse email obligatoire');
-		else{
-			$userBDD = new userManager();
+				$exist_email=$userBDD->emailExists($filteredinputs['email']);
+		    	if($exist_email)
+		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
+		     	else	
+					$finalArr['email'] = $filteredinputs['email'];
+			}
 
-			$exist_email=$userBDD->emailExists($filteredinputs['email']);
-	    	if($exist_email)
-	     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
-	     	else	
-				$finalArr['email'] = $filteredinputs['email'];
-		}
-
-		//Password    
-	    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
-	    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
-	    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
-		      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
-		    else
-		      $finalArr['password']=password_hash($filteredinputs['password_new'], PASSWORD_DEFAULT);
-	    }
-		else{	
-			$finalArr['email'] = $filteredinputs['email']; 
-	    }
-
+			//Password    
+		    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
+		    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
+		    	
+		    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
+			      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
+			    else
+			      $finalArr['password']=password_hash($filteredinputs['password_new'], PASSWORD_DEFAULT);
+		    }
+			else	
+				$finalArr['email'] = $filteredinputs['email']; 
+    	}
+    	else
+    		$this->echoJSONerror('password', 'Mot de passe obligatoire');
 
 	    //Date de naissance
 	    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
