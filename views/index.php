@@ -234,7 +234,7 @@
 		</div>
 		<?php //echo $socials; ?>
 		<div class="nw_social fb">
-			<a href="#"><?php echo '<img src="' . WEBPATH . '/web/img/icon/fb.png">';?></a>
+			<a href="https://facebook.com/breakemaall"><?php echo '<img src="' . WEBPATH . '/web/img/icon/fb.png">';?></a>
 			<p> Facebook </p>
 		</div>
 		<div class="nw_social tw">
