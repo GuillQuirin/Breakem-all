@@ -108,7 +108,7 @@ var navbar = {
             });
         },
         closeForm : function(){
-            $('.index-modal').addClass('hidden-fade').addClass('fade'); 
+            $('.index-modal').addClass('hidden-fade').addClass('fade').addClass('hidden'); 
             $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){
