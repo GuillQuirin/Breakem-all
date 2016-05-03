@@ -123,10 +123,11 @@ class template{
 
       $dbUser->disconnecting($this->connectedUser);
 
-      unset($_COOKIE[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL]);
+      setcookie(COOKIE_TOKEN, null, -1, "/");
+      setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
     }
-    exit;
+    // exit;
   }
 
   public function getForm(){
