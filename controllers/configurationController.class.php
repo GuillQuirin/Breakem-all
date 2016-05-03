@@ -79,10 +79,10 @@ class configurationController extends template{
 		    $userBDD = new userManager();
 
 		    // On met à jour
-		    $userBDD->update('User', $user['id'], $checkedDatas);
+		    $userBDD->setUser($user, $checkedDatas);
 		}
 		$_SESSION['referer_method']="update";
-		header("Location: ".WEBPATH."/configuration");
+		//header("Location: ".WEBPATH."/configuration");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici

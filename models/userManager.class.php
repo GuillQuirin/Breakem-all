@@ -130,11 +130,24 @@ class userManager extends basesql{
 	}
 
 	public function setNewTeam(user $u, team $t){
-		$sql = "UPDATE user SET idTeam = :idTeam WHERE id=:id;";
+		$sql = "UPDATE User SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':id' => $u->getId(),
 			':idTeam' => $t->getId()
 		]);
+	}
+
+	public function setUser(user $u, $datas){
+		$sql = "UPDATE User (".implode(",",array_keys($datas)).")
+		VALUES (:".implode(",:", array_keys($datas))." WHERE id=".$u->getId().")";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		foreach($datas as $key => $value){
+			$data[$key] = $value;
+		}
+		echo "<pre>";
+		var_dump($data);
+		$query->execute($data);
 	}
 }
