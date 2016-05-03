@@ -37,21 +37,6 @@ class basesql{
 		$query->execute($data);
 	}
 	
-	public function update($table, $id, $args){
-		/*if(isset($_SESSION[COOKIE_TOKEN])){
-			// $sql = "UPDATE " . $this->table . " SET "...
-		}else{*/
-			//INSERT
-		$sql = "UPDATE ".$table." (".implode(",",array_keys($this->columns)).")
-		VALUES (:".implode(",:", array_keys($this->columns))." WHERE id=".$id.")";
-		// $query = $this->pdo->prepare($sql);
-		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		// var_dump($sql);
-		foreach($this->columns as $key => $value){
-			$data[$key] = $value;
-		}
-		$query->execute($data);
-	}
 
 	public function idExists($id){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="'.$id.'"';
@@ -111,5 +96,11 @@ class basesql{
 		if($query === FALSE)
 			return false;
 		return new user(array_filter($query));
+	}
+
+	public function getAllNames(){
+		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
+		$sth = $this->pdo->query($sql);
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 }

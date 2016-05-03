@@ -29,18 +29,7 @@ class creationtournoiController extends template{
 		}
 		echo json_encode($data);
 	}
-	private function isGameTypeNameValid(typegame $tg){
-		$gm = new typegameManager();
-		$names = $gm->getAllNames();
-		$array = [];
-		foreach ($names as $key => $arr) {
-			$array[] = $arr['name'];
-		}
-		unset($gm);
-		if (in_array($tg->getName(), $array))
-			return true;
-		return false;
-	}
+	
 	public function getGamesAction(){
 		$args = array(
             'name' => FILTER_SANITIZE_STRING   
@@ -65,5 +54,54 @@ class creationtournoiController extends template{
 			$this->echoJSONerror("games", "no games were found for this particular type");
 		echo json_encode($data);
 	}
+	public function getConsolesAction(){
+		$args = array(
+            'name' => FILTER_SANITIZE_STRING   
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+        // $data = [];
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs", "manque: ".$key);
+		}
+		$g = new game($filteredinputs);
+		if(!$this->isGameNameValid($g))
+			$this->echoJSONerror("game", "unknown game received !");
+		
+		$gamesManager = new platformManager();
+		$gamesFromType = $gamesManager->getPlatforms($g);
+		$data['games'] = [];
+		foreach ($gamesFromType as $key => $arr) {
+			$data['games'][] = $arr;
+		}
+		if(count($data['games']) == 0)
+			$this->echoJSONerror("games", "no games were found for this particular type");
+		echo json_encode($data);
+	}
 	
+
+	private function isGameTypeNameValid(typegame $tg){
+		$gm = new typegameManager();
+		$names = $gm->getAllNames();
+		$array = [];
+		foreach ($names as $key => $arr) {
+			$array[] = $arr['name'];
+		}
+		unset($gm);
+		if (in_array($tg->getName(), $array))
+			return true;
+		return false;
+	}
+	private function isGameNameValid(game $g){
+		$gm = new gameManager();
+		$names = $gm->getAllNames();
+		$array = [];
+		foreach ($names as $key => $arr) {
+			$array[] = $arr['name'];
+		}
+		unset($gm);
+		if (in_array($g->getName(), $array))
+			return true;
+		return false;
+	}
 }
