@@ -413,7 +413,7 @@
     width: 91.66666667%;
   }
   .grid-md-10 {
-    width: 83.33333333%;
+    width: 70%;
   }
   .grid-md-9 {
     width: 75%;
@@ -437,7 +437,7 @@
     width: 25%;
   }
   .grid-md-2 {
-    width: 16.66666667%;
+    width: 30%;
   }
   .grid-md-1 {
     width: 8.33333333%;
@@ -486,7 +486,6 @@
   .grid-lg-1, .grid-lg-2, .grid-lg-3, .grid-lg-4, .grid-lg-5, .grid-lg-6, .grid-lg-7, .grid-lg-8, .grid-lg-9, .grid-lg-10, .grid-lg-11, .grid-lg-12 {
     float: left;
   }
-  .grid-lg-12 {
     width: 100%;
   }
   .grid-lg-11 {
@@ -497,6 +496,7 @@
   }
   .grid-lg-9 {
     width: 75%;
+  .grid-lg-12 {
   }
   .grid-lg-8 {
     width: 66.66666667%;
