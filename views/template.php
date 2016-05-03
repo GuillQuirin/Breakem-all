@@ -20,11 +20,10 @@
 	</head>
 
 	<body>
+
 		<header>
 						<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
-			<div class="test">
-			</div>
 				<div class="container resultat-container m-a">
 
 					<!-- MENU -->
