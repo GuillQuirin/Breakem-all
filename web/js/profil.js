@@ -1,16 +1,13 @@
 $(document).ready(function(){
-	//Redirection vers la configuration utilisateur
-	$("#configuration").click(function(){
-		window.location.href = "/esgi/Breakem-all/configuration";
-	});
-
 	//Affichages des popups
 	$("#signalement").click(function(){
 		$("#formplainte").fadeIn();
+		return false;
 	});
 
 	$("#contact").click(function(){
 		$("#formcontact").fadeIn();
+		return false;
 	});
 
 	//Controle des messages
@@ -28,7 +25,9 @@ $(document).ready(function(){
 	        	}
 	        );
 		}
+		return false;
 	});
+
 	$("#btn_contact").click(function(){
 		if($("#mess_contact").val()==""){
 			alert('Veuillez ne pas laisser un message vide.');
@@ -44,6 +43,7 @@ $(document).ready(function(){
 	        );
 		}
 	});
+	return false;
 });
 
 $(document).mouseup(function(e)

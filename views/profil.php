@@ -1,11 +1,38 @@
+<?php
+
+if(isset($err)){
+	?>
+	<section id="absfiche">
+		<div>
+			ERREUR 404, utilisateur introuvable
+			<p><a href="index">Retour à l'accueil</a></p>
+		</div>
+	</section>
+	<?php
+}
+else{
+	?>
 	<section id="presentation">
 		<div id="image">
-			<img src="" alt="logo">
-			<p>PSEUDO</p>
-			<p class="off">Vu le: 15/01/16</p>
-			<?php if(0) echo '<p class="on">Connecté</p>'; ?>
+			<img src="<?php echo $img; ?>" alt="logo">
+			<p><?php echo $pseudo; ?></p>
+			<?php 
+				if(1)//($online)
+					echo '<p class="on">Connecté</p>'; 
+				else
+					echo '<p class="off">Vu le: '.$lastco.'</p>';
+			?>
 		</div>
-		<button id="configuration">Configurer mon compte</button>
+		<?php
+			if(1){//isset($_SESSION['token']) && $token == $_SESSION['token'])
+			$_SESSION['token']="1";
+				?>
+				<form action="configuration" method="POST">
+				<input type="hidden" name="id" value="<?php echo $_SESSION['token']; ?>"></input>
+				<button type="submit" id="configuration">Configurer mon compte</button>
+				<?php
+			}
+		?>
 	</section>
 	<section id="informations">
 		<div id="communication">
@@ -14,7 +41,10 @@
 		</div>
 		<div id="description">
 			<h4>Description</h4>
-			<p>Ce joueur n'a pas encore rédigé de description.
+			<p>
+				<?php 
+					echo (isset($description)) ? $description : "Ce joueur n'a pas encore rédigé de description.";
+				?>
 			</p>
 		</div>
 		<div id="statistiques">
@@ -96,3 +126,6 @@
 			<button id="btn_contact">Envoyer</button>
 		</div>
 	</section>
+	<?php
+}
+?>

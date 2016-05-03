@@ -1,32 +1,41 @@
 <?php
-//<<<<<<< HEAD
-
-// class indexController{
-
-// 	public function indexAction(){
-// 		echo "<br> indexAction was called !<br>";
-// 	}
-	
-// }
-
-//=======
-class indexController{
-
-	public function indexAction($args){
-
-		$article = new articles();
-		$article->setTitle("Mon titre");
-		$article->setContent("Description de ma page");
-		$article->save();
-
+class indexController extends template{
+	public function indexAction($requiredPosts){
 		$v = new view();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "index");
 		$v->assign("js", "index");
-		$v->setView("index");
 
+		//Categorie
+		$obj = new typegameManager();
+		$typeJeu = $obj->getAllTypes();
+		if(!empty($typeJeu)){
+			$v->assign("categorie", $typeJeu);	
+		}
+
+		//Liste Tournois
+		$obj = new tournoiManager();
+		$listetournois = $obj->getCurrentTournament();
+		if(!empty($listetournois)){
+			$v->assign("listeTournois", $listetournois);
+		}
+		
+		//Pagination
+		$obj = new typegameManager();
+		$pagination = $obj->getAllTypes();
+		if(!empty($pagination)){
+			$v->assign("pagination", $pagination);
+		}
+
+		//Meilleurs Jeux
+		$obj = new gameManager();
+		$bestGames = $obj->getBestGames();
+		if(!empty($bestGames)){
+			$v->assign("bestGames", $bestGames);
+		}
+
+		$v->setView("Index");
 	}
-	public function testAction($args){
-		echo "Petit test";
-	}
+
+
 }
-//>>>>>>> master

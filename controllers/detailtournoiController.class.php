@@ -1,9 +1,10 @@
 <?php
 
-class detailtournoiController{
+class detailtournoiController extends template{
 
 	public function detailtournoiAction(){
 		$v = new View();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "detailtournoi");
 		$v->assign("js", "detailtournoi");
 		$v->assign("title", "Tournoi <<name>>");
