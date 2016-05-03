@@ -33,6 +33,7 @@ var navbar = {
         navbar.form.login();
         navbar.form.closeFormKey();
         navbar.form.closeFormClick();
+        navbar.menu();
     },
     preventShrink: false,
     shrink: function(force){
@@ -136,6 +137,17 @@ var navbar = {
 			    }
 			});
         }
+    },
+    menu: function(){
+		$('.navbar-menu-li').mouseenter(function(){
+			$('.navbar-menu-tooltip').css('display', 'none');
+
+			$(this).find('.navbar-menu-tooltip').css('display', 'initial');
+
+			$(this).find('.navbar-menu-tooltip').mouseleave(function(){
+				$(this).css('display', 'none');
+			});
+		});
     }
 };
 
