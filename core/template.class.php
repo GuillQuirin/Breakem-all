@@ -16,7 +16,7 @@ class template{
 
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
-    var_dump($this);
+
     if($this->isVisitorConnected()){
       $v->assign("_isConnected", 1);
       $v->assign("_id", $this->connectedUser->getId());
@@ -36,7 +36,7 @@ class template{
   }
   
   protected function isVisitorConnected(){
-    var_dump($this);
+
     if($this->connectedUser instanceof user)
       return true;
     return false;

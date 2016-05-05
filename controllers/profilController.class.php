@@ -6,8 +6,8 @@ class profilController extends template{
 		
 		$v = new View();
 		$this->assignConnectedProperties($v);
-		echo "<pre>";
-		var_dump($v);
+		//echo "<pre>";
+		//var_dump($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");
@@ -50,7 +50,7 @@ class profilController extends template{
 					}
 				}
 				//Apparition du bouton de configuration
-				if($_SESSION[COOKIE_EMAIL]===$user->getEmail())
+				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail())
 					$v->assign('myAccount', 1);
 			}
 			else{
