@@ -15,3 +15,9 @@ function getActionPage($view, $action){
 function ourOwnPassHash($pass){
 	return password_hash($pass, PASSWORD_DEFAULT);
 }
+
+function ourOwnPassVerify($received, $model){
+	if(password_verify($received, $model))
+		return true;
+	return false;
+}

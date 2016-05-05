@@ -80,7 +80,7 @@ class configurationController extends template{
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
     	
     	//Si le mdp saisi est OK
-    	if(password_verify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
+    	if(ourOwnPassVerify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
     		
     		/*HASHAGE DU MOT DE PASSE*/
     			$filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 

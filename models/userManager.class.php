@@ -61,7 +61,7 @@ class userManager extends basesql{
 			$dbUser = new user($r[0]);
 			// print_r($dbUser);
 			// exit;
-			if(password_verify($user->getPassword(), $dbUser->getPassword())){
+			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword())){
 				return $dbUser;
 			}
 				
