@@ -348,7 +348,7 @@ var gameversionChoice = {
 	getVersions: function(da){
 		var _this = this;
 		jQuery.ajax({
-		  url: 'creationtournoi/getConsoles',
+		  url: 'creationtournoi/getVersions',
 		  type: 'POST',
 		  data: {'name': da},
 		  complete: function(xhr, textStatus) {
@@ -357,11 +357,12 @@ var gameversionChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-			    for(var prop in obj.platforms){
-			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
+		    	console.log(obj);
+			    for(var prop in obj.versions){
+			    	var jQDomElem = getElementChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.platforms[prop].name);
-			    	// console.log(obj.platforms[prop]);
+			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop].name);
+			    	console.log(obj.versions[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;

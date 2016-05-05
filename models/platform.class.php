@@ -1,6 +1,6 @@
 <?php 
 
-class game{
+class platform{
 	//Ca doit être un miroir par rapport au nom des colonnes dans la table
 	protected $id = null;
 	protected $name = null;
