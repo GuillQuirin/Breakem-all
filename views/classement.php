@@ -59,7 +59,8 @@
 						<img src="web/img/heroes-of.jpg" class="img-cover">	
 						<span class="classement-ranking-icon">1</span>	
 					</div>
-					<div class="grid-md-6">
+
+							<div class="grid-md-6">
 						<div class="classement-resultat">
 							<img src="web/img/heroes-of.jpg" class="img-cover">	
 							<span class="classement-ranking-icon">2</span>	

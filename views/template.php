@@ -25,10 +25,8 @@
 			<nav class="navbar full fixed transparent" id="navbar">
 			<div class="test">
 			</div>
-<<<<<<< HEAD
-			<div id="logo">
-				<img src="web/img/logo.png" class="logo">
-			</div>	
+
+
 			<nav id="menu" >
 				<ul>
 	 				<li><a href="/esgi2/index">Accueil</a></li>
@@ -62,7 +60,7 @@
 					<li><a href="#">Mon compte</a></li>
 				</ul>
 			</nav>
-=======
+
 				<div class="container resultat-container m-a">
 
 					<!-- MENU -->
@@ -205,7 +203,6 @@
 
 			<?php (isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
 
->>>>>>> 5ccafac37c19b5147e6d999a92a1f3bbd55409c0
 		</header>
 
 		<div class="search-page hidden-fade hidden">
