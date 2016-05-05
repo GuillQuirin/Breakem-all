@@ -15,16 +15,16 @@ else{
 	?>
 	<section id="avatar">
 		<div id="image">
-			<img src="<?php echo $img; ?>" alt="logo">
+			<img src="<?php echo $_img; ?>" alt="logo">
 		</div>
 	</section>
 	<section id="informations">
 		<form action="configuration/update" method="post">
 			<div>
 				<h4>Présentation</h4>
-				<p>Pseudo (non modifiable): <?php echo (isset($pseudo)) ? $pseudo : ''; ?></p>
+				<p>Pseudo (non modifiable): <?php echo $_pseudo ?></p>
 				<p>Petite description de vous:
-					<textarea name="description" value="<?php echo (isset($description)) ? $description :''; ?>"></textarea>
+					<textarea name="description" value="<?php echo $_description ?>"></textarea>
 				</p>
 			</div>
 			<div>
@@ -43,10 +43,10 @@ else{
 				</div>
 				<div>
 					<h4>Informations personnelles</h4>
-					<p>Date de naissance: <?php echo (isset($birthday)) ? date('d/m/Y', $birthday) : 'dd/mm/YYYY' ; ?></p>
+					<p>Date de naissance: <?php echo (isset($_birthday)) ? date('d/m/Y', $_birthday) : 'dd/mm/YYYY' ; ?></p>
 					<p><input type="checkbox" name="aff_naissance">Afficher ma date de naissance</input></p>
 					<h4>E-mail</h4>
-					<p>Adresse e-mail<input type="text" name="email" value="<?php echo (isset($email)) ? $email : ''; ?>"></p>
+					<p>Adresse e-mail<input type="text" name="email" value="<?php echo (isset($_email)) ? $_email : ''; ?>"></p>
 					<p><input type="checkbox" name="flux_RSS">Je m'abonne au flux RSS du site</p>
 					<p><input type="checkbox" name="contact_mail">J'autorise les autres utilisateurs à me contacter par mail (votre adresse restera confidentielle)</p>
 				</div>
