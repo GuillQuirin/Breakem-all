@@ -20,17 +20,12 @@ else{
 				if(isset($isConnected))
 					echo '<p class="on">Connecté</p>'; 
 				else
-					echo '<p class="off">Vu le: '.date('d/m/Y \à\ h:i',$lastConnexion).'</p>';
+					echo '<p class="off">Vu le: '.date('d/m/Y \à\ G:i',$lastConnexion).'</p>';
 			?>
 		</div>
 		<?php 	
-				if($myAccount){
-				?>
-				<form action="configuration" method="POST">
-				<input type="hidden" name="id" value="<?php echo $_SESSION[COOKIE_EMAIL]; ?>"></input>
-				<button type="submit" id="configuration">Configurer mon compte</button>
-				<?php
-			}
+			if(isset($myAccount))
+				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';
 		?>
 	</section>
 	<section id="informations">

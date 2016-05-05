@@ -19,9 +19,16 @@ else{
 		</div>
 	</section>
 	<section id="informations">
-		<div>
-			<form action="configuration/update" method="post">
-				<p>Pseudo (non modifiable): <?php echo $pseudo; ?></p>
+		<form action="configuration/update" method="post">
+			<div>
+				<h4>Présentation</h4>
+				<p>Pseudo (non modifiable): <?php echo (isset($pseudo)) ? $pseudo : ''; ?></p>
+				<p>Petite description de vous:
+					<textarea name="description" value="<?php echo (isset($description)) ? $description :''; ?>"></textarea>
+				</p>
+			</div>
+			<div>
+				<h4>Vos Jeux</h4>
 				<div>
 					<h4>Jeux</h4>
 					<p>Jeu préféré: 
@@ -31,20 +38,15 @@ else{
 								<option></option>
 							</select>
 					</p>
-					<p>Team associé: <a href="#">Team</a></p>
+					<p>Team associé actuellement: 
+						<?php echo (isset($nomTeam)) ? '<a href="team?nom='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team'; ?></p>
 				</div>
 				<div>
 					<h4>Informations personnelles</h4>
-					<p>Date de naissance: <?php echo date('d/m/Y', $birthday); ?></p>
+					<p>Date de naissance: <?php echo (isset($birthday)) ? date('d/m/Y', $birthday) : 'dd/mm/YYYY' ; ?></p>
 					<p><input type="checkbox" name="aff_naissance">Afficher ma date de naissance</input></p>
-					<!-- <p>Sexe: 
-							<select>
-								<option></option>
-								<option name="sexe" value="1" <?php echo ($sexe=="1") ? "selected" : ""; ?>>Homme</option>
-								<option name="sexe" value="0" <?php echo ($sexe=="0") ? "selected" : ""; ?>>Femme</option>
-							</select></p> -->
 					<h4>E-mail</h4>
-					<p>Adresse e-mail<input type="text" name="email" value="<?php echo $email; ?>"></p>
+					<p>Adresse e-mail<input type="text" name="email" value="<?php echo (isset($email)) ? $email : ''; ?>"></p>
 					<p><input type="checkbox" name="flux_RSS">Je m'abonne au flux RSS du site</p>
 					<p><input type="checkbox" name="contact_mail">J'autorise les autres utilisateurs à me contacter par mail (votre adresse restera confidentielle)</p>
 				</div>
@@ -54,8 +56,8 @@ else{
 					<p>Nouveau mot de passe: <input type="password" name="password_new"></p>
 				</div>
 				<input type="submit">
-			</form>
-		</div>
+			</div>
+		</form>
 	</section>
 	<?php
 }
