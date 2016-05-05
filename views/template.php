@@ -36,7 +36,7 @@
 								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH ?>/creationtournoi">
 											Créer 
 										</a>
 									</li>
