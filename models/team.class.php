@@ -29,7 +29,8 @@ class team{
 		$this->name=$v;
 	}
 	private function setImg($v){
-		$this->img=$v;
+		if(!empty(trim($v)))
+			$this->img=$v;
 	}
 	private function setSlogan($v){
 		$this->slogan=$v;
@@ -40,7 +41,7 @@ class team{
 
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
-	public function getImg(){return	"web/img/".$this->img;}
+	public function getImg(){return	$this->img;}
 	public function getSlogan(){return $this->slogan;}
 	public function getDescription(){return	$this->description;}
 	

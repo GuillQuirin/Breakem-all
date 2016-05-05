@@ -39,7 +39,7 @@ class game{
 		$this->idType=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v)) > 0)
+		if(!empty(trim($v)))
 			$this->img = "web/img/".$v;
 	}
 
