@@ -408,6 +408,7 @@ var register = {
 		});
 	}
 }
+/* TODO : RAJOUTER CONNECTION SUR ENTREE*/
 var connection = {
 	init: function(){
 		this.setFormToWatch();
