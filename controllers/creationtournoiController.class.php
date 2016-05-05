@@ -59,7 +59,6 @@ class creationtournoiController extends template{
             'name' => FILTER_SANITIZE_STRING   
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-        // $data = [];
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
 				$this->echoJSONerror("inputs", "manque: ".$key);
@@ -68,14 +67,41 @@ class creationtournoiController extends template{
 		if(!$this->isGameNameValid($g))
 			$this->echoJSONerror("game", "unknown game received !");
 		
-		$gamesManager = new platformManager();
-		$gamesFromType = $gamesManager->getPlatforms($g);
-		$data['games'] = [];
-		foreach ($gamesFromType as $key => $arr) {
-			$data['games'][] = $arr;
+		$gvManager = new gameversionManager();
+		$platforms = $gvManager->getAvailablePlatforms($g);
+		if(!$platforms)
+			$this->echoJSONerror("db", "query issue");
+		$data['platforms'] = [];
+		foreach ($platforms as $key => $arr) {
+			$data['platforms'][] = $arr;
 		}
-		if(count($data['games']) == 0)
-			$this->echoJSONerror("games", "no games were found for this particular type");
+		if(count($data['platforms']) == 0)
+			$this->echoJSONerror("platforms", "no platforms available for this game");
+		echo json_encode($data);
+	}	
+	public function getVersionsAction(){
+		$args = array(
+            'name' => FILTER_SANITIZE_STRING   
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs", "manque: ".$key);
+		}
+		$g = new game($filteredinputs);
+		if(!$this->isGameNameValid($g))
+			$this->echoJSONerror("game", "unknown game received !");
+		
+		$gvManager = new gameversionManager();
+		$platforms = $gvManager->getAvailablePlatforms($g);
+		if(!$platforms)
+			$this->echoJSONerror("db", "query issue");
+		$data['platforms'] = [];
+		foreach ($platforms as $key => $arr) {
+			$data['platforms'][] = $arr;
+		}
+		if(count($data['platforms']) == 0)
+			$this->echoJSONerror("platforms", "no platforms available for this game");
 		echo json_encode($data);
 	}
 	

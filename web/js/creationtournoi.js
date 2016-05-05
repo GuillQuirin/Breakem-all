@@ -249,7 +249,6 @@ var gameChoice = {
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				console.log(_this.getChoiceDat());
 				consoleChoice.init(_this.getChoiceDat());
 			};
 		});
@@ -277,19 +276,21 @@ var consoleChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-			  /*  for(var prop in obj.games){
-			    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
+		    	// console.log(obj);
+			    for(var prop in obj.platforms){
+			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.games[prop].name);
-			    }*/
-			   /* if(_this.getPossibleChoices().length == 0)
+			    	_this.associateChoiceEvent(jQDomElem, obj.platforms[prop].name);
+			    	// console.log(obj.platforms[prop]);
+			    }
+			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("jeu");
-			    loadBtn("suivant");*/
+			    loadTitle("console");
+			    loadBtn("suivant");
 		    }else{
-		    	console.log("Création du DOM gametype impossible");
+		    	console.log("Création du DOM consoles impossible");
 		    }		    
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
@@ -329,8 +330,88 @@ var consoleChoice = {
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				// gameChoice.init(_this.getChoiceDat());
+				gameversionChoice.init(_this.getChoiceDat());
 			};
 		});
 	}
-}
+};
+var gameversionChoice = {
+	init: function(da){
+		this.getVersions(da);
+	},
+	_choice: false,
+	_choiceDat: false,
+	possibleChoices: [],
+	getChoice: function(){return this._choice;},
+	getChoiceDat: function(){return this._choiceDat;},
+	getPossibleChoices: function(){return this.possibleChoices;},
+	getVersions: function(da){
+		var _this = this;
+		jQuery.ajax({
+		  url: 'creationtournoi/getConsoles',
+		  type: 'POST',
+		  data: {'name': da},
+		  complete: function(xhr, textStatus) {
+		    //called when complete
+		  },
+		  success: function(data, textStatus, xhr) {
+		    var obj = tryParseData(data);
+		    if(!!obj){
+			    for(var prop in obj.platforms){
+			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
+			    	_this.possibleChoices.push(jQDomElem);
+			    	_this.associateChoiceEvent(jQDomElem, obj.platforms[prop].name);
+			    	// console.log(obj.platforms[prop]);
+			    }
+			    if(_this.getPossibleChoices().length == 0)
+			    	return false;
+			    loadElementsChoice(_this.possibleChoices);
+			    _this.loadValidationEvent();
+			    loadTitle("console");
+			    loadBtn("suivant");
+		    }else{
+		    	console.log("Création du DOM consoles impossible");
+		    }		    
+		  },
+		  error: function(xhr, textStatus, errorThrown) {
+		    console.log("request error !! : \t " + errorThrown);
+		  }
+		});
+	},
+	associateChoiceEvent: function(jQel, da){
+		var _this = this;
+		jQel.click(function(e) {
+			_this.setChoice(jQel, da);
+		});
+	},
+	// Modifie le choix en cours et lui applique le css correspondant
+	setChoice: function(jQChoice, da){
+		this._choice = jQChoice;
+		this._choiceDat = da;
+		var allChoices = this.getPossibleChoices();
+		for (var i = 0; i < allChoices.length; i++) {
+			allChoices[i].removeClass('box-bg-shadow');
+			allChoices[i].removeClass('bg-black');
+			allChoices[i].removeClass('creationtournoi-active-choice');
+			allChoices[i].removeClass('scale-10-percent');
+			allChoices[i].find('h2').addClass('inverse-border-full');
+			allChoices[i].find('p').addClass('inverse-border-full');
+		};
+		jQChoice.addClass('box-bg-shadow');
+		jQChoice.addClass('scale-10-percent');
+		jQChoice.addClass('bg-black');
+		jQChoice.addClass('creationtournoi-active-choice');
+		jQChoice.find('h2').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');
+	},
+	loadValidationEvent: function(){
+		var _this = this;
+		var _btn = dom.getBtn();
+		_btn.off();
+		_btn.click(function(event) {
+			if (!!_this.getChoice() && !!_this.getChoiceDat()){
+				gameversionChoice.init(_this.getChoiceDat());
+			};
+		});
+	}
+};
