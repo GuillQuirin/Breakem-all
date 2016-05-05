@@ -247,7 +247,7 @@ class template{
     if($filteredinputs['password']!==$filteredinputs['password_check'])
       $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
     else
-      $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+      $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
     //Date de naissance
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))

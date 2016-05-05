@@ -11,3 +11,7 @@ function getActionPage($view, $action){
 	$path = explode('.', $view); 
 	return '"'.trim(str_replace('views', '', $path[0]), '/').'/'.$action.'"';
 }
+
+function ourOwnPassHash($pass){
+	return password_hash($pass, PASSWORD_DEFAULT);
+}

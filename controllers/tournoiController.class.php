@@ -55,7 +55,7 @@ class tournoiController extends template {
         if($filteredinputs['password']!==$filteredinputs['password_check'])
         	die("FAIL pwd");
         else
-        	$finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+        	$finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
         if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
         	die("FAIL date crea");
