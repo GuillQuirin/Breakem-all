@@ -138,33 +138,34 @@ class userManager extends basesql{
 		]);
 	}
 
-	public function setUser(user $u, $datas){
+	public function setUser(user $u, user $newuser){
+		$data = [];
+
+		foreach (get_class_methods($newuser) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = $newuser->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
 		
 		$sql = "UPDATE User SET ";
-			foreach ($datas as $key => $value) {
+			foreach ($data as $key => $value) {
 				$sql.=" ".$key."=:".$key."";
-				if(end($datas)!=$value)
+				if(end($data)!=$value)
 					$sql.=", ";
 			}
 		$sql.=" WHERE id=:id";
-
-		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		
-		foreach ($datas as $key => $value) {
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		foreach ($data as $key => &$value) {
 			$query->bindParam(':'.$key, $value);
 		}
-
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
-
+		
 		$query->execute();
-
-		if(array_key_exists("email", $datas)){
-			$_SESSION[COOKIE_EMAIL]=$datas['email'];
-			setcookie(COOKIE_EMAIL, $datas['email']);
-		}
-		var_dump(in_array("email", $datas));
-		var_dump($_SESSION[COOKIE_EMAIL]);
-		var_dump($_COOKIE[COOKIE_EMAIL]);
 	}
 }

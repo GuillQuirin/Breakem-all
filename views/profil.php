@@ -20,7 +20,7 @@ else{
 				if(isset($isConnected))
 					echo '<p class="on">Connecté</p>'; 
 				else
-					echo '<p class="off">Vu le: '.date('d/m/Y \à\ G:i',$lastConnexion).'</p>';
+					echo '<p class="off">Dernière connexion: '.date('d/m/Y \à\ G:i',$lastConnexion).'</p>';
 			?>
 		</div>
 		<?php 	

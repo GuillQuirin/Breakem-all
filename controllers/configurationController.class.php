@@ -4,9 +4,9 @@ class configurationController extends template{
 	
 	public function __construct(){
 		parent::__construct();
-		if(!($this->isVisitorConnected())){
-			header('Location: ' .WEBPATH);
-		}
+		// if(!($this->isVisitorConnected())){
+		// 	header('Location: ' .WEBPATH);
+		// }
 	}
 
 	public function configurationAction(){
@@ -41,18 +41,26 @@ class configurationController extends template{
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-	    $user = parent::getConnectedUser();
-		
-		if(isset($user)){
-		    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-		    $userBDD = new userManager();
 
-		    // On met à jour
-		    $userBDD->setUser($user, $checkedDatas);
-		}
-		$_SESSION['referer_method']="update";
+	    $user = $this->getConnectedUser();
 		
-		//header("Location: ".$_SERVER['HTTP_REFERER']."");
+	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+	    $userBDD = new userManager();
+	    $newuser = new user($checkedDatas);
+
+	    // On met à jour
+	    $userBDD->setUser($user, $newuser);
+	    $expiration = time() + (86400 * 7);
+		if(array_key_exists("email", $checkedDatas)){
+			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
+			setcookie(COOKIE_EMAIL, null,-1,'/');
+			setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
+			setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
+		}
+
+		$_SESSION['referer_method']="update";
+
+		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
@@ -68,21 +76,15 @@ class configurationController extends template{
 	      'flux_RSS' => FILTER_VALIDATE_INT,     
 	      'contact_mail' => FILTER_VALIDATE_INT     
 	    );
-/*
-	    ALTER TABLE user
-		ADD rss tinyint(1) default 0;
 
-		ALTER TABLE user
-		ADD authorize_mail_contact tinyint(1) default 1;
-
-		ALTER TABLE user
-		ADD share_birthday tinyint(1) default 0;
-*/	   
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-	    $finalArr = [];
     	
     	//Si le mdp saisi est OK
     	if(password_verify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
+    		
+    		/*HASHAGE DU MOT DE PASSE*/
+    			$filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 
+
     		//Email
 		    if(!isset($filteredinputs['email']))
 				$this->echoJSONerror('inputs', 'adresse email obligatoire');
@@ -92,21 +94,21 @@ class configurationController extends template{
 				$exist_email=$userBDD->emailExists($filteredinputs['email']);
 		    	if($exist_email)
 		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
-		     	else	
-					$finalArr['email'] = $filteredinputs['email'];
 			}
 
-			//Password    
+			//Password  
+			// TODO : mettre un second champ new_password_check  
 		    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
 		    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
 		    	
 		    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
 			      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
 			    else
-			      $finalArr['password']=password_hash($filteredinputs['password_new'], PASSWORD_DEFAULT);
+			  	  $filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 	  
 		    }
-			else	
-				$finalArr['email'] = $filteredinputs['email']; 
+
+
+
     	}
     	else
     		$this->echoJSONerror('password', 'Mot de passe obligatoire');
@@ -121,7 +123,7 @@ class configurationController extends template{
 	    //   $finalArr['birthday'] = date_timestamp_get($date);
 	    // }
 
-	    return $finalArr;
+	    return array_filter($filteredinputs);
   	}
 
 }
