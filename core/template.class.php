@@ -13,7 +13,6 @@ class template{
   protected function getConnectedUser(){return $this->connectedUser;}
 
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
-
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
 
@@ -72,8 +71,10 @@ class template{
         
         unset($dbUser, $user);
       }
-      else
-        unset($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
+      else{
+        setcookie(COOKIE_TOKEN, null, -1, "/");
+        setcookie(COOKIE_EMAIL, null, -1, "/");
+      }        
      };
     };
 
@@ -239,7 +240,10 @@ class template{
       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
     //Password
-    /* VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD ENCULE STP VTFF */
+    /*#############################################
+                    -----  TODO -----
+      VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD
+    */#############################################
     if($filteredinputs['password']!==$filteredinputs['password_check'])
       $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
     else
@@ -255,7 +259,7 @@ class template{
         $this->echoJSONerror('date', 'La date reçue a fail !');
       $finalArr['birthday'] = date_timestamp_get($date);
     }
-    return $finalArr;
+    return $finalArr; 
   }
 
   public function registerAction(){

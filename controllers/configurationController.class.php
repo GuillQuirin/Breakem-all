@@ -34,38 +34,7 @@ class configurationController extends template{
 				$v->assign("MAJ","1");
 
 			unset($_SESSION['referer_method']);
-		}
-		
-		/* Affichage des informations */
-
-		$user = parent::getConnectedUser();
-		if(isset($user)){
-
-			$args = array(
-						'pseudo',	
-						'name',
-						'firstname',
-						'birthday',
-						'description',
-						'kind',
-						'city',
-						'email',
-						'status',
-						'img',
-						'idTeam',
-						'isConnected',
-						'token'
-					);
-			foreach ($args as $key => $value) {
-				$method = 'get'.ucfirst($value);
-				if (method_exists($user, $method)) {
-					$v->assign($value, $user->$method());
-				}
-			}
-		}
-		else
-			$v->assign("err", "1");
-
+		}		
 		$v->setView("configuration");
 	}
 	
@@ -92,14 +61,24 @@ class configurationController extends template{
 	      'email'   => FILTER_VALIDATE_EMAIL,
 	      'password'   => FILTER_SANITIZE_STRING,
 	      'password_new'   => FILTER_SANITIZE_STRING,
-	      //'day'   => FILTER_VALIDATE_INT,     
-	      //'month'   => FILTER_VALIDATE_INT,     
-	      //'year'   => FILTER_VALIDATE_INT,
+	      'day'   => FILTER_VALIDATE_INT,     
+	      'month'   => FILTER_VALIDATE_INT,     
+	      'year'   => FILTER_VALIDATE_INT,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      //'flux_RSS' => FILTER_VALIDATE_INT,     
-	      //'contact_mail' => FILTER_VALIDATE_INT     
+	      'flux_RSS' => FILTER_VALIDATE_INT,     
+	      'contact_mail' => FILTER_VALIDATE_INT     
 	    );
-	    $filteredinputs = filter_input_array(INPUT_POST, $args);
+/*
+	    ALTER TABLE user
+		ADD rss tinyint(1) default 0;
+
+		ALTER TABLE user
+		ADD authorize_mail_contact tinyint(1) default 1;
+
+		ALTER TABLE user
+		ADD share_birthday tinyint(1) default 0;
+*/	   
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
 	    $finalArr = [];
     	
     	//Si le mdp saisi est OK
