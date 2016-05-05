@@ -6,6 +6,8 @@ class profilController extends template{
 		
 		$v = new View();
 		$this->assignConnectedProperties($v);
+		echo "<pre>";
+		var_dump($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");
@@ -35,6 +37,8 @@ class profilController extends template{
 				'status' => FILTER_SANITIZE_STRING,
 				'img' => FILTER_SANITIZE_STRING,
 				'idTeam' => FILTER_SANITIZE_STRING,
+				'isConnected' => FILTER_VALIDATE_INT,
+				'lastConnexion' => FILTER_VALIDATE_INT,
 				'token' => FILTER_SANITIZE_STRING
 			);
 
@@ -45,6 +49,9 @@ class profilController extends template{
 						$v->assign($key, $user->$method());
 					}
 				}
+				//Apparition du bouton de configuration
+				if($_SESSION[COOKIE_EMAIL]===$user->getEmail())
+					$v->assign('myAccount', 1);
 			}
 			else{
 				$v->assign("err", "1");

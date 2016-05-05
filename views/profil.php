@@ -17,18 +17,17 @@ else{
 			<img src="<?php echo $img; ?>" alt="logo">
 			<p><?php echo $pseudo; ?></p>
 			<?php 
-				if(1)//($online)
+				if(isset($isConnected))
 					echo '<p class="on">Connecté</p>'; 
 				else
-					echo '<p class="off">Vu le: '.$lastco.'</p>';
+					echo '<p class="off">Vu le: '.date('d/m/Y \à\ h:i',$lastConnexion).'</p>';
 			?>
 		</div>
-		<?php
-			if(1){//isset($_SESSION['token']) && $token == $_SESSION['token'])
-			$_SESSION['token']="1";
+		<?php 	
+				if($myAccount){
 				?>
 				<form action="configuration" method="POST">
-				<input type="hidden" name="id" value="<?php echo $_SESSION['token']; ?>"></input>
+				<input type="hidden" name="id" value="<?php echo $_SESSION[COOKIE_EMAIL]; ?>"></input>
 				<button type="submit" id="configuration">Configurer mon compte</button>
 				<?php
 			}

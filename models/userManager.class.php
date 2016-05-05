@@ -111,7 +111,7 @@ class userManager extends basesql{
 			$sql = "UPDATE ".$this->table." SET isConnected=1, lastConnexion=:lastConnexion WHERE email=:email";
 			$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 			$sth->execute([
-				':lastConnexion' => $user->getLastConnection(),
+				':lastConnexion' => $user->getLastConnexion(),
 				':email' => $user->getEmail()
 			]);
 			return new user($r[0]);
@@ -123,7 +123,7 @@ class userManager extends basesql{
 		$sql = "UPDATE ".$this->table." SET isConnected=0, lastConnexion=:lastConnexion WHERE email=:email";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
-			':lastConnexion' => $user->getLastConnection(),
+			':lastConnexion' => $user->getLastConnexion(),
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();

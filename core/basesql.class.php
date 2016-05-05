@@ -74,7 +74,7 @@ class basesql{
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
 
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
+		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion, token FROM ".$this->table." WHERE " . implode(',', $data);
 		$query = $this->pdo->query($sql)->fetch();
 
 		if($query === FALSE)
