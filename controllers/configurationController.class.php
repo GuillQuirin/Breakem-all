@@ -68,7 +68,8 @@ class configurationController extends template{
 	    $args = array(
 	      'email'   => FILTER_VALIDATE_EMAIL,
 	      'password'   => FILTER_SANITIZE_STRING,
-	      'password_new'   => FILTER_SANITIZE_STRING,
+	      'new_password'   => FILTER_SANITIZE_STRING,
+	      'new_password_check'   => FILTER_SANITIZE_STRING,
 	      'day'   => FILTER_VALIDATE_INT,     
 	      'month'   => FILTER_VALIDATE_INT,     
 	      'year'   => FILTER_VALIDATE_INT,
@@ -87,28 +88,24 @@ class configurationController extends template{
 
     		//Email
 		    if(!isset($filteredinputs['email']))
-				$this->echoJSONerror('inputs', 'adresse email obligatoire');
+				$this->echoJSONerror('inputs', 'adresse email non vide');
 			else{
 				$userBDD = new userManager();
 
 				$exist_email=$userBDD->emailExists($filteredinputs['email']);
-		    	if($exist_email)
+		    	if($filteredinputs['email']!=$_SESSION[COOKIE_EMAIL] && $exist_email)
 		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
 			}
 
 			//Password  
-			// TODO : mettre un second champ new_password_check  
-		    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
-		    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
+		    if(isset($filteredinputs['new_password']) && isset($filteredinputs['new_password_check'])
+		    	&& !empty($filteredinputs['new_password']) && !empty($filteredinputs['new_password_check'])){
 		    	
-		    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
-			      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
-			    else
-			  	  $filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 	  
+		    	if(strlen($filteredinputs['new_password'])<2 || strlen($filteredinputs['new_password'])>15)
+			      $this->echoJSONerror('password', 'votre nouveau mot de passe doit faire entre 2 et 15 caracteres'); 
+			  	else
+			  		$filteredinputs['password']=ourOwnPassHash($filteredinputs['new_password']);
 		    }
-
-
-
     	}
     	else
     		$this->echoJSONerror('password', 'Mot de passe obligatoire');
