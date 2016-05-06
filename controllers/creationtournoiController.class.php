@@ -21,13 +21,17 @@ class creationtournoiController extends template{
 	// On retourne ici tous les types de jeux (moba/fps/...)
 	public function getGameTypesAction(){
 		$gm = new typegameManager();
-		$types = $gm->getAllTypes();
-		// print_r($types);
+		$typesObj = $gm->getAllTypes();
 		$data['types'] = [];
-		foreach ($types as $key => $arr) {
+		foreach ($typesObj as $key => $obj) {
+			$arr = [];
+			$arr['name'] = $obj->getName();
+			$arr['img'] = $obj->getImg();
+			$arr['description'] = $obj->getDescription();
 			$data['types'][] = $arr;
 		}
-		echo json_encode($data);
+		print_r($data);
+		exit;
 	}
 	// On retourne ici les jeux disponibles pour le type de jeu sélectionné
 	public function getGamesAction(){
