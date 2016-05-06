@@ -1,4 +1,4 @@
-
+<!-- Header de la page index -->
 <section class="full-height bg-cover-index relative">
 	
 	<div class="align full-height">
