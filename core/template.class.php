@@ -214,14 +214,17 @@ class template{
   }
 
   private function checkRegisterInputs(){
+    // Imposer un FILTER_VALIDATE_INT sur les day/month/year suppriment les valeurs numeriques ayant un 0 devant
+    // Genre 09 --> part au carton alors que 9 passe trql
+    //  --> SOLUTION --> FILTER_SANITIZE_STRING sur les chiffres attendus puis cast des valeurs en int
     $args = array(
       'pseudo'     => FILTER_SANITIZE_STRING,
       'email'   => FILTER_VALIDATE_EMAIL,
       'password'   => FILTER_SANITIZE_STRING,
       'password_check'   => FILTER_SANITIZE_STRING,
-      'day'   => FILTER_VALIDATE_INT,     
-      'month'   => FILTER_VALIDATE_INT,     
-      'year'   => FILTER_VALIDATE_INT     
+      'day'   => FILTER_SANITIZE_STRING,     
+      'month'   => FILTER_SANITIZE_STRING,     
+      'year'   => FILTER_SANITIZE_STRING     
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     $finalArr = [];
@@ -250,6 +253,10 @@ class template{
       $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
     //Date de naissance
+    $filteredinputs['month'] = (int) $filteredinputs['month'];
+    $filteredinputs['day'] = (int) $filteredinputs['day'];
+    $filteredinputs['year'] = (int) $filteredinputs['year'];
+    
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
       $this->echoJSONerror('date', 'La date reçue a fail !');
 
