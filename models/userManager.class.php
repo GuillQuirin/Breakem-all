@@ -59,12 +59,8 @@ class userManager extends basesql{
 
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
-			// print_r($dbUser);
-			// exit;
-			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword())){
+			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 				return $dbUser;
-			}
-				
 		}
 		return false;
 	}
@@ -149,20 +145,27 @@ class userManager extends basesql{
 		}
 
 		$data = array_filter($data);
-		
+
+		$compteur=0;
+
 		$sql = "UPDATE User SET ";
 			foreach ($data as $key => $value) {
-				$sql.=" ".$key."=:".$key."";
-				if(end($data)!=$value)
+				if($compteur!=0) 
 					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
 			}
 		$sql.=" WHERE id=:id";
-		
+
+		//var_dump($sql);
+		//exit;
+
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
-		foreach ($data as $key => &$value) {
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
 			$query->bindParam(':'.$key, $value);
-		}
+	
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
 		
