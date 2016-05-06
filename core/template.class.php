@@ -15,23 +15,27 @@ class template{
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
+
     if($this->isVisitorConnected()){
       $v->assign("_isConnected", 1);
-      $v->assign("_pseudo", $this->connectedUser->getPseudo());
-      $v->assign("_email", $this->connectedUser->getEmail());
-      $v->assign("_birthday", $this->connectedUser->getBirthday());
-      $v->assign("_description", $this->connectedUser->getDescription());
-      $v->assign("_kind", $this->connectedUser->getKind());
-      $v->assign("_city", $this->connectedUser->getCity());
-      $v->assign("_img", $this->connectedUser->getImg());
+      $v->assign("_id", $this->connectedUser->getId());
       $v->assign("_name", $this->connectedUser->getName());
       $v->assign("_firstname", $this->connectedUser->getFirstname());
+      $v->assign("_pseudo", $this->connectedUser->getPseudo());
+      $v->assign("_birthday", $this->connectedUser->getBirthday());
+      $v->assign("_description", $this->connectedUser->getDescription());     
+      $v->assign("_kind", $this->connectedUser->getKind());
+      $v->assign("_city", $this->connectedUser->getCity());
+      $v->assign("_email", $this->connectedUser->getEmail());
+      $v->assign("_img", $this->connectedUser->getImg()); 
       $v->assign("_idTeam", $this->connectedUser->getIdTeam());
-      $v->assign("_id", $this->connectedUser->getId());
+      
       // $v->assign("_password", $this->connectedUser->getPassword());
     }
   }
+  
   protected function isVisitorConnected(){
+
     if($this->connectedUser instanceof user)
       return true;
     return false;
@@ -60,15 +64,17 @@ class template{
         $user = new user(['email' => $_SESSION[COOKIE_EMAIL]]);
 
         // on met à jour la derniere heure de connexion
-        $user->setLastConnection(time());
+        $user->setLastConnexion(time());
         
         $dbUser = new userManager();
         $this->connectedUser = $dbUser->validTokenConnect($user);
         
         unset($dbUser, $user);
       }
-      else
-        unset($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
+      else{
+        setcookie(COOKIE_TOKEN, null, -1, "/");
+        setcookie(COOKIE_EMAIL, null, -1, "/");
+      }        
      };
     };
 
@@ -115,18 +121,20 @@ class template{
 
     echo json_encode($data);
   }
+
   public function deconnectionAction(){
     $dbUser = new userManager();
     if($this->isVisitorConnected()){
       $this->connectedUser->setIsConnected(0);
-      $this->connectedUser->setLastConnection(time());
+      $this->connectedUser->setLastConnexion(time());
 
       $dbUser->disconnecting($this->connectedUser);
 
-      unset($_COOKIE[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL]);
+      setcookie(COOKIE_TOKEN, null, -1, "/");
+      setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
     }
-    exit;
+    // exit;
   }
 
   public function getForm(){
@@ -140,6 +148,7 @@ class template{
       ]
     ];
   }
+
   protected function echoJSONerror($name, $msg){
     $data['errors'][$name] = $msg;
     echo json_encode($data);
@@ -231,11 +240,14 @@ class template{
       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
     //Password
-    /* VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD ENCULE STP VTFF */
+    /*#############################################
+                    -----  TODO -----
+      VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD
+    */#############################################
     if($filteredinputs['password']!==$filteredinputs['password_check'])
       $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
     else
-      $finalArr['password']=password_hash($filteredinputs['password'], PASSWORD_DEFAULT);
+      $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
     //Date de naissance
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
@@ -247,7 +259,7 @@ class template{
         $this->echoJSONerror('date', 'La date reçue a fail !');
       $finalArr['birthday'] = date_timestamp_get($date);
     }
-    return $finalArr;
+    return $finalArr; 
   }
 
   public function registerAction(){

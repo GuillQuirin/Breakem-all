@@ -66,8 +66,8 @@ var dom = {
 			console.log("Title || Container || Btn not found ");
 			return false;
 		}
-		this.setTitleContainerMargin();
-		this.setBtnMargin();
+		// this.setTitleContainerMargin();
+		// this.setBtnMargin();
 		return true;
 	},
 	setTitleContainer: function(){
@@ -92,7 +92,7 @@ var dom = {
 	getTitleContainer: function(){return this._title;},
 	getContainer: function(){return this._elementsContainer;},
 	getBtn: function(){return this._btn;}
-}
+};
 var gameTypesChoice = {
 	_choice: false,
 	_choiceDat: false,
@@ -174,7 +174,7 @@ var gameTypesChoice = {
 			};
 		});
 	}
-}
+};
 var gameChoice = {
 	init: function(da){
 		this.getGames(da);
@@ -249,8 +249,170 @@ var gameChoice = {
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				// gameChoice.init(_this.getChoiceDat());
+				consoleChoice.init(_this.getChoiceDat());
 			};
 		});
 	}
-}
+};
+var consoleChoice = {
+	init: function(da){
+		this.getConsoles(da);
+	},
+	_choice: false,
+	_choiceDat: false,
+	possibleChoices: [],
+	getChoice: function(){return this._choice;},
+	getChoiceDat: function(){return this._choiceDat;},
+	getPossibleChoices: function(){return this.possibleChoices;},
+	getConsoles: function(da){
+		var _this = this;
+		jQuery.ajax({
+		  url: 'creationtournoi/getConsoles',
+		  type: 'POST',
+		  data: {'name': da},
+		  complete: function(xhr, textStatus) {
+		    //called when complete
+		  },
+		  success: function(data, textStatus, xhr) {
+		    var obj = tryParseData(data);
+		    if(!!obj){
+		    	// console.log(obj);
+			    for(var prop in obj.platforms){
+			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
+			    	_this.possibleChoices.push(jQDomElem);
+			    	_this.associateChoiceEvent(jQDomElem, obj.platforms[prop].name);
+			    	// console.log(obj.platforms[prop]);
+			    }
+			    if(_this.getPossibleChoices().length == 0)
+			    	return false;
+			    loadElementsChoice(_this.possibleChoices);
+			    _this.loadValidationEvent();
+			    loadTitle("console");
+			    loadBtn("suivant");
+		    }else{
+		    	console.log("Création du DOM consoles impossible");
+		    }		    
+		  },
+		  error: function(xhr, textStatus, errorThrown) {
+		    console.log("request error !! : \t " + errorThrown);
+		  }
+		});
+	},
+	associateChoiceEvent: function(jQel, da){
+		var _this = this;
+		jQel.click(function(e) {
+			_this.setChoice(jQel, da);
+		});
+	},
+	// Modifie le choix en cours et lui applique le css correspondant
+	setChoice: function(jQChoice, da){
+		this._choice = jQChoice;
+		this._choiceDat = da;
+		var allChoices = this.getPossibleChoices();
+		for (var i = 0; i < allChoices.length; i++) {
+			allChoices[i].removeClass('box-bg-shadow');
+			allChoices[i].removeClass('bg-black');
+			allChoices[i].removeClass('creationtournoi-active-choice');
+			allChoices[i].removeClass('scale-10-percent');
+			allChoices[i].find('h2').addClass('inverse-border-full');
+			allChoices[i].find('p').addClass('inverse-border-full');
+		};
+		jQChoice.addClass('box-bg-shadow');
+		jQChoice.addClass('scale-10-percent');
+		jQChoice.addClass('bg-black');
+		jQChoice.addClass('creationtournoi-active-choice');
+		jQChoice.find('h2').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');
+	},
+	loadValidationEvent: function(){
+		var _this = this;
+		var _btn = dom.getBtn();
+		_btn.off();
+		_btn.click(function(event) {
+			if (!!_this.getChoice() && !!_this.getChoiceDat()){
+				gameversionChoice.init(_this.getChoiceDat());
+			};
+		});
+	}
+};
+var gameversionChoice = {
+	init: function(da){
+		this.getVersions(da);
+	},
+	_choice: false,
+	_choiceDat: false,
+	possibleChoices: [],
+	getChoice: function(){return this._choice;},
+	getChoiceDat: function(){return this._choiceDat;},
+	getPossibleChoices: function(){return this.possibleChoices;},
+	getVersions: function(da){
+		var _this = this;
+		jQuery.ajax({
+		  url: 'creationtournoi/getVersions',
+		  type: 'POST',
+		  data: {'name': da},
+		  complete: function(xhr, textStatus) {
+		    //called when complete
+		  },
+		  success: function(data, textStatus, xhr) {
+		    var obj = tryParseData(data);
+		    if(!!obj){
+		    	console.log(obj);
+			    for(var prop in obj.versions){
+			    	var jQDomElem = getElementChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].img);
+			    	_this.possibleChoices.push(jQDomElem);
+			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop].name);
+			    	console.log(obj.versions[prop]);
+			    }
+			    if(_this.getPossibleChoices().length == 0)
+			    	return false;
+			    loadElementsChoice(_this.possibleChoices);
+			    _this.loadValidationEvent();
+			    loadTitle("console");
+			    loadBtn("suivant");
+		    }else{
+		    	console.log("Création du DOM consoles impossible");
+		    }		    
+		  },
+		  error: function(xhr, textStatus, errorThrown) {
+		    console.log("request error !! : \t " + errorThrown);
+		  }
+		});
+	},
+	associateChoiceEvent: function(jQel, da){
+		var _this = this;
+		jQel.click(function(e) {
+			_this.setChoice(jQel, da);
+		});
+	},
+	// Modifie le choix en cours et lui applique le css correspondant
+	setChoice: function(jQChoice, da){
+		this._choice = jQChoice;
+		this._choiceDat = da;
+		var allChoices = this.getPossibleChoices();
+		for (var i = 0; i < allChoices.length; i++) {
+			allChoices[i].removeClass('box-bg-shadow');
+			allChoices[i].removeClass('bg-black');
+			allChoices[i].removeClass('creationtournoi-active-choice');
+			allChoices[i].removeClass('scale-10-percent');
+			allChoices[i].find('h2').addClass('inverse-border-full');
+			allChoices[i].find('p').addClass('inverse-border-full');
+		};
+		jQChoice.addClass('box-bg-shadow');
+		jQChoice.addClass('scale-10-percent');
+		jQChoice.addClass('bg-black');
+		jQChoice.addClass('creationtournoi-active-choice');
+		jQChoice.find('h2').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');
+	},
+	loadValidationEvent: function(){
+		var _this = this;
+		var _btn = dom.getBtn();
+		_btn.off();
+		_btn.click(function(event) {
+			if (!!_this.getChoice() && !!_this.getChoiceDat()){
+				gameversionChoice.init(_this.getChoiceDat());
+			};
+		});
+	}
+};

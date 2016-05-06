@@ -1,12 +1,13 @@
 <?php 
 
-class team{
+class gameversion{
 	//Ca doit être un miroir par rapport au nom des colonnes dans la table
 	protected $id = null;
 	protected $name = null;
-	protected $img = null;
-	protected $slogan = null;
 	protected $description = null;
+	protected $year = null;
+	protected $img = null;
+	protected $idType = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -28,21 +29,25 @@ class team{
 	private function setName($v){
 		$this->name=$v;
 	}
-	private function setImg($v){
-		if(!empty(trim($v)))
-			$this->img=$v;
-	}
-	private function setSlogan($v){
-		$this->slogan=$v;
-	}
 	private function setDescription($v){
 		$this->description=$v;
+	}
+	private function setYear($v){
+		$this->year=$v;
+	}
+	public function setIdType($v){
+		$this->idType=$v;
+	}
+	public function setImg($v){
+		if(!empty(trim($v)))
+			$this->img = "web/img/".$v;
 	}
 
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
-	public function getImg(){return	$this->img;}
-	public function getSlogan(){return $this->slogan;}
-	public function getDescription(){return	$this->description;}
+	public function getDescription(){return $this->description;}
+	public function getYear(){return $this->year;}
+	public function getImg(){return $this->img;}
+	public function getIdType(){return $this->idType;}
 	
 }

@@ -20,47 +20,12 @@
 	</head>
 
 	<body>
+
 		<header>
 						<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 			<div class="test">
 			</div>
-
-
-			<nav id="menu" >
-				<ul>
-	 				<li><a href="/esgi2/index">Accueil</a></li>
-	 				<li><a href="/esgi2/tournoi">Tournoi</a>
-	 					<ul> 
-	 						<li><a href="#">Jeux</a></li>
-	 						<li><a href="#">Evenement</a></li>
-	 					</ul>
-	 				</li>
-
-					<li><a href="/esgi2/team">Team</a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#">Joueur</a></li>
-					<li><a href="#">Classement</a></li>
-					<li><a href="#">Mon compte</a></li>
-				</ul>
-			</nav>
-			<nav id="menu2" >
-				<ul class="hide">
-	 				<li><a href="/esgi2/index">Accueil</a></li>
-	 				<li><a href="/esgi2/tournoi">Tournoi</a>
-	 					<ul> 
-	 						<li><a href="#">Jeux</a></li>
-	 						<li><a href="#">Evenement</a></li>
-	 					</ul>
-	 				</li>
-
-					<li><a href="/esgi2/team">Team</a></li>
-					<li><a href="#">Joueur</a></li>
-					<li><a href="#">Classement</a></li>
-					<li><a href="#">Mon compte</a></li>
-				</ul>
-			</nav>
-
 				<div class="container resultat-container m-a">
 
 					<!-- MENU -->
@@ -73,7 +38,7 @@
 								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH ?>/creationtournoi">
 											Créer 
 										</a>
 									</li>

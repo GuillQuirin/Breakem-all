@@ -61,7 +61,7 @@ class userManager extends basesql{
 			$dbUser = new user($r[0]);
 			// print_r($dbUser);
 			// exit;
-			if(password_verify($user->getPassword(), $dbUser->getPassword())){
+			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword())){
 				return $dbUser;
 			}
 				
@@ -111,7 +111,7 @@ class userManager extends basesql{
 			$sql = "UPDATE ".$this->table." SET isConnected=1, lastConnexion=:lastConnexion WHERE email=:email";
 			$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 			$sth->execute([
-				':lastConnexion' => $user->getLastConnection(),
+				':lastConnexion' => $user->getLastConnexion(),
 				':email' => $user->getEmail()
 			]);
 			return new user($r[0]);
@@ -123,18 +123,49 @@ class userManager extends basesql{
 		$sql = "UPDATE ".$this->table." SET isConnected=0, lastConnexion=:lastConnexion WHERE email=:email";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
-			':lastConnexion' => $user->getLastConnection(),
+			':lastConnexion' => $user->getLastConnexion(),
 			':email' => $user->getEmail()
 		]);
 		$r = $sth->fetchAll();
 	}
 
 	public function setNewTeam(user $u, team $t){
-		$sql = "UPDATE user SET idTeam = :idTeam WHERE id=:id;";
+		$sql = "UPDATE User SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':id' => $u->getId(),
 			':idTeam' => $t->getId()
 		]);
+	}
+
+	public function setUser(user $u, user $newuser){
+		$data = [];
+
+		foreach (get_class_methods($newuser) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = $newuser->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
+		
+		$sql = "UPDATE User SET ";
+			foreach ($data as $key => $value) {
+				$sql.=" ".$key."=:".$key."";
+				if(end($data)!=$value)
+					$sql.=", ";
+			}
+		$sql.=" WHERE id=:id";
+		
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		foreach ($data as $key => &$value) {
+			$query->bindParam(':'.$key, $value);
+		}
+		$id = $u->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		
+		$query->execute();
 	}
 }

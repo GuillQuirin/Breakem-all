@@ -4,9 +4,9 @@ class configurationController extends template{
 	
 	public function __construct(){
 		parent::__construct();
-		if(!($this->isVisitorConnected())){
-			header('Location: ' .WEBPATH);
-		}
+		// if(!($this->isVisitorConnected())){
+		// 	header('Location: ' .WEBPATH);
+		// }
 	}
 
 	public function configurationAction(){
@@ -34,55 +34,33 @@ class configurationController extends template{
 				$v->assign("MAJ","1");
 
 			unset($_SESSION['referer_method']);
-		}
-		
-		/* Affichage des informations */
-
-		$user = parent::getConnectedUser();
-		if(isset($user)){
-
-			$args = array(
-						'pseudo',	
-						'name',
-						'firstname',
-						'birthday',
-						'description',
-						'kind',
-						'city',
-						'email',
-						'status',
-						'img',
-						'idTeam',
-						'isConnected',
-						'token'
-					);
-			foreach ($args as $key => $value) {
-				$method = 'get'.ucfirst($value);
-				if (method_exists($user, $method)) {
-					$v->assign($value, $user->$method());
-				}
-			}
-		}
-		else
-			$v->assign("err", "1");
-
+		}		
 		$v->setView("configuration");
 	}
 	
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-	    $user = parent::getConnectedUser();
 
-		if(isset($user)){
-		    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-		    $userBDD = new userManager();
+	    $user = $this->getConnectedUser();
+		
+	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+	    $userBDD = new userManager();
+	    $newuser = new user($checkedDatas);
 
-		    // On met à jour
-		    $userBDD->update('User', $user['id'], $checkedDatas);
+	    // On met à jour
+	    $userBDD->setUser($user, $newuser);
+	    $expiration = time() + (86400 * 7);
+		if(array_key_exists("email", $checkedDatas)){
+			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
+			setcookie(COOKIE_EMAIL, null,-1,'/');
+			setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
+			setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
 		}
+
 		$_SESSION['referer_method']="update";
-		header("Location: ".WEBPATH."/configuration");
+
+		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
@@ -91,41 +69,49 @@ class configurationController extends template{
 	      'email'   => FILTER_VALIDATE_EMAIL,
 	      'password'   => FILTER_SANITIZE_STRING,
 	      'password_new'   => FILTER_SANITIZE_STRING,
-	      //'day'   => FILTER_VALIDATE_INT,     
-	      //'month'   => FILTER_VALIDATE_INT,     
-	      //'year'   => FILTER_VALIDATE_INT,
+	      'day'   => FILTER_VALIDATE_INT,     
+	      'month'   => FILTER_VALIDATE_INT,     
+	      'year'   => FILTER_VALIDATE_INT,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      //'flux_RSS' => FILTER_VALIDATE_INT,     
-	      //'contact_mail' => FILTER_VALIDATE_INT     
+	      'flux_RSS' => FILTER_VALIDATE_INT,     
+	      'contact_mail' => FILTER_VALIDATE_INT     
 	    );
-	    $filteredinputs = filter_input_array(INPUT_POST, $args);
-	    $finalArr = [];
 
-	    //Email
-	    if(!isset($filteredinputs['email']))
-			$this->echoJSONerror('inputs', 'adresse email obligatoire');
-		else{
-			$userBDD = new userManager();
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+    	
+    	//Si le mdp saisi est OK
+    	if(ourOwnPassVerify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
+    		
+    		/*HASHAGE DU MOT DE PASSE*/
+    			$filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 
 
-			$exist_email=$userBDD->emailExists($filteredinputs['email']);
-	    	if($exist_email)
-	     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
-	     	else	
-				$finalArr['email'] = $filteredinputs['email'];
-		}
+    		//Email
+		    if(!isset($filteredinputs['email']))
+				$this->echoJSONerror('inputs', 'adresse email obligatoire');
+			else{
+				$userBDD = new userManager();
 
-		//Password    
-	    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
-	    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
-	    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
-		      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
-		    else
-		      $finalArr['password']=password_hash($filteredinputs['password_new'], PASSWORD_DEFAULT);
-	    }
-		else{	
-			$finalArr['email'] = $filteredinputs['email']; 
-	    }
+				$exist_email=$userBDD->emailExists($filteredinputs['email']);
+		    	if($exist_email)
+		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
+			}
 
+			//Password  
+			// TODO : mettre un second champ new_password_check  
+		    if(isset($filteredinputs['password']) && isset($filteredinputs['password_new'])
+		    	&& !empty($filteredinputs['password']) && !empty($filteredinputs['password_new'])){
+		    	
+		    	if(strlen($filteredinputs['password_new'])<2 || strlen($filteredinputs['password_new'])>15)
+			      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
+			    else
+			  	  $filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 	  
+		    }
+
+
+
+    	}
+    	else
+    		$this->echoJSONerror('password', 'Mot de passe obligatoire');
 
 	    //Date de naissance
 	    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
@@ -137,7 +123,7 @@ class configurationController extends template{
 	    //   $finalArr['birthday'] = date_timestamp_get($date);
 	    // }
 
-	    return $finalArr;
+	    return array_filter($filteredinputs);
   	}
 
 }
