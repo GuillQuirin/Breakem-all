@@ -1,8 +1,8 @@
 <!-- Header de la page index -->
 <section class="full-height bg-cover-index relative">
 	
-	<div class="align full-height">
-		<span class="header-title border-full relative animation fade slow-3">Le Meilleur se cache parmi vous!
+	<div class="align full-height animation fadeLeft">
+		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
 			<div class="index-header-btn"> 			
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Tournoi du moment</a></button>				
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
