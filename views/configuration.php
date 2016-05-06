@@ -24,7 +24,7 @@ else{
 				<h4>Présentation</h4>
 				<p>Pseudo (non modifiable): <?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></p>
 				<p>Petite description de vous:
-					<textarea name="description" value="<?php echo (isset($_description)) ? $_description : ''; ?>" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+					<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
 						<?php echo (isset($_description)) ? $_description : ''; ?>
 					</textarea>
 				</p>
