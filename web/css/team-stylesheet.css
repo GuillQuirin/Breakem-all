@@ -1,0 +1,182 @@
+
+
+@media all and (max-width: 999px){
+
+    #hn {
+       display:none;
+    }
+
+    #Img {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        width: 50px;
+        height: 200px;
+        margin-top: 220px;
+        margin-left: 300px;
+        background-color:rgba(39, 40, 34, 0.85);
+    }
+    #Info {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #Chat {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Desc {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    #Last {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        margin-top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #List {
+        border: solid;
+        width: 0px;
+        height: 0px;
+        top: 0px;
+        margin-left: 0px;
+
+    }
+
+    #Quit {
+
+    }
+
+    #Post {
+
+    }
+}
+
+@media all and (min-width: 1000px) {
+
+    p{
+
+        line-height: 160px;
+
+    }
+
+    header {
+        position:fixed;
+    }
+
+    body {
+        background-image:url("web/img/SFTEAM.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color:white;
+    }
+
+    #Img {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        width: 200px;
+        height: 200px;
+        margin-top: 220px;
+        margin-left: 300px;
+        background-color:rgba(39, 40, 34, 0.85);
+    }
+
+    #Info {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        text-align:center;
+        vertical-align : text-top;
+        width: 600px;
+        height: 200px;
+        margin-top: -205px;
+        margin-left: 720px;
+        background-color:rgba(39, 40, 34, 0.85) ;
+
+    }
+
+    #Desc {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        width: 600px;
+        height: 200px;
+        margin-top: 100px;
+        margin-left: 475px;
+        background-color:rgba(39, 40, 34, 0.85);
+        text-align: center;
+
+    }
+
+    #List {
+        border: ridge;
+        border-color:#bfbdbd;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 50px;
+        width: 600px;
+        height: 200px;
+        margin-top: 100px;
+        margin-left: 475px;
+        background-color:rgba(39, 40, 34, 0.85);
+        text-align: center;
+
+    }
+
+    #Quit {
+        position:relative;
+        top:-70px;
+        right: 57px;
+        -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+        -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+        background-color:#ededed;
+        border:ridge;
+        border-style: double;
+        border-width: 11px;
+        border-radius: 15px;
+        height: 100px;
+        width:100px;
+
+        cursor:pointer;
+        color:#777777;
+        font-family:Arial;
+        font-size:15px;
+        font-weight:bold;
+
+        text-decoration:none;
+        text-shadow:0px 1px 0px #ffffff;
+    }
+
+    #Balrog{
+
+        margin-left: 400px;
+
+
+    }
+
+}
