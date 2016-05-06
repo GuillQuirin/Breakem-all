@@ -192,11 +192,44 @@
 		<div id="content">
 			<?php include $this->view; ?>
 		</div>
+
+		<!-- Footer des pages -->
 		<footer>
-			<div id="copyright">
-				&#169 Copyright 2016 Break'em All. All right reserved.
-			</div>
+		<div class="footer">
+		    <div class="footer_wrap">
+		        <div class="footer_content">
+		            <h3 class="footer_title">Break'em All</h3>
+		            <ul>
+		                <li><a href="<?php echo WEBPATH ?>" title="accueil">Accueil</a></li>
+		                <li><a href="#" title="link 2">Tournoi</a></li>
+		                <li><a href="#" title="link 3">Team</a></li>
+		                <li><a href="#" title="link 4">Classement</a></li>
+		            </ul>
+		        </div>
+		        <div class="footer_content">
+		            <h3 class="footer_title">Tournoi - Team</h3>
+		            <ul>
+		                <li><a href="#" title="link 3">Créer un tournoi</a></li>
+		                <li><a href="#" title="link 4">Créer une team</a></li>
+		            </ul>
+		        </div>
+		        <div class="footer_content">
+		            <h3 class="footer_title">Help</h3>
+		            <ul>
+		                <li><a href="#" title="link 1">Profil</a></li>
+		                <li><a href="#" title="link 2">Nous contacter</a></li>
+		                <li><a href="#" title="link 3">CGU</a></li>
+		                <li><a href="#" title="link 4">About</a></li>
+		            </ul>
+		        </div>
+		    </div>
+		</div>
+
+		<div class="copy">
+		    <div class="copy_wrap">Copyright &copy; ESGI Break'em All. All right reserved. 2016 | <a href="#">Privacy</a></div>
+		</div>
 		</footer>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
 		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
