@@ -4,9 +4,9 @@ class configurationController extends template{
 	
 	public function __construct(){
 		parent::__construct();
-		// if(!($this->isVisitorConnected())){
-		// 	header('Location: ' .WEBPATH);
-		// }
+		 if(!($this->isVisitorConnected())){
+		 	header('Location: ' .WEBPATH);
+		}
 	}
 
 	public function configurationAction(){
@@ -41,7 +41,7 @@ class configurationController extends template{
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-
+	    
 	    $user = $this->getConnectedUser();
 		
 	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
@@ -50,6 +50,11 @@ class configurationController extends template{
 
 	    // On met à jour
 	    $userBDD->setUser($user, $newuser);
+
+	    // echo "<pre>";
+	    // print_r($userBDD);
+	    //exit;
+
 	    $expiration = time() + (86400 * 7);
 		if(array_key_exists("email", $checkedDatas)){
 			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
@@ -70,16 +75,20 @@ class configurationController extends template{
 	      'password'   => FILTER_SANITIZE_STRING,
 	      'new_password'   => FILTER_SANITIZE_STRING,
 	      'new_password_check'   => FILTER_SANITIZE_STRING,
+	      'description'   => FILTER_SANITIZE_STRING,
 	      'day'   => FILTER_VALIDATE_INT,     
 	      'month'   => FILTER_VALIDATE_INT,     
 	      'year'   => FILTER_VALIDATE_INT,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      'flux_RSS' => FILTER_VALIDATE_INT,     
-	      'contact_mail' => FILTER_VALIDATE_INT     
+	      'rss' => FILTER_VALIDATE_BOOLEAN,     
+	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN     
 	    );
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
     	
+    	//var_dump($filteredinputs);
+    	//exit;
+
     	//Si le mdp saisi est OK
     	if(ourOwnPassVerify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
     		
@@ -119,7 +128,6 @@ class configurationController extends template{
 	    //     $this->echoJSONerror('date', 'La date reçue a fail !');
 	    //   $finalArr['birthday'] = date_timestamp_get($date);
 	    // }
-
 	    return array_filter($filteredinputs);
   	}
 
