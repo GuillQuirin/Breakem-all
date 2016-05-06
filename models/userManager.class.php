@@ -59,12 +59,8 @@ class userManager extends basesql{
 
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
-			// print_r($dbUser);
-			// exit;
-			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword())){
+			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 				return $dbUser;
-			}
-				
 		}
 		return false;
 	}
@@ -160,9 +156,10 @@ class userManager extends basesql{
 		
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
-		foreach ($data as $key => &$value) {
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
 			$query->bindParam(':'.$key, $value);
-		}
+	
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
 		
