@@ -2,7 +2,7 @@
 
 function removeNULL($var)
 {
-    // retourne lorsque l'entrée est impaire
+    // retourne lorsque l'entrée est différente de NULL
     if($var !== NULL)
     	return $var;
 }
