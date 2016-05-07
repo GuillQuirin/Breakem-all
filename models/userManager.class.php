@@ -74,19 +74,19 @@ class userManager extends basesql{
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		if( (bool) $r[0]['nb'] ){
-			$this->activateAccount($user);
-			return true;
+			if ($this->activateAccount($user))		
+				return true;
 		}
 		return false;
 	}
 
 	private function activateAccount(user $u){
-		$sql = "UPDATE ".$this->table." SET status=1, token=NULL WHERE email=:email AND  token=:token";
+		$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':token' => $u->getToken(),
+		$r = $sth->execute([
 			':email' => $u->getEmail()
 		]);
+		return $r;
 	}
 
 	/*C'est ici que l'on set le isConnected à 1 (true)

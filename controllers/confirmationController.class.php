@@ -34,6 +34,7 @@ class confirmationController extends template{
         // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
         $userBDD = new userManager();
 
+        // Si la validation ne marche pas, le mec sera redirigé automatiquement vers l'index
         if($userBDD->checkMailToken($user)){
             $v = new View();
             $v->assign("css", "confirmation");
