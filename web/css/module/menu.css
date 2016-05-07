@@ -11,7 +11,7 @@
 	padding:0px;
 	margin:0px;
 	list-style-type:none;
-}/*
+}
 .nav_hori li{
 	display:inline-block;
 	width:100px;
@@ -19,13 +19,14 @@
 	padding:3px;
 	text-align:center;
 	line-height: 25px;
+	margin-left:-1px;
 	transform: skew(-8deg);
 	transition: background .4s, border .4s;
 	cursor:pointer;
-}/*
+}
 .menu_separ{
-	margin-left:-6px;
-}*/
+	margin-left:-6px !important;
+}
 .nav_hori li a{
 	text-decoration: none;
 	color:white;
