@@ -155,7 +155,7 @@ class template{
     exit;
   }
 
-  private function envoiMail($destinataire, $objet, $contenu){
+  protected function envoiMail($destinataire, $objet, $contenu){
     /* CONFIGURATION DU MAIL*/
 
     $adrPHPM = "web/lib/PHPMailer/"; 
@@ -187,10 +187,11 @@ class template{
 
       $mail->Body=$contenu;
 
-      if(!$mail->Send()){ 
+      //  Décommentez pour réactiver le mail
+      /*if(!$mail->Send()){ 
         echo $mail->ErrorInfo; 
         //exit;
-      }
+      }*/
 
       $mail->SmtpClose(); 
       unset($mail);
@@ -289,7 +290,6 @@ class template{
       $contenuMail.="<a href=\"http://localhost".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
     //Appel de la methode d'envoi du mail
-    //  Décommentez pour réactiver le mail
     $this->envoiMail($user->getEmail(),'Inscription à Break em all',$contenuMail);
 
     echo json_encode(['success' => true]);
