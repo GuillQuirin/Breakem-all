@@ -36,6 +36,10 @@ function getElementChoiceDom(titre, description, urlImg){
 	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="web/img/'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
 	return elemDOM;
 }
+function getGameVersionChoiceDom(name, descri, maxP, maxT, maxPt){
+	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
+	return elDOM;
+}
 function loadElementsChoice(arrayJqDOM){
 	var container = dom.getContainer();
 	container.empty();
@@ -46,7 +50,7 @@ function loadElementsChoice(arrayJqDOM){
 function loadTitle(titre){
 	var _title = dom.getTitleContainer();
 	_title.empty();
-	_title.append('<h1 class="title">Choisis le '+titre+'</span></h1>');
+	_title.append('<h1 class="title">Choisis '+titre+'</span></h1>');
 }
 function loadBtn(string){
 	var btn = dom.getBtn();
@@ -127,7 +131,7 @@ var gameTypesChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("style de jeu");
+			    loadTitle("ton style de jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
@@ -206,7 +210,7 @@ var gameChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("jeu");
+			    loadTitle("ton jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
@@ -287,7 +291,7 @@ var consoleChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("console");
+			    loadTitle("ta console");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
@@ -357,18 +361,16 @@ var gameversionChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-		    	console.log(obj);
 			    for(var prop in obj.versions){
-			    	var jQDomElem = getElementChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].img);
+			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
 			    	_this.possibleChoices.push(jQDomElem);
 			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop].name);
-			    	console.log(obj.versions[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("console");
+			    loadTitle("ton mode de jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
@@ -411,7 +413,7 @@ var gameversionChoice = {
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				gameversionChoice.init(_this.getChoiceDat());
+				// gameversionChoice.init(_this.getChoiceDat());
 			};
 		});
 	}

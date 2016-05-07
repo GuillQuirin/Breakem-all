@@ -4,9 +4,9 @@ class configurationController extends template{
 	
 	public function __construct(){
 		parent::__construct();
-		// if(!($this->isVisitorConnected())){
-		// 	header('Location: ' .WEBPATH);
-		// }
+		 if(!($this->isVisitorConnected())){
+		 	header('Location: ' .WEBPATH);
+		}
 	}
 
 	public function configurationAction(){
@@ -50,6 +50,10 @@ class configurationController extends template{
 
 	    // On met à jour
 	    $userBDD->setUser($user, $newuser);
+
+	     // print_r($checkedDatas);
+	     // exit;
+
 	    $expiration = time() + (86400 * 7);
 		if(array_key_exists("email", $checkedDatas)){
 			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
@@ -70,16 +74,40 @@ class configurationController extends template{
 	      'password'   => FILTER_SANITIZE_STRING,
 	      'new_password'   => FILTER_SANITIZE_STRING,
 	      'new_password_check'   => FILTER_SANITIZE_STRING,
+	      'description'   => FILTER_SANITIZE_STRING,
 	      'day'   => FILTER_VALIDATE_INT,     
 	      'month'   => FILTER_VALIDATE_INT,     
 	      'year'   => FILTER_VALIDATE_INT,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      'flux_RSS' => FILTER_VALIDATE_INT,     
-	      'contact_mail' => FILTER_VALIDATE_INT     
+	      'rss' => FILTER_VALIDATE_BOOLEAN,     
+	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
 	    );
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-    	
+
+		//IMAGE DE PROFIL
+		if(isset($_FILES['profilpic'])){
+
+			$uploaddir = '/web/img/upload/';
+			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
+
+			define('KB', 1024);
+			define('MB', 1048576);
+			define('GB', 1073741824);
+			define('TB', 1099511627776);
+
+			if($_FILES['profilpic']['size'] < 1*MB){
+				if($_FILES['profilpic']['error']==0){
+					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
+					   exit;
+				}
+			}
+			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
+    	 	//print_r($_FILES);
+    	 	//print_r($filteredinputs);
+    	 	//exit;
+    	}
+
     	//Si le mdp saisi est OK
     	if(ourOwnPassVerify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
     		
@@ -111,15 +139,14 @@ class configurationController extends template{
     		$this->echoJSONerror('password', 'Mot de passe obligatoire');
 
 	    //Date de naissance
-	    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-	    //   $this->echoJSONerror('date', 'La date reçue a fail !');
-	    // else{
-	    //   $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-	    //   if(!$date)
-	    //     $this->echoJSONerror('date', 'La date reçue a fail !');
-	    //   $finalArr['birthday'] = date_timestamp_get($date);
+		    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+		    //   $this->echoJSONerror('date', 'La date reçue a fail !');
+		    // else{
+		    //   $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+		    //   if(!$date)
+		    //     $this->echoJSONerror('date', 'La date reçue a fail !');
+		    //   $finalArr['birthday'] = date_timestamp_get($date);
 	    // }
-
 	    return array_filter($filteredinputs);
   	}
 

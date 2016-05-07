@@ -13,18 +13,21 @@ else{
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
-	<section id="avatar">
-		<div id="image">
-			<img src="<?php echo $_img; ?>" alt="logo">
-		</div>
-	</section>
-	<section id="informations">
-		<form action="configuration/update" method="post">
+	<form action="configuration/update" method="post" enctype="multipart/form-data">
+		<section id="avatar">
+			<div id="image">
+				<img src="<?php echo WEBPATH.'/web/img/upload/'.$_img; ?>" title="Image de profil" alt="Image de profil">
+				<input type="file" name="profilpic">
+			</div>
+		</section>
+		<section id="informations">
 			<div>
 				<h4>Présentation</h4>
 				<p>Pseudo (non modifiable): <?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></p>
 				<p>Petite description de vous:
-					<textarea name="description" value="<?php echo (isset($_description)) ? $_description : ''; ?>" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU"></textarea>
+					<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+						<?php echo (isset($_description)) ? $_description : ''; ?>
+					</textarea>
 				</p>
 			</div>
 			<div>
@@ -52,20 +55,22 @@ else{
 								value="<?php echo (isset($_email)) ? $_email : 'Adresse email non fournie'; ?>" required>
 					</p>
 					<p>
-						<input type="checkbox" name="flux_RSS" 
+						<label><input type="checkbox" name="authorize_mail_contact" 
 							<?php 
 							echo (isset($_authorize_mail_contact) && $_authorize_mail_contact==1) ? 
 								'checked=checked' : 
 								'' ; ?>
 							>
-						Je m'abonne au flux RSS du site
+							J'autorise les autres utilisateurs à me contacter par mail (votre adresse restera confidentielle)
+						</label>
 					</p>
 					<p>
-						<input type="checkbox" name="contact_mail" 
+						<label><input type="checkbox" name="rss"
 							<?php 
-							echo (isset($_rss) && $rss==1) ? 'checked=checked' : '' ; ?>
-						>
-						J'autorise les autres utilisateurs à me contacter par mail (votre adresse restera confidentielle)
+							echo (isset($_rss) && $_rss==1) ? 'checked=checked' : '' ; ?>
+							>
+							Je m'abonne au flux RSS du site
+						</label>
 					</p>
 				</div>
 				<div>
@@ -80,8 +85,8 @@ else{
 				</div>
 				<input type="submit">
 			</div>
-		</form>
-	</section>
+		</section>
+	</form>
 	<?php
 }
 ?>

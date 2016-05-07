@@ -29,7 +29,8 @@ class template{
       $v->assign("_email", $this->connectedUser->getEmail());
       $v->assign("_img", $this->connectedUser->getImg()); 
       $v->assign("_idTeam", $this->connectedUser->getIdTeam());
-      
+      $v->assign("_rss", $this->connectedUser->getRss());
+      $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
     }
   }
@@ -40,6 +41,7 @@ class template{
       return true;
     return false;
   }  
+
   protected function checkToken(){
     // var_dump($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
     
@@ -48,8 +50,7 @@ class template{
       COOKIE_TOKEN   => FILTER_SANITIZE_STRING
     );
     $filteredcookies = filter_input_array(INPUT_COOKIE, $args);
-    // var_dump($filteredcookies);
-    // exit; 
+
     $requiredCookiesReceived = true;
     foreach ($args as $key => $value) {
       if(!isset($filteredcookies[$key])){
@@ -77,8 +78,6 @@ class template{
       }        
      };
     };
-
-    // exit;
   }
 
   public function connectionAction(){
