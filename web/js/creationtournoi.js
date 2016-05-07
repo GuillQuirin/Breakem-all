@@ -33,11 +33,11 @@ function preventQuitPageEvent(){
 	};
 }
 function getElementChoiceDom(titre, description, urlImg){
-	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="web/img/'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
+	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
 	return elemDOM;
 }
-function getGameVersionChoiceDom(name, descri, maxP, maxT, maxPt){
-	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
+function getGameVersionChoiceDom(name, descri, maxP, minP, maxT, maxPt){
+	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>joueurs minimum: '+minP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
 	return elDOM;
 }
 function loadElementsChoice(arrayJqDOM){
@@ -70,8 +70,8 @@ var dom = {
 			console.log("Title || Container || Btn not found ");
 			return false;
 		}
-		// this.setTitleContainerMargin();
-		// this.setBtnMargin();
+		this.setTitleContainerMargin();
+		this.setBtnMargin();
 		return true;
 	},
 	setTitleContainer: function(){
@@ -345,6 +345,7 @@ var gameversionChoice = {
 	},
 	_choice: false,
 	_choiceDat: false,
+	_currentForm: false,
 	possibleChoices: [],
 	getChoice: function(){return this._choice;},
 	getChoiceDat: function(){return this._choiceDat;},
@@ -362,9 +363,9 @@ var gameversionChoice = {
 		    var obj = tryParseData(data);
 		    if(!!obj){
 			    for(var prop in obj.versions){
-			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
+			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].minPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop].name);
+			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
@@ -381,16 +382,57 @@ var gameversionChoice = {
 		  }
 		});
 	},
-	associateChoiceEvent: function(jQel, da){
+	putAccordingForm: function(){
+		var _this = this;
+		var selectedJson = this.getChoiceDat();
+		// différencier les match en équipe de ceux en solo
+		//  Si équipe --> choix du random, et choix de guilde imposée ou pas 
+		// 	Si solo --> forcément random
+		if(this._currentForm instanceof jQuery)
+			this._currentForm.remove();
+		var container = $('<div class="creationtournoi-gameversion-container-form"><div>');
+		var form = $('<form><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startdate">Donne la date de son début(Requis)</label><input class="border-full" type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="startdate" required/><p class="creationtournoi-tip">jj/mm/aaaa</p></div></form>');
+		// on est dans le cas équipe
+		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
+			form.append('<div class="form-input-group"><label for="randomActif">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomActif"></div><div class="form-input-group"><label for="guildRequired">Pour guideux only ?</label><input class="border-full" type="checkbox" name="guildRequired"></div>');
+		}
+		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="10"></textarea></div>');
+		container.append(form);
+		dom.getContainer().after(container);
+		this._currentForm = container;
+	},
+	associateChoiceEvent: function(jQel, objDa){
 		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da);
+			if(_this.getChoiceDat() === objDa){
+				_this.resetChoice();
+			}else{
+				_this.setChoice(jQel, objDa);
+				_this.putAccordingForm();
+			}
+			
 		});
 	},
+	resetChoice: function(){
+		var _this = this;
+		var allChoices = this.getPossibleChoices();
+		for (var i = 0; i < allChoices.length; i++) {
+			allChoices[i].removeClass('box-bg-shadow');
+			allChoices[i].removeClass('bg-black');
+			allChoices[i].removeClass('creationtournoi-active-choice');
+			allChoices[i].removeClass('scale-10-percent');
+			allChoices[i].find('h2').addClass('inverse-border-full');
+			allChoices[i].find('p').addClass('inverse-border-full');
+		};
+		_this._choice = false;
+		_this._choiceDat = false;
+		this._currentForm.remove();
+		this._currentForm = false;
+	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, da){
+	setChoice: function(jQChoice, objDa){
 		this._choice = jQChoice;
-		this._choiceDat = da;
+		this._choiceDat = objDa;
 		var allChoices = this.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');

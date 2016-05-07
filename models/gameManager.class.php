@@ -25,8 +25,13 @@ class gameManager extends basesql{
 			':name' => $tg->getName()
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-		if(isset($r[0]))
-			return $r;
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new game($dataArr);
+			}
+			return $data;
+		}
 		return false;
 	}
 }

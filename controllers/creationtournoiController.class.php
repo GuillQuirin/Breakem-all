@@ -30,7 +30,7 @@ class creationtournoiController extends template{
 			$arr['description'] = $obj->getDescription();
 			$data['types'][] = $arr;
 		}
-		print_r($data);
+		echo json_encode($data);
 		exit;
 	}
 	// On retourne ici les jeux disponibles pour le type de jeu sélectionné
@@ -39,7 +39,6 @@ class creationtournoiController extends template{
             'name' => FILTER_SANITIZE_STRING   
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-        // $data = [];
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key]))
 				$this->echoJSONerror("inputs", "manque: ".$key);
@@ -51,8 +50,12 @@ class creationtournoiController extends template{
 		$gamesManager = new gameManager();
 		$gamesFromType = $gamesManager->getGames($tg);
 		$data['games'] = [];
-		foreach ($gamesFromType as $key => $arr) {
-			$data['games'][] = $arr;
+		foreach ($gamesFromType as $key => $gameObj) {
+			$curData = [];
+			$curData['name'] = $gameObj->getName();
+			$curData['description'] = $gameObj->getDescription();
+			$curData['img'] = $gameObj->getImg();
+			$data['games'][] = $curData;
 		}
 		if(count($data['games']) == 0)
 			$this->echoJSONerror("games", "no games were found for this particular type");
@@ -79,8 +82,12 @@ class creationtournoiController extends template{
 			if(!$platforms)
 				$this->echoJSONerror("db", "query issue");
 			$data['platforms'] = [];
-			foreach ($platforms as $key => $arr) {
-				$data['platforms'][] = $arr;
+			foreach ($platforms as $key => $platformObj) {
+				$curData = [];
+				$curData['name'] = $platformObj->getName();
+				$curData['description'] = $platformObj->getDescription();
+				$curData['img'] = $platformObj->getImg();
+				$data['platforms'][] = $curData;
 			}
 			if(count($data['platforms']) == 0)
 				$this->echoJSONerror("platforms", "no platforms available for this game");
@@ -109,21 +116,32 @@ class creationtournoiController extends template{
 				$this->echoJSONerror("platform", "unknown platform received !");
 
 			$gvManager = new gameversionManager();
-			$versions = $gvManager->getAvailableVersions($platform);
-			if(!$versions)
+			$gameversions = $gvManager->getAvailableVersions($platform);
+			if(!$gameversions)
 				$this->echoJSONerror("db", "query issue");
 			$data['versions'] = [];
-			foreach ($versions as $key => $arr) {
-				$data['versions'][] = $arr;
+			foreach ($gameversions as $key => $versionObj) {
+				$curData = [];
+				$curData['name'] = $versionObj->getName();
+				$curData['description'] = $versionObj->getDescription();
+				$curData['maxPlayer'] = $versionObj->getMaxPlayer();
+				$curData['minPlayer'] = $versionObj->getMinPlayer();
+				$curData['maxTeam'] = $versionObj->getMaxTeam();
+				$curData['minTeam'] = $versionObj->getMinTeam();
+				$curData['maxPlayerPerTeam'] = $versionObj->getMaxPlayerPerTeam();
+				$curData['minPlayerPerTeam'] = $versionObj->getMinPlayerPerTeam();
+				$data['versions'][] = $curData;
 			}
 			if(count($data['versions']) == 0)
 				$this->echoJSONerror("gameversions", "no versions available for this console");
 			$_SESSION['platformname'] = $platform->getName();
 			echo json_encode($data);
-			return;
+			exit;
 		}
 		die("Choisissez peut être une console avant ...");
 	}
+	
+
 	
 	// Cette fonction servira à aller chercher tous les noms des consoles / games / typegames pour les comparer de façon secure à une donnée reçue
 	// 	Le premier parametre servira à savoir dans quelle table on veut aller recuperer les 
