@@ -23,17 +23,18 @@ else{
 					echo '<p class="off">Dernière connexion: '.date('d/m/Y \à\ G:i',$lastConnexion).'</p>';
 			?>
 		</div>
-		<?php 	
-			if(isset($myAccount))
-				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';
-		?>
 	</section>
 	<section id="informations">
 		<div id="communication">
-		<?php if(isset($isConnected)): ?>
-				<button id="contact" title="Envoyer un mail au joueur">Contacter</button>
-				<button id="signalement">Signaler le joueur</button>
-		<?php endif; ?>
+		<?php 
+			//N'apparaissent que si le visiteur est connecté et n'est pas sur sa propre page
+			if(isset($_isConnected) && !isset($myAccount)){
+				echo '<button id="contact" title="Envoyer un mail au joueur">Contacter</button>';
+				echo '<button id="signalement">Signaler le joueur</button>';
+			}
+			else if(isset($myAccount))
+				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';
+		?>
 		</div>
 		<div id="description">
 			<h4>Description</h4>
@@ -116,10 +117,13 @@ else{
 	</section>
 	<section id="formcontact">
 		<div>
-			<h4>Contacter le joueur</h4>
-			<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
-			<textarea id="mess_contact" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site"></textarea>
-			<button id="btn_contact">Envoyer</button>
+			<form action="<?php echo 'profil/contact'; ?>" method="post">
+				<h4>Contacter le joueur</h4>
+				<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
+				<textarea id="mess_contact" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				</textarea>
+				<input type="submit" id="btn_contact" value="Envoyer">
+			</form>
 		</div>
 	</section>
 	<?php
