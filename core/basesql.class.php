@@ -2,6 +2,7 @@
 class basesql{
 
 	protected $table;
+	protected static $openedConnection = false;
 	protected $pdo;
 	protected $columns = [];
 
@@ -9,12 +10,15 @@ class basesql{
 		$this->table = get_called_class();
 		$this->table = str_replace("Manager", "", $this->table);
 
-		$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
-		try{
-			$this->pdo = new PDO($dsn,DBUSER,DBPWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-		}catch(Exception $e){
-			die("Erreur SQL : ".$e->getMessage());
+		if( self::$openedConnection === false){
+			$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
+			try{
+				self::$openedConnection = new PDO($dsn,DBUSER,DBPWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+			}catch(Exception $e){
+				die("Erreur SQL : ".$e->getMessage());
+			}
 		}
+		$this->pdo = self::$openedConnection;
 	
 		//get_object_vars : retourner toutes les variables de mon objet
 		$all_vars = get_object_vars($this);
