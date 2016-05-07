@@ -1,23 +1,17 @@
 
-
-BODY{
-	background-color: #201B3A;
-	color: white;
-}
 #content{
 	margin: 50px auto;
     width: 80%;
 }
 
-section{
+#content section{
     vertical-align: top;
     display: inline-block;
     background-color: #343452;
-    padding: 10px 0;
     position: relative;
     margin-top: 5%;
 }
-section div{
+#content section div{
     border: 1px solid;
     display: inline-block;
     width: 100%;
@@ -35,19 +29,21 @@ section div{
     width: 70%;
     margin-left: 9%;
 }
-h4{
-	text-align: center;
+#content h4{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
-a{
+#content a{
     color: #B346FF;
     text-decoration: none;
     font-style: italic;
 }
-a:hover{
+#content a:hover{
 	text-decoration: underline;
 	color: #04EAC1;
 }
 
-button{
+#content button{
 	cursor: pointer;
 }

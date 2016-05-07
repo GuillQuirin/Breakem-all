@@ -31,7 +31,6 @@ else{
 				</p>
 			</div>
 			<div>
-				<h4>Vos Jeux</h4>
 				<div>
 					<h4>Jeux</h4>
 					<p>Jeu préféré: 
