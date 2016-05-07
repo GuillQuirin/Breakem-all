@@ -40,7 +40,7 @@
 							<li>						
 								<div>
 									<label class="classement-select-hori-label">Trier par Jeux :</label>
-									<select class="classement-select-hori">
+									<select class="classement-select-hori select-default">
 										<option>Tout</option>
 										<option>Super Smash Bros Melee</option>
 										<option>Mario Kart</option>

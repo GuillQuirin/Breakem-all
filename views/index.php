@@ -25,11 +25,11 @@
 						<ul>
 							<!-- Liste des types de game -->
 							<?php //echo $typeJeux; ?>
-						 	<li class="border_menu active_menu"><a href="#">Equipe</a></li>
-							<li class="border_menu"><a href="#">Solo</a></li>
-							<li class="border_menu"><a href="#">5vs5</a></li>
-							<li class="border_menu"><a href="#">2vs2</a></li>
-							<li class="border_menu"><a href="#">Plus...</a></li>
+						 	<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
+							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
+							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
+							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
 						</ul>
 					</nav>
 
