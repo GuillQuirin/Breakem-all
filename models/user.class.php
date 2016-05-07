@@ -70,7 +70,7 @@ class user{
 	}
 	private function setImg($v){
 		if(!empty(trim($v)) && $v!=NULL)
-			$this->img=WEBPATH."/web/img/upload/".$v;
+			$this->img=$v; //Adresse stockée en base
 		else
 			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
