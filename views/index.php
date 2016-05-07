@@ -211,16 +211,16 @@
 					<label for="title3">Catégories</label>
 				</div>
 				<?php
-					if(isset($categorie)): 
-						foreach ($categorie as $key => $value):
-							$catego = new typegame($value);
+					// if(isset($categorie)): 
+					// 	foreach ($categorie as $key => $value):
+					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php echo $catego->getName(); ?></p><br>
+								<p><?php// echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
-						endforeach;
-					endif;
+					// 	endforeach;
+					// endif;
 				?>
 			</div>
 		</div>
