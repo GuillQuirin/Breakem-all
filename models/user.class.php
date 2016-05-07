@@ -70,7 +70,7 @@ class user{
 	}
 	private function setImg($v){
 		if(!empty(trim($v)))
-			$this->img='web/img'.$v;
+			$this->img=$v;
 	}
 	private function setIdTeam($v){
 		$this->idTeam=$v;
@@ -85,10 +85,16 @@ class user{
 		$this->token=$v;
 	}
 	public function setRss($v){
-		$this->rss=$v;
+		if($v==="not")
+			$this->rss=-1;
+		else	
+			$this->rss=$v;
 	}
 	public function setAuthorize_mail_contact($v){
-		$this->authorize_mail_contact=$v;
+		if($v==="not")
+			$this->authorize_mail_contact=-1;
+		else
+			$this->authorize_mail_contact=$v;
 	}
 
 	public function getId(){return $this->id;}
