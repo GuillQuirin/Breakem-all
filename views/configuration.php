@@ -16,7 +16,7 @@ else{
 	<form action="configuration/update" method="post" enctype="multipart/form-data">
 		<section id="avatar">
 			<div id="image">
-				<img src="<?php echo WEBPATH.'/web/img/upload/'.$_img; ?>" title="Image de profil" alt="Image de profil">
+				<img src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
 				<input type="file" name="profilpic">
 			</div>
 		</section>

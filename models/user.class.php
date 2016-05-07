@@ -69,8 +69,10 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)))
-			$this->img=$v;
+		if(!empty(trim($v)) && $v!=NULL)
+			$this->img=WEBPATH."/web/img/upload/".$v;
+		else
+			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
 	private function setIdTeam($v){
 		$this->idTeam=$v;
@@ -108,7 +110,7 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg(){return	$this->img;}
+	public function getImg(){ return $this->img;}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
