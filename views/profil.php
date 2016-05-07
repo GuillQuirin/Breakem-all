@@ -30,8 +30,10 @@ else{
 	</section>
 	<section id="informations">
 		<div id="communication">
-			<button id="contact" title="Envoyer un mail au joueur">Contacter</button>
-			<button id="signalement">Signaler le joueur</button>
+		<?php if(isset($isConnected)): ?>
+				<button id="contact" title="Envoyer un mail au joueur">Contacter</button>
+				<button id="signalement">Signaler le joueur</button>
+		<?php endif; ?>
 		</div>
 		<div id="description">
 			<h4>Description</h4>

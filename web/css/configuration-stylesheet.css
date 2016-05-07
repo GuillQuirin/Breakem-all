@@ -23,6 +23,10 @@ section div{
     width: 100%;
     padding: 5% 0;
 }
+#image img{
+    width: 100%;
+    vertical-align: top;
+}
 #avatar{
     width: 20%;
     height: 150px;

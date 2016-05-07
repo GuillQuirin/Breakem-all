@@ -13,13 +13,14 @@ else{
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
-	<section id="avatar">
-		<div id="image">
-			<img src="<?php echo $_img; ?>" alt="logo">
-		</div>
-	</section>
-	<section id="informations">
-		<form action="configuration/update" method="post">
+	<form action="configuration/update" method="post" enctype="multipart/form-data">
+		<section id="avatar">
+			<div id="image">
+				<img src="<?php echo WEBPATH.'/web/img/upload/'.$_img; ?>" title="Image de profil" alt="Image de profil">
+				<input type="file" name="profilpic">
+			</div>
+		</section>
+		<section id="informations">
 			<div>
 				<h4>Présentation</h4>
 				<p>Pseudo (non modifiable): <?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></p>
@@ -84,8 +85,8 @@ else{
 				</div>
 				<input type="submit">
 			</div>
-		</form>
-	</section>
+		</section>
+	</form>
 	<?php
 }
 ?>
