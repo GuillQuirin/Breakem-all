@@ -69,8 +69,10 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)))
-			$this->img='web/img'.$v;
+		if(!empty(trim($v)) && $v!=NULL)
+			$this->img=WEBPATH."/web/img/upload/".$v;
+		else
+			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
 	private function setIdTeam($v){
 		$this->idTeam=$v;
@@ -85,10 +87,16 @@ class user{
 		$this->token=$v;
 	}
 	public function setRss($v){
-		$this->rss=$v;
+		if($v==="not")
+			$this->rss=-1;
+		else	
+			$this->rss=$v;
 	}
 	public function setAuthorize_mail_contact($v){
-		$this->authorize_mail_contact=$v;
+		if($v==="not")
+			$this->authorize_mail_contact=-1;
+		else
+			$this->authorize_mail_contact=$v;
 	}
 
 	public function getId(){return $this->id;}
@@ -102,7 +110,7 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg(){return	$this->img;}
+	public function getImg(){ return $this->img;}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}

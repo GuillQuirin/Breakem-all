@@ -27,11 +27,11 @@
 					
 					<div class="nav_hori">
 						<ul>
-							<li class="border_menu active_menu"><a href="#">Equipe</a></li>
-							<li class="border_menu"><a href="#">Solo</a></li>
-							<li class="border_menu"><a href="#">5vs5</a></li>
-							<li class="border_menu"><a href="#">2vs2</a></li>
-							<li class="border_menu"><a href="#">Plus...</a></li>
+							<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
+							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
+							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
+							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
 						</ul>
 					</div>
 
@@ -40,7 +40,7 @@
 							<li>						
 								<div>
 									<label class="classement-select-hori-label">Trier par Jeux :</label>
-									<select class="classement-select-hori">
+									<select class="classement-select-hori select-default">
 										<option>Tout</option>
 										<option>Super Smash Bros Melee</option>
 										<option>Mario Kart</option>

@@ -25,11 +25,11 @@
 						<ul>
 							<!-- Liste des types de game -->
 							<?php //echo $typeJeux; ?>
-						 	<li class="border_menu active_menu"><a href="#">Equipe</a></li>
-							<li class="border_menu"><a href="#">Solo</a></li>
-							<li class="border_menu"><a href="#">5vs5</a></li>
-							<li class="border_menu"><a href="#">2vs2</a></li>
-							<li class="border_menu"><a href="#">Plus...</a></li>
+						 	<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
+							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
+							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
+							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
 						</ul>
 					</nav>
 
@@ -211,16 +211,16 @@
 					<label for="title3">Catégories</label>
 				</div>
 				<?php
-					if(isset($categorie)): 
-						foreach ($categorie as $key => $value):
-							$catego = new typegame($value);
+					// if(isset($categorie)): 
+					// 	foreach ($categorie as $key => $value):
+					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php echo $catego->getName(); ?></p><br>
+								<p><?php// echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
-						endforeach;
-					endif;
+					// 	endforeach;
+					// endif;
 				?>
 			</div>
 		</div>

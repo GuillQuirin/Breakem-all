@@ -17,12 +17,15 @@
 	width:100px;
 	height:25px;
 	padding:3px;
-	margin-left:-6px;
 	text-align:center;
 	line-height: 25px;
+	margin-left:-1px;
 	transform: skew(-8deg);
 	transition: background .4s, border .4s;
 	cursor:pointer;
+}
+.menu_separ{
+	margin-left:-6px !important;
 }
 .nav_hori li a{
 	text-decoration: none;

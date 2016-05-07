@@ -145,10 +145,11 @@ class userManager extends basesql{
 		}
 
 		$data = array_filter($data);
-
+// var_dump($data);
+// 		exit;
 		$compteur=0;
 
-		$sql = "UPDATE User SET ";
+		$sql = "UPDATE user SET ";
 			foreach ($data as $key => $value) {
 				if($compteur!=0) 
 					$sql.=", ";
@@ -157,7 +158,7 @@ class userManager extends basesql{
 			}
 		$sql.=" WHERE id=:id";
 
-		//var_dump($sql);
+		// var_dump($sql);
 		//exit;
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));

@@ -24,31 +24,22 @@ class profilController extends template{
 			$user = $userBDD->getUser($filteredinputs);
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
-
-			$args = array(
-				'pseudo' => FILTER_SANITIZE_STRING,
-				'name' => FILTER_SANITIZE_STRING,
-				'firstname' => FILTER_SANITIZE_STRING,
-				'birthday' => FILTER_SANITIZE_STRING,
-				'description' => FILTER_SANITIZE_STRING,
-				'kind' => FILTER_SANITIZE_STRING,
-				'city' => FILTER_SANITIZE_STRING,
-				'email' => FILTER_VALIDATE_EMAIL,
-				'status' => FILTER_SANITIZE_STRING,
-				'img' => FILTER_SANITIZE_STRING,
-				'idTeam' => FILTER_SANITIZE_STRING,
-				'isConnected' => FILTER_VALIDATE_INT,
-				'lastConnexion' => FILTER_VALIDATE_INT,
-				'token' => FILTER_SANITIZE_STRING
-			);
-
+			
 			if($user!==FALSE){
-				foreach ($args as $key => $value) {
-					$method = 'get'.ucfirst($key);
-					if (method_exists($user, $method)) {
-						$v->assign($key, $user->$method());
-					}
+
+				$user_methods = get_class_methods($user);
+				//echo "<pre>";
+				//var_dump($user);
+				// exit;
+				foreach ($user_methods as $key => $method) {
+					if(strpos($method, 'get') !== FALSE){
+						$col = lcfirst(str_replace('get', '', $method));
+						$this->columns[$col] = $user->$method();
+						$v->assign($col, $user->$method());
+								
+					};
 				}
+
 				//Apparition du bouton de configuration
 				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail())
 					$v->assign('myAccount', 1);
