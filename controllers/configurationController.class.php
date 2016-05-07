@@ -50,10 +50,6 @@ class configurationController extends template{
 
 	    // On met à jour
 	    $userBDD->setUser($user, $newuser);
-
-	     // print_r($checkedDatas);
-	     // exit;
-
 	    $expiration = time() + (86400 * 7);
 		if(array_key_exists("email", $checkedDatas)){
 			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
@@ -103,9 +99,6 @@ class configurationController extends template{
 				}
 			}
 			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
-    	 	//print_r($_FILES);
-    	 	//print_r($filteredinputs);
-    	 	//exit;
     	}
 
     	//Si le mdp saisi est OK
