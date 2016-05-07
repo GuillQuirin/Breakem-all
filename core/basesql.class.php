@@ -74,13 +74,13 @@ class basesql{
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
 
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion, token FROM ".$this->table." WHERE " . implode(',', $data);
+		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion, token FROM user WHERE status<>0 AND " . implode(',', $data);
 		$query = $this->pdo->query($sql)->fetch();
 
 		if($query === FALSE)
 			return false;
 
-		return new user(array_filter($query));
+		return new user($query);
 	}
 
 	public function getTournament(array $infos){

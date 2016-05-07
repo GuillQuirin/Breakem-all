@@ -149,7 +149,7 @@ class userManager extends basesql{
 // 		exit;
 		$compteur=0;
 
-		$sql = "UPDATE User SET ";
+		$sql = "UPDATE user SET ";
 			foreach ($data as $key => $value) {
 				if($compteur!=0) 
 					$sql.=", ";
