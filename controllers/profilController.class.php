@@ -76,6 +76,7 @@ class profilController extends template{
 
 			$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
 
+			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
 	}
 }
