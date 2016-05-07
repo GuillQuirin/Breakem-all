@@ -18,7 +18,6 @@ class profilController extends template{
 			$userBDD = new userManager();
 
 			$args = array('pseudo' => FILTER_SANITIZE_STRING );
-
 			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 
 			$user = $userBDD->getUser($filteredinputs);
@@ -52,5 +51,31 @@ class profilController extends template{
 			$v->assign("err", "1");
 		}
 		$v->setView("profil");
+	}
+
+	public function contactAction(){
+
+		if(isset($_POST['msg'])){
+
+			$args = array('msg' => FILTER_SANITIZE_STRING );
+			$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+			$data = array('email' => $_SESSION[COOKIE_EMAIL]);
+
+			$userBDD = new userManager();
+			$expediteur = $userBDD->getUser($data);
+
+			$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
+				//$pseudoProfil = explode("&",$pseudoProfil);
+				$data = array('pseudo' => $pseudoProfil);
+			$destinataire = $userBDD->getUser($data);	
+
+			$contenuMail = "<h3>Vous avez reçu un message de <a href=\"http://breakem-all.com/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
+		      $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+		      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
+
+			$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
+
+		}
 	}
 }
