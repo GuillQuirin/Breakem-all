@@ -1,15 +1,20 @@
 <?php
 final class tournoi{
 	protected $_id;
-	protected $_user;
 	protected $_startDate;
 	protected $_endDate;
+	protected $_name;
 	protected $_description;
-	protected $_playerMin;
-	protected $_playerMax;
-	protected $_idGameVersion;
 	protected $_typeTournament;
+	protected $_status;
 	protected $_nbMatch;
+	protected $_idUserCreator;
+	protected $_idGameVersion;
+	protected $_idWinningTeam;
+	protected $_urlProof;
+	protected $_creationDate;
+	protected $_guildOnly;
+	protected $_randomPlayerMix;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -25,25 +30,41 @@ final class tournoi{
 	}
 
 	private function setId($v){$this->_id = $v;}
-	private function setTournament($v){$this->_user = $v;}
-	private function setStart_date($v){$this->_startDate = $v;}
-	private function setEnd_date($v){$this->_endDate = $v;}
-	private function setDescription($v){$this->_description = $v;}
-	private function setPlayer_min($v){$this->_playerMin = $v;}
-	private function setPlayer_max($v){$this->_playerMax = $v;}
-	private function setId_game_version($v){$this->_idGameVersion = $v;}
-	private function setType_tournament($v){$this->_typeTournament = $v;}
-	private function setNb_match($v){$this->_nbMatch = $v;}
+	private function setStartDate($v){$this->_startDate = $v;}
+	private function setEndDate($v){$this->_endDate = $v;}
+	private function setName($v){$this->_name = trim($v);}
+	private function setDescription($v){$this->_description = trim($v);}
+	private function setTypeTournament($v){$this->_typeTournament = $v;}
+	private function setStatus($v){$this->_status = $v;}
+	private function setNbMatch($v){$this->_nbMatch = $v;}
+	private function setIdUserCreator($v){$this->_idUserCreator = $v;}
+	private function setIdGameVersion($v){$this->_idGameVersion = $v;}
+	private function setIdWinningTeam($v){$this->_idWinningTeam = $v;}
+	private function setUrlProof($v){$this->_urlProof = $v;}
+	private function setCreationDate($v){$this->_creationDate = $v;}
+	private function setGuildOnly($v){
+		$this->_guildOnly = (int) $v;
+	}
+	private function setRandomPlayerMix($v){
+		$this->_randomPlayerMix = (int) $v;
+	}
+
+
 
 	public function getId(){return $this->_id;}
-	public function getTournament(){return $this->_user;}
-	public function getStart_date(){return $this->_startDate;}
-	public function getEnd_date(){return $this->_endDate;}
+	public function getStartDate(){return $this->_startDate;}
+	public function getEndDate(){return $this->_endDate;}
+	public function getName(){return $this->_name;}
 	public function getDescription(){return $this->_description;}
-	public function getPlayer_min(){return $this->_playerMin;}
-	public function getPlayer_max(){return $this->_playerMax;}
-	public function getId_game_version(){return $this->_idGameVersion;}
-	public function getType_tournament(){return $this->_typeTournament;}
-	public function getNb_match(){return $this->_nbMatch;}
+	public function getTypeTournament(){return $this->_typeTournament;}
+	public function getStatus(){return $this->_status;}
+	public function getNbMatch(){return $this->_nbMatch;}
+	public function getIdUserCreator(){return $this->_idUserCreator;}
+	public function getIdGameVersion(){return $this->_idGameVersion;}
+	public function getIdWinningTeam(){return $this->_idWinningTeam;}
+	public function getUrlProof(){return $this->_urlProof;}
+	public function getCreationDate(){return $this->_creationDate;}
+	public function getGuildOnly(){return $this->_guildOnly;}
+	public function getRandomPlayerMix(){return $this->_randomPlayerMix;}
 
 }

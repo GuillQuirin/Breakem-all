@@ -31,7 +31,7 @@ class creationtournoiController extends template{
 			$data['types'][] = $arr;
 		}
 		echo json_encode($data);
-		exit;
+		return;
 	}
 	// On retourne ici les jeux disponibles pour le type de jeu sélectionné
 	public function getGamesAction(){
@@ -61,6 +61,7 @@ class creationtournoiController extends template{
 			$this->echoJSONerror("games", "no games were found for this particular type");
 		$_SESSION['gametypename'] = $tg->getName();
 		echo json_encode($data);
+		return;
 	}
 	// On retourne ici les plateformes disponibles pour le jeu sélectionné
 	public function getConsolesAction(){
@@ -135,12 +136,87 @@ class creationtournoiController extends template{
 			if(count($data['versions']) == 0)
 				$this->echoJSONerror("gameversions", "no versions available for this console");
 			$_SESSION['platformname'] = $platform->getName();
+			$_SESSION['availableGV_ids'] = [];
+			$i = 0;
+			foreach ($gameversions as $key => $gvObj) {
+				$_SESSION['availableGV_ids']['id'.$i] = $gvObj->getId();
+				++$i;
+			}
 			echo json_encode($data);
-			exit;
+			return;
 		}
-		die("Choisissez peut être une console avant ...");
+		die("Choisis peut être une console avant ...");
 	}
-	
+	public function getFinalStepAction(){
+		if(isset($_SESSION['platformname'])){
+			$args = array(
+	            'name' => FILTER_SANITIZE_STRING,
+	            'startDate' => FILTER_SANITIZE_STRING,
+	            'endDate' => FILTER_SANITIZE_STRING,
+	            'description' => FILTER_SANITIZE_STRING,
+	            'randomPlayerMix' => FILTER_VALIDATE_BOOLEAN,
+	            'guildOnly' => FILTER_VALIDATE_BOOLEAN,
+            	'gversionName' => FILTER_SANITIZE_STRING,
+	            'gversionDescription' => FILTER_SANITIZE_STRING,
+	            'gversionMaxPlayer' => FILTER_VALIDATE_INT,
+	            'gversionMinPlayer' => FILTER_VALIDATE_INT,
+	            'gversionMaxTeam' => FILTER_VALIDATE_INT,
+	            'gversionMinTeam' => FILTER_VALIDATE_INT,
+	            'gversionMaxPlayerPerTeam' => FILTER_VALIDATE_INT
+			);
+			$filteredinputs = filter_input_array(INPUT_POST, $args);
+			// print_r($filteredinputs);
+			foreach ($args as $key => $value) {
+				if(!isset($filteredinputs[$key]))
+					$this->echoJSONerror("inputs", "manque: ".$key);
+			}
+			$tournoi = new tournoi($filteredinputs);
+			$this->validTournoiData($tournoi);
+			$receivedVersion = new gameversion(
+				[
+					'name' => $filteredinputs['gversionName'],
+					'description' => $filteredinputs['gversionDescription'],
+					'maxPlayer' => $filteredinputs['gversionMaxPlayer'],
+					'maxTeam' => $filteredinputs['gversionMaxTeam'],
+					'maxPlayerPerTeam' => $filteredinputs['gversionMaxPlayerPerTeam']
+				]
+			);
+			//  Si la version est validée $receivedVers contient toutes les infos de la version (id, idGame, etc..)
+			$receivedVersion = $this->getDbVersionIfExists($receivedVersion);
+			if(!!$receivedVersion){
+				// tout est bon
+				// 		--> On peut informer le client qu'il peut proceder à la creation
+				// 		--> prochaine etape : petit récapitulatif avant validation et insert
+				$_SESSION['selectedGameVersion'] = $receivedVersion->getId();
+				$_SESSION['selectedTournamentName'] = $tournoi->getName();
+				$_SESSION['selectedTournamentDescription'] = $tournoi->getDescription();
+				$_SESSION['selectedTournamentStartDate'] = $tournoi->getStartDate();
+				$_SESSION['selectedTournamentEndDate'] = $tournoi->getEndDate();
+				$_SESSION['selectedTournamentGuild'] = $tournoi->getGuildOnly();
+				$_SESSION['selectedTournamentRand'] = $tournoi->getRandomPlayerMix();
+				$data = [];
+				$data['name'] = $tournoi->getName();
+				$data['description'] = $tournoi->getDescription();
+				$data['dateDebut'] = $tournoi->getStartDate();
+				$data['dateFin'] = $tournoi->getEndDate();
+				$data['guildTeams'] = $tournoi->getGuildOnly();
+				$data['randTeams'] = $tournoi->getRandomPlayerMix();
+				$data['jeu'] = $_SESSION['gamename'];
+				$data['console'] = $_SESSION['platformname'];
+				$data['versionName'] = $receivedVersion->getName();
+				$data['versionDescription'] = $receivedVersion->getDescription();
+				$data['maxPlayer'] = $receivedVersion->getMaxPlayer();
+				$data['minPlayer'] = $receivedVersion->getMinPlayer();
+				$data['maxTeam'] = $receivedVersion->getMaxTeam();
+				$data['minTeam'] = $receivedVersion->getMinTeam();
+				$data['maxPlayerPerTeam'] = $receivedVersion->getMaxPlayerPerTeam();
+				echo json_encode($data);
+				return;
+			}
+			$this->echoJSONerror("version", "Ta version de jeu est inconnue au bataillon");
+		}
+		die("Choisis peut être une console avant ...");
+	}
 
 	
 	// Cette fonction servira à aller chercher tous les noms des consoles / games / typegames pour les comparer de façon secure à une donnée reçue
@@ -157,5 +233,59 @@ class creationtournoiController extends template{
 		if (in_array($nameToCheck, $array))
 			return true;
 		return false;
+	}
+	// Cette fonction sert à comparer la version de jeu sélectionée avec les existantes, en accord avec les précédents choix
+	// 	du client et ainsi vérifier l'intégrité de ses posts 
+	//  		--> Si tout va bien la fonction renvoie la version full de la base correspondant à la version
+	// 			--> Si non : elle renvoie false
+	private function getDbVersionIfExists(gameversion $gv){
+		if(!isset($_SESSION['availableGV_ids']))
+			die("Tu n'as pas choisi ta console !");
+		$gvm = new gameversionManager();
+		$validVersions = $gvm->getChoosableVersions();
+		foreach ($validVersions as $key => $obj) {
+			if ($gv->isEqualTo($obj))
+				return $obj;
+		}
+		return false;
+	}
+	private function validTournoiData(tournoi $t){
+		if(!(validateDate($t->getStartDate(), 'd/m/Y')))
+			$this->echoJSONerror("dateDebut", "C'est quoi cette date ?");
+		if(!(validateDate($t->getEndDate(), 'd/m/Y')))
+			$this->echoJSONerror("dateFin", "C'est quoi cette date ?");
+
+		$d1 = DateTime::createFromFormat('d/m/Y', $t->getStartDate());
+		$d2 = DateTime::createFromFormat('d/m/Y', $t->getEndDate());
+
+		$baseDate= DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+		$baseDateTime = $baseDate->getTimestamp();
+		if($d1->getTimestamp() < $baseDateTime)
+			$this->echoJSONerror("dateDebut", "La date de debut doit etre dans le futur");
+		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
+			$this->echoJSONerror("dateDebut", "Il n'est plus possible de creer de tournois pour le jour meme passe 18h");
+		if($d2->getTimestamp() < $d1->getTimestamp())
+			$this->echoJSONerror("dateFin", "La date de fin doit etre superieure a celle de debut");
+		if($d2->getTimestamp() - $d1->getTimestamp() < 86400)
+			$this->echoJSONerror("dateFin", "Pour limiter le nombre de tournois par compte cree et par jour il est necessaire que le tournoi finisse au moins un jour apres son debut");
+		$deuxSemaines = 86400 * 14;
+		$uneSemaine = 86400 * 7;
+		if($d1->getTimestamp() - time() > $deuxSemaines)
+			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant 14 jours");
+		if($d2->getTimestamp() - $d1->getTimestamp() > $uneSemaine)
+			$this->echoJSONerror("dateFin", "Le tournoi ne doit pas durer plus de 7 jours");
+
+		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
+			$this->echoJSONerror("nom", "Le nom de votre tournoi contient des caracteres speciaux !");
+		if(!empty(trim($t->getDescription()))){
+			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
+				$this->echoJSONerror("descripiton", "La description de votre tournoi contient des caracteres speciaux !");
+			if(strlen($t->getDescription()) > 199 || $t->getDescription() < 15)
+				$this->echoJSONerror("descripiton", "La description, lorsque utilisée, doit faire entre 15 et 199 caracteres");
+		}
+			
+
+		if($t->getGuildOnly() === 1 && $t->getRandomPlayerMix() === 1)
+			$this->echoJSONerror("equipe", "Les équipes de guilde ne peuvent etre faconnees aleatoierement");
 	}
 }

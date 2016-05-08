@@ -61,5 +61,19 @@ class gameversion{
 	public function getMinPlayerPerTeam(){return ($this->maxPlayerPerTeam);}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
+
+	public function isEqualTo(gameversion $comparedVers){
+		if($this->getName() === $comparedVers->getName()
+			&& $this->getDescription() === $comparedVers->getDescription()
+			&& $this->getMaxPlayer() === $comparedVers->getMaxPlayer()
+			&& $this->getMinPlayer() === $comparedVers->getMinPlayer()
+			&& $this->getMaxTeam() === $comparedVers->getMaxTeam()
+			&& $this->getMinTeam() === $comparedVers->getMinTeam()
+			&& $this->getMaxPlayerPerTeam() === $comparedVers->getMaxPlayerPerTeam()
+			&& $this->getMinPlayerPerTeam() === $comparedVers->getMinPlayerPerTeam()
+			)
+			return true;
+		return false;
+	}
 	
 }

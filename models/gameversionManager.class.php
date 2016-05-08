@@ -38,6 +38,36 @@ class gameversionManager extends basesql{
 		}
 		return false;
 	}
+
+	public function getChoosableVersions(){
+		if(!isset($_SESSION['availableGV_ids']) || !is_array($_SESSION['availableGV_ids']))
+			die("Tu n'as pas choisi ta console !");
+
+		$l = count($_SESSION['availableGV_ids']) - 1;
+		if($l < 1 )
+			die("Tu n'as pas choisi ta console !");
+
+
+		$sql = "SELECT * FROM " . $this->table . " WHERE ";
+		foreach ($_SESSION['availableGV_ids'] as $key => $id) {
+			if ($l > 0)
+				$sql.= 'id=:'.$key.' OR ';
+			else
+				$sql.= 'id=:'.$key;
+			$l--;
+		}
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute($_SESSION['availableGV_ids']);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new gameversion($dataArr);
+			}
+			return $data;
+		}
+		return false;
+	}
 }
 /*
 *
