@@ -8,7 +8,8 @@
 			    <input class="input-default" type="text" id="email" name="email">
 
 			    <label for="pwd1">Mot de passe : </label>
-			    <input class="input-default" type="password" id="pwd1" name="password">			 					   
+			    <input class="input-default" type="password" id="pwd1" name="password">			 		
+			    <a href="confirmation/lost">Mot de passe oublié ? </a> 
 			    <button type="button" class="btn btn-pink"><a>Se connecter</a></button>
 	  		</form>
 	  	</div>

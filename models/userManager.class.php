@@ -89,6 +89,17 @@ class userManager extends basesql{
 		return $r;
 	}
 
+	public function recoverAccount(user $u, $password){
+		$sql = "UPDATE ".$this->table." SET password = :password, token = '' WHERE email=:email ";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':email' => $u->getEmail(),
+			':password' => $password
+		]);
+		
+		return $r;
+	}
+
 	/*C'est ici que l'on set le isConnected à 1 (true)
 		--> cette methode est appelée à chaque rechargement de page.
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
@@ -145,8 +156,7 @@ class userManager extends basesql{
 		}
 
 		$data = array_filter($data);
-// var_dump($data);
-// 		exit;
+
 		$compteur=0;
 
 		$sql = "UPDATE user SET ";
@@ -169,7 +179,6 @@ class userManager extends basesql{
 	
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
-		
 		$query->execute();
 	}
 }
