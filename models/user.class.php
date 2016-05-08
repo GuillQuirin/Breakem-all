@@ -69,9 +69,14 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)) && $v!=NULL)
-			$this->img=$v; //Adresse stockée en base
-		else
+		if(!empty(trim($v)) && $v!=NULL){
+			//var_dump(strpos($v, WEBPATH));
+			if(strpos($v, WEBPATH)!=NULL) //Image déjà stockée en base
+				$this->img=WEBPATH."/web/img/upload/".$v; 
+			else //Upload d'une image
+				$this->img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
+		}
+		else //Pas d'image uploadée
 			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
 	private function setIdTeam($v){
@@ -87,13 +92,13 @@ class user{
 		$this->token=$v;
 	}
 	public function setRss($v){
-		if($v==="not")
+		if($v!=1)
 			$this->rss=-1;
 		else	
 			$this->rss=$v;
 	}
 	public function setAuthorize_mail_contact($v){
-		if($v==="not")
+		if($v!=1)
 			$this->authorize_mail_contact=-1;
 		else
 			$this->authorize_mail_contact=$v;

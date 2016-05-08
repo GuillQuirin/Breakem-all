@@ -41,12 +41,16 @@ class configurationController extends template{
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-
+	   
 	    $user = $this->getConnectedUser();
 		
 	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
 	    $userBDD = new userManager();
 	    $newuser = new user($checkedDatas);
+	    
+	    //On force la MAJ des checkbox même si elles sont vides
+	    $newuser->setRss(isset($checkedDatas['rss']));
+	    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
 
 	    // On met à jour
 	    $userBDD->setUser($user, $newuser);
@@ -95,7 +99,7 @@ class configurationController extends template{
 			if($_FILES['profilpic']['size'] < 1*MB){
 				if($_FILES['profilpic']['error']==0){
 					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-					   exit;
+					   die("Erreur d'upload");
 				}
 			}
 			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
