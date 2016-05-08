@@ -35,6 +35,11 @@ class configurationController extends template{
 
 			unset($_SESSION['referer_method']);
 		}		
+
+		//Liste des jeux
+		$jeux = new gameManager();
+		$v->assign("listeJeux", $jeux->getAllNames());
+
 		$v->setView("configuration");
 	}
 	
@@ -47,7 +52,7 @@ class configurationController extends template{
 	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
 	    $userBDD = new userManager();
 	    $newuser = new user($checkedDatas);
-	    
+
 	    //On force la MAJ des checkbox même si elles sont vides
 	    $newuser->setRss(isset($checkedDatas['rss']));
 	    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));

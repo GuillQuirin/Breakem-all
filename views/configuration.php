@@ -34,11 +34,15 @@ else{
 				<div>
 					<h4>Jeux</h4>
 					<p>Jeu préféré: 
-							<select>
-								<option></option>
-								<option></option>
-								<option></option>
-							</select>
+						<select>
+						<?php 
+							if(isset($listeJeux)){
+								foreach ($listeJeux as $key => $value) {
+									echo "<option value='".$value['name']."'>".$value['name']."</option>";
+								}
+							}
+						?>
+						</select>
 					</p>
 					<p>Team associé actuellement: 
 						<?php echo (isset($nomTeam)) ? '<a href="team?nom='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team'; ?></p>
