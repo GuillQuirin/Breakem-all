@@ -31,7 +31,7 @@ $(document).ready(function(){
 	});
 	$("#btn_contact").click(function(){
 		if($("#mess_contact").val()==""){
-			alert('Veuillez ne pas laisser un message vide.');
+			alert('Veuillez ne pas laisser de message vide.');
 		}
 		else{
 			$.ajax({method: "POST",

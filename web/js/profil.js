@@ -25,7 +25,7 @@ $(document).ready(function(){
 	        	}
 	        );
 		}
-		return false;
+		//return false;
 	});
 
 	$("#btn_contact").click(function(){
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	        );
 		}
 	});
-	return false;
+	//return false;
 });
 
 $(document).mouseup(function(e)
