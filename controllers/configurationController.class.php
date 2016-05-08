@@ -149,6 +149,7 @@ class configurationController extends template{
 		    //     $this->echoJSONerror('date', 'La date reçue a fail !');
 		    //   $finalArr['birthday'] = date_timestamp_get($date);
 	    // }
+
 	    return array_filter($filteredinputs);
   	}
 

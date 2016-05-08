@@ -70,9 +70,9 @@ class user{
 	}
 	private function setImg($v){
 		if(!empty(trim($v)) && $v!=NULL){
-			//var_dump(strpos($v, WEBPATH));
-			if(strpos($v, WEBPATH)!=NULL) //Image déjà stockée en base
-				$this->img=WEBPATH."/web/img/upload/".$v; 
+			//var_dump(strstr($v, "lol"));
+			if(strstr($v, WEBPATH)) //Image déjà stockée en base
+				$this->img=$v; 
 			else //Upload d'une image
 				$this->img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
 		}
