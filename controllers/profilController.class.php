@@ -6,8 +6,6 @@ class profilController extends template{
 		
 		$v = new View();
 		$this->assignConnectedProperties($v);
-		//echo "<pre>";
-		//var_dump($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");

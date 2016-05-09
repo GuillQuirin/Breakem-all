@@ -7,9 +7,45 @@ class teamController extends template{
 		$v->assign("js", "team");
 		$v->assign("title", "Team");
 		$v->assign("content", "Liste des Teams");
-		$v->setView("team");
-	}
 
+        if(isset($_GET['team'])){
+
+            // Ce finalArr doit etre envoyé au parametre du constructeur de teammanager
+            $teamBDD = new teamManager();
+
+            $args = array('team' => FILTER_SANITIZE_STRING );
+            $filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+
+            $team = $teamBDD->getTeam($filteredinputs);
+
+            // Si $team === FALSE : soit pas de team trouvée, soit pbm de requete
+            
+            if($team!==FALSE){
+
+                $team_methods = get_class_methods($team);
+                foreach ($team_methods as $key => $method) {
+                    if(strpos($method, 'get') !== FALSE){
+                        $col = lcfirst(str_replace('get', '', $method));
+                        $this->columns[$col] = $team->$method();
+                        $v->assign($col, $team->$method());
+                                
+                    };
+                }
+
+                //Apparition du bouton de configuration
+                // if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$team->getEmail())
+                //     $v->assign('myAccount', 1);
+            }
+            else{
+                $v->assign("err", "1");
+            }
+        }
+        else{
+            $v->assign("err", "1");
+        }
+        $v->setView("team");
+    }
+    /**********************************************/
     private function isFormStringValid($string, $minLen = 4, $maxLen = 25, $optionnalCharsAuthorized = ""){
         $string = trim($string);
         $string = str_replace('  ', ' ', $string);
