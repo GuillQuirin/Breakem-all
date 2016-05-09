@@ -80,7 +80,7 @@
 		</div>
 	</div>
 	 
-	<img class="icon icon-size-3 down-center header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
 
 </section>
 <section class="classement-content-wrapper">
