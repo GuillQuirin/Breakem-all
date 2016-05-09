@@ -21,27 +21,95 @@ body, html{
 	margin:0;
   	padding:0;
 	-webkit-background-size: cover; 
-	background-size: cover; 
+	background-size: cover; 	
+}
+
+.classement-select-logo{
+	position:absolute;
+	left:-15px;
+	width:40px;
+	top: 20px;
+}
+
+.classement-select-logo-2{
+	width:30px;
+}
+
+.classement-select-logo-3{
+	width:25px;
+}
+
+
+.classement-select-image{
+	width:50px;	
+	vertical-align: middle;
+	padding:0 15px 0 35px;
+}
+
+.classement-select-image-2{
+	width:40px !important;	
+}
+
+.classement-select-image-3{
+	width:35px !important; 	
+}
+
+.classement-select-title-2, .classement-select-quote-2, .classement-select-pts-2{
+	font-size:15px !important;
+}
+
+.classement-select-title-3, .classement-select-quote-3, .classement-select-pts-3{
+	font-size:13px !important;
+}
+
+.classement-select span{
+	padding:0 15px;
+}
+
+.classement-select-title{
+	font-size:20px;
+	font-weight: 600;
+	vertical-align: middle;	
+}
+
+.classement-select-quote{
+	width:250px !important;
+	overflow:scroll;
+}
+
+.classement-select-pts{
+	color:orange;
+	padding:0 0 0 15px !important;
 }
 
 .classement-header-title{
-	color:#ffffff;
-	text-transform: uppercase;
+	margin:0 !important;
+	width:100%;
 	font-size:45px;
-	margin-right:55px;
-	padding:15px 30px;
-}
-
-.classement-header-ranking{
-	font-size:80px;
 	color:#ffffff;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	height:200px;
-	width:100%;
-	margin:0 10px;
-	border:1px solid #ffffff;
+	justify-content: center;	
+	padding:15px 0 !important;
+}
+
+.classement-select{	
+	position:relative;
+	width:100% !important;
+	padding:15px !important; 
+	margin:15px !important;
+	cursor:pointer;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.classement-select-default{
+	/*width:auto;*/
+	width:250px;
+	background:#ffffff;
+	color:#292929;
+	text-align:center;
 }
 
 .classement-content-wrapper{
@@ -109,11 +177,15 @@ footer{
 	width:200px;
 }
 
-.classement-header-title{
-	font-size:45px;
-	color:#ffffff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width:300px;
+.classement-header-left{
+	padding:0 15px;
 }
+
+.classement-header-right{
+	padding:0 15px;
+}
+
+.classement-header-left-sub{
+	padding:15px 0;
+}
+
