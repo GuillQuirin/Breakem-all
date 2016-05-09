@@ -2,6 +2,9 @@
 	
 	<div class="align full-height">
 		<div class="classement-header-left text-center animation fadeLeft">
+			<div class="classement-header-image-wrapper">
+				<?php echo '<img class="classement-header-image" src="' . WEBPATH . '/web/img/game-mk.png">';?>
+			</div>
 			<div class="classement-header-title header-title border-full">
 				<span>Classement</span>			
 			</div>
@@ -23,27 +26,57 @@
 			</div>				
 		</div>
 		<div class="classement-header-right animation fadeRight">
-			<div class="classement-select background-wrapper shadow-bottom-full">				
-				<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-				<span class="pad classement-select-title">EHOME</span>
-				<span class="pad classement-select-quote">"La victoire se fait grâce au travail d'équipe."</span>
-				<span class="pad classement-select-pts">8098 PTS</span>
-				<span class="classement-ranking-icon">1</span>										
+			<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul classement-header-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
+					</li>
+					<li>
+						<span>EHOME</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"J'aime les moches."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>8098 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">1</span>														
+				</ul>																						
 			</div>	
-			<div class="classement-select background-wrapper shadow-bottom-full">				
-				<?php echo '<img class="classement-select-image classement-select-image-2" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-				<span class="pad classement-select-title classement-select-title-2">EHOME</span>
-				<span class="pad classement-select-quote classement-select-quote-2">"Win to get the Bitches"</span>
-				<span class="pad classement-select-pts classement-select-pts-2">7999 PTS</span>	
-				<span class="classement-ranking-icon ri-2">2</span>	
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul classement-header-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					</li>
+					<li>
+						<span>Fnatic</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"La victoire se fait grâce au travail d'équipe."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>6000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">2</span>														
+				</ul>																						
 			</div>	
-			<div class="classement-select background-wrapper shadow-bottom-full">				
-				<?php echo '<img class="classement-select-image classement-select-image-3" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-				<span class="pad classement-select-title classement-select-title-3">EHOME</span>
-				<span class="pad classement-select-quote classement-select-quote-3">"I'll find you and i'll kill you!"</span>
-				<span class="pad classement-select-pts classement-select-pts-3">6410 PTS</span>	
-				<span class="classement-ranking-icon ri-3">3</span>		
-			</div>			
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul classement-header-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					</li>
+					<li>
+						<span>Navi</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"Dylan jte bz pd"</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>3000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">3</span>														
+				</ul>																						
+			</div>					
 		</div>
 	</div>
 	 
@@ -55,22 +88,135 @@
 	<div class="container m-a content-border classement-container">
 
 		<div class="row classement-content-row">
-			<div class="grid-md-12">
+			<div class="grid-md-8 grid-md-offset-2">				
 
-			<div class="classement-select background-wrapper shadow-bottom-full">				
-				<?php echo '<img class="classement-select-image classement-select-image-3" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-				<span class="pad classement-select-title classement-select-title-3">EHOME</span>
-				<span class="pad classement-select-quote classement-select-quote-3">"I'll find you and i'll kill you!"</span>
-				<span class="pad classement-select-pts classement-select-pts-3">6410 PTS</span>	
-				<span class="classement-ranking-icon ri-3">4</span>		
+			<!-- debut tab -->
+				
+			<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
+					</li>
+					<li>
+						<span>EHOME</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"J'aime les moches."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>8098 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">4</span>														
+				</ul>																						
+			</div>	
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					</li>
+					<li>
+						<span>Fnatic</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"La victoire se fait grâce au travail d'équipe."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>6000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">5</span>														
+				</ul>																						
+			</div>	
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					</li>
+					<li>
+						<span>Navi</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"Dylan jte bz pd"</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>3000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">6</span>														
+				</ul>																						
+			</div>	
+			<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
+					</li>
+					<li>
+						<span>EHOME</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"J'aime les moches."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>8098 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">7</span>														
+				</ul>																						
+			</div>	
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					</li>
+					<li>
+						<span>Fnatic</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"La victoire se fait grâce au travail d'équipe."</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>6000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">8</span>														
+				</ul>																						
+			</div>	
+				<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					</li>
+					<li>
+						<span>Navi</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"Dylan jte bz pd"</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>3000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">9</span>														
+				</ul>																						
+			</div>				
+			<div class="classement-select background-wrapper shadow-bottom-full">	
+				<ul class="grid-md-12 classement-select-ul">	
+					<li>
+						<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					</li>
+					<li>
+						<span>Navi</span>
+					</li>
+					<li class="classement-select-li-quote">
+						<span>"Dylan jte bz pd"</span>
+					</li>
+					<li class="classement-select-pts">
+						<span>3000 PTS</span>
+					</li>					
+					<span class="classement-ranking-icon">9</span>														
+				</ul>																						
+			</div>	
+
+			<!-- FIN tab -->	
+
+			<div class="grid-md-2 grid-md-offset-4">
+				<button type="button" class="btn btn-pink"><a>Voir plus</a></button>											
 			</div>
-			<div class="classement-select background-wrapper shadow-bottom-full">				
-				<?php echo '<img class="classement-select-image classement-select-image-3" src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-				<span class="pad classement-select-title classement-select-title-3">EHOME</span>
-				<span class="pad classement-select-quote classement-select-quote-3">"I'll find you and i'll kill you!"</span>
-				<span class="pad classement-select-pts classement-select-pts-3">6410 PTS</span>	
-				<span class="classement-ranking-icon ri-3">5</span>		
-			</div>						
 						
 			</div>
 
