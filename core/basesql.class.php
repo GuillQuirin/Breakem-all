@@ -86,6 +86,37 @@ class basesql{
 		return new user($query);
 	}
 
+	public function getTeam(array $infos){
+		//$infos['prout'] = 'lol';
+		$cols = array_keys($infos);
+		$data = [];
+		$where = '';
+
+		foreach ($cols as $key ){
+
+			$data[$key] = $infos[$key];
+
+			$where .= $key.'=:'.$key.'';
+
+			//Tant qu'on est pas à la fin du tableau, on rajoute un AND à la requete SQL
+			if(end($cols)!==$key)
+				$where.= ' AND ';
+		}
+
+		$sql = "SELECT id, name, img, slogan, description 
+					FROM team 
+					WHERE ".$where;
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));	
+		$query->execute($data);		
+		$r = $query->fetch(PDO::FETCH_ASSOC);
+
+		if($query === FALSE)
+			return false;
+
+		return new team($r);
+	}
+
 	public function getTournament(array $infos){
 		
 		$cols = array_keys($infos);
