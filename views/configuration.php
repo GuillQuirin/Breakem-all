@@ -13,6 +13,31 @@ else{
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
+
+	<section class="middle-height bg-cover-configuration relative">
+	
+	<div class="align full-height">
+		<div class="configuration-header-profil-wrapper">
+			<div class="configuration-header-profil-left">
+				<img class="configuration-header-profil-image" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
+
+				<div class="configuration-header-profil-right align">
+					<div class="">
+						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
+						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
+						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Jamais connecté.'; ?></span>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+	 
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
+
+</section>
+
+	<!-- 
+
 	<form action="configuration/update" method="post" enctype="multipart/form-data">
 		<section id="avatar">
 			<div id="image">
@@ -51,7 +76,7 @@ else{
 					<h4>Informations personnelles</h4>
 					<p>Date de naissance: <?php echo (isset($_birthday)) ? date('d/m/Y', $_birthday) : 'Date de naissance non indiquée' ; ?></p>
 					<!-- <p><input type="checkbox" name="aff_naissance">Afficher ma date de naissance</input></p> -->
-					<h4>E-mail</h4>
+					<!-- <h4>E-mail</h4>
 					<p>
 						Adresse e-mail
 						<input type="email" name="email" 
@@ -93,3 +118,4 @@ else{
 	<?php
 }
 ?>
+-->
