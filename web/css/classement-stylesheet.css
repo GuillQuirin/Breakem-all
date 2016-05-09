@@ -31,15 +31,6 @@ body, html{
 	top: 20px;
 }
 
-.classement-select-logo-2{
-	width:30px;
-}
-
-.classement-select-logo-3{
-	width:25px;
-}
-
-
 .classement-select-image{
 	width:50px;	
 	vertical-align: middle;
@@ -62,7 +53,7 @@ body, html{
 	font-size:13px !important;
 }
 
-.classement-select span{
+.classement-select .pad{
 	padding:0 15px;
 }
 
@@ -75,6 +66,10 @@ body, html{
 .classement-select-quote{
 	width:250px !important;
 	overflow:scroll;
+}
+
+.classement-select-game{
+	width:auto !important;
 }
 
 .classement-select-pts{
@@ -97,7 +92,7 @@ body, html{
 	position:relative;
 	width:100% !important;
 	padding:15px !important; 
-	margin:15px !important;
+	margin:35px 15px !important;
 	cursor:pointer;
 	display: flex;
   	align-items: center;
@@ -161,15 +156,19 @@ body, html{
 
 .classement-ranking-icon{
 	position:absolute;
-	bottom:0;
-	right:0;
+	top:-12px;
+	left:-12px;
 	color:#ffffff;
-	background-color:#211d3b;
-	padding:20px 35px;
+	background-color:#D92B4C;
+	padding:15px 25px;
 }
 
-footer{
-	display:none;
+.classement-ranking-icon.ri-2{
+	padding:10px 15px;
+}
+
+.classement-ranking-icon.ri-3{
+	padding:7px 12px;
 }
 
 .classement-header-ranking-wrapper{
