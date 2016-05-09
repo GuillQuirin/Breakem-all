@@ -24,11 +24,11 @@
             </div>
             <div id="member2" >
                 <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                <span class="header-title name" >Rayz</span>
+                <span class=" name" >Rayz</span>
                 <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                <span class="header-title name" >Rayz</span>
+                <span class=" name" >Rayz</span>
                 <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                <span class="header-title name"  >Rayz</span>
+                <span class="name"  >Rayz</span>
             </div>
         </div>
         <div id="container3">
