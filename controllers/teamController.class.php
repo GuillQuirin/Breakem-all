@@ -36,10 +36,9 @@ class teamController extends template{
             /*
                 Tout élèment (créé par l'utilisateur ou récupéré de la BDD) 
                 sera stocké dans un objet de type Team (décrit dans team.class.php)    
-
             */
 
-            //on définit la liste des $_POST autorisés dans ce tableau (ici uniquement $_POST['team'])
+            //on définit la liste des $_GET autorisés dans ce tableau (ici uniquement $_GET['team'])
             $args = array('team' => FILTER_SANITIZE_STRING );
 
             //Array_filter se débarasse de toute valeur vide ou NULL
@@ -62,7 +61,7 @@ class teamController extends template{
             */
 
             $team = $teamBDD->getTeam($filteredinputs);
-           //var_dump($team);
+
             // Si $team === FALSE : soit pas de team trouvée, soit pbm de requete            
             if($team!==FALSE){
                 
@@ -77,7 +76,8 @@ class teamController extends template{
                         //On récupère le nom de l'attribut ciblé (ex: 'getName' devient 'name')
                         $col = lcfirst(str_replace('get', '', $method));
                         
-                        $this->columns[$col] = $team->$method();
+                        //TODO : DYLAN
+                       // $this->columns[$col] = $team->$method();
                         
                         /*
                             On crée une variable au nom de l'attribut 

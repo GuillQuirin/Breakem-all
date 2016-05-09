@@ -87,15 +87,17 @@ class basesql{
 	}
 
 	public function getTeam(array $infos){
-		//$infos['prout'] = 'lol';
+		//tab[name]='Test'
 		$cols = array_keys($infos);
 		$data = [];
 		$where = '';
 
 		foreach ($cols as $key ){
 
+			//On met la ligne de $infos dans le tableau $data
 			$data[$key] = $infos[$key];
 
+			//WHERE name = :name AND col2 = :col2 etc.....
 			$where .= $key.'=:'.$key.'';
 
 			//Tant qu'on est pas à la fin du tableau, on rajoute un AND à la requete SQL
@@ -106,9 +108,14 @@ class basesql{
 		$sql = "SELECT id, name, img, slogan, description 
 					FROM team 
 					WHERE ".$where;
+		// var_dump($sql);
+		// exit;
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));	
-		$query->execute($data);		
+		$query->execute($data);	
+		
+		//fetch -> retourne une ligne de la BDD
+		//fetchAll -> retourne plusieurs de la BDD
 		$r = $query->fetch(PDO::FETCH_ASSOC);
 
 		if($query === FALSE)
