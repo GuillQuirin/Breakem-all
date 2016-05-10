@@ -160,7 +160,8 @@ if(isset($err)){
 							</tr>
 							<tr class="text-center">
 								<td colspan="2">								
-									<button id="navbar-inscription" type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
+									<input type="submit" value="Envoyer">
+									<!--<button id="navbar-inscription" type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>-->
 								</td>
 							</tr>	
 						</table>				
