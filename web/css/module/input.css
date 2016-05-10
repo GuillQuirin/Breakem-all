@@ -80,3 +80,8 @@
 .text-area-default{
     resize:none;
 }
+
+/*.input-required::after{
+    position:absolute;
+    content:"*";
+}*/
