@@ -31,7 +31,7 @@ if(isset($err)){
 		</div>
 	</div>
 	 
-	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
 
 	<div class="configuration-onglet-wrapper">
 		<ul class="configuration-onglet-ul">
