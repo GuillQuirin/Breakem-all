@@ -33,6 +33,20 @@ if(isset($err)){
 	 
 	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
 
+	<div class="configuration-onglet-wrapper">
+		<ul class="configuration-onglet-ul">
+			<li class="active">
+				<a>Profil</a>
+			</li><!--
+			--><li>
+				<a>Team</a>
+			</li><!--
+			--><li>
+				<a>Friends</a>
+			</li>
+		</ul>
+	</div>
+
 	</section>
 
 	<section class="classement-content-wrapper">

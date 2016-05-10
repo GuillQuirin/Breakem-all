@@ -13,6 +13,32 @@ body, html{
     margin-top:0;
 }
 
+.configuration-onglet-wrapper{
+    position:absolute;
+    bottom:-1px;
+    width:100%;
+    left:15vw;
+}
+
+.configuration-onglet-ul{
+    transform:skew(-8deg);
+}
+
+.configuration-onglet-ul li{
+    cursor:pointer;
+    padding:15px 35px;
+    display:inline-block;    
+}
+
+.configuration-onglet-ul li:hover{
+    background-color:rgba(255,255,255,.3);
+    transition:.3s background-color;
+}
+
+.configuration-onglet-ul li.active{
+    background:#080325;
+}
+
 .classement-content-wrapper{
   padding:35px;
 }
