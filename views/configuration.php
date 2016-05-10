@@ -81,17 +81,23 @@ if(isset($err)){
 										<input type="email" name="email" value="<?php echo (isset($_email)) ? $_email : 'Adresse email non fournie'; ?>" required>
 									</div>
 									<div>
-										<label><input type="checkbox" name="authorize_mail_contact" 
+										 
+
+										<label><input class="checkbox input-default" type="checkbox" name="authorize_mail_contact" id="authorize_mail_contact" 
 											<?php 
 											echo (isset($_authorize_mail_contact) && $_authorize_mail_contact==1) ? 'checked=checked' : '';?>>
-											Autoriser les utilisateurs a me contacter.
+											<label for="authorize_mail_contact">
+											Autoriser les utilisateurs a me contacter.																					
+											</label>
 										</label>
 									</div>
 									<div>								
-										<label><input type="checkbox" name="rss"
+										<label><input class="checkbox input-default" type="checkbox" name="rss" id="rss"
 											<?php 
 											echo (isset($_rss) && $_rss==1) ? 'checked=checked' : '';?>>
+											<label for="rss">
 											Activation du flux RSS.
+											</label>
 										</label>
 									</div>
 								</td>
