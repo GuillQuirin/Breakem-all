@@ -12,4 +12,5 @@
 	margin-bottom:15px;
 	position:absolute;
 	cursor:pointer;
+	z-index:100;
 }

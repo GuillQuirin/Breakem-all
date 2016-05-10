@@ -49,7 +49,7 @@ if(isset($err)){
 
 	</section>
 
-	<section class="classement-content-wrapper">
+	<section class="configuration-content-wrapper my-content-wrapper">
 
 		<div class="container m-a content-border classement-container" style="border:none;">
 
@@ -61,7 +61,7 @@ if(isset($err)){
 						<table class="full-width configuration-form-table">
 							<tr class="text-center">
 								<td colspan="2">
-									<span>Mes informations personnels</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnels</span>
 								</td>
 							</tr>
 							<tr>						
@@ -116,7 +116,7 @@ if(isset($err)){
 							</tr>
 							<tr class="text-center">
 								<td colspan="2">
-									<span>Jeux</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-game.png">';?><span class="configuration-form-menu-tr">Jeux</span>
 								</td>
 							</tr>
 							<tr>
@@ -145,7 +145,7 @@ if(isset($err)){
 							</tr>
 							<tr class="text-center">
 								<td colspan="2">
-									<span>Mot de passe</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-safe.png">';?><span class="configuration-form-menu-tr">Mot de passe</span>
 								</td>
 							</tr>	
 							<tr>
@@ -153,7 +153,7 @@ if(isset($err)){
 									<span>Ancien mot de passe</span>
 								</td>
 								<td>
-									<input class="input-required" type="password" name="password" required>
+									<input type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>
 								</td>						
 							</tr>	
 							<tr>
@@ -173,11 +173,14 @@ if(isset($err)){
 								</td>						
 							</tr>
 							<tr class="text-center">
-								<td colspan="2">																	
+								<td colspan="2" class="border-none configuration-form-td-submit">																	
 									<button id="navbar-inscription" type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
 								</td>
 							</tr>	
-						</table>				
+						</table>
+						<div class="text-center">
+							<span><span class="configuration-input-required">*</span> <span class="p-width-small">Champ obligatoire</span>
+						</div>				
 
 					</form>				
 

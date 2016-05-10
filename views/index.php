@@ -15,7 +15,7 @@
 
 </section>
 
-<section id="container_index">
+<section id="container_index" class="my-content-wrapper">
 	<div id="contain">
 		<div id="contain_left">
 
