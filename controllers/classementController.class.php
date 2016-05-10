@@ -13,3 +13,4 @@ class classementController extends template{
 	}
 	
 }
+
