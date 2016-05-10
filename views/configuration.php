@@ -47,61 +47,129 @@ else{
 				<form action="configuration/update" method="post" enctype="multipart/form-data">
 
 					<table class="full-width configuration-form-table">
-						<tr class="border-form text-center">
+						<tr class="text-center">
 							<td colspan="2">
 								<span>Mes informations personnels</span>
 							</td>
 						</tr>
 						<tr>						
-							<td class="border-form">
+							<td>
 								<span>Pseudo : </span>
 							</td>
-							<td class="border-form">
+							<td>
 								<span class="capitalize"><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>	
 							</td>
 						</tr>
+						<tr>						
+							<td>
+								<span>Email : </span>
+							</td>
+							<td class="configuration-form-email">
+								<div> 
+									<input type="email" name="email" value="<?php echo (isset($_email)) ? $_email : 'Adresse email non fournie'; ?>" required>
+								</div>
+								<div>
+									<label><input type="checkbox" name="authorize_mail_contact" 
+										<?php 
+										echo (isset($_authorize_mail_contact) && $_authorize_mail_contact==1) ? 
+											'checked=checked' : 
+											'' ; ?>
+										>
+										Autoriser les utilisateurs a me contacter.
+									</label>
+								</div>
+								<div>								
+									<label><input type="checkbox" name="rss"
+										<?php 
+										echo (isset($_rss) && $_rss==1) ? 'checked=checked' : '' ; ?>
+										>
+										Activation du flux RSS.
+									</label>
+								</div>
+							</td>
+						</tr>
 						<tr>
-							<td class="border-form">
+							<td>
+								<span>Date de naissance :</span>					
+							</td>
+							<td>
+								<span><?php echo (isset($_birthday)) ? date('d/m/Y', $_birthday) : 'Date de naissance non indiquée.' ; ?></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<span>Description : </span>
 							</td>
-							<td class="border-form">
+							<td>
 								<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
 									<?php echo (isset($_description)) ? $_description : ''; ?>
 								</textarea>
 							</td>							
 						</tr>
-						<tr class="border-form text-center">
+						<tr class="text-center">
 							<td colspan="2">
 								<span>Jeux</span>
 							</td>
+						</tr>
+						<tr>
 							<td>
-
+								<span>Jeux préféré</span>
+							</td>
+							<td>
+								<select>
+								<?php 
+									if(isset($listeJeux)){
+										foreach ($listeJeux as $key => $value) {
+											echo "<option value='".$value['name']."'>".$value['name']."</option>";
+										}
+									}
+								?>
+								</select>
 							</td>
 						</tr>
-					</table>
-
-					<!--<div class="grid-md-4">
-						<ul class="configuration-form-ul">
-							<li>
-								<span>Pseudo (non modifiable) :</span>
-							</li>
-							<li>
-								<span>Description : </span>
-							</li>
-						</ul>
-					</div>
-					<div class="grid-md-8">
-						<ul class="configuration-form-ul">
-							<li>
-								<span><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>
-							</li>
-							<li> 
-								<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
-									<?php echo (isset($_description)) ? $_description : ''; ?>
-								</textarea>
-							</li>
-						</ul>	
-					</div>-->
+						<tr>
+							<td>
+								<span>Team</span>
+							</td>
+							<td>
+								<?php echo (isset($nomTeam)) ? '<a href="team?nom='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
+							</td>
+						</tr>
+						<tr class="text-center">
+							<td colspan="2">
+								<span>Mot de passe</span>
+							</td>
+						</tr>	
+						<tr>
+							<td>
+								<span>Ancien mot de passe</span>
+							</td>
+							<td>
+								<input type="password" name="password" required>
+							</td>						
+						</tr>	
+						<tr>
+							<td>
+								<span>Nouveau mot de passe</span>
+							</td>
+							<td>
+								<input type="password" name="new_password">
+							</td>						
+						</tr>	
+						<tr>
+							<td>
+								<span>Ressaisir le nouveau mot de passe:</span>
+							</td>
+							<td>
+								<input type="password" name="new_password_check">
+							</td>						
+						</tr>
+						<tr class="text-center">
+							<td colspan="2">								
+								<button id="navbar-inscription" type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
+							</td>
+						</tr>	
+					</table>				
 
 				</form>
 				<!-- Fin Form -->

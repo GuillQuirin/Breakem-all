@@ -8,7 +8,7 @@
 		<li class="navbar-menu-li">
 			<a class="navbar-profil-title" href="<?php echo WEBPATH.'/profil?pseudo='.$_pseudo; ?>">
 				<?php echo $_pseudo	?>
-				<!--<span>105 PTS</span>-->
+				<span>105 PTS</span>
 			</a>
 		</li>
 		<li class="navbar-menu-li navbar-menu-settings">

@@ -18,7 +18,16 @@ body, html{
 }
 
 .configuration-form-table td{
-    padding:15px;        
+    padding:15px;      
+    border:1px solid #524c7b;  
+}
+
+.configuration-form-email div{
+    padding:7px 0;
+}
+
+.configuration-form-submit{
+    width:200px;
 }
 
 /* HEADER */
