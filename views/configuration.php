@@ -25,7 +25,7 @@ else{
 					<div class="">
 						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Jamais connecté.'; ?></span>
+						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : ''; ?></span>
 					</div>
 				</div>
 			</div>			
@@ -33,6 +33,82 @@ else{
 	</div>
 	 
 	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scroll-down.png"> 
+
+</section>
+
+<section class="classement-content-wrapper">
+
+	<div class="container m-a content-border classement-container" style="border:none;">
+
+		<div class="row classement-content-row">
+			<div class="grid-md-12">
+
+				<!-- Debut Form -->
+				<form action="configuration/update" method="post" enctype="multipart/form-data">
+
+					<table class="full-width configuration-form-table">
+						<tr class="border-form text-center">
+							<td colspan="2">
+								<span>Mes informations personnels</span>
+							</td>
+						</tr>
+						<tr>						
+							<td class="border-form">
+								<span>Pseudo : </span>
+							</td>
+							<td class="border-form">
+								<span class="capitalize"><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>	
+							</td>
+						</tr>
+						<tr>
+							<td class="border-form">
+								<span>Description : </span>
+							</td>
+							<td class="border-form">
+								<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+									<?php echo (isset($_description)) ? $_description : ''; ?>
+								</textarea>
+							</td>							
+						</tr>
+						<tr class="border-form text-center">
+							<td colspan="2">
+								<span>Jeux</span>
+							</td>
+							<td>
+
+							</td>
+						</tr>
+					</table>
+
+					<!--<div class="grid-md-4">
+						<ul class="configuration-form-ul">
+							<li>
+								<span>Pseudo (non modifiable) :</span>
+							</li>
+							<li>
+								<span>Description : </span>
+							</li>
+						</ul>
+					</div>
+					<div class="grid-md-8">
+						<ul class="configuration-form-ul">
+							<li>
+								<span><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>
+							</li>
+							<li> 
+								<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+									<?php echo (isset($_description)) ? $_description : ''; ?>
+								</textarea>
+							</li>
+						</ul>	
+					</div>-->
+
+				</form>
+				<!-- Fin Form -->
+
+			</div>
+		</div>				
+	</div>
 
 </section>
 

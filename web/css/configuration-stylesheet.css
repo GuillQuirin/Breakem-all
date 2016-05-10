@@ -13,6 +13,14 @@ body, html{
     margin-top:0;
 }
 
+.classement-content-wrapper{
+  padding:35px;
+}
+
+.configuration-form-table td{
+    padding:15px;        
+}
+
 /* HEADER */
 
 .bg-cover-configuration{
