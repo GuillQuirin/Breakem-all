@@ -226,7 +226,7 @@
 		</div>
 
 		<!-- Footer des pages -->
-		<footer>
+		<footer class="relative">
 		<div class="footer">
 		    <div class="footer_wrap">
 		        <div class="footer_content">
