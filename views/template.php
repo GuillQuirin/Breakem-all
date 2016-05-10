@@ -1,12 +1,15 @@
 	<!DOCTYPE html>
 <html lang="fr">
 	<head>		
-		<!--<meta property="og:url"                content="http://localhost/esgi/Breakthem-all/" />
+
+		<meta charset="UTF-8">
+
+		<!-- Facebook Meta share -->
+		<!-- <meta property="og:url"                content="http://localhost/esgi/Breakthem-all/" />
 		<meta property="og:type"               content="article" />
 		<meta property="og:title"              content="BreakEm All!" />
 		<meta property="og:description"        content="Organise ton propre tournoi!" />
 		<meta property="og:image"              content="http://image.noelshack.com/fichiers/2016/19/1462894934-logo-full.png" />-->
-
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
