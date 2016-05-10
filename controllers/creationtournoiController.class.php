@@ -170,7 +170,7 @@ class creationtournoiController extends template{
 				if(!isset($filteredinputs[$key]))
 					$this->echoJSONerror("inputs", "manque: ".$key);
 			}
-			$tournoi = new tournoi($filteredinputs);
+			$tournoi = new tournament($filteredinputs);
 			$this->validTournoiData($tournoi);
 			$receivedVersion = new gameversion(
 				[
@@ -190,8 +190,8 @@ class creationtournoiController extends template{
 				$_SESSION['selectedGameVersion'] = $receivedVersion->getId();
 				$_SESSION['selectedTournamentName'] = $tournoi->getName();
 				$_SESSION['selectedTournamentDescription'] = $tournoi->getDescription();
-				$_SESSION['selectedTournamentStartDate'] = $tournoi->getStartDate();
-				$_SESSION['selectedTournamentEndDate'] = $tournoi->getEndDate();
+				$_SESSION['selectedTournamentStartDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getStartDate())->getTimestamp();
+				$_SESSION['selectedTournamentEndDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getEndDate())->getTimestamp();
 				$_SESSION['selectedTournamentGuild'] = $tournoi->getGuildOnly();
 				$_SESSION['selectedTournamentRand'] = $tournoi->getRandomPlayerMix();
 				$data = [];
@@ -199,8 +199,8 @@ class creationtournoiController extends template{
 				$data['description'] = $tournoi->getDescription();
 				$data['dateDebut'] = $tournoi->getStartDate();
 				$data['dateFin'] = $tournoi->getEndDate();
-				$data['guildTeams'] = $tournoi->getGuildOnly();
-				$data['randTeams'] = $tournoi->getRandomPlayerMix();
+				$data['guildTeams'] = (bool) $tournoi->getGuildOnly();
+				$data['randTeams'] = (bool) $tournoi->getRandomPlayerMix();
 				$data['jeu'] = $_SESSION['gamename'];
 				$data['console'] = $_SESSION['platformname'];
 				$data['versionName'] = $receivedVersion->getName();
@@ -218,7 +218,52 @@ class creationtournoiController extends template{
 		die("Choisis peut être une console avant ...");
 	}
 
-	
+	private function wereAllStepsValid(){
+		if(!isset($_SESSION['selectedGameVersion'])) return false;
+		if(!isset($_SESSION['selectedTournamentName'])) return false;
+		if(!isset($_SESSION['selectedTournamentDescription'])) return false;
+		if(!isset($_SESSION['selectedTournamentStartDate'])) return false;
+		if(!isset($_SESSION['selectedTournamentEndDate'])) return false;
+		if(!isset($_SESSION['selectedTournamentGuild'])) return false;
+		if(!isset($_SESSION['selectedTournamentRand'])) return false;
+		return true;
+	}
+
+	public function finalValidationAction(){
+		if($this->wereAllStepsValid()){
+			$tournoi = new tournament([
+					'startDate' => $_SESSION['selectedTournamentStartDate'],
+					'endDate' => $_SESSION['selectedTournamentEndDate'],
+					'name' => $_SESSION['selectedTournamentName'],
+					'description' => $_SESSION['selectedTournamentDescription'],
+					'guildOnly' => $_SESSION['selectedTournamentGuild'],
+					'randomPlayerMix' => $_SESSION['selectedTournamentRand'],
+					'idGameVersion' => $_SESSION['selectedGameVersion'],
+					'idUserCreator' => $this->connectedUser->getId(),
+				]);
+			$tm = new tournamentManager();
+			$tm->create($tournoi);
+			unset($tm);
+			$this->destroyCreationSession();
+			// Il faudrait idealement recuperer le lien vers le tournoi nouvellement créé ici et le renvoyer vers le client pour qu'il y soit directement redirigé
+			echo json_encode(["success" => WEBPATH]);
+			exit;
+		}
+	}
+
+	private function destroyCreationSession(){
+		unset($_SESSION['selectedGameVersion']);
+		unset($_SESSION['selectedTournamentName']);
+		unset($_SESSION['selectedTournamentDescription']);
+		unset($_SESSION['selectedTournamentStartDate']);
+		unset($_SESSION['selectedTournamentEndDate']);
+		unset($_SESSION['selectedTournamentGuild']);
+		unset($_SESSION['selectedTournamentRand']);
+		unset($_SESSION['platformname']);
+		unset($_SESSION['gamename']);
+		unset($_SESSION['availableGV_ids']);
+		unset($_SESSION['gametypename']);
+	}
 	// Cette fonction servira à aller chercher tous les noms des consoles / games / typegames pour les comparer de façon secure à une donnée reçue
 	// 	Le premier parametre servira à savoir dans quelle table on veut aller recuperer les 
 	//		noms
@@ -249,7 +294,7 @@ class creationtournoiController extends template{
 		}
 		return false;
 	}
-	private function validTournoiData(tournoi $t){
+	private function validTournoiData(tournament $t){
 		if(!(validateDate($t->getStartDate(), 'd/m/Y')))
 			$this->echoJSONerror("dateDebut", "C'est quoi cette date ?");
 		if(!(validateDate($t->getEndDate(), 'd/m/Y')))
