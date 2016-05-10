@@ -1,5 +1,5 @@
 <?php
-final class tournoi{
+final class tournament{
 	protected $_id;
 	protected $_startDate;
 	protected $_endDate;

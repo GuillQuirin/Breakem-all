@@ -1,11 +1,11 @@
 <?php
-final class tournoiManager extends basesql{
+final class tournamentManager extends basesql{
 
 	public function __construct(){
 		parent::__construct();
 	}
 
-	public function create(tournoi $tournoi){
+	public function create(tournament $tournoi){
 		// Check afin de savoir qui appelle cette méthode
 		$e = new Exception();
 		$trace = $e->getTrace();
@@ -16,23 +16,28 @@ final class tournoiManager extends basesql{
 		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
 
 
-		// if(!$calling_class || !$calling_method)
-		// 	die("Tentative d'enregistrement depuis une autre methode que verifyAction de la classe TournoiController!");
+		if(!$calling_class || !$calling_method)
+			die("Tentatrbebrvrevtreezzment depuis une autre methode que finalValidationActervreverviezon de la classe TournoiController!");
 
 		// Si appelée depuis la page tournoi
-		//if ($calling_class === "tournoiController" && $calling_method === "verifyAction"){
+		if ($calling_class === "creationtournoiController" && $calling_method === "finalValidationAction"){
 			$this->columns = [];
-			$user_methods = get_class_methods($user);
+			$tournoiMeths = get_class_methods($tournoi);
 
-			foreach ($user_methods as $key => $method) {
+			foreach ($tournoiMeths as $key => $method) {
 				if(strpos($method, 'get') !== FALSE){
 					$col = lcfirst(str_replace('get', '', $method));
-					$this->columns[$col] = $user->$method();
+					$this->columns[$col] = $tournoi->$method();
 				};
 			}
+			// Toutes les propriétés à 0 sont remove de l'array à ce moment là
+			// Pas impactant ici puisque les default value dans tournoi sont à 0
 			$this->columns = array_filter($this->columns);
+			// print_r($this->columns);
 			$this->save();
-		//}
+		}else{
+			die("Tentative d'enregistrement depuis une autre methode que finalValidationAction de la classe TournoiController!");
+		}
 	}
 
 	public function save(){
