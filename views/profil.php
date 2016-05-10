@@ -23,15 +23,19 @@ else{
 					echo '<p class="off">Dernière connexion: '.date('d/m/Y \à\ G:i',$lastConnexion).'</p>';
 			?>
 		</div>
-		<?php 	
-			if(isset($myAccount))
-				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';
-		?>
 	</section>
 	<section id="informations">
 		<div id="communication">
-			<button id="contact" title="Envoyer un mail au joueur">Contacter</button>
-			<button id="signalement">Signaler le joueur</button>
+		<?php 
+			//N'apparaissent que si le visiteur est connecté et n'est pas sur sa propre page
+			if(isset($_isConnected) && !isset($myAccount)){
+				if($authorize_mail_contact==1)
+					echo '<button id="contact" title="Envoyer un mail au joueur">Contacter</button>';
+				echo '<button id="signalement">Signaler le joueur</button>';
+			}
+			else if(isset($myAccount))
+				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';
+		?>
 		</div>
 		<div id="description">
 			<h4>Description</h4>
@@ -95,29 +99,31 @@ else{
 	</section>
 	<section id="formplainte">
 		<div>
-			<h4>Signaler un joueur</h4>
-			<ul>
-				<li>Vous trouvez que ce joueur ne respecte pas les <a href="#">Conditions Générales d'Utilisation</a> ?
-				<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
-				<li>Selectionnez la raison de votre signalement:
-					<select id="liste_plainte">
-						<option value="0"></option>
-						<option value="1">Méchant</option>
-					</select>
-			</ul>
-			<p>
-				Veuillez justifier votre plainte (obligatoire):
-			</p>
-			<textarea id="mess_plainte"></textarea>
-			<button id="btn_plainte">Envoyer</button>
+			<form action="profil/report" method="post">
+				<h4>Signaler un joueur</h4>
+				<ul>
+					<li>Vous trouvez que ce joueur ne respecte pas les <a href="#">Conditions Générales d'Utilisation</a> ?
+					<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
+					<li>Selectionnez la raison de votre signalement:
+						<input type="text" name="subject" required>
+				</ul>
+				<p>
+					Veuillez justifier votre plainte (obligatoire):
+				</p>
+				<textarea id="mess_plainte" name="description" required></textarea>
+				<input type="submit" id="btn_plainte" value="Envoyer">
+			</form>
 		</div>
 	</section>
 	<section id="formcontact">
 		<div>
-			<h4>Contacter le joueur</h4>
-			<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
-			<textarea id="mess_contact" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site"></textarea>
-			<button id="btn_contact">Envoyer</button>
+			<form action="profil/contact" method="post">
+				<h4>Contacter le joueur</h4>
+				<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
+				<textarea id="mess_contact" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				</textarea>
+				<input type="submit" id="btn_contact" value="Envoyer">
+			</form>
 		</div>
 	</section>
 	<?php

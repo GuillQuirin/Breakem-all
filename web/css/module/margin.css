@@ -1,0 +1,16 @@
+
+
+/* MARGIN */
+.m-a{
+  margin: auto;
+}
+
+.m-n{
+  margin:0;
+}
+
+.aligner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

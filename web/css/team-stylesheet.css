@@ -1,0 +1,124 @@
+@import 'module/variable.less';
+
+.bg-cover-classement {
+    /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/oot.jpg) center top no-repeat;
+    margin:0;
+    padding:0;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+img{
+
+}
+
+#ID{
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6));
+    transform: skew(-8deg);
+    width:30%;
+
+}
+
+#profil{
+    display: flex;
+    justify-content: center;
+}
+
+#name{
+
+}
+
+.header-info{
+    font-size:20px;
+    color:#ffffff;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+}
+
+.classement-content-wrapper{
+    padding:35px;
+}
+
+.img{
+    transform: skew(-8deg);
+}
+
+.border{
+    border-top:1px solid white;
+}
+
+.description{
+
+}
+
+.activite{
+
+}
+
+
+
+.team{
+    position:relative;
+    margin-left:230px;
+    bottom:140px;
+}
+
+#container1{
+    width:60%;
+}
+
+#container2{
+    position:relative;
+    margin-left:870px;
+    bottom:785px;
+
+
+}
+
+#member{
+    font-size:20px;
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6));
+    padding: 10px;
+    width:125px;
+    transform: skew(-8deg);
+}
+
+
+
+#profil1{
+
+    border-left:1px solid white;
+    padding-left:25px;
+}
+
+.name{
+    position:relative;
+    margin-left:150px;
+    bottom:60px;
+    font-size: 25px;
+    left:30px;
+
+}
+
+#container3{
+    position:relative;
+    font-size:20px;
+    bottom:770px;
+    margin-left:870px;
+}
+
+#match{
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6));
+    transform: skew(-8deg);
+    padding: 10px;
+    width:150px;
+    font-size:25px;
+}
+
+#match3{
+    position:relative;
+    top:25px;
+}

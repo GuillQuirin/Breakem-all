@@ -6,8 +6,6 @@ class profilController extends template{
 		
 		$v = new View();
 		$this->assignConnectedProperties($v);
-		//echo "<pre>";
-		//var_dump($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");
@@ -18,37 +16,27 @@ class profilController extends template{
 			$userBDD = new userManager();
 
 			$args = array('pseudo' => FILTER_SANITIZE_STRING );
-
 			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 
 			$user = $userBDD->getUser($filteredinputs);
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
-
-			$args = array(
-				'pseudo' => FILTER_SANITIZE_STRING,
-				'name' => FILTER_SANITIZE_STRING,
-				'firstname' => FILTER_SANITIZE_STRING,
-				'birthday' => FILTER_SANITIZE_STRING,
-				'description' => FILTER_SANITIZE_STRING,
-				'kind' => FILTER_SANITIZE_STRING,
-				'city' => FILTER_SANITIZE_STRING,
-				'email' => FILTER_VALIDATE_EMAIL,
-				'status' => FILTER_SANITIZE_STRING,
-				'img' => FILTER_SANITIZE_STRING,
-				'idTeam' => FILTER_SANITIZE_STRING,
-				'isConnected' => FILTER_VALIDATE_INT,
-				'lastConnexion' => FILTER_VALIDATE_INT,
-				'token' => FILTER_SANITIZE_STRING
-			);
-
+			
 			if($user!==FALSE){
-				foreach ($args as $key => $value) {
-					$method = 'get'.ucfirst($key);
-					if (method_exists($user, $method)) {
-						$v->assign($key, $user->$method());
-					}
+
+				$user_methods = get_class_methods($user);
+				//echo "<pre>";
+				//var_dump($user);
+				// exit;
+				foreach ($user_methods as $key => $method) {
+					if(strpos($method, 'get') !== FALSE){
+						$col = lcfirst(str_replace('get', '', $method));
+						$this->columns[$col] = $user->$method();
+						$v->assign($col, $user->$method());
+								
+					};
 				}
+
 				//Apparition du bouton de configuration
 				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail())
 					$v->assign('myAccount', 1);
@@ -61,5 +49,57 @@ class profilController extends template{
 			$v->assign("err", "1");
 		}
 		$v->setView("profil");
+	}
+
+	public function contactAction(){
+
+		if(isset($_POST['msg'])){
+
+			$args = array('msg' => FILTER_SANITIZE_STRING );
+			$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+			$data = array('email' => $_SESSION[COOKIE_EMAIL]);
+
+			$userBDD = new userManager();
+			$expediteur = $userBDD->getUser($data);
+
+			$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
+				//$pseudoProfil = explode("&",$pseudoProfil);
+				$data = array('pseudo' => $pseudoProfil);
+			$destinataire = $userBDD->getUser($data);	
+
+			$contenuMail = "<h3>Vous avez reçu un message de <a href=\"http://breakem-all.com/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
+		      $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+		      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
+
+			$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
+
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
+	}
+
+	public function reportAction(){
+		if(isset($_POST['description']) && isset($_POST['subject'])){
+			$args = array(
+					'subject' => FILTER_SANITIZE_STRING,
+					'description' => FILTER_SANITIZE_STRING
+					);
+			$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+			$data = array('email' => $_SESSION[COOKIE_EMAIL]);
+
+			$userBDD = new userManager();
+			$victime = $userBDD->getUser($data);
+			$filteredinputs['id_indic_user'] = $victime->getId();
+
+			$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
+			$data = array('pseudo' => $pseudoProfil);
+			$accuse = $userBDD->getUser($data);
+			$filteredinputs['id_signaled_user'] = $accuse->getId();
+
+			$plainteBDD = new signalmentsuserManager();
+			$plainte = new signalmentsuser($filteredinputs);
+			$plainteBDD->create($plainte);
+		}
 	}
 }

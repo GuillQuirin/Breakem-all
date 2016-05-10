@@ -1,0 +1,315 @@
+
+
+/* Navbar top (ajouté class="fixed" si vous la voulez fix)*/
+.navbar {
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.navbar.full {
+  height: 105px;
+  transition:all .5s;
+}
+
+.navbar.full .navbar-menu-ul{
+  line-height: 105px;
+  transition:all .5s;
+}
+
+.navbar.shrink {
+  height: 60px;
+  background: transparent;
+  transition:all .5s;
+}
+
+.navbar.shrink .navbar-menu-ul{
+  line-height: 60px;
+  transition:all .5s;
+}
+
+.navbar.shrink .navbar-menu span{
+  display:none;
+}
+
+.navbar.full .navbar-logo img{
+  height:45px;
+  transition:all .5s;
+}
+
+.navbar.shrink .navbar-logo img{
+  height:30px;
+  transition:all .5s;
+}
+
+.navbar-logo img {
+  vertical-align: middle;
+}
+
+.navbar-menu-ul{
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+
+.navbar-menu .navbar-menu-li{
+  display:inline-block;
+  position:relative;
+}
+
+.navbar-title{
+  font-size:25px;
+}
+
+.navbar-menu {
+  /*overflow: hidden;*/
+  text-align:center;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  font-size: 13px;
+  color:#ffffff;
+  padding: 0 15px;
+  text-transform:uppercase;
+  position:relative;
+  font-family: "Roboto" !important;
+}
+
+.navbar-menu span{
+  position:absolute;
+  bottom:-60px;
+  color:orange;
+  font-height:600;
+  left:15px;
+}
+
+.navbar-icon{
+  padding:0 5px 3px;
+}
+
+.navbar-menu .navbar-menu-li:hover span{
+  opacity:1;
+}
+
+.navbar #navbar-toggle-logo{
+  transition:all .5s;
+}
+
+.navbar.full #navbar-toggle-logo{
+    height:45px;
+    margin-top:30px;
+}
+
+.navbar.shrink #navbar-toggle-logo{
+    height:30px;
+    margin-top:15px;
+}
+
+.navbar #navbar-toggle{
+    float:right;
+    padding-right:20px;
+    transition:all;
+    position:absolute;
+    right:0;
+    z-index:1000;
+    transition:all .5s;
+}
+
+.navbar #navbar-toggle{
+  cursor:pointer;
+}
+
+.navbar.full #navbar-toggle{
+  width:30px;
+  margin-top:40px;
+}
+
+.navbar.shrink #navbar-toggle{
+  width:20px;
+  margin-top:20px;
+}
+
+/* NAVBAR SIDE */
+
+.navbar-side-menu{
+  width:50%;
+  background:#080325;
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  max-width:400px;
+  margin:0;
+  padding:95px 0 30px;
+  overflow-y:auto;
+  max-height:100%;
+  border:none;
+  transition:.3s padding-top ease,.5s transform ease;
+  z-index:-1;
+  color:#ffffff;
+}
+
+.navbar-collapse{
+  display:block;
+  transform:translateX(100%);
+}
+
+.navbar-side-menu a {
+  text-decoration: none;
+  font-size: 17px;
+  color:#ffffff;
+  padding: 0 35px;
+  text-transform:uppercase;
+  position:relative;
+  font-family: "Roboto" !important;
+}
+
+.navbar-side-menu .navbar-menu-li{
+  line-height:70px !important;
+}
+
+.navbar-side-menu span{
+  text-transform:lowercase;
+  position:absolute;
+  bottom:-41px;
+  left:15px;
+  opacity:0.4;
+}
+
+.navbar-side-menu .navbar-menu-ul{
+  margin:0;
+  padding:0;
+}
+
+.navbar-side-menu img{
+  vertical-align: middle;
+}
+
+/* FIN NAVBAR SIDE */
+
+@media only screen and (max-width: 768px) {
+  
+  .navbar-logo {
+    margin-left: 20px;
+  }
+
+  .responsive.shrink .navbar-menu {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    text-align: center;
+  }
+}
+
+/* Navbar top theme */
+.navbar.full.transparent{
+  background-color: rgba(8,3,37,0.2);
+}
+
+.navbar.shrink.transparent{
+  background-color: rgba(8,3,37,1);
+}
+
+/* Fin Navbar top */
+
+/* PROFILE STYLE */
+
+.navbar-profil-img{
+  width:35px;
+  vertical-align: middle;
+}
+
+.navbar-profil-title{  
+  /*padding:0 0px 0 0 !important;*/
+}
+
+/*
+  Navbar Menu tooltip 
+*/
+
+.navbar-menu-tooltip{
+  display:none;
+  position:absolute;
+  left:0px;
+  top:100%;  
+  margin-top:15px !important;
+  border-radius:3px;
+  background-color:rgba(8,3,37,1);
+  padding:0 25px;
+  width:100%;
+}
+
+.navbar-menu-tooltip::before{
+  width:0;
+  height:0;
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-bottom:7px solid rgba(8,3,37,1);
+  border-top:7px solid transparent;
+  position:absolute;
+  content:'';
+  display:block;
+  top:-14px;  
+  left:20px;  
+  z-index:10;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li{
+	width:250px;
+  line-height:50px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:hover a{
+  border-bottom:1px solid #ffffff;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li a{
+  text-transform:none;
+  margin:0;
+  padding:0;
+  transition: 0.5s ease;
+  border-bottom:1px solid transparent;;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:first-child{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:last-child{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+/*
+  Fin Navbar Menu tooltip 
+*/
+
+.navbar-connected-online{
+  position:absolute;
+  bottom:-12px;
+  right:20px;
+  background:#1edc3c;
+  width:7px;
+  height:7px;
+  box-shadow:inset 1px 1px 0 #1bc636,inset -1px -1px 0 #31e34d;
+  border-radius: 50%;
+}
+
+
+
+

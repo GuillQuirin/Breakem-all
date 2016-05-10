@@ -1,8 +1,8 @@
-
+<!-- Header de la page index -->
 <section class="full-height bg-cover-index relative">
 	
-	<div class="align full-height">
-		<span class="header-title border-full relative animation fade">Le Meilleur se cache parmi vous!
+	<div class="align full-height animation fadeLeft">
+		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
 			<div class="index-header-btn"> 			
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Tournoi du moment</a></button>				
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
@@ -25,11 +25,11 @@
 						<ul>
 							<!-- Liste des types de game -->
 							<?php //echo $typeJeux; ?>
-						 	<li class="border_menu active_menu"><a href="#">Equipe</a></li>
-							<li class="border_menu"><a href="#">Solo</a></li>
-							<li class="border_menu"><a href="#">5vs5</a></li>
-							<li class="border_menu"><a href="#">2vs2</a></li>
-							<li class="border_menu"><a href="#">Plus...</a></li>
+						 	<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
+							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
+							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
+							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
 						</ul>
 					</nav>
 
@@ -211,16 +211,16 @@
 					<label for="title3">Catégories</label>
 				</div>
 				<?php
-					if(isset($categorie)): 
-						foreach ($categorie as $key => $value):
-							$catego = new typegame($value);
+					// if(isset($categorie)): 
+					// 	foreach ($categorie as $key => $value):
+					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php echo $catego->getName(); ?></p><br>
+								<p><?php// echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
-						endforeach;
-					endif;
+					// 	endforeach;
+					// endif;
 				?>
 			</div>
 		</div>

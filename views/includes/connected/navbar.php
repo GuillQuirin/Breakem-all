@@ -2,7 +2,7 @@
 	<ul class="navbar-menu-ul">		
 		<li class="navbar-menu-li">
 			<a href="<?php echo WEBPATH.'/profil?pseudo='.$_pseudo; ?>" class="">
-			<?php echo '<img class="navbar-profil-img img-circle" src="' . WEBPATH . '/web/img/avatar3.jpg"><div class="navbar-connected-online"></div>';?>
+			<?php echo '<img class="navbar-profil-img img-circle" src="'.$_img.'"><div class="navbar-connected-online"></div>';?>
 			</a>
 		</li>
 		<li class="navbar-menu-li">

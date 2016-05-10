@@ -1,0 +1,49 @@
+
+#content{
+	margin: 50px auto;
+    width: 80%;
+}
+
+#content section{
+    vertical-align: top;
+    display: inline-block;
+    background-color: #343452;
+    position: relative;
+    margin-top: 5%;
+}
+#content section div{
+    border: 1px solid;
+    display: inline-block;
+    width: 100%;
+    padding: 5% 0;
+}
+#image img{
+    width: 100%;
+    vertical-align: top;
+}
+#avatar{
+    width: 20%;
+    height: 150px;
+}
+#informations{
+    width: 70%;
+    margin-left: 9%;
+}
+#content h4{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+#content a{
+    color: #B346FF;
+    text-decoration: none;
+    font-style: italic;
+}
+#content a:hover{
+	text-decoration: underline;
+	color: #04EAC1;
+}
+
+#content button{
+	cursor: pointer;
+}

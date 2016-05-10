@@ -1,0 +1,15 @@
+.header-title{
+	color:#ffffff;
+	text-transform: uppercase;
+	font-size:45px;
+	margin-right:55px;
+	padding:15px 30px;
+	cursor:default;
+	text-align: center;
+}
+
+.header-scroll-down{
+	margin-bottom:15px;
+	position:absolute;
+	cursor:pointer;
+}

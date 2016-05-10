@@ -59,12 +59,8 @@ class userManager extends basesql{
 
 		if(isset($r[0])){
 			$dbUser = new user($r[0]);
-			// print_r($dbUser);
-			// exit;
-			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword())){
+			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 				return $dbUser;
-			}
-				
 		}
 		return false;
 	}
@@ -78,19 +74,30 @@ class userManager extends basesql{
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		if( (bool) $r[0]['nb'] ){
-			$this->activateAccount($user);
-			return true;
+			if ($this->activateAccount($user))		
+				return true;
 		}
 		return false;
 	}
 
 	private function activateAccount(user $u){
-		$sql = "UPDATE ".$this->table." SET status=1, token=NULL WHERE email=:email AND  token=:token";
+		$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':token' => $u->getToken(),
+		$r = $sth->execute([
 			':email' => $u->getEmail()
 		]);
+		return $r;
+	}
+
+	public function recoverAccount(user $u, $password){
+		$sql = "UPDATE ".$this->table." SET password = :password, token = '' WHERE email=:email ";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':email' => $u->getEmail(),
+			':password' => $password
+		]);
+		
+		return $r;
 	}
 
 	/*C'est ici que l'on set le isConnected à 1 (true)
@@ -149,23 +156,29 @@ class userManager extends basesql{
 		}
 
 		$data = array_filter($data);
-		
-		$sql = "UPDATE User SET ";
+
+		$compteur=0;
+
+		$sql = "UPDATE user SET ";
 			foreach ($data as $key => $value) {
-				$sql.=" ".$key."=:".$key."";
-				if(end($data)!=$value)
+				if($compteur!=0) 
 					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
 			}
 		$sql.=" WHERE id=:id";
-		
+
+		// var_dump($sql);
+		//exit;
+
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
-		foreach ($data as $key => &$value) {
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
 			$query->bindParam(':'.$key, $value);
-		}
+	
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
-		
 		$query->execute();
 	}
 }

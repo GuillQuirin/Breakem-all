@@ -2,7 +2,7 @@
 
 function removeNULL($var)
 {
-    // retourne lorsque l'entrée est impaire
+    // retourne lorsque l'entrée est différente de NULL
     if($var !== NULL)
     	return $var;
 }
@@ -20,4 +20,10 @@ function ourOwnPassVerify($received, $model){
 	if(password_verify($received, $model))
 		return true;
 	return false;
+}
+
+function validateDate($date, $format = 'Y-m-d H:i:s')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
 }

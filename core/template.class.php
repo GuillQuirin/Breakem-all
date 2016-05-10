@@ -29,7 +29,8 @@ class template{
       $v->assign("_email", $this->connectedUser->getEmail());
       $v->assign("_img", $this->connectedUser->getImg()); 
       $v->assign("_idTeam", $this->connectedUser->getIdTeam());
-      
+      $v->assign("_rss", $this->connectedUser->getRss());
+      $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
     }
   }
@@ -40,6 +41,7 @@ class template{
       return true;
     return false;
   }  
+
   protected function checkToken(){
     // var_dump($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
     
@@ -48,8 +50,7 @@ class template{
       COOKIE_TOKEN   => FILTER_SANITIZE_STRING
     );
     $filteredcookies = filter_input_array(INPUT_COOKIE, $args);
-    // var_dump($filteredcookies);
-    // exit; 
+
     $requiredCookiesReceived = true;
     foreach ($args as $key => $value) {
       if(!isset($filteredcookies[$key])){
@@ -77,8 +78,6 @@ class template{
       }        
      };
     };
-
-    // exit;
   }
 
   public function connectionAction(){
@@ -156,7 +155,7 @@ class template{
     exit;
   }
 
-  private function attenteValid(user $user){
+  protected function envoiMail($destinataire, $objet, $contenu){
     /* CONFIGURATION DU MAIL*/
 
     $adrPHPM = "web/lib/PHPMailer/"; 
@@ -180,25 +179,19 @@ class template{
       $mail->set('FromName', 'Admin BEA');      
 
       //Destinataire (l'utilisateur)
-      $mail->AddAddress($user->getEmail());
+      $mail->AddAddress($destinataire);
       
       $mail->CharSet='UTF-8';
-      $mail->Subject='Inscription à Break em all'; 
+      $mail->Subject=$objet; 
 
-      $contenuMail = "
-              <h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>
-              <div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>
-              <a href=\"http://localhost".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
-      $mail->Body=$contenuMail;
+      $mail->Body=$contenu;
 
-      if(!$mail->Send()){ //Teste le return code de la fonction 
-        echo $mail->ErrorInfo; //Affiche le message d'erreur (ATTENTION:voir section 7) 
-      }
-      else{      
-        echo 'Mail envoyé avec succès'; 
-      } 
-
+      //  Décommentez pour réactiver le mail
+      /*if(!$mail->Send()){ 
+        echo $mail->ErrorInfo; 
+        //exit;
+      }*/
 
       $mail->SmtpClose(); 
       unset($mail);
@@ -206,22 +199,20 @@ class template{
 
     }
 
-    //Initialisation d'une session autorisant 
-    // le visiteur à accèder à la page de confirmation
-    // $_SESSION['userToCheck']=1;
-    echo json_encode(['success' => true]);
-    // header('Location: '.WEBPATH.'/confirmation');
   }
 
   private function checkRegisterInputs(){
+    // Imposer un FILTER_VALIDATE_INT sur les day/month/year suppriment les valeurs numeriques ayant un 0 devant
+    // Genre 09 --> part au carton alors que 9 passe trql
+    //  --> SOLUTION --> FILTER_SANITIZE_STRING sur les chiffres attendus puis cast des valeurs en int
     $args = array(
       'pseudo'     => FILTER_SANITIZE_STRING,
       'email'   => FILTER_VALIDATE_EMAIL,
       'password'   => FILTER_SANITIZE_STRING,
       'password_check'   => FILTER_SANITIZE_STRING,
-      'day'   => FILTER_VALIDATE_INT,     
-      'month'   => FILTER_VALIDATE_INT,     
-      'year'   => FILTER_VALIDATE_INT     
+      'day'   => FILTER_SANITIZE_STRING,     
+      'month'   => FILTER_SANITIZE_STRING,     
+      'year'   => FILTER_SANITIZE_STRING     
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     $finalArr = [];
@@ -250,6 +241,10 @@ class template{
       $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
     //Date de naissance
+    $filteredinputs['month'] = (int) $filteredinputs['month'];
+    $filteredinputs['day'] = (int) $filteredinputs['day'];
+    $filteredinputs['year'] = (int) $filteredinputs['year'];
+    
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
       $this->echoJSONerror('date', 'La date reçue a fail !');
 
@@ -290,9 +285,12 @@ class template{
     // On enregistre
     $userBDD->create($user);
 
+    $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
+      $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
+      $contenuMail.="<a href=\"http://localhost".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
+
     //Appel de la methode d'envoi du mail
-    //  Décommentez pour réactiver le mail
-    // $this->attenteValid($user);
+    $this->envoiMail($user->getEmail(),'Inscription à Break em all',$contenuMail);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();

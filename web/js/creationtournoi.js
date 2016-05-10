@@ -33,8 +33,12 @@ function preventQuitPageEvent(){
 	};
 }
 function getElementChoiceDom(titre, description, urlImg){
-	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="web/img/'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
+	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
 	return elemDOM;
+}
+function getGameVersionChoiceDom(name, descri, maxP, minP, maxT, maxPt){
+	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>joueurs minimum: '+minP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
+	return elDOM;
 }
 function loadElementsChoice(arrayJqDOM){
 	var container = dom.getContainer();
@@ -46,7 +50,7 @@ function loadElementsChoice(arrayJqDOM){
 function loadTitle(titre){
 	var _title = dom.getTitleContainer();
 	_title.empty();
-	_title.append('<h1 class="title">Choisis le '+titre+'</span></h1>');
+	_title.append('<h1 class="title">Choisis '+titre+'</span></h1>');
 }
 function loadBtn(string){
 	var btn = dom.getBtn();
@@ -66,8 +70,8 @@ var dom = {
 			console.log("Title || Container || Btn not found ");
 			return false;
 		}
-		// this.setTitleContainerMargin();
-		// this.setBtnMargin();
+		this.setTitleContainerMargin();
+		this.setBtnMargin();
 		return true;
 	},
 	setTitleContainer: function(){
@@ -116,6 +120,12 @@ var gameTypesChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
+		    	if(obj.errors){
+		    		for(var prop in obj.errors){
+		    			alert(obj.errors[prop]);
+		    		}
+		    		return false;
+		    	}
 		    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
 		    	// On associe les events de choix à chaque élément de l'array
 			    for(var prop in obj.types){
@@ -127,7 +137,7 @@ var gameTypesChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("style de jeu");
+			    loadTitle("ton style de jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
@@ -197,6 +207,12 @@ var gameChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
+		    	if(obj.errors){
+		    		for(var prop in obj.errors){
+		    			alert(obj.errors[prop]);
+		    		}
+		    		return false;
+		    	}
 			    for(var prop in obj.games){
 			    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
@@ -206,7 +222,7 @@ var gameChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("jeu");
+			    loadTitle("ton jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
@@ -276,7 +292,12 @@ var consoleChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-		    	// console.log(obj);
+		    	if(obj.errors){
+		    		for(var prop in obj.errors){
+		    			alert(obj.errors[prop]);
+		    		}
+		    		return false;
+		    	}
 			    for(var prop in obj.platforms){
 			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
@@ -287,7 +308,7 @@ var consoleChoice = {
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("console");
+			    loadTitle("ta console");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
@@ -341,6 +362,7 @@ var gameversionChoice = {
 	},
 	_choice: false,
 	_choiceDat: false,
+	_currentForm: false,
 	possibleChoices: [],
 	getChoice: function(){return this._choice;},
 	getChoiceDat: function(){return this._choiceDat;},
@@ -357,18 +379,22 @@ var gameversionChoice = {
 		  success: function(data, textStatus, xhr) {
 		    var obj = tryParseData(data);
 		    if(!!obj){
-		    	console.log(obj);
+		    	if(obj.errors){
+		    		for(var prop in obj.errors){
+		    			alert(obj.errors[prop]);
+		    		}
+		    		return false;
+		    	}
 			    for(var prop in obj.versions){
-			    	var jQDomElem = getElementChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].img);
+			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].minPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop].name);
-			    	console.log(obj.versions[prop]);
+			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
-			    loadTitle("console");
+			    loadTitle("ton mode de jeu");
 			    loadBtn("suivant");
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
@@ -379,16 +405,71 @@ var gameversionChoice = {
 		  }
 		});
 	},
-	associateChoiceEvent: function(jQel, da){
+	putAccordingForm: function(){
+		var _this = this;
+		var selectedJson = this.getChoiceDat();
+		var selectedName = selectedJson.name;
+		var selectedMinP = selectedJson.minPlayer;
+		var selectedMaxP = selectedJson.maxPlayer;
+		var selectedMinT = selectedJson.minTeam;
+		var selectedMaxT = selectedJson.maxTeam;
+		var selectedMaxPPT = selectedJson.maxPlayerPerTeam;
+		// différencier les match en équipe de ceux en solo
+		//  Si équipe --> choix du random, et choix de guilde imposée ou pas 
+		// 	Si solo --> forcément random
+		if(this._currentForm instanceof jQuery)
+			this._currentForm.remove();
+		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
+		if(parseInt(selectedMaxPPT) == 1)
+			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
+		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">jj/mm/aaaa</p></div><div class="form-input-group"><label for="endDate">Donne la date de sa fin (Requis)</label><input class="border-full" type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="endDate" required/><p class="creationtournoi-tip">jj/mm/aaaa</p></div></form>');
+		// on est dans le cas équipe
+		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
+			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div><div class="form-input-group"><label for="guildOnly">Pour guildeux only ?</label><input class="border-full" type="checkbox" name="guildOnly"></div>');
+			form.append(randomAndGuildInputs);
+			_this.randomAndGuildInputEvent(randomAndGuildInputs);
+		}
+		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="10"></textarea></div>');
+		container.append(form);
+		dom.getContainer().after(container);
+		$('html, body').animate({
+			scrollTop: (container.find('h2').offset().top/2) - (jQuery("#navbar").height()/2)
+		}, 500);
+		container.find('input[name="name"]').focus();
+		this._currentForm = container;
+	},
+	associateChoiceEvent: function(jQel, objDa){
 		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da);
+			if(_this.getChoiceDat() === objDa){
+				_this.resetChoice();
+			}else{
+				_this.setChoice(jQel, objDa);
+				_this.putAccordingForm();
+			}
+			
 		});
 	},
+	resetChoice: function(){
+		var _this = this;
+		var allChoices = this.getPossibleChoices();
+		for (var i = 0; i < allChoices.length; i++) {
+			allChoices[i].removeClass('box-bg-shadow');
+			allChoices[i].removeClass('bg-black');
+			allChoices[i].removeClass('creationtournoi-active-choice');
+			allChoices[i].removeClass('scale-10-percent');
+			allChoices[i].find('h2').addClass('inverse-border-full');
+			allChoices[i].find('p').addClass('inverse-border-full');
+		};
+		_this._choice = false;
+		_this._choiceDat = false;
+		this._currentForm.remove();
+		this._currentForm = false;
+	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, da){
+	setChoice: function(jQChoice, objDa){
 		this._choice = jQChoice;
-		this._choiceDat = da;
+		this._choiceDat = objDa;
 		var allChoices = this.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
@@ -405,13 +486,192 @@ var gameversionChoice = {
 		jQChoice.find('h2').removeClass('inverse-border-full');
 		jQChoice.find('p').removeClass('inverse-border-full');
 	},
+	isNameValid: function(jQel){
+		var unauthorizedChars = /[^a-z0-9 éàôûîêçùèâ]/i;
+		if(jQel.val().match(unauthorizedChars) 
+			|| jQel.val().length < 8
+			|| jQel.val().length > 50){
+			register.highlightInput(jQel);
+			alert("name fail");
+			return false;
+		}
+		return true;
+	},
+	isDateFormatValid: function(jQel){
+		var unauthorizedChars = /[^\d{2}\/\d{2}\/\d{4}]/;
+		if(jQel.val().match(unauthorizedChars)){
+			alert("date fail !");
+			jQel[0].value = "";
+			jQel.focus();
+			return false;
+		};
+		return true;
+		/*var day = parseInt(jQel.val().substring(0, 2));
+		var month = parseInt(jQel.val().substring(3, 5)) - 1;
+		var year = parseInt(jQel.val().substring(6));
+		var d = new Date(year, month, day);
+		var receivedTime = d.getTime();
+		console.log("1: "+ receivedTime);
+
+
+		var today = new Date();
+		var curD = today.getDate();
+		var curM = today.getMonth();
+		var curY = today.getFullYear();
+		var firstHourToday = new Date(curY, curM, curD);
+
+
+		var baseTime = firstHourToday.getTime();
+		console.log("2: "+ baseTime);
+		console.log("3: "+today.getTime());
+		// S'il est midi passé ou si le mec essaye de creer un tournoi ds le passé
+		if (receivedTime - baseTime < 0){
+			alert("Date d'aujourd'hui minimum");
+			jQel[0].value = "";
+			jQel.focus();
+			return false
+		};
+		if (today.getTime() == baseTime && today.getHours() > 12){
+			alert("Il n'est plus possible de créer de tournoi pour le jour même passé 13h!");
+			jQel[0].value = "";
+			jQel.focus();
+			return false
+		};
+		if (receivedTime - baseTime > 2678400){
+			alert("Le tournoi doit débuter avant un mois");
+			jQel[0].value = "";
+			jQel.focus();
+			return false
+		}
+		return receivedTime;*/
+	},
+	isStringValid: function(jQel){
+		if(jQel.val().replace(/ /g, '').length==0){
+			jQel[0].value = "";
+			return true;
+		}
+		var unauthorizedChars = /[^a-zA-Z-0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/;
+		if(jQel.val().match(unauthorizedChars)
+			|| jQel.val().length < 10 
+			|| jQel.val().length > 200){
+			register.highlightInput(jQel);
+			alert("description fail");
+			return false;
+		}
+		return true;
+	},
+	isGuildAndRandValid: function(randP, guild){
+		var randPVal = randP[0].checked;
+		var guildVal = guild[0].checked;
+		if(guildVal && randPVal){
+			alert("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
+			return false;
+		}
+			
+		return true;
+	},
+	checkForm: function(){
+		var form = this._currentForm;
+		// Checks communs à equipe et solo 
+		if(!form)
+			return false;
+
+		var _name = form.find('input[name="name"]');
+		if(_name.length != 1 || !this.isNameValid(_name))
+			return false;
+
+		var _startDate = form.find('input[name="startDate"]');
+		if(_startDate.length != 1 || !this.isDateFormatValid(_startDate))
+			return false;
+
+		var _endDate = form.find('input[name="endDate"]');
+		if(_endDate.length != 1 || !this.isDateFormatValid(_endDate))
+			return false;
+
+		/*	// S'il y a moins d'un jour entre le debut et la fin du tournoi
+		if(_endDate - _startDate < 86400){
+			alert("Le tounoi doit se finir après au moins un jour");
+			return false;
+		};*/
+
+		var _description = form.find('textarea[name="description"]');
+		if(_description.val().length > 0 && !this.isStringValid(_description))
+			return false;
+
+
+		// Check typiquement equipe
+		var joueursParEquipe = this.getChoiceDat().maxPlayerPerTeam;
+		if (joueursParEquipe > 1){
+			var randomP = form.find('input[name="randomPlayerMix"]');
+			var guild = form.find('input[name="guildOnly"]');
+			if(randomP.length != 1)
+				return false
+			if(guild.length != 1 || !this.isGuildAndRandValid(randomP, guild))
+				return false
+		};
+		return true;
+	},
+	randomAndGuildInputEvent: function(jQelContainer){
+		var _this = this;
+		var randomP = jQelContainer.find('input[name="randomPlayerMix"]');
+		var guild = jQelContainer.find('input[name="guildOnly"]');
+		guild.click(function() {
+			if(guild.val() == true)
+				randomP[0].checked = false;
+		});
+	},
 	loadValidationEvent: function(){
 		var _this = this;
 		var _btn = dom.getBtn();
 		_btn.off();
 		_btn.click(function(event) {
-			if (!!_this.getChoice() && !!_this.getChoiceDat()){
-				gameversionChoice.init(_this.getChoiceDat());
+			if (!!_this.getChoice() && !!_this.getChoiceDat() && _this.checkForm()){
+				var form = _this._currentForm;
+				var toSend = {};
+				toSend.name = form.find('input[name="name"]').val();		
+				toSend.startDate = form.find('input[name="startDate"]').val();
+				toSend.endDate = form.find('input[name="endDate"]').val();
+				toSend.description = form.find('textarea[name="description"]').val();
+				var joueursParEquipe = _this.getChoiceDat().maxPlayerPerTeam;
+				if (joueursParEquipe > 1){
+					toSend.randomPlayerMix = form.find('input[name="randomPlayerMix"]')[0].checked;
+					toSend.guildOnly = form.find('input[name="guildOnly"]')[0].checked;
+				}else{
+					toSend.randomPlayerMix = true;
+					toSend.guildOnly = false;
+				}
+				toSend.gversionName = _this.getChoiceDat().name;
+				toSend.gversionDescription = _this.getChoiceDat().description;
+				toSend.gversionMaxPlayer = _this.getChoiceDat().maxPlayer;
+				toSend.gversionMinPlayer = _this.getChoiceDat().minPlayer;
+				toSend.gversionMaxTeam = _this.getChoiceDat().maxTeam;
+				toSend.gversionMinTeam = _this.getChoiceDat().minTeam;
+				toSend.gversionMaxPlayerPerTeam = _this.getChoiceDat().maxPlayerPerTeam;
+				toSend.gversionMinPlayerPerTeam = _this.getChoiceDat().minPlayerPerTeam;
+				jQuery.ajax({
+					url: 'creationtournoi/getFinalStep',
+					type: 'POST',
+					data: toSend,
+					complete: function(xhr, textStatus) {
+						//called when complete
+					},
+					success: function(data, textStatus, xhr) {
+						var obj = tryParseData(data);
+						if(!!obj){
+							if(obj.errors){
+					    		for(var prop in obj.errors){
+					    			alert(obj.errors[prop]);
+					    		}
+					    		return false;
+					    	}
+							console.log(obj);
+						}
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						console.log("request error !! : \t " + errorThrown);
+					}
+				});
+				
 			};
 		});
 	}

@@ -2,6 +2,10 @@
 
 class teamManager extends basesql{
 	public function __construct(){
+		/*
+			L'appel du constructeur de la classe-mère basesql va permettre
+			de cibler uniquement la table correspondant au nom du manager : ici sera la table Team
+		*/
 		parent::__construct();
 	}
 
@@ -19,6 +23,7 @@ class teamManager extends basesql{
 		$this->columns = array_filter($this->columns);
 		$r = $this->save();		
 	}
+	
 	public function setOwnerTeam(team $t, $idUser){
 		$sql = "INSERT INTO RightsTeam (id, idUser, idTeam, right) VALUES ('', '".$idUser."', '".$idTeam."', '1')";
 		$query = $this->pdo->query($sql);
