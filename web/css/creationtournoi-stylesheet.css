@@ -17,6 +17,44 @@
   }
 }
 
+@-webkit-keyframes smoothPopFromLeft {
+  from {
+    left: calc(-100%);
+  }
+
+  to {
+    left: 0;
+  }
+}
+@keyframes smoothPopFromLeft {
+  from {
+    left: calc(-100%);
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+@-webkit-keyframes creationtournoi-smoothLight {
+  from {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  to {
+    background: rgba(255, 255, 255, .08);
+  }
+}
+@keyframes creationtournoi-smoothLight {
+  from {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  to {
+    background: rgba(255, 255, 255, .08);
+  }
+}
+
 .creationtournoi-active-choice{
 	z-index: 2;
 }
@@ -203,6 +241,41 @@ p.creationtournoi-random-match{
     height: 20px;
     width: 20px;
     cursor: pointer;
+}
+
+
+.creationtournoi-tournoi-valid-creation{
+	overflow: hidden;
+}
+
+.creationtournoi-valid-tournoi-name{
+	margin: 0 auto;
+	margin-left: 1.25%;
+	text-align: center;
+}
+
+.creationtournoi-valid-tournoi-list{
+	width: 97.5%;
+	margin: 0 auto;
+	margin-top: 25px;
+	max-width: 1125px;
+	animation: smoothPopFromLeft .5s alternate;
+}
+.creationtournoi-valid-tournoi-list li{
+	width: 100%;
+	padding: 20px 0 5px 0;
+	border-bottom: 2px solid #fff;
+	transition: border .2s, background .2s;
+}
+.creationtournoi-valid-tournoi-list li:nth-child(even){
+	background: rgba(255, 255, 255, .08);
+	-webkit-animation: 1s creationtournoi-smoothLight alternate;
+	-o-animation: 1s creationtournoi-smoothLight alternate;
+	animation: 1s creationtournoi-smoothLight alternate;
+}
+.creationtournoi-valid-tournoi-list li span.data{
+	top: 20px;
+	right: 5px;
 }
 
 

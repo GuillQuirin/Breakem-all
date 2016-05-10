@@ -45,7 +45,7 @@
 		</div>
 	</div>
 </div>
-<div class="creationtournoi-validation-container grid-xs-12 display-flex-column ">
+<div class="creationtournoi-validation-container display-flex-column ">
 	<button id="creationtournoi-valider" type="button" class="btn btn-black"><a class="uppercase">suivant</a></button>
 </div>
 
