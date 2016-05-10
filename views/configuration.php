@@ -78,7 +78,7 @@ if(isset($err)){
 								</td>
 								<td class="configuration-form-email">
 									<div> 
-										<input type="email" name="email" value="<?php echo (isset($_email)) ? $_email : 'Adresse email non fournie'; ?>" required>
+										<input class="input-default configuration-input-default" type="email" name="email" value="<?php echo (isset($_email)) ? $_email : 'Adresse email non fournie'; ?>" required>
 									</div>
 									<div>
 										 
@@ -115,7 +115,7 @@ if(isset($err)){
 									<span>Description : </span>
 								</td>
 								<td>
-									<textarea name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
 										<?php echo (isset($_description)) ? $_description : ''; ?>
 									</textarea>
 								</td>							
@@ -159,7 +159,7 @@ if(isset($err)){
 									<span>Ancien mot de passe</span>
 								</td>
 								<td>
-									<input type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>
+									<input class="input-default configuration-input-default" type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>
 								</td>						
 							</tr>	
 							<tr>
@@ -167,7 +167,7 @@ if(isset($err)){
 									<span>Nouveau mot de passe</span>
 								</td>
 								<td>
-									<input type="password" name="new_password">
+									<input class="input-default configuration-input-default" type="password" name="new_password">
 								</td>						
 							</tr>	
 							<tr>
@@ -175,7 +175,7 @@ if(isset($err)){
 									<span>Ressaisir le nouveau mot de passe:</span>
 								</td>
 								<td>
-									<input type="password" name="new_password_check">
+									<input class="input-default configuration-input-default" type="password" name="new_password_check">
 								</td>						
 							</tr>
 							<tr class="text-center">
@@ -185,7 +185,7 @@ if(isset($err)){
 							</tr>	
 						</table>
 						<div class="text-center">
-							<span><span class="configuration-input-required">*</span> <span class="p-width-small">Champ obligatoire</span>
+							<span class="relative"><span class="configuration-input-required irhack">*</span>Champ obligatoire</span>
 						</div>				
 
 					</form>				

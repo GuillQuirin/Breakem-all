@@ -20,6 +20,10 @@ body, html{
     left:15vw;
 }
 
+.configuration-input-default{
+
+}
+
 .configuration-onglet-ul{
     transform:skew(-8deg);
 }
@@ -32,6 +36,7 @@ body, html{
 
 .configuration-input-required{
     color:#D92B4C;
+    position:absolute;
 }
 
 .configuration-onglet-ul li:hover{
@@ -52,7 +57,7 @@ body, html{
 }
 
 .configuration-form-table td{
-    padding:15px;      
+    padding:20px 25px;      
     border:1px solid #524c7b;  
 }
 
@@ -120,4 +125,8 @@ body, html{
 
 .configuration-header-profil-right span{
     display:block;
+}
+
+.irhack{
+    left:-15px;
 }
