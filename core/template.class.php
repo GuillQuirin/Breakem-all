@@ -46,8 +46,9 @@ class template{
   }  
 
   protected function isAdmin(){
-
-    if($this->connectedUser->getStatus() == 3)
+    $var = $this->connectedUser->getStatus();
+    //var_dump($var);exit;
+    if($var == "3")
       return true;
     return false;
   }  
