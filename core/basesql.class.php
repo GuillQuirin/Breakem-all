@@ -49,7 +49,7 @@ class basesql{
 	}
 
 	public function pseudoExists($pseudo){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
+		$sql = 'SELECT COUNT(*) FROM user WHERE pseudo="' . $pseudo.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
 
 		return $r;
@@ -86,6 +86,44 @@ class basesql{
 		return new user($query);
 	}
 
+	public function getTeam(array $infos){
+		//tab[name]='Test'
+		$cols = array_keys($infos);
+		$data = [];
+		$where = '';
+
+		foreach ($cols as $key ){
+
+			//On met la ligne de $infos dans le tableau $data
+			$data[$key] = $infos[$key];
+
+			//WHERE name = :name AND col2 = :col2 etc.....
+			$where .= $key.'=:'.$key.'';
+
+			//Tant qu'on est pas à la fin du tableau, on rajoute un AND à la requete SQL
+			if(end($cols)!==$key)
+				$where.= ' AND ';
+		}
+
+		$sql = "SELECT id, name, img, slogan, description 
+					FROM team 
+					WHERE ".$where;
+		// var_dump($sql);
+		// exit;
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));	
+		$query->execute($data);	
+		
+		//fetch -> retourne une ligne de la BDD
+		//fetchAll -> retourne plusieurs de la BDD
+		$r = $query->fetch(PDO::FETCH_ASSOC);
+
+		if($query === FALSE)
+			return false;
+
+		return new team($r);
+	}
+
 	public function getTournament(array $infos){
 		
 		$cols = array_keys($infos);
@@ -102,7 +140,7 @@ class basesql{
 	}
 
 	public function getAllNames(){
-		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
+		$sql = "SELECT name FROM user ORDER BY name";
 		$sth = $this->pdo->query($sql);
 		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}

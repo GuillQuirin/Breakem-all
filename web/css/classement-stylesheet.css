@@ -19,29 +19,93 @@ body, html{
 	/*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
 	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/banner-bg.jpg) center top no-repeat;
 	margin:0;
-  	padding:0;
 	-webkit-background-size: cover; 
-	background-size: cover; 
+	background-size: cover; 	
+}
+
+.classement-select-logo{
+	position:absolute;
+	left:-15px;
+	width:40px;
+	top: 20px;
+	padding:0 15px;
+}
+
+.classement-select-ul{
+	position:static;
+	margin:auto;
+	padding:0 35px;
+	text-align:center;
+}
+
+.classement-select-ul li{
+	width:5vw;
+	display:inline-block;
+	vertical-align: middle;
+	padding:0 15px;
+}
+
+.classement-header-select-ul li{
+	width:5vw;
+}
+
+.classement-select-ul .classement-select-li-quote{
+	width:250px;	
+	overflow-y:scroll;		
+}
+
+.classement-select-image{
+	width:50px;		
+}
+
+.classement-select-game{
+	width:auto !important;
+}
+
+.classement-select-pts span{
+	color:orange;	
+}
+
+.classement-header-image{
+	width:250px;	
+}
+
+.classement-header-image-wrapper{
+	padding-bottom: 15px;
 }
 
 .classement-header-title{
-	color:#ffffff;
-	text-transform: uppercase;
+	margin:0 !important;
+	width:100%;
 	font-size:45px;
-	margin-right:55px;
-	padding:15px 30px;
-}
-
-.classement-header-ranking{
-	font-size:80px;
 	color:#ffffff;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	height:200px;
-	width:100%;
-	margin:0 10px;
-	border:1px solid #ffffff;
+	justify-content: center;	
+	padding:15px 0 !important;
+}
+
+.classement-select{	
+	position:relative;	
+	padding:15px !important; 
+	margin:35px 15px !important;
+	cursor:pointer;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.classement-select-default{
+	/*width:auto;*/
+	width:250px;
+	background:#ffffff;
+	color:#292929;
+	text-align:center;
+	border: 2px solid transparent;
+}
+
+.classement-select-default:hover, .classement-select-default:focus{
+	border: 2px solid #D92B4C;
 }
 
 .classement-content-wrapper{
@@ -57,8 +121,7 @@ body, html{
 }
 
 .classement-content-row{
-	margin:0;
-	padding:35px;
+	margin:0;	
 }
 
 .classement-nav-hori-wrapper{
@@ -93,15 +156,19 @@ body, html{
 
 .classement-ranking-icon{
 	position:absolute;
-	bottom:0;
-	right:0;
+	top:-12px;
+	left:-12px;
 	color:#ffffff;
-	background-color:#211d3b;
-	padding:20px 35px;
+	background-color:#D92B4C;
+	padding:15px 25px;
 }
 
-footer{
-	display:none;
+.classement-ranking-icon.ri-2{
+	padding:10px 15px;
+}
+
+.classement-ranking-icon.ri-3{
+	padding:7px 12px;
 }
 
 .classement-header-ranking-wrapper{
@@ -109,11 +176,15 @@ footer{
 	width:200px;
 }
 
-.classement-header-title{
-	font-size:45px;
-	color:#ffffff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width:300px;
+.classement-header-left{
+	padding:0 15px;
 }
+
+.classement-header-right{
+	padding:0 15px;
+}
+
+.classement-header-left-sub{
+	padding:20px 0 10px 0;
+}
+

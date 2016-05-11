@@ -18,7 +18,7 @@ class confirmationController extends template{
         $filteredinputs = filter_input_array(INPUT_GET, $args);
         foreach ($args as $key => $value) {
             if(!isset($filteredinputs[$key])){
-                $v = new View();
+                $v = new view();
                 $v->assign("css", "404");
                 $v->assign("js", "404");
                 $v->assign("title", "Erreur 404");
@@ -36,7 +36,7 @@ class confirmationController extends template{
 
         // Si la validation ne marche pas, le mec sera redirigé automatiquement vers l'index
         if($userBDD->checkMailToken($user)){
-            $v = new View();
+            $v = new view();
             $v->assign("css", "confirmation");
             $v->assign("title", "confirmation");
             $v->assign("inscription",1);
@@ -57,7 +57,7 @@ class confirmationController extends template{
             if ($curtime - $startingSessionTime > 43200){
                 unset($_SESSION['visiteur_semi_inscrit']);
             }else{
-                $v = new View();
+                $v = new view();
                 $v->assign("css", "confirmation");
                 $v->assign("title", "confirmation");
                 $v->setView("confirmation");
@@ -68,7 +68,7 @@ class confirmationController extends template{
     }
 
     public function lostAction(){
-        $v = new View();
+        $v = new view();
         $v->assign("css", "confirmation");
         $v->assign("title", "confirmation");
 

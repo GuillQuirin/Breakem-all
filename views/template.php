@@ -1,7 +1,16 @@
 	<!DOCTYPE html>
 <html lang="fr">
-	<head>
+	<head>		
+
 		<meta charset="UTF-8">
+
+		<!-- Facebook Meta share -->
+		<!-- <meta property="og:url"                content="http://localhost/esgi/Breakthem-all/" />
+		<meta property="og:type"               content="article" />
+		<meta property="og:title"              content="BreakEm All!" />
+		<meta property="og:description"        content="Organise ton propre tournoi!" />
+		<meta property="og:image"              content="http://image.noelshack.com/fichiers/2016/19/1462894934-logo-full.png" />-->
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
 			<title>Break'em All<?php echo (isset($title)) ? ' - '.$title : '';?></title>
@@ -44,6 +53,7 @@
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/select.css">';?>
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/transform.css">';?>
 
 			

@@ -8,7 +8,11 @@ class team{
 	protected $slogan = null;
 	protected $description = null;
 
-	//Permet d'exécuter le construct du parent c'est-à-dire basesql
+	/*
+		A chaque création d'objet, les données en paramètres seront appliquées
+		dans les setters respectifs: c'est l'hydratation
+		Ainsi le nouvel objet possèdera des attributs avec les valeurs communiquées
+	*/
 	public function __construct(array $data){
 		$this->hydrate($data);
 	}
@@ -22,6 +26,8 @@ class team{
 		}
 	}
 
+	//Setters 
+
 	private function setId($v){
 		$this->id=$v;
 	}
@@ -29,7 +35,7 @@ class team{
 		$this->name=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)))
+		if(strlen(trim($v))!=0)
 			$this->img=$v;
 	}
 	private function setSlogan($v){
@@ -39,6 +45,8 @@ class team{
 		$this->description=$v;
 	}
 
+	//Getters
+	
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getImg(){return	$this->img;}
