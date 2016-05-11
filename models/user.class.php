@@ -69,7 +69,7 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)) && $v!=NULL){
+		if(strlen(trim($v))!=0 && $v!=NULL){
 			//var_dump(strstr($v, "lol"));
 			if(strstr($v, WEBPATH)) //Image déjà stockée en base
 				$this->img=$v; 

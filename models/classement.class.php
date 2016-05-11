@@ -30,7 +30,7 @@ class classement{
 		$this->name=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)))
+		if(strlen(trim($v))!=0)
 			$this->img=$v;
 	}
 	private function setSlogan($v){
