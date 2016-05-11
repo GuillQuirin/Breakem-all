@@ -17,7 +17,7 @@
 			</a>
 			<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-settings">
 				<?php 
-				if(isset($admin) && $admin == 1){
+				if(isset($_isAdmin) && $_isAdmin == 1){
 				?>
 					<li class="navbar-menu-tooltip-li">
 						<a href="<?php echo WEBPATH.'/admin'; ?>">
