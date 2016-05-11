@@ -23,6 +23,16 @@ body, html{
 
 }
 
+.configuration-avatar-wrapper{
+    width:250px;
+    height:250px; 
+    padding:15px 0 20px 0;
+}
+
+.configuration-avatar{
+    
+}
+
 .configuration-onglet-ul{
     transform:skew(-8deg);
 }

@@ -40,10 +40,7 @@ if(isset($err)){
 			</li><!--
 			--><li>
 				<a>Team</a>
-			</li><!--
-			--><li>
-				<a>Friends</a>
-			</li>
+			</li>			
 		</ul>
 	</div>
 
@@ -62,6 +59,16 @@ if(isset($err)){
 							<tr class="text-center">
 								<td colspan="2">
 									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnels</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="">	
+									<div class="configuration-first-avatar-wrapper text-center">
+										<div class="configuration-avatar-wrapper m-a">																	
+											<img class="configuration-avatar img-cover" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">										
+										</div>									
+										<input class="" type="file" name="profilpic">									
+									</div>
 								</td>
 							</tr>
 							<tr>						
