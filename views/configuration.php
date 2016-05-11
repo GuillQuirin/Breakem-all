@@ -40,10 +40,7 @@ if(isset($err)){
 			</li><!--
 			--><li>
 				<a>Team</a>
-			</li><!--
-			--><li>
-				<a>Friends</a>
-			</li>
+			</li>			
 		</ul>
 	</div>
 
