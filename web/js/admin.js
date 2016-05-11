@@ -7,6 +7,8 @@ var onglet = {
 	},
 	onClick : function(btnClick, ongletSelector){
 		jQuery(btnClick).click(function(){
+			jQuery(".configuration-onglet-li").removeClass('active');
+			jQuery(this).addClass('active');
 			jQuery(".configuration-wrapper").css('display', 'none');
 			onglet.show(ongletSelector);
 		});

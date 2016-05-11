@@ -6,6 +6,10 @@ TOUT RENAME EN ADMIN
     
 }
 
+.configuration-wrapper:first-child{
+    display:initial;
+}
+
 .configuration-wrapper{
     display:none;
 }
