@@ -2,24 +2,17 @@
 
 	<?php 			
 		/*
-		Check si la variable est nulle
 
-		var_dump($listeplateform);
-		exit(1);
+		//Rajouter une tr/td pour les clés (nom, prenom, etc)
+
 		*/
-		if(is_array($listeplateform)){							
-			echo "<table class='full-width configuration-form-table admin-table' border='1'>";
-			echo "<tr>";
-			foreach($listeplateform as $ligne => $plateform){			
-
-				echo "<td></td>";
-			}					
-			echo "</tr>";
-			foreach ($listeplateform as $ligne => $plateform) {
+		if(is_array($listeplatform)){							
+			echo "<table class='full-width configuration-form-table admin-table platform' border='1'>";
+			foreach ($listeplatform as $ligne => $platform) {
 				echo "<tr>";										
-					echo "<td>".$plateform->getName()."</td>";
-					echo "<td>".$plateform->getDescription()."</td>";
-					echo "<td>".$plateform->getImage()."</td>";					
+					echo "<td>".$platform->getName()."</td>";
+					echo "<td>".$platform->getDescription()."</td>";
+					echo "<td><img src='".$platform->getImg()."'></td>";				
 				echo "</tr>";
 			}
 			echo "<tr class='text-center'>

@@ -1,13 +1,22 @@
+.admin-table{
+    
+}
+
 .admin-table td{
 	padding:15px;
 }
 
 .admin-table img{
-	width:50px;
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
+.admin-table.member img{
+	width:50px;	
+}
 
+.admin-table.platform img{
+    width:100px;
+}
 
 /* HEIGHT RESET*/
 
