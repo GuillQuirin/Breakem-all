@@ -98,7 +98,7 @@ p.on{
 	height: 35px;
 	margin-bottom: 25px;
 }
-#signalement{
+#signalement, #signalementnope{
     background-color: #A03030;
     color: white;
     border: 2px dotted red;

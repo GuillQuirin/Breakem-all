@@ -29,9 +29,13 @@ else{
 		<?php 
 			//N'apparaissent que si le visiteur est connecté et n'est pas sur sa propre page
 			if(isset($_isConnected) && !isset($myAccount)){
-				if($authorize_mail_contact==1)
+				if(isset($authorize_mail_contact) && $authorize_mail_contact==1)
 					echo '<button id="contact" title="Envoyer un mail au joueur">Contacter</button>';
-				echo '<button id="signalement">Signaler le joueur</button>';
+
+				if(isset($already_signaled) && $already_signaled==1)
+					echo '<p id="signalementnope">Vous avez déjà signalé ce joueur</p>';
+				else 
+					echo '<button id="signalement">Signaler le joueur</button>';
 			}
 			else if(isset($myAccount))
 				echo '<a href="configuration" id="configuration">Configurer mon compte</a>';

@@ -37,4 +37,20 @@ class signalmentsuserManager extends basesql{
 			die("Tentative d'enregistrement depuis une autre methode que reportAction de la classe profilController!");
 	}
 
+	public function getReport($demandeur, $accuse){
+		$sql = "SELECT COUNT(*) as nb 
+				FROM signalmentsuser 
+				WHERE id_indic_user=:id_indic_user 
+						AND id_signaled_user=:id_signaled_user";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':id_indic_user' => $demandeur,
+			':id_signaled_user' => $accuse
+		]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		return $r[0]['nb'];
+	}
+
 }

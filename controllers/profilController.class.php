@@ -25,9 +25,6 @@ class profilController extends template{
 			if($user!==FALSE){
 
 				$user_methods = get_class_methods($user);
-				//echo "<pre>";
-				//var_dump($user);
-				// exit;
 				foreach ($user_methods as $key => $method) {
 					if(strpos($method, 'get') !== FALSE){
 						$col = lcfirst(str_replace('get', '', $method));
@@ -37,9 +34,19 @@ class profilController extends template{
 					};
 				}
 
-				//Apparition du bouton de configuration
-				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail())
+				//Page publique du joueur connecté
+				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail()){
 					$v->assign('myAccount', 1);
+				}
+				else //Apparition des boutons de configuration et signalement
+				{
+					//Si non signalé auparavant
+					$signalement = new signalmentsuserManager();
+					$plainte = $signalement->getReport($this->connectedUser->getId(),$user->getId());
+
+					if($plainte != "0")
+						$v->assign('already_signaled',1);
+				}
 			}
 			else{
 				$v->assign("err", "1");
@@ -100,6 +107,7 @@ class profilController extends template{
 			$plainteBDD = new signalmentsuserManager();
 			$plainte = new signalmentsuser($filteredinputs);
 			$plainteBDD->create($plainte);
+			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
 	}
 }
