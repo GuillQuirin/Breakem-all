@@ -1,3 +1,9 @@
+<?php
+
+if(isset($_isAdmin) && $_isAdmin == 1){
+
+?>
+
 <section class="low-height bg-cover-configuration relative">
 
 	<div class="align full-height">
@@ -46,4 +52,10 @@
 			</div>				
 		</div>
 
-	</section>
+</section>
+
+<?php 
+
+}
+
+?>
