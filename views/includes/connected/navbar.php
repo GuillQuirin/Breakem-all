@@ -16,6 +16,17 @@
 			<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-settings.png">';?>
 			</a>
 			<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-settings">
+				<?php 
+				if(isset($admin) && $admin == 1){
+				?>
+					<li class="navbar-menu-tooltip-li">
+						<a href="<?php echo WEBPATH.'/admin'; ?>">
+							Administration
+						</a>
+					</li>
+				<?php
+				}
+				?>			
 				<li class="navbar-menu-tooltip-li">
 					<a href="<?php echo WEBPATH.'/configuration'; ?>">
 						Mon compte
