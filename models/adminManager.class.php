@@ -11,12 +11,11 @@ class adminManager extends basesql{
 		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();
-		$query = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-		if($query === FALSE)
-			return false;
-
-		return $query;
+		$list = [];
+		while ($query = $sth->fetch(PDO::FETCH_ASSOC)) 
+			$list[] = new user($query);
+		
+		return $list;
 	}
 
 	//Tournoi

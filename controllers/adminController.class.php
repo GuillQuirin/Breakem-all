@@ -11,7 +11,7 @@ class adminController extends template{
         $admin = new adminManager();
 
 		$listejoueurs = $admin->getListUser();       
-
+        
         $v->assign("listejoueur",$listejoueurs);
 
         $v->setView("/includes/admin/accueil", "template_back");

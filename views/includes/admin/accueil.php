@@ -7,9 +7,12 @@
 					echo "<table class='admin-table-member' border='1'>";
 					foreach ($listejoueur as $ligne => $joueur) {
 						echo "<tr>";
-						foreach ($joueur as $key => $value) {
-							echo "<td>".$value."</td>";
-						}
+							echo "<td>".$joueur->getPseudo()."</td>";
+							echo "<td>".$joueur->getEmail()."</td>";
+							echo "<td>".$joueur->getStatus()."</td>";
+							echo "<td>".$joueur->getImg()."</td>";
+							echo "<td>".$joueur->getIdTeam()."</td>";
+							echo "<td>".$joueur->getIsConnected()."</td>";
 						echo "</tr>";
 					}
 					echo "</table>";
