@@ -10,7 +10,7 @@ class creationtournoiController extends template{
 	}
 
 	public function creationtournoiAction(){
-		$v = new View();
+		$v = new view();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "creationtournoi");
 		$v->assign("js", "creationtournoi");

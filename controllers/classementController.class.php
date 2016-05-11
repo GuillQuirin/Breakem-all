@@ -3,7 +3,7 @@
 class classementController extends template{
 
 	public function classementAction(){
-		$v = new View();
+		$v = new view();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "classement");
 		$v->assign("js", "classement");
