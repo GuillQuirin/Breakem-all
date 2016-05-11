@@ -6,6 +6,10 @@ TOUT RENAME EN ADMIN
     
 }
 
+.configuration-wrapper{
+    display:none;
+}
+
 .admin-table td{
     text-align:center;
 	padding:15px;

@@ -16,10 +16,10 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 	<div class="configuration-onglet-wrapper">
 		<ul class="configuration-onglet-ul">
-			<li class="active">
+			<li class="active configuration-onglet-li" id="configuration-onglet-membres">
 				<a>Membres</a>
 			</li><!--
-			--><li>		
+			--><li class="configuration-onglet-li" id="configuration-onglet-platforms">		
 				<a>Plateformes</a>
 			</li>
 		</ul>
