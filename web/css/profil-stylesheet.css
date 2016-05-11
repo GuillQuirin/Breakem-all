@@ -105,6 +105,8 @@ p.on{
 	width: 50%;
     height: 30px;
     position: relative;
+    text-align: center;
+    margin: 0 auto;
 }
 #description{
 	margin: auto 3%;

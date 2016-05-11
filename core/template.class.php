@@ -32,9 +32,9 @@ class template{
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
-    }
-    if($this->isAdmin()){
-      $v->assign("_isAdmin", 1);
+      if($this->isAdmin()){
+        $v->assign("_isAdmin", 1);
+      }
     }
   }
   
@@ -48,7 +48,7 @@ class template{
   protected function isAdmin(){
     $var = $this->connectedUser->getStatus();
     //var_dump($var);exit;
-    if($var == "3")
+    if(isset($var) && $var == "3")
       return true;
     return false;
   }  
