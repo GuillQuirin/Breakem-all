@@ -13,5 +13,11 @@ html{
 }
 
 .middle-height{
+	padding-top:50px;
 	height:650px;
+}
+
+.low-height{
+	padding-top:50px;
+	height:400px;
 }

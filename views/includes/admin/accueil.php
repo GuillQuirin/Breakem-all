@@ -1,27 +1,49 @@
-<section id="container_index">
-	<div id="contain">
-		<div id="contain_left">
-			<?php 			
-				if(is_array($listejoueur)){
-					echo "<h2>Liste des membres inscrits</h2>";
-					echo "<table class='admin-table-member' border='1'>";
-					foreach ($listejoueur as $ligne => $joueur) {
-						echo "<tr>";
-							echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
-							echo "<td>".$joueur->getEmail()."</td>";
-							echo "<td>".$joueur->getStatus()."</td>";
-							echo "<td><img src='".$joueur->getImg()."'></td>";
-							echo "<td>".$joueur->getIdTeam()."</td>";
-							echo "<td>".$joueur->getIsConnected()."</td>";
-							echo "<td><button>Desactiver</button></td>";
-						echo "</tr>";
-					}
-					echo "</table>";
-				} 
-			?>
-		</div>
-		<div id="contain_right">
-			
+<section class="low-height bg-cover-configuration relative">
+
+	<div class="align full-height">
+		<div class="align full-height animation fadeLeft">
+			<span class="header-title admin-header-title border-full relative">Administration</span>	
 		</div>
 	</div>
-</section>
+	 
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+
+	<div class="configuration-onglet-wrapper">
+		<ul class="configuration-onglet-ul">
+			<li class="active">
+				<a>Membres</a>
+			</li><!--
+			--><li>		
+				<a>Plateformes</a>
+			</li>
+		</ul>
+	</div>
+
+	</section>
+
+	<section class="configuration-content-wrapper my-content-wrapper">
+
+		<div class="container m-a content-border classement-container" style="border:none;">
+
+			<div class="row classement-content-row">
+				<div class="grid-md-12">
+
+					<!-- @Guillaume : Include a changé genre pour que se soit dynamic, coté controlleurs
+
+					<!-- Membre -->
+			
+					<?php include "membres.php"; ?>					
+
+					<!-- Fin Membre -->		
+
+					<!-- Plateformes -->
+
+					<?php include "plateformes.php"; ?>					
+
+					<!-- Fin Plateformes -->						
+
+				</div>
+			</div>				
+		</div>
+
+	</section>

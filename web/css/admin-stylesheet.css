@@ -1,8 +1,155 @@
-.admin-table-member td{
+.admin-table td{
 	padding:15px;
 }
 
-.admin-table-member img{
+.admin-table img{
 	width:50px;
 	vertical-align: middle;
+}
+
+
+
+/* HEIGHT RESET*/
+
+body, html{
+    height:100%;
+    min-height:100%;
+    font-family:Roboto !important;
+}
+
+#content{
+    height:100%;
+    margin-top:0;
+}
+
+.configuration-onglet-wrapper{
+    position:absolute;
+    bottom:-1px;    
+    left:15vw;
+}
+
+.configuration-input-default{
+
+}
+
+.configuration-avatar-wrapper{
+    width:250px;
+    height:250px; 
+    padding:15px 0 20px 0;
+}
+
+.configuration-avatar{
+    
+}
+
+.configuration-onglet-ul{
+    transform:skew(-8deg);
+}
+
+.configuration-onglet-ul li{    
+    background-color:rgba(8,3,37, .6); 
+    cursor:pointer;
+    padding:15px 35px;
+    display:inline-block;    
+}
+
+.configuration-input-required{
+    color:#D92B4C;
+    position:absolute;
+}
+
+.configuration-onglet-ul li:hover{
+    background:#080325;
+    transition:all .3s background-color;
+}
+
+.configuration-onglet-ul li.active{
+    opacity:1;
+    background:#080325;
+}
+
+.classement-content-wrapper{
+  padding:35px;
+}
+
+.configuration-form-table{
+    margin-bottom:15px;
+}
+
+.configuration-form-table td{
+    padding:20px 25px;      
+    border:1px solid #524c7b;  
+}
+
+.configuration-form-email div{
+    padding:7px 0;
+}
+
+.configuration-form-submit{
+    width:200px;
+}
+
+.configuration-form-td-submit{
+    padding-top:25px !important;
+}
+
+.configuration-form-menu-tr{
+    font-weight:600;
+    font-size:16px;
+}
+
+.admin-header-title{
+	margin-right:0 !important;
+}
+
+/* HEADER */
+
+.bg-cover-configuration{
+    /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/tokyo.jpg) center top no-repeat;
+    margin:0;    
+    -webkit-background-size: cover; 
+    background-size: cover;     
+}
+
+.configuration-header-profil-image{
+    width:170px;
+}
+
+.configuration-header-profil-name{
+    font-size:25px;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding:15px;
+}
+
+.configuration-header-profil-description, .configuration-header-profil-lastconnexion{
+    font-size:13px;
+    padding:15px;
+    color:rgba(255,255,255,.5);
+}
+
+.configuration-header-profil-left{
+    transform:skew(-8deg);
+}
+
+.configuration-header-profil-wrapper{
+    position:relative;
+}
+
+.configuration-header-profil-right{
+    position:absolute;
+    right:-170px;
+    width:100%;
+    height:100%;
+    top:0;
+    background:rgba(8,3,37,.4);
+}
+
+.configuration-header-profil-right span{
+    display:block;
+}
+
+.irhack{
+    left:-15vwpx;
 }

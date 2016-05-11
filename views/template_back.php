@@ -49,12 +49,6 @@
 			
 			<?php echo (isset($css)) ? '<link rel="stylesheet" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
-			<style>
-		
-		#content{
-			padding-top: 300px;
-		}
-	</style>
 	</head>
 
 	<body>

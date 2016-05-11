@@ -10,10 +10,14 @@ class adminController extends template{
 
         $admin = new adminManager();
 
-		$listejoueurs = $admin->getListUser();       
+		$listejoueurs = $admin->getListUser();    
+
+        $listeplateforms = $admin->getListPlateform();
         
         $v->assign("listejoueur",$listejoueurs);
 
-        $v->setView("/includes/admin/accueil", "template_back");
+        $v->assign("listeplateform",$listeplateforms);
+
+        $v->setView("/includes/admin/accueil", "template");
     }
 }

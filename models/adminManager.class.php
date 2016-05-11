@@ -13,50 +13,23 @@ class adminManager extends basesql{
 		$sth->execute();
 		$list = [];
 		while ($query = $sth->fetch(PDO::FETCH_ASSOC)) 
+			//user appel la classe user
 			$list[] = new user($query);
 		
 		return $list;
 	}
 
-	//Tournoi
-	public function getListTournament(){
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion FROM User ORDER BY pseudo ASC";
+	//Plateforme
+	public function getListPlateform(){
+		$sql = "SELECT id, name, description, img FROM Plateform ORDER BY name ASC";
 		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();
-		$query = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-		if($query === FALSE)
-			return false;
-
-		return $query;
-	}
-	
-	//Team
-	public function getListTeam(){
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion FROM User ORDER BY pseudo ASC";
+		$list = [];
+		while ($query = $sth->fetch(PDO::FETCH_ASSOC)) 
+			//user appel la classe plateform
+			$list[] = new plateform($query);
 		
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute();
-		$query = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-		if($query === FALSE)
-			return false;
-
-		return $query;
-	}
-
-	//Commentaire
-	public function getListComs(){
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam, isConnected, lastConnexion FROM User ORDER BY pseudo ASC";
-		
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute();
-		$query = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-		if($query === FALSE)
-			return false;
-
-		return $query;
+		return $list;
 	}
 }
