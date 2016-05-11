@@ -4,6 +4,7 @@ var onglet = {
 	init : function(){
 		onglet.onClick("#configuration-onglet-platforms", "#configuration-onglet-platforms-wrapper");
 		onglet.onClick("#configuration-onglet-membres", "#configuration-onglet-membres-wrapper");
+		onglet.onClick("#configuration-onglet-reports", "#configuration-onglet-reports-wrapper");
 	},
 	onClick : function(btnClick, ongletSelector){
 		jQuery(btnClick).click(function(){

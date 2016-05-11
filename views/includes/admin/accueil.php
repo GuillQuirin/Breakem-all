@@ -22,6 +22,9 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			--><li class="configuration-onglet-li" id="configuration-onglet-platforms">		
 				<a>Plateformes</a>
 			</li>
+			<li class="configuration-onglet-li" id="configuration-onglet-reports">		
+				<a>Signalements</a>
+			</li>
 		</ul>
 	</div>
 
@@ -47,7 +50,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<?php include "plateformes.php"; ?>					
 
 					<!-- Fin Plateformes -->						
-
+				<?php include "reports.php"; ?>	
 				</div>
 			</div>				
 		</div>

@@ -14,9 +14,13 @@ class adminController extends template{
 
         $listeplatforms = $admin->getListPlatform();
         
+        $listesignalement = $admin->getListReports();
+
         $v->assign("listejoueur",$listejoueurs);
 
         $v->assign("listeplatform",$listeplatforms);
+
+        $v->assign("listesignalement",$listesignalement);
 
         $v->setView("/includes/admin/accueil", "template");
     }
