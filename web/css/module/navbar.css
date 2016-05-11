@@ -246,9 +246,9 @@
   top:100%;  
   margin-top:15px !important;
   border-radius:3px;
-  background-color:rgba(8,3,37,1);
-  padding:0 25px;
-  width:100%;
+  background-color:rgba(8,3,37,1); 
+  width:170px;
+  box-shadow:4px 4px 4px -3px rgba(0,0,0,1)
 }
 
 .navbar-menu-tooltip::before{
@@ -261,16 +261,18 @@
   position:absolute;
   content:'';
   display:block;
-  top:-14px;  
+  top:-13px;  
   left:20px;  
   z-index:10;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li{
-	width:250px;
+	width:100%;
+  display:block;
   line-height:50px;
   text-align:left;
   cursor:pointer;
+  padding:0 25px;
 }
 
 .navbar-menu-tooltip .navbar-menu-tooltip-li:hover a{
