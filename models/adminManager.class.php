@@ -20,15 +20,15 @@ class adminManager extends basesql{
 	}
 
 	//Plateforme
-	public function getListPlateform(){
-		$sql = "SELECT id, name, description, img FROM Plateform ORDER BY name ASC";
+	public function getListPlatform(){
+		$sql = "SELECT id, name, description, img FROM platform ORDER BY name ASC";
 		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();
 		$list = [];
 		while ($query = $sth->fetch(PDO::FETCH_ASSOC)) 
 			//user appel la classe plateform
-			$list[] = new plateform($query);
+			$list[] = new platform($query);
 		
 		return $list;
 	}

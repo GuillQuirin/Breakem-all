@@ -2,17 +2,10 @@
 
 	<?php 			
 		if(is_array($listejoueur)){							
-			echo "<table class='full-width configuration-form-table admin-table' border='1'>";
-			echo "<tr>";
-			foreach($listejoueur as $ligne => $joueur){
+			echo "<table class='full-width configuration-form-table admin-table member' border='1'>";	
 
-				//@Guillaume : je te laisse mettre les clés (nom, etc)
+			//Rajouter une tr/td pour les clés (nom, prenom, etc)
 
-				echo "<td></td>";
-			}
-			echo "<td></td>";
-			echo "<td>Désactivation</td>";
-			echo "</tr>";
 			foreach ($listejoueur as $ligne => $joueur) {
 				echo "<tr>";
 					echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
