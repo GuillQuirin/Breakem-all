@@ -13,6 +13,7 @@ TOUT RENAME EN ADMIN
 
 .admin-table img{
     vertical-align: middle;
+    border-radius:2px;
 }
 
 .admin-table.member img{
