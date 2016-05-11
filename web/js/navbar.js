@@ -7,6 +7,7 @@ window.addEventListener('load', function load(){
 	navbar.init();
 	deconnection.init();
 	register.init();
+	scroll.init(".header-scroll-down", '.my-content-wrapper');
 });
 
 var scroll = {
@@ -38,8 +39,6 @@ var scroll = {
     	}
 	}	
 };
-
-scroll.init(".header-scroll-down", '.my-content-wrapper');
 
 // Cette fonction sera utilisée dans beaucoup d'objets utilisant de l'ajax
 //  Voilà pouruqoi elle est définie en tant que fct générale
