@@ -1,7 +1,7 @@
 <?php
 class adminController extends template{
     public function adminAction(){
-        $v = new View();
+        $v = new view();
 		$this->assignConnectedProperties($v);
         //$v->assign("css", "admin");
         //$v->assign("js", "admin");

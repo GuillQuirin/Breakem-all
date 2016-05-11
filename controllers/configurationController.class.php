@@ -11,7 +11,7 @@ class configurationController extends template{
 
 	public function configurationAction(){
 
-		$v = new View();
+		$v = new view();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "configuration");
 		$v->assign("js", "configuration");

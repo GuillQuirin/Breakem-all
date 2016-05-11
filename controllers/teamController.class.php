@@ -16,7 +16,7 @@ class teamController extends template{
 	public function teamAction(){
 
         //Initialisation de la vue
-		$v = new View();
+		$v = new view();
         $this->assignConnectedProperties($v);
 		$v->assign("css", "team");
 		$v->assign("js", "team");
