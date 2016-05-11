@@ -42,6 +42,13 @@ class template{
     return false;
   }  
 
+  protected function isAdmin(){
+    
+    if($this->connectedUser->getStatus() == 3)
+      return true;
+    return false;
+  }  
+
   protected function checkToken(){
     // var_dump($_SESSION[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN], $_COOKIE[COOKIE_EMAIL], $_SESSION[COOKIE_TOKEN]);
     
