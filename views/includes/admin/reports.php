@@ -18,10 +18,10 @@
 				//Rajouter une tr/td pour les clés (nom, prenom, etc)
 				foreach ($listesignalement as $ligne => $report) {
 					echo "<tr>";
-						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getId_indic_user()."'><a/></td>";
-						echo "<td>".$report->getId_signaled_user()."</td>";
+						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getId_indic_user()."'>".$report->getId_indic_user()."<a/></td>";
+						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getId_signaled_user()."'>".$report->getId_signaled_user()."<a/></td>";
 						echo "<td>".$report->getSubject()."</td>";
-						echo "<td><img src='".$report->getDescription."'></td>";
+						echo "<td>".$report->getDescription()."</td>";
 						echo "<td>".$report->getDate()."</td>";
 						echo "<td><input class='checkbox input-default' type='checkbox' name='' id=''><label style='color:transparent' for=''></label></td>";						
 					echo "</tr>";
