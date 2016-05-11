@@ -19,6 +19,7 @@
                 <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
             </div>
         </div>
+        <?php echo $myAccount; ?>
         <div id="container2">
             <div id="member">
                 <p id="member1">Membres</p>

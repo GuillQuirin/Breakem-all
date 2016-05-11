@@ -23,8 +23,10 @@ class teamController extends template{
 		$v->assign("title", "Team");
 		$v->assign("content", "Fiche d'une team");
 
+
         //Si un paramètre GET portant le nom d'une team dans l'URL
         if(isset($_GET['team'])){
+            $v->assign('img', );
 
             /*
                 Initialisation du manager qui va faire office d'intermediaire entre 
