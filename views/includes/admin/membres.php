@@ -11,6 +11,7 @@
 					<th>Statut</th>
 					<th>Image</th>
 					<th>Team</th>
+					<th>Signalements</th>
 					<th>En ligne</th>
 					<th>Verrouiller le compte</th>
 				</thead>
@@ -24,6 +25,7 @@
 						echo "<td>".$joueur->getStatus()."</td>";
 						echo "<td><img src='".$joueur->getImg()."'></td>";
 						echo "<td>".$joueur->getIdTeam()."</td>";
+						echo "<td>".$joueur->getReportNumber()."</td>";
 						echo "<td>";
  							if($joueur->getIsConnected()) echo "X";
  						echo "</td>";
