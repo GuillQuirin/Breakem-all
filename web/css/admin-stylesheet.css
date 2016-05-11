@@ -1,8 +1,13 @@
+/*
+TOUT RENAME EN ADMIN 
+*/
+
 .admin-table{
     
 }
 
 .admin-table td{
+    text-align:center;
 	padding:15px;
 }
 

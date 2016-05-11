@@ -1,11 +1,9 @@
 <form action="configuration/update" method="post" enctype="multipart/form-data">
 
 	<?php 			
-		/*
 
 		//Rajouter une tr/td pour les clés (nom, prenom, etc)
-
-		*/
+		
 		if(is_array($listeplatform)){							
 			echo "<table class='full-width configuration-form-table admin-table platform' border='1'>";
 			foreach ($listeplatform as $ligne => $platform) {
