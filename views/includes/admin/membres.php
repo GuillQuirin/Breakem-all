@@ -23,7 +23,9 @@
 					echo "<td>".$joueur->getStatus()."</td>";
 					echo "<td><img src='".$joueur->getImg()."'></td>";
 					echo "<td>".$joueur->getIdTeam()."</td>";
-					echo "<td>".$joueur->getIsConnected()."</td>";
+					echo "<td>";
+						if($joueur->getIsConnected()) echo "X";
+					echo "</td>";
 					echo "<td><input class='checkbox input-default' type='checkbox' name='' id=''><label style='color:transparent' for=''></label></td>";																							
 				echo "</tr>";
 			}
