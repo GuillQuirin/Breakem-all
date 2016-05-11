@@ -33,11 +33,21 @@ class template{
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
     }
+    if($this->isAdmin()){
+      $v->assign("_isAdmin", 1);
+    }
   }
   
   protected function isVisitorConnected(){
 
     if($this->connectedUser instanceof user)
+      return true;
+    return false;
+  }  
+
+  protected function isAdmin(){
+
+    if($this->connectedUser->getStatus() == 3)
       return true;
     return false;
   }  
