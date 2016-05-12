@@ -2,8 +2,13 @@
 TOUT RENAME EN ADMIN 
 */
 
+
+.admin-form-add{
+    text-align:center;
+}
+
 .admin-table{
-    
+    position:relative;   
 }
 
 .configuration-wrapper:first-child{
@@ -40,8 +45,7 @@ body, html{
     font-family:Roboto !important;
 }
 
-#content{
-    height:100%;
+#content{    
     margin-top:0;
 }
 
@@ -92,17 +96,57 @@ body, html{
     background:#080325;
 }
 
+.admin-form-button-wrapper{
+    position:absolute;
+    width:100%;
+    padding:0 !important;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:100;
+    display:none;
+}
+
+.configuration-form-table tr:hover .admin-form-button-wrapper{
+    display:inline;
+}
+
+.admin-form-button{
+    background: #ffffff;
+    padding:15px 25px;
+    margin:5px;
+    transform: skew(-8deg);
+    cursor:pointer;
+}
+
 .classement-content-wrapper{
   padding:35px;
 }
 
 .configuration-form-table{
     margin-bottom:15px;
+    border:1px solid #524c7b; 
+}
+
+.configuration-form-table tr{
+    position:relative;
+    right:0;
 }
 
 .configuration-form-table td{
     padding:20px 25px;      
-    border:1px solid #524c7b;  
+}
+
+.configuration-form-table tr:hover{
+ background:rgba(130, 83, 164, 0.1);
+}
+
+.configuration-form-table tr:first-child{
+    background:none;
+}
+
+.configuration-form-table tr:first-child{
+    border:1px solid #524c7b; 
 }
 
 .configuration-form-email div{

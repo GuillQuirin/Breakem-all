@@ -29,12 +29,12 @@
 			    <label for="pwd2">Confirmation mot de passe : </label>
 			    <input class="input-default" type="password" id="pwd2" name="password_check">
 				<p id="naissance">Date de naissance:
-						<span class="index-input-default-date">
-							<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
-							<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
-							<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
-						</span>
-					</p>
+					<span class="index-input-default-date">
+						<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
+						<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
+						<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
+					</span>
+				</p>
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
 			    Vous acceptez les Conditions Générales du site Break'em All</label>
 			   
