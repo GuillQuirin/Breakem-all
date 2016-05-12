@@ -66,4 +66,18 @@ class adminManager extends basesql{
 
 	    return $res;
 	}
+
+	//Team
+	public function getListTeam(){
+		$sql="SELECT id, statut, name, img, slogan, description FROM team ORDER BY name ASC";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+		$list = [];
+		while ($query = $sth->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
 }
