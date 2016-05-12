@@ -18,7 +18,9 @@ class tournoiController extends template {
             'jeu' => FILTER_SANITIZE_STRING,
             'console' => FILTER_SANITIZE_STRING
 		);
-		$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+		$filteredinputs = filter_input_array(INPUT_GET, $args);
+		if(!empty($filteredinputs))
+			$filteredinputs = array_filter($filteredinputs);
 
 		$v = new View();
 		$v->assign("css", "tournamentslist");
@@ -32,15 +34,16 @@ class tournoiController extends template {
 		// On est dans le cas sans filtre, on va chercher les 10 premiers tournois
 		if( count($filteredinputs) == 0){	
 			// $tournois contiendra un array rempli d'objets tournament
-			$tournois = $tm->getUnstartedTournaments();
+			$tournois = $tm->getFilteredTournaments();
 			// Si des tournois ont été trouvés
+			// var_dump($tournois);
 			if(!!$tournois)
 				$v->assign("tournois", $tournois);
 		}
 		// Il y a au moins un filtre 
 		else{
 			$matchedTournaments = $tm->getFilteredTournaments($filteredinputs);
-			var_dump($matchedTournaments);
+			// var_dump($matchedTournaments);
 			if(!!$matchedTournaments)
 				$v->assign("tournois", $matchedTournaments);
 		}
