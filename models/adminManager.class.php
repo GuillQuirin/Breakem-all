@@ -55,4 +55,8 @@ class adminManager extends basesql{
 		
 		return $list;
 	}
+
+	public function removePlatform(){
+		
+	}
 }

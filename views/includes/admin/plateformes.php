@@ -25,7 +25,7 @@
 							<td class='admin-form-button-wrapper'>
 								<div class='align full-height'>
 									<button type='button' class='admin-form-button'>Modifier</button>
-									<button type='button' class='admin-form-button'>Verrouiller</button>
+									<button type='button' class='admin-form-button'>Supprimer</button>
 								</div>
 							</td>
 						";			
