@@ -6,19 +6,30 @@
 			//Rajouter une tr/td pour les clés (nom, prenom, etc)
 			
 			if(is_array($listeplatform)){							
-				echo "<table class='full-width configuration-form-table admin-table platform' border='1'>";
-				foreach ($listeplatform as $ligne => $platform) {
-					echo "<tr>";										
+				echo "<table class='full-width configuration-form-table admin-table platform'>";
+				echo
+				"
+				<tr> 
+					<td>Nom</td>
+					<td>Description</td>
+					<td>Image</td>
+				</tr>
+				";
+				foreach ($listeplatform as $ligne => $platform) {											
 						echo "<td>".$platform->getName()."</td>";
 						echo "<td>".$platform->getDescription()."</td>";
-						echo "<td><img src='".$platform->getImg()."'></td>";				
+						echo "<td><img src='".$platform->getImg()."'></td>";	
+						echo 
+						"	
+							<td class='admin-form-button-wrapper'>
+								<div class='align full-height'>
+									<button type='button' class='admin-form-button'>Modifier</button>
+									<button type='button' class='admin-form-button'>Verrouiller</button>
+								</div>
+							</td>
+						";				
 					echo "</tr>";
-				}
-				echo "<tr class='text-center'>
-					<td colspan='7' class='border-none configuration-form-td-submit'>																	
-						<button id='navbar-inscription' type='submit' class='btn btn-pink configuration-form-submit'><a>Valider</a></button>
-					</td>
-				</tr>";							
+				}						
 				echo "</table>";
 			} 
 		?>		
