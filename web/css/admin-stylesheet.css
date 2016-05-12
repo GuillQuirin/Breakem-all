@@ -2,9 +2,6 @@
 TOUT RENAME EN ADMIN 
 */
 
-footer{
-    display:none;
-}
 
 .admin-form-add{
     text-align:center;
@@ -48,8 +45,7 @@ body, html{
     font-family:Roboto !important;
 }
 
-#content{
-    height:100%;
+#content{    
     margin-top:0;
 }
 
