@@ -8,35 +8,31 @@ window.addEventListener('load', function load(){
 	navbar.init();
 	deconnection.init();
 	register.init();
-	scroll.init(".header-scroll-down", '.my-content-wrapper');
+	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 });
 
 var scroll = {
 	init : function(clickSelector, sectionSelector){
-		if(clickSelector && sectionSelector){
-			var cS = jQuery(clickSelector);
-			var sS = jQuery(sectionSelector);
-
-			scroll.clickEvent(cS, sS);
+		if(clickSelector instanceof jQuery && sectionSelector){
+			scroll.clickEvent(clickSelector, sectionSelector);
 		}else{
-			console.log("Function scroll.init() is missing some parameters");
+			console.log("Pas reçu du dom dans scroll.init()!");
 		}
 	},
 	clickEvent : function(clickSelector, sectionSelector){
-		if(clickSelector && sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
 			clickSelector.click(function(){
 				scroll.toAnchor(sectionSelector);
 			});
 		}else{
-			console.log("Function scroll.clickEvent() is missing some parameters");
+			console.log("Pas reçu du dom dans scroll.clickEvent");
 		}
 	},
 	toAnchor : function(selector){
-		if(selector){
-			var anchor = jQuery(selector);
-	    	jQuery('html,body').animate({scrollTop: anchor.offset().top},'slow');
+		if(selector instanceof jQuery){
+	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
     	}else{
-    		console.log("Function scroll.toAnchor() is missing some parameters");
+    		console.log("Pas reçu du dom dans scroll.toAnchor()");
     	}
 	}	
 };
@@ -55,8 +51,18 @@ function tryParseData(rawData){
 	return false;
 }
 
+function adaptMarginToNavHeight(jQel){
+	if(jQel instanceof jQuery){
+		var navHeight = $("#navbar").height();
+		jQel.css('margin-top', navHeight);
+	}
+	else
+		console.log("Pas reçu du dom dans adaptMarginToNavHeight");	
+}
+
 var navbar = {
-    init: function(){        
+    init: function(){
+    	navbar.setNavbarEl();   
 		navbar.shrink();      
         navbar.openNavbarSide();
         navbar.search.toggle();
@@ -67,22 +73,29 @@ var navbar = {
         navbar.form.closeFormClick();
         navbar.menu();
     },
+    setNavbarEl: function(){
+    	this._navEl = $("#navbar");
+    },
+    getNavbarEl: function(){
+    	return this._navEl;
+    },
     preventShrink: false,
     shrink: function(force){
+    	var _this = this;
     	if(!this.preventShrink){   		
 	        $(window).scroll(function(){
 	            if($(window).scrollTop() > 50){
-	                $("#navbar").removeClass('full');
-	                $("#navbar").addClass('shrink');
+	                _this.getNavbarEl().removeClass('full');
+	                _this.getNavbarEl().addClass('shrink');
 	            }else{
-	                $("#navbar").removeClass('shrink');
-	                $("#navbar").addClass('full');
+	                _this.getNavbarEl().removeClass('shrink');
+	                _this.getNavbarEl().addClass('full');
 	            }
 	        });
 	        return;
 	    }
-	    $("#navbar").removeClass('full');
-        $("#navbar").addClass('shrink');
+	    _this.getNavbarEl().removeClass('full');
+        _this.getNavbarEl().addClass('shrink');
     },
     openNavbarSide : function(){
         $('#navbar-toggle').on('click', function(){
