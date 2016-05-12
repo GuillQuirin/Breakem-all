@@ -54,5 +54,30 @@ class adminManager extends basesql{
 			$list[] = new platform($query);
 		
 		return $list;
-	}	
+	}
+
+	public function removePlatform(){		
+	    $sql = $this->pdo->prepare("DELETE FROM adherent WHERE id_adh = :id_adh");
+	    $req->execute(array(
+	    'id_adh' => $id_adh
+	    ));
+	    $res = $req->fetch(PDO::FETCH_ASSOC);
+	    $res = new platform();
+
+	    return $res;
+	}
+
+	//Team
+	public function getListTeam(){
+		$sql="SELECT id, statut, name, img, slogan, description FROM team ORDER BY name ASC";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+		$list = [];
+		while ($query = $sth->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
 }

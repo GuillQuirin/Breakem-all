@@ -9,7 +9,7 @@ BODY{
     width: 80%;
 }
 
-section{
+#content section{
     display: inline-block;
     vertical-align: top;
     border: 1px solid;
@@ -26,19 +26,19 @@ section{
     width: 70%;
     margin-left: 9%;
 }
-h4{
+#content h4{
 	text-align: center;
 }
-a{
+#content a{
     color: #B346FF;
     text-decoration: none;
     font-style: italic;
 }
-a:hover{
+#content a:hover{
 	text-decoration: underline;
 	color: #04EAC1;
 }
 
-button{
+#content button{
 	cursor: pointer;
 }

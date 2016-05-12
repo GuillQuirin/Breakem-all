@@ -24,6 +24,9 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			</li><!--
 			--><li class="configuration-onglet-li" id="configuration-onglet-reports">		
 				<a>Signalements</a>
+			</li><!--
+			--><li class="configuration-onglet-li" id="configuration-onglet-team">		
+				<a>Team</a>
 			</li>
 		</ul>
 	</div>
@@ -40,17 +43,20 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<!-- @Guillaume : Include a changé genre pour que se soit dynamic, coté controlleurs
 
 					<!-- Membre -->
-			
 					<?php include "membres.php"; ?>					
-
 					<!-- Fin Membre -->		
 
 					<!-- Plateformes -->
-
 					<?php include "plateformes.php"; ?>					
-
 					<!-- Fin Plateformes -->						
-				<?php include "reports.php"; ?>	
+					
+					<!-- Reports -->
+					<?php include "reports.php"; ?>	
+					<!-- Fin reports -->
+
+					<!-- Team -->
+					<?php include "team.php"; ?>	
+					<!-- Fin Team -->
 				</div>
 			</div>				
 		</div>

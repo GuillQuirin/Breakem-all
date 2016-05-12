@@ -53,6 +53,7 @@ class confirmationController extends template{
         if(isset($_SESSION['visiteur_semi_inscrit'])){
             $startingSessionTime = $_SESSION['visiteur_semi_inscrit'];
             $curtime = time();
+            //var_dump($curtime - $startingSessionTime);exit;
             /*Sert à définir un timeout de cette session à 12h*/
             if ($curtime - $startingSessionTime > 43200){
                 unset($_SESSION['visiteur_semi_inscrit']);
@@ -64,7 +65,7 @@ class confirmationController extends template{
                 return;
             }            
         }
-        header('Location: '.WEBPATH);
+        //header('Location: '.WEBPATH);
     }
 
     public function lostAction(){
