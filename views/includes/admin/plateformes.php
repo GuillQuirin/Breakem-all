@@ -18,7 +18,8 @@
 				foreach ($listeplatform as $ligne => $platform) {											
 						echo "<td>".$platform->getName()."</td>";
 						echo "<td>".$platform->getDescription()."</td>";
-						echo "<td><img src='".$platform->getImg()."'></td>";	
+						echo "<td><img src='".$platform->getImg()."'></td>";
+						// Btn hover	
 						echo 
 						"	
 							<td class='admin-form-button-wrapper'>
@@ -27,10 +28,17 @@
 									<button type='button' class='admin-form-button'>Verrouiller</button>
 								</div>
 							</td>
-						";				
+						";			
+						//Fin Btn hover	
 					echo "</tr>";
 				}						
 				echo "</table>";
+				/*echo 
+				"
+					<div class='admin-form-add'>
+						Ajouter
+					</div>
+				";*/
 			} 
 		?>		
 

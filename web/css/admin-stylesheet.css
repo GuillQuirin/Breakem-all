@@ -2,8 +2,16 @@
 TOUT RENAME EN ADMIN 
 */
 
+footer{
+    display:none;
+}
+
+.admin-form-add{
+    text-align:center;
+}
+
 .admin-table{
-    
+    position:relative;   
 }
 
 .configuration-wrapper:first-child{
