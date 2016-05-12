@@ -24,11 +24,11 @@
 						"	
 							<td class='admin-form-button-wrapper'>
 								<div class='align full-height'>
-									<button type='button' class='admin-form-button'>Modifier</button>
-									<button type='button' class='admin-form-button'>Supprimer</button>
+									<button type='button' class='admin-form-button admin-form-button-modify'>Modifier</button>
+									<button type='button' class='admin-form-button admin-form-button-delete'>Supprimer</button>
 								</div>
 							</td>
-						";			
+						";								
 						//Fin Btn hover	
 					echo "</tr>";
 				}						
