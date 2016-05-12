@@ -35,6 +35,10 @@ class template{
       if($this->isAdmin()){
         $v->assign("_isAdmin", 1);
       }
+      else
+      {
+        $v->assign("_isAdmin",0);
+      }
     }
   }
   

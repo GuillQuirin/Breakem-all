@@ -1,8 +1,7 @@
 <?php
 class adminController extends template{
     public function adminAction(){
-        //var_dump($_isAdmin);exit;
-        //if(isset($_isAdmin) && $_isAdmin == 1){
+        if($this->isVisitorConnected() && $this->isAdmin()){
             $v = new view();
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
@@ -25,8 +24,8 @@ class adminController extends template{
             $v->assign("listesignalement",$listesignalement);
            
             $v->setView("/includes/admin/accueil", "template");
-        /*}
+        }
         else //On affiche la 404 pour faire croire que le mec tape n'importe quoi
-            header('Location: '.WEBPATH.'/404');*/
+            header('Location: '.WEBPATH.'/404');
     }
 }
