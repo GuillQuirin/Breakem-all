@@ -2,10 +2,16 @@
     border:1px solid #ffffff;
 }
 
+.index-modal-login{
+    left:0;
+}
+
 .admin-btn-default{
     margin:0 5px;
     padding:0 25px;
     transform:skew(-8deg);
+    z-index:10000;
+    cursor: pointer;
 }
 
 .admin-btn-default span{
@@ -48,6 +54,10 @@ TOUT RENAME EN ADMIN
     top:0;
 }
 
+.index-modal{
+    left:0;
+}
+
 .admin-input-file{
     padding-bottom:15px;
 }
@@ -61,7 +71,7 @@ TOUT RENAME EN ADMIN
 }
 
 .form-bg-active{
-    background:rgba(0, 0, 0, .4) none repeat scroll 0% 0%;
+    background:rgba(38, 36, 71, 0.71) none repeat scroll 0% 0%
 }
 
 .index-form-submit{
