@@ -9,7 +9,14 @@
 }
 
 .header-scroll-down{
-	margin-bottom:15px;
+	width:120px;
 	position:absolute;
 	cursor:pointer;
+	z-index:100;
+	opacity:.4;
+}
+
+.header-scroll-down:hover{
+	transition:opacity .5s;
+	opacity:1;
 }

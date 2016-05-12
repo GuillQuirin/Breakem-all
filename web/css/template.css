@@ -3,7 +3,6 @@ html{
 }
 
 body{
-    display: table;
     width:100%;
     padding:0;
     margin:0;
@@ -11,24 +10,28 @@ body{
     position: relative;
 }
 footer{
-    display:table-row;
     width:100%;
+    z-index: 2;
 }
 
 .footer {
-    padding:25px 0 0 33px;
-    height:190px
+    padding:25px 0 0 0;
+    border-top:1px solid rgba(217,43,76,.4);
 }
 .footer_wrap {
-    width:800px;
+    max-width:800px;
+    width: 100%;
     margin:0 auto;
-    position:relative; 
     padding:0 0 50px 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+    flex-shrink: 2;
 }
 .footer .footer_content {
-    float:left; 
-    width:235px; 
-    padding:0 15px; 
     color:#7c7c7c;
 }
 .footer .footer_content .footer_title {
@@ -59,14 +62,12 @@ footer{
     text-decoration:none;
 }
 .copy {
-    font-size:13px; 
-    position:relative;
+    font-size:13px;
 }
 .copy .copy_wrap {
     margin:0 auto; 
     text-align:center; 
     padding:28px 0;
-    border-top:1px solid rgba(217,43,76,.4);
 }
 .copy a {
     color:#ddd;

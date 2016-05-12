@@ -2,7 +2,7 @@
 
 class LoadFailController{
 	public function __construct(){
-		$v = new View();
+		$v = new view();
 
 		$v->assign("css", "404");
 		$v->assign("js", "404");

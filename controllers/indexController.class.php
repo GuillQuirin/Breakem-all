@@ -21,9 +21,9 @@ class indexController extends template{
 		}
 
 		//Liste Tournois
-		$obj = new tournoiManager();
-		$listetournois = $obj->getCurrentTournament();
-		if(!empty($listetournois)){
+		$obj = new tournamentManager();
+		$listetournois = $obj->getUnstartedTournaments();
+		if(!!($listetournois)){
 			$v->assign("listeTournois", $listetournois);
 		}
 		

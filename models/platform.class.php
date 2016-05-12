@@ -31,7 +31,7 @@ class platform{
 		$this->description=$v;
 	}
 	public function setImg($v){
-		if(!empty(trim($v)))
+		if(strlen(trim($v))!=0)
 			$this->img = "web/img/".$v;
 	}
 

@@ -49,7 +49,7 @@ class basesql{
 	}
 
 	public function pseudoExists($pseudo){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo="' . $pseudo.'"';
+		$sql = 'SELECT COUNT(*) FROM user WHERE pseudo="' . $pseudo.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
 
 		return $r;
@@ -140,7 +140,7 @@ class basesql{
 	}
 
 	public function getAllNames(){
-		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
+		$sql = "SELECT name FROM user ORDER BY name";
 		$sth = $this->pdo->query($sql);
 		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}

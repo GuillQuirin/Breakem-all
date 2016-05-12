@@ -11,11 +11,11 @@
 
 	</div>
 	 
-	<?php echo '<img class="icon icon-size-3 down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scroll-down.png">';?>
+	<?php echo '<img class="icon down-center header-scroll-down" src="' . WEBPATH . '/web/img/icon/icon-scrollDown.png">';?>
 
 </section>
 
-<section id="container_index">
+<section id="container_index" class="my-content-wrapper">
 	<div id="contain">
 		<div id="contain_left">
 
@@ -51,24 +51,22 @@
 			<!-- Liste des tournois en cours -->
 			<?php 	
 				if(isset($listeTournois)): 
-					foreach ($listeTournois as $key => $value):
-						$tournoi = new tournoi($value);
+					foreach ($listeTournois as $key => $tournoi):
 			?> 	
 						<article id='article<?php echo $tournoi->getId(); ?>'>
 							<div class='contain_article'>
 								<div class='img_article'>
-									<img src='".WEBPATH."/web/img/heroes-of.jpg'>
+									<img src='/web/img/heroes-of.jpg'>
 								</div>
 								<div class='date_article'>
 									<i class='icon'></i>
-									<h3><?php echo $tournoi->getStart_date(); ?></h3>
+									<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
 								</div>
 								<div class='text_article'>
-									<h2><?php echo "Heroes of the Storm."; ?></h2>
+									<h2><?php echo $tournoi->getName(); ?></h2>
 									<div class='tags_article'>
 										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>
-									<p><?php echo ""; ?></p>
 									<div class='btn_article'>
 										<h3 class='btn btn-pink'><a>Regarder</a><h3>
 									</div>

@@ -4,6 +4,11 @@ date_default_timezone_set('Europe/Paris');
 /*flush();
 session_destroy();
 exit;*/
+//Messages d'erreur pour debug
+ini_set('display_errors', 1); 
+
+error_reporting(E_ALL);
+
 require_once "conf.inc.php";
 require_once "functions.php";
 

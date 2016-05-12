@@ -43,14 +43,17 @@ function getGameVersionChoiceDom(name, descri, maxP, minP, maxT, maxPt){
 function loadElementsChoice(arrayJqDOM){
 	var container = dom.getContainer();
 	container.empty();
+	if (typeof arrayJqDOM == "undefined")
+		return;
 	for (var i = 0; i < arrayJqDOM.length; i++) {
 		container.append(arrayJqDOM[i]);
 	};
 }
-function loadTitle(titre){
+function loadTitle(titre, entete){
+	var ent = (typeof entete == "undefined") ? 'Choisis ' : '';
 	var _title = dom.getTitleContainer();
 	_title.empty();
-	_title.append('<h1 class="title">Choisis '+titre+'</span></h1>');
+	_title.append('<h1 class="title">'+ent+titre+'</span></h1>');
 }
 function loadBtn(string){
 	var btn = dom.getBtn();
@@ -664,7 +667,7 @@ var gameversionChoice = {
 					    		}
 					    		return false;
 					    	}
-							console.log(obj);
+							validateChoices.init(obj, _this._currentForm);
 						}
 					},
 					error: function(xhr, textStatus, errorThrown) {
@@ -676,3 +679,111 @@ var gameversionChoice = {
 		});
 	}
 };
+var validateChoices = {
+	init: function(data, formToDel){
+		console.log(data);
+		formToDel.remove();
+		$('html, body').animate({
+			scrollTop: 0
+		}, 500);
+		loadElementsChoice();
+		loadTitle('Valide tes choix', '');
+		loadBtn('Créer');
+		this.generateSumUp(data);
+		this.loadValidationEvent();
+	},
+	generateSumUp: function(data){
+		var container = $('<div class="creationtournoi-tournoi-valid-creation"></div>');
+		var tournamentName = $('<h3 class="creationtournoi-valid-tournoi-name title-2">Nom du tournoi : <span class="data uppercase">'+data.name+'</span></h3>');
+		container.append(tournamentName);
+		if(data.description.length > 0){
+			var tournamentDesc = $('<p class="creationtournoi-valid-tournoi-descr">'+data.name+'</p>');
+			container.append(tournamentDesc);
+		};
+
+		var mainList = $('<ul class="relative creationtournoi-valid-tournoi-list"></ul>');
+		var gameName = $('<li class="relative title-4 creationtournoi-valid-tournoi-gamename"><span>Jeu :</span><span class="uppercase absolute data">'+data.jeu+'</span></li>');
+		mainList.append(gameName);
+		// Si c'est un tournoi par équipe.
+		if (data.maxPlayerPerTeam > 1){
+			// Savoir si l'interGuilde a été choisi
+			var gameTypeTitle = '<span>Mode de jeu :</span><span class="uppercase absolute data">'+data.versionName;
+			if(data.guildTeams == true){
+				gameTypeTitle+=" - Inter-guildes";
+			}
+			// Si l'option équipes random a été activée
+			else if(data.randTeams == true){
+				gameTypeTitle+=" - Aléatoires";
+			}
+			// On est dans le cas jeu ouvert et équipes libres
+			else{
+				gameTypeTitle+=" - Avec choix d'équipe";
+			}
+			var gameTypeTitle = $('<li class="relative title-4 creationtournoi-valid-tournoi-gameversion-name">'+gameTypeTitle+'</span></li>');
+			mainList.append(gameTypeTitle);
+		}else{
+			var gameTypeTitle = $('<li class="relative title-4 creationtournoi-valid-tournoi-gameversion-name"><span>Mode de jeu :</span><span class="uppercase absolute data">'+data.versionName+'</span></li>');
+			mainList.append(gameTypeTitle);
+		};
+		var platformName = $('<li class="relative title-4 creationtournoi-valid-tournoi-platformname"><span>Console :</span><span class="uppercase absolute data">'+data.console+'</span></li>');
+		mainList.append(platformName);
+
+		var maxPlayers = $('<li class="relative title-4 creationtournoi-valid-tournoi-maxPlayers"><span>Joueurs maximum :</span><span class="uppercase absolute data">'+data.maxPlayer+'</span></li>');
+		mainList.append(maxPlayers);
+
+		var minPlayers = $('<li class="relative title-4 creationtournoi-valid-tournoi-minPlayers"><span>Joueurs minimum :</span><span class="uppercase absolute data">'+data.minPlayer+'</span></li>');
+		mainList.append(minPlayers);
+
+		if(data.maxPlayerPerTeam > 1){
+			var minTeams = $('<li class="relative title-4 creationtournoi-valid-tournoi-minT"><span>Limite minimum d\'équipes :</span><span class="uppercase absolute data">'+data.minTeam+'</span></li>');
+			mainList.append(minTeams);
+
+			var maxTeams = $('<li class="relative title-4 creationtournoi-valid-tournoi-maxT"><span>Limite maximum d\'équipes :</span><span class="uppercase absolute data">'+data.maxTeam+'</span></li>');
+			mainList.append(maxTeams);
+
+			var maxPlayersPerTeam = $('<li class="relative title-4 creationtournoi-valid-tournoi-maxPPT"><span>Limite minimum de joueurs par équipes :</span><span class="uppercase absolute data">'+data.maxPlayerPerTeam+'</span></li>');
+			mainList.append(maxPlayersPerTeam);
+		};
+
+
+		var startingDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-startDate"><span>Date de début :</span><span class="uppercase absolute data">'+data.dateDebut+'</span></li>');
+		mainList.append(startingDate);
+
+		var finishDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-endDate"><span>Date de fin :</span><span class="uppercase absolute data">'+data.dateFin+'</span></li>');
+		mainList.append(finishDate);
+
+		container.append(mainList);
+		dom.getContainer().after(container);
+	},
+	loadValidationEvent: function(){
+		var _this = this;
+		var _btn = dom.getBtn();
+		_btn.off();
+		_btn.click(function(event) {			
+			jQuery.ajax({
+				url: 'creationtournoi/finalValidation',
+				type: 'POST',
+				complete: function(xhr, textStatus) {
+					//called when complete
+				},
+				success: function(data, textStatus, xhr) {
+					var obj = tryParseData(data);
+					if(!!obj){
+						if(obj.errors){
+				    		for(var prop in obj.errors){
+				    			alert(obj.errors[prop]);
+				    		}
+				    		return false;
+				    	}
+				    	else if(obj.success){
+				    		console.log(obj.success);
+				    	}		
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					console.log("request error !! : \t " + errorThrown);
+				}
+			});				
+		});	
+	}
+}

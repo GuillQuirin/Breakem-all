@@ -20,6 +20,7 @@ class user{
 	protected $token = null;
 	protected $rss = null;
 	protected $authorize_mail_contact = null;
+	protected $reportNumber = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -69,7 +70,7 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		if(!empty(trim($v)) && $v!=NULL){
+		if(strlen(trim($v))!=0 && $v!=NULL){
 			//var_dump(strstr($v, "lol"));
 			if(strstr($v, WEBPATH)) //Image déjà stockée en base
 				$this->img=$v; 
@@ -103,6 +104,12 @@ class user{
 		else
 			$this->authorize_mail_contact=$v;
 	}
+	public function setReportNumber($v){
+		if($v!=NULL)
+			$this->reportNumber=$v;
+		else
+			$this->reportNumber=0;
+	}
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
@@ -122,5 +129,6 @@ class user{
 	public function getToken(){return $this->token;}
 	public function getAuthorize_mail_contact(){return $this->authorize_mail_contact;}
 	public function getRss(){return $this->rss;}
+	public function getReportNumber(){return $this->reportNumber;}
 	
 }

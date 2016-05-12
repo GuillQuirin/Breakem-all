@@ -55,3 +55,4 @@ $(document).mouseup(function(e)
         container.fadeOut();
     }
 });
+
