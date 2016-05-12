@@ -1,4 +1,7 @@
 <?php
+/*
+*
+*/
 final class tournament{
 	protected $_id;
 	protected $_startDate;
@@ -123,6 +126,7 @@ final class tournament{
 	public function getPName(){return $this->_pName;}
 	public function getPDescription(){return $this->_pDescription;}
 	public function getPImg(){return $this->_pImg;}
-
-
 }
+/*
+*
+*/
