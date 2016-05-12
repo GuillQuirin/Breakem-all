@@ -4,7 +4,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 ?>
 
-<section class="low-height bg-cover-configuration relative">
+<section class="low-height bg-cover-admin relative">
 
 	<div class="align full-height">
 		<div class="align full-height animation fadeLeft">
@@ -14,18 +14,18 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 	 
 	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
 
-	<div class="configuration-onglet-wrapper">
-		<ul class="configuration-onglet-ul">
-			<li class="active configuration-onglet-li" id="configuration-onglet-membres">
+	<div class="admin-onglet-wrapper">
+		<ul class="admin-onglet-ul">
+			<li class="active admin-onglet-li" id="admin-onglet-membres">
 				<a>Membres</a>
 			</li><!--
-			--><li class="configuration-onglet-li" id="configuration-onglet-platforms">		
+			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
 				<a>Plateformes</a>
 			</li><!--
-			--><li class="configuration-onglet-li" id="configuration-onglet-reports">		
+			--><li class="admin-onglet-li" id="admin-onglet-reports">		
 				<a>Signalements</a>
 			</li><!--
-			--><li class="configuration-onglet-li" id="configuration-onglet-team">		
+			--><li class="admin-onglet-li" id="admin-onglet-team">		
 				<a>Team</a>
 			</li>
 		</ul>
@@ -33,7 +33,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 	</section>
 
-	<section class="configuration-content-wrapper my-content-wrapper">
+	<section class="admin-content-wrapper my-content-wrapper">
 
 		<div class="container m-a content-border classement-container" style="border:none;">
 

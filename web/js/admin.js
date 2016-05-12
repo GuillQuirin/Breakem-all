@@ -2,21 +2,21 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	table.init();
+	platformModule.init();
 });
 
 var onglet = {
 	init : function(){
-		onglet.onClick("#configuration-onglet-platforms", "#configuration-onglet-platforms-wrapper");
-		onglet.onClick("#configuration-onglet-membres", "#configuration-onglet-membres-wrapper");
-		onglet.onClick("#configuration-onglet-reports", "#configuration-onglet-reports-wrapper");
-		onglet.onClick("#configuration-onglet-team", "#configuration-onglet-team-wrapper");
+		onglet.onClick("#admin-onglet-platforms", "#admin-onglet-platforms-wrapper");
+		onglet.onClick("#admin-onglet-membres", "#admin-onglet-membres-wrapper");
+		onglet.onClick("#admin-onglet-reports", "#admin-onglet-reports-wrapper");
+		onglet.onClick("#admin-onglet-team", "#admin-onglet-team-wrapper");
 	},
 	onClick : function(btnClick, ongletSelector){
 		jQuery(btnClick).click(function(){
-			jQuery(".configuration-onglet-li").removeClass('active');
+			jQuery(".admin-onglet-li").removeClass('active');
 			jQuery(this).addClass('active');
-			jQuery(".configuration-wrapper").css('display', 'none');
+			jQuery(".admin-wrapper").css('display', 'none');
 			onglet.show(ongletSelector);
 		});
 	},
@@ -28,34 +28,60 @@ var onglet = {
 	}
 };
 
-var table = {
+var platformModule = {
 	init : function(){
-		table.openForm(".admin-form-button-modify");		
+		platformModule.createPlatformsIhm();
+		platformModule.openForm(".admin-btn-modify");
 	},
-	openForm : function(btnClick){
-		jQuery(btnClick).click(function(){
-			//jQuery("body").css('overflow', 'hidden');
-
-			//Get
+	dataShow : function(url, callback){
+		if(callback){
 			jQuery.ajax({
-			 	url: 'admin/getPlatformsData',
+			 	url: url,
 			 	type: 'GET',
 			 	success: function(result){			 					 		
-			 		result = jQuery.parseJSON(result);
-			 		console.log("result", result);
-			 		jQuery.each(result, function(i, field){
-			 			console.log(field);
-			 		});		 		
+			 		callback(result);
 			 	}
 			});
+		}else{
+			console.log("Aucun élement sur dataShow()");
+		}
+	},
+	//Les formulaires sont tous différents
+	createPlatformsIhm : function(){
+		platformModule.dataShow("admin/getPlatformsData", function(result){
+			result = jQuery.parseJSON(result);
+			jQuery.each(result, function(i, field){
+				jQuery(".admin-wrapper.platforms").append(
+
+					"<div class='admin-data-ihm align'>" +
+
+						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>" + field.name + "</span></div></div>" +
+						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span>" + field.description + "</span></div></div>" +
+						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" + field.img + "'></div></div></div>" +
+
+						"<div class='admin-data-ihm-btn hidden'>" +
+							"<button class='admin-btn-default admin-btn-modify' type='button'><span>Modifier</span></button>" +  
+							"<button class='admin-btn-default admin-btn-delete' type='button'><span>Supprimer</span></button>" + 
+						"</div>" + 
+
+					"<div>"
+				);
+			});
+			platformModule.ihmElemHover();
 		});
 	},
-};
-
-			/*
-			PAS TOUCHE FDP
-
-			jQuery("#content").append(
+	ihmElemHover : function(){
+		$('.admin-data-ihm').hover(
+		  function() {
+		    $( this ).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		  }, function() {
+		    $( this ).find('.admin-data-ihm-btn').addClass( "hidden" );
+		  }
+		);
+	},
+	openForm : function(selector){
+		jQuery(selector).click(function(){
+			jQuery(".admin-data-ihm").append(
 				"<div class='index-modal'>" +
 
 					"<div class='index-modal-login align form-bg-active'>" +
@@ -77,8 +103,10 @@ var table = {
 					  	"</div>" + 	 
 					"</div>" +
 				"</div>" 
-			);*/
-
+			);
+		});
+	}
+};
 
 
 
