@@ -34,17 +34,18 @@ var table = {
 	},
 	openForm : function(btnClick){
 		jQuery(btnClick).click(function(){
-			jQuery("body").css('overflow', 'hidden');
+			//jQuery("body").css('overflow', 'hidden');
 
 			//Get
 			jQuery.ajax({
-			 	url: 'creationtournoi/getGameTypes',
+			 	url: 'admin/getPlatformsData',
 			 	type: 'GET',
-			 	success: function(result){			 		
+			 	success: function(result){			 					 		
+			 		result = jQuery.parseJSON(result);
 			 		console.log("result", result);
 			 		jQuery.each(result, function(i, field){
 			 			console.log(field);
-			 		});
+			 		});		 		
 			 	}
 			});
 		});

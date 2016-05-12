@@ -35,9 +35,9 @@ class adminController extends template{
             header('Location: '.WEBPATH.'/404');
     }
 
-    public function getPlatformsAction(){
-        $pm = new platformManager();
-        $typesObj = $pm->getPlatforms();
+    public function getPlatformsDataAction(){
+        $pm = new adminManager();
+        $typesObj = $pm->getListPlatform();
         $data['res'] = [];        
         foreach ($typesObj as $key => $obj) {
             $arr = [];
@@ -46,7 +46,7 @@ class adminController extends template{
             $arr['description'] = $obj->getDescription();
             $data['res'][] = $arr;
         }
-        echo json_encode($data);
+        echo json_encode($data['res']);
         return;
     }
 }
