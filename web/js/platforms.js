@@ -44,8 +44,8 @@ platformModule.createPlatformsIhm = function(){
 },
 
 platformModule.openForm = function(selector, myForm){
-	/*jQuery(selector).click(function(){
+	jQuery(selector).click(function(){
 		jQuery('.index-modal').addClass('hidden');
 		jQuery(myForm).removeClass('hidden');
-	});*/
+	});
 };
