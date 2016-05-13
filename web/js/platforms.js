@@ -1,6 +1,5 @@
 platformModule.createPlatformsIhm = function(){
-	platformModule.dataShow("admin/getPlatformsData", function(result){
-		result = jQuery.parseJSON(result);
+	ajaxRequest("admin/getPlatformsData", "GET", function(result){		
 		jQuery.each(result, function(i, field){
 			jQuery(".admin-wrapper.platforms").append(
 
@@ -45,8 +44,8 @@ platformModule.createPlatformsIhm = function(){
 },
 
 platformModule.openForm = function(selector, myForm){
-	jQuery(selector).click(function(){
+	/*jQuery(selector).click(function(){
 		jQuery('.index-modal').addClass('hidden');
 		jQuery(myForm).removeClass('hidden');
-	});
+	});*/
 };
