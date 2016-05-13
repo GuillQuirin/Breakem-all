@@ -5,11 +5,18 @@
 		<meta charset="UTF-8">
 
 		<!-- Facebook Meta share -->
-		<!-- <meta property="og:url"                content="http://localhost/esgi/Breakthem-all/" />
+		<!-- <meta property="og:url"           content="http://localhost/esgi/Breakthem-all/" />
 		<meta property="og:type"               content="article" />
 		<meta property="og:title"              content="BreakEm All!" />
 		<meta property="og:description"        content="Organise ton propre tournoi!" />
 		<meta property="og:image"              content="http://image.noelshack.com/fichiers/2016/19/1462894934-logo-full.png" />-->
+		<!-- Fin Facebook Meta share -->
+
+		<!-- Security -->
+
+		<!-- J'en rajouterais plutard -->
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<!-- Fin Security -->
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
+
+		<!-- J'en rajouterais plutard -->
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<!-- Fin Security -->
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
