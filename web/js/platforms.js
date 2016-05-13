@@ -1,4 +1,4 @@
-platformModule.createPlatformsIhm : function(){
+platformModule.createPlatformsIhm = function(){
 	platformModule.dataShow("admin/getPlatformsData", function(result){
 		result = jQuery.parseJSON(result);
 		jQuery.each(result, function(i, field){
@@ -44,7 +44,7 @@ platformModule.createPlatformsIhm : function(){
 	});
 },
 
-platformModule.openForm : function(selector, myForm){
+platformModule.openForm = function(selector, myForm){
 	jQuery(selector).click(function(){
 		jQuery('.index-modal').addClass('hidden');
 		jQuery(myForm).removeClass('hidden');
