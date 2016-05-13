@@ -10,9 +10,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 		<div class="align full-height animation fadeLeft">
 			<span class="header-title admin-header-title border-full relative">Administration</span>	
 		</div>
-	</div>
-	 
-	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+	</div>	 
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
