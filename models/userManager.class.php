@@ -5,7 +5,7 @@ class userManager extends basesql{
 		parent::__construct();
 	}
 
-	
+	/*CREATION USER*/
 	public function create(user $user){
 		// Check afin de savoir qui appelle cette méthode
 		$e = new Exception();
@@ -18,9 +18,8 @@ class userManager extends basesql{
 
 
 		if(!$calling_class || !$calling_method)
-			die("Pas de methode appelée pour l'inscription !");
+			header("Location: ".WEBPATH);
 
-		// Si appelée depuis la page acceuil
 		if ($calling_class === "template" && $calling_method === "registerAction"){
 			$this->columns = [];
 			$user_methods = get_class_methods($user);
@@ -34,19 +33,18 @@ class userManager extends basesql{
 			$this->columns = array_filter($this->columns);
 			$this->save();
 		}
-		else if($calling_class === "configuration" && $calling_method === "updateAction"){
-			die("Mise à jour (userManager.class)");
-		}
 		else
-			die("Tentative d'enregistrement depuis une autre methode que registerAction de la classe IndexController!");
+			header("Location: ".WEBPATH);
 	}
 
+	/*VERIFICATION EXISTENCE COMPTE*/
 	public function userMailExists(user $user){
 		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
 		$query = (bool) $this->pdo->query($sql)->fetch();
 		return $query;
 	}
 
+	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
 		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status>0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -65,6 +63,7 @@ class userManager extends basesql{
 		return false;
 	}
 
+	/*VERIFICATION PARAMETRES D'ACTIVATION COMPTE*/
 	public function checkMailToken(user $user){		
 		$sql = "SELECT COUNT(*) as nb FROM ".$this->table." WHERE token=:token AND email=:email AND status=0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -80,6 +79,7 @@ class userManager extends basesql{
 		return false;
 	}
 
+	/*ACTIVATION NOUVEAU COMPTE*/
 	private function activateAccount(user $u){
 		$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -89,6 +89,7 @@ class userManager extends basesql{
 		return $r;
 	}
 
+	/*MODIFIER MOT DE PASSE*/
 	public function recoverAccount(user $u, $password){
 		$sql = "UPDATE ".$this->table." SET password = :password, token = '' WHERE email=:email ";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -100,18 +101,19 @@ class userManager extends basesql{
 		return $r;
 	}
 
-	/*C'est ici que l'on set le isConnected à 1 (true)
+	/*OUVERTURE A CHAQUE CONNEXION*/
+	public function validTokenConnect(user $user){
+		/*C'est ici que l'on set le isConnected à 1 (true)
 		--> cette methode est appelée à chaque rechargement de page.
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
-	*/
-	public function validTokenConnect(user $user){
+		*/
 		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status>0";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $_SESSION[COOKIE_EMAIL]
 		]);
 		$r = $sth->fetchAll();
-		// $r est toujorus un array qui stock chaque ligne récupérée dans un sous array
+		// $r est toujours un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 
 		if(isset($r[0])){
@@ -126,6 +128,7 @@ class userManager extends basesql{
 		return false;
 	}
 
+	/*DECONNEXION*/
 	public function disconnecting(user $user){
 		$sql = "UPDATE ".$this->table." SET isConnected=0, lastConnexion=:lastConnexion WHERE email=:email";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -136,8 +139,9 @@ class userManager extends basesql{
 		$r = $sth->fetchAll();
 	}
 
+	/*MODIFICATION TEAM DU USER*/
 	public function setNewTeam(user $u, team $t){
-		$sql = "UPDATE User SET idTeam = :idTeam WHERE id=:id;";
+		$sql = "UPDATE ".$this->table." SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':id' => $u->getId(),
@@ -145,6 +149,7 @@ class userManager extends basesql{
 		]);
 	}
 
+	/*MODIFICATION USER*/
 	public function setUser(user $u, user $newuser){
 		$data = [];
 
@@ -159,7 +164,7 @@ class userManager extends basesql{
 
 		$compteur=0;
 
-		$sql = "UPDATE user SET ";
+		$sql = "UPDATE ".$this->table." SET ";
 			foreach ($data as $key => $value) {
 				if($compteur!=0) 
 					$sql.=", ";
@@ -167,9 +172,6 @@ class userManager extends basesql{
 				$compteur++;
 			}
 		$sql.=" WHERE id=:id";
-
-		// var_dump($sql);
-		//exit;
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
@@ -180,5 +182,29 @@ class userManager extends basesql{
 		$id = $u->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
 		$query->execute();
+	}
+
+	/*RECUPERATION INFOS USER*/
+	public function getUser(array $infos){
+		
+		$cols = array_keys($infos);
+		$data = [];
+		foreach ($cols as $key) {
+			$data[$key] = $key.'="'.$infos[$key].'"';
+		}
+
+		$sql = "SELECT id, name, firstname, pseudo, birthday, 
+						description, kind, city, email, status, 
+						img, idTeam, isConnected, lastConnexion, *
+						rss, authorize_mail_contact, token 
+					FROM ".$this->table." 
+					WHERE status<>0 AND " . implode(',', $data);
+
+		$query = $this->pdo->query($sql)->fetch();
+
+		if($query === FALSE)
+			return false;
+
+		return new user($query);
 	}
 }

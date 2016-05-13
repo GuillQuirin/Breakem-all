@@ -325,7 +325,7 @@ class creationtournoiController extends template{
 		if(!empty(trim($t->getDescription()))){
 			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
 				$this->echoJSONerror("descripiton", "La description de votre tournoi contient des caracteres speciaux !");
-			if(strlen($t->getDescription()) > 199 || $t->getDescription() < 15)
+			if(strlen($t->getDescription()) > 199 || strlen($t->getDescription()) < 15)
 				$this->echoJSONerror("descripiton", "La description, lorsque utilisée, doit faire entre 15 et 199 caracteres");
 		}
 			
