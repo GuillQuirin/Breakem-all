@@ -34,8 +34,13 @@ class view{
 			}	
 		}else{
 			$this->data[$key] = $value;					
-		}*/					
-		$this->data[$key] = $value;					
+		}*/
+		if(is_array($key)){
+			foreach ($key as $cle => $nom)
+				$this->data[$key] = $nom;	
+		}
+		else
+			$this->data[$key] = $value;					
 	}
 
 	public function createForm($form, $errors){

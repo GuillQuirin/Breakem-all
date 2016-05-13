@@ -6,8 +6,9 @@ class adminController extends template{
             $v = new view();
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
-            $v->assign("js", "admin");
-            /*$v->assign("js", "admin", "platforms");*/                                       
+                $js['admin']="admin";
+                $js['platforms']="platforms";
+            $v->assign("js",$js);                                       
             $v->assign("title", "admin");
             $v->assign("content", "Liste des Utilisateurs");
 

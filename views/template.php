@@ -273,7 +273,16 @@
 		</footer>
 
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
-		<?php echo (isset($js)) ? '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>' : '';?>
+		<?php 
+			if(isset($js)){ 
+				if(is_array($js)){
+					foreach ($js as $key => $value)
+						echo '<script src="'.WEBPATH.'/web/js/'.$value.'.js"></script>';
+				}
+				else 
+					echo '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>';
+			}
+		?>
 		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 	</body>
 </html>
