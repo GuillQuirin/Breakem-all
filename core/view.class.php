@@ -23,7 +23,7 @@ class view{
 	}
 
 	public function assign($key, $value){
-		if(isset($this->data[$key])){
+		/*if(isset($this->data[$key])){
 			$arrValue = [];
 			if(is_array($this->data[$key])){
 				$arrValue[] = $value;
@@ -34,7 +34,8 @@ class view{
 			}	
 		}else{
 			$this->data[$key] = $value;					
-		}					
+		}*/					
+		$this->data[$key] = $value;					
 	}
 
 	public function createForm($form, $errors){
