@@ -4,7 +4,7 @@
 */
 class typegameManager extends basesql{
 	public function getAllTypes(){
-		$sql = "SELECT * FROM TypeGame ORDER BY name";
+		$sql = "SELECT * FROM typegame ORDER BY name";
 		$sth = $this->pdo->query($sql);
 
 		$typeGamesArr = [];
