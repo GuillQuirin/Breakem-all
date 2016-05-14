@@ -15,7 +15,7 @@
 		<!-- Security -->
 
 		<!-- J'en rajouterais plutard -->
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
 		<!-- Fin Security -->
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
