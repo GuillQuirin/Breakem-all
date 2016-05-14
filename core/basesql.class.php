@@ -49,12 +49,12 @@ class basesql{
 		//if ($calling_class === "template" && $calling_method === "registerAction"){
 		if($this->table===$objet){
 			$this->columns = [];
-			$user_methods = get_class_methods($objet);
+			$object_methods = get_class_methods($objet);
 
-			foreach ($user_methods as $key => $method) {
+			foreach ($object_methods as $key => $method) {
 				if(strpos($method, 'get') !== FALSE){
 					$col = lcfirst(str_replace('get', '', $method));
-					$this->columns[$col] = $user->$method();
+					$this->columns[$col] = $objet->$method();
 				};
 			}
 			$this->columns = array_filter($this->columns);
