@@ -113,6 +113,24 @@ class user{
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
+	public function getStatusName($status){
+		switch($status)
+		{
+			case '-1' :
+				return 'User inactif';
+			break;
+			case '1':
+				return 'User actif';
+			break;
+			case '2':
+				return 'Inconnu';
+			break;
+			case '3':
+				return 'Admin';
+			break;
+		}
+		
+	}
 	public function getFirstname(){return $this->firstname;}
 	public function getPseudo(){return $this->pseudo;}
 	public function getBirthday(){return	$this->birthday;}
