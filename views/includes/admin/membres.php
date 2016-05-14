@@ -13,8 +13,8 @@
 					<th>Team</th>
 					<th>Signalements</th>
 					<th>En ligne</th>
-					<th>Verrouiller le compte/Déverouiller</th>
-					<th>Donner/Enlever les droits admin</th>
+					<th>Verrouiller/Déverouiller le compte</th>
+					<th>Donner/Enlever droits admin</th>
 				</thead>
 
 				<?php
@@ -23,7 +23,7 @@
 					echo "<tr>";
 						echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
 						echo "<td>".$joueur->getEmail()."</td>";
-						echo "<td>".$joueur->getStatus()."</td>";
+						echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
 						echo "<td><img src='".$joueur->getImg()."'></td>";
 						echo "<td>".$joueur->getIdTeam()."</td>";
 						echo "<td>".$joueur->getReportNumber()."</td>";
@@ -31,11 +31,12 @@
  							if($joueur->getIsConnected()) echo "X";
  						echo "</td>";
 						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_".$joueur->getId()."' id='checkbox_".$joueur->getId()."' value=''><label style='color:transparent' for='checkbox_".$joueur->getId()."'></label></td>";	
+						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_admin_".$joueur->getId()."' id='checkbox_admin_".$joueur->getId()."' value=''><label style='color:transparent' for='checkbox_admin_".$joueur->getId()."'></label></td>";	
 						echo "</tr>";
 				}
 				?>
 				<tr class='text-center'>
-					<td colspan='7' class='border-none admin-form-td-submit'>								
+					<td colspan='12' class='border-none admin-form-td-submit'>								
 						<button id='validate-form-membre' type='submit' class='btn btn-pink admin-form-submit'>
 							<a>Valider</a>
 						</button>
