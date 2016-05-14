@@ -1,11 +1,9 @@
 <section class="middle-height bg-cover-classement relative  align full-height">
 
-  <div id="ID" class=" ">
-      <img id="profil" class="grid-md-5 align full-height" src="<?php echo $img; ?>">
-      <span class="header-title align full-height" id="name">Rayz</span>
-  </div>
-
-
+    <div id="ID" class=" ">
+        <img id="profil" class="grid-md-5 align full-height" src="<?php echo $img; ?>">
+        <span class="header-title align full-height" id="name">Rayz</span>
+    </div>
 </section>
 
 <section class="classement-content-wrapper  align full-height" id ="onglet">
