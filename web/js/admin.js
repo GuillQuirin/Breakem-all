@@ -32,20 +32,7 @@ var onglet = {
 var platformModule = {
 	init : function(){
 		platformModule.createPlatformsIhm();
-	},
-	dataShow : function(url, callback){
-		if(callback){
-			jQuery.ajax({
-			 	url: url,
-			 	type: 'GET',
-			 	success: function(result){			 					 		
-			 		callback(result);
-			 	}
-			});
-		}else{
-			console.log("Aucun élement sur dataShow()");
-		}
-	},
+	}
 	ihmElemHover : function(){
 		$('.admin-data-ihm').hover(
 		  function() {
