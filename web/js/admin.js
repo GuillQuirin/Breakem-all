@@ -59,9 +59,9 @@ var platformModule = {
 
 
 //Validation avec tous les id qui commence par validate-form-
-$([id^='validate-form-']).on('click', function() {
-	//Recherche le formulaire le plus proche pour valider
-    $(this).closest('form').submit();
-});
+// $([id^='validate-form-']).on('click', function() {
+// 	//Recherche le formulaire le plus proche pour valider
+//     $(this).closest('form').submit();
+// });
 
 

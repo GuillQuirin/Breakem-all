@@ -20,7 +20,7 @@
 						echo "<td><img src='".$team->getImg()."'></td>";
 						echo "<td>".$team->getDescription()."</td>";
 						echo "<td>".$team->getStatusName($team->getStatus())."</td>";
-						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_".$team->getId()."' id='checkbox_".$team->getId()."' value='".$team->getId()."'><label style='color:transparent' for='checkbox_".$team->getId()."'></label></td>";																							
+						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_team[]' id='checkbox_".$team->getId()."' value='".$team->getId()."'><label style='color:transparent' for='checkbox_".$team->getId()."'></label></td>";																							
 					echo "</tr>";
 				}
 				?>
