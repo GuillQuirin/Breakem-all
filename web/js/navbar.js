@@ -77,9 +77,20 @@ function adaptMarginToNavHeight(jQel){
 }
 
 var navbar = {
+	_this: this,
     init: function(){
-    	navbar.setNavbarEl();   
-		navbar.shrink();      
+    	navbar.setNavbarEl();
+    	navbar.setNavToggle();
+    	navbar.setSearchPage();
+    	navbar.setSearchToggle();
+    	navbar.setNavSideMenu();
+    	navbar.setNavLogin();
+    	navbar.setNavInscription();
+    	navbar.setIndexModal();
+    	navbar.setLoginForm();
+    	navbar.setSubscribeForm();
+
+		navbar.shrink();
         navbar.openNavbarSide();
         navbar.search.toggle();
         navbar.search.close();
@@ -89,55 +100,113 @@ var navbar = {
         navbar.form.closeFormClick();
         navbar.menu();
     },
+
+
+    /*##### SETTERS #####*/
     setNavbarEl: function(){
     	this._navEl = $("#navbar");
     },
+    setNavToggle: function(){
+    	this._navToggle = $('#navbar-toggle');
+    },
+    setNavSideMenu: function(){
+    	this._navSideMenu = $('.navbar-side-menu');
+    },
+    setNavLogin: function(){
+    	this._navLogin = $('#navbar-login');
+    },
+    setNavInscription: function(){
+    	this._navInscription = $('#navbar-inscription');
+    },
+    setSearchPage: function(){
+    	this._searchPage = $('.search-page');
+    },
+    setSearchToggle: function(){
+    	this._searchToggle = $('.search-toggle');
+    },
+    setIndexModal: function(){
+    	this._indexModal = $('.index-modal');
+    },
+    setLoginForm: function(){
+    	this._loginForm = $('#login-form');
+    },
+    setSubscribeForm: function(){
+    	this._subscribeForm = $('#subscribe-form');
+    },
+
+
+    /*##### GETTERS #####*/
     getNavbarEl: function(){
     	return this._navEl;
     },
+    getNavToggle: function(){
+    	return this._navToggle;
+    },
+    getNavSideMenu: function(){
+    	return this._navSideMenu;
+    },
+    getSearchPage: function(){
+    	return this._searchPage;
+    },
+    getSearchToggle: function(){
+    	return this._searchToggle;
+    },
+    getNavLogin: function(){
+    	return this._navLogin;
+    },
+    getNavInscription: function(){
+    	return this._navInscription;
+    },
+    getIndexModal: function(){
+    	return this._indexModal;
+    },
+    getLoginForm: function(){
+    	return this._loginForm;
+    },
+    getSubscribeForm: function(){
+    	return this._subscribeForm;
+    },
+
     preventShrink: false,
     shrink: function(force){
-    	var _this = this;
     	if(!this.preventShrink){   		
 	        $(window).scroll(function(){
 	            if($(window).scrollTop() > 50){
-	                _this.getNavbarEl().removeClass('full');
-	                _this.getNavbarEl().addClass('shrink');
+	                navbar.getNavbarEl().removeClass('full');
+	                navbar.getNavbarEl().addClass('shrink');
 	            }else{
-	                _this.getNavbarEl().removeClass('shrink');
-	                _this.getNavbarEl().addClass('full');
+	                navbar.getNavbarEl().removeClass('shrink');
+	                navbar.getNavbarEl().addClass('full');
 	            }
 	        });
 	        return;
 	    }
-	    _this.getNavbarEl().removeClass('full');
-        _this.getNavbarEl().addClass('shrink');
+	    navbar.getNavbarEl().removeClass('full');
+        navbar.getNavbarEl().addClass('shrink');
     },
     openNavbarSide : function(){
-        $('#navbar-toggle').on('click', function(){
-            if($('.navbar-side-menu').hasClass('navbar-collapse')){
-                $('.navbar-side-menu').removeClass('navbar-collapse');
+        this.getNavToggle().on('click', function(){
+            if(navbar.getNavSideMenu().hasClass('navbar-collapse')){
+                navbar.getNavSideMenu().removeClass('navbar-collapse');
             }else{
-                $('.navbar-side-menu').addClass('navbar-collapse');
+                navbar.getNavSideMenu().addClass('navbar-collapse');
             }
         });
     },
     search : {
         toggle: function(){
-
             $(document).on('click', '.search-toggle', function(){
-                $('.search-page').removeClass('hidden-fade');
+                navbar.getSearchPage().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".search-page").removeClass('hidden');
+                    navbar.getSearchPage().removeClass('hidden');
                 }, 0);
             });
         },
         close: function(){
             $(document).on('click', '.btn-close', function(e){
-
                 $(e.currentTarget).parents('.search-page').addClass('hidden-fade');
                 setTimeout(function() {
-                    $(".search-page").addClass('hidden');
+                    navbar.getSearchPage().addClass('hidden');
                 }, 800);
             });
         }
@@ -145,33 +214,33 @@ var navbar = {
     //Refacto le code
     form : {
         subscribe : function(){
-            $('#navbar-login').on('click', function(){
-            	$('.index-modal-login').addClass('form-bg-active');
-                $('.index-modal').removeClass('hidden-fade');
+            navbar.getNavLogin().on('click', function(){
+            	navbar.getIndexModal().closest('.index-modal-login').addClass('form-bg-active');
+                navbar.getIndexModal().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".index-modal").removeClass('hidden');
+                    navbar.getIndexModal().removeClass('hidden');
                 }, 0);
-                $('#login-form').removeClass('hidden');
-                $('#subscribe-form').addClass('hidden');
+                navbar.getLoginForm().removeClass('hidden');
+                navbar.getSubscribeForm().addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
                 $('body').css('overflow', 'hidden');
             });
         },
         login : function(){
-        	$('.index-modal-login').addClass('form-bg-active');
-            $('#navbar-inscription').on('click', function(){
-                $('.index-modal').removeClass('hidden-fade');
+        	navbar.getNavbarEl().find('.index-modal-login').addClass('form-bg-active');
+            navbar.getNavInscription().on('click', function(){
+                navbar.getIndexModal().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".index-modal").removeClass('hidden');
+                    navbar.getIndexModal().removeClass('hidden');
                 }, 0);
-                $('#subscribe-form').removeClass('hidden');
-                $('#login-form').addClass('hidden');
+                navbar.getSubscribeForm().removeClass('hidden');
+                navbar.getLoginForm().addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
                 $('body').css('overflow', 'hidden');
             });
         },
         closeForm : function(){
-            $('.index-modal').addClass('hidden-fade').addClass('fade').addClass('hidden'); 
+            navbar.getIndexModal().addClass('hidden-fade').addClass('fade').addClass('hidden'); 
             $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){
@@ -187,17 +256,16 @@ var navbar = {
             });
         },
         closeFormClick: function(){
-
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a')) {			    			    			    			   			    		
-
-			    	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
-
-			    	setTimeout(function() {
-                    	navbar.form.closeForm();			    	
-                	}, 700);		    		
-			    }
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a'))
+		   			navbar.form.smoothClosing();
 			});
+        },
+        smoothClosing: function(){
+        	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');
+    		setTimeout(function() {
+            	navbar.form.closeForm();			    	
+        	}, 700);	
         }
     },
     menu: function(){
@@ -381,8 +449,12 @@ var register = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
+	popSuccessMsg: function(){
+		var container = $('<div class="absolute index-modal-login"></div>');
+	},
 	treatParsedJson: function(obj){
 		if(obj.success){
+			navbar.form.smoothClosing();
 			window.location.assign('confirmation/warningMail');
 		}
 		else{

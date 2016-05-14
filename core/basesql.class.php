@@ -1,9 +1,10 @@
 <?php
-class basesql{
+abstract class basesql{
 
 	protected $table;
 	protected static $openedConnection = false;
 	protected $pdo;
+	protected $mirrorObject = false;
 	protected $columns = [];
 
 	public function __construct(){
@@ -32,7 +33,39 @@ class basesql{
 	
 	}
 
-	public function save(){
+	public function create(object $objet){
+		// Check afin de savoir qui appelle cette méthode
+		$e = new Exception();
+		$trace = $e->getTrace();
+
+		// get calling class:
+		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
+		// get calling method
+		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
+
+
+		if(!$calling_class || !$calling_method)
+			return false;
+
+		//if ($calling_class === "template" && $calling_method === "registerAction"){
+		if($this->table===$objet){
+			$this->columns = [];
+			$object_methods = get_class_methods($objet);
+
+			foreach ($object_methods as $key => $method) {
+				if(strpos($method, 'get') !== FALSE){
+					$col = lcfirst(str_replace('get', '', $method));
+					$this->columns[$col] = $objet->$method();
+				};
+			}
+			$this->columns = array_filter($this->columns);
+			$this->save();
+		}
+		else
+			return false;
+	}
+
+	protected function save(){
 		$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 		VALUES (:".implode(",:", array_keys($this->columns)).")";
 

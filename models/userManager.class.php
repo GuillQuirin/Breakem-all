@@ -5,38 +5,6 @@ class userManager extends basesql{
 		parent::__construct();
 	}
 
-	/*CREATION USER*/
-	public function create(user $user){
-		// Check afin de savoir qui appelle cette méthode
-		$e = new Exception();
-		$trace = $e->getTrace();
-
-		// get calling class:
-		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
-		// get calling method
-		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
-
-
-		if(!$calling_class || !$calling_method)
-			header("Location: ".WEBPATH);
-
-		if ($calling_class === "template" && $calling_method === "registerAction"){
-			$this->columns = [];
-			$user_methods = get_class_methods($user);
-
-			foreach ($user_methods as $key => $method) {
-				if(strpos($method, 'get') !== FALSE){
-					$col = lcfirst(str_replace('get', '', $method));
-					$this->columns[$col] = $user->$method();
-				};
-			}
-			$this->columns = array_filter($this->columns);
-			$this->save();
-		}
-		else
-			header("Location: ".WEBPATH);
-	}
-
 	/*VERIFICATION EXISTENCE COMPTE*/
 	public function userMailExists(user $user){
 		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
@@ -195,7 +163,7 @@ class userManager extends basesql{
 
 		$sql = "SELECT id, name, firstname, pseudo, birthday, 
 						description, kind, city, email, status, 
-						img, idTeam, isConnected, lastConnexion, *
+						img, idTeam, isConnected, lastConnexion,
 						rss, authorize_mail_contact, token 
 					FROM ".$this->table." 
 					WHERE status<>0 AND " . implode(',', $data);

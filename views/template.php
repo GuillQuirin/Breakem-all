@@ -15,7 +15,7 @@
 		<!-- Security -->
 
 		<!-- J'en rajouterais plutard -->
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
 		<!-- Fin Security -->
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,11 +104,11 @@
 							<li class="navbar-menu-li navbar-menu-joueur">
 								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-joueur">
-									<li class="navbar-menu-tooltip-li">
+									<!-- <li class="navbar-menu-tooltip-li">
 										<a>
 											Créer 
 										</a>
-									</li>
+									</li> -->
 									<li class="navbar-menu-tooltip-li">
 										<a>
 											Liste
@@ -119,11 +119,19 @@
 							<li class="navbar-menu-li navbar-menu-team">
 								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-team">
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Créer 
-										</a>
-									</li>
+									<?php 
+										if(isset($_isConnected)){
+											echo '<li class="navbar-menu-tooltip-li">';
+
+											if(isset($_idTeam) && $_idTeam!=null)
+												echo "<a href=''>Page de ma team</a>";
+											
+											else
+												echo "<a href=''>Créer ma team</a>";
+											
+											echo "</li>";
+										}
+									?>
 									<li class="navbar-menu-tooltip-li">
 										<a>
 											Liste
