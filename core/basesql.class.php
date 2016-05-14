@@ -1,9 +1,10 @@
 <?php
-class basesql{
+abstract class basesql{
 
 	protected $table;
 	protected static $openedConnection = false;
 	protected $pdo;
+	protected $mirrorObject = false;
 	protected $columns = [];
 
 	public function __construct(){
@@ -44,7 +45,7 @@ class basesql{
 
 
 		if(!$calling_class || !$calling_method)
-			header("Location: ".WEBPATH);
+			return false;
 
 		//if ($calling_class === "template" && $calling_method === "registerAction"){
 		if($this->table===$objet){
@@ -61,10 +62,10 @@ class basesql{
 			$this->save();
 		}
 		else
-			header("Location: ".WEBPATH);
+			return false;
 	}
 
-	public function save(){
+	protected function save(){
 		$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 		VALUES (:".implode(",:", array_keys($this->columns)).")";
 
