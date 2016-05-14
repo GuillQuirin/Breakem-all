@@ -12,7 +12,7 @@
 			</a>
 		</li>
 		<li class="navbar-menu-li navbar-menu-settings">
-			<a href="" class="">
+			<a href="<?php echo WEBPATH.'/configuration'; ?>" class="">
 			<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-settings.png">';?>
 			</a>
 			<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-settings">

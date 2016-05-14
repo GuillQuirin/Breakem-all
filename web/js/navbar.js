@@ -51,6 +51,22 @@ function tryParseData(rawData){
 	return false;
 }
 
+// Function ajax de flemmard 
+function ajaxRequest(url, type, callback){
+	if(url && callback){
+		jQuery.ajax({
+		 	url: url,
+		 	type: type,
+		 	success: function(result){
+		 		result = tryParseData(result);			 					 		
+				callback(result);
+		 	}
+		});
+	}else{
+		console.log("Params vide sur dataShow()");
+	}	
+}
+
 function adaptMarginToNavHeight(jQel){
 	if(jQel instanceof jQuery){
 		var navHeight = $("#navbar").height();
@@ -126,6 +142,7 @@ var navbar = {
             });
         }
     },
+    //Refacto le code
     form : {
         subscribe : function(){
             $('#navbar-login').on('click', function(){
