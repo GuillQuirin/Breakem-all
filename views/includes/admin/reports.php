@@ -1,4 +1,4 @@
-<div class="admin-wrapper" id="admin-onglet-reports-wrapper"
+<div class="admin-wrapper" id="admin-onglet-reports-wrapper">
 	<form action="admin/update" method="post" enctype="multipart/form-data">
 
 		<?php 			
