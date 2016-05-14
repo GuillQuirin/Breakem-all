@@ -1,4 +1,4 @@
-<div class="admin-wrapper" id="admin-onglet-membres-wrapper"
+<div class="admin-wrapper" id="admin-onglet-membres-wrapper">
 	<form action="admin/update" method="post" enctype="multipart/form-data">
 
 		<?php 			
@@ -13,7 +13,8 @@
 					<th>Team</th>
 					<th>Signalements</th>
 					<th>En ligne</th>
-					<th>Verrouiller le compte</th>
+					<th>Verrouiller le compte/Déverouiller</th>
+					<th>Donner/Enlever les droits admin</th>
 				</thead>
 
 				<?php
@@ -29,13 +30,13 @@
 						echo "<td>";
  							if($joueur->getIsConnected()) echo "X";
  						echo "</td>";
-						echo "<td><input class='checkbox input-default' type='checkbox' name='' id=''><label style='color:transparent' for=''></label></td>";																							
-					echo "</tr>";
+						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_".$joueur->getId()."' id='checkbox_".$joueur->getId()."' value=''><label style='color:transparent' for='checkbox_".$joueur->getId()."'></label></td>";	
+						echo "</tr>";
 				}
 				?>
 				<tr class='text-center'>
 					<td colspan='7' class='border-none admin-form-td-submit'>								
-						<button id='navbar-inscription' type='submit' class='btn btn-pink admin-form-submit'>
+						<button id='validate-form-membre' type='submit' class='btn btn-pink admin-form-submit'>
 							<a>Valider</a>
 						</button>
 					</td>
