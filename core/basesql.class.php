@@ -139,8 +139,9 @@ class basesql{
 		return new user(array_filter($query));
 	}
 
+	// LAISSER LE NOM DE LA TBALE EN DYNAMIQUE SVP
 	public function getAllNames(){
-		$sql = "SELECT name FROM user ORDER BY name";
+		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
 		$sth = $this->pdo->query($sql);
 		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
