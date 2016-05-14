@@ -23,8 +23,7 @@
 					echo "<tr>";
 						echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
 						echo "<td>".$joueur->getEmail()."</td>";
-						echo "<td>".$joueur->getStatus()."</td>";
-						//echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
+						echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
 						echo "<td><img src='".$joueur->getImg()."'></td>";
 						echo "<td>".$joueur->getIdTeam()."</td>";
 						echo "<td>".$joueur->getReportNumber()."</td>";
