@@ -1,3 +1,5 @@
+
+
 /* Navbar top (ajouté class="fixed" si vous la voulez fix)*/
 .navbar {
   top: 0;
@@ -19,17 +21,9 @@
   transition:all .5s;
 }
 
-.navbar.full ul{
+.navbar.full .navbar-menu-ul{
   line-height: 105px;
   transition:all .5s;
-}
-
-.navbar li:hover{
-  background:rgba(75, 62, 99, 0.54) none repeat scroll 0% 0%;
-}
-
-.navbar .hover-none:hover{
-  background:none;
 }
 
 .navbar.shrink {
@@ -38,7 +32,7 @@
   transition:all .5s;
 }
 
-.navbar.shrink ul{
+.navbar.shrink .navbar-menu-ul{
   line-height: 60px;
   transition:all .5s;
 }
@@ -61,14 +55,15 @@
   vertical-align: middle;
 }
 
-.navbar-menu ul{
+.navbar-menu-ul{
   list-style: none;
   margin:0;
   padding:0;
 }
 
-.navbar-menu li{
+.navbar-menu .navbar-menu-li{
   display:inline-block;
+  position:relative;
 }
 
 .navbar-title{
@@ -76,7 +71,7 @@
 }
 
 .navbar-menu {
-  overflow: hidden;
+  /*overflow: hidden;*/
   text-align:center;
 }
 
@@ -91,18 +86,18 @@
 }
 
 .navbar-menu span{
-  text-transform:lowercase;
   position:absolute;
-  bottom:-40px;
+  bottom:-60px;
+  color:orange;
+  font-height:600;
   left:15px;
-  opacity:0.4;
 }
 
 .navbar-icon{
   padding:0 5px 3px;
 }
 
-.navbar-menu li:hover span{
+.navbar-menu .navbar-menu-li:hover span{
   opacity:1;
 }
 
@@ -179,7 +174,7 @@
   font-family: "Roboto" !important;
 }
 
-.navbar-side-menu li{
+.navbar-side-menu .navbar-menu-li{
   line-height:70px !important;
 }
 
@@ -191,7 +186,7 @@
   opacity:0.4;
 }
 
-.navbar-side-menu ul{
+.navbar-side-menu .navbar-menu-ul{
   margin:0;
   padding:0;
 }
@@ -220,22 +215,103 @@
 
 /* Navbar top theme */
 .navbar.full.transparent{
-  background-color:rgba(8,3,37,.4);
+  background-color: rgba(8,3,37,0.2);
 }
 
 .navbar.shrink.transparent{
-  background-color:rgba(8,3,37,1);
+  background-color: rgba(8,3,37,1);
 }
 
 /* Fin Navbar top */
 
 /* PROFILE STYLE */
 
-.navbar-profil-img img{
+.navbar-profil-img{
   width:35px;
   vertical-align: middle;
 }
 
-.navbar-profil-img{
+.navbar-profil-title{  
+  /*padding:0 0px 0 0 !important;*/
 }
+
+/*
+  Navbar Menu tooltip 
+*/
+
+.navbar-menu-tooltip{
+  display:none;
+  position:absolute;
+  left:0px;
+  top:100%;  
+  margin-top:15px !important;
+  border-radius:3px;
+  background-color:rgba(8,3,37,1); 
+  width:170px;
+  box-shadow:4px 4px 4px -3px rgba(0,0,0,1)
+}
+
+.navbar-menu-tooltip::before{
+  width:0;
+  height:0;
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-bottom:7px solid rgba(8,3,37,1);
+  border-top:7px solid transparent;
+  position:absolute;
+  content:'';
+  display:block;
+  top:-13px;  
+  left:20px;  
+  z-index:10;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li{
+	width:100%;
+  display:block;
+  line-height:50px;
+  text-align:left;
+  cursor:pointer;
+  padding:0 25px;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:hover a{
+  border-bottom:1px solid #ffffff;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li a{
+  text-transform:none;
+  margin:0;
+  padding:0;
+  transition: 0.5s ease;
+  border-bottom:1px solid transparent;;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:first-child{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.navbar-menu-tooltip .navbar-menu-tooltip-li:last-child{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+/*
+  Fin Navbar Menu tooltip 
+*/
+
+.navbar-connected-online{
+  position:absolute;
+  bottom:-12px;
+  right:20px;
+  background:#1edc3c;
+  width:7px;
+  height:7px;
+  box-shadow:inset 1px 1px 0 #1bc636,inset -1px -1px 0 #31e34d;
+  border-radius: 50%;
+}
+
+
+
 

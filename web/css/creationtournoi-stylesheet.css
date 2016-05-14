@@ -1,123 +1,288 @@
+@-webkit-keyframes smoothTransform {
+  from {
+    transform: scale(0, 0);
+  }
 
-body {
-	line-height: 1;
-	background: #201B3A;	
-	font-family: lato, sans-serif;
+  to {
+    transform: scale(1, 1);
+  }
 }
+@keyframes smoothTransform {
+  from {
+    transform: scale(0, 0);
+  }
 
-.max-container {
-	padding-top: 125px;
-	padding-bottom: 125px;
-	background: rgba(255, 250, 250, 0.1);
-	color: #fff;
-}
-.creationTournoi-input[type="radio"] {
-    -webkit-appearance: checkbox;
-    -moz-appearance: checkbox;
-    -ms-appearance: checkbox;
-    -o-appearance: checkbox;
-}
-
-.creationTournoi-input{
-	background: #201B3A;
-	border: 0;
-	color: #fff;
-	width: 150px;
-	height: 20px;
-	padding: 5px;
-	transition: outline .2s, border .2s, width .2s;
-}
-.creationTournoi-input:focus,
-.creationTournoi-input:active{
-	outline: none;
-	border: 0;
-	width: 175px;
-}
-.creationTournoi-input[readonly="readonly"]:focus,
-.creationTournoi-input[readonly="readonly"]:active,{
-	width: 150px;	
+  to {
+    transform: scale(1, 1);
+  }
 }
 
+@-webkit-keyframes smoothPopFromLeft {
+  from {
+    left: calc(-100%);
+  }
 
-/* #######  TOP FIXED IMG ######### */
-	.creationtournoi-first-image-background{
-		margin: 0 auto;
-		width: 100%;
-		height: 880px;
-		z-index: 0;
-		overflow: hidden;
-		display: none;
+  to {
+    left: 0;
+  }
+}
+@keyframes smoothPopFromLeft {
+  from {
+    left: calc(-100%);
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+@-webkit-keyframes creationtournoi-smoothLight {
+  from {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  to {
+    background: rgba(255, 255, 255, .08);
+  }
+}
+@keyframes creationtournoi-smoothLight {
+  from {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  to {
+    background: rgba(255, 255, 255, .08);
+  }
+}
+
+.creationtournoi-active-choice{
+	z-index: 2;
+}
+.navbar{	
+	background-color: rgba(0, 0, 0, .8)!important;
+	color: #000 !important;
+}
+.navbar:hover{
+	background-color: rgba(0, 0, 0, 1)!important;
+}
+.creationtournoi-title-container{
+	margin-top: 75px;
+}
+.creationtournoi-title-container h1{
+	margin: 0 auto;
+	font-size: 45px;
+	text-align: center;
+}
+.creationtournoi-element-container{
+	width: 97%;
+	margin: auto;
+	margin-top: 50px;
+	display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+    flex-shrink: 2;
+}
+.creationtournoi-element-choice{
+	width: 100%;
+	max-width: 375px;
+	max-height: 214px;
+	margin-top: 5px;
+	padding: 0 10px 0 10px;
+	transition: all .2s;
+	overflow: hidden;
+	cursor: pointer;
+	border-color: transparent;
+	animation: smoothTransform .5s linear;
+}
+.creationtournoi-element-choice:hover{
+	/*border-color: rgba(0, 0, 0, .8);*/
+}
+.creationtournoi-element-choice-description{
+	width: 95%;
+	margin: 0 auto;
+	height: 0;
+	font-size: 0;
+	bottom: -100%;
+	left: 2.5%;
+	text-align: center;
+	background: rgba(0, 0, 0, .5);
+	opacity: 0;
+	transition: all .2s;
+	overflow: hidden;
+}
+.creationtournoi-element-choice-description p{
+	font-size: inherit;
+	margin: 0 auto;
+	width: 100%;
+}
+.creationtournoi-element-choice:hover .creationtournoi-element-choice-description{
+	height: 100%;
+	font-size: 16px;
+	bottom: 0;
+	opacity: 1;
+}
+.creationtournoi-element-choice img{
+	opacity: .5;
+	width: 100%;
+	border-color: rgba(0, 0, 0, 1);
+}
+.creationtournoi-element-choice .title{
+	height: 100%;
+	width: 100%;
+	top:0;left:0;
+	font-weight: 900;
+	letter-spacing: 2px;
+	transition: font-size .2s;
+	text-align: center;
+}
+.creationtournoi-element-choice:hover .title{
+	font-size: 0;
+}
+.creationtournoi-validation-container{
+	margin-top: 50px;
+}
+#creationtournoi-valider{
+	width: 100%;
+	max-width: 200px;
+}
+
+
+.creationtournoi-gameversion-choice{
+	height: 214px;
+}
+.creationtournoi-gameversion-choice img{
+	width: 94%;
+    height: 100%;
+}
+.creationtournoi-gameversion-choice ul{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.1);
+}
+.creationtournoi-gameversion-choice ul li:last-of-type{
+	margin-bottom: 10px;
+}
+
+
+
+.creationtournoi-gameversion-container-form{
+	overflow: hidden;
+	height: auto;
+	transition: all .5s;
+	animation: smoothTransform .5s alternate;
+	margin-top: 50px;
+}
+.creationtournoi-separator{
+	margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    height: 2px;
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.creationtournoi-gameversion-container-form p{
+	margin-top: 5px;
+}
+p.creationtournoi-random-match{
+	margin-top: 10px;
+}
+.creationtournoi-gameversion-container-form form{
+	width: 95%;
+	padding: 25px 10px 25px 10px;
+	max-width: 800px;
+	margin: 0 auto;
+	margin-top: 10px;
+	border-left: 2px solid #fff;
+	background: rgba(255, 255, 255, .01);
+	transition: background .2s;
+}
+.creationtournoi-gameversion-container-form form:hover,
+.creationtournoi-gameversion-container-form form:active,
+.creationtournoi-gameversion-container-form form:focus{
+	background: rgba(255, 255, 255, .05);
+}
+.creationtournoi-gameversion-container-form .form-input-group{
+	display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+}
+.creationtournoi-gameversion-container-form .form-input-group label,
+.creationtournoi-gameversion-container-form .form-input-group .tip{
+	letter-spacing: 2px;
+	word-spacing: 5px;
+}
+.creationtournoi-gameversion-container-form .form-input-group .creationtournoi-tip{
+	font-style: italic;
+	color: #ccc;
+	margin-top: 5px;
+}
+.creationtournoi-gameversion-container-form .form-input-group input{
+	margin-top: 15px;
+	height: 25px;
+}
+.creationtournoi-gameversion-container-form .form-input-group textarea{
+    resize: none;
+    width: 90%;
+    height: 75px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.creationtournoi-gameversion-container-form .form-input-group input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+
+.creationtournoi-tournoi-valid-creation{
+	overflow: hidden;
+}
+
+.creationtournoi-valid-tournoi-name{
+	margin: 0 auto;
+	margin-left: 1.25%;
+	text-align: center;
+}
+
+.creationtournoi-valid-tournoi-list{
+	width: 97.5%;
+	margin: 0 auto;
+	margin-top: 25px;
+	max-width: 1125px;
+	animation: smoothPopFromLeft .5s alternate;
+}
+.creationtournoi-valid-tournoi-list li{
+	width: 100%;
+	padding: 20px 0 5px 0;
+	border-bottom: 2px solid #fff;
+	transition: border .2s, background .2s;
+}
+.creationtournoi-valid-tournoi-list li:nth-child(even){
+	background: rgba(255, 255, 255, .08);
+	-webkit-animation: 1s creationtournoi-smoothLight alternate;
+	-o-animation: 1s creationtournoi-smoothLight alternate;
+	animation: 1s creationtournoi-smoothLight alternate;
+}
+.creationtournoi-valid-tournoi-list li span.data{
+	top: 20px;
+	right: 5px;
+}
+
+
+@media screen and (max-width: 500px) {	
+	.creationtournoi-gameversion-container-form form{
+		width: 95%;
+		padding: 25px 0 25px 0;
+		border-left: 0px solid #fff;
 	}
-	.creationtournoi-first-image-background > img{
-		opacity: 0.3;
-		top: 0;
-		left: 0;
-		width: 100%;
-		min-width: 1208px;
-		height: auto;
-		min-height: 880px;
-	}
-
-/* ####### ROW JEU - FORM ######## */
-	.creationtournoi-form-jeu .caroussel-container{
-		/*padding-right: 1%;
-		padding-left: 1%;*/
-	}
-
-/* ##### ONLINE / OFFLINE ##### */
-	.creationtournoi-off-on-container{
-		width: 110%;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		background: rgba(50, 50, 50, 0.8);
-		margin-left: -5%;
-	}
-	.creationtournoi-off-on{
-		height: 140px;
-		width: 55%;
-	}
-	.creationtournoi-off-on .img-absolute-bg{
-		width: 120%;
-		left: -10%;
-		top: -75%;
-		transition: width .2s, left .2s, top .2s, opacity .2s;
-	}
-	.creationtournoi-off-on:hover .img-absolute-bg{
-		width: 130%;
-		left: -15%;
-		top: -80%;
-		opacity: .7;
-	}
-
-
-.creationtournoi-form-row{
-	padding-top: 40px;
-	padding-bottom: 20px;
-	position: relative;
-	z-index: 1;
-}
-.creationtournoi-form-row:nth-of-type(odd){
-	background: #0A0012;
-}
-.creationtournoi-form-row:nth-of-type(even){
-	background: rgba(120, 104, 134, 0.1);
-}
-.creationtournoi-form-row:first-of-type{
-	margin-top: 60px;
-}
-.creationtournoi-form-row:last-of-type{
-	background: none;
-}
-.creationtournoi-input-group{
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-h1.ta-left{
-	margin-left: 75px;
-}
-h3.ta-left{
-	padding: 10px 0 10px 25px;
-}
-h3.ta-left:nth-of-type(even){
-	background: rgba(0, 0, 0, 0.1);
 }

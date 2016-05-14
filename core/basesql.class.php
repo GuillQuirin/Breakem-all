@@ -2,19 +2,26 @@
 class basesql{
 
 	protected $table;
+	protected static $openedConnection = false;
 	protected $pdo;
 	protected $columns = [];
 
 	public function __construct(){
+
 		$this->table = get_called_class();
 		$this->table = str_replace("Manager", "", $this->table);
-		// echo $this->table;
-		$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
-		try{
-			$this->pdo = new PDO($dsn,DBUSER,DBPWD);
-		}catch(Exception $e){
-			die("Erreur SQL : ".$e->getMessage());
+
+		if(self::$openedConnection === false){
+			
+			$dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
+			try{
+				self::$openedConnection = new PDO($dsn,DBUSER,DBPWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+			}catch(Exception $e){
+				die("Erreur SQL : ".$e->getMessage());
+			}
 		}
+
+		$this->pdo = self::$openedConnection;
 	
 		//get_object_vars : retourner toutes les variables de mon objet
 		$all_vars = get_object_vars($this);
@@ -22,28 +29,60 @@ class basesql{
 		//get_class_vars : permet de récupérer les variables de la classe
 		$class_vars = get_class_vars(get_class());
 		$this->columns = array_keys(array_diff_key($all_vars,$class_vars));
-		//print_r($this->columns);
+	
+	}
+
+	public function create(object $objet){
+		// Check afin de savoir qui appelle cette méthode
+		$e = new Exception();
+		$trace = $e->getTrace();
+
+		// get calling class:
+		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
+		// get calling method
+		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
+
+
+		if(!$calling_class || !$calling_method)
+			header("Location: ".WEBPATH);
+
+		//if ($calling_class === "template" && $calling_method === "registerAction"){
+		if($this->table===$objet){
+			$this->columns = [];
+			$object_methods = get_class_methods($objet);
+
+			foreach ($object_methods as $key => $method) {
+				if(strpos($method, 'get') !== FALSE){
+					$col = lcfirst(str_replace('get', '', $method));
+					$this->columns[$col] = $objet->$method();
+				};
+			}
+			$this->columns = array_filter($this->columns);
+			$this->save();
+		}
+		else
+			header("Location: ".WEBPATH);
 	}
 
 	public function save(){
-		//Elle doit faire soit un INSERT ou UPDATE Quand il n'y a pas d'id on fait un INSERT
-		// if(is_numeric($this->id)){
-		// 	//UPDATE
-		// }else{
-			//INSERT
-			$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
-			VALUES (:".implode(",:", array_keys($this->columns)).")";
-			$query = $this->pdo->prepare($sql);
-			var_dump($sql);
-			foreach($this->columns as $key => $value){
-				$data[$key] = $value;
-			}
-			var_dump($data);
-			$r = $query->execute($data);
-			var_dump($r);
-		// }
+		$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
+		VALUES (:".implode(",:", array_keys($this->columns)).")";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		foreach($this->columns as $key => $value)
+			$data[$key] = $value;
+
+		$query->execute($data);
 	}
 	
+	public function getAllNames(){
+		$sql = "SELECT name FROM ".$this->table." ORDER BY name";
+		$sth = $this->pdo->query($sql);
+
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function idExists($id){
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id="'.$id.'"';
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
@@ -58,6 +97,13 @@ class basesql{
 		return $r;
 	}
 
+	public function nameExists($name){
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE name="' . $name.'"';
+		$r = (bool) $this->pdo->query($sql)->fetchColumn();
+
+		return $r;
+	}
+
 	public function emailExists($email){		
 		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE email="' . $email .'"'; 
 		$r = (bool) $this->pdo->query($sql)->fetchColumn();
@@ -65,36 +111,4 @@ class basesql{
 		return $r;
 	}
 
-	public function getUser(array $infos){
-		
-		$cols = array_keys($infos);
-		$data = [];
-		foreach ($cols as $key) {
-			$data[$key] = $key.'="'.$infos[$key].'"';
-		}
-
-		$sql = "SELECT id, name, firstname, pseudo, birthday, description, kind, city, email, status, img, idTeam FROM ".$this->table." WHERE " . implode(',', $data);
-		//var_dump($sql);
-		$query = $this->pdo->query($sql)->fetch();
-
-		if($query === FALSE)
-			return false;
-
-		return new user(array_filter($query));
-	}
-
-	public function getTournament(array $infos){
-		
-		$cols = array_keys($infos);
-		$data = [];
-		foreach ($cols as $key) {
-			$data[$key] = $key.'="'.$infos[$key].'"';
-		}
-		$sql = "SELECT startDate, endDate, description, playerMin, playerMax, typeTournament, status, nbMatch, idUserCreator, idGameVersion, creationDate FROM ".$this->table." WHERE " . implode(',', $data);
-		// var_dump($sql);
-		$query = $this->pdo->query($sql)->fetch();
-		if($query === FALSE)
-			return false;
-		return new user(array_filter($query));
-	}
 }

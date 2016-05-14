@@ -3,7 +3,9 @@
 class profilController extends template{
 
 	public function profilAction(){
-		$v = new View();
+		
+		$v = new view();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "profil");
 		$v->assign("js", "profil");
 		$v->assign("title", "Profil");
@@ -13,34 +15,37 @@ class profilController extends template{
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$userBDD = new userManager();
 
-			$args = array(
-				'pseudo' => FILTER_SANITIZE_STRING,
-				'name' => FILTER_SANITIZE_STRING,
-				'firstname' => FILTER_SANITIZE_STRING,
-				'birthday' => FILTER_SANITIZE_STRING,
-				'description' => FILTER_SANITIZE_STRING,
-				'kind' => FILTER_SANITIZE_STRING,
-				'city' => FILTER_SANITIZE_STRING,
-				'email' => FILTER_VALIDATE_EMAIL,
-				'status' => FILTER_SANITIZE_STRING,
-				'img' => FILTER_SANITIZE_STRING,
-				'idTeam' => FILTER_SANITIZE_STRING,
-				'token' => FILTER_SANITIZE_STRING
-			);
+			$args = array('pseudo' => FILTER_SANITIZE_STRING );
 			$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 
 			$user = $userBDD->getUser($filteredinputs);
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
-			// Si pbm de requete faire un var_dump de $sql
-			//var_dump($user);
-
+			
 			if($user!==FALSE){
-				foreach ($args as $key => $value) {
-					$method = 'get'.ucfirst($key);
-					if (method_exists($user, $method)) {
-						$v->assign($key, $user->$method());
-					}
+
+				$user_methods = get_class_methods($user);
+				foreach ($user_methods as $key => $method) {
+					if(strpos($method, 'get') !== FALSE){
+						$col = lcfirst(str_replace('get', '', $method));
+						$this->columns[$col] = $user->$method();
+						$v->assign($col, $user->$method());
+								
+					};
+				}
+
+				//Page publique du joueur connecté
+				if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$user->getEmail()){
+					$v->assign('myAccount', 1);
+				}
+				else //Apparition des boutons de configuration et signalement
+				{
+					//Si non signalé auparavant
+					$signalement = new signalmentsuserManager();
+					$plainte = $signalement->getReport($this->connectedUser->getId(),$user->getId());
+
+					if($plainte != "0")
+						$v->assign('already_signaled',1);
 				}
 			}
 			else{
@@ -51,5 +56,58 @@ class profilController extends template{
 			$v->assign("err", "1");
 		}
 		$v->setView("profil");
+	}
+
+	public function contactAction(){
+
+		if(isset($_POST['msg'])){
+
+			$args = array('msg' => FILTER_SANITIZE_STRING );
+			$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+			$data = array('email' => $_SESSION[COOKIE_EMAIL]);
+
+			$userBDD = new userManager();
+			$expediteur = $userBDD->getUser($data);
+
+			$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
+				//$pseudoProfil = explode("&",$pseudoProfil);
+				$data = array('pseudo' => $pseudoProfil);
+			$destinataire = $userBDD->getUser($data);	
+
+			$contenuMail = "<h3>Vous avez reçu un message de <a href=\"http://breakem-all.com/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
+		      $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+		      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
+
+			$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
+
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
+	}
+
+	public function reportAction(){
+		if(isset($_POST['description']) && isset($_POST['subject'])){
+			$args = array(
+					'subject' => FILTER_SANITIZE_STRING,
+					'description' => FILTER_SANITIZE_STRING
+					);
+			$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+			$data = array('email' => $_SESSION[COOKIE_EMAIL]);
+
+			$userBDD = new userManager();
+			$victime = $userBDD->getUser($data);
+			$filteredinputs['id_indic_user'] = $victime->getId();
+
+			$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
+			$data = array('pseudo' => $pseudoProfil);
+			$accuse = $userBDD->getUser($data);
+			$filteredinputs['id_signaled_user'] = $accuse->getId();
+
+			$plainteBDD = new signalmentsuserManager();
+			$plainte = new signalmentsuser($filteredinputs);
+			$plainteBDD->create($plainte);
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
 	}
 }

@@ -1,7 +1,8 @@
 <?php
 class commentaireController extends template{
     public function commentaireAction(){
-        $v = new View();
+        $v = new view();
+		$this->assignConnectedProperties($v);
         $v->assign("css", "commentaire");
         $v->assign("js", "commentaire");
         $v->assign("title", "commentaire");

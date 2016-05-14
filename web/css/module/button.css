@@ -1,9 +1,11 @@
+
+
 /* BOUTONS DYLAN */
 
 /* DOM <button class="tournoi-btn-creertournoi relative"><a></a></button> */
 .btn{
 		height: 40px;
-		width: 100px;
+		width: 100%;
 		font-size: 14px;
 		position: relative;
 		background: inherit;
@@ -22,7 +24,7 @@
 	width: 100%;
 	height: 100%;
 	left: 0; top: 0;
-	border: 1px solid #fff;
+	border: 2px solid #fff;
 	transform: skew(-8deg);
 	transition: background .4s, border .4s;
 	display: flex;
@@ -37,10 +39,15 @@
 	background: #D92B4C;
 	border-color: #D92B4C;
 }
-
+/* BLUE */
 .btn.btn-blue:hover a{
 	background: #2BD9D9;
 	border-color:#2BD9D9;
+}
+/* BLACK */
+.btn.btn-black:hover a{
+	background: #000;
+	border-color:#000;
 }
 
 /* BOUTON CIRCLE */

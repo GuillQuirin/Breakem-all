@@ -1,0 +1,15 @@
+
+
+.bg-blue{
+	background-color:#160962;
+}
+.bg-black{
+	background: #000;
+}
+
+.background-wrapper{
+	background:#211d3b;
+	transform:skew(-8deg);
+	padding:25px 15px; 
+	margin:15px;			
+}

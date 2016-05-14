@@ -1,6 +1,6 @@
 <?php
 
-class View{
+class view{
 
 	protected $data = [];
 	protected $view;
@@ -23,22 +23,33 @@ class View{
 	}
 
 	public function assign($key, $value){
-		$this->data[$key] = $value;
+		/*if(isset($this->data[$key])){
+			$arrValue = [];
+			if(is_array($this->data[$key])){
+				$arrValue[] = $value;
+				$this->data[$key] = $arrValue;		
+			}else{
+				$arrValue[] = $value;
+				$this->data[$key] = $arrValue;
+			}	
+		}else{
+			$this->data[$key] = $value;					
+		}*/
+		if(is_array($key)){
+			foreach ($key as $cle => $nom)
+				$this->data[$key] = $nom;	
+		}
+		else
+			$this->data[$key] = $value;					
 	}
 
-	// Méthode magique appelée seulement lorsque la totalité du code est achevée
-	// Juste avant la fin des process du serveur
+	public function createForm($form, $errors){
+		global $errors_msg;
+		include "views/form.php";
+	}
+
 	public function __destruct(){
-		/*
-			include : affiche un warning si le fichier n'existe pas
-			require : creve le process si le fichier n'existe pas
-		*/
-		// array_filter se débarasse de base des variables = NULL, false, 0 ou les strings vides
-		//		La fonction removeNULL (définie dans functions.php) se débarasse seulement des NULL
-		// var_dump((array_filter($this->data, 'removeNULL')));
 		extract(array_filter($this->data, 'removeNULL'));
-		
-		// du coup, this->template appelle template.php qui aura accès à toutes les variables définies ici;
 		include $this->template;
 	}
 

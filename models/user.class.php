@@ -17,6 +17,10 @@ class user{
 	protected $idTeam = null;
 	protected $isConnected = null;
 	protected $lastConnexion = null;
+	protected $token = null;
+	protected $rss = null;
+	protected $authorize_mail_contact = null;
+	protected $reportNumber = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -66,16 +70,45 @@ class user{
 		$this->status=$v;
 	}
 	private function setImg($v){
-		$this->img=$v;
+		if(strlen(trim($v))!=0 && $v!=NULL){
+			//var_dump(strstr($v, "lol"));
+			if(strstr($v, WEBPATH)) //Image déjà stockée en base
+				$this->img=$v; 
+			else //Upload d'une image
+				$this->img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
+		}
+		else //Pas d'image uploadée
+			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
 	private function setIdTeam($v){
 		$this->idTeam=$v;
 	}
-	private function setIsConnected($v){
+	public function setIsConnected($v){
 		$this->isConnected=$v;
 	}
-	private function setLastConnexion($v){
+	public function setLastConnexion($v){
 		$this->lastConnexion=$v;
+	}
+	public function setToken($v){
+		$this->token=$v;
+	}
+	public function setRss($v){
+		if($v!=1)
+			$this->rss=-1;
+		else	
+			$this->rss=$v;
+	}
+	public function setAuthorize_mail_contact($v){
+		if($v!=1)
+			$this->authorize_mail_contact=-1;
+		else
+			$this->authorize_mail_contact=$v;
+	}
+	public function setReportNumber($v){
+		if($v!=NULL)
+			$this->reportNumber=$v;
+		else
+			$this->reportNumber=0;
 	}
 
 	public function getId(){return $this->id;}
@@ -89,9 +122,13 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg(){return	"web/img/".$this->img;}
+	public function getImg(){ return $this->img;}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
+	public function getToken(){return $this->token;}
+	public function getAuthorize_mail_contact(){return $this->authorize_mail_contact;}
+	public function getRss(){return $this->rss;}
+	public function getReportNumber(){return $this->reportNumber;}
 	
 }
