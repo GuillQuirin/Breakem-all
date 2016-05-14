@@ -52,20 +52,10 @@ class adminController extends template{
     }
 
     public function updateTeamStatusAction(){
-        var_dump($_POST);
-                    var_dump($_POST['checkbox_team']);
-
          if(!empty($_POST['checkbox_team'])){
-        //     // $filteredinputs = filter_input(INPUT_POST,'checkbox_team',FILTER_SANITIZE_STRING);
-        //     $args = array(
-        //                 'checkbox_team' => FILTER_SANITIZE_STRING
-        //                 );
-            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $_POST['checkbox_team']));
-            var_dump($filteredinputs);
-            return false;
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
 
-            foreach($filteredinputs as $key => $id){
-                // $id = substr($fullid,-1);
+            foreach($filteredinputs['checkbox_team'] as $key => $id){
                 $teamBDD = new teamManager();
                 $team = $teamBDD->getTeam(array('id'=>$id));
                 
