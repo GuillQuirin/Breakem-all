@@ -103,7 +103,7 @@ class teamManager extends basesql{
 				$where.= ' AND ';
 		}
 
-		$sql = "SELECT id, name, img, slogan, description 
+		$sql = "SELECT id, name, img, slogan, description, status 
 					FROM team 
 					WHERE ".$where;
 
@@ -119,4 +119,5 @@ class teamManager extends basesql{
 
 		return new team($r);
 	}
+
 }
