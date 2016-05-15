@@ -78,13 +78,32 @@ function adaptMarginToNavHeight(jQel){
 
 var navbar = {
     init: function(){
+<<<<<<< Updated upstream
     	navbar.setNavbarEl();   
 		navbar.shrink();      
+=======
+    	navbar.setNavbarEl();
+    	navbar.setNavToggle();
+    	navbar.setSearchPage();
+    	navbar.setSearchToggle();
+    	navbar.setNavSideMenu();
+    	navbar.setNavLogin();
+    	navbar.setNavInscription();
+    	navbar.setIndexModal();
+    	navbar.setLoginForm();
+    	navbar.setSubscribeForm();
+    	navbar.setAdminPlatformEl();
+    	navbar.setAdminPlatformOpen();
+    	navbar.setPlaformForm();
+
+		navbar.shrink();
+>>>>>>> Stashed changes
         navbar.openNavbarSide();
         navbar.search.toggle();
         navbar.search.close();
         navbar.form.subscribe();
         navbar.form.login();
+        navbar.form.adminPlatforms();
         navbar.form.closeFormKey();
         navbar.form.closeFormClick();
         navbar.menu();
@@ -92,9 +111,91 @@ var navbar = {
     setNavbarEl: function(){
     	this._navEl = $("#navbar");
     },
+<<<<<<< Updated upstream
     getNavbarEl: function(){
     	return this._navEl;
     },
+=======
+    setNavToggle: function(){
+    	this._navToggle = $('#navbar-toggle');
+    },
+    setNavSideMenu: function(){
+    	this._navSideMenu = $('.navbar-side-menu');
+    },
+    setNavLogin: function(){
+    	this._navLogin = $('#navbar-login');
+    },
+    setNavInscription: function(){
+    	this._navInscription = $('#navbar-inscription');
+    },
+    setSearchPage: function(){
+    	this._searchPage = $('.search-page');
+    },
+    setSearchToggle: function(){
+    	this._searchToggle = $('.search-toggle');
+    },
+    setIndexModal: function(){
+    	this._indexModal = $('.index-modal');
+    },
+    setLoginForm: function(){
+    	this._loginForm = $('#login-form');
+    },
+    setSubscribeForm: function(){
+    	this._subscribeForm = $('#subscribe-form');
+    },
+    setAdminPlatformEl: function(){
+    	this._adminPlatformEl = $('.admin-wrapper');
+    },
+    setAdminPlatformOpen: function(){
+    	this._adminPlatformOpen = $('.admin-btn-modify');
+    },
+    setPlaformForm: function(){
+    	this._plaformForm = $('#platform-form');
+    },
+
+
+    /*##### GETTERS #####*/
+    getNavbarEl: function(){
+    	return this._navEl;
+    },
+    getNavToggle: function(){
+    	return this._navToggle;
+    },
+    getNavSideMenu: function(){
+    	return this._navSideMenu;
+    },
+    getSearchPage: function(){
+    	return this._searchPage;
+    },
+    getSearchToggle: function(){
+    	return this._searchToggle;
+    },
+    getNavLogin: function(){
+    	return this._navLogin;
+    },
+    getNavInscription: function(){
+    	return this._navInscription;
+    },
+    getIndexModal: function(){
+    	return this._indexModal;
+    },
+    getLoginForm: function(){
+    	return this._loginForm;
+    },
+    getSubscribeForm: function(){
+    	return this._subscribeForm;
+    },
+    getAdminPlatformEl: function(){
+    	return this._adminPlatformEl;
+    },
+    getAdminPlatformOpen: function(){
+    	return this._adminPlatformOpen;
+    },
+    getPlaformForm: function(){
+    	return this._plaformForm;
+    },
+
+>>>>>>> Stashed changes
     preventShrink: false,
     shrink: function(force){
     	var _this = this;
@@ -170,8 +271,26 @@ var navbar = {
                 $('body').css('overflow', 'hidden');
             });
         },
+<<<<<<< Updated upstream
         closeForm : function(){
             $('.index-modal').addClass('hidden-fade').addClass('fade').addClass('hidden'); 
+=======
+        adminPlatforms : function()
+		{
+			//navbar.getAdminPlatformEl().find('.index-modal-login').addClass('form-bg-active');
+			navbar.getAdminPlatformOpen().on('click', function(e){
+				navbar.getIndexModal().removeClass('hidden-fade');
+				setTimeout(function(){
+					navbar.getIndexModal().removeClass('hidden');
+				}, 0);
+				navbar.getPlaformForm().removeClass('hidden');
+				$('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
+                $('body').css('overflow', 'hidden');
+			});
+		},       
+		closeForm : function(){
+            navbar.getIndexModal().addClass('hidden-fade').addClass('fade').addClass('hidden'); 
+>>>>>>> Stashed changes
             $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){

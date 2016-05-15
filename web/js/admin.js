@@ -32,13 +32,17 @@ var onglet = {
 var platformModule = {
 	init : function(){
 		platformModule.createPlatformsIhm();
+<<<<<<< Updated upstream
 	}
+=======
+	},
+>>>>>>> Stashed changes
 	ihmElemHover : function(){
 		$('.admin-data-ihm').hover(
-		  function() {
-		    $( this ).find('.admin-data-ihm-btn').removeClass( "hidden" );
-		  }, function() {
-		    $( this ).find('.admin-data-ihm-btn').addClass( "hidden" );
+		  function(e) {
+		    $( e.currentTarget ).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		  }, function(e) {
+		    $( e.currentTarget ).find('.admin-data-ihm-btn').addClass( "hidden" );
 		  }
 		);
 	}	
