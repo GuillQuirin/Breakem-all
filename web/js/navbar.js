@@ -76,6 +76,78 @@ function adaptMarginToNavHeight(jQel){
 		console.log("Pas reçu du dom dans adaptMarginToNavHeight");	
 }
 
+// Suffira d'envoyer une string à popup.create et l'ob se chargera du reste 
+var popup = {
+	openedPopupModal: false,
+	openedPopupMsg: false,
+	animationOnGoing: false,
+	getOpenedPopupModal: function(){
+		return this.openedPopupModal;
+	},
+	getOpenedPopupMsg: function(){
+		return this.openedPopupMsg;
+	},
+	setOpenedPopupModal: function(jQel){
+		this.openedPopupModal = jQel;
+	},
+	setOpenedPopupMsg: function(jQel){
+		this.openedPopupMsg = jQel;
+	},
+	closeOldPopup: function(jQModal, jQMsg){
+		navbar.form.smoothClosing();
+		if(this.getOpenedPopupModal() instanceof jQuery){
+			var _this = this;
+			this.animationOnGoing = true;
+			this.getOpenedPopupMsg().addClass('fadeOutRight');
+			setTimeout(function(){
+				_this.getOpenedPopupModal().empty();
+				_this.getOpenedPopupModal().remove();
+				_this.setOpenedPopupModal(false);
+				_this.setOpenedPopupMsg(false);
+				_this.animationOnGoing = false;
+				$('body').css('overflow', 'visible');
+				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
+					_this.openNewPopup(jQModal, jQMsg);
+			},1000);
+		}
+		else
+			this.openNewPopup(jQModal, jQMsg);
+	},
+	init: function(message){		
+		if(message){
+			if(this.animationOnGoing){
+				console.log("animation popup deja en cours");
+				return;
+			}
+			var container = $('<div class="index-modal-popup display-flex-column animation fade"></div>');
+			var popdivContainer = $('<div class="index-popup-msg display-flex-column animation fadeRight"></div>');
+			var subDiv = $('<div class="border-full display-flex-column"></div>')
+			var popMsg = $('<p class="title title-4">'+message+'</p>');
+			subDiv.append(popMsg);
+			popdivContainer.append(subDiv);
+			container.append(popdivContainer);
+			this.closeOldPopup(container, popdivContainer);
+		}
+		else
+			console.log("aucun contenu reçu dans popup init");
+	},
+	openNewPopup: function(jQModal, jQMsg){
+		$('body').css('overflow', 'hidden');
+		$('body').append(jQModal);
+		this.setOpenedPopupModal(jQModal);
+		this.setOpenedPopupMsg(jQMsg);
+		this.associateClosingEvent();
+	},
+	associateClosingEvent: function(){
+		var _this = this;
+		this.getOpenedPopupModal().click(function(e){
+			if($(e.target).hasClass('index-modal-popup')){
+				_this.closeOldPopup();
+			};
+		});
+	}
+}
+
 var navbar = {
 	_this: this,
     init: function(){
@@ -449,13 +521,9 @@ var register = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
-	popSuccessMsg: function(){
-		var container = $('<div class="absolute index-modal-login"></div>');
-	},
 	treatParsedJson: function(obj){
 		if(obj.success){
-			navbar.form.smoothClosing();
-			window.location.assign('confirmation/warningMail');
+			popup.init('Un email de confirmation a été envoyé à l\'adresse '+this.getEmailToWatch().val());
 		}
 		else{
 			if(obj.errors){
@@ -467,7 +535,7 @@ var register = {
 				}
 				else{
 					console.log(obj.errors);
-					alert("Ton formulaire n'a pu être validé\nCheck la console pour pplus de détails");
+					alert("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
 				}			
 			}
 		}
@@ -516,6 +584,7 @@ var register = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
+				  	popup.init('Un email de confirmation a été envoyé à l\'adresse '+_this.getEmailToWatch().val());
 				    var obj = tryParseData(data);
 				    if(obj != false){
 				    	_this.treatParsedJson(obj);
