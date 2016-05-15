@@ -1,7 +1,7 @@
 <section class="middle-height bg-cover-classement relative  align full-height">
 
   <div id="ID" class=" ">
-      <img id="profil" class="grid-md-5 align full-height" src="<?php echo $img; ?>">
+      <img id="profil" class="grid-md-5 align full-height" src="<?php echo $_img; ?>">
       <span class="header-title align full-height" id="name">Rayz</span>
   </div>
 
