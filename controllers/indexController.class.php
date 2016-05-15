@@ -27,8 +27,11 @@ class indexController extends template{
 			$v->assign("listeTournois", $listetournois);
 		}
 		
-
-		
+		// Cette variable de session est créé uniquement lorsqu'un compte vient d'être validé
+		if(isset($_SESSION['compte_validé'])){
+			$v->assign("compteValide", $_SESSION['compte_validé']);
+			unset($_SESSION['compte_validé']);
+		}
 
 		//Meilleurs Jeux
 		$obj = new gameManager();

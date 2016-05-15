@@ -246,6 +246,11 @@
 
 		</div>
 		
+
+		<?php if(isset($compteValide)): ?>
+			<div id="index-creation-compte-terminee-divtodelete" data-compte="<?php echo $compteValide; ?>"></div>
+		<?php endif; ?> 
+
 		<div id="content">
 			<?php include $this->view; ?>
 		</div>
@@ -286,6 +291,7 @@
 		    <div class="copy_wrap">Copyright &copy; ESGI Break'em All. All right reserved. 2016 | <a href="#">Privacy</a></div>
 		</div>
 		</footer>
+
 
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
 		<?php 

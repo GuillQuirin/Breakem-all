@@ -9,6 +9,7 @@ window.addEventListener('load', function load(){
 	deconnection.init();
 	register.init();
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
+	checkForJustCreatedAccount();
 });
 
 var scroll = {
@@ -74,6 +75,15 @@ function adaptMarginToNavHeight(jQel){
 	}
 	else
 		console.log("Pas reçu du dom dans adaptMarginToNavHeight");	
+}
+
+// index-creation-compte-terminee-divtodelete
+function checkForJustCreatedAccount(){
+	var div = $('#index-creation-compte-terminee-divtodelete'); 
+	if(div.length > 0){
+		var data = div.data('compte');
+		popup.init("Le compte " + data + " a bien été activé");
+	}
 }
 
 // Suffira d'envoyer une string à popup.create et l'ob se chargera du reste 

@@ -43,10 +43,7 @@ class template{
   }
   
   protected function isVisitorConnected(){
-
-    if($this->connectedUser instanceof user)
-      return true;
-    return false;
+    return ($this->connectedUser instanceof user);
   }  
 
   protected function isAdmin(){
