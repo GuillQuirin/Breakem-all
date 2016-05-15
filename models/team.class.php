@@ -3,12 +3,14 @@
 class team{
 	//Ca doit être un miroir par rapport au nom des colonnes dans la table
 	protected $id = null;
-	protected $statut = null;
+	protected $status = null;
 	protected $name = null;
 	protected $img = null;
 	protected $slogan = null;
 	protected $description = null;
+	// public $tabStatus = array();
 
+	// self::$tabStatus['-1'] = 'Dévérouillée';
 	/*
 		A chaque création d'objet, les données en paramètres seront appliquées
 		dans les setters respectifs: c'est l'hydratation
@@ -28,12 +30,11 @@ class team{
 	}
 
 	//Setters 
-
-	private function setId($v){
+	public function setId($v){
 		$this->id=$v;
 	}
-	private function setStatut($v){
-		$this->statut=$v;
+	public function setStatus($v){
+		$this->status=$v;
 	}
 	private function setName($v){
 		$this->name=$v;
@@ -57,9 +58,20 @@ class team{
 	}
 
 	//Getters
-	
 	public function getId(){return $this->id;}
-	public function getStatut(){return $this->statut;}
+	public function getStatus(){return $this->status;}
+	public function getStatusName($status){
+		switch($status)
+		{
+			case '-1' :
+				return 'Verrouillée';
+			break;
+			case '1':
+				return 'Déverrouillée';
+			break;
+		}
+		
+	}
 	public function getName(){return $this->name;}
 	public function getImg(){return	$this->img;}
 	public function getSlogan(){return $this->slogan;}

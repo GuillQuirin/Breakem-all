@@ -115,9 +115,8 @@ class teamController extends template{
     }
     
 	public function verifyAction(){
-        if(!($this->connectedUser instanceof user)){
+        if(!($this->isVisitorConnected()))
             $this->echoJSONerror("connection", "vous n'etes pas authentifie !");
-        }
 		$args = array(
             'name'     => FILTER_SANITIZE_STRING,    
             'slogan'     => FILTER_SANITIZE_STRING,   
@@ -149,7 +148,8 @@ class teamController extends template{
             $this->echoJSONerror("userhasteam", "vous avez déjà une team!");
             
         //Créaton team
-        $dbTeam->create($team);
+        $dbTeam->mirrorObject = $team;
+        $dbTeam->create();
         // Récupération team (avec nouvel id)
         $team = $dbTeam->getTeamFromName($team);
         unset($dbTeam);
@@ -172,7 +172,8 @@ class teamController extends template{
             'description'=>'Un pour les controler tous'
         ]);
         $dbRightsTeam = new rightsteamManager();
-        $dbRightsTeam->create($riTeam);            
+        $dbRightsTeam->mirrorObject = $riTeam;
+        $dbRightsTeam->create();
         unset($dbRightsTeam);
 
         echo json_encode(["success" => true]);

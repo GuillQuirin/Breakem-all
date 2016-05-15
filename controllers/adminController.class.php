@@ -21,7 +21,6 @@ class adminController extends template{
             $listesignalement = $admin->getListReports();
            
             $listeteam = $admin->getListTeam();
-            //var_dump($listeteam);
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -29,7 +28,7 @@ class adminController extends template{
 
             $v->assign("listesignalement",$listesignalement);
 
-            //$v->assign("listeteam",$listeteam);
+            $v->assign("listeteam",$listeteam);
            
             $v->setView("/includes/admin/accueil", "template");
         }
@@ -50,5 +49,29 @@ class adminController extends template{
         }
         echo json_encode($data['res']);
         return;
+    }
+
+    public function updateTeamStatusAction(){
+         if(!empty($_POST['checkbox_team'])){
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
+
+            foreach($filteredinputs['checkbox_team'] as $key => $id){
+                $teamBDD = new teamManager();
+                $team = $teamBDD->getTeam(array('id'=>$id));
+                
+                if($team->getStatus()==1)
+                    $team->setStatus(-1);
+                else
+                    $team->setStatus(1);
+
+                $adm = new adminManager();
+                $adm->changeStatusTeam($team);
+            }    
+            
+        }
+
+        // return false;
+
+       header('Location: '.WEBPATH.'/admin');
     }
 }

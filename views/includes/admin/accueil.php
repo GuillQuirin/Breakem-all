@@ -33,7 +33,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 	<section class="admin-content-wrapper my-content-wrapper">
 
-		<div class="container m-a content-border classement-container" style="border:none;">
+		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
 				<div class="grid-md-12">

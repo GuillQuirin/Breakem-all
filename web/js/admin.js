@@ -108,5 +108,10 @@ var platformModule = {
 };
 
 
+//Validation avec tous les id qui commence par validate-form-
+$("button[id^='validate-change-']" ).on('click', function() {
+	//Recherche le formulaire le plus proche pour valider
+    $(this).closest('form').submit();
+});
 
 
