@@ -38,9 +38,7 @@ final class tournamentManager extends basesql{
 		$sth->execute([
 			':link' => $link
 		]);
-		echo $sql;
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-		print_r($r);
 		if(isset($r[0]))
 			return new tournament($r[0]);
 		return false;
