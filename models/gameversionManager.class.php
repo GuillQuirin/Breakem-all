@@ -43,10 +43,10 @@ class gameversionManager extends basesql{
 		if(!isset($_SESSION['availableGV_ids']) || !is_array($_SESSION['availableGV_ids']))
 			die("Tu n'as pas choisi ta console !");
 
-		$l = count($_SESSION['availableGV_ids']) - 1;
+		$l = count($_SESSION['availableGV_ids']);
 		if($l < 1 )
 			die("Tu n'as pas choisi ta console !");
-
+		$l--;
 
 		$sql = "SELECT * FROM " . $this->table . " WHERE ";
 		foreach ($_SESSION['availableGV_ids'] as $key => $id) {
