@@ -747,10 +747,10 @@ var deconnection = {
 					location.reload();
 				},
 				success: function(data, textStatus, xhr) {
-
 				},
 				error: function(xhr, textStatus, errorThrown) {
-
+					console.log(errorThrown);
+					alert("uh oh serv ...");
 				}
 			});
 		});
