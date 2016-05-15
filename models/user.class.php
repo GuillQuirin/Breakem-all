@@ -83,10 +83,12 @@ class user{
 	private function setIdTeam($v){
 		$this->idTeam=$v;
 	}
-	private function setIsConnected($v){
+	// en public pour les besoins de la deconnexion
+	public function setIsConnected($v){
 		$this->isConnected=$v;
 	}
-	private function setLastConnexion($v){
+	// besoins de la deconnexion
+	public function setLastConnexion($v){
 		$this->lastConnexion=$v;
 	}
 	private function setToken($v){
