@@ -242,7 +242,8 @@ class creationtournoiController extends template{
 					'idUserCreator' => $this->connectedUser->getId(),
 				]);
 			$tm = new tournamentManager();
-			$tm->create($tournoi);
+			$tm->mirrorObject = $tournoi;
+			$tm->create();
 			unset($tm);
 			$this->destroyCreationSession();
 			// Il faudrait idealement recuperer le lien vers le tournoi nouvellement créé ici et le renvoyer vers le client pour qu'il y soit directement redirigé

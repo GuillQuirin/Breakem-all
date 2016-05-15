@@ -49,12 +49,13 @@ class confirmationController extends template{
         header('Location:' . WEBPATH);
     }
 
-    public function warningMailAction(){
+    // Fonction inutile avec le JS en place affichant une popup
+    /*public function warningMailAction(){
         if(isset($_SESSION['visiteur_semi_inscrit'])){
             $startingSessionTime = $_SESSION['visiteur_semi_inscrit'];
             $curtime = time();
             //var_dump($curtime - $startingSessionTime);exit;
-            /*Sert à définir un timeout de cette session à 12h*/
+            //Sert à définir un timeout de cette session à 12h
             if ($curtime - $startingSessionTime > 43200){
                 unset($_SESSION['visiteur_semi_inscrit']);
             }else{
@@ -66,7 +67,7 @@ class confirmationController extends template{
             }            
         }
         //header('Location: '.WEBPATH);
-    }
+    }*/
 
     public function lostAction(){
         $v = new view();

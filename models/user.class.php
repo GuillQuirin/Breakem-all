@@ -83,28 +83,28 @@ class user{
 	private function setIdTeam($v){
 		$this->idTeam=$v;
 	}
-	public function setIsConnected($v){
+	private function setIsConnected($v){
 		$this->isConnected=$v;
 	}
-	public function setLastConnexion($v){
+	private function setLastConnexion($v){
 		$this->lastConnexion=$v;
 	}
-	public function setToken($v){
+	private function setToken($v){
 		$this->token=$v;
 	}
-	public function setRss($v){
+	private function setRss($v){
 		if($v!=1)
 			$this->rss=-1;
 		else	
 			$this->rss=$v;
 	}
-	public function setAuthorize_mail_contact($v){
+	private function setAuthorize_mail_contact($v){
 		if($v!=1)
 			$this->authorize_mail_contact=-1;
 		else
 			$this->authorize_mail_contact=$v;
 	}
-	public function setReportNumber($v){
+	private function setReportNumber($v){
 		if($v!=NULL)
 			$this->reportNumber=$v;
 		else

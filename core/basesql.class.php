@@ -4,7 +4,7 @@ abstract class basesql{
 	protected $table;
 	protected static $openedConnection = false;
 	protected $pdo;
-	protected $mirrorObject = false;
+	public $mirrorObject = false;
 	protected $columns = [];
 
 	public function __construct(){
@@ -33,7 +33,7 @@ abstract class basesql{
 	
 	}
 
-	public function create(object $objet){
+	public function create(){
 		// Check afin de savoir qui appelle cette méthode
 		$e = new Exception();
 		$trace = $e->getTrace();
@@ -47,22 +47,19 @@ abstract class basesql{
 		if(!$calling_class || !$calling_method)
 			return false;
 
-		//if ($calling_class === "template" && $calling_method === "registerAction"){
-		if($this->table===$objet){
-			$this->columns = [];
-			$object_methods = get_class_methods($objet);
+		$this->table = get_class($this->mirrorObject);	
+		$this->columns = [];
+		$object_methods = get_class_methods($this->mirrorObject);
 
-			foreach ($object_methods as $key => $method) {
-				if(strpos($method, 'get') !== FALSE){
-					$col = lcfirst(str_replace('get', '', $method));
-					$this->columns[$col] = $objet->$method();
-				};
-			}
-			$this->columns = array_filter($this->columns);
-			$this->save();
+		foreach ($object_methods as $key => $method) {
+			if(strpos($method, 'get') !== FALSE){
+				$col = lcfirst(str_replace('get', '', $method));
+				$this->columns[$col] = $this->mirrorObject->$method();
+			};
 		}
-		else
-			return false;
+		$this->columns = array_filter($this->columns);
+		$this->save();
+		
 	}
 
 	protected function save(){
