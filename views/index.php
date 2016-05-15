@@ -68,7 +68,7 @@
 										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>
 									<div class='btn_article'>
-										<h3 class='btn btn-pink'><a>Regarder</a><h3>
+										<h3 class='btn btn-pink'><a href="tournoi?t=<?php echo $tournoi->getLink(); ?>">Regarder</a><h3>
 									</div>
 								</div>
 							</div>
