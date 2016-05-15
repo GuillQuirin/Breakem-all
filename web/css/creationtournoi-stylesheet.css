@@ -62,6 +62,10 @@
   }
 }
 
+.creationtournoi-title-container{
+	margin:0 !important;
+}
+
 .creationtournoi-active-choice{
 	z-index: 2;
 }
