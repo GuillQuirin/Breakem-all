@@ -329,7 +329,7 @@ var navbar = {
             });
         },
         closeForm : function(){
-            navbar.getIndexModal().addClass('hidden-fade').addClass('fade').addClass('hidden'); 
+            $('.index-modal').addClass('hidden-fade').addClass('fade').addClass('hidden'); 
             $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){
