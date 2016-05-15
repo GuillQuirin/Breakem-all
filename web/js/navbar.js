@@ -584,8 +584,7 @@ var register = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
-				  	popup.init('Un email de confirmation a été envoyé à l\'adresse '+_this.getEmailToWatch().val());
-				    var obj = tryParseData(data);
+				  	var obj = tryParseData(data);
 				    if(obj != false){
 				    	_this.treatParsedJson(obj);
 				    }
