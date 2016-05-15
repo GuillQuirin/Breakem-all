@@ -80,15 +80,31 @@ class configurationController extends template{
 	      'new_password'   => FILTER_SANITIZE_STRING,
 	      'new_password_check'   => FILTER_SANITIZE_STRING,
 	      'description'   => FILTER_SANITIZE_STRING,
-	      'day'   => FILTER_VALIDATE_INT,     
-	      'month'   => FILTER_VALIDATE_INT,     
-	      'year'   => FILTER_VALIDATE_INT,
+	      'day'   => FILTER_SANITIZE_STRING,     
+	      'month'   => FILTER_SANITIZE_STRING,     
+	      'year'   => FILTER_SANITIZE_STRING,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
 	      'rss' => FILTER_VALIDATE_BOOLEAN,     
 	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
 	    );
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
+
+		//Date de naissance
+		$filteredinputs['month'] = (int) $filteredinputs['month'];
+	    $filteredinputs['day'] = (int) $filteredinputs['day'];
+	    $filteredinputs['year'] = (int) $filteredinputs['year'];
+	    
+	    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+	      $this->echoJSONerror('date', 'La date reçue a fail !');
+	    else{
+	      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+	      
+	      if(!$date)
+	        $this->echoJSONerror('date', 'La date reçue a fail !');
+
+	      $filteredinputs['birthday'] = date_timestamp_get($date);
+	    }
 
 		//IMAGE DE PROFIL
 		if(isset($_FILES['profilpic'])){

@@ -4,35 +4,36 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 ?>
 
-<section class="low-height bg-cover-configuration relative">
+<section class="low-height bg-cover-admin relative">
 
 	<div class="align full-height">
 		<div class="align full-height animation fadeLeft">
 			<span class="header-title admin-header-title border-full relative">Administration</span>	
 		</div>
-	</div>
-	 
-	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+	</div>	 
 
-	<div class="configuration-onglet-wrapper">
-		<ul class="configuration-onglet-ul">
-			<li class="active configuration-onglet-li" id="configuration-onglet-membres">
+	<div class="admin-onglet-wrapper">
+		<ul class="admin-onglet-ul">
+			<li class="active admin-onglet-li" id="admin-onglet-membres">
 				<a>Membres</a>
 			</li><!--
-			--><li class="configuration-onglet-li" id="configuration-onglet-platforms">		
+			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
 				<a>Plateformes</a>
 			</li><!--
-			--><li class="configuration-onglet-li" id="configuration-onglet-reports">		
+			--><li class="admin-onglet-li" id="admin-onglet-reports">		
 				<a>Signalements</a>
+			</li><!--
+			--><li class="admin-onglet-li" id="admin-onglet-team">		
+				<a>Team</a>
 			</li>
 		</ul>
 	</div>
 
 	</section>
 
-	<section class="configuration-content-wrapper my-content-wrapper">
+	<section class="admin-content-wrapper my-content-wrapper">
 
-		<div class="container m-a content-border classement-container" style="border:none;">
+		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
 				<div class="grid-md-12">
@@ -40,17 +41,20 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<!-- @Guillaume : Include a changé genre pour que se soit dynamic, coté controlleurs
 
 					<!-- Membre -->
-			
 					<?php include "membres.php"; ?>					
-
 					<!-- Fin Membre -->		
 
 					<!-- Plateformes -->
-
 					<?php include "plateformes.php"; ?>					
-
 					<!-- Fin Plateformes -->						
-				<?php include "reports.php"; ?>	
+					
+					<!-- Reports -->
+					<?php include "reports.php"; ?>	
+					<!-- Fin reports -->
+
+					<!-- Team -->
+					<?php include "team.php"; ?>	
+					<!-- Fin Team -->
 				</div>
 			</div>				
 		</div>

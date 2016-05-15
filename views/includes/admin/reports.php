@@ -1,10 +1,10 @@
-<div class="configuration-wrapper" id="configuration-onglet-reports-wrapper"
-	<form action="configuration/update" method="post" enctype="multipart/form-data">
+<div class="admin-wrapper" id="admin-onglet-reports-wrapper">
+	<form action="admin/update" method="post" enctype="multipart/form-data">
 
 		<?php 			
 			if(is_array($listesignalement)){
 			?>							
-				<table class='full-width configuration-form-table admin-table report' border='1'>
+				<table class='full-width admin-form-table admin-table report' border='1'>
 				<thead>
 					<th>Emetteur</th>
 					<th>Accusé</th>
@@ -28,8 +28,8 @@
 				}
 				?>
 				<tr class='text-center'>
-					<td colspan='7' class='border-none configuration-form-td-submit'>								
-						<button id='navbar-inscription' type='submit' class='btn btn-pink configuration-form-submit'>
+					<td colspan='7' class='border-none admin-form-td-submit'>								
+						<button id='navbar-inscription' type='submit' class='btn btn-pink admin-form-submit'>
 							<a>Valider</a>
 						</button>
 					</td>

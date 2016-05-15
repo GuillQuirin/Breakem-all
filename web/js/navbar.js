@@ -8,35 +8,32 @@ window.addEventListener('load', function load(){
 	navbar.init();
 	deconnection.init();
 	register.init();
-	scroll.init(".header-scroll-down", '.my-content-wrapper');
+	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
+	checkForJustCreatedAccount();
 });
 
 var scroll = {
 	init : function(clickSelector, sectionSelector){
-		if(clickSelector && sectionSelector){
-			var cS = jQuery(clickSelector);
-			var sS = jQuery(sectionSelector);
-
-			scroll.clickEvent(cS, sS);
+		if(clickSelector instanceof jQuery && sectionSelector){
+			scroll.clickEvent(clickSelector, sectionSelector);
 		}else{
-			console.log("Function scroll.init() is missing some parameters");
+			console.log("Pas reçu du dom dans scroll.init()!");
 		}
 	},
 	clickEvent : function(clickSelector, sectionSelector){
-		if(clickSelector && sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
 			clickSelector.click(function(){
 				scroll.toAnchor(sectionSelector);
 			});
 		}else{
-			console.log("Function scroll.clickEvent() is missing some parameters");
+			console.log("Pas reçu du dom dans scroll.clickEvent");
 		}
 	},
 	toAnchor : function(selector){
-		if(selector){
-			var anchor = jQuery(selector);
-	    	jQuery('html,body').animate({scrollTop: anchor.offset().top},'slow');
+		if(selector instanceof jQuery){
+	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
     	}else{
-    		console.log("Function scroll.toAnchor() is missing some parameters");
+    		console.log("Pas reçu du dom dans scroll.toAnchor()");
     	}
 	}	
 };
@@ -55,87 +52,288 @@ function tryParseData(rawData){
 	return false;
 }
 
+// Function ajax de flemmard 
+function ajaxRequest(url, type, callback){
+	if(url && callback){
+		jQuery.ajax({
+		 	url: url,
+		 	type: type,
+		 	success: function(result){
+		 		result = tryParseData(result);			 					 		
+				callback(result);
+		 	}
+		});
+	}else{
+		console.log("Params vide sur dataShow()");
+	}	
+}
+
+function adaptMarginToNavHeight(jQel){
+	if(jQel instanceof jQuery){
+		var navHeight = $("#navbar").height();
+		jQel.css('margin-top', navHeight);
+	}
+	else
+		console.log("Pas reçu du dom dans adaptMarginToNavHeight");	
+}
+
+// index-creation-compte-terminee-divtodelete
+function checkForJustCreatedAccount(){
+	var div = $('#index-creation-compte-terminee-divtodelete'); 
+	if(div.length > 0){
+		var data = div.data('compte');
+		popup.init("Le compte " + data + " a bien été activé");
+	}
+}
+
+// Suffira d'envoyer une string à popup.create et l'ob se chargera du reste 
+var popup = {
+	openedPopupModal: false,
+	openedPopupMsg: false,
+	animationOnGoing: false,
+	getOpenedPopupModal: function(){
+		return this.openedPopupModal;
+	},
+	getOpenedPopupMsg: function(){
+		return this.openedPopupMsg;
+	},
+	setOpenedPopupModal: function(jQel){
+		this.openedPopupModal = jQel;
+	},
+	setOpenedPopupMsg: function(jQel){
+		this.openedPopupMsg = jQel;
+	},
+	closeOldPopup: function(jQModal, jQMsg){
+		navbar.form.smoothClosing();
+		if(this.getOpenedPopupModal() instanceof jQuery){
+			var _this = this;
+			this.animationOnGoing = true;
+			this.getOpenedPopupMsg().addClass('fadeOutRight');
+			setTimeout(function(){
+				_this.getOpenedPopupModal().empty();
+				_this.getOpenedPopupModal().remove();
+				_this.setOpenedPopupModal(false);
+				_this.setOpenedPopupMsg(false);
+				_this.animationOnGoing = false;
+				$('body').css('overflow', 'visible');
+				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
+					_this.openNewPopup(jQModal, jQMsg);
+			},1000);
+		}
+		else
+			this.openNewPopup(jQModal, jQMsg);
+	},
+	init: function(message){		
+		if(message){
+			if(this.animationOnGoing){
+				console.log("animation popup deja en cours");
+				return;
+			}
+			var container = $('<div class="index-modal-popup display-flex-column animation fade"></div>');
+			var popdivContainer = $('<div class="index-popup-msg display-flex-column animation fadeRight"></div>');
+			var subDiv = $('<div class="border-full display-flex-column"></div>')
+			var popMsg = $('<p class="title title-4">'+message+'</p>');
+			subDiv.append(popMsg);
+			popdivContainer.append(subDiv);
+			container.append(popdivContainer);
+			this.closeOldPopup(container, popdivContainer);
+		}
+		else
+			console.log("aucun contenu reçu dans popup init");
+	},
+	openNewPopup: function(jQModal, jQMsg){
+		$('body').css('overflow', 'hidden');
+		$('body').append(jQModal);
+		this.setOpenedPopupModal(jQModal);
+		this.setOpenedPopupMsg(jQMsg);
+		this.associateClosingEvent();
+	},
+	associateClosingEvent: function(){
+		var _this = this;
+		this.getOpenedPopupModal().click(function(e){
+			if($(e.target).hasClass('index-modal-popup')){
+				_this.closeOldPopup();
+			};
+		});
+	}
+}
+
 var navbar = {
-    init: function(){        
-		navbar.shrink();      
+	_this: this,
+    init: function(){
+    	navbar.setNavbarEl();
+    	navbar.setNavToggle();
+    	navbar.setSearchPage();
+    	navbar.setSearchToggle();
+    	navbar.setNavSideMenu();
+    	navbar.setNavLogin();
+    	navbar.setNavInscription();
+    	navbar.setIndexModal();
+    	navbar.setLoginForm();
+    	navbar.setSubscribeForm();    	
+
+		navbar.shrink();
         navbar.openNavbarSide();
         navbar.search.toggle();
         navbar.search.close();
         navbar.form.subscribe();
-        navbar.form.login();
+        navbar.form.login();        
         navbar.form.closeFormKey();
         navbar.form.closeFormClick();
-        navbar.menu();
+        navbar.menu();        
     },
+
+
+    /*##### SETTERS #####*/
+    setNavbarEl: function(){
+    	this._navEl = $("#navbar");
+    },
+    setNavToggle: function(){
+    	this._navToggle = $('#navbar-toggle');
+    },
+    setNavSideMenu: function(){
+    	this._navSideMenu = $('.navbar-side-menu');
+    },
+    setNavLogin: function(){
+    	this._navLogin = $('#navbar-login');
+    },
+    setOpenFormAll: function(){
+    	this._openFormAll = $('.open-form');
+    },
+    setNavInscription: function(){
+    	this._navInscription = $('#navbar-inscription');
+    },
+    setSearchPage: function(){
+    	this._searchPage = $('.search-page');
+    },
+    setSearchToggle: function(){
+    	this._searchToggle = $('.search-toggle');
+    },
+    setIndexModal: function(){
+    	this._indexModal = $('.index-modal');
+    },
+    setLoginForm: function(){
+    	this._loginForm = $('#login-form');
+    },
+    setSubscribeForm: function(){
+    	this._subscribeForm = $('#subscribe-form');
+    },
+
+
+    /*##### GETTERS #####*/
+    getNavbarEl: function(){
+    	return this._navEl;
+    },
+    getNavToggle: function(){
+    	return this._navToggle;
+    },
+    getNavSideMenu: function(){
+    	return this._navSideMenu;
+    },
+    getSearchPage: function(){
+    	return this._searchPage;
+    },
+    getSearchToggle: function(){
+    	return this._searchToggle;
+    },
+    getNavLogin: function(){
+    	return this._navLogin;
+    },
+    getNavInscription: function(){
+    	return this._navInscription;
+    },
+    getIndexModal: function(){
+    	return this._indexModal;
+    },
+    getLoginForm: function(){
+    	return this._loginForm;
+    },
+    getSubscribeForm: function(){
+    	return this._subscribeForm;
+    },
+    getOpenForm: function(){
+    	return this._openFormAll;
+    },
+
     preventShrink: false,
     shrink: function(force){
     	if(!this.preventShrink){   		
 	        $(window).scroll(function(){
 	            if($(window).scrollTop() > 50){
-	                $("#navbar").removeClass('full');
-	                $("#navbar").addClass('shrink');
+	                navbar.getNavbarEl().removeClass('full');
+	                navbar.getNavbarEl().addClass('shrink');
 	            }else{
-	                $("#navbar").removeClass('shrink');
-	                $("#navbar").addClass('full');
+	                navbar.getNavbarEl().removeClass('shrink');
+	                navbar.getNavbarEl().addClass('full');
 	            }
 	        });
 	        return;
 	    }
-	    $("#navbar").removeClass('full');
-        $("#navbar").addClass('shrink');
+	    navbar.getNavbarEl().removeClass('full');
+        navbar.getNavbarEl().addClass('shrink');
     },
     openNavbarSide : function(){
-        $('#navbar-toggle').on('click', function(){
-            if($('.navbar-side-menu').hasClass('navbar-collapse')){
-                $('.navbar-side-menu').removeClass('navbar-collapse');
+        this.getNavToggle().on('click', function(){
+            if(navbar.getNavSideMenu().hasClass('navbar-collapse')){
+                navbar.getNavSideMenu().removeClass('navbar-collapse');
             }else{
-                $('.navbar-side-menu').addClass('navbar-collapse');
+                navbar.getNavSideMenu().addClass('navbar-collapse');
             }
         });
     },
     search : {
         toggle: function(){
-
             $(document).on('click', '.search-toggle', function(){
-                $('.search-page').removeClass('hidden-fade');
+                navbar.getSearchPage().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".search-page").removeClass('hidden');
+                    navbar.getSearchPage().removeClass('hidden');
                 }, 0);
             });
         },
         close: function(){
             $(document).on('click', '.btn-close', function(e){
-
                 $(e.currentTarget).parents('.search-page').addClass('hidden-fade');
                 setTimeout(function() {
-                    $(".search-page").addClass('hidden');
+                    navbar.getSearchPage().addClass('hidden');
                 }, 800);
             });
         }
     },
+    //Refacto le code
     form : {
+    	admin : function(){    		
+    		navbar.getOpenForm().click(function(e){      			
+    			jQuery(e.currentTarget).parent().parent().find('.index-modal').find('.index-modal-this').addClass('form-bg-active');
+    			jQuery(e.currentTarget).parent().parent().find('.index-modal').removeClass('hidden-fade');
+    			setTimeout(function(){
+					jQuery('.index-modal').removeClass('hidden');
+    			}, 0);
+    			jQuery('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
+    			jQuery('body').css('overflow', 'hidden');
+    		});
+    	},
         subscribe : function(){
-            $('#navbar-login').on('click', function(){
-            	$('.index-modal-login').addClass('form-bg-active');
-                $('.index-modal').removeClass('hidden-fade');
+            navbar.getNavLogin().on('click', function(){
+            	navbar.getIndexModal().closest('.index-modal-login').addClass('form-bg-active');
+                navbar.getIndexModal().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".index-modal").removeClass('hidden');
+                    navbar.getIndexModal().removeClass('hidden');
                 }, 0);
-                $('#login-form').removeClass('hidden');
-                $('#subscribe-form').addClass('hidden');
+                navbar.getLoginForm().removeClass('hidden');
+                navbar.getSubscribeForm().addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
                 $('body').css('overflow', 'hidden');
             });
         },
         login : function(){
-        	$('.index-modal-login').addClass('form-bg-active');
-            $('#navbar-inscription').on('click', function(){
-                $('.index-modal').removeClass('hidden-fade');
+        	navbar.getNavbarEl().find('.index-modal-login').addClass('form-bg-active');
+            navbar.getNavInscription().on('click', function(){
+                navbar.getIndexModal().removeClass('hidden-fade');
                 setTimeout(function() {
-                    $(".index-modal").removeClass('hidden');
+                    navbar.getIndexModal().removeClass('hidden');
                 }, 0);
-                $('#subscribe-form').removeClass('hidden');
-                $('#login-form').addClass('hidden');
+                navbar.getSubscribeForm().removeClass('hidden');
+                navbar.getLoginForm().addClass('hidden');
                 $('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
                 $('body').css('overflow', 'hidden');
             });
@@ -157,17 +355,16 @@ var navbar = {
             });
         },
         closeFormClick: function(){
-
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a')) {			    			    			    			   			    		
-
-			    	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
-
-			    	setTimeout(function() {
-                    	navbar.form.closeForm();			    	
-                	}, 700);		    		
-			    }
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a'))
+		   			navbar.form.smoothClosing();
 			});
+        },
+        smoothClosing: function(){
+        	$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');
+    		setTimeout(function() {
+            	navbar.form.closeForm();			    	
+        	}, 700);	
         }
     },
     menu: function(){
@@ -351,9 +548,12 @@ var register = {
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
+	popSuccessMsg: function(){
+		var container = $('<div class="absolute index-modal-login"></div>');
+	},
 	treatParsedJson: function(obj){
 		if(obj.success){
-			window.location.assign('confirmation/warningMail');
+			popup.init('Un email de confirmation a été envoyé à l\'adresse '+this.getEmailToWatch().val());
 		}
 		else{
 			if(obj.errors){
@@ -365,7 +565,7 @@ var register = {
 				}
 				else{
 					console.log(obj.errors);
-					alert("Ton formulaire n'a pu être validé\nCheck la console pour pplus de détails");
+					alert("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
 				}			
 			}
 		}
@@ -414,7 +614,7 @@ var register = {
 				    // console.log("request complted \n");
 				  },
 				  success: function(data, textStatus, xhr) {
-				    var obj = tryParseData(data);
+				  	var obj = tryParseData(data);
 				    if(obj != false){
 				    	_this.treatParsedJson(obj);
 				    }
@@ -577,10 +777,10 @@ var deconnection = {
 					location.reload();
 				},
 				success: function(data, textStatus, xhr) {
-
 				},
 				error: function(xhr, textStatus, errorThrown) {
-
+					console.log(errorThrown);
+					alert("uh oh serv ...");
 				}
 			});
 		});

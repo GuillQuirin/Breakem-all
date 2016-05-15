@@ -1,0 +1,26 @@
+.tournamentslist-tournoi-element{
+	width: 100%;
+	max-width: 850px;
+	padding: 15px 0 15px 0;
+	min-height: 200px;
+}
+.tournamentslist-tournoi-element article,
+.tournamentslist-tournoi-element aside{
+	display: inline-block;
+	vertical-align: top;
+}
+.tournamentslist-tournoi-element article{
+	height: 100%;
+}
+.tournamentslist-tournoi-element aside{
+	max-width: 47.5%;
+	height: 100%;
+	padding: 0 1.25% 0 1.25%;
+}
+.tournamentslist-tournoi-element aside img{
+	opacity: .5;
+	width: 97.5%;
+	height: 100%;
+	top: 0;
+	left: 1.25%;
+}

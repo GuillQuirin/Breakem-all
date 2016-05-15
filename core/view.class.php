@@ -23,7 +23,24 @@ class view{
 	}
 
 	public function assign($key, $value){
-		$this->data[$key] = $value;
+		/*if(isset($this->data[$key])){
+			$arrValue = [];
+			if(is_array($this->data[$key])){
+				$arrValue[] = $value;
+				$this->data[$key] = $arrValue;		
+			}else{
+				$arrValue[] = $value;
+				$this->data[$key] = $arrValue;
+			}	
+		}else{
+			$this->data[$key] = $value;					
+		}*/
+		if(is_array($key)){
+			foreach ($key as $cle => $nom)
+				$this->data[$key] = $nom;	
+		}
+		else
+			$this->data[$key] = $value;					
 	}
 
 	public function createForm($form, $errors){

@@ -11,6 +11,9 @@ class confirmationController extends template{
     }
 
 	public function checkAction(){
+        // Un utilisateur déjà connecté ne va pas valider un mail de toute façon
+        if($this->isVisitorConnected())
+            header('Location:' . WEBPATH);
         $args = array(
             'token'     => FILTER_SANITIZE_STRING,
             'email'     => FILTER_VALIDATE_EMAIL
@@ -23,7 +26,6 @@ class confirmationController extends template{
                 $v->assign("js", "404");
                 $v->assign("title", "Erreur 404");
                 $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
-
                 $v->setView("templatefail", "templatefail");
                 return;
             }
@@ -34,37 +36,11 @@ class confirmationController extends template{
         // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
         $userBDD = new userManager();
 
-        // Si la validation ne marche pas, le mec sera redirigé automatiquement vers l'index
-        if($userBDD->checkMailToken($user)){
-            $v = new view();
-            $v->assign("css", "confirmation");
-            $v->assign("title", "confirmation");
-            $v->assign("inscription",1);
-            $v->setView("validationInscription");
-            session_destroy();
-            return;
-        }
-
-        session_destroy();
+        // Si la validation du compte a fonctionné, on redirige vers l'index avec une variable de session indiquant que le compte a bien été validé
+        // On lui met un timeout pour que l'user ne voit le msg que pendant une courte periode de temps
+        if($userBDD->checkMailToken($user))
+            $_SESSION['compte_validé'] = $user->getEmail();
         header('Location:' . WEBPATH);
-    }
-
-    public function warningMailAction(){
-        if(isset($_SESSION['visiteur_semi_inscrit'])){
-            $startingSessionTime = $_SESSION['visiteur_semi_inscrit'];
-            $curtime = time();
-            /*Sert à définir un timeout de cette session à 12h*/
-            if ($curtime - $startingSessionTime > 43200){
-                unset($_SESSION['visiteur_semi_inscrit']);
-            }else{
-                $v = new view();
-                $v->assign("css", "confirmation");
-                $v->assign("title", "confirmation");
-                $v->setView("confirmation");
-                return;
-            }            
-        }
-        header('Location: '.WEBPATH);
     }
 
     public function lostAction(){

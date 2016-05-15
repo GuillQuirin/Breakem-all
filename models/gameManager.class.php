@@ -11,7 +11,7 @@ class gameManager extends basesql{
 	
 	public function getBestGames(){        
          $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu
-                 FROM Tournament T, GameVersion GV, Game G
+                 FROM tournament T, gameversion GV, game G
                 WHERE G.id = GV.idGame AND GV.id = T.idGameVersion
                  LIMIT 0,3";
         $sth = $this->pdo->query($sql);

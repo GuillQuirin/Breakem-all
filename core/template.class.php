@@ -43,10 +43,7 @@ class template{
   }
   
   protected function isVisitorConnected(){
-
-    if($this->connectedUser instanceof user)
-      return true;
-    return false;
+    return ($this->connectedUser instanceof user);
   }  
 
   protected function isAdmin(){
@@ -298,7 +295,8 @@ class template{
      $this->echoJSONerror('email', 'cet email est déjà utilisé');
 
     // On enregistre
-    $userBDD->create($user);
+    $userBDD->mirrorObject = $user;
+    $userBDD->create();
 
     $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";

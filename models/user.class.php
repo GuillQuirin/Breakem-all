@@ -83,28 +83,30 @@ class user{
 	private function setIdTeam($v){
 		$this->idTeam=$v;
 	}
+	// en public pour les besoins de la deconnexion
 	public function setIsConnected($v){
 		$this->isConnected=$v;
 	}
+	// besoins de la deconnexion
 	public function setLastConnexion($v){
 		$this->lastConnexion=$v;
 	}
-	public function setToken($v){
+	private function setToken($v){
 		$this->token=$v;
 	}
-	public function setRss($v){
+	private function setRss($v){
 		if($v!=1)
 			$this->rss=-1;
 		else	
 			$this->rss=$v;
 	}
-	public function setAuthorize_mail_contact($v){
+	private function setAuthorize_mail_contact($v){
 		if($v!=1)
 			$this->authorize_mail_contact=-1;
 		else
 			$this->authorize_mail_contact=$v;
 	}
-	public function setReportNumber($v){
+	private function setReportNumber($v){
 		if($v!=NULL)
 			$this->reportNumber=$v;
 		else
@@ -113,6 +115,27 @@ class user{
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
+	public function getStatusName($status=null){
+		switch($status)
+		{
+			case '-1' :
+				return 'User inactif';
+			break;
+			case '1':
+				return 'User actif';
+			break;
+			case '2':
+				return 'Inconnu';
+			break;
+			case '3':
+				return 'Admin';
+			break;
+			default:
+				return '';
+			break;
+		}
+		
+	}
 	public function getFirstname(){return $this->firstname;}
 	public function getPseudo(){return $this->pseudo;}
 	public function getBirthday(){return	$this->birthday;}
