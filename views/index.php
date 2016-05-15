@@ -53,10 +53,10 @@
 				if(isset($listeTournois)): 
 					foreach ($listeTournois as $key => $tournoi):
 			?> 	
-						<article id='article<?php echo $tournoi->getId(); ?>'>
+						<article id='article<?php echo "TES MALADE OU QUOI ON MET PAS LID DANS LA VIEW !!!!!"; ?>'>
 							<div class='contain_article'>
 								<div class='img_article'>
-									<img src='/web/img/heroes-of.jpg'>
+									<img src='<?php echo $tournoi->getGameImg(); ?>'>
 								</div>
 								<div class='date_article'>
 									<i class='icon'></i>
