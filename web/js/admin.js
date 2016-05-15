@@ -7,14 +7,77 @@ window.addEventListener('load', function load(){
 });
 
 var onglet = {
+	_this: this,
 	init : function(){
-		onglet.onClick("#admin-onglet-platforms", "#admin-onglet-platforms-wrapper");
-		onglet.onClick("#admin-onglet-membres", "#admin-onglet-membres-wrapper");
-		onglet.onClick("#admin-onglet-reports", "#admin-onglet-reports-wrapper");
-		onglet.onClick("#admin-onglet-team", "#admin-onglet-team-wrapper");
+		onglet.setAdminOngletPlatforms();
+		onglet.setAdminOngletMembres();
+		onglet.setAdminOngletReports();
+		onglet.setAdminOngletTeams();
+		onglet.setAdminPlatformsWrapper();
+		onglet.setAdminMembresWrapper();
+		onglet.setAdminReportsWrapper();
+		onglet.setAdminTeamsWrapper();
+
+		onglet.onClick(onglet.getAdminOngletPlatforms(), onglet.getAdminPlatformsWrapper());
+		onglet.onClick(onglet.getAdminOngletMembres(), onglet.getAdminMembresWrapper());
+		onglet.onClick(onglet.getAdminOngletReports(), onglet.getAdminReportsWrapper());
+		onglet.onClick(onglet.getAdminOngletTeams(), onglet.getAdminTeamsWrapper());
 	},
+
+	//Setter
+	setAdminOngletPlatforms : function(){
+		this._adminOngletPlatforms = jQuery('#admin-onglet-platforms');
+	},
+	setAdminOngletMembres : function(){
+		this._adminOngletMembres = jQuery('#admin-onglet-membres');
+	},
+	setAdminOngletReports : function(){
+		this._adminOngletReports = jQuery('#admin-onglet-reports');
+	},
+	setAdminOngletTeams : function(){
+		this._adminOngletTeams = jQuery('#admin-onglet-team');
+	},
+	setAdminPlatformsWrapper : function(){
+		this._adminPlatformsWrapper = jQuery("#admin-onglet-platforms-wrapper");
+	},
+	setAdminMembresWrapper : function(){
+		this._adminMembresWrapper = jQuery("#admin-onglet-membres-wrapper");
+	},
+	setAdminReportsWrapper : function(){
+		this._adminReportsWrapper = jQuery("#admin-onglet-reports-wrapper");
+	},
+	setAdminTeamsWrapper : function(){
+		this._adminTeamsWrapper = jQuery("#admin-onglet-team-wrapper");
+	},
+
+	//Getter
+	getAdminOngletPlatforms : function(){
+		return this._adminOngletPlatforms;
+	},
+	getAdminOngletMembres : function(){
+		return this._adminOngletMembres;
+	},
+	getAdminOngletReports : function(){
+		return this._adminOngletReports;
+	},
+	getAdminOngletTeams : function(){
+		return this._adminOngletTeams;
+	},
+	getAdminPlatformsWrapper : function(){
+		return this._adminPlatformsWrapper;
+	},
+	getAdminMembresWrapper : function(){
+		return this._adminMembresWrapper;
+	},
+	getAdminReportsWrapper : function(){
+		return this._adminReportsWrapper;
+	},
+	getAdminTeamsWrapper : function(){
+		return this._adminTeamsWrapper;
+	},
+
 	onClick : function(btnClick, ongletSelector){
-		jQuery(btnClick).click(function(){
+		btnClick.click(function(){
 			jQuery(".admin-onglet-li").removeClass('active');
 			jQuery(this).addClass('active');
 			jQuery(".admin-wrapper").css('display', 'none');
@@ -22,10 +85,10 @@ var onglet = {
 		});
 	},
 	hide : function(selector){
-		jQuery(selector).fadeOut();
+		selector.fadeOut();
 	},
 	show : function(selector){
-		jQuery(selector).fadeIn();
+		selector.fadeIn();
 	}
 };
 
@@ -33,25 +96,12 @@ var platformModule = {
 	init : function(){
 		platformModule.createPlatformsIhm();
 	},
-	dataShow : function(url, callback){
-		if(callback){
-			jQuery.ajax({
-			 	url: url,
-			 	type: 'GET',
-			 	success: function(result){			 					 		
-			 		callback(result);
-			 	}
-			});
-		}else{
-			console.log("Aucun élement sur dataShow()");
-		}
-	},
 	ihmElemHover : function(){
-		$('.admin-data-ihm').hover(
+		jQuery('.admin-data-ihm').hover(
 		  function() {
-		    $( this ).find('.admin-data-ihm-btn').removeClass( "hidden" );
-		  }, function() {
-		    $( this ).find('.admin-data-ihm-btn').addClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		  }, function(e) {
+		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
 		  }
 		);
 	}	

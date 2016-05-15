@@ -160,17 +160,17 @@ var navbar = {
     	navbar.setNavInscription();
     	navbar.setIndexModal();
     	navbar.setLoginForm();
-    	navbar.setSubscribeForm();
+    	navbar.setSubscribeForm();    	
 
 		navbar.shrink();
         navbar.openNavbarSide();
         navbar.search.toggle();
         navbar.search.close();
         navbar.form.subscribe();
-        navbar.form.login();
+        navbar.form.login();        
         navbar.form.closeFormKey();
         navbar.form.closeFormClick();
-        navbar.menu();
+        navbar.menu();        
     },
 
 
@@ -186,6 +186,9 @@ var navbar = {
     },
     setNavLogin: function(){
     	this._navLogin = $('#navbar-login');
+    },
+    setOpenFormAll: function(){
+    	this._openFormAll = $('.open-form');
     },
     setNavInscription: function(){
     	this._navInscription = $('#navbar-inscription');
@@ -238,6 +241,9 @@ var navbar = {
     getSubscribeForm: function(){
     	return this._subscribeForm;
     },
+    getOpenForm: function(){
+    	return this._openFormAll;
+    },
 
     preventShrink: false,
     shrink: function(force){
@@ -285,6 +291,17 @@ var navbar = {
     },
     //Refacto le code
     form : {
+    	admin : function(){    		
+    		navbar.getOpenForm().click(function(e){      			
+    			jQuery(e.currentTarget).parent().parent().find('.index-modal').find('.index-modal-this').addClass('form-bg-active');
+    			jQuery(e.currentTarget).parent().parent().find('.index-modal').removeClass('hidden-fade');
+    			setTimeout(function(){
+					jQuery('.index-modal').removeClass('hidden');
+    			}, 0);
+    			jQuery('.inscription_rapide').addClass('fadeDown').removeClass('fadeOutUp');
+    			jQuery('body').css('overflow', 'hidden');
+    		});
+    	},
         subscribe : function(){
             navbar.getNavLogin().on('click', function(){
             	navbar.getIndexModal().closest('.index-modal-login').addClass('form-bg-active');
@@ -312,7 +329,7 @@ var navbar = {
             });
         },
         closeForm : function(){
-            navbar.getIndexModal().addClass('hidden-fade').addClass('fade').addClass('hidden'); 
+            $('.index-modal').addClass('hidden-fade').addClass('fade').addClass('hidden'); 
             $('body').css('overflow', 'visible');       
         },
         closeFormKey: function(){
@@ -520,6 +537,9 @@ var register = {
 		jQinput.val('');
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
+	},
+	popSuccessMsg: function(){
+		var container = $('<div class="absolute index-modal-login"></div>');
 	},
 	treatParsedJson: function(obj){
 		if(obj.success){
