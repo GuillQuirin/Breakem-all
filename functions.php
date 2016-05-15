@@ -17,9 +17,7 @@ function ourOwnPassHash($pass){
 }
 
 function ourOwnPassVerify($received, $model){
-	if(password_verify($received, $model))
-		return true;
-	return false;
+	return (password_verify($received, $model));
 }
 
 function validateDate($date, $format = 'Y-m-d H:i:s')
@@ -27,3 +25,11 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
 }
+
+/*function linkHasher($data){
+	// $data has to be string / int / double
+	return password_hash($data, CRYPT_BLOWFISH);
+}
+function linkCheck($received, $model){
+	return (password_verify($received, $model));
+}*/

@@ -19,7 +19,7 @@ class userManager extends basesql{
 		$sth->execute([
 			':email' => $user->getEmail()
 		]);
-		$r = $sth->fetchAll();
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		// $r est toujours un array qui stock chaque ligne récupérée dans un sous array
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 

@@ -18,6 +18,7 @@ final class tournament{
 	protected $_creationDate;
 	protected $_guildOnly;
 	protected $_randomPlayerMix;
+	protected $_link;
 	// Données venant du gameversion (nécessite un inner / outer join)
 	protected $_maxPlayer;
 	protected $_maxTeam;
@@ -66,6 +67,7 @@ final class tournament{
 	private function setCreationDate($v){$this->_creationDate = $v;}
 	private function setGuildOnly($v){$this->_guildOnly = (int) $v;}
 	private function setRandomPlayerMix($v){$this->_randomPlayerMix = (int) $v;}
+	private function setLink($v){$this->_link = $v;}
 	// Setters de données issues de gameversion
 	private function setMaxPlayer($v){$this->_maxPlayer = $v;}
 	private function setMaxTeam($v){$this->_maxTeam = $v;}
@@ -108,6 +110,7 @@ final class tournament{
 	public function getCreationDate(){return $this->_creationDate;}
 	public function getGuildOnly(){return $this->_guildOnly;}
 	public function getRandomPlayerMix(){return $this->_randomPlayerMix;}
+	public function getLink(){return $this->_link;}
 	// Getters de données issues de gameversion
 	public function getMaxPlayer(){return $this->_maxPlayer;}
 	public function getMaxTeam(){return $this->_maxTeam;}
