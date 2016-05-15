@@ -52,12 +52,13 @@ class adminController extends template{
     }
 
     public function updateTeamStatusAction(){
-        if(!empty($_POST)){
-            foreach($_POST as $fullid => $value){
-                $id = substr($fullid,-1);
+         if(!empty($_POST['checkbox_team'])){
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
+
+            foreach($filteredinputs['checkbox_team'] as $key => $id){
                 $teamBDD = new teamManager();
                 $team = $teamBDD->getTeam(array('id'=>$id));
-                var_dump($team);
+                
                 if($team->getStatus()==1)
                     $team->setStatus(-1);
                 else
@@ -66,10 +67,11 @@ class adminController extends template{
                 $adm = new adminManager();
                 $adm->changeStatusTeam($team);
             }    
+            
         }
 
         // return false;
 
-        header('Location: '.WEBPATH.'/admin');
+       header('Location: '.WEBPATH.'/admin');
     }
 }

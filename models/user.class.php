@@ -113,7 +113,7 @@ class user{
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
-	public function getStatusName($status){
+	public function getStatusName($status=null){
 		switch($status)
 		{
 			case '-1' :
@@ -127,6 +127,9 @@ class user{
 			break;
 			case '3':
 				return 'Admin';
+			break;
+			default:
+				return '';
 			break;
 		}
 		
