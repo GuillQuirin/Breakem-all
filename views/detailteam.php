@@ -6,7 +6,7 @@
     </div>
 </section>
 <div style="margin-top:100px"class="inscription_team">
-    Nom de la team : <?php echo $name; ?><br>
+    Nom de la team : <?php echo $team->getName(); ?><br>
     Nombre de membre : <br>
     Slogan : <br>
     Description : <br>

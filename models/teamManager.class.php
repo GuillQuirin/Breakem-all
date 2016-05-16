@@ -82,6 +82,19 @@ class teamManager extends basesql{
 			return new team($r[0]);
 		return false;
 	}
+	//Liste des teams
+	public function getListTeam(){
+		$sql="SELECT id, name, img, slogan, description,status FROM team ORDER BY name ASC";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
 
 	/*RECUPERATION TEAM*/
 	public function getTeam(array $infos){

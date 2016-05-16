@@ -53,7 +53,7 @@
 				if(isset($listeTournois)): 
 					foreach ($listeTournois as $key => $tournoi):
 			?> 	
-						<article id='article<?php echo "TES MALADE OU QUOI ON MET PAS LID DANS LA VIEW !!!!!"; ?>'>
+						<article id='article[]'>
 							<div class='contain_article'>
 								<div class='img_article'>
 									<img src='<?php echo $tournoi->getGameImg(); ?>'>

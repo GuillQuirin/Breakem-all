@@ -1,11 +1,25 @@
-<h2 style="margin-top:100px"> Voici la liste des teams :</h2>
-
-<div style="margin-top:20px"class="inscription_team">
-    Nom de la team 1: <?php echo $name; ?><br>
-    Slogan : <br>
-    Description : <br>
-
-    <button id='validate-form-team' type='submit' class='btn btn-pink'>
-        <a>Voir la team</a>
-    </button>       
-</div>
+<!-- Liste des tournois en cours -->
+<?php   
+    if(isset($listeteam)): 
+        foreach ($listeteam as $key => $team):
+?>  
+            <article id='article[]'>
+                <div class='contain_article'>
+                    <div class='img_article'>
+                        <img src='<?php echo $team->getImg(); ?>'>
+                    </div>
+                    <div class='text_article'>
+                        <h2><?php echo $team->getName(); ?></h2>
+                        <div class='tags_article'>
+                            <h3><?php echo $team->getDescription(); ?></h3>
+                        </div>
+                        <div class='btn_article'>
+                            <h3 class='btn btn-pink'><a href="detailteam?t=<?php echo $team->getName(); ?>">Voir la team</a><h3>
+                        </div>
+                    </div>
+                </div>
+            </article>
+<?php 
+        endforeach;
+    endif;
+?>
