@@ -60,7 +60,7 @@ class team{
 	//Getters
 	public function getId(){return $this->id;}
 	public function getStatus(){return $this->status;}
-	public function getStatusName($status){
+	public function getStatusName($status=null){
 		switch($status)
 		{
 			case '-1' :
@@ -68,6 +68,9 @@ class team{
 			break;
 			case '1':
 				return 'Déverrouillée';
+			break;
+			default:
+				return '';
 			break;
 		}
 		
