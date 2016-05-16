@@ -52,7 +52,7 @@ var dom = {
 			console.log("Title || Container || Btn not found ");
 			return false;
 		}
-		this.setTitleContainerMargin();
+		//this.setTitleContainerMargin();
 		this.setBtnMargin();
 		return true;
 	},
