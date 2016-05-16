@@ -2,9 +2,9 @@
 
 	<div class="align full-height">
 		<div class="align full-height animation fadeLeft">
-			<span class="header-title admin-header-title border-full relative creationtournoi-title-container display-block">				
+			<div class="header-title admin-header-title border-full relative creationtournoi-title-container display-block">				
 					<h1 class="capitalize title header-title">My title</h1>				
-			</span>	
+			</div>	
 		</div>
 	</div>	 	
 
