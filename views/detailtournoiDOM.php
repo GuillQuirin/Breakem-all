@@ -1,4 +1,7 @@
-<div class="max-container">
+<?php if(isset($tournoi)): ?>
+	
+<?php endif; ?>
+<!-- <div class="max-container"> -->
 	<section class="detailtournoi-infos flex">
 		<aside class="ta-center relative">
 			<img src="web/img/bf3-bg.jpg" alt="Battlefield 3">
@@ -195,4 +198,4 @@
 			</div>
 		</div>
 	</section>
-</div>
+<!-- </div> -->
