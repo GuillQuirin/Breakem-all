@@ -1,24 +1,3 @@
-/*
-	--->
-		Il va falloir enregistrer les choix en session pour empecher les carottes
-		et envoyer un gofuck aux "hackers"
-	<---
-
-	1
-		Style de jeu
-	2
-		Jeu
-	3	
-		Console
-	4
-		Version du jeu
-	5
-		LINE/LAN
-	6
-		
-*/
-
-
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
@@ -776,7 +755,7 @@ var validateChoices = {
 				    		return false;
 				    	}
 				    	else if(obj.success){
-				    		console.log(obj.success);
+				    		window.location.assign(obj.success);
 				    	}		
 					}
 				},

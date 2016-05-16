@@ -12,7 +12,7 @@ class teamManager extends basesql{
 
 	
 	public function create(team $team){	
-	// Check afin de savoir qui appelle cette méthode
+	// Check afin de savoir qui appele cette méthode
 		$e = new Exception();
 		$trace = $e->getTrace();
 
@@ -118,6 +118,26 @@ class teamManager extends basesql{
 			return false;
 
 		return new team($r);
+	}
+
+	public function getTeamTest(array $infos){
+		
+		$cols = array_keys($infos);
+		$data = [];
+		foreach ($cols as $key) {
+			$data[$key] = $key.'="'.$infos[$key].'"';
+		}
+
+		$sql = "SELECT id, name, img, slogan, description, status 
+					FROM team
+					WHERE ".implode(',', $data);
+
+		$query = $this->pdo->query($sql)->fetch();
+
+		if($query === FALSE)
+			return false;
+
+		return new team($query);
 	}
 
 }

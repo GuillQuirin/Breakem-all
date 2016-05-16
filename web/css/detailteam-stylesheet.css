@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-@import 'module/variable.less';
-
 .bg-cover-classement {
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/oot.jpg) center top no-repeat;
@@ -123,5 +120,3 @@ img{
     position:relative;
     top:25px;
 }
-=======
->>>>>>> 200336946f4918ab11ac12536e9bfc19f31853e7

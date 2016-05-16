@@ -1,0 +1,1 @@
+detailteam.js

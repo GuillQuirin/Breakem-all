@@ -21,7 +21,7 @@ class teamController extends template{
 		$v->assign("css", "team");
 		$v->assign("js", "team");
 		$v->assign("title", "Team");
-		$v->assign("content", "Fiche d'une team");
+		$v->assign("content", "Liste des teams");
 
 
         //Si un paramètre GET portant le nom d'une team dans l'URL

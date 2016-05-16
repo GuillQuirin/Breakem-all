@@ -86,7 +86,7 @@ function checkForJustCreatedAccount(){
 	}
 }
 
-// Suffira d'envoyer une string à popup.create et l'ob se chargera du reste 
+// Suffira d'envoyer une string à popup.init et l'ob se chargera du reste 
 var popup = {
 	openedPopupModal: false,
 	openedPopupMsg: false,

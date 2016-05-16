@@ -240,6 +240,7 @@ class creationtournoiController extends template{
 					'randomPlayerMix' => $_SESSION['selectedTournamentRand'],
 					'idGameVersion' => $_SESSION['selectedGameVersion'],
 					'idUserCreator' => $this->connectedUser->getId(),
+					'link' => ourOwnPassHash( time().$_SESSION['selectedTournamentName'].$this->connectedUser->getId() )
 				]);
 			$tm = new tournamentManager();
 			$tm->mirrorObject = $tournoi;
@@ -247,7 +248,7 @@ class creationtournoiController extends template{
 			unset($tm);
 			$this->destroyCreationSession();
 			// Il faudrait idealement recuperer le lien vers le tournoi nouvellement créé ici et le renvoyer vers le client pour qu'il y soit directement redirigé
-			echo json_encode(["success" => WEBPATH]);
+			echo json_encode(["success" => WEBPATH.'/tournoi?t='.$tournoi->getLink()]);
 			exit;
 		}
 	}
@@ -286,7 +287,7 @@ class creationtournoiController extends template{
 	// 			--> Si non : elle renvoie false
 	private function getDbVersionIfExists(gameversion $gv){
 		if(!isset($_SESSION['availableGV_ids']))
-			die("Tu n'as pas choisi ta console !");
+			die("fdp");
 		$gvm = new gameversionManager();
 		$validVersions = $gvm->getChoosableVersions();
 		foreach ($validVersions as $key => $obj) {

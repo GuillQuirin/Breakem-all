@@ -1,25 +1,31 @@
-<<<<<<< HEAD
 <section class="middle-height bg-cover-classement relative  align full-height">
 
-  <div id="ID" class=" ">
-      <img id="profil" class="grid-md-5 align full-height" src="web/img/Rayz.jpg">
-      <span class="header-title align full-height" id="name">Rayz</span>
-  </div>
-
-
+    <div id="ID" class=" ">
+        <img id="profil" class="grid-md-5 align full-height" src="<?php echo $img; ?>">
+        <span class="header-title align full-height" id="name">Rayz</span>
+    </div>
 </section>
+<div style="margin-top:100px"class="inscription_team">
+    Nom de la team : <?php echo $name; ?><br>
+    Nombre de membre : <br>
+    Slogan : <br>
+    Description : <br>
 
+    <button id='validate-form-team' type='submit' class='btn btn-pink'>
+        <a>Rejoindre</a>
+    </button>       
+</div>
 <section class="classement-content-wrapper  align full-height" id ="onglet">
 
     <div class="container m-a content-border " id="container">
         <div id="container1">
             <div class="activite ">
+
                 <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
                 <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
                 <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
             </div>
         </div>
-
         <div id="container2">
             <div id="member">
                 <p id="member1">Membres</p>
@@ -58,20 +64,5 @@
 
 <script src="jquery.js"></script>
 
-
 </body>
-
 </html>
-=======
-<h2 style="margin-top:100px"> Voici la liste des teams :</h2>
-
-<div style="margin-top:20px"class="inscription_team">
-    Nom de la team 1: <?php echo $name; ?><br>
-    Slogan : <br>
-    Description : <br>
-
-    <button id='validate-form-team' type='submit' class='btn btn-pink'>
-        <a>Voir la team</a>
-    </button>       
-</div>
->>>>>>> 200336946f4918ab11ac12536e9bfc19f31853e7
