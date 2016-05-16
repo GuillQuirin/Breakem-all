@@ -16,7 +16,7 @@
 				//Rajouter une tr/td pour les clés (nom, prenom, etc)
 				foreach ($listeteam as $ligne => $team) {
 					echo "<tr>";
-						echo "<td><a href='".WEBPATH."/team?name=".$team->getId()."'>".$team->getId()."<a/></td>";
+						echo "<td><a href='".WEBPATH."/detailteam?name=".$team->getName()."'>".$team->getName()."<a/></td>";
 						echo "<td><img src='".$team->getImg()."'></td>";
 						echo "<td>".$team->getDescription()."</td>";
 						echo "<td>".$team->getStatusName($team->getStatus())."</td>";

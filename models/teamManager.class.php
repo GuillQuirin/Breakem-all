@@ -10,7 +10,7 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-	
+	/*
 	public function create(team $team){	
 	// Check afin de savoir qui appele cette méthode
 		$e = new Exception();
@@ -82,9 +82,10 @@ class teamManager extends basesql{
 			return new team($r[0]);
 		return false;
 	}
+	
 	//Liste des teams
 	public function getListTeam(){
-		$sql="SELECT id, name, img, slogan, description,status FROM team ORDER BY name ASC";
+		$sql="SELECT id, name, img, slogan, description,status FROM team WHERE status =1 ORDER BY name ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -133,24 +134,6 @@ class teamManager extends basesql{
 		return new team($r);
 	}
 
-	public function getTeamTest(array $infos){
-		
-		$cols = array_keys($infos);
-		$data = [];
-		foreach ($cols as $key) {
-			$data[$key] = $key.'="'.$infos[$key].'"';
-		}
 
-		$sql = "SELECT id, name, img, slogan, description, status 
-					FROM team
-					WHERE ".implode(',', $data);
-
-		$query = $this->pdo->query($sql)->fetch();
-
-		if($query === FALSE)
-			return false;
-
-		return new team($query);
-	}
 
 }

@@ -75,7 +75,7 @@ class profilController extends template{
 		*/
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
-				die("Manque information : " $key);
+				die("Manque information : ".$key);
 			}
 		}
 
@@ -132,7 +132,7 @@ class profilController extends template{
 		*/
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
-				die("Manque information : " $key);
+				die("Manque information : ".$key);
 			}
 		}
 
