@@ -27,7 +27,7 @@ class teamController extends template{
         //Liste des teams
         $obj = new teamManager();
 
-        $listeteam = $obj->getListTeam();
+        $listeteam = $obj->getListTeam(-1);
 
         $v->assign("listeteam", $listeteam);
      

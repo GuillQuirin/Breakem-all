@@ -21,8 +21,9 @@ class adminController extends template{
             $listeplatforms = $platform->getListPlatform();
             
             $listesignalement = $admin->getListReports();
-           
-            $listeteam = $admin->getListTeam();
+            
+            $team = new teamManager();
+            $listeteam = $team->getListTeam(-2);
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -57,17 +58,17 @@ class adminController extends template{
          if(!empty($_POST['checkbox_team'])){
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
 
-            foreach($filteredinputs['checkbox_team'] as $key => $id){
+            foreach($filteredinputs['checkbox_team'] as $key => $name){
                 $teamBDD = new teamManager();
-                $team = $teamBDD->getTeam(array('id'=>$id));
+                $team = $teamBDD->getTeam(array('name'=>$name));
                 
                 if($team->getStatus()==1)
                     $team->setStatus(-1);
                 else
                     $team->setStatus(1);
 
-                $adm = new adminManager();
-                $adm->changeStatusTeam($team);
+                $teamupdate = new teamManager();
+                $teamupdate->changeStatusTeam($team);
             }    
             
         }
