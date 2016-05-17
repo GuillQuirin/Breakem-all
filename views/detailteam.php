@@ -5,16 +5,7 @@
         <span class="header-title align full-height" id="name">Rayz</span>
     </div>
 </section>
-<div style="margin-top:100px"class="inscription_team">
-    Nom de la team : <?php echo $name; ?><br>
-    Nombre de membre : <br>
-    Slogan : <br>
-    Description : <br>
 
-    <button id='validate-form-team' type='submit' class='btn btn-pink'>
-        <a>Rejoindre</a>
-    </button>       
-</div>
 <section class="classement-content-wrapper  align full-height" id ="onglet">
 
     <div class="container m-a content-border " id="container">

@@ -20,8 +20,8 @@ class teamController extends template{
         $this->assignConnectedProperties($v);
 		$v->assign("css", "team");
 		$v->assign("js", "team");
-		$v->assign("title", "Team");
-		$v->assign("content", "Liste des teams");
+		$v->assign("title", "Team <<name>>");
+		$v->assign("content", "Team <<name>>");
 
 
         //Si un paramètre GET portant le nom d'une team dans l'URL
