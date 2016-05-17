@@ -14,6 +14,20 @@ class platformManager extends basesql{
 			return $r;
 		return false;
 	}
+
+	//Admin Plateforme 
+	public function getListPlatform(){
+		$sql = "SELECT id, name, description, img FROM platform ORDER BY name ASC";
+		
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC)) 
+			//user appel la classe plateform
+			$list[] = new platform($query);
+		
+		return $list;
+	}
 }
 /*
 *

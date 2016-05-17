@@ -14,9 +14,11 @@ class adminController extends template{
 
             $admin = new adminManager();
 
+            $platform = new platformManager();
+
     		$listejoueurs = $admin->getListUser();  
 
-            $listeplatforms = $admin->getListPlatform();
+            $listeplatforms = $platform->getListPlatform();
             
             $listesignalement = $admin->getListReports();
            
