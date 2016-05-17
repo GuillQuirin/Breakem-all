@@ -13,8 +13,7 @@
 					<th>Team</th>
 					<th>Signalements</th>
 					<th>En ligne</th>
-					<th>Verrouiller/Déverouiller le compte</th>
-					<th>Donner/Enlever droits admin</th>
+					<th>Statut de l'utilisateur</th>
 				</thead>
 
 				<?php
@@ -30,8 +29,13 @@
 						echo "<td>";
  							if($joueur->getIsConnected()) echo "X";
  						echo "</td>";
-						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_".$joueur->getId()."' id='checkbox_".$joueur->getId()."' value=''><label style='color:transparent' for='checkbox_".$joueur->getId()."'></label></td>";	
-						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_admin_".$joueur->getId()."' id='checkbox_admin_".$joueur->getId()."' value=''><label style='color:transparent' for='checkbox_admin_".$joueur->getId()."'></label></td>";	
+						echo "<td>
+								<select name='status_".$joueur->getId()."' onChange=setStatut()>
+									<option value='' >Banni</option>
+									<option value='' selected>Utilisateur</option>
+									<option value='' >Admin</option>
+								</select>
+							</td>";							
 						echo "</tr>";
 				}
 				?>
