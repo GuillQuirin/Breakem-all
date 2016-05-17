@@ -14,9 +14,11 @@ class adminController extends template{
 
             $admin = new adminManager();
 
+            $platform = new platformManager();
+
     		$listejoueurs = $admin->getListUser();  
 
-            $listeplatforms = $admin->getListPlatform();
+            $listeplatforms = $platform->getListPlatform();
             
             $listesignalement = $admin->getListReports();
             
@@ -38,7 +40,7 @@ class adminController extends template{
     }
 
     public function getPlatformsDataAction(){
-        $pm = new adminManager();
+        $pm = new platformManager();
         $typesObj = $pm->getListPlatform();
         $data['res'] = [];        
         foreach ($typesObj as $key => $obj) {

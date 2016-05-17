@@ -94,10 +94,22 @@ var onglet = {
 
 var platformModule = {
 	init : function(){
+		platformModule.setAdminDataIhm();	
 		platformModule.createPlatformsIhm();
 	},
+
+	//Setter
+	setAdminDataIhm : function(){
+		this._adminDataIhm = jQuery('.admin-data-ihm');
+	},	
+
+	//Getter
+	getAdminDataIhm : function(){
+		return this._adminDataIhm;
+	},
+
 	ihmElemHover : function(){
-		jQuery('.admin-data-ihm').hover(
+		platformModule.getAdminDataIhm().hover(
 		  function() {
 		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
 		  }, function(e) {
