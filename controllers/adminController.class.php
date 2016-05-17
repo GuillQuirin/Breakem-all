@@ -77,4 +77,26 @@ class adminController extends template{
 
        header('Location: '.WEBPATH.'/admin');
     }
+
+    public function updateUserStatusAction(){
+         if(!empty($_POST['status_user'])){
+            $args = array(
+                'status'   => FILTER_VALIDATE_INT
+            );
+
+            /*
+            //EN ATTENTE DES INFOS ENVOYEE DEPUIS LA FONCTION JS SETSTATUS()
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
+            
+            $userBDD = new userManager();
+            $user = $userBDD->getUser(array('pseudo'=>$filteredinputs));
+
+            $newuser = new user();
+            $newuser->setStatus($filteredinputs['status']);
+
+            $userupdate->setUser($user, $newuser);
+            */    
+        }
+    }
+
 }

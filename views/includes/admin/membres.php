@@ -8,7 +8,7 @@
 				<thead>
 					<th>Pseudo</th>
 					<th>E-mail</th>
-					<th>Statut</th>
+					<!--<th>Statut</th>-->
 					<th>Image</th>
 					<th>Team</th>
 					<th>Signalements</th>
@@ -22,12 +22,13 @@
 					echo "<tr>";
 						echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
 						echo "<td>".$joueur->getEmail()."</td>";
-						echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
+						//echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
 						echo "<td><img src='".$joueur->getImg()."'></td>";
 						echo "<td>".$joueur->getIdTeam()."</td>";
 						echo "<td>".$joueur->getReportNumber()."</td>";
 						echo "<td>";
- 							if($joueur->getIsConnected()) echo "X";
+ 							if($joueur->getIsConnected()) 
+ 								echo "X";
  						echo "</td>";
 						echo "<td>
 								<select name='status_".$joueur->getId()."' onChange=setStatut()>
