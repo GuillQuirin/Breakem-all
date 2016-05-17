@@ -12,7 +12,7 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
 		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
 		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
+		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME()) ORDER BY t.startDate";
 		$sth = $this->pdo->query($sql);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		if(isset($r[0])){
@@ -52,7 +52,7 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
 		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
 		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
+		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME()) ORDER BY t.startDate";
 
 		$data = [];
 		if(isset($searchArray['nom'])){

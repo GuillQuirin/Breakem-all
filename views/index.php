@@ -56,14 +56,14 @@
 						<article id='article<?php echo $key?>'>
 							<div class='contain_article'>
 								<div class='img_article'>
-									<img src='<?php echo $tournoi->getGameImg(); ?>'>
+									<img class="img-cover" src='<?php echo $tournoi->getGameImg(); ?>'>
 								</div>
 								<div class='date_article'>
 									<i class='icon'></i>
 									<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
 								</div>
 								<div class='text_article'>
-									<h2><?php echo $tournoi->getName(); ?></h2>
+									<h2 class="title-4 uppercase"><?php echo $tournoi->getName(); ?></h2>
 									<div class='tags_article'>
 										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>

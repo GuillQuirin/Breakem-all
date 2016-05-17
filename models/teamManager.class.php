@@ -10,7 +10,7 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-	/*
+	
 	public function create(team $team){	
 	// Check afin de savoir qui appele cette méthode
 		$e = new Exception();
@@ -50,12 +50,17 @@ class teamManager extends basesql{
 	}
 	
 	/*AJOUT PRESIDENT TEAM*/
-	public function setOwnerTeam(team $t, $idUser){
+	public function setOwnerTeam(team $t, user $u){
 		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
-				VALUES ('', '".$idUser."', '".$idTeam."', '1')";
-		$query = $this->pdo->query($sql);
-		
-		return $query;
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
 	}
 
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
@@ -98,7 +103,9 @@ class teamManager extends basesql{
 	}
 
 	/*RECUPERATION TEAM*/
+	/* utilisez les miroirs svpppp getTeam(team $t)*/
 	public function getTeam(array $infos){
+
 		//tab[name]='Test'
 		$cols = array_keys($infos);
 		$data = [];
@@ -135,5 +142,23 @@ class teamManager extends basesql{
 	}
 
 
+public function getTeamTest(array $infos){
+		
+		$cols = array_keys($infos);
+		$data = [];
+		foreach ($cols as $key) {
+			$data[$key] = $key.'="'.$infos[$key].'"';
+		}
 
+		$sql = "SELECT id, name, img, slogan, description, status 
+					FROM team
+					WHERE ".implode(',', $data);
+
+		$query = $this->pdo->query($sql)->fetch();
+
+		if($query === FALSE)
+			return false;
+
+		return new team($query);
+	}
 }

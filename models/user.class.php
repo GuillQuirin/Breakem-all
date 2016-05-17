@@ -36,40 +36,40 @@ class user{
 		}
 	}
 
-	private function setId($v){
+	public function setId($v){
 		$this->id=$v;
 	}
-	private function setName($v){
+	public function setName($v){
 		$this->name=$v;
 	}
-	private function setFirstname($v){
+	public function setFirstname($v){
 		$this->firstname=$v;
 	}
-	private function setPseudo($v){
+	public function setPseudo($v){
 		$this->pseudo=$v;
 	}
-	private function setBirthday($v){
+	public function setBirthday($v){
 		$this->birthday=$v;
 	}
-	private function setDescription($v){
+	public function setDescription($v){
 		$this->description=$v;
 	}
-	private function setKind($v){
+	public function setKind($v){
 		$this->kind=$v;
 	}
-	private function setCity($v){
+	public function setCity($v){
 		$this->city=$v;
 	}
-	private function setEmail($v){
+	public function setEmail($v){
 		$this->email=$v;
 	}
-	private function setPassword($v){
+	public function setPassword($v){
 		$this->password=$v;
 	}
-	private function setStatus($v){
+	public function setStatus($v){
 		$this->status=$v;
 	}
-	private function setImg($v){
+	public function setImg($v){
 		if(strlen(trim($v))!=0 && $v!=NULL){
 			//var_dump(strstr($v, "lol"));
 			if(strstr($v, WEBPATH)) //Image déjà stockée en base
@@ -80,7 +80,7 @@ class user{
 		else //Pas d'image uploadée
 			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
-	private function setIdTeam($v){
+	public function setIdTeam($v){
 		$this->idTeam=$v;
 	}
 	// en public pour les besoins de la deconnexion
@@ -91,22 +91,22 @@ class user{
 	public function setLastConnexion($v){
 		$this->lastConnexion=$v;
 	}
-	private function setToken($v){
+	public function setToken($v){
 		$this->token=$v;
 	}
-	private function setRss($v){
+	public function setRss($v){
 		if($v!=1)
 			$this->rss=-1;
 		else	
 			$this->rss=$v;
 	}
-	private function setAuthorize_mail_contact($v){
+	public function setAuthorize_mail_contact($v){
 		if($v!=1)
 			$this->authorize_mail_contact=-1;
 		else
 			$this->authorize_mail_contact=$v;
 	}
-	private function setReportNumber($v){
+	public function setReportNumber($v){
 		if($v!=NULL)
 			$this->reportNumber=$v;
 		else
