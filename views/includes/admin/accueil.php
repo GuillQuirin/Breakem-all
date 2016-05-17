@@ -26,6 +26,18 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			--><li class="admin-onglet-li" id="admin-onglet-team">		
 				<a>Team</a>
 			</li>
+			<!--
+			--><li class="admin-onglet-li" id="admin-onglet-games">		
+				<a>Games</a>
+			</li>
+			<!--
+			--><li class="admin-onglet-li" id="admin-onglet-comment">		
+				<a>Comments</a>
+			</li>
+			<!--
+			--><li class="admin-onglet-li" id="admin-onglet-tournament">		
+				<a>Tournaments</a>
+			</li>
 		</ul>
 	</div>
 
