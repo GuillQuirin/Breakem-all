@@ -157,7 +157,7 @@ if(isset($err)){
 									<span>Team</span>
 								</td>
 								<td>
-									<?php echo (isset($nomTeam)) ? '<a href="team?nom='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
+									<?php echo (isset($nomTeam)) ? '<a href="team?name='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
 								</td>
 							</tr>
 							<tr class="text-center">

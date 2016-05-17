@@ -14,13 +14,16 @@ class adminController extends template{
 
             $admin = new adminManager();
 
+            $platform = new platformManager();
+
     		$listejoueurs = $admin->getListUser();  
 
-            $listeplatforms = $admin->getListPlatform();
+            $listeplatforms = $platform->getListPlatform();
             
             $listesignalement = $admin->getListReports();
-           
-            $listeteam = $admin->getListTeam();
+            
+            $team = new teamManager();
+            $listeteam = $team->getListTeam(-2);
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -37,7 +40,7 @@ class adminController extends template{
     }
 
     public function getPlatformsDataAction(){
-        $pm = new adminManager();
+        $pm = new platformManager();
         $typesObj = $pm->getListPlatform();
         $data['res'] = [];        
         foreach ($typesObj as $key => $obj) {
@@ -55,17 +58,17 @@ class adminController extends template{
          if(!empty($_POST['checkbox_team'])){
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
 
-            foreach($filteredinputs['checkbox_team'] as $key => $id){
+            foreach($filteredinputs['checkbox_team'] as $key => $name){
                 $teamBDD = new teamManager();
-                $team = $teamBDD->getTeam(array('id'=>$id));
+                $team = $teamBDD->getTeam(array('name'=>$name));
                 
                 if($team->getStatus()==1)
                     $team->setStatus(-1);
                 else
                     $team->setStatus(1);
 
-                $adm = new adminManager();
-                $adm->changeStatusTeam($team);
+                $teamupdate = new teamManager();
+                $teamupdate->changeStatusTeam($team);
             }    
             
         }
@@ -74,4 +77,26 @@ class adminController extends template{
 
        header('Location: '.WEBPATH.'/admin');
     }
+
+    public function updateUserStatusAction(){
+         if(!empty($_POST['status_user'])){
+            $args = array(
+                'status'   => FILTER_VALIDATE_INT
+            );
+
+            /*
+            //EN ATTENTE DES INFOS ENVOYEE DEPUIS LA FONCTION JS SETSTATUS()
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
+            
+            $userBDD = new userManager();
+            $user = $userBDD->getUser(array('pseudo'=>$filteredinputs));
+
+            $newuser = new user();
+            $newuser->setStatus($filteredinputs['status']);
+
+            $userupdate->setUser($user, $newuser);
+            */    
+        }
+    }
+
 }

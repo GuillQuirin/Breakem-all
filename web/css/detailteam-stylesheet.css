@@ -1,3 +1,10 @@
+
+.absfiche{
+    text-align: center;
+    line-height: 80px;
+    margin-top:150px;
+}
+
 .bg-cover-classement {
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/oot.jpg) center top no-repeat;

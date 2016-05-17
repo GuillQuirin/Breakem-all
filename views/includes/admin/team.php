@@ -16,11 +16,14 @@
 				//Rajouter une tr/td pour les clés (nom, prenom, etc)
 				foreach ($listeteam as $ligne => $team) {
 					echo "<tr>";
-						echo "<td><a href='".WEBPATH."/team?name=".$team->getId()."'>".$team->getId()."<a/></td>";
+						echo "<td><a href='".WEBPATH."/detailteam?name=".$team->getName()."'>".$team->getName()."<a/></td>";
 						echo "<td><img src='".$team->getImg()."'></td>";
 						echo "<td>".$team->getDescription()."</td>";
 						echo "<td>".$team->getStatusName($team->getStatus())."</td>";
-						echo "<td><input class='checkbox input-default' type='checkbox' name='checkbox_team[]' id='checkbox_".$team->getId()."' value='".$team->getId()."'><label style='color:transparent' for='checkbox_".$team->getId()."'></label></td>";																							
+						echo "<td>
+								<input class='checkbox input-default' type='checkbox' name='checkbox_team[]' id='checkbox_".$team->getName()."' value='".$team->getName()."'>
+								<label style='color:transparent' for='checkbox_".$team->getName()."'></label>
+							  </td>";																							
 					echo "</tr>";
 				}
 				?>

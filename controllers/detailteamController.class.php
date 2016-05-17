@@ -7,20 +7,20 @@ class detailteamController extends template{
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "detailteam");
 		$v->assign("js", "detailteam");
-		$v->assign("title", "team");
-		$v->assign("content", "content");
-
+		$v->assign("title", "Team ");
+		$v->assign("content", "Team ");
 		$v->setView("detailteam");
 
 		if(isset($_GET['name'])){
-
 			// Ce finalArr doit etre envoyé au parametre du constructeur de usermanager
 			$teamBDD = new teamManager();
 
-			// $args = array('name' => FILTER_SANITIZE_STRING );
-			// $filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+            /*
+                Tout élèment (créé par l'utilisateur ou récupéré de la BDD) 
+                sera stocké dans un objet de type Team (décrit dans team.class.php)    
+            */
 
-			$team = $teamBDD->getTeamTest(array('name'=>$_GET['name']));
+			$team = $teamBDD->getTeamTest(array('name'=>'name'));
 
 			// Si $user === FALSE : soit pas de user trouvé, soit pbm de requete
 
@@ -35,7 +35,6 @@ class detailteamController extends template{
 					};
 				}
 
-
 				
 			}
 			else{
@@ -48,5 +47,9 @@ class detailteamController extends template{
 		$v->setView("detailteam");
 	}
 
-	
+  /* public function updateUserTeamAction(){
+        if($_idTeam == ){
+
+        }
+    }*/
 }

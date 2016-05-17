@@ -126,7 +126,7 @@
 											echo '<li class="navbar-menu-tooltip-li">';
 
 											if(isset($_idTeam) && $_idTeam!=null)
-												echo "<a href=''>Page de ma team</a>";
+												echo "<a href='".WEBPATH."/detailteam/'>Page de ma team</a>";
 											
 											else
 												echo "<a href=''>Créer ma team</a>";

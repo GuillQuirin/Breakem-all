@@ -10,15 +10,61 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
+<<<<<<< HEAD
 
+=======
+/*	
+	public function create(team $team){	
+	// Check afin de savoir qui appele cette méthode
+		$e = new Exception();
+		$trace = $e->getTrace();
+
+		// get calling class:
+		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
+		// get calling method
+		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
+
+
+		if(!$calling_class || !$calling_method)
+			header('Location: '.WEBPATH);
+
+		// Si appelée depuis la page tournoi
+		if ($calling_class === "creationtournoiController" 
+				&& $calling_method === "finalValidationAction"){
+
+			$this->columns = [];
+			$team_methods = get_class_methods($team);
+
+			foreach ($team_methods as $key => $method) {
+				if(strpos($method, 'get') !== FALSE){
+					$col = lcfirst(str_replace('get', '', $method));
+					$this->columns[$col] = $team->$method();
+				};
+			}
+			// Toutes les propriétés à 0 sont remove de l'array à ce moment là
+			// Pas impactant ici puisque les default value dans tournoi sont à 0
+			$this->columns = array_filter($this->columns);
+
+			$this->save();
+
+		}
+		else
+			header('Location: '.WEBPATH);		
+	}*/
+>>>>>>> 6ffa5909b9aa1c2d39f708d77fe56a2d7a6df8a1
 	
 	/*AJOUT PRESIDENT TEAM*/
-	public function setOwnerTeam(team $t, $idUser){
+	public function setOwnerTeam(team $t, user $u){
 		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
-				VALUES ('', '".$idUser."', '".$idTeam."', '1')";
-		$query = $this->pdo->query($sql);
-		
-		return $query;
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
 	}
 
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
@@ -45,9 +91,37 @@ class teamManager extends basesql{
 			return new team($r[0]);
 		return false;
 	}
+	
+	//Liste des teams
+	public function getListTeam($status){
+		$sql="SELECT id, name, img, slogan, description,status FROM team WHERE status >'".$status."' ORDER BY name ASC";
 
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
+	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
+	public function changeStatusTeam(team $t){
+		$sql = "UPDATE team SET status = :status WHERE id= :id";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':status' => $t->getStatus(),
+			':id' => $t->getId()
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
+	}
 	/*RECUPERATION TEAM*/
+	/* utilisez les miroirs svpppp getTeam(team $t)*/
 	public function getTeam(array $infos){
+
 		//tab[name]='Test'
 		$cols = array_keys($infos);
 		$data = [];
@@ -83,7 +157,8 @@ class teamManager extends basesql{
 		return new team($r);
 	}
 
-	public function getTeamTest(array $infos){
+
+public function getTeamTest(array $infos){
 		
 		$cols = array_keys($infos);
 		$data = [];
@@ -102,5 +177,4 @@ class teamManager extends basesql{
 
 		return new team($query);
 	}
-
 }
