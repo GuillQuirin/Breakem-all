@@ -89,8 +89,8 @@ class teamManager extends basesql{
 	}
 	
 	//Liste des teams
-	public function getListTeam(){
-		$sql="SELECT id, name, img, slogan, description,status FROM team WHERE status =1 ORDER BY name ASC";
+	public function getListTeam($status){
+		$sql="SELECT id, name, img, slogan, description,status FROM team WHERE status >'".$status."' ORDER BY name ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -101,7 +101,19 @@ class teamManager extends basesql{
 	
 		return $list;
 	}
-
+	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
+	public function changeStatusTeam(team $t){
+		$sql = "UPDATE team SET status = :status WHERE id= :id";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':status' => $t->getStatus(),
+			':id' => $t->getId()
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
+	}
 	/*RECUPERATION TEAM*/
 	/* utilisez les miroirs svpppp getTeam(team $t)*/
 	public function getTeam(array $infos){
