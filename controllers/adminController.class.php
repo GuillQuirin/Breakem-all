@@ -37,7 +37,7 @@ class adminController extends template{
     }
 
     public function getPlatformsDataAction(){
-        $pm = new adminManager();
+        $pm = new platformManager();
         $typesObj = $pm->getListPlatform();
         $data['res'] = [];        
         foreach ($typesObj as $key => $obj) {
