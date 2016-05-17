@@ -1,5 +1,6 @@
 platformModule.createPlatformsIhm = function(){
 	ajaxRequest("admin/getPlatformsData", "GET", function(result){		
+		//console.log("Resultat du callback getPlatformsData", result);
 		jQuery.each(result, function(i, field){
 			jQuery(".admin-wrapper.platforms").append(				
 
