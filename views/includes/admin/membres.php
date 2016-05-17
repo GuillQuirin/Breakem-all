@@ -31,9 +31,15 @@
  						echo "</td>";
 						echo "<td>
 								<select name='status_".$joueur->getId()."' onChange=setStatut()>
-									<option value='' >Banni</option>
-									<option value='' selected>Utilisateur</option>
-									<option value='' >Admin</option>
+									<option value='-1'";
+										echo ($joueur->getStatus()==-1) ? " selected " : " "; 
+									echo ">Banni</option>
+									<option value='1'";
+										echo ($joueur->getStatus()==1) ? " selected " : " ";
+									echo ">Utilisateur</option>
+									<option value='3'";
+										echo ($joueur->getStatus()==3) ? " selected " : " ";
+									echo ">Admin</option>
 								</select>
 							</td>";							
 						echo "</tr>";
