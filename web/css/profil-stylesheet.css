@@ -1,200 +1,182 @@
-
-
-BODY{
-	background-color: #201B3A;
-	color: white;
+.profil-title{
+    padding:25px 15px;
 }
+
+.profil-wrapper{
+    padding:25px 15px;
+}
+
+.profil-element{
+    padding:25px 15px;
+}
+
+.profil-tournament-wrapper{
+
+}
+
+.profil-games-wrapper{
+
+}
+
+.profil-tournament-title{
+
+}
+
+.profil-match-title{
+
+}
+
+.profil-games-title{
+
+}
+
+.profil-games-element{
+
+}
+
+.profil-tournament-element{
+
+}
+
+.profil-match-element{
+
+}
+
+/* HEIGHT RESET*/
+
+body, html{
+    min-height:100%;
+    font-family:Roboto !important;
+}
+
 #content{
-	margin: 100px auto;
-    width: 80%;
+    //height:100%;
+    margin-top:0;
 }
 
-section:not(:last-child){
-	border: 1px solid;
-	background-color: #343452;
-	margin-bottom:20px;
-	padding: 10px 0;
-	position: relative; 
-}
-h4{
-	text-align: center;
-}
-a{
-    color: #B346FF;
-    text-decoration: none;
-    font-style: italic;
-}
-a:hover{
-	text-decoration: underline;
-}
-ul{
-	list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-button{
-	cursor: pointer;
-}
-#absfiche{
-    text-align: center;
-    line-height: 80px;
-}
-#presentation #image img{
-	float: left;
-    height: 52px;
-    width: 50px;
-}
-#presentation #image{
-    display: inline-block;
-    width: 15%;
-    margin-left: 50px;
-}
-#presentation #image p{
-	display: inline-block;
-}
-#presentation #image p:nth-of-type(1){
-    margin: 0 10px;
-}
-#configuration{
-    width: 15%;
-    height: 35px;
-    line-height: 35px;
-    color: black;
-    text-align: center;
-    background-color: silver;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-size: 12px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-p.off{
-    width: 55%;
-    margin-left: 10px;
-    font-size: 12px;
-    text-align: left;
-    font-style: italic;
-}
-p.on{
-    margin-left: 10px;
-    color: #0EFC0E;
-    font-weight: bold;
-    font-size: 15px;
+.configuration-onglet-wrapper{
+    position:absolute;
+    bottom:-1px;    
+    left:15vw;
 }
 
-#informations div{
-	display: inline-block;
+.configuration-input-default{
+
 }
-#communication, #description, #statistiques{
-	width: 30%;
+
+.configuration-avatar-wrapper{
+    width:250px;
+    height:250px; 
+    padding:15px 0 20px 0;
 }
-#communication button{
-	display: block;
-	margin: 0 auto;
+
+.configuration-avatar{
+    
 }
-#communication button:nth-of-type(1){
-	width: 50%;
-	height: 35px;
-	margin-bottom: 25px;
+
+.configuration-onglet-ul{
+    transform:skew(-8deg);
 }
-#signalement, #signalementnope{
-    background-color: #A03030;
-    color: white;
-    border: 2px dotted red;
-	width: 50%;
-    height: 30px;
-    position: relative;
-    text-align: center;
-    margin: 0 auto;
+
+.configuration-onglet-ul li{
+    cursor:pointer;
+    padding:15px 35px;
+    display:inline-block;    
 }
-#description{
-	margin: auto 3%;
-    padding: 0 10px;
-    vertical-align: top;
+
+.configuration-input-required{
+    color:#D92B4C;
+    position:absolute;
 }
-#description p{
-	padding: 15px;
-    background-color: #3F1C53;
-    font-style: italic;
+
+.configuration-onglet-ul li:hover{
+    background-color:rgba(255,255,255,.3);
+    transition:.3s background-color;
 }
-#statistiques ul{
-	padding-left: 30%;
+
+.configuration-onglet-ul li.active{
+    background:#080325;
 }
-#tableaux{
-	text-align: center;
+
+.classement-content-wrapper{
+  padding:35px;
 }
-#tableaux>div{
-	width: 30%;
-	min-height: 300px;
-	vertical-align: top;
-	display: inline-block;
-	border: 1px solid;
-	background-color: #343452;
-	margin-bottom:20px;
-	padding: 10px 0; 
-	position: relative;
+
+.configuration-form-table{
+    margin-bottom:15px;
 }
-#tableaux img{
-    max-width: 30%;
-    position: absolute;
-    bottom: 20%;
-    z-index: 1;
-    transition: transform 1s;
+
+.configuration-form-table td{
+    padding:20px 25px;      
+    border:1px solid #524c7b;  
 }
-a:nth-of-type(1)>img{
-	left: 2%;
+
+.configuration-form-email div{
+    padding:7px 0;
 }
-a:nth-of-type(2)>img{
-	left: 35%;
+
+.configuration-form-submit{
+    width:200px;
 }
-a:nth-of-type(3)>img{
-	left: 68%;
+
+.configuration-form-td-submit{
+    padding-top:25px !important;
 }
-#tableaux img:hover{
-	z-index: 2;
-	transform: scale(1.25, 1.25);
+
+.configuration-form-menu-tr{
+    font-weight:600;
+    font-size:16px;
 }
-#tableaux div:first-child{
-	float: left;
+
+/* HEADER */
+
+.bg-cover-configuration{
+    /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/tokyo.jpg) center top no-repeat;
+    margin:0;
+    padding:0;
+    -webkit-background-size: cover; 
+    background-size: cover;     
 }
-#tableaux div:last-child{
-	float: right;
+
+.configuration-header-profil-image{
+    width:170px;
 }
-#tableaux li{
-	margin: 10px 0;
+
+.configuration-header-profil-name{
+    font-size:25px;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding:15px;
 }
-#tableaux li a, #tableaux li span{
-	margin:0 5%;
+
+.configuration-header-profil-description, .configuration-header-profil-lastconnexion{
+    font-size:13px;
+    padding:15px;
+    color:rgba(255,255,255,.5);
 }
-#tableaux .win{
-	color: green;
+
+.configuration-header-profil-left{
+    transform:skew(-8deg);
 }
-#tableaux .loo{
-	color: red;
+
+.configuration-header-profil-wrapper{
+    position:relative;
 }
-#formplainte, #formcontact{
-	display: none;
-    position: fixed;
-    top: 25%;
-    background-color: #27073A;
-    width: 50%;
-    left: 25%;
-    height: 200px;
-    color: white;
-    z-index: 5;
-    border: 13px #511071 solid;
-    padding: 20px;
-    font-size: 15px;
+
+.configuration-header-profil-right{
+    position:absolute;
+    right:-170px;
+    width:100%;
+    height:100%;
+    top:0;
+    background:rgba(8,3,37,.4);
 }
-#formplainte textarea, #formcontact textarea{
-    width: 85%;
-    height: 50px;
-    vertical-align: middle;	
+
+.configuration-header-profil-right span{
+    display:block;
 }
-#btn_plainte, #btn_contact{
-	width: 13%;
-    background-color: #352F84;
-    color: white;
-    border: 2px #428D84 solid;
+
+.irhack{
+    left:-15vwpx;
 }

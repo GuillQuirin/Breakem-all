@@ -12,7 +12,91 @@ if(isset($err)){
 }
 else{
 	?>
-	<section id="presentation">
+
+	<section class="middle-height bg-cover-configuration relative">
+
+	<div class="align full-height">
+		<div class="configuration-header-profil-wrapper">
+			<div class="configuration-header-profil-left">
+				<img class="configuration-header-profil-image" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
+
+				<div class="configuration-header-profil-right align">
+					<div class="">
+						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
+						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
+						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Dernière connexion inconnu'; ?></span>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+	 
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+
+	</section>
+
+		<section class="configuration-content-wrapper my-content-wrapper">
+
+		<div class="container m-a content-border classement-container" style="border:none;">
+
+			<div class="row classement-content-row">
+				<div class="grid-md-8">	
+
+					<div class="profil-wrapper profil-match-wrapper">
+						<div class="profil-title profil-match-title">	
+							<span>Dernier Matchs</span>
+						</div>
+						<div class="profil-element profil-match-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-match-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-match-element">	
+							<span>Jeux</span>
+						</div>
+					</div>
+
+					<div class="profil-wrapper profil-tournament-wrapper">
+						<div class="profil-title profil-tournament-title">	
+							<span>Dernier Tournois joués</span>
+						</div>
+						<div class="profil-element profil-tournament-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-tournament-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-tournament-element">	
+							<span>Jeux</span>
+						</div>
+					</div>
+
+					<div class="profil-wrapper profil-games-wrapper">
+						<div class="profil-title profil-games-title">	
+							<span>Jeux favoris</span>
+						</div>
+						<div class="profil-element profil-games-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-games-element">	
+							<span>Jeux</span>
+						</div>
+						<div class="profil-element profil-games-element">	
+							<span>Jeux</span>
+						</div>
+					</div>
+
+				</div>
+				<div class="grid-md-4">
+				
+				</div>
+			</div>				
+		</div>
+
+	</section>
+
+	<!--<section id="presentation">
 		<div id="image">
 			<img src="<?php echo $img; ?>" alt="logo">
 			<p><?php echo $pseudo; ?></p>
@@ -132,4 +216,4 @@ else{
 	</section>
 	<?php
 }
-?>
+?>-->
