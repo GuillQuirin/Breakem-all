@@ -31,7 +31,7 @@
  								echo "X";
  						echo "</td>";
 						echo "<td>
-								<select name='status_".$joueur->getId()."' onChange=setStatut()>
+								<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>
 									<option value='-1'";
 										echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 									echo ">Banni</option>
