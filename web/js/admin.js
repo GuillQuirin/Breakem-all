@@ -126,3 +126,33 @@ $("button[id^='validate-change-']" ).on('click', function() {
 });
 
 
+
+function setStatut(pseudo, value){
+	jQuery.ajax({
+	 	url: "admin/updateUserStatus",
+	 	type: "POST",
+	 	data : "pseudo="+pseudo+"&status="+value,
+
+	 	error: function(result){
+	 		alert("non");
+	 	}
+	});
+}
+
+
+function deleteReport(id){
+	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
+		jQuery.ajax({
+		 	url: "admin/DeleteReports",
+		 	type: "POST",
+		 	data : "id="+id,
+		 	success: function(result){
+		 		alert(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	}
+}
+

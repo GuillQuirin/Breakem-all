@@ -79,24 +79,31 @@ class adminController extends template{
     }
 
     public function updateUserStatusAction(){
-         if(!empty($_POST['status_user'])){
-            $args = array(
-                'status'   => FILTER_VALIDATE_INT
-            );
+        $args = array(
+            'pseudo' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $userBDD = new userManager();
+        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
 
-            /*
-            //EN ATTENTE DES INFOS ENVOYEE DEPUIS LA FONCTION JS SETSTATUS()
-            $filteredinputs = filter_input_array(INPUT_POST, $args);
-            
-            $userBDD = new userManager();
-            $user = $userBDD->getUser(array('pseudo'=>$filteredinputs));
+        $newuser = new user(array('status'=>$filteredinputs['status']));
 
-            $newuser = new user();
-            $newuser->setStatus($filteredinputs['status']);
-
-            $userupdate->setUser($user, $newuser);
-            */    
-        }
+        $userBDD->setUser($user, $newuser);
     }
 
+    public function DeleteReportsAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $reportsBDD = new signalmentsuserManager();
+        $report = $reportsBDD->getReport($filteredinputs['id']);
+
+        $reportsBDD->delReport($report);
+    }
 }

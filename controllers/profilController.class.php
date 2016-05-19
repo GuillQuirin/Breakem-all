@@ -41,7 +41,7 @@ class profilController extends template{
 				{
 					//Si non signalé auparavant
 					$signalement = new signalmentsuserManager();
-					$plainte = $signalement->getReport($this->connectedUser->getId(),$user->getId());
+					$plainte = $signalement->isReport($this->connectedUser->getId(),$user->getId());
 
 					if($plainte != "0")
 						$v->assign('already_signaled',1);
