@@ -68,18 +68,6 @@ function ajaxRequest(url, type, callback){
 	}	
 }
 
-function setStatut(pseudo, value){
-	jQuery.ajax({
-	 	url: "admin/updateUserStatus",
-	 	type: "POST",
-	 	data : "pseudo="+pseudo+"&status="+value,
-
-	 	error: function(result){
-	 		alert("non");
-	 	}
-	});
-}
-
 function adaptMarginToNavHeight(jQel){
 	if(jQel instanceof jQuery){
 		var navHeight = $("#navbar").height();

@@ -1,8 +1,8 @@
 <div class="admin-wrapper" id="admin-onglet-reports-wrapper">
-	<form action="admin/update" method="post" enctype="multipart/form-data">
+	<!-- <form action="admin/update" method="post" enctype="multipart/form-data"> -->
 
 		<?php 			
-			if(is_array($listesignalement)){
+			if(isset($listesignalement) && is_array($listesignalement)){
 			?>							
 				<table class='full-width admin-form-table admin-table report' border='1'>
 				<thead>
@@ -23,7 +23,7 @@
 						echo "<td>".$report->getSubject()."</td>";
 						echo "<td>".$report->getDescription()."</td>";
 						echo "<td>".$report->getDate()."</td>";
-						echo "<td><input class='checkbox input-default' type='checkbox' name='' id=''><label style='color:transparent' for=''></label></td>";						
+						echo "<td><button onclick=deleteReport(".$report->getId().")>Effacer</button></td>";						
 					echo "</tr>";
 				}
 				?>
@@ -37,8 +37,15 @@
 				</tbody>					
 				</table>
 		<?php
+			}
+			else{
+				?>
+
+				<p>Pas de signalements à récupérer</p>
+
+				<?php
 			} 
 		?>		
 
-	</form>	
+	<!-- </form>	 -->
 </div>

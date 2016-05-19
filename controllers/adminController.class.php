@@ -94,4 +94,16 @@ class adminController extends template{
         $userBDD->setUser($user, $newuser);
     }
 
+    public function DeleteReportsAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $reportsBDD = new signalmentsuserManager();
+        $report = $reportsBDD->getReport($filteredinputs['id']);
+
+        $reportsBDD->delReport($report);
+    }
 }
