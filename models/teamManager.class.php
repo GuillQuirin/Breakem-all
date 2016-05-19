@@ -10,10 +10,7 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-<<<<<<< HEAD
-
-=======
-/*	
+<
 	public function create(team $team){	
 	// Check afin de savoir qui appele cette méthode
 		$e = new Exception();
@@ -50,8 +47,7 @@ class teamManager extends basesql{
 		}
 		else
 			header('Location: '.WEBPATH);		
-	}*/
->>>>>>> 6ffa5909b9aa1c2d39f708d77fe56a2d7a6df8a1
+	}
 	
 	/*AJOUT PRESIDENT TEAM*/
 	public function setOwnerTeam(team $t, user $u){

@@ -38,7 +38,7 @@ class teamController extends template{
         $v->assign("listeteam", $listeteam);
      
         $v->setView("team");
-    }
+    }}
 
     /******************* VOIR SI FONCTIONS ENCORE PERTINENTES ***************************/
     private function isFormStringValid($string, $minLen = 4, $maxLen = 25, $optionnalCharsAuthorized = ""){
