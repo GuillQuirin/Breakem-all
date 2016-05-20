@@ -67,8 +67,8 @@ else{
 						<div class="profil-title profil-match-title">	
 							<span>Dernier Matchs</span>
 						</div>
-						<div class="profil-element profil-match-element">	
-							<div class="grid-md-5 profil-match-element-left">
+						<div class="profil-element profil-match-element align">	
+							<div class="profil-match-element-left">
 								<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
 							</div>
 							<div class="grid-md-2 profil-match-element-center">
