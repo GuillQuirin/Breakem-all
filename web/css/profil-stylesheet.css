@@ -1,5 +1,11 @@
-.profil-title{
-    padding:25px 15px;
+.profil-title{    
+    text-align: center;
+    transform:skew(-8deg);    
+}
+
+.profil-title span{
+    background-color:#211d3b;
+    padding: 15px 25px;
 }
 
 .profil-wrapper{
@@ -26,6 +32,18 @@
 
 }
 
+.profil-match-element-left{
+    transform:skew(-8deg);
+}
+
+.profil-match-element-center{
+
+}
+
+.profil-match-element-right{
+    transform:skew(-8deg);
+}
+
 .profil-games-title{
 
 }
@@ -39,7 +57,11 @@
 }
 
 .profil-match-element{
+    text-align: center;
+}
 
+.profil-menu-hori-ul{    
+    margin: 20px 0 40px 40px;
 }
 
 /* HEIGHT RESET*/

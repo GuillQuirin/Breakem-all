@@ -42,21 +42,45 @@ else{
 			<div class="row classement-content-row">
 				<div class="grid-md-8">	
 
+					<!-- Navbar hori -->
+					<div class="menu_hori">
+						<ul class="profil-menu-hori-ul">
+							<nav class="nav_hori">
+								<ul>
+									<!-- Liste des types de game -->
+									<?php //echo $typeJeux; ?>
+								 	<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+									<li class="border_menu menu_separ"><a href="#">Solo</a></li>
+									<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
+									<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
+									<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
+								</ul>
+							</nav>
+							
+						</ul>
+					</div>
+					<!-- Fin navbar hori -->
+
+
+					<!-- Dernier match -->
 					<div class="profil-wrapper profil-match-wrapper">
 						<div class="profil-title profil-match-title">	
 							<span>Dernier Matchs</span>
 						</div>
 						<div class="profil-element profil-match-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-match-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-match-element">	
-							<span>Jeux</span>
-						</div>
+							<div class="grid-md-5 profil-match-element-left">
+								<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+							</div>
+							<div class="grid-md-2 profil-match-element-center">
+							</div>
+							<div class="grid-md-5 profil-match-element-right">
+								<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+							</div>
+						</div>						
 					</div>
+					<!-- Fin Dernier match -->
 
+					<!-- Dernier tournoi -->
 					<div class="profil-wrapper profil-tournament-wrapper">
 						<div class="profil-title profil-tournament-title">	
 							<span>Dernier Tournois joués</span>
@@ -71,7 +95,9 @@ else{
 							<span>Jeux</span>
 						</div>
 					</div>
+					<!-- Fin Dernier tournoi -->
 
+					<!-- Jeux favoris -->
 					<div class="profil-wrapper profil-games-wrapper">
 						<div class="profil-title profil-games-title">	
 							<span>Jeux favoris</span>
@@ -86,6 +112,7 @@ else{
 							<span>Jeux</span>
 						</div>
 					</div>
+					<!-- Fin Jeux favoris -->
 
 				</div>
 				<div class="grid-md-4">
