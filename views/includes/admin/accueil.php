@@ -28,15 +28,19 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			</li>
 			<!--
 			--><li class="admin-onglet-li" id="admin-onglet-games">		
-				<a>Games</a>
+				<a>Jeux</a>
+			</li>
+			<!--
+			--><li class="admin-onglet-li" id="admin-onglet-gametype">		
+				<a>Types de jeu</a>
 			</li>
 			<!--
 			--><li class="admin-onglet-li" id="admin-onglet-comment">		
-				<a>Comments</a>
+				<a>Commentaires</a>
 			</li>
 			<!--
 			--><li class="admin-onglet-li" id="admin-onglet-tournament">		
-				<a>Tournaments</a>
+				<a>Tournois</a>
 			</li>
 		</ul>
 	</div>
@@ -67,6 +71,10 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<!-- Team -->
 					<?php include "team.php"; ?>	
 					<!-- Fin Team -->
+
+					<!-- Gametype -->
+					<?php include "gametype.php"; ?>	
+					<!-- Fin Gametype -->
 				</div>
 			</div>				
 		</div>

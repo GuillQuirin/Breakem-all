@@ -13,15 +13,28 @@ var onglet = {
 		onglet.setAdminOngletMembres();
 		onglet.setAdminOngletReports();
 		onglet.setAdminOngletTeams();
+		onglet.setAdminOngletGames();
+		onglet.setAdminOngletGametype();
+		onglet.setAdminOngletComment();
+		onglet.setAdminOngletTournament();
+
 		onglet.setAdminPlatformsWrapper();
 		onglet.setAdminMembresWrapper();
 		onglet.setAdminReportsWrapper();
 		onglet.setAdminTeamsWrapper();
+		onglet.setAdminGameWrapper();
+		onglet.setAdminGametypeWrapper();
+		onglet.setAdminCommentWrapper();
+		onglet.setAdminTournamentWrapper();
 
 		onglet.onClick(onglet.getAdminOngletPlatforms(), onglet.getAdminPlatformsWrapper());
 		onglet.onClick(onglet.getAdminOngletMembres(), onglet.getAdminMembresWrapper());
 		onglet.onClick(onglet.getAdminOngletReports(), onglet.getAdminReportsWrapper());
 		onglet.onClick(onglet.getAdminOngletTeams(), onglet.getAdminTeamsWrapper());
+		onglet.onClick(onglet.getAdminOngletGame(), onglet.getAdminGameWrapper());
+		onglet.onClick(onglet.getAdminOngletGametype(), onglet.getAdminGametypeWrapper());
+		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
+		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 	},
 
 	//Setter
@@ -37,6 +50,21 @@ var onglet = {
 	setAdminOngletTeams : function(){
 		this._adminOngletTeams = jQuery('#admin-onglet-team');
 	},
+	setAdminOngletGames : function(){
+		this._adminOngletGames = jQuery('#admin-onglet-games');
+	},
+	setAdminOngletGametype : function(){
+		this._adminOngletGametype = jQuery('#admin-onglet-gametype');
+	},
+	setAdminOngletComment : function(){
+		this._adminOngletComment = jQuery('#admin-onglet-comment');
+	},
+	setAdminOngletTournament : function(){
+		this._adminOngletTournament = jQuery('#admin-onglet-tournament');
+	},
+
+
+
 	setAdminPlatformsWrapper : function(){
 		this._adminPlatformsWrapper = jQuery("#admin-onglet-platforms-wrapper");
 	},
@@ -49,6 +77,20 @@ var onglet = {
 	setAdminTeamsWrapper : function(){
 		this._adminTeamsWrapper = jQuery("#admin-onglet-team-wrapper");
 	},
+	setAdminGameWrapper : function(){
+		this._adminGamesWrapper = jQuery("#admin-onglet-games-wrapper");
+	},
+	setAdminGametypeWrapper : function(){
+		this._adminTeamsWrapper = jQuery("#admin-onglet-gametype-wrapper");
+	},
+	setAdminCommentWrapper : function(){
+		this._adminTeamsWrapper = jQuery("#admin-onglet-comment-wrapper");
+	},
+	setAdminTournamentWrapper : function(){
+		this._adminTeamsWrapper = jQuery("#admin-onglet-tournament-wrapper");
+	},
+
+
 
 	//Getter
 	getAdminOngletPlatforms : function(){
@@ -63,6 +105,22 @@ var onglet = {
 	getAdminOngletTeams : function(){
 		return this._adminOngletTeams;
 	},
+	getAdminOngletGame : function(){
+		return this._adminOngletGames;
+	},
+	getAdminOngletGametype : function(){
+		return this._adminOngletGametype;
+	},
+	getAdminOngletComment : function(){
+		return this._adminOngletComment;
+	},
+	getAdminOngletTournament : function(){
+		return this._adminOngletTournament;
+	},
+
+
+
+
 	getAdminPlatformsWrapper : function(){
 		return this._adminPlatformsWrapper;
 	},
@@ -75,6 +133,20 @@ var onglet = {
 	getAdminTeamsWrapper : function(){
 		return this._adminTeamsWrapper;
 	},
+	getAdminGameWrapper : function(){
+		return this._adminGamesWrapper;
+	},
+	getAdminGametypeWrapper : function(){
+		return this._adminGametypeWrapper;
+	},
+	getAdminCommentWrapper : function(){
+		return this._adminCommentWrapper;
+	},
+	getAdminTournamentWrapper : function(){
+		return this._adminTournamentWrapper;
+	},
+
+
 
 	onClick : function(btnClick, ongletSelector){
 		btnClick.click(function(){
