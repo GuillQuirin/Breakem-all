@@ -71,9 +71,10 @@ else{
 							<div class="profil-match-element-left">
 								<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
 							</div>
-							<div class="grid-md-2 profil-match-element-center">
+							<div class="profil-match-element-center">
+								<span style="font-size:45px;">VS</span>
 							</div>
-							<div class="grid-md-5 profil-match-element-right">
+							<div class="profil-match-element-right">
 								<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
 							</div>
 						</div>						

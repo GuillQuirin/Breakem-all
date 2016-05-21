@@ -34,14 +34,17 @@
 
 .profil-match-element-left{
     transform:skew(-8deg);
+    padding:0 15px;
 }
 
 .profil-match-element-center{
-
+    text-align: center;
+    padding:0 15px;
 }
 
 .profil-match-element-right{
     transform:skew(-8deg);
+    padding:0 15px;
 }
 
 .profil-games-title{
