@@ -23,19 +23,38 @@ else{
     <div style="margin-top:100px"class="inscription_team">
         Nom de la team : <?php echo $nameteam; ?><br>
         Nombre de membre : <br>
-        Slogan : <?php echo $sloganteam; ?> <br>
-        Description : <?php echo $descripteam; echo $_idTeam; ?><br>
-
-       
-            <button id='action-user-team' type='submit' class='btn btn-pink'>
-                 <?php 
-                    if(isset($_idTeam) && $_idTeam == 0){
-                        echo "<a>Rejoindre la guide !</a>";
-                    }elseif($_idTeam == $idteam) {
-                        echo "<a>Quitter la guilde !</a>";
-                    } ?> 
-            </button>      
         
+        <?php 
+            if(isset($idcreator) && $idcreator == $_id){ ?>
+                <form action="detailteam/updateTeam" method="POST" >
+                    Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
+                    Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
+                    <input type="submit">
+                 </form>
+      <?php }else{ ?>
+                Slogan : <?php echo $descripteam; ?>
+                Description : <?php echo $descripteam; ?>
+      <?php } ?>
+       
+
+        <form action="detailteam/updateUserTeam" method="POST">  
+            <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
+            <?php 
+                if(!empty($_idTeam)){
+                    if($_idTeam == $idteam) { ?>
+                        <button name='action-team-exit' type='submit' class='btn btn-pink'>
+                            <a>Quitter la Team !</a>
+                        </button>
+                    <?php
+                    }else{
+                        echo "Vous faites déjà parti de la team ".$nameUserTeam;
+                    } 
+                }else{ ?>
+                    <button name='action-team-rejoin' type='submit' class='btn btn-pink'>
+                        <a>Rejoindre la Team !</a>
+                    </button>
+            <?php } ?>     
+        </form>
     </div>
     <section class="classement-content-wrapper  align full-height" id ="onglet">
 

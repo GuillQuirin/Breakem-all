@@ -32,6 +32,13 @@ class template{
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
+      $teamBBD = new teamManager();
+
+      if(!empty($this->connectedUser->getIdTeam())){
+        $team = $teamBBD->getTeam(['id'=>$this->connectedUser->getIdTeam()]);   
+        $v->assign("_nameTeam",$team->getName());
+      }
+
       if($this->isAdmin()){
         $v->assign("_isAdmin", 1);
       }
