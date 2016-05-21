@@ -38,6 +38,8 @@ final class tournament{
 	protected $_pName;
 	protected $_pDescription;
 	protected $_pImg;
+	// Données provenant de user (nécessite un inner / outer join)
+	protected $_userPseudo;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -52,45 +54,107 @@ final class tournament{
 		}
 	}
 
-	private function setId($v){$this->_id = $v;}
-	private function setStartDate($v){$this->_startDate = $v;}
-	private function setEndDate($v){$this->_endDate = $v;}
-	private function setName($v){$this->_name = trim($v);}
-	private function setDescription($v){$this->_description = trim($v);}
-	private function setTypeTournament($v){$this->_typeTournament = $v;}
-	private function setStatus($v){$this->_status = $v;}
-	private function setNbMatch($v){$this->_nbMatch = $v;}
-	private function setIdUserCreator($v){$this->_idUserCreator = $v;}
-	private function setIdGameVersion($v){$this->_idGameVersion = $v;}
-	private function setIdWinningTeam($v){$this->_idWinningTeam = $v;}
-	private function setUrlProof($v){$this->_urlProof = $v;}
-	private function setCreationDate($v){$this->_creationDate = $v;}
-	private function setGuildOnly($v){$this->_guildOnly = (int) $v;}
-	private function setRandomPlayerMix($v){$this->_randomPlayerMix = (int) $v;}
-	private function setLink($v){$this->_link = $v;}
+	private function setId($v){
+		$this->_id = $v;
+	}
+	private function setStartDate($v){
+		$this->_startDate = $v;
+	}
+	private function setEndDate($v){
+		$this->_endDate = $v;
+	}
+	private function setName($v){
+		$this->_name = trim($v);
+	}
+	private function setDescription($v){
+		$this->_description = trim($v);
+	}
+	private function setTypeTournament($v){
+		$this->_typeTournament = $v;
+	}
+	private function setStatus($v){
+		$this->_status = $v;
+	}
+	private function setNbMatch($v){
+		$this->_nbMatch = $v;
+	}
+	private function setIdUserCreator($v){
+		$this->_idUserCreator = $v;
+	}
+	private function setIdGameVersion($v){
+		$this->_idGameVersion = $v;
+	}
+	private function setIdWinningTeam($v){
+		$this->_idWinningTeam = $v;
+	}
+	private function setUrlProof($v){
+		$this->_urlProof = $v;
+	}
+	private function setCreationDate($v){
+		$this->_creationDate = $v;
+	}
+	private function setGuildOnly($v){
+		$this->_guildOnly = (int) $v;
+	}
+	private function setRandomPlayerMix($v){
+		$this->_randomPlayerMix = (int) $v;
+	}
+	private function setLink($v){
+		$this->_link = $v;
+	}
 	// Setters de données issues de gameversion
-	private function setMaxPlayer($v){$this->_maxPlayer = $v;}
-	private function setMaxTeam($v){$this->_maxTeam = $v;}
-	private function setMaxPlayerPerTeam($v){$this->_maxPlayerPerTeam = $v;}
-	private function setGvName($v){$this->_gvName = $v;}
-	private function setGvDescription($v){$this->_gvDescription = $v;}
+	private function setMaxPlayer($v){
+		$this->_maxPlayer = $v;
+	}
+	private function setMaxTeam($v){
+		$this->_maxTeam = $v;
+	}
+	private function setMaxPlayerPerTeam($v){
+		$this->_maxPlayerPerTeam = $v;
+	}
+	private function setGvName($v){
+		$this->_gvName = $v;
+	}
+	private function setGvDescription($v){
+		$this->_gvDescription = $v;
+	}
 	// Setters de données issues de game
-	private function setGameId($v){$this->_gameId = $v;}
-	private function setGameName($v){$this->_gameName = $v;}
-	private function setGameDescription($v){$this->_gameDescription = $v;}
+	private function setGameId($v){
+		$this->_gameId = $v;
+	}
+	private function setGameName($v){
+		$this->_gameName = $v;
+	}
+	private function setGameDescription($v){
+		$this->_gameDescription = $v;
+	}
 	private function setGameImg($v){
 		if(strlen(trim($v)) > 0)
 			$this->_gameImg = "web/img/".$v;
 	}
-	private function setGameYear($v){$this->_gameYear = $v;}
-	private function setGtId($v){$this->_gtId = $v;}
+	private function setGameYear($v){
+		$this->_gameYear = $v;
+	}
+	private function setGtId($v){
+		$this->_gtId = $v;
+	}
 	// Setters de données issues de platform
-	private function setPId($v){$this->_pId = $v;}
-	private function setPName($v){$this->_pName = $v;}
-	private function setPDescription($v){$this->_pDescription = $v;}
+	private function setPId($v){
+		$this->_pId = $v;
+	}
+	private function setPName($v){
+		$this->_pName = $v;
+	}
+	private function setPDescription($v){
+		$this->_pDescription = $v;
+	}
 	private function setPImg($v){
 		if(strlen(trim($v)) > 0)
 			$this->_pImg = "web/img/".$v;
+	}
+	// Getters de données issues de user
+	private function setUserPseudo($v){
+		$this->_userPseudo = $v;
 	}
 
 
@@ -129,6 +193,8 @@ final class tournament{
 	public function getPName(){return $this->_pName;}
 	public function getPDescription(){return $this->_pDescription;}
 	public function getPImg(){return $this->_pImg;}
+	// Getters de données issues de user
+	public function getUserPseudo(){return $this->_userPseudo;}
 }
 /*
 *
