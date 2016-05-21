@@ -17,7 +17,7 @@ class platformManager extends basesql{
 
 	//Admin Plateforme 
 	public function getListPlatform(){
-		$sql = "SELECT id, name, description, img FROM platform ORDER BY name ASC";
+		$sql = "SELECT id, name, description, img FROM " . $this->table . " ORDER BY name ASC";
 		
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();

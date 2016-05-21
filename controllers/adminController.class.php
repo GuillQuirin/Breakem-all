@@ -75,4 +75,33 @@ class adminController extends template{
 
        header('Location: '.WEBPATH.'/admin');
     }
+
+    public function updateUserStatusAction(){
+        $args = array(
+            'pseudo' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $userBDD = new userManager();
+        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
+
+        $newuser = new user(array('status'=>$filteredinputs['status']));
+
+        $userBDD->setUser($user, $newuser);
+    }
+
+    public function DeleteReportsAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $reportsBDD = new signalmentsuserManager();
+        $report = $reportsBDD->getReport($filteredinputs['id']);
+
+        $reportsBDD->delReport($report);
+    }
 }
