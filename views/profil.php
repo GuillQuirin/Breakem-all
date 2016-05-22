@@ -67,18 +67,25 @@ else{
 						<div class="profil-title profil-match-title">	
 							<span>Dernier Matchs</span>
 						</div>
-						<div class="profil-element profil-match-element align">	
-							<div class="profil-match-element-left">
-								<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-							</div>
-							<div class="profil-match-element-center">
-								<span style="font-size:45px;">VS</span>
-							</div>
-							<div class="profil-match-element-right">
-								<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-							</div>
-						</div>						
-					</div>
+						<div class="profil-match-wrapper-this">
+							<div class="profil-element profil-match-element align">	
+								<div class="profil-match-element-left">
+									<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+									<span class="profil-match-element-title-this winner-color">Navi</span>
+								</div>
+								<div class="profil-match-element-center">
+									<span>VS</span>
+								</div>
+								<div class="profil-match-element-right">
+									<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+									<span class="profil-match-element-title-this looser-color">Fnatic</span>
+								</div>
+							</div>		
+							<div class="profil-watch">
+								<button type="button" class="btn btn-pink"><a>Regarder</a></button>
+							</div>				
+						</div>
+						
 					<!-- Fin Dernier match -->
 
 					<!-- Dernier tournoi -->
@@ -86,43 +93,177 @@ else{
 						<div class="profil-title profil-tournament-title">	
 							<span>Dernier Tournois joués</span>
 						</div>
-						<div class="profil-element profil-tournament-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<span>Jeux</span>
+						<div class="text-center align">
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
+								<span class="profil-match-element-title-this">Heroes of the Storm</span>
+							</div>
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/rocket.jpeg">';?>
+								<span class="profil-match-element-title-this">Rocket League</span>
+							</div>
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/ssb-bg.jpg">';?>
+								<span class="profil-match-element-title-this">Super Smash Bros</span>
+							</div>
 						</div>
 					</div>
 					<!-- Fin Dernier tournoi -->
 
 					<!-- Jeux favoris -->
-					<div class="profil-wrapper profil-games-wrapper">
-						<div class="profil-title profil-games-title">	
-							<span>Jeux favoris</span>
+					<div class="profil-wrapper profil-tournament-wrapper">
+						<div class="profil-title profil-tournament-title">	
+							<span>Mes Jeux favoris</span>
 						</div>
-						<div class="profil-element profil-games-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-games-element">	
-							<span>Jeux</span>
-						</div>
-						<div class="profil-element profil-games-element">	
-							<span>Jeux</span>
+						<div class="text-center align">
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
+								<span class="profil-match-element-title-this">Heroes of the Storm</span>
+							</div>
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/lol-bg.jpg">';?>
+								<span class="profil-match-element-title-this">League of Legends</span>
+							</div>
+							<div class="profil-element profil-tournament-element">	
+								<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/mk.jpg">';?>
+								<span class="profil-match-element-title-this">Mario Kart</span>
+							</div>
 						</div>
 					</div>
 					<!-- Fin Jeux favoris -->
 
-				</div>
-				<div class="grid-md-4">
-				
-				</div>
+				</div>							
 			</div>				
+			<div class="grid-md-4">
+				<div id="contain_right">
+
+			<div id="contain_search">
+				<label for="search">Rechercher :</label>
+			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
+			</div>
+
+			<div class="title_index">
+				<label for="title1">Prochain match</label>
+			</div>
+			<div class="fight">
+
+				<!-- Match à venir -->
+				<?php //echo $fight; ?>
+				<h3>ESL</h3>
+				<p class="date_fight">1er Avril 2016, 17h00</p>
+				<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+				<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+				<div class="name_fight">
+					<ul>
+						<li>Navi</li>
+						<li>Fnatic</li>
+					</ul>
+				</div>
+			</div>
+			<div class="tab">
+				<ul>
+					<nav class="tab_hori">
+						<ul>
+							<!-- Liste des jeux -->
+							<?php //echo $Jeux; ?>
+							<li class=" active_tab"><a href="#">Tous</a></li>
+							<li class=""><a href="#">HOT</a></li>
+							<li class=""><a href="#">DOTA2</a></li>
+							<li class=""><a href="#">LoL</a></li>
+						</ul>
+					</nav>
+				</ul>
+			</div>
+
+			<!-- Liste des matchs -->
+			<div id="match">
+				<?php //echo $listematchs; ?>
+				<div id="match1" class="margin_match">
+					<div class="statut">En cours</div>
+					<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					<div class="versus">VS</div>
+					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					<p class="date_match">20 Janvier 2016, 20h00</p>
+					<hr>
+				</div>
+				<div id="match2" class="margin_match">
+					<div class="statut">A venir</div>
+					<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					<div class="versus">VS</div>
+					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
+					<p class="date_match">20 Janvier 2016, 20h00</p>
+					<hr>
+				</div>
+				<div id="match3" class="margin_match">
+					<div class="statut">30 : 90</div>
+					<?php echo '<img src="' . WEBPATH . '/web/img/ehome.jpg">';?>
+					<div class="versus">VS</div>
+					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
+					<p class="date_match">20 Janvier 2016, 20h00</p>
+					<hr>
+				</div>
+				<div id="match4" class="margin_match">
+					<div class="statut">60 : 90</div>
+					<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+					<div class="versus">VS</div>
+					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/virtus.jpg">';?>
+					<p class="date_match">20 Janvier 2016, 20h00</p>
+					<hr>
+				</div>
+				<div id="match5" class="margin_match">
+					<div class="statut">120 : 10</div>
+					<?php echo '<img src="' . WEBPATH . '/web/img/virtus.jpg">';?>
+					<div class="versus">VS</div>
+					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
+					<p class="date_match">20 Janvier 2016, 20h00</p>
+					<hr>
+				</div>
+			</div>
+			
+			<!-- Classement des 3 premiers jeux -->
+			<div id="game">
+				<div class="title_index">
+					<label for="title2">Jeux les plus utlisés</label>
+				</div>
+				<?php 
+					if(isset($bestGames)):
+						foreach ($bestGames as $key => $value):
+				?>			
+							<div class='game'><img src="echo .WEBPATH. '/web/img/band.jpg'">
+								<p><?php echo $value['name']; ?></p>
+							</div>
+				<?php
+						endforeach;
+					endif;
+				?>
+			</div>
+
+			<!-- Liste des catégories  -->
+			<div id="categorie">
+				<div class="title_index">
+					<label for="title3">Catégories</label>
+				</div>
+				<?php
+					// if(isset($categorie)): 
+					// 	foreach ($categorie as $key => $value):
+					// 		$catego = new typegame($value);
+				?>
+							<div class='categorie'>
+								<p><?php// echo $catego->getName(); ?></p><br>
+							</div>
+				<?php 
+					// 	endforeach;
+					// endif;
+				?>
+			</div>
+		</div>
+	</div>
+			</div>
 		</div>
 
 	</section>
+
+<!-- CODE BACK GUILLAUME -->
 
 	<!--<section id="presentation">
 		<div id="image">

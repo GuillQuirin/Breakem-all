@@ -43,3 +43,11 @@
 .title-4{
 	font-size: 21px;
 }
+
+.winner-color{
+	color:green;
+}
+
+.looser-color{
+	color:red;
+}

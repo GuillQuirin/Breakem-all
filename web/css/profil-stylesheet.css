@@ -1,11 +1,8 @@
 .profil-title{    
     text-align: center;
     transform:skew(-8deg);    
-}
-
-.profil-title span{
-    background-color:#211d3b;
     padding: 15px 25px;
+    background-color:#211d3b;       
 }
 
 .profil-wrapper{
@@ -16,8 +13,15 @@
     padding:25px 15px;
 }
 
-.profil-tournament-wrapper{
 
+.profil-match-element-title-this{
+    display:block;
+    bottom:0;
+    padding-top:25px;
+}
+
+.profil-tournament-wrapper{
+    padding-top:15px;
 }
 
 .profil-games-wrapper{
@@ -35,16 +39,31 @@
 .profil-match-element-left{
     transform:skew(-8deg);
     padding:0 15px;
+    position:relative;
+}
+
+.profil-watch{
+    text-align: center;
+}
+
+.profil-watch button{
+    width:150px;    
+    margin-bottom:15px;
 }
 
 .profil-match-element-center{
-    text-align: center;
-    padding:0 15px;
+    text-align: center;    
+    padding-bottom:25px;
+}
+
+.profil-match-element-center span{
+    font-size:45px;    
 }
 
 .profil-match-element-right{
     transform:skew(-8deg);
     padding:0 15px;
+    position:relative;
 }
 
 .profil-games-title{
@@ -56,15 +75,24 @@
 }
 
 .profil-tournament-element{
-
+    width:180px;
+    height:180px;
+    display:inline-block;
+    transform:skew(-8deg);    
 }
 
 .profil-match-element{
     text-align: center;
 }
 
+.profil-match-element img{
+    width:150px;
+    height:150px;
+    vertical-align: middle;
+}
+
 .profil-menu-hori-ul{    
-    margin: 20px 0 40px 40px;
+    margin: 20px 0 20px 40px;
 }
 
 /* HEIGHT RESET*/
@@ -205,3 +233,134 @@ body, html{
 .irhack{
     left:-15vwpx;
 }
+
+/*Contenu de la page à droite : recherche, match...*/
+#contain_right{
+    float:right;
+    width:240px;
+    margin-right:8%;
+}
+
+#contain_search{
+    margin-top:40px;
+    text-align: right;
+}
+input[name="search"]{
+    text-align: end;
+}
+.title_index{
+    width:88%;
+    padding:10px;
+    text-align: right;
+    background-color: #211d3b;
+    transform: skew(-8deg);
+}
+.title_index,label[for='title1']{
+    margin-top:50px;
+}
+.fight{
+    width:100%;
+    text-align: center;
+    margin-top:20px;
+    cursor:pointer;
+}
+.fight:hover h3{
+    color:#d92b4c;
+    transition: .4s;
+}
+.fight img{
+    width:80px;
+    transform: skew(-8deg);
+    margin-top:20px;
+    margin-right:9px;
+    margin-left:9px;
+}
+.fight .date_fight{
+    font-size:12px;
+    color:#6f686e;
+    margin-top:15px;
+}
+.name_fight li{
+    padding:20px;
+    display:inline-block;
+    width:58px;
+}
+.name_fight ul{
+    text-align: center;
+}
+.tab{
+    margin-top:15px;
+    border-bottom:1px solid #201c3a;
+    font-size:13px;
+}
+#match{
+    width:100%;
+    font-size:12px;
+}
+.margin_match{
+    margin-top:25px;
+    cursor: pointer;
+}
+#match img{
+    width:50px;
+    transform: skew(-8deg);
+}
+#match img[name="img2"]{
+    margin-left:22px;
+}
+.statut{
+    width:auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 25px;
+    transform: skew(-8deg);
+    float:right;
+    background-color: #201c3a;
+}
+.date_match{
+    float:right;
+    color:#6f686e;
+    margin-top:10px;
+}
+.versus{
+    position: absolute;
+    margin-left: 55px;
+    margin-top: -32px;
+}
+hr{
+    color:#201c3a;
+    background-color: #201c3a;
+    border:0;
+    height:1px;
+    margin:-0.5em 0;
+    padding: 0;
+    margin-top:35px;
+}
+.game{
+    margin-top:20px;
+}
+.game img{
+    width:80px;
+    transform: skew(-8deg);
+    cursor:pointer;
+}
+.game p{
+    position: absolute;
+    margin-left: 90px;
+    margin-top: -40px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.categorie{
+    margin-top: 20px;
+}
+.categorie p{
+    text-decoration: underline;
+    cursor: pointer;
+    float:right;
+    font-size: 13px;
+    margin-right:15px;
+}
+
+
