@@ -3,14 +3,18 @@
 		<aside class="ta-center relative">
 			<img src="<?php echo $tournoi->getGameImg();?>" alt="Battlefield 3">
 			<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
-			<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-				<div class="relative ta-right">
-					<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Rejoindre</a></button>
-				</div>
-			<?php else: ?>
-				<div class="relative ta-right">
-					<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Gérer</a></button>
-				</div>
+			<?php if(isset($_isConnected)): ?>
+				<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
+					<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
+						<div class="relative ta-right">
+							<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Rejoindre</a></button>
+						</div>
+					<?php endif; ?>
+				<?php else: ?>
+					<div class="relative ta-right">
+						<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Gérer</a></button>
+					</div>
+				<?php endif; ?>
 			<?php endif; ?>
 		</aside>
 		<article>
@@ -37,6 +41,14 @@
 					 	?>						
 						<i class="absolute ta-center lowercase"><?php echo $tournoi->getGvDescription(); ?>
 						</i>
+					</span>
+				</p>
+				<?php $restant = (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered();?>
+				<p class="relative detailtournoi-jeu-mode capitalize <?php if($restant > 0) echo 'place-a-prendre'; else echo 'aucune-place-restante'; ?>">places restantes:
+					<span class="relative">
+						<?php 
+						echo $restant;
+					 	?>
 					</span>
 				</p>
 				<p class="relative detailtournoi-points-gagnants">À gagner : 
@@ -167,7 +179,7 @@
 	<!-- <section class="detailtournoi-bracket">
 		<h2 class="titre2">Resultats des rounds - Bracket</h2>
 	</section> -->
-	<section class="detailtournoi-commentaires flex-row">
+	<!-- <section class="detailtournoi-commentaires flex-row">
 		<h2 class='titre2'>Commentaires</h2>
 		<div class="detailtournoi-container-commentaires">
 			<div class="relative detailtournoi-commentaire">
@@ -245,5 +257,5 @@
 				</form>
 			</div>
 		</div>
-	</section>
+	</section> -->
 <?php endif; ?>

@@ -36,13 +36,12 @@ body {
 		left: 0;
 	}
 	.detailtournoi-infos .detailtournoi-btn-inscription{
-		height: 6vh;
-		width: 15vh;
+		/*height: 6vh;*/
+		width: 140px;
 		display: block;
 		vertical-align: middle;
-		transition: background .4s, border .4s;
 		margin: 0 auto;
-		margin-top: 2vh;
+		margin-top: 20px;
 	}
 	.detailtournoi-infos .tablette-only{
 		display: none;
@@ -108,6 +107,12 @@ body {
 	}
 
 /* ################## JOUEURS PARTICIPANTS ################### */
+	p.place-a-prendre{
+		background: rgba(0, 102, 0, .3);
+	}
+	p.aucune-place-restante{
+		background: #D92B4C;
+	}
 	.detailtournoi-participants{
 		width: 90%;
 		margin: 0 auto;
