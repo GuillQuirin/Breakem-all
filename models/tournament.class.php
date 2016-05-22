@@ -40,6 +40,8 @@ final class tournament{
 	protected $_pImg;
 	// Données provenant de user (nécessite un inner / outer join)
 	protected $_userPseudo;
+	// Données provenant de register
+	protected $_numberRegistered;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -152,11 +154,14 @@ final class tournament{
 		if(strlen(trim($v)) > 0)
 			$this->_pImg = "web/img/".$v;
 	}
-	// Getters de données issues de user
+	// Setters de données issues de user
 	private function setUserPseudo($v){
 		$this->_userPseudo = $v;
 	}
-
+	// Setters de données issues de register
+	private function setNumberRegistered($v){
+		$this->_numberRegistered = (int) $v;
+	}
 
 
 	public function getId(){return $this->_id;}
@@ -195,6 +200,8 @@ final class tournament{
 	public function getPImg(){return $this->_pImg;}
 	// Getters de données issues de user
 	public function getUserPseudo(){return $this->_userPseudo;}
+	// Getters de données issues de register
+	public function getNumberRegistered(){return $this->_numberRegistered ;}
 }
 /*
 *

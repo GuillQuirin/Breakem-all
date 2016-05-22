@@ -245,10 +245,30 @@ class creationtournoiController extends template{
 			$tm = new tournamentManager();
 			$tm->mirrorObject = $tournoi;
 			$tm->create();
-			unset($tm);
+			// on recupere toutes les infos du tournoi tout juste créé
+			$dbTournoi = $tm->getTournamentWithLink($tournoi->getLink());
+
+			// on crée toutes les lignes teamtournament correspondant à maxTeam
+			$ttm = new teamtournamentManager();
+			$ttm->createTournamentTeams($dbTournoi);
+			// On recupere la premiere teamtournament du tournoi
+			$firstTournamentTeam = $ttm->getFirstTeamTournament($dbTournoi);
+
+			// creer le createur ds la premiere equipe de register
+			$register = new register([
+					'status' => 2,
+					'idTeamTournament' => $firstTournamentTeam->getId(),
+					'idUser' => $this->connectedUser->getId(),
+					'idTournament' => $dbTournoi->getId()
+				]);
+			$rm = new registerManager();
+			$rm->mirrorObject = $register;
+			$rm->create();			
+
+			unset($tm, $ttm, $rm);
 			$this->destroyCreationSession();
-			// Il faudrait idealement recuperer le lien vers le tournoi nouvellement créé ici et le renvoyer vers le client pour qu'il y soit directement redirigé
-			echo json_encode(["success" => WEBPATH.'/tournoi?t='.$tournoi->getLink()]);
+			// On recupere le lien du tournoi pour rediriger le createur vers la page (ac du js)
+			echo json_encode(["success" => WEBPATH.'/tournoi?t='.$dbTournoi->getLink()]);
 			exit;
 		}
 	}
