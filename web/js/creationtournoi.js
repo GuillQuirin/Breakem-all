@@ -660,7 +660,6 @@ var gameversionChoice = {
 };
 var validateChoices = {
 	init: function(data, formToDel){
-		console.log(data);
 		formToDel.remove();
 		$('html, body').animate({
 			scrollTop: 0
