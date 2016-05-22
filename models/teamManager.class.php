@@ -114,8 +114,56 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+	//UPDATE LE SLOGAN ET DESCRIPTION DE LA TEAM DANS L'ADMIN
+	public function updateTeam(team $t){
+		$sql = "UPDATE team SET slogan = :slogan, description = :description WHERE id= :id";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':slogan' => $t->getSlogan(),
+			':description' => $t->getDescription(),
+			':id' => $t->getId()
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
+	}
+	/*MODIFICATION USER*/
+	public function setTeam(team $u, team $newteam){
+		$data = [];
+
+		foreach (get_class_methods($newteam) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = $newteam->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
+
+		$compteur=0;
+
+		$sql = "UPDATE ".$this->table." SET ";
+			foreach ($data as $key => $value) {
+				if($compteur!=0) 
+					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
+			}
+		$sql.=" WHERE id=:id";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
+			$query->bindParam(':'.$key, $value);
+	
+		$id = $u->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		$query->execute();
+	}
+
 	/*RECUPERATION TEAM*/
-	/* utilisez les miroirs svpppp getTeam(team $t)*/
 	public function getTeam(array $infos){
 
 		//tab[name]='Test'
@@ -136,7 +184,7 @@ class teamManager extends basesql{
 				$where.= ' AND ';
 		}
 
-		$sql = "SELECT id, name, img, slogan, description, status 
+		$sql = "SELECT id, id_user_creator, name, img, slogan, description, status 
 					FROM team 
 					WHERE ".$where;
 

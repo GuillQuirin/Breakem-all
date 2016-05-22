@@ -12,45 +12,42 @@ class detailteamController extends template{
 		$v->setView("detailteam");
 
 		//Si un paramètre GET portant le nom d'une team dans l'URL
-        if(isset($_GET['name'])){
+        if(isset($_GET['name']) && $this->getConnectedUser()){
             $name = $_GET['name'];
             $v->assign("title", "Team - ".$name);
             $v->assign("content", "Team - ".$name);
 
-            /*
-                Initialisation du manager qui va faire office d'intermediaire entre 
-                le controlleur et la BDD
-            */
+            //La team courante
             $teamBDD = new teamManager();
 
-            /*
-                Tout élèment (créé par l'utilisateur ou récupéré de la BDD) 
-                sera stocké dans un objet de type Team (décrit dans team.class.php)    
-            */
-
-            //on définit la liste des $_GET autorisés dans ce tableau (ici uniquement $_GET['team'])
             $args = array('name' => FILTER_SANITIZE_STRING );
 
-            //Array_filter se débarasse de toute valeur vide ou NULL
             $filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
-            
-            /*
-                Appel de la méthode getTeam() dans TeamManager pour récupérer 
-                les données d'une team en BDD ayant les même infos en commun
 
-                La méthode getTeam() va retourner les infos dans un objet de type Team
-
-                PS: une méthode du manager peut se trouver soit dans ce manager,
-                    soit sa classe-mère basesql
-            */
-
+            // $team = un objet -> La team de la page
             $team = $teamBDD->getTeam($filteredinputs);
+            $v->assign("currentTeam",$team);
             $v->assign("idteam",$team->getId());
+            $v->assign("idcreator",$team->getId_user_creator());
             $v->assign("nameteam",$team->getName());
             $v->assign("imgteam",$team->getImg());
             $v->assign("sloganteam",$team->getSlogan());
             $v->assign("descripteam",$team->getDescription());
 
+            //$this : objet du user connecté grâce au template
+            $v->assign("currentUser",$this);
+
+            //Récupération de l'id de la team du user connecté
+            $getIdTeam = $this->getConnectedUser()->getIdTeam();
+            //Verification si l'user une Team
+            if(!empty($getIdTeam)){
+                $infos_team = ['id'=>$getIdTeam];
+                //$userTeam = un objet -> Ma team (Team du user connecté)
+                $userTeam = $teamBDD->getTeam($infos_team);
+                $v->assign("userTeam",$userTeam);
+                $v->assign("nameUserTeam", $userTeam->getName());
+                //$v->assign('idUserTeam',$userTeam->getId());
+            }
 
             // Si $team === FALSE : soit pas de team trouvée, soit pbm de requete            
             if($team!==FALSE){
@@ -65,23 +62,10 @@ class detailteamController extends template{
 
                         //On récupère le nom de l'attribut ciblé (ex: 'getName' devient 'name')
                         $col = lcfirst(str_replace('get', '', $method));
-                        
-                        //TODO : DYLAN
-                       // $this->columns[$col] = $team->$method();
-                        
-                        /*
-                            On crée une variable au nom de l'attribut 
-                            avec la valeur que lui a renvoyé la BDD
-                        */
-                        $v->assign($col, $team->$method());
-                                
-                    } // Le ; ne gêne pas, ça évite un else{} éventuel
 
+                        $v->assign($col, $team->$method());    
+                    }
                 }
-
-                //TODO : Apparition du bouton de configuration pour le président de la team
-                // if(isset($_SESSION[COOKIE_EMAIL]) && $_SESSION[COOKIE_EMAIL]===$team->getEmail())
-                //     $v->assign('myAccount', 1);
             }
             else{
                 $v->assign("err", "1");
@@ -93,9 +77,53 @@ class detailteamController extends template{
         $v->setView("detailteam");
 	}
 
-  /* public function updateUserTeamAction(){
-        if($_idTeam == ){
+    public function updateUserTeamAction(){
+ 
+        if(isset($_POST['action-team-rejoin'])){
+            $teamBDD = new teamManager();
 
+            $args = array('nameTeam' => FILTER_SANITIZE_STRING,
+                        'action-team-rejoin' => FILTER_SANITIZE_STRING);
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            // $team = un objet -> La team de la page
+            $team = $teamBDD->getTeam(array('name'=>$filteredinputs['nameTeam']));
+
+            $userBDD = new userManager();
+
+            $userBDD->setNewTeam($this->getConnectedUser(),$team);
+            header("Location:../detailteam?name=".$team->getName());
         }
-    }*/
+        if(isset($_POST['action-team-exit'])){
+            $teamBDD = new teamManager();
+
+            $args = array('nameTeam' => FILTER_SANITIZE_STRING,
+                        'action-team-rejoin' => FILTER_SANITIZE_STRING);
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            // $team = un objet -> La team de la page
+            $team = $teamBDD->getTeam(array('name'=>$filteredinputs['nameTeam']));
+            $userBDD = new userManager();
+
+            $userBDD->setNewTeam($this->getConnectedUser());
+            header("Location:../detailteam?name=".$team->getName());
+        }
+    }
+    
+    public function updateTeamAction(){
+        $teamBDD = new teamManager();
+
+        $args = array('slogan' => FILTER_SANITIZE_STRING
+                     ,'description' => FILTER_SANITIZE_STRING);
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+        
+        $team->setSlogan($filteredinputs['slogan']);
+        $team->setDescription($filteredinputs['description']);
+
+        $teamBDD->updateTeam($team);
+        header("Location:../detailteam?name=".$team->getName());
+    }   
+
 }

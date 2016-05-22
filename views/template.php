@@ -123,8 +123,8 @@
 										if(isset($_isConnected)){
 											echo '<li class="navbar-menu-tooltip-li">';
 
-											if(isset($_idTeam) && $_idTeam!=null)
-												echo "<a href='".WEBPATH."/detailteam/'>Page de ma team</a>";
+											if(!empty($_idTeam))
+												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Page de ma team</a>";
 											
 											else
 												echo "<a href=''>Créer ma team</a>";

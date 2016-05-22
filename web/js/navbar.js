@@ -35,7 +35,7 @@ var scroll = {
     	}else{
     		console.log("Pas reçu du dom dans scroll.toAnchor()");
     	}
-	}	
+	}
 };
 
 // Cette fonction sera utilisée dans beaucoup d'objets utilisant de l'ajax

@@ -13,7 +13,7 @@
 
 */
 class teamController extends template{
-	public function teamAction(){
+	public function teamAction(){ 
 
         //Initialisation de la vue
 		$v = new view();

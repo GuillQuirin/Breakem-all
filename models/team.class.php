@@ -3,6 +3,7 @@
 class team{
 	//Ca doit être un miroir par rapport au nom des colonnes dans la table
 	protected $id = null;
+	protected $id_user_creator = null;
 	protected $status = null;
 	protected $name = null;
 	protected $img = null;
@@ -33,6 +34,9 @@ class team{
 	public function setId($v){
 		$this->id=$v;
 	}
+	public function setId_user_creator($v){
+		$this->id_user_creator=$v;
+	}
 	public function setStatus($v){
 		$this->status=$v;
 	}
@@ -50,15 +54,17 @@ class team{
 		else //Pas d'image uploadée
 			$this->img=WEBPATH."/web/img/upload/default.jpg";
 	}
-	private function setSlogan($v){
+	public function setSlogan($v){
 		$this->slogan=$v;
 	}
-	private function setDescription($v){
+	public function setDescription($v){
 		$this->description=$v;
 	}
 
 	//Getters
 	public function getId(){return $this->id;}
+	
+	public function getId_user_creator(){return $this->id_user_creator;}
 	public function getStatus(){return $this->status;}
 	public function getStatusName($status=null){
 		switch($status)

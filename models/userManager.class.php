@@ -108,12 +108,12 @@ class userManager extends basesql{
 	}
 
 	/*MODIFICATION TEAM DU USER*/
-	public function setNewTeam(user $u, team $t){
+	public function setNewTeam(user $u, team $t=NULL){
 		$sql = "UPDATE ".$this->table." SET idTeam = :idTeam WHERE id=:id;";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':id' => $u->getId(),
-			':idTeam' => $t->getId()
+			':idTeam' => (($t)?$t->getId():NULL)
 		]);
 	}
 
