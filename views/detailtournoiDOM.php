@@ -96,7 +96,7 @@
 		<section class="detailtournoi-participants flex-row">
 			<?php $cntReg = count($allRegistered); ?>
 			<h2 class="titre2 border-full">Participant<?php if($cntReg > 1)echo's';?>
-				<span class="detailtournoi-nombre-participants"><?php echo $cntReg;?></span>
+				<span class="detailtournoi-nombre-participants bg-pink"><?php echo $cntReg;?></span>
 			</h2>
 			<div class="flex detailtournoi-liste-participants">
 			<?php foreach ($allRegistered as $key => $user): ?>			

@@ -134,6 +134,9 @@ body {
 		padding: 12px;
 		display: inline-block;
 	}
+	.detailtournoi-participants h2 span{
+		padding: 8px;
+	}
 	.detailtournoi-liste-participants{	
 		width: 90%;
 		margin: 0 auto;	
