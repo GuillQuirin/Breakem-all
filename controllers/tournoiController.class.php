@@ -18,9 +18,8 @@ class tournoiController extends template {
 			$link = $filteredinputs['t'];
 			$tm = new tournamentManager();
 			$matchedTournament = $tm->getTournamentWithLink($link);
-			// var_dump($matchedTournament);
 			// Si le chercheur renvoie autre chose que false
-			if(!!$link){
+			if(!!$link && $link !== 'null' && $matchedTournament !== false){
 				$v->assign("css", "detailtournoi");
 				$v->assign("js", "detailtournoi");
 				$v->assign("title", "Tournoi ".$matchedTournament->getName());
