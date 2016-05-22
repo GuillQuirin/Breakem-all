@@ -91,91 +91,22 @@
 			</div>
 		</article>
 	</section>
-	<section class="detailtournoi-participants flex-row">
-		<h2 class="titre2">Participants <span class="detailtournoi-nombre-participants">(16)</span></h2>
-		<div class="flex detailtournoi-liste-participants">
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>Fyjal</a><span class="absolute detailtournoi-stats-joueur">87 victoires, 51%win</span></p>
-				<p class="detailtournoi-participant-points absolute">1200</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
+	<?php if(isset($allRegistered)):?>
+		<section class="detailtournoi-participants flex-row">
+			<?php $cntReg = count($allRegistered); ?>
+			<h2 class="titre2">Participant<?php if($cntReg > 1)echo's';?>
+				<span class="detailtournoi-nombre-participants"><?php echo $cntReg;?></span>
+			</h2>
+			<div class="flex detailtournoi-liste-participants">
+			<?php foreach ($allRegistered as $key => $user): ?>			
+				<div class="detailtournoi-participant relative flex">
+					<p class="detailtournoi-participant-pseudo"><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a><span class="absolute detailtournoi-stats-joueur">XX victoires, XX%win</span></p>
+					<p class="detailtournoi-participant-points absolute">XXXX points</p>
+				</div>
+			<?php endforeach; ?>				
 			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>dRowiid</a><span class="absolute detailtournoi-stats-joueur">65 victoires, 49%win</span></p>
-				<p class="detailtournoi-participant-points absolute">955</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>	
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>Rcan</a><span class="absolute detailtournoi-stats-joueur">90 victoires, 13%win</span></p>
-				<p class="detailtournoi-participant-points absolute">892</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>ooBsidian</a><span class="absolute detailtournoi-stats-joueur">112 victoires, 9%win</span></p>
-				<p class="detailtournoi-participant-points absolute">865</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>GWlord</a><span class="absolute detailtournoi-stats-joueur">13 victoires, 100%win</span></p>
-				<p class="detailtournoi-participant-points absolute">623</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>milky</a><span class="absolute detailtournoi-stats-joueur">58 victoires, 67%win</span></p>
-				<p class="detailtournoi-participant-points absolute">601</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>anyTi</a><span class="absolute detailtournoi-stats-joueur">12 victoires, 100%win</span></p>
-				<p class="detailtournoi-participant-points absolute">522</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>supYo</a><span class="absolute detailtournoi-stats-joueur">45 victoires, 68%win</span></p>
-				<p class="detailtournoi-participant-points absolute">431</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>dHYdo</a><span class="absolute detailtournoi-stats-joueur">76 victoires, 25%win</span></p>
-				<p class="detailtournoi-participant-points absolute">431</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>comeAgn</a><span class="absolute detailtournoi-stats-joueur">50 victoires, 51%win</span></p>
-				<p class="detailtournoi-participant-points absolute">426</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>headsRoll</a><span class="absolute detailtournoi-stats-joueur">19 victoires, 95%win</span></p>
-				<p class="detailtournoi-participant-points absolute">403</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>n_e_day</a><span class="absolute detailtournoi-stats-joueur">10 victoires, 42%win</span></p>
-				<p class="detailtournoi-participant-points absolute">386</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>i_c_u</a><span class="absolute detailtournoi-stats-joueur">2 victoires, 90%win</span></p>
-				<p class="detailtournoi-participant-points absolute">374</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>pbblyNot</a><span class="absolute detailtournoi-stats-joueur">32 victoires, 12%win</span></p>
-				<p class="detailtournoi-participant-points absolute">327</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>irdc</a><span class="absolute detailtournoi-stats-joueur">5 victoires, 3%win</span></p>
-				<p class="detailtournoi-participant-points absolute">308</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>rtfm</a><span class="absolute detailtournoi-stats-joueur">21 victoires, 18%win</span></p>
-				<p class="detailtournoi-participant-points absolute">308</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-		</div>
-	</section>
+		</section>
+	<?php endif; ?>
 	<!-- <section class="detailtournoi-bracket">
 		<h2 class="titre2">Resultats des rounds - Bracket</h2>
 	</section> -->
