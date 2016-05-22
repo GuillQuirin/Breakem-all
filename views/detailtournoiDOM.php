@@ -1,100 +1,101 @@
 <?php if(isset($tournoi)): ?>
 	<section class="detailtournoi-infos flex">
-		<aside class="ta-center relative">
-			<img src="<?php echo $tournoi->getGameImg();?>" alt="Battlefield 3">
-			<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
-			<?php if(isset($_isConnected)): ?>
-				<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-					<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
-						<div class="relative ta-right">
-							<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Rejoindre</a></button>
-						</div>
-					<?php endif; ?>
-				<?php else: ?>
-					<div class="relative ta-right">
-						<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Gérer</a></button>
-					</div>
-				<?php endif; ?>
-			<?php endif; ?>
-		</aside>
-		<article>
-			<div class="ta-center">
-				<h3 class="titre1">Tournoi - 
-					<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
-				</h3>
-			</div>
+		<article class="display-flex-column">			
+			<h3 class="titre1 border-full ta-center">Tournoi - 
+				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
+			</h3>
 			<p class="detailtournoi-description-jeu italic">
 				<?php echo $tournoi->getGameDescription(); ?>
 				
 			</p>
-			<div class="detailtournoi-tournoi-regles flex">
-				<p class="relative detailtournoi-jeu-mode capitalize">Mode:
-					<span class="relative">
-						<?php echo $tournoi->getGvName();
+			<div class="detail-tournoi-main-infos align display-flex-row">
+				<div class="detail-tournoi-aside ta-center relative">
+					<img src="<?php echo $tournoi->getGameImg();?>" alt="Battlefield 3">
+					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
+					<?php if(isset($_isConnected)): ?>
+						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
+								<div class="relative ta-right">
+									<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Rejoindre</a></button>
+								</div>
+							<?php endif; ?>
+						<?php else: ?>
+							<div class="relative ta-right">
+								<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Gérer</a></button>
+							</div>
+						<?php endif; ?>
+					<?php endif; ?>
+				</div>
+				<div class="detailtournoi-tournoi-regles flex">
+					<p class="relative detailtournoi-jeu-mode capitalize">Mode:
+						<span class="relative">
+							<?php echo $tournoi->getGvName();
+								if($tournoi->getMaxPlayerPerTeam() > 1){
+									echo " - Equipes";
+									if($tournoi->getGuildOnly() > 0)
+										echo " de guildes uniquement";
+									else if($tournoi->getRandomPlayerMix() > 0)
+										echo " aléatoires";
+								}
+						 	?>						
+							<i class="absolute ta-center lowercase"><?php echo $tournoi->getGvDescription(); ?>
+							</i>
+						</span>
+					</p>
+					<?php $restant = (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered();?>
+					<p class="relative detailtournoi-jeu-mode capitalize <?php if($restant > 0) echo 'place-a-prendre'; else echo 'aucune-place-restante'; ?>">places restantes:
+						<span class="relative">
+							<?php 
+							echo $restant;
+						 	?>
+						</span>
+					</p>
+					<p class="relative detailtournoi-points-gagnants">À gagner : 
+						<span class="relative">XXX points
+							<i class="absolute ta-center">??% (XX points) à répartir dans l'équipe gagnante</i>
+						</span>
+					</p>
+					<p class="relative detailtournoi-jeu-console">Console: 
+						<span class="capitalize"><?php echo $tournoi->getPName(); ?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-online">Où: 
+						<span class="capitalize">online</span>
+					</p>
+					<p class="relative detailtournoi-jeu-maxjoueurs">Joueurs max: 
+						<span><?php echo $tournoi->getMaxPlayer(); ?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-minjoueurs">Joueurs min: <span><?php echo $tournoi->getMaxPlayer()/2; ?></span></p>
+					<p class="relative detailtournoi-jeu-victoire">Règles: <span>rencontres de XX (3??) manches</span></p>
+					<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: 
+						<span><?php 						
 							if($tournoi->getMaxPlayerPerTeam() > 1){
-								echo " - Equipes";
+								echo "Equipes de " . $tournoi->getMaxPlayerPerTeam();
 								if($tournoi->getGuildOnly() > 0)
-									echo " de guildes uniquement";
+									echo " - Guildes uniquement";
 								else if($tournoi->getRandomPlayerMix() > 0)
-									echo " aléatoires";
+									echo " - Aléatoires";
+								else
+									echo " - Au choix";
+							}else{
+								echo "Solo";
 							}
-					 	?>						
-						<i class="absolute ta-center lowercase"><?php echo $tournoi->getGvDescription(); ?>
-						</i>
-					</span>
-				</p>
-				<?php $restant = (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered();?>
-				<p class="relative detailtournoi-jeu-mode capitalize <?php if($restant > 0) echo 'place-a-prendre'; else echo 'aucune-place-restante'; ?>">places restantes:
-					<span class="relative">
-						<?php 
-						echo $restant;
-					 	?>
-					</span>
-				</p>
-				<p class="relative detailtournoi-points-gagnants">À gagner : 
-					<span class="relative">XXX points
-						<i class="absolute ta-center">??% (XX points) à répartir dans l'équipe gagnante</i>
-					</span>
-				</p>
-				<p class="relative detailtournoi-jeu-console">Console: 
-					<span class="capitalize"><?php echo $tournoi->getPName(); ?></span>
-				</p>
-				<p class="relative detailtournoi-jeu-online">Où: 
-					<span class="capitalize">online</span>
-				</p>
-				<p class="relative detailtournoi-jeu-maxjoueurs">Joueurs max: 
-					<span><?php echo $tournoi->getMaxPlayer(); ?></span>
-				</p>
-				<p class="relative detailtournoi-jeu-minjoueurs">Joueurs min: <span><?php echo $tournoi->getMaxPlayer()/2; ?></span></p>
-				<p class="relative detailtournoi-jeu-victoire">Règles: <span>rencontres de XX (3??) manches</span></p>
-				<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: 
-					<span><?php 						
-						if($tournoi->getMaxPlayerPerTeam() > 1){
-							echo "Equipes de " . $tournoi->getMaxPlayerPerTeam();
-							if($tournoi->getGuildOnly() > 0)
-								echo " - Guildes uniquement";
-							else if($tournoi->getRandomPlayerMix() > 0)
-								echo " - Aléatoires";
-							else
-								echo " - Au choix";
-						}else{
-							echo "Solo";
-						}
-				 	?></span>
-				</p>
-				<p class="relative detailtournoi-jeu-date">Quand : 
-					<span><?php echo date('d-m-Y',$tournoi->getStartDate());?></span>
-				</p>
-				<p class="relative detailtournoi-jeu-organisateur">Orga : 
-					<span class="uppercase"><a href="<?php echo WEBPATH. '/profil?pseudo=' . $tournoi->getUserPseudo(); ?>"><?php echo $tournoi->getUserPseudo(); ?></a></span>
-				</p>
+					 	?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-date">Quand : 
+						<span><?php echo date('d-m-Y',$tournoi->getStartDate());?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-organisateur">Orga : 
+						<span class="uppercase"><a href="<?php echo WEBPATH. '/profil?pseudo=' . $tournoi->getUserPseudo(); ?>"><?php echo $tournoi->getUserPseudo(); ?></a></span>
+					</p>
+				</div>
 			</div>
+			
 		</article>
 	</section>
 	<?php if(isset($allRegistered)):?>
 		<section class="detailtournoi-participants flex-row">
 			<?php $cntReg = count($allRegistered); ?>
-			<h2 class="titre2">Participant<?php if($cntReg > 1)echo's';?>
+			<h2 class="titre2 border-full">Participant<?php if($cntReg > 1)echo's';?>
 				<span class="detailtournoi-nombre-participants"><?php echo $cntReg;?></span>
 			</h2>
 			<div class="flex detailtournoi-liste-participants">
