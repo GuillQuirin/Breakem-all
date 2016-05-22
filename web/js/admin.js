@@ -104,7 +104,7 @@ var platformModule = {
 		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
 		  }
 		);
-	}	
+	}
 };
 
 //Validation avec tous les id qui commence par validate-form-

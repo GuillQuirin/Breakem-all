@@ -54,7 +54,33 @@ function tryParseData(rawData){
 
 // Function ajax de flemmard 
 function ajaxRequest(url, type, callback){
-	if(url && callback){
+	
+	/* PAS TOUCHE 
+		if(myData){
+
+		var allData = {}, allData.data = {};
+
+		allData.url = myData.url ? myData.url : console.log('ajaxRequest url not found');
+		allData.type = myData.type ? myData.type : console.log('ajaxRequest type not found');
+		allData.data = myData.data ? myData.data : console.log('ajaxRequest data not found');
+		allData.callback = myData.callback ? myData.callback : console.log('ajaxRequest callback not found');
+
+		jQuery.ajax({
+		 	url: allData.url,
+		 	type: allData.type,
+		 	data: allData.data,
+		 	success: function(result){
+		 		result = tryParseData(result);			 					 		
+				return result;
+		 	}
+		});
+		
+		}else{
+			console.log("myData parameter doesn't exist");
+		}
+	*/
+
+	if(url && type && callback){
 		jQuery.ajax({
 		 	url: url,
 		 	type: type,
@@ -356,7 +382,7 @@ var navbar = {
         },
         closeFormClick: function(){
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a'))
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label,textarea, p, a, img'))
 		   			navbar.form.smoothClosing();
 			});
         },
