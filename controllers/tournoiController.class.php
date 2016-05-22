@@ -28,6 +28,7 @@ class tournoiController extends template {
 				// Recuperer tous les participants
 				$rm = new registerManager();
 				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
+				// Ne les envoyer ds la vue s'il y en a
 				if(!!$allRegistered)
 					$v->assign("allRegistered", $allRegistered);
 
