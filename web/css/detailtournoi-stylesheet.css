@@ -9,7 +9,7 @@ body {
 
 /* ################## INFOS PRINCIPALES TOURNOI ################### */
 	.detailtournoi-infos{
-		margin-top: 142px;
+		/*margin-top: 142px;*/
 		align-items: center;
 		justify-content: center;
 		background: rgba(255, 255, 255, 0.05);
@@ -120,18 +120,15 @@ body {
 		background: #D92B4C;
 	}
 	.detailtournoi-participants{
-		width: 90%;
-		margin: 0 auto;
-		margin-top: 4vh;
 		width: 100%;
 		margin: 0 auto;
-		margin-top: 4vh;
-		padding-top: 20px;
+		padding-top: 40px;
 		padding-bottom: 20px;
 		background: rgba(28, 37, 58, 0.85);
 	}
 	.detailtournoi-participants h2{
 		line-height: 48px;
+		padding-left: 8px;
 		display: inline-block;
 	}
 	.detailtournoi-participants h2 span{
