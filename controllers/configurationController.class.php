@@ -74,6 +74,8 @@ class configurationController extends template{
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
 	private function checkUpdateInputs(){
+
+		//FILTER_SANITIZE_STRING Remove all HTML tags from a string
 	    $args = array(
 	      'email'   => FILTER_VALIDATE_EMAIL,
 	      'password'   => FILTER_SANITIZE_STRING,

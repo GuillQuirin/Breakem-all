@@ -22,27 +22,55 @@ platformModule.createPlatformsIhm = function(){
 							"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
 								"<form id='platform-form'>" +			    
 								    "<label for='email'>Nom :</label>" +
-								    "<input class='input-default admin-form-input-w' id='nom' name='nom' type='text' placeholder='" + field.name + "'>" +
+								    "<input class='input-default admin-form-input-w' id='nom' name='nom' type='text' value='" + field.name + "'>" +
 								     "<label for='email'>Description :</label>" +
-								    "<textarea class='input-default admin-form-input-w' id='description' name='description' type='text' placeholder='" + field.description + "'></textarea>" +							    							  
+								    "<textarea class='input-default admin-form-input-w' id='description' name='description' type='text'>" + field.description + "</textarea>" +							    							  
 								    "<div class='admin-avatar-wrapper m-a'>" +																	
 										"<img class='admin-avatar img-cover' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
 									"</div>" +	
 									"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' name='profilpic'>" +
 									"</div>" +
-								    "<button type='button' class='btn btn-pink'><a>Valider</a></button>" +
+								    "<button id='platform-submit-form-btn' type='button' class='btn btn-pink'><a>Valider</a></button>" +
 						  		"</form>" +
 						  	"</div>" + 	 
 						"</div>" +
 					"</div>" +
 				"<div>" 
 			);
+			platformModule.postData({name : field.name, img : field.img, description : field.description});	
 		});	
 		platformModule.ihmElemHover();		
 		navbar.setOpenFormAll();		
 		navbar.form.closeFormKey();
         navbar.form.closeFormClick();
-		navbar.form.admin();		
+		navbar.form.admin();			
 	});
+};
+
+
+//Non Fini
+platformModule.postData = function(myData){	
+
+	if(myData){
+		jQuery('.platform-submit-form-btn').click(function(){
+			var allData = {};
+
+			//Laissé a null pour le moment
+			allData.name = myData.name ? myData.name : null;
+			allData.img = myData.img ? myData.img : null;
+			allData.description = myData.description ? myData.description : null;	
+
+			jQuery.ajax({
+			 	url: "admin/updatePlatformsData",
+			 	type: "POST",
+			 	data: allData,
+			 	success: function(result){			 					 					 	
+					console.log(result);
+			 	}
+			});
+		});
+	}else{
+		console.log("Parameter for platformModule.updateData is undefined");
+	}
 };
