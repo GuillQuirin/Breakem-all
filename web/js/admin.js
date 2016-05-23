@@ -134,7 +134,7 @@ var onglet = {
 		return this._adminTeamsWrapper;
 	},
 	getAdminGameWrapper : function(){
-		return this._adminGamesWrapper;
+		return this._adminGameWrapper;
 	},
 	getAdminGametypeWrapper : function(){
 		return this._adminGametypeWrapper;
@@ -207,7 +207,7 @@ function deleteReport(id){
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){
-		 		alert(result);
+		 		console.log(result);
 		 	},
 		 	error: function(result){
 		 		alert("non");
