@@ -107,6 +107,8 @@ class adminController extends template{
         $reportsBDD = new signalmentsuserManager();
         $report = $reportsBDD->getReport($filteredinputs['id']);
 
-        $reportsBDD->delReport($report);
+        //$reportsBDD->delReport($report);
+        $admin = new adminManager();
+        var_dump($admin->getListReports());exit;        
     }
 }
