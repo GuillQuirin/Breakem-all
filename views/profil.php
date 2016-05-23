@@ -18,13 +18,13 @@ else{
 	<div class="align full-height">
 		<div class="configuration-header-profil-wrapper">
 			<div class="configuration-header-profil-left">
-				<img class="configuration-header-profil-image" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
+				<img class="configuration-header-profil-image" src="<?php echo $img; ?>" title="Image de profil" alt="Image de profil">
 
 				<div class="configuration-header-profil-right align">
 					<div class="">
-						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
-						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Dernière connexion inconnu'; ?></span>
+						<span class="configuration-header-profil-name"><?php echo (isset($pseudo)) ? $pseudo : 'Sans pseudo'; ?></span>
+						<span class="configuration-header-profil-description"><?php echo (isset($description)) ? '"' . $description . '"' : 'Sans description.'; ?></span>
+						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($isConnected)) ? "Connecté" : date('\l\e d/m \à H:i', $lastConnexion); ?></span>
 					</div>
 				</div>
 			</div>			
@@ -249,7 +249,7 @@ else{
 					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php// echo $catego->getName(); ?></p><br>
+								<p><?php // echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
 					// 	endforeach;
