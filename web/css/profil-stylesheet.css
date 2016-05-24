@@ -364,3 +364,23 @@ hr{
 }
 
 
+#formplainte, #formcontact{
+    display: none;
+    position: fixed;
+    top: 25%;
+    background-color: #27073A;
+    width: 50%;
+    left: 25%;
+    height: 200px;
+    color: white;
+    z-index: 5;
+    border: 13px #511071 solid;
+    padding: 20px;
+    font-size: 15px;
+}
+#formplainte textarea, #formcontact textarea{
+    width: 85%;
+    height: 50px;
+    vertical-align: middle; 
+}
+
