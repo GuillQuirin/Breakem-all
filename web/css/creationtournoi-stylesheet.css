@@ -252,10 +252,11 @@ p.creationtournoi-random-match{
 
 .creationtournoi-valid-tournoi-name{
 	margin: 0 auto;
-	margin-left: 1.25%;
 	text-align: center;
 }
-
+.creationtournoi-valid-tournoi-descr{
+	margin-top: 25px;
+}
 .creationtournoi-valid-tournoi-list{
 	width: 97.5%;
 	margin: 0 auto;
