@@ -207,7 +207,7 @@ function deleteReport(id){
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){
-		 		console.log(result);
+		 		location.reload();
 		 	},
 		 	error: function(result){
 		 		alert("non");
