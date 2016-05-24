@@ -37,7 +37,7 @@ class profilController extends template{
 				//Page publique du joueur connecté
 				if($this->isVisitorConnected() && $this->getConnectedUser()->getEmail()===$user->getEmail())
 					$v->assign('myAccount', 1);
-				else //Apparition des boutons de configuration et signalement
+				else if($this->getConnectedUser()) //Apparition des boutons de configuration et signalement
 				{
 					//Si non signalé auparavant
 					$signalement = new signalmentsuserManager();

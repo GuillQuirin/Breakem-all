@@ -15,7 +15,6 @@ class platformManager extends basesql{
 		return false;
 	}
 
-	//Admin Plateforme 
 	public function getListPlatform(){
 		$sql = "SELECT id, name, description, img FROM " . $this->table . " ORDER BY name ASC";
 		
@@ -27,6 +26,20 @@ class platformManager extends basesql{
 			$list[] = new platform($query);
 		
 		return $list;
+	}
+
+	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
+	public function changePlatform(platform $p){
+		$sql = "UPDATE team SET status = :status WHERE id= :id";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':status' => $t->getStatus(),
+			':id' => $p->getId()
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
 	}
 }
 /*

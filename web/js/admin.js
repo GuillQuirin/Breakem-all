@@ -134,7 +134,7 @@ var onglet = {
 		return this._adminTeamsWrapper;
 	},
 	getAdminGameWrapper : function(){
-		return this._adminGamesWrapper;
+		return this._adminGameWrapper;
 	},
 	getAdminGametypeWrapper : function(){
 		return this._adminGametypeWrapper;
@@ -166,29 +166,17 @@ var onglet = {
 
 var platformModule = {
 	init : function(){
-		platformModule.setAdminDataIhm();	
 		platformModule.createPlatformsIhm();
 	},
-
-	//Setter
-	setAdminDataIhm : function(){
-		this._adminDataIhm = jQuery('.admin-data-ihm');
-	},	
-
-	//Getter
-	getAdminDataIhm : function(){
-		return this._adminDataIhm;
-	},
-
 	ihmElemHover : function(){
-		platformModule.getAdminDataIhm().hover(
+		jQuery('.admin-data-ihm').hover(
 		  function() {
 		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
 		  }, function(e) {
 		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
 		  }
 		);
-	}	
+	}
 };
 
 //Validation avec tous les id qui commence par validate-form-
@@ -219,7 +207,7 @@ function deleteReport(id){
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){
-		 		alert(result);
+		 		location.reload();
 		 	},
 		 	error: function(result){
 		 		alert("non");

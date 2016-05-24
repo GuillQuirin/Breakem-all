@@ -167,7 +167,7 @@ if(isset($err)){
 							</tr>	
 							<tr>
 								<td>
-									<span>Ancien mot de passe</span>
+									<span>Mot de passe actuel</span>
 								</td>
 								<td>
 									<input class="input-default configuration-input-default" type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>

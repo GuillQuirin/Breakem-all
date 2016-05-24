@@ -52,6 +52,11 @@ class adminController extends template{
         return;
     }
 
+    public function updatePlatformsDataAction(){
+        
+        
+    }
+
     public function updateTeamStatusAction(){
          if(!empty($_POST['checkbox_team'])){
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
@@ -103,5 +108,9 @@ class adminController extends template{
         $report = $reportsBDD->getReport($filteredinputs['id']);
 
         $reportsBDD->delReport($report);
+        
+        //$admin = new adminManager();
+        //$admin->getListReports());
+
     }
 }
