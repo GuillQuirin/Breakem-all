@@ -234,5 +234,24 @@ function deleteTypeGame(id){
 	}
 }
 
+function getTypeGame(id){
+	jQuery.ajax({
+	 	url: "admin/getTypeGameBy",
+	 	type: "POST",
+	 	data : "id="+id,
+	 	success: function(result){
+	 		var type = tryParseData(result);
+	 		//console.log(type);
+	 		$("#typegameForm #nom").val(type.name);
+	 		$("#typegameForm #description").text(type.description);
+	 		$("#typegameForm #id").val();
+	 		$("#typegameForm #img").prop('src',type.img);
+	 	},
+	 	error: function(result){
+	 		alert("non");
+	 	}
+	});
+}
+
 
 

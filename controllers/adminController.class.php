@@ -131,8 +131,24 @@ class adminController extends template{
         $typegame = $typegameBDD->getTypeGame($filteredinputs['id']);
 
         $typegameBDD->delTypeGame($typegame);
-        
-        //$typegameBDD->getListReports());
 
+    } 
+
+    public function getTypeGameByAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $typegameBDD = new typegameManager();
+        $obj = $typegameBDD->getTypeGame($filteredinputs['id']);
+
+        $arr = [];
+        $arr['name'] = $obj->getName();
+        $arr['img'] = $obj->getImg();
+        $arr['description'] = $obj->getDescription();
+
+        echo json_encode($arr);
     }
 }
