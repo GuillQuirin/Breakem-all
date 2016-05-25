@@ -33,6 +33,19 @@ final class teamtournamentManager extends basesql{
 			return new teamtournament($r[0]);
 		return false;
 	}
+
+	public function getTournamentFreeTeams(tournament $t){
+		// Compter le nombre de places restantes pour chaque team et les renvoyer si > 0
+		$sql = "SELECT tt.id, tt.rank, tt.idTournament, COUNT(r.idTeamTournament) as placesTook 
+		FROM teamtournament tt 
+		LEFT OUTER JOIN register r 
+		ON r.idTournament = tt.idTournament		
+		LEFT OUTER JOIN tournament t 
+		ON t.id = tt.idTournament
+		WHERE t.id = 3
+		AND placesTook < 1
+		GROUP BY tt.id";
+	}
 }
 
 /*

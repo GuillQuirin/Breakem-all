@@ -25,6 +25,7 @@ class tournoiController extends template {
 				$v->assign("title", "Tournoi ".$matchedTournament->getName());
 				$v->assign("content", "Tournoi ".$matchedTournament->getName());
 				$v->assign("tournoi", $matchedTournament);
+
 				// Recuperer tous les participants
 				$rm = new registerManager();
 				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
@@ -33,6 +34,8 @@ class tournoiController extends template {
 					$v->assign("allRegistered", $allRegistered);
 
 				// Recuperer toutes les équipes 
+				
+
 				$v->setView("detailtournoiDOM");
 				return;
 			};
