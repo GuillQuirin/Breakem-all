@@ -65,6 +65,21 @@ class signalmentsuserManager extends basesql{
 		return new signalmentsuser($r[0]);
 	}
 
+	public function getListReports(){
+		$sql="SELECT *
+					FROM signalmentsuser 
+					ORDER BY id ASC";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets user
+			$list[] = new signalmentsuser($query);
+	
+		return $list;
+	}
+
 	public function delReport(signalmentsuser $report){
 		$sql = "DELETE FROM signalmentsuser WHERE id=:id";
 		
