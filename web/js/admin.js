@@ -81,13 +81,13 @@ var onglet = {
 		this._adminGamesWrapper = jQuery("#admin-onglet-games-wrapper");
 	},
 	setAdminGametypeWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-gametype-wrapper");
+		this._adminGametypeWrapper = jQuery("#admin-onglet-gametype-wrapper");
 	},
 	setAdminCommentWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-comment-wrapper");
+		this._adminCommentWrapper = jQuery("#admin-onglet-comment-wrapper");
 	},
 	setAdminTournamentWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-tournament-wrapper");
+		this._adminTournamentWrapper = jQuery("#admin-onglet-tournament-wrapper");
 	},
 
 
@@ -207,7 +207,7 @@ function deleteReport(id){
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){
-		 		location.reload();
+		 		location.reload(true);
 		 	},
 		 	error: function(result){
 		 		alert("non");
