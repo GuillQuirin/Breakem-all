@@ -10,6 +10,16 @@ if(isset($err)){
 	</section>
 	<?php
 }
+else if(isset($banni) && $banni==1){
+	?>
+	<section id="absfiche">
+		<div>
+			Cet utilisateur a été banni pour non respect de la charte de bonne conduite.
+			<p><a href="index">Retour à l'accueil</a></p>
+		</div>
+	</section>
+	<?php
+}
 else{
 	?>
 

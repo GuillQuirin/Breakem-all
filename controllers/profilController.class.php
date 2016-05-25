@@ -39,6 +39,9 @@ class profilController extends template{
 					$v->assign('myAccount', 1);
 				else if($this->getConnectedUser()) //Apparition des boutons de configuration et signalement
 				{
+					if($user->getStatus()==-1)
+						$v->assign("banni", "1");
+
 					//Si non signalé auparavant
 					$signalement = new signalmentsuserManager();
 					$plainte = $signalement->isReport($this->connectedUser->getId(),$user->getId());
@@ -82,21 +85,7 @@ class profilController extends template{
 		$data = array('email' => $_SESSION[COOKIE_EMAIL]);
 
 		$userBDD = new userManager();
-		/*
-			###########################################################################
-			###########################################################################
-		 */
-			// Pourquoi recuperer les infos de l'utilisateur DEJA CONNECTE ?????
-			// CES INFOS SE TROUVENT DEJA DANS $this->getConnectedUser()
-			// A CHAQUE RAFRAICHISSEMENT DE PAGE LE TOKEN DE CONNEXION EST VERIFIE
-			// SI LE MEC A LE BON TOKEN ON RECUPERE SES INFOS A CHAQUE FOIS
-		/*
-			###########################################################################
-			###########################################################################
-			PS: J'suis pas énervé, j'mets juste en maj pour etre sur qu'on voit le msg :p
-		*/
-		
-		// $expediteur = $userBDD->getUser($data);
+
 		$expediteur = $this->getConnectedUser();
 
 		$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
