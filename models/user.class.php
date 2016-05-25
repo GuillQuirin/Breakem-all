@@ -71,7 +71,6 @@ class user{
 	}
 	public function setImg($v){
 		if(strlen(trim($v))!=0 && $v!=NULL){
-			//var_dump(strstr($v, "lol"));
 			if(strstr($v, WEBPATH)) //Image déjà stockée en base
 				$this->img=$v; 
 			else //Upload d'une image

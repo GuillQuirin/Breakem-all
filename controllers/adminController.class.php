@@ -105,6 +105,10 @@ class adminController extends template{
         $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
 
         $newuser = new user(array('status'=>$filteredinputs['status']));
+        
+        //Déconnexion automatique du membre banni
+        //if($filteredinputs['status']==-1)
+            $newuser->setIsConnected(0);
 
         $userBDD->setUser($user, $newuser);
     }

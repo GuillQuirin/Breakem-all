@@ -192,7 +192,9 @@ function setStatut(pseudo, value){
 	 	url: "admin/updateUserStatus",
 	 	type: "POST",
 	 	data : "pseudo="+pseudo+"&status="+value,
-
+	 	succes: function(result){
+	 		console.log(result);
+	 	},
 	 	error: function(result){
 	 		alert("non");
 	 	}
