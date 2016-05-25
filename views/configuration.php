@@ -28,9 +28,9 @@
 			<li class="active">
 				<a>Profil</a>
 			</li><!--
-			--><li>
+			--><!-- li>
 				<a>Team</a>
-			</li>			
+			</li> -->			
 		</ul>
 	</div>
 
@@ -147,7 +147,7 @@
 									<span>Team</span>
 								</td>
 								<td>
-									<?php echo (isset($nomTeam)) ? '<a href="team?name='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
+									<?php echo (isset($_nameTeam)) ? '<a href="team?name='.$_nameTeam.'">'.$_nameTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
 								</td>
 							</tr>
 							<tr class="text-center">
