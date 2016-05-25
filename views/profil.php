@@ -2,20 +2,36 @@
 
 if(isset($err)){
 	?>
-	<section id="absfiche">
-		<div>
-			ERREUR 404, utilisateur introuvable
-			<p><a href="index">Retour à l'accueil</a></p>
+	<section class="middle-height bg-cover-configuration relative">
+		<div class="align full-height">
+			<div class="configuration-header-profil-wrapper">
+				<div class="configuration-header-profil-left">
+					<div class="unfound_user">
+						<div class="">
+							<span class="configuration-header-profil-name">Utilisateur introuvable</span>	
+							<p><a href="index">Retour à l'accueil</a></p>
+						</div>
+					</div>
+				</div>			
+			</div>
 		</div>
 	</section>
 	<?php
 }
 else if(isset($banni) && $banni==1){
 	?>
-	<section id="absfiche">
-		<div>
-			Cet utilisateur a été banni pour non respect de la charte de bonne conduite.
-			<p><a href="index">Retour à l'accueil</a></p>
+	<section class="middle-height bg-cover-configuration relative">
+		<div class="align full-height">
+			<div class="configuration-header-profil-wrapper">
+				<div class="configuration-header-profil-left">
+					<div class="unfound_user">
+						<p class="configuration-header-profil-name">	
+							Cet utilisateur a été banni pour non respect de la charte de bonne conduite.
+						</p>
+						<p><a href="index">Retour à l'accueil</a></p>
+					</div>
+				</div>			
+			</div>
 		</div>
 	</section>
 	<?php
