@@ -32,10 +32,11 @@ class template{
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
-      $teamBBD = new teamManager();
 
       if(!empty($this->connectedUser->getIdTeam())){
-        $team = $teamBBD->getTeam(['id'=>$this->connectedUser->getIdTeam()]);   
+        $teamBBD = new teamManager();
+        $arr['id'] = $this->connectedUser->getIdTeam();
+        $team = $teamBBD->getTeam($arr);   
         $v->assign("_nameTeam",$team->getName());
       }
 
