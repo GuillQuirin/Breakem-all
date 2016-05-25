@@ -26,7 +26,7 @@
 			<tr class='text-center'>
 				<td colspan='7' class='border-none admin-form-td-submit'>								
 					<button id='validate-form-team' type='submit' class='btn btn-pink admin-form-submit'>
-						<a>Valider</a>
+						<a>Créer</a>
 					</button>
 				</td>
 			</tr>	

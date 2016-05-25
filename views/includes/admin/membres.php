@@ -44,13 +44,6 @@
 					echo "</tr>";
 			}
 			?>
-			<tr class='text-center'>
-				<td colspan='12' class='border-none admin-form-td-submit'>								
-					<button id='validate-form-membre' type='submit' class='btn btn-pink admin-form-submit'>
-						<a>Valider</a>
-					</button>
-				</td>
-			</tr>	
 			</tbody>					
 			</table>
 	<?php
