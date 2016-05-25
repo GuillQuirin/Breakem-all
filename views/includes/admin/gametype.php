@@ -30,7 +30,7 @@
 			?>
 			<tr class='text-center'>
 				<td colspan='7' class='border-none admin-form-td-submit'>								
-					<button id='validate-form-team' type='submit' class='btn btn-pink admin-form-submit'>
+					<button id='validate-form-team' onclick='getTypeGame(-1)' type='submit' class='btn btn-pink admin-form-submit'>
 						<a>Créer</a>
 					</button>
 				</td>
@@ -45,21 +45,20 @@
 		<div class='index-modal platforms hidden-fade hidden'>
 			<div class='index-modal-this index-modal-login align'>
 				<div id='login-form' class='grid-md-3 inscription_rapide animation fade'> -->
-					<div id="typegameForm">
-						<form id='platform-form'>			    
-						    <label for='email'>Nom :
-						    	<input class='input-default admin-form-input-w' id='nom' name='nom' type='text'>
-						    </label>
-						    <textarea class='input-default admin-form-input-w' id='description' name='description' type='text'></textarea>							    							  
-						    <div class='admin-avatar-wrapper m-a'>
-								<img class='admin-avatar img-cover' id="img" title='Image de profil' alt='Image de profil'>
-							</div>
-							<div class='text-center admin-input-file'>								 
-								<input type='file' name='profilpic'>
-							</div>
-						    <button id='platform-submit-form-btn' type='button' class='btn btn-pink'><a>Valider</a></button>
-				  		</form>
-				  	</div>
+					<form id="typegameForm" enctype="multipart/form-data">			    
+					    <label>Nom :
+					    	<input class='input-default admin-form-input-w' id='name' name='name' type='text'>
+					    </label>
+					    <textarea class='input-default admin-form-input-w' id='description' name='description' type='text'></textarea>							    							  
+					    <div class='admin-avatar-wrapper m-a'>
+							<img class='admin-avatar img-cover' id="img" title='Image de profil' alt='Image de profil'>
+						</div>
+						<div class='text-center admin-input-file'>								 
+							<input type='file' name='profilpic'>
+						</div>
+						<input type="hidden" id="id" name="id">
+					    <button id='platform-submit-form-btn' type='button' class='btn btn-pink'><a id="TGformsubmit">Valider</a></button>
+				  	</form>
 	<!-- 		</div> 
 			</div>
 		</div>

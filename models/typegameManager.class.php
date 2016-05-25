@@ -3,7 +3,7 @@
 *
 */
 class typegameManager extends basesql{
-
+	
 	public function getTypeGame($id){
 		$sql = "SELECT *
 				FROM typegame 
@@ -24,6 +24,40 @@ class typegameManager extends basesql{
 			$typeGamesArr[] = new typegame($arr);
 		}
 		return $typeGamesArr;
+	}
+
+	public function setTypeGame(typegame $ancien, typegame $nouveau){
+		$data = [];
+
+		foreach (get_class_methods($nouveau) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = $nouveau->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
+
+		$compteur=0;
+
+		$sql = "UPDATE ".$this->table." SET ";
+			foreach ($data as $key => $value) {
+				if($compteur!=0) 
+					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
+			}
+		$sql.=" WHERE id=:id";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
+			$query->bindParam(':'.$key, $value);
+	
+		$id = $ancien->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		$query->execute();
 	}
 
 	public function delTypeGame(typegame $type){
