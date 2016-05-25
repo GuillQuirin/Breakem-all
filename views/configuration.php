@@ -1,14 +1,4 @@
 <?php
-if(isset($err)){
-	?>
-	<section id="absfiche">
-		<div>
-			ERREUR 404, utilisateur introuvable
-			<p><a href="index">Retour à l'accueil</a></p>
-		</div>
-	</section>
-	<?php
-}else{
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
@@ -206,6 +196,3 @@ if(isset($err)){
 		</div>
 
 	</section>
-<?php 
-} 
-?>
