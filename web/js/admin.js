@@ -208,6 +208,7 @@ function deleteReport(id){
 		 	data : "id="+id,
 		 	success: function(result){
 		 		location.reload(true);
+		 		//console.log(result);
 		 	},
 		 	error: function(result){
 		 		alert("non");
@@ -215,4 +216,23 @@ function deleteReport(id){
 		});
 	}
 }
+
+function deleteTypeGame(id){
+	if(confirm("Souhaitez vous supprimer cet type de jeu ?")){
+		jQuery.ajax({
+		 	url: "admin/DeleteTypeGame",
+		 	type: "POST",
+		 	data : "id="+id,
+		 	success: function(result){
+		 		location.reload(true);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	}
+}
+
+
 

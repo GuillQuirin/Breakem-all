@@ -18,10 +18,15 @@ class adminController extends template{
             $platform = new platformManager();
             $listeplatforms = $platform->getListPlatform();
             
-            $listesignalement = $admin->getListReports();
+            $report = new signalmentsuserManager();
+            $listesignalement = $report->getListReports();
             
             $team = new teamManager();
             $listeteam = $team->getListTeam(-2);
+
+            $gametype = new typegameManager();
+            $listgametype = $gametype->getAllTypes();
+
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -30,6 +35,8 @@ class adminController extends template{
             $v->assign("listesignalement",$listesignalement);
 
             $v->assign("listeteam",$listeteam);
+
+            $v->assign("listetypejeu",$listgametype);
            
             $v->setView("/includes/admin/accueil", "template");
         }
@@ -108,9 +115,24 @@ class adminController extends template{
         $report = $reportsBDD->getReport($filteredinputs['id']);
 
         $reportsBDD->delReport($report);
+
+        //$reportsBDD->getListReports());
+
+    }
+
+    public function DeleteTypeGameAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
         
-        //$admin = new adminManager();
-        //$admin->getListReports());
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $typegameBDD = new typegameManager();
+        $typegame = $typegameBDD->getTypeGame($filteredinputs['id']);
+
+        $typegameBDD->delTypeGame($typegame);
+        
+        //$typegameBDD->getListReports());
 
     }
 }
