@@ -71,6 +71,7 @@ class adminController extends template{
             
         }
 
+
         // return false;
 
        header('Location: '.WEBPATH.'/admin');
@@ -103,5 +104,15 @@ class adminController extends template{
         $report = $reportsBDD->getReport($filteredinputs['id']);
 
         $reportsBDD->delReport($report);
+    }
+
+   public function deleteGame() {
+
+   }
+
+    public function addGameAction() {
+
+        $games
+
     }
 }

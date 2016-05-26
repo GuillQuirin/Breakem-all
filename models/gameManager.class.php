@@ -34,7 +34,23 @@ class gameManager extends basesql{
 		}
 		return false;
 	}
+
+	public function setgame($infos){
+		$sql = "INSERT INTO game (id, name, description, img, year, idType)"
+	}
 }
 /*
-*
+public function setOwnerTeam(team $t, user $u){
+		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right)
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
+	}
+
 */
