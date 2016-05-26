@@ -33,9 +33,23 @@ class tournoiController extends template {
 				if(!!$allRegistered)
 					$v->assign("allRegistered", $allRegistered);
 
-				// Recuperer toutes les équipes 
-				
-
+				// Recuperer toutes les équipes avec le nombre de places prises
+				$ttm = new teamtournamentManager();
+				$allTournTeams = $ttm->getTournamentFreeTeams($matchedTournament);
+				if(!!$allTournTeams){
+					$freeTeams = [];
+					$fullTeams = [];
+					foreach ($allTournTeams as $key => $teamtournament) {
+						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+							$freeTeams[] = $teamtournament;
+						else
+							$fullTeams[] = $teamtournament;
+					}
+					$v->assign("freeTeams", $freeTeams);
+					$v->assign("fullTeams", $fullTeams);
+				};
+				// var_dump($allTournTeams);
+				unset($ttm, $tm, $rm);
 				$v->setView("detailtournoiDOM");
 				return;
 			};

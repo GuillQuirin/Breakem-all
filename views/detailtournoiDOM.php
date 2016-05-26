@@ -108,6 +108,30 @@
 			</div>
 		</section>
 	<?php endif; ?>
+	<?php if(isset($freeTeams)): ?>
+		<section class="detailtournoi-equipeslibres display-flex-column">
+			<h2 class="titre2 border-full">Equipes rejoignables</h2>
+			<div class="detailtournoi-equipeslibres-container display-flex-row">
+				<?php foreach($freeTeams as $key => $team):?>
+					<div class="detailtournoi-equipelibre">
+						<h5>equipe libre mon frere</h5>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</section>
+	<?php endif; ?>
+	<?php if(isset($fullTeams)): ?>
+		<section class="detailtournoi-equipeslibres display-flex-column">
+			<h2 class="titre2 border-full">Equipes complètes</h2>
+			<div class="detailtournoi-equipeslibres-container display-flex-row">
+				<?php foreach($fullTeams as $key => $team):?>
+					<div class="detailtournoi-equipecomplete">
+						<h5>equipe complete mon frere</h5>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</section>
+	<?php endif; ?>
 	<!-- <section class="detailtournoi-bracket">
 		<h2 class="titre2">Resultats des rounds - Bracket</h2>
 	</section> -->

@@ -7,6 +7,7 @@ final class teamtournament{
 	protected $_id;
 	protected $_rank;
 	protected $_idTournament;
+	protected $_takenPlaces;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -30,10 +31,14 @@ final class teamtournament{
 	private function setIdTournament($v){
 		$this->_idTournament = $v;
 	}
+	private function setTakenPlaces($v){
+		$this->_takenPlaces = (int) $v;
+	}
 
 	public function getId(){return $this->_id;}
 	public function getRank(){return $this->_rank;}
 	public function getIdTournament(){return $this->_idTournament;}
+	public function getTakenPlaces(){return $this->_takenPlaces;}
 }
 
 /*
