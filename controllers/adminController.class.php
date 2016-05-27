@@ -25,9 +25,11 @@ class adminController extends template{
             $team = new teamManager();
             $listeteam = $team->getListTeam(-2);
 
-            $gametype = new typegameManager();
-            $listgametype = $gametype->getAllTypes();
+            $gametypeBDD = new typegameManager();
+            $listgametype = $gametypeBDD->getAllTypes();
 
+            $commentaireBDD = new commentsteamManager();
+            $listcomment = $commentaireBDD->getAllComment();
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -38,6 +40,8 @@ class adminController extends template{
             $v->assign("listeteam",$listeteam);
 
             $v->assign("listetypejeu",$listgametype);
+
+            $v->assign("listecomment",$listcomment);
            
             $v->setView("/includes/admin/accueil", "template");
         }
