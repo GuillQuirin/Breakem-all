@@ -41,10 +41,10 @@
 		} 
 	?>
 
-	<!-- <div class='admin-data-ihm align'>
-		<div class='index-modal platforms hidden-fade hidden'>
+	<div class='admin-data-ihm align'>
+		<div class='index-modal platforms'>
 			<div class='index-modal-this index-modal-login align'>
-				<div id='login-form' class='grid-md-3 inscription_rapide animation fade'> -->
+				<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>
 					<form id="typegameForm" enctype="multipart/form-data">			    
 					    <label>Nom :
 					    	<input class='input-default admin-form-input-w' id='name' name='name' type='text'>
@@ -57,11 +57,13 @@
 							<input type='file' name='profilpic'>
 						</div>
 						<input type="hidden" id="id" name="id">
-					    <button id='platform-submit-form-btn' type='button' class='btn btn-pink'><a id="TGformsubmit">Valider</a></button>
+					    <button id='platform-submit-form-btn' type='button' class='btn btn-pink'>
+					    	<a id="TGformsubmit">Valider</a>
+					    </button>
 				  	</form>
-	<!-- 		</div> 
+		 		</div> 
 			</div>
 		</div>
-	<div> -->
+	</div>
 
 </div>
