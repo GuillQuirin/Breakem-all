@@ -38,13 +38,8 @@
 				</table>
 		<?php
 			}
-			else{
-				?>
-
-				<p>Pas de signalements à récupérer</p>
-
-				<?php
-			} 
+			else
+				echo "<p>Pas de signalements à récupérer</p>";
 		?>		
 
 	<!-- </form>	 -->

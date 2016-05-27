@@ -19,7 +19,7 @@ class commentsteamManager extends basesql{
 
 	public function getAllComment(){
 			// Sous requete SQL pour recuperer les pseudos
-		$sql="SELECT c.id, c.message, c.date, 
+		$sql="SELECT c.id, c.message, c.date, c.status,  
 							(SELECT pseudo from user WHERE id=c.idUser) as pseudo,
 							(SELECT name from team WHERE id=c.idTeam) as NomTeam
 				FROM commentsteam c
@@ -36,7 +36,10 @@ class commentsteamManager extends basesql{
 	}
 
 	public function delComment(commentsteam $comment){
-		$sql = "DELETE FROM commentsteam WHERE id=:id";
+
+		$sql = ($comment->getStatus()==1) ? 
+				"UPDATE commentsteam SET status=0 WHERE id=:id" :
+				"UPDATE commentsteam SET status=1 WHERE id=:id";
 		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->bindValue(':id', $comment->getId());

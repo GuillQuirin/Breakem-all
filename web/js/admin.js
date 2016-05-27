@@ -187,6 +187,7 @@ $("button[id^='validate-change-']" ).on('click', function() {
 
 
 
+//Maj user
 function setStatut(pseudo, value){
 	jQuery.ajax({
 	 	url: "admin/updateUserStatus",
@@ -201,11 +202,29 @@ function setStatut(pseudo, value){
 	});
 }
 
-
+//Maj signalement
 function deleteReport(id){
 	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
 		jQuery.ajax({
 		 	url: "admin/DeleteReports",
+		 	type: "POST",
+		 	data : "id="+id,
+		 	success: function(result){
+		 		location.reload(true);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	}
+}
+
+//Maj commentaire
+function deleteComment(id){
+	if(confirm("Souhaitez vous modérer ce commentaire ?")){
+		jQuery.ajax({
+		 	url: "admin/delComment",
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){

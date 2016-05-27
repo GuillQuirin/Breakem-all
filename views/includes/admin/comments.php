@@ -8,6 +8,7 @@
 				<th>Team</th>
 				<th>Message</th>
 				<th>Date</th>
+				<th>Modéré</th>
 				<th>Supprimer</th>
 			</thead>
 
@@ -25,7 +26,14 @@
 						echo "<a/></td>";
 					echo "<td>".$comment->getMessage()."</td>";
 					echo "<td>".$comment->getDate()."</td>";
-					echo "<td><button onclick=deleteComment(".$comment->getId().")>Effacer</button></td>";
+					echo "<td>";
+						if($comment->getStatus()==1)
+							echo "X";
+					echo "</td>";
+					echo "<td>";
+						echo "<button onclick=deleteComment(".$comment->getId().")>";
+							echo ($comment->getStatus()!=1) ? "Modérer" : "Déverrouiller";
+					echo "</td>";
 				echo "</tr>";
 			}
 			?>	

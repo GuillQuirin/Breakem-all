@@ -9,6 +9,7 @@ class commentsteam{
 	protected $nomTeam = null;
 	protected $date = null;
 	protected $message = null;
+	protected $status = null;
 
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
@@ -46,6 +47,9 @@ class commentsteam{
 	private function setMessage($v){
 		$this->message=$v;
 	}
+	private function setStatus($v){
+		$this->status=$v;
+	}
 
 	public function getId(){return $this->id;}
 	public function getIdUser(){return $this->idUser;}
@@ -54,4 +58,5 @@ class commentsteam{
 	public function getNomTeam(){return $this->nomTeam;}
 	public function getDate(){return $this->date;}
 	public function getMessage(){return $this->message;}
+	public function getStatus(){return $this->status;}
 }

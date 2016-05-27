@@ -241,4 +241,21 @@ class adminController extends template{
         $typegameBDD->delTypeGame($typegame);
 
     } 
+
+
+    /* COMMENTAIRE */
+    public function delCommentAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $commentBDD = new commentsteamManager();
+        $comment = $commentBDD->getComment($filteredinputs['id']);
+
+        $commentBDD->delComment($comment);
+    }
+
+
 }
