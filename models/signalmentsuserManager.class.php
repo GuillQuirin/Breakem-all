@@ -66,9 +66,12 @@ class signalmentsuserManager extends basesql{
 	}
 
 	public function getListReports(){
-		$sql="SELECT *
-					FROM signalmentsuser 
-					ORDER BY id ASC";
+			// Sous requete SQL pour recuperer les pseudos
+		$sql="SELECT s.id, s.subject, s.description, s.date, 
+							(SELECT pseudo from user WHERE id=s.id_indic_user) as pseudo_indic_user,
+							(SELECT pseudo from user WHERE id=s.id_signaled_user) as pseudo_signaled_user
+				FROM signalmentsuser s
+				ORDER BY id ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
