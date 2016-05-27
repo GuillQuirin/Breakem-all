@@ -30,7 +30,12 @@ $("#TGformsubmit").click(function(){
 	var description = $("#typegameForm #description").val();
 	var id = $("#typegameForm #id").val();
 	var src = $("#typegameForm #img").prop('src');
-	console.log(id);
+
+	if(!id){
+		alert("Veuillez selectionner un type de jeu ou en créer un.");
+		return false;
+	}
+	
 	if(id!=="-1"){ // Update
 		console.log("MAJ");
 		jQuery.ajax({
