@@ -123,7 +123,7 @@ class template{
       $user = new user($filteredinputs);
       $dbUser = $userManager->tryConnect($user);
 
-      if(!!$dbUser && $dbUser!=-1){
+      if(!!$dbUser && is_object($dbUser)){
         // définition du token
         $time = time();
         $expiration = $time + (86400 * 7);
@@ -135,7 +135,7 @@ class template{
         $data["connected"] = true;
         $this->connectedUser = $dbUser;
       }
-      else if(!!$dbUser && $dbUser==-1){
+      else if(!!$dbUser && !is_object($dbUser) && $dbUser==-1){
         $this->echoJSONerror("user", "You have been banned");
       }
       else{
