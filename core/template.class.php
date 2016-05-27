@@ -122,7 +122,8 @@ class template{
       $userManager = new userManager();
       $user = new user($filteredinputs);
       $dbUser = $userManager->tryConnect($user);
-      if(!!$dbUser){
+
+      if(!!$dbUser && $dbUser!=-1){
         // définition du token
         $time = time();
         $expiration = $time + (86400 * 7);
@@ -133,9 +134,14 @@ class template{
         setcookie(COOKIE_EMAIL, $dbUser->getEmail(), $expiration, "/");
         $data["connected"] = true;
         $this->connectedUser = $dbUser;
-      }else{
+      }
+      else if(!!$dbUser && $dbUser==-1){
+        $this->echoJSONerror("user", "You have been banned");
+      }
+      else{
        $this->echoJSONerror("user", "password and email don't match");
       }
+
     }
 
     echo json_encode($data);

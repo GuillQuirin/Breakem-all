@@ -721,8 +721,8 @@ var connection = {
 				alert("you are missing an input");
 			}
 			else if(obj.errors.user){
-				// email and pass don't match
-				alert("password and email don't match");
+				// email and pass don't match OU BAN
+				alert(obj.errors.user);
 			}
 		}
 	},

@@ -14,7 +14,7 @@ class userManager extends basesql{
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status>0";
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $user->getEmail()
@@ -24,9 +24,13 @@ class userManager extends basesql{
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 
 		if(isset($r[0])){
-			$dbUser = new user($r[0]);
-			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
-				return $dbUser;
+			//Membre non-banni
+			if($r[0]['status']>"0"){
+				$dbUser = new user($r[0]);
+				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
+					return $dbUser;
+			}
+			return -1;
 		}
 		return false;
 	}
