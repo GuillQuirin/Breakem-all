@@ -35,9 +35,7 @@ class gameManager extends basesql{
 		return false;
 	}
 
-	public function setgame($infos){
-		$sql = "INSERT INTO game (id, name, description, img, year, idType)"
-	}
+
 }
 /*
 public function setOwnerTeam(team $t, user $u){

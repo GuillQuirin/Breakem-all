@@ -106,13 +106,55 @@ class adminController extends template{
         $reportsBDD->delReport($report);
     }
 
-   public function deleteGame() {
+   public function deleteGameAction() {
 
    }
 
-    public function addGameAction() {
+    public function addGameAction()
+    {
 
-        $games
+        $args = array(
+            //'id' => FILTER_VALIDATE_INT,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING,
+            'year' => FILTER_SANITIZE_STRING,
+            'idType' => FILTER_VALIDATE_INT,
+        );
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+        if (isset($_FILES['img'])) {
+
+            $uploaddir = '/web/img/';
+            $name = $_FILES['img']['name'];
+
+            $uploadfile = getcwd().$uploaddir.$name;
+            var_dump($uploadfile);
+
+            define('KB', 1024);
+            define('MB', 1048576);
+            define('GB', 1073741824);
+            define('TB', 1099511627776);
+            
+           if ($_FILES['img']['size'] < 1 * MB) {
+                if ($_FILES['img']['error'] == 0) {
+
+                    if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
+                        die("Erreur d'upload");
+                }
+            }
+            $filteredinputs['img'] = $name;
+        }
+
+        $gameBDD = new gameManager();
+        $gameBDD->mirrorObject = new game($filteredinputs);
+        if ($gameBDD->create())
+            echo "CREATION";
+
+
+        header('Location: http://localhost/esgi2/admin');
 
     }
+
 }

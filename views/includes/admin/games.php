@@ -1,10 +1,10 @@
 <div class="admin-wrapper " id="admin-onglet-games-wrapper">
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="admin/addGame" method="post" enctype="multipart/form-data">
         <TABLE border=0>
             <TR>
                 <TD>Nom</TD>
                 <TD>
-                    <INPUT type=text name="nom">
+                    <INPUT type=text name="name">
                 </TD>
             </TR>
 
@@ -25,7 +25,7 @@
             <TR>
                 <TD>Année</TD>
                 <td>
-                    <input type="date" name="year">
+                    <input type="text" name="year">
                 </td>
             </TR>
 
