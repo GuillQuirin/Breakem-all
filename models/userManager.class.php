@@ -25,7 +25,7 @@ class userManager extends basesql{
 
 		if(isset($r[0])){
 			//Membre non-banni
-			if($r[0]['status']>"0"){
+			if((int)$r[0]['status'] > 0){
 				$dbUser = new user($r[0]);
 				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 					return $dbUser;
