@@ -28,5 +28,5 @@ if(isset($liste) && is_array($liste)){
 	}
 }
 else
-	echo "Pas de joueurs trouvés.";
+	echo "Pas de tournois trouvés.";
 ?>

@@ -95,7 +95,7 @@
 										</a>
 									</li>
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH; ?>/listetournois">
 											Liste
 										</a>
 									</li>																	
@@ -112,7 +112,7 @@
 											echo '<li class="navbar-menu-tooltip-li">';
 
 											if(!empty($_idTeam))
-												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Page de ma team</a>";
+												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
 											
 											else
 												echo "<a href=''>Créer ma team</a>";
@@ -121,7 +121,7 @@
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH; ?>/listeteams">
 											Liste
 										</a>
 									</li>																							
