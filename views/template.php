@@ -102,14 +102,7 @@
 								</ul>
 							</li>
 							<li class="navbar-menu-li navbar-menu-joueur">
-								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
-								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-joueur">
-									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/listejoueurs">
-											Liste
-										</a>
-									</li>																							
-								</ul>
+								<a href="<?php echo WEBPATH; ?>/listejoueurs">Joueurs</a>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-team">
 								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
