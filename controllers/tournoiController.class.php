@@ -35,7 +35,7 @@ class tournoiController extends template {
 
 				// Recuperer toutes les équipes avec le nombre de places prises
 				$ttm = new teamtournamentManager();
-				$allTournTeams = $ttm->getTournamentFreeTeams($matchedTournament);
+				$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
 				if(!!$allTournTeams){
 					$freeTeams = [];
 					$fullTeams = [];
