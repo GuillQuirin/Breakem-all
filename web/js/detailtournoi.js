@@ -3,6 +3,7 @@ window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	// preventQuitPageEvent();
 	dom.init();
+	tournamentRegister.init();
 });
 
 var dom = {
@@ -16,5 +17,60 @@ var dom = {
 	},
 	getDetailTournoiInfos: function(){
 		return this._detailTournoiInfos;
+	}
+}
+
+var tournamentRegister = {
+	init: function(){
+		this.setRandBtn();
+		if(this.getRandBtn().length == 1 && this.getRandBtn() instanceof jQuery){
+			this.setTget();
+			if(this.getTget().length > 0){
+				this.setSjeton();
+				if(this.getSjeton().length == 1 && this.getSjeton() instanceof jQuery)
+					this.loadRandRegisterEvent();
+			}
+		}
+	},
+	setRandBtn: function(){
+		this._randBtn = $('.detailtournoi-btn-inscription');
+	},
+	setTget: function(){
+		this._tGet = $_GET('t');
+	},
+	setSjeton: function(){
+		this._sJeton = $('#sJeton');
+	},
+	getRandBtn: function(){return this._randBtn;},
+	getTget: function(){return this._tGet;},
+	getSjeton: function(){return this._sJeton;},
+	loadRandRegisterEvent: function(){
+		var _this = this;
+		this.getRandBtn().click(function(event){
+			jQuery.ajax({
+				url: 'tournoi/randRegister',
+				type: 'POST',
+				data: {
+					t: _this.getTget(),
+					sJeton: _this.getSjeton().val()
+				},
+				complete: function(xhr, textStatus) {
+					// console.log("request completed \n");
+				},
+				success: function(data, textStatus, xhr) {
+					var obj = tryParseData(data);
+					if(obj != false){
+						popup.init('Vous avez été inscrit aléatoirement à une équipe');
+						setTimeout(function(){
+							location.reload();
+						}, 1000);
+							
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					console.log("request error !! : \t " + errorThrown);
+				}
+			});
+		});
 	}
 }
