@@ -19,7 +19,8 @@ platformModule.createPlatformsIhm = function(){
 						"<div class='index-modal-this index-modal-login align'>" +
 						
 							"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
-								"<form id='platform-form'>" +			    
+								"<form id='platform-form'>" +		
+									"<input type='text' name='id' class='hidden platform-id' value='" + field.id + "'>" + 	    
 								    "<label for='email'>Nom :</label>" +
 								    "<input class='input-default admin-form-input-w platform-nom' name='nom' type='text' value='" + field.name + "'>" +
 								     "<label for='email'>Description :</label>" +
@@ -53,15 +54,16 @@ platformModule.getSubmitBtn = function(i){
 
 platformModule.postData = function(i){	
 	return function(){
-		platformModule.getSubmitBtn(i).click(function(e){					
+		platformModule.getSubmitBtn(i).click(function(e){			
 
+			var id = jQuery(e.currentTarget).parent().find(jQuery('.platform-id')).val();
 			var nom = jQuery(e.currentTarget).parent().find(jQuery('.platform-nom')).val();
 			var description = jQuery(e.currentTarget).parent().find(jQuery('.platform-description')).val();			
 
 			//Plus rapide de créer l'objet en une fois si il y'a peu de data
-			var allData = {nom : nom, description : description};			
+			var allData = {nom : nom, description : description};		
 
-			console.log(allData);			
+			console.log(allData);					
 
 			jQuery.ajax({
 			 	url: "admin/updatePlatformsData",
