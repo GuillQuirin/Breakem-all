@@ -35,7 +35,6 @@ final class teamtournamentManager extends basesql{
 	}
 
 	public function getTournamentTeams(tournament $t){
-		// Compter le nombre de places restantes pour chaque team et les renvoyer si > 0
 		$sql = "SELECT tt.id, tt.rank, tt.idTournament, COUNT(r.idTeamTournament) as takenPlaces 
 		FROM teamtournament tt 
 		LEFT OUTER JOIN register r 
@@ -66,7 +65,5 @@ final class teamtournamentManager extends basesql{
 
 /*
 *
-SELECT tt.id FROM teamtournament tt LEFT OUTER JOIN tournament t ON t.id = tt.idTournament WHERE t.id = 11 ORDER BY tt.id LIMIT 0,1;
-
 */
 ?>
