@@ -16,7 +16,7 @@
 							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && !isset($userAlrdyRegistered)): ?>
 								<div class="relative ta-right">
 									<button class="detailtournoi-btn-inscription relative btn btn-green"><a>Rejoindre</a></button>
-									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $sJeton;?>">
+									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 								</div>
 							<?php endif; ?>
 						<?php else: ?>

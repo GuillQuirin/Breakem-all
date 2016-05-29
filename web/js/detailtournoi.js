@@ -60,11 +60,15 @@ var tournamentRegister = {
 				success: function(data, textStatus, xhr) {
 					var obj = tryParseData(data);
 					if(obj != false){
+						if(obj.errors){
+							console.log(obj.errors);
+
+							return;
+						}
 						popup.init('Vous avez été inscrit aléatoirement à une équipe');
 						setTimeout(function(){
 							location.reload();
-						}, 1000);
-							
+						}, 1000);							
 					}
 				},
 				error: function(xhr, textStatus, errorThrown) {

@@ -1,7 +1,6 @@
 <?php
 
 class tournoiController extends template {
-
 	public function tournoiAction(){
 		$v = new view();
 		$this->assignConnectedProperties($v);
@@ -81,80 +80,80 @@ class tournoiController extends template {
 	}
 	// Destiné à de l'AJAX
 	public function randRegisterAction(){
-		// On vérifie ici que le mec était bien sur une page tournoi
+		// On vérifie ici que le mec était bien sur une page tournoi		
 		if(!isset($_SESSION['lastTournamentChecked']))
-			exit;
+			$this->echoJSONerror("tournoi","aucun tournoi visité");
 		$args = array(
             't' => FILTER_SANITIZE_STRING,
             'sJeton' => FILTER_SANITIZE_STRING
 		);
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
-		// On est dans le cas où on cherche un tournoi !
-		if(!empty($filteredinputs)){
-			$filteredinputs = array_filter($filteredinputs);
+		$filteredinputs = array_filter($filteredinputs);
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs","missing input " . $key);
+    	}
+		
+		// SECU ANTI CSRF
+		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
+			$this->echoJSONerror("csrf","jetons differents !");
+		$link = $filteredinputs['t'];
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
+		if($link !== $_SESSION['lastTournamentChecked'])
+			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
 
-			// SECU ANTI CSRF
-			if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
-				exit;
+		$tm = new tournamentManager();
+		$matchedTournament = $tm->getTournamentWithLink($link);
+		// Si le chercheur renvoie autre chose que false
+		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+			$rm = new registerManager();
+			// On vérifie l'égibilité de l'user au tournoi
+			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
+				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+			$ttm = new teamtournamentManager();
+			$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
 
-			$link = $filteredinputs['t'];
-			// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
-			if($link !== $_SESSION['lastTournamentChecked'])
-				exit;
-
-			$tm = new tournamentManager();
-			$matchedTournament = $tm->getTournamentWithLink($link);
-			// Si le chercheur renvoie autre chose que false
-			if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
-				$rm = new registerManager();
-
-				// On vérifie l'égibilité de l'user au tournoi
-				if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
-					$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
-				$ttm = new teamtournamentManager();
-				$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
-				if(!!$allTournTeams){
-					$freeTeams = [];
-					$fullTeams = [];
-					// On ajoute tous les users 
-					foreach ($allTournTeams as $key => $teamtournament) {
-						$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
-						if(is_array($usersInTeam))
-							$teamtournament->addUsers($usersInTeam);
-						if(canUserRegisterToTeamTournament($this->getConnectedUser(), $matchedTournament, $teamtournament))
-							$freeTeams[] = $teamtournament;
-						else
-							$fullTeams[] = $teamtournament;
-					}
-					// Cas où l'affectation d'équipe est random
-					if((bool)$matchedTournament->getRandomPlayerMix()){
-						// On recupere une equipe random à laquelle affecter l'user
-						$affectedTeam = $this->getRandomTeamToAffectUser($matchedTournament, $freeTeams);
-						// On l'ajoute à la team
-						$rm->mirrorObject = new register([
-							'status' => 1,
-							'idTeamTournament' => $affectedTeam->getId(),
-							'idUser' => $this->getConnectedUser()->getId(),
-							'idTournament' => $matchedTournament->getId()
-						]);
-						if($rm->create() !== FALSE){
-							// $_SESSION()
-							echo json_encode(["enregistrement" => true]);
-							return;
-						}
-						else
-							$this->echoJSONerror("enregistrement", "problème lors de votre affectation à l'équipe du tournoi " . $matchedTournament->getName());
-					}
+			if(!!$allTournTeams){
+				$freeTeams = [];
+				$fullTeams = [];
+				// On ajoute tous les users inscrit à chaque team du tournoi
+				foreach ($allTournTeams as $key => $teamtournament) {
+					$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+					if(is_array($usersInTeam))
+						$teamtournament->addUsers($usersInTeam);
+					if(canUserRegisterToTeamTournament($this->getConnectedUser(), $matchedTournament, $teamtournament))
+						$freeTeams[] = $teamtournament;
+					else
+						$fullTeams[] = $teamtournament;
 				}
-				else
-					$this->echoJSONerror('tournoi', 'aucune equipe trouvée pour ce tournoi');
-			};
-			unset($tm);
-		}
-		// Pas de get connu reçu, on affiche la page par défaut des tournois
-		else{
-			$this->echoJSONerror('tournoi', 'tournoi non-existant');
-		}
+				// Cas où l'affectation d'équipe est random
+				if((bool)$matchedTournament->getRandomPlayerMix()){
+					// On recupere une equipe random à laquelle affecter l'user
+					$affectedTeam = $this->getRandomTeamToAffectUser($matchedTournament, $freeTeams);
+					// On l'ajoute à la team
+					$rm->mirrorObject = new register([
+						'status' => 1,
+						'idTeamTournament' => $affectedTeam->getId(),
+						'idUser' => $this->getConnectedUser()->getId(),
+						'idTournament' => $matchedTournament->getId()
+					]);
+					if($rm->create() !== FALSE){
+						echo json_encode(["enregistrement" => true]);
+						return;
+					}
+					else
+						$this->echoJSONerror("enregistrement", "problème lors de votre affectation à l'équipe du tournoi " . $matchedTournament->getName());
+				}
+				// Pas d'affectation aléatoire activée pour ce tournoi
+				else{
+					echo "Il faut une team à choisir !";
+				}
+			}
+			else
+				$this->echoJSONerror('tournoi', 'aucune equipe trouvée pour ce tournoi');
+		};
+		unset($tm);
+		
 	}
 	public function searchAction(){
 		$args = array(

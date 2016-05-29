@@ -6,6 +6,11 @@ class view{
 	protected $view;
 	protected $template;
 
+
+	public function __construct(){
+		// var_dump("view construct : " .$_SESSION['sJeton']);
+	}
+
 	public function setView($view, $layout="template"){
 		$path_view = "views/".$view.".php";
 		$path_template = "views/".$layout.".php";
@@ -52,7 +57,6 @@ class view{
 		// JETON ANTI FAILLE CSRF RAFRAICHIT A CHAQUE RELOAD
 		$sJeton = sha1(uniqid(rand(), true)) . date('YmdHis');
 	    $_SESSION['sJeton'] = $sJeton;
-		$this->data['sJeton'] = $sJeton;
 		extract(array_filter($this->data, 'removeNULL'));
 		include $this->template;
 	}
