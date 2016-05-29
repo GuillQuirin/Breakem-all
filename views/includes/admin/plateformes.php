@@ -9,7 +9,7 @@
 				</form>
 			</div>
 			<div class="grid-md-3 platform-add">
-				<button type="button" class="btn btn-pink full" id="platform-add-btn"><a>Ajouter une plateforme</a></button>
+				<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter une plateforme</a></button>
 			</div>
 		</div>
 	</div>

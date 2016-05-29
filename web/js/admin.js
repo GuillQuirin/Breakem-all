@@ -3,7 +3,7 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	platformModule.init();
+	platform.init();
 });
 
 var onglet = {
@@ -164,18 +164,9 @@ var onglet = {
 	}
 };
 
-var platformModule = {
+var platform = {
 	init : function(){
-		platformModule.createPlatformsIhm();
-	},
-	ihmElemHover : function(){
-		jQuery('.admin-data-ihm').hover(
-		  function() {
-		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
-		  }, function(e) {
-		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
-		  }
-		);
+		platformModule.init();
 	}
 };
 
