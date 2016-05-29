@@ -16,7 +16,7 @@ class platformManager extends basesql{
 	}
 
 	public function getListPlatform(){
-		$sql = "SELECT id, name, description, img FROM " . $this->table . " ORDER BY name ASC";
+		$sql = "SELECT id, name, description, img FROM " . $this->table . "WHERE id<0 AND ORDER BY name ASC";
 		
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -29,7 +29,11 @@ class platformManager extends basesql{
 	}
 
 public function deletePlatform(platform $platform){
-		
+		$sql1 = "UPDATE gameversion SET idPlateform=-1 WHERE idPlateform=:id";
+		$sth1 = $this->pdo->prepare($sql1, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
+		$sth1->bindValue(':id', $platform->getId());
+		$sth1->execute();
+
 		$sql = "DELETE FROM " .$this->table . " WHERE id=:id";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
 		$sth->bindValue(':id', $platform->getId());

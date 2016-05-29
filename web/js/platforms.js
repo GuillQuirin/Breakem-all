@@ -101,9 +101,9 @@ platformModule.postDataDelete = function(i){
 		url: "admin/deletePlatformData", 
 		type: "POST",
 		data: allData,
-		success: function(result){
-			console.log(result);
+		success: function(result){						
 			console.log("Plateforme supprimée");			
+			btn.parent().parent().remove();
 		},
 	 	error: function(result){
 	 		throw new Error("Couldn't delete this platform", result);
