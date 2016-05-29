@@ -45,8 +45,9 @@ class adminController extends template{
            
             $v->setView("/includes/admin/accueil", "template");
         }
-        else //On affiche la 404 pour faire croire que le mec tape n'importe quoi
-            header('Location: '.WEBPATH.'/404');
+        else{ //On affiche la 404 pour faire croire que le mec tape n'importe quoi
+          header('Location: '.WEBPATH.'/404');
+        }
     }
 
     /* PLATEFORME */
@@ -57,6 +58,7 @@ class adminController extends template{
         $data['res'] = [];        
         foreach ($typesObj as $key => $obj) {
             $arr = [];
+            $arr['id'] = $obj->getId();
             $arr['name'] = $obj->getName();
             $arr['img'] = $obj->getImg();
             $arr['description'] = $obj->getDescription();
@@ -67,8 +69,20 @@ class adminController extends template{
     }
 
     public function updatePlatformsDataAction(){
+         $args = array(
+            'id' => FILTER_VALIDATE_INT,
+            'nom' => FILTER_VALIDATE_STRING,
+            'description' => FILTER_VALIDATE_STRING,           
+        );        
         
-        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);    
+
+        $platformBdd = new platformManager();
+        $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
+        $platformMaj = new platform($filteredinputs);
+        var_dump($platform, $platformMaj);
+        if($platformBdd->setPlatform($platform, $platformMaj))
+            echo "OK";
     }
 
     /* TEAM */
