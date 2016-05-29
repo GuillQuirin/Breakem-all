@@ -28,7 +28,31 @@ class platformManager extends basesql{
 		return $list;
 	}
 
-public function deletePlatform(platform $platform){
+	public function addPlatform(platform $p){		
+		$sql = "INSERT INTO platform VALUES
+			(:id, :name, :description, :img)";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':id' => $p->getId(),
+			':name' => $p->getName(),
+			':description' => $p->getDescription(),
+			':img' => $p->getImg(),			
+		]);
+
+		$this->columns = [];
+		$p_methods = get_class_methods($p);
+
+		foreach ($p_methods as $key => $method) {
+			if(is_numeric(strpos($method, 'get'))){
+				$col = lcfirst(str_replace('get', '', $method));
+				$this->columns[$col] = $p->$method();
+			};
+		}
+		$this->columns = array_filter($this->columns);
+		$r = $this->save();			
+	}
+
+	public function deletePlatform(platform $platform){
 		$sql1 = "UPDATE gameversion SET idPlateform=-1 WHERE idPlateform=:id";
 		$sth1 = $this->pdo->prepare($sql1, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
 		$sth1->bindValue(':id', $platform->getId());

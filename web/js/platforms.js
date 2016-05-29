@@ -1,4 +1,9 @@
 platformModule.createPlatformsIhm = function(){
+	platformModule.setInsertBtn();
+	platformModule.setPlatformAdd();
+
+	platformModule.postDataInsert();
+
 	ajaxRequest("admin/getPlatformsData", "GET", function(result){				
 		jQuery.each(result, function(i, field){
 			jQuery(".admin-wrapper.platforms").append(				
@@ -54,6 +59,18 @@ platformModule.createPlatformsIhm = function(){
 	});
 };
 
+platformModule.setPlatformAdd = function(){
+	this._setPlatformAdd = jQuery('.platform-add');
+},
+
+platformModule.setInsertBtn = function(){
+	this._setInsertBtn = jQuery('#platform-add-btn');
+},
+
+platformModule.getPlatformAdd = function(){
+	return this._setPlatformAdd;
+};
+
 platformModule.getSubmitBtn = function(i){
 	return jQuery('.platform-submit-form-btn' + i);
 };
@@ -62,6 +79,57 @@ platformModule.getDeleteBtn = function(i){
 	return jQuery('.platform-btn-delete' + i);
 };
 
+platformModule.getInsertBtn = function(){
+	return this._setInsertBtn;
+
+}
+
+//INSERT
+platformModule.postDataInsert = function(){
+	platformModule.getInsertBtn().click(function(){
+		platformModule.getPlatformAdd().append(
+			"<div class='index-modal platforms hidden-fade hidden'>" +
+
+				"<div class='index-modal-this index-modal-login align'>" +
+				
+					"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
+						"<form id='platform-form'>" +		
+							"<input type='text' name='id' class='hidden platform-id-p' value=''>" + 	    
+						    "<label for='email'>Nom :</label>" +
+						    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>" +
+						     "<label for='email'>Description :</label>" +
+						    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>" +							    							  
+						    "<div class='admin-avatar-wrapper m-a'>" +																	
+								"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>" +										
+							"</div>" +	
+							"<div class='text-center admin-input-file'>" +								 
+							"<input type='file' name='profilpic'>" +
+							"</div>" +
+						    "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
+				  		"</form>" +
+				  	"</div>" + 	 
+				"</div>" +
+			"</div>" 
+		);
+		navbar.setOpenFormAll();		
+		navbar.form.closeFormKey();
+        navbar.form.closeFormClick();	
+		/*jQuery.ajax({
+			url: "admin/deletePlatformData", 
+			type: "POST",
+			data: allData,
+			success: function(result){						
+				console.log("Plateforme supprimée");			
+				btn.parent().parent().remove();
+			},
+		 	error: function(result){
+		 		throw new Error("Couldn't delete this platform", result);
+		 	}
+		});*/
+	});
+};
+
+//UPDATE
 platformModule.postDataUpdate = function(i){				
 
 	var btn = platformModule.getSubmitBtn(i);						
@@ -92,6 +160,7 @@ platformModule.postDataUpdate = function(i){
 	});			
 };
 
+//DELETE
 platformModule.postDataDelete = function(i){
 	var btn = platformModule.getDeleteBtn(i);
 	
