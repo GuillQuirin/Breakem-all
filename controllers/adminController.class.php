@@ -78,7 +78,7 @@ class adminController extends template{
         $filteredinputs = filter_input_array(INPUT_POST, $args);    
 
         $platformBdd = new platformManager();
-        $platform = $platformBdd->getTypeGame($filteredinputs['id']);
+        $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
         $platformMaj = new platform($filteredinputs);
         var_dump($platform, $platformMaj);
         if($platformBdd->setPlatform($platform, $platformMaj))
