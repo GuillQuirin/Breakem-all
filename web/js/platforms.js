@@ -7,7 +7,7 @@ var platformModule = {
 		platformModule.setPlatformAdd();
 
 		platformModule.createPlatformsIhm();
-		platformModule.postDataInsert();
+		//platformModule.postDataInsert();
 	},
 
 	//Setter
