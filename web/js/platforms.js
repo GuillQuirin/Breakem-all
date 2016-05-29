@@ -1,6 +1,5 @@
 platformModule.createPlatformsIhm = function(){
-	ajaxRequest("admin/getPlatformsData", "GET", function(result){		
-		//console.log("Resultat du callback getPlatformsData", result);
+	ajaxRequest("admin/getPlatformsData", "GET", function(result){				
 		jQuery.each(result, function(i, field){
 			jQuery(".admin-wrapper.platforms").append(				
 
@@ -22,23 +21,23 @@ platformModule.createPlatformsIhm = function(){
 							"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
 								"<form id='platform-form'>" +			    
 								    "<label for='email'>Nom :</label>" +
-								    "<input class='input-default admin-form-input-w' id='nom' name='nom' type='text' value='" + field.name + "'>" +
+								    "<input class='input-default admin-form-input-w platform-nom' name='nom' type='text' value='" + field.name + "'>" +
 								     "<label for='email'>Description :</label>" +
-								    "<textarea class='input-default admin-form-input-w' id='description' name='description' type='text'>" + field.description + "</textarea>" +							    							  
+								    "<textarea class='input-default admin-form-input-w platform-description' name='description' type='text'>" + field.description + "</textarea>" +							    							  
 								    "<div class='admin-avatar-wrapper m-a'>" +																	
-										"<img class='admin-avatar img-cover' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
+										"<img class='admin-avatar img-cover platform-img' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
 									"</div>" +	
 									"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' name='profilpic'>" +
 									"</div>" +
-								    "<button id='platform-submit-form-btn' type='button' class='btn btn-pink'><a>Valider</a></button>" +
+								    "<button type='button' class='platform-submit-form-btn" + i + " btn btn-pink'><a>Valider</a></button>" +
 						  		"</form>" +
 						  	"</div>" + 	 
 						"</div>" +
 					"</div>" +
 				"<div>" 
-			);
-			platformModule.postData({name : field.name, img : field.img, description : field.description});	
+			);			
+			jQuery(".platform-submit-form-btn" + i).click(platformModule.postData(i));						
 		});	
 		platformModule.ihmElemHover();		
 		navbar.setOpenFormAll();		
@@ -48,29 +47,32 @@ platformModule.createPlatformsIhm = function(){
 	});
 };
 
+platformModule.getSubmitBtn = function(i){
+	return jQuery('.platform-submit-form-btn' + i);
+};
 
-//Non Fini
-platformModule.postData = function(myData){	
+platformModule.postData = function(i){	
+	return function(){
+		platformModule.getSubmitBtn(i).click(function(e){					
 
-	if(myData){
-		jQuery('.platform-submit-form-btn').click(function(){
-			var allData = {};
+			var nom = jQuery(e.currentTarget).parent().find(jQuery('.platform-nom')).val();
+			var description = jQuery(e.currentTarget).parent().find(jQuery('.platform-description')).val();			
 
-			//Laissé a null pour le moment
-			allData.name = myData.name ? myData.name : null;
-			allData.img = myData.img ? myData.img : null;
-			allData.description = myData.description ? myData.description : null;	
+			//Plus rapide de créer l'objet en une fois si il y'a peu de data
+			var allData = {nom : nom, description : description};			
+
+			console.log(allData);			
 
 			jQuery.ajax({
 			 	url: "admin/updatePlatformsData",
 			 	type: "POST",
 			 	data: allData,
 			 	success: function(result){			 					 					 	
-					console.log(result);
+					console.log("Platform mis à jour");
 			 	}
 			});
-		});
-	}else{
-		console.log("Parameter for platformModule.updateData is undefined");
+		});		
 	}
 };
+
+

@@ -28,18 +28,8 @@ class platformManager extends basesql{
 		return $list;
 	}
 
-	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
-	public function changePlatform(platform $p){
-		$sql = "UPDATE team SET status = :status WHERE id= :id";
-		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$req->execute([
-			':status' => $t->getStatus(),
-			':id' => $p->getId()
-		]);
-		$res = $req->fetchAll();
-		if(isset($res[0]))
-			return true;
-		return false;
+	public function setPlatform(platform $ancien, platform $nouveau){
+	
 	}
 }
 /*
