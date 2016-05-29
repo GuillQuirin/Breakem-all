@@ -136,7 +136,7 @@
 										<p class="text-center m-a">Aucun joueur dans cette équipe</p>
 									</div>
 								<?php endif; ?>
-								<?php if( !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
+								<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
 									<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
 									<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
 										<a>Rejoindre <?php echo $teamNumber;?></a>
