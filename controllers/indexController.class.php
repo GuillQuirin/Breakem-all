@@ -45,3 +45,14 @@ class indexController extends template{
 
 
 }
+/*
+
+	SELECT t.id, t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, COUNT(r.id) as numberRegistered 
+	FROM tournament t LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id LEFT OUTER JOIN game ga ON ga.id = gv.idGame LEFT OUTER JOIN platform p ON p.id = gv.idPlateform LEFT OUTER JOIN user u ON u.id = t.idUserCreator LEFT OUTER JOIN register r ON r.idTournament = t.id WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME()) ORDER BY t.startDate	
+
+			
+
+		
+
+
+ */
