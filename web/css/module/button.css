@@ -44,6 +44,11 @@
 	background: #2BD9D9;
 	border-color:#2BD9D9;
 }
+/* BLUE */
+.btn.btn-green:hover a{
+	background:  rgb(22, 76, 36);
+	border-color: rgb(22, 76, 36);
+}
 /* BLACK */
 .btn.btn-black:hover a{
 	background: #000;

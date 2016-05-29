@@ -49,7 +49,7 @@ class template{
       }
     }
   }
-  
+
   protected function isVisitorConnected(){
     return ($this->connectedUser instanceof user);
   }  

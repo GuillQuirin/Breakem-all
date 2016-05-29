@@ -8,3 +8,6 @@
 .overflow-initial{
 	overflow:initial;
 }
+.overflow-y-scroll{
+	overflow-y: scroll;
+}

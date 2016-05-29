@@ -19,7 +19,7 @@ class tournoiController extends template {
 			$tm = new tournamentManager();
 			$matchedTournament = $tm->getTournamentWithLink($link);
 			// Si le chercheur renvoie autre chose que false
-			if(!!$link && $link !== 'null' && $matchedTournament !== false){
+			if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
 				$v->assign("css", "detailtournoi");
 				$v->assign("js", "detailtournoi");
 				$v->assign("title", "Tournoi ".$matchedTournament->getName());
@@ -42,24 +42,30 @@ class tournoiController extends template {
 					foreach ($allTournTeams as $key => $teamtournament) {
 						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
 							$freeTeams[] = $teamtournament;
-						else
+						else{
+							$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+							$teamtournament->addUsers($usersInTeam);
 							$fullTeams[] = $teamtournament;
+						}
 					}
 					$v->assign("freeTeams", $freeTeams);
 					$v->assign("fullTeams", $fullTeams);
 				};
-				// var_dump($allTournTeams);
+				$userAlrdyRegistered = $rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser());
+				// /!\ LORSQUE L'USER N'EST PAS INSCRIT ON SFAIT $userAlrdyRegistered === FALSE DONC CETTE VARIABLE SERA SUPPRIMEE PAR LE FILTER ARRAY DS LE extract() de view.class
+				$v->assign("userAlrdyRegistered", $userAlrdyRegistered);
+				$v->assign("_user", $this->getConnectedUser());
 				unset($ttm, $tm, $rm);
 				$v->setView("detailtournoiDOM");
 				return;
 			};
+			unset($tm);
 			// Aucun tournoi n'a été trouvé pour l'url reçue
 			$v->assign("css", "404");
 			$v->assign("js", "404");
 			$v->assign("title", "Erreur 404");
 	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
-	        $v->setView("templatefail", "templatefail");
-			
+	        $v->setView("templatefail", "templatefail");			
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois
 		else{
@@ -70,7 +76,41 @@ class tournoiController extends template {
 			$v->setView("tournoiDOM");
 		}
 	}
+	public function registerAction(){
+		$v = new view();
+		$this->assignConnectedProperties($v);
+		
 
+		$args = array(
+            't' => FILTER_SANITIZE_STRING,
+            'sJeton' => FILTER_SANITIZE_STRING
+		);
+		$filteredinputs = filter_input_array(INPUT_GET, $args);
+
+		// On est dans le cas où on cherche un tournoi !
+		if(!empty($filteredinputs)){
+			$filteredinputs = array_filter($filteredinputs);
+			$link = $filteredinputs['t'];
+			$tm = new tournamentManager();
+			$matchedTournament = $tm->getTournamentWithLink($link);
+			// Si le chercheur renvoie autre chose que false
+			if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+				echo "TOURNOI TROUVE \n";
+				$rm = new registerManager();
+				if(canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
+					echo "USER ELIGIBLE ! \n";
+				else{
+					unset($rm);
+					$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+				}
+			};
+			unset($tm);
+		}
+		// Pas de get connu reçu, on affiche la page par défaut des tournois
+		else{
+			$this->echoJSONerror('tournoi', 'tournoi non-existant');
+		}
+	}
 	public function searchAction(){
 		$args = array(
             'nom' => FILTER_SANITIZE_STRING,
@@ -108,4 +148,6 @@ class tournoiController extends template {
 		}
 		$v->setView("tournamentslist");
 	}
+
+
 }

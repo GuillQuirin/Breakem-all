@@ -6,13 +6,20 @@ body {
 	font-family: lato, sans-serif;
 	color: #fff;
 }
-
+section{
+	transition: background .2s;
+}
+section:nth-child(even){
+	background: rgba(255, 255, 255, 0.02);
+}
+section:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
 /* ################## INFOS PRINCIPALES TOURNOI ################### */
 	.detailtournoi-infos{
 		/*margin-top: 142px;*/
 		align-items: center;
 		justify-content: center;
-		background: rgba(255, 255, 255, 0.05);
 	}
 	.detailtournoi-infos article,
 	.detailtournoi-infos .detail-tournoi-aside{
@@ -113,9 +120,6 @@ body {
 	}
 
 /* ################## JOUEURS PARTICIPANTS ################### */
-	p.place-a-prendre{
-		background: rgba(0, 102, 0, .3);
-	}
 	p.aucune-place-restante{
 		background: #D92B4C;
 	}
@@ -124,7 +128,7 @@ body {
 		margin: 0 auto;
 		padding-top: 40px;
 		padding-bottom: 20px;
-		background: rgba(28, 37, 58, 0.85);
+		/*background: rgba(28, 37, 58, 0.85);*/
 	}
 	.detailtournoi-participants h2{
 		line-height: 48px;
@@ -212,7 +216,6 @@ body {
 		height: 20px;
 	}
 
-
 /* ################## BRACKET TOURNOI ################### */
 	.detailtournoi-bracket{
 		width: 90%;
@@ -236,128 +239,66 @@ body {
 		display: inline-block;*/
 	}
 
-/* ################## COMMENTAIRES #################### */
-	.detailtournoi-commentaires{
-		width: 100%;
-		margin: 0 auto;
-		margin-top: 4vh;
-		padding-top: 4vh;
-		padding-bottom: 4vh;
-		background: rgba(255, 255, 255, 0.05);
+/* ################## EQUIPES #################### */
+	.detailtournoi-equipeslibres-section,
+	.detailtournoi-equipescompletes-section{
+		padding-top: 40px;
+		padding-bottom: 20px;
+		/*max-width: 1160px;*/
 	}
-	.detailtournoi-commentaires h2{
-		padding-bottom: 1vh;
-		border-bottom: 1px solid #fff;
-		display: inline-block;
+	.detailtournoi-equipeslibres-section h2,
+	.detailtournoi-equipescompletes-section h2{
+		line-height: 48px;
+		padding-left: 8px;
 	}
-	.detailtournoi-container-commentaires{
-		width: 90%;
-		margin: 0 auto;
-		margin-top: 20px;
-		background: #fff;
-		border: 5px solid #0A0012;
-		max-height: 50vh;
-		overflow-y: scroll;
-		padding: 0.2vh 0 20px 0;
-	}
-	.detailtournoi-commentaire{
-		width: 90%;
-		margin: 0 auto;
-		margin-top: 20px;
-		margin-left: 0vh;
-		padding: 20px;
-		background: rgba(28, 37, 58, 0.85);
-		border: 5px solid #0A0012;
-		border-left: 0;
-		max-height: 50vh;
-		border-radius: 10px;
-		transition: background .1s;
-	}
-	.detailtournoi-commentaire:hover{
-		background: rgba(28, 37, 58, 0.90);		
-	}
-	.detailtournoi-commentaire-date{
-		font-size: 1.5vh;
-		color: #201B3A;
-	}
-	.detailtournoi-commentaire-pseudo{
-		color: #201B3A;
-		font-weight: 700;
-		display: inline-block;
-	}
-	.detailtournoi-commentaire-pseudo a:hover{
-		color: #0A0012;
-	}
-	.detailtournoi-commentaire-userpick{
-		margin: 0 auto;
-		margin-top: 0.5vh;
-		width: 90%;
-	}
-	.detailtournoi-container-commentaires .detailtournoi-commentaire-current-user{
-		background: rgba(28, 37, 58, 0.65);
-		margin: 0 auto;
-		margin-top: 20px;
-		border-left: 5px solid #0A0012;
-	}
-	.detailtournoi-container-commentaires .detailtournoi-commentaire-current-user:hover{
-		background: rgba(28, 37, 58, 0.7);
-	}
-	.detailtournoi-commentaire-current-user .detailtournoi-commentaire-pseudo{
-		text-align: right;
-		display: block;
-		margin-top: 0.3vh;
-	}	
-	.detailtournoi-commentaire-current-user .detailtournoi-commentaire-date{
-		text-align: left;
+	.detailtournoi-equipeslibres-section h2 span,
+	.detailtournoi-equipescompletes-section h2 span{
+		padding: 7px;
 	}
 
-	.detailtournoi-container-post-commentaire{
-		margin: 0 auto;
-		width: 90.5%;
-		background: rgba(28, 37, 58, 0.95);
+	.detailtournoi-equipelibre,
+	.detailtournoi-equipecomplete{
+		height: 200px;
+		width: 100%;
+		max-width: 150px;
 		border: 2px solid #fff;
+		margin: 10px;
+		padding-bottom: 5px;
 	}
-	.detailtournoi-container-post-commentaire textarea{
-		resize: none;
-		background: rgba(120, 104, 134, 0.2);
+	.detailtournoi-equipelibre h5,
+	.detailtournoi-equipecomplete h5{
+		line-height: 25px;
+		border-bottom: 2px solid #ccc;
+	}
+	.detailtournoi-equipelibre h5 span,
+	.detailtournoi-equipecomplete h5 span{
+		padding: 0 5px 0 5px;
+	}
+	.detailtournoi-equipelibre div.absolute,
+	.detailtournoi-equipecomplete div.absolute{
+		height: 170px;
+		top: 25px;
+	}
+	.detailtournoi-equipescompletes-container,
+	.detailtournoi-equipeslibres-container{
+		margin-top: 20px;
+	}
+	.equipecomplete-joueurs-container a,
+	.equipelibre-joueurs-container a{
+		padding: 2px 0 2px 0;
+		width: 75%;
+		border-bottom: 1px solid #ccc;
+		transition: background .2s, border .2s, width .2s;
+	}
+	.equipecomplete-joueurs-container a:hover,
+	.equipelibre-joueurs-container a:hover{
+		background: #D92B4C;
 		width: 100%;
-		height: 25px;
-		color: white;
-		outline: none;
-		border: none;
-		transition: height .2s;
+		border-color: #D92B4C;
 	}
-	.detailtournoi-container-post-commentaire textarea:hover,
-	.detailtournoi-container-post-commentaire textarea:active,
-	.detailtournoi-container-post-commentaire textarea:focus{
-		outline: none;
-		border: none;
-	}	
-	.detailtournoi-container-post-commentaire textarea:active,
-	.detailtournoi-container-post-commentaire textarea:focus{
-		outline: none;
-		border: none;
-		height: 50px;
+	.equipelibre-btn-inscription{
+		width: 85%;
 	}
-	.detailtournoi-container-post-commentaire input{
-		display: none;
-	}
-
-	.detailtournoi-container-post-commentaire textarea::-webkit-input-placeholder {
-		letter-spacing: 3px; 
-		text-transform: uppercase; 
-		height: 100%; 
-		line-height: 25px; 
-		text-align: center;
-		transition: all .2s;
-	}
-	.detailtournoi-container-post-commentaire textarea:active::-webkit-input-placeholder,
-	.detailtournoi-container-post-commentaire textarea:focus::-webkit-input-placeholder{
-		letter-spacing: 1px;
-		line-height: 50px;
-	}
-
-
 
 /* ############## RESPONSIV TABLETTE(855px) ############### */
 	@media screen and (max-width: 855px) {
