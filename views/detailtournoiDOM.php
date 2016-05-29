@@ -119,7 +119,7 @@
 				</h2>
 				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">				
 					<?php foreach($freeTeams as $key => $team):?>
-						<?php $placesLeft = count($tournoi->getMaxPlayerPerTeam()) - count($team->getUsers());?>
+						<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
 						<div class="detailtournoi-equipelibre overflow-hidden relative">
 							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
 								<span class="equipelibre-espace bg-green absolute absolute-0-100"><?php echo $placesLeft;?></span>
