@@ -11,7 +11,7 @@ platformModule.createPlatformsIhm = function(){
 
 					"<div class='admin-data-ihm-btn hidden relative'>" +
 						"<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>" +  
-						"<button class='admin-btn-default admin-btn-delete' type='button'><span>Supprimer</span></button>" + 						
+						"<button class='admin-btn-default admin-btn-delete platform-btn-delete" + i + "' type='button'><span>Supprimer</span></button>" + 						
 					"</div>" +
 
 					"<div class='index-modal platforms hidden-fade hidden'>" +
@@ -38,8 +38,11 @@ platformModule.createPlatformsIhm = function(){
 					"</div>" +
 				"<div>" 
 			);			
+			jQuery(".platform-btn-delete" + i).click(function(){
+				platformModule.postDataDelete(i);
+			});
 			jQuery(".platform-submit-form-btn" + i).click(function(){
-				platformModule.postData(i);					
+				platformModule.postDataUpdate(i);					
 				navbar.form.smoothClosing();	
 			});
 		});	
@@ -55,7 +58,11 @@ platformModule.getSubmitBtn = function(i){
 	return jQuery('.platform-submit-form-btn' + i);
 };
 
-platformModule.postData = function(i){				
+platformModule.getDeleteBtn = function(i){
+	return jQuery('.platform-btn-delete' + i);
+};
+
+platformModule.postDataUpdate = function(i){				
 
 	var btn = platformModule.getSubmitBtn(i);						
 
@@ -64,24 +71,44 @@ platformModule.postData = function(i){
 	var description = btn.parent().find(jQuery('.platform-description-p')).val();		
 
 	//Plus rapide de créer l'objet en une fois si il y'a peu de data
-	var allData = {id : id, name : name, description : description};		
-
-	console.log(allData);					
+	var allData = {id : id, name : name, description : description};					
 
 	jQuery.ajax({
 	 	url: "admin/updatePlatformsData",
 	 	type: "POST",
 	 	data: allData,
 	 	success: function(result){			 		 						 					 
-			console.log("Platform mis à jour");
+			console.log("Plateforme mise à jour");
 			var ihm = btn.parent().parent().parent().parent().parent();			
 			console.log("platform", ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-nom-g'));
 
 			//Plus rapide que refaire une demande coté serv pour les données
 			ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-nom-g').html(name);			
 			ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-description-g').html(description);			
+	 	},
+	 	error: function(result){
+	 		throw new Error("Couldn't update this platform", result)
 	 	}
 	});			
+};
+
+platformModule.postDataDelete = function(i){
+	var btn = platformModule.getDeleteBtn(i);
+	
+	var allData = {id : btn.parent().parent().find(jQuery('.platform-id-p')).val()};		
+
+	jQuery.ajax({
+		url: "admin/deletePlatformData", 
+		type: "POST",
+		data: allData,
+		success: function(result){						
+			console.log("Plateforme supprimée");			
+			btn.parent().parent().remove();
+		},
+	 	error: function(result){
+	 		throw new Error("Couldn't delete this platform", result);
+	 	}
+	});
 };
 
 
