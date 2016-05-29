@@ -79,6 +79,10 @@ class adminController extends template{
         return;
     }
 
+    public function insertPlatformDataAction(){
+        
+    }
+
     public function updatePlatformsDataAction(){
          $args = array(
             'id' => FILTER_SANITIZE_STRING,
