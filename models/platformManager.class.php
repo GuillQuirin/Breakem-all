@@ -29,15 +29,20 @@ class platformManager extends basesql{
 	}
 
 	public function getIdPlatform($id){
-		$sql = "SELECT * FROM " . $this->table . "WHERE id=:id";
+		$sql = "SELECT *
+				FROM " .$this->table . " 
+				WHERE id=:id";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':id' => $id ]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		
 		return new platform($r[0]);
 	}
 
 	public function setPlatform(platform $ancien, platform $nouveau){
+
+		var_dump($ancien);
 
 		$data = [];
 

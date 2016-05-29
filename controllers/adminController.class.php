@@ -1,5 +1,16 @@
 <?php
 class adminController extends template{
+
+    public function __construct(){        
+        parent::__construct();
+        if(!($this->isVisitorConnected())){
+            header('Location: ' .WEBPATH);
+        }
+
+        if((int)$this->getConnectedUser()->getStatus() !== 3){
+            header('Location: ' .WEBPATH);
+        }
+    }
     
     public function adminAction(){
         if($this->isVisitorConnected() && $this->isAdmin()){
@@ -70,17 +81,19 @@ class adminController extends template{
 
     public function updatePlatformsDataAction(){
          $args = array(
-            'id' => FILTER_VALIDATE_INT,
-            'nom' => FILTER_VALIDATE_STRING,
-            'description' => FILTER_VALIDATE_STRING,           
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING
         );        
         
-        $filteredinputs = filter_input_array(INPUT_POST, $args);    
+        $filteredinputs = filter_input_array(INPUT_POST, $args);            
 
         $platformBdd = new platformManager();
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
         $platformMaj = new platform($filteredinputs);
-        var_dump($platform, $platformMaj);
+
+        var_dump($filteredinputs);
+        //var_dump($platform, $platformMaj);
         if($platformBdd->setPlatform($platform, $platformMaj))
             echo "OK";
     }

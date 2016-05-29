@@ -55,6 +55,12 @@
 	border-color:#000;
 }
 
+/* FULL */ 
+.btn.btn-pink.full a{
+	background: #D92B4C;
+	border-color: #D92B4C;
+}
+
 /* BOUTON CIRCLE */
 .circle-button.default {
 	border: 1px solid #ffffff;
