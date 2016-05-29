@@ -21,8 +21,7 @@
     max-width:300px;
 }
 
-.admin-wrapper{
-    border:1px solid #ffffff;
+.admin-wrapper{    
     margin:0 0 35px 0;
 }
 
@@ -48,12 +47,24 @@
     right:0
 }
 
-.admin-data-ihm{
+.admin-data-ihm-title{
     text-align: center;
+    margin:5px 0;
+    background:rgba(130, 83, 164, 0.2);
 }
 
-.admin-data-ihm:hover{
-    background:rgba(130, 83, 164, 0.2);;
+.admin-data-ihm-elem-title{
+    padding:15px;
+}
+
+.admin-data-ihm{
+    text-align: center;
+    margin:5px 0;
+    background:rgba(130, 83, 164, 0.2);
+}
+
+.admin-data-ihm:hover{    
+    background:rgba(130, 83, 164, 0.4);
 }
 
 .admin-data-ihm-elem{

@@ -98,6 +98,19 @@ class adminController extends template{
             echo "OK";
     }
 
+    public function deletePlatformDataAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $platformBdd = new platformManager();
+        $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
+
+        $platformBdd->deletePlatform($platform);
+    }
+
     /* TEAM */
     public function updateTeamStatusAction(){
          if(!empty($_POST['checkbox_team'])){

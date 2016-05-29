@@ -28,10 +28,16 @@ class platformManager extends basesql{
 		return $list;
 	}
 
+public function deletePlatform(platform $platform){
+		
+		$sql = "DELETE FROM " .$this->table . " WHERE id=:id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
+		$sth->bindValue(':id', $platform->getId());
+		$sth->execute();
+	}
+
 	public function getIdPlatform($id){
-		$sql = "SELECT *
-				FROM " .$this->table . " 
-				WHERE id=:id";
+		$sql = "SELECT * FROM " .$this->table . " WHERE id=:id";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':id' => $id ]);
