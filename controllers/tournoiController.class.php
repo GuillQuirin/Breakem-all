@@ -51,12 +51,14 @@ class tournoiController extends template {
 					$v->assign("freeTeams", $freeTeams);
 					$v->assign("fullTeams", $fullTeams);
 				};
-				$userAlrdyRegistered = $rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser());
-				// /!\ LORSQUE L'USER N'EST PAS INSCRIT ON SFAIT $userAlrdyRegistered === FALSE DONC CETTE VARIABLE SERA SUPPRIMEE PAR LE FILTER ARRAY DS LE extract() de view.class
-				$v->assign("userAlrdyRegistered", $userAlrdyRegistered);
-				$v->assign("_user", $this->getConnectedUser());
-				unset($ttm, $tm, $rm);
-				$_SESSION['lastTournamentChecked'] = $link;
+				if($this->isVisitorConnected()){
+					$userAlrdyRegistered = $rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser());
+					// /!\ LORSQUE L'USER N'EST PAS INSCRIT ON SFAIT $userAlrdyRegistered === FALSE DONC CETTE VARIABLE SERA SUPPRIMEE PAR LE FILTER ARRAY DS LE extract() de view.class
+					$v->assign("userAlrdyRegistered", $userAlrdyRegistered);
+					$v->assign("_user", $this->getConnectedUser());
+					unset($ttm, $tm, $rm);
+					$_SESSION['lastTournamentChecked'] = $link;
+				}				
 				$v->setView("detailtournoiDOM");
 				return;
 			};
