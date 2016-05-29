@@ -179,4 +179,19 @@ class userManager extends basesql{
 
 		return new user($query);
 	}
+
+	/*RECUPERATION DE TOUS LES USER*/
+	public function getAllUser(){
+		
+		$sql = "SELECT * FROM ".$this->table." WHERE status>0 ";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets user
+			$list[] = new user($query);
+
+		return (count($list) > 0) ? $list : false;
+	}
 }

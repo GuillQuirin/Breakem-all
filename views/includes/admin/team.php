@@ -1,7 +1,7 @@
 <div class="admin-wrapper" id="admin-onglet-team-wrapper">
  	<form action="admin/updateTeamStatus" method="post" enctype="multipart/form-data">
 		<?php 			
-			if(is_array($listeteam)){
+			if(isset($listeteam) && is_array($listeteam)){
 			?>							
 				<table class='full-width admin-form-table admin-table member' border='1'>
 				<thead>
@@ -37,7 +37,9 @@
 				</tbody>					
 				</table>
 		<?php
-			} 
+			}
+			else 
+				echo "<p>Aucune team n'est enregistrée.</p>";
 		?>		
 
 	</form>	
