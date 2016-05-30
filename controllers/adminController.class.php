@@ -23,6 +23,11 @@ class adminController extends template{
             $team = new teamManager();
             $listeteam = $team->getListTeam(-2);
 
+            $typegame = new typegamemanager();
+
+
+            $v->assign("typegame",$typegame);
+
             $v->assign("listejoueur",$listejoueurs);
 
             $v->assign("listeplatform",$listeplatforms);
@@ -106,8 +111,10 @@ class adminController extends template{
         $reportsBDD->delReport($report);
     }
 
-   public function deleteGameAction() {
-
+   public function getGameTypeAction() {
+        $typegameBDD = new typegamemanager();
+        $typegameBDD->getAllTypes();
+        $v->assign("typegame",$typegameBDD);
    }
 
     public function addGameAction()
@@ -136,7 +143,7 @@ class adminController extends template{
             define('MB', 1048576);
             define('GB', 1073741824);
             define('TB', 1099511627776);
-            
+
            if ($_FILES['img']['size'] < 1 * MB) {
                 if ($_FILES['img']['error'] == 0) {
 

@@ -28,11 +28,13 @@
                     <input type="text" name="year">
                 </td>
             </TR>
-
+            <?php ?>
             <TR>
                 <TD>Genre</TD>
                 <td>
-                    <input type="dataliste" name="idType"
+                    <SELECT name=idType" size="1">
+                        <option> <?php ?>
+                    </SELECT>
                 </td>
             </TR>
 
