@@ -1,22 +1,43 @@
 "use strict";
 
 var platformModule = {
-	init : function(){			
-		platformModule.createPlatformsIhm();
+	init : function(){		
+		platformModule.setAdminWrapper();
+		platformModule.setPlatformAdd();
+		platformModule.setPlatformNav();
+		platformModule.setPlatformAddBtn();
+
 		platformModule.postDataInsert();
+		platformModule.createPlatformsIhm();
 	},
 
 	//Setter
 	setPlatformAdd : function(){
-		this._setPlatformAdd = jQuery('.platform-add');
+		this._setPlatformAdd = jQuery('.platform-add-wrapper');
 	},
 	setPlatformAddBtn : function(){
 		this._setPlatformAddBtn = jQuery('#platform-add-btn');
 	},
 
+	setAdminWrapper : function(){
+		this._adminWrapper = jQuery(".admin-wrapper.platforms");
+	},
+
+	setPlatformNav : function(){
+		this._setPlatformNav = jQuery('.platform-navbar');
+	},
+
 	//Getter
+	getPlatformNav : function(){
+		return this._setPlatformNav;
+	},
+
 	getPlatformAdd : function(){
 		return this._setPlatformAddBtn;
+	},
+
+	getAdminWrapper : function(){
+		return this._adminWrapper;
 	},
 
 	getSubmitBtn : function(i){
@@ -42,10 +63,9 @@ var platformModule = {
 		);
 	},
 	createPlatformsIhm : function(){		
-		ajaxRequest("admin/getPlatformsData", "GET", function(result){	
-		console.log(result);					
+		ajaxRequest("admin/getPlatformsData", "GET", function(result){					
 			jQuery.each(result, function(i, field){
-				jQuery(".admin-wrapper.platforms").append(				
+				platformModule.getAdminWrapper().append(				
 
 					"<div class='admin-data-ihm align'>" +
 
@@ -91,28 +111,32 @@ var platformModule = {
 				});
 			});	
 			platformModule.ihmElemHover();		
-			navbar.setOpenFormAll();		
+			navbar.setOpenFormAll();	
+			navbar.form.admin();	
 			navbar.form.closeFormKey();
-	        navbar.form.closeFormClick();
-			navbar.form.admin();			
+	        navbar.form.closeFormClick();			
 		});
 	},
-	postDataInsert : function(){
-		platformModule.setPlatformAdd();
-		platformModule.setPlatformAddBtn();		
-
-		platformModule.getPlatformAddBtn().click(function(){
-			platformModule.getPlatformAdd().append(
+	postDataInsert : function(){		
+		platformModule.getPlatformNav().append(
+			'<div class="row align">' +
+				'<div class="grid-md-3 platform-search-wrapper">' +
+					'<form id="platform-search-form">' +					
+						'<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher une Plateforme">' +
+					'</form>' +
+				'</div>' +
+				'<div class="grid-md-3 platform-add-wrapper">' +
+					'<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter une plateforme</a></button>' +				
+				'</div>' +
 				"<div class='index-modal platforms hidden-fade hidden'>" +
 
 					"<div class='index-modal-this index-modal-login align'>" +
 					
 						"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
 							"<form id='platform-form'>" +		
-								"<input type='text' name='id' class='hidden platform-id-p' value=''>" + 	    
 							    "<label for='email'>Nom :</label>" +
-							    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='' placeholder='Le nom de votre plateforme'>" +
-							     "<label for='email'>Description :</label>" +
+							    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' placeholder='Le nom de votre plateforme'>" +
+							    "<label for='email'>Description :</label>" +
 							    "<textarea class='input-default admin-form-input-w platform-description-p' placeholder='Une petite description' name='description' type='text'></textarea>" +							    							  
 							    "<div class='admin-avatar-wrapper m-a'>" +																	
 									"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>" +										
@@ -124,24 +148,25 @@ var platformModule = {
 					  		"</form>" +
 					  	"</div>" + 	 
 					"</div>" +
-				"</div>" 
-			);			
-			navbar.setOpenFormAll();		
-			navbar.form.closeFormKey();
-	        navbar.form.closeFormClick();	
-			/*jQuery.ajax({
-				url: "admin/updatePlatformsData", 
-				type: "POST",
-				data: allData,
-				success: function(result){						
-					console.log("Plateforme supprimée");			
-					btn.parent().parent().remove();
-				},
-			 	error: function(result){
-			 		throw new Error("Couldn't delete this platform", result);
-			 	}
-			});*/
-		});
+				"</div>" + 
+			'</div>'
+		);
+		navbar.setOpenFormAll();		
+		navbar.form.closeFormKey();
+	    navbar.form.closeFormClick();
+	    navbar.form.admin();	
+		/*jQuery.ajax({
+			url: "admin/updatePlatformsData", 
+			type: "POST",
+			data: allData,
+			success: function(result){						
+				console.log("Plateforme supprimée");			
+				btn.parent().parent().remove();
+			},
+		 	error: function(result){
+		 		throw new Error("Couldn't delete this platform", result);
+		 	}
+		});*/
 	},
 	postDataUpdate : function(i){
 		var btn = platformModule.getSubmitBtn(i);						

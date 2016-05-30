@@ -3,7 +3,7 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	platform.init();
+	admin.init();
 });
 
 var onglet = {
@@ -164,7 +164,7 @@ var onglet = {
 	}
 };
 
-var platform = {
+var admin = {
 	init : function(){
 		platformModule.init();
 	}

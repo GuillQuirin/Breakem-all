@@ -2,16 +2,7 @@
 <div class="admin-wrapper platforms" id="admin-onglet-platforms-wrapper">
 
 	<div class="platform-navbar">
-		<div class="row align">
-			<div class="grid-md-3 platform-search-wrapper">
-				<form id="platform-search-form">					
-					<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher une Plateforme">
-				</form>
-			</div>
-			<div class="grid-md-3 platform-add">
-				<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter une plateforme</a></button>
-			</div>
-		</div>
+		
 	</div>
 
 	<div class='admin-data-ihm-title align'>
