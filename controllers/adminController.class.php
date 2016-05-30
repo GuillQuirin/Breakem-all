@@ -18,8 +18,9 @@ class adminController extends template{
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
                 $js['admin']="admin";
-                $js['platforms']="platforms";
+                $js['adminPlatforms']="adminPlatforms";
                 $js['gametype']="gametype";
+                $js['adminTournois']="adminTournois";
             $v->assign("js",$js);                                       
             $v->assign("title", "admin");
             $v->assign("content", "Liste des Utilisateurs");
