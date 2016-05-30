@@ -35,6 +35,11 @@ class gameManager extends basesql{
 		return false;
 	}
 
+	public function deleteGames($name){
+		$sql = "DELETE FROM game WHERE name=" . $name['delname'];
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+	}
 
 }
 /*

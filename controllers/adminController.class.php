@@ -113,8 +113,8 @@ class adminController extends template{
 
    public function getGameTypeAction() {
         $typegameBDD = new typegamemanager();
-        $typegameBDD->getAllTypes();
-        $v->assign("typegame",$typegameBDD);
+        $team = $typegameBDD->getAllTypes();
+        $v->assign("typegame",$team);
    }
 
     public function addGameAction()
@@ -161,6 +161,23 @@ class adminController extends template{
 
 
         header('Location: http://localhost/esgi2/admin');
+
+    }
+
+    public function delGameAction(){
+
+        $args = array(
+            //'id' => FILTER_VALIDATE_INT,
+            'delname' => FILTER_SANITIZE_STRING
+
+        );
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+        $gameBDD = new gameManager();
+        $gameBDD->mirrorObject = new game($filteredinputs);
+        $gameBDD->deleteGames($filteredinputs);
+
 
     }
 

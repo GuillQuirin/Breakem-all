@@ -28,7 +28,7 @@
                     <input type="text" name="year">
                 </td>
             </TR>
-            <?php ?>
+            <?php print_r($typegame);?>
             <TR>
                 <TD>Genre</TD>
                 <td>
@@ -51,6 +51,20 @@
             </TR>
         </TABLE>
     </form>
-        <?php ?>
+
+    <form action="admin/delGame" method="post" enctype="multipart/form-data">
+        <TABLE border=0>
+            <TR>
+                <TD>Nom du jeu à supprimer</TD>
+                <TD>
+                    <INPUT type=text name="delname">
+                </TD>
+                <TD COLSPAN=2>
+                    <button id='validate-del-form-games' type='submit' class='btn btn-pink admin-form-submit'>
+                        <a>Supprimer</a>
+                    </button>
+                </TD>
+        </TABLE>
+    </form>
 
 </div>
