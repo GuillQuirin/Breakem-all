@@ -9,6 +9,11 @@ final class register{
 	protected $_idTeamTournament;
 	protected $_idUser;
 	protected $_idTournament;
+	
+	// Données du jeu
+	protected $_nomJeu;
+	protected $_imgJeu;
+
 	// Données de user
 	protected $_pseudo;
 	protected $_description;
@@ -47,6 +52,16 @@ final class register{
 	private function setIdTournament($v){
 		$this->_idTournament = $v;
 	}
+
+	// Setters du jeu
+	public function setNomJeu($v){
+		$this->_nomJeu=$v;
+	}
+
+	public function setImgJeu($v){
+		$this->_imgJeu=$v;
+	}
+
 	// Setters de user
 	public function setPseudo($v){
 		$this->_pseudo=$v;
@@ -90,6 +105,11 @@ final class register{
 	public function getIdTeamTournament(){return $this->_idTeamTournament;}
 	public function getIdUser(){return $this->_idUser;}
 	public function getIdTournament(){return $this->_idTournament;}
+	
+	// Getters du jeu
+	public function getNomJeu(){return $this->_nomJeu;}
+	public function getImgJeu(){return $this->_imgJeu;}
+
 	// Getters de user
 	public function getPseudo(){return $this->_pseudo;}
 	public function getDescription(){return $this->_description;}
