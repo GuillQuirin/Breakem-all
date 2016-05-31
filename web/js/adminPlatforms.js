@@ -41,7 +41,7 @@ var platformModule = {
 		return this._setPlatformNav;
 	},
 
-	getPlatformAdd : function(){
+	getPlatformAddBtn : function(){
 		return this._setPlatformAddBtn;
 	},
 
@@ -202,18 +202,29 @@ var platformModule = {
 		navbar.form.closeFormKey();
 	    navbar.form.closeFormClick();
 	    navbar.form.admin();	
-		/*jQuery.ajax({
-			url: "admin/updatePlatformsData", 
-			type: "POST",
-			data: allData,
-			success: function(result){						
-				console.log("Plateforme supprimée");			
-				btn.parent().parent().remove();
-			},
-		 	error: function(result){
-		 		throw new Error("Couldn't delete this platform", result);
-		 	}
-		});*/
+
+	    var btn = platformModule.getPlatformAddBtn();	    
+
+	    var name = btn.parent().find(jQuery('.platform-nom-p')).val();
+		var description = btn.parent().find(jQuery('.platform-description-p')).val();	
+
+		if(name !== "undefined"){	
+			console.log("Enter a value for name and description");
+		}else{
+		    var allData = {name : name, description : description};	
+
+			jQuery.ajax({
+				url: "admin/insertPlatformData", 
+				type: "POST",
+				data: allData,
+				success: function(result){						
+					console.log("Plateforme ajoutée");							
+				},
+			 	error: function(result){
+			 		throw new Error("Couldn't add platform", result);
+			 	}
+			});
+		}
 	},
 	//Update sur le formulaire modifier
 	postDataUpdate : function(i){

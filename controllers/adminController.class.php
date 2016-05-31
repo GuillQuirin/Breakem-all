@@ -81,11 +81,21 @@ class adminController extends template{
     }
 
     public function insertPlatformDataAction(){
+        $args = array(            
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,            
+        );
         
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+                        
+        $platformBdd = new platformManager();
+        $platformBdd->mirrorObject = new platform($filteredinputs);
+        if($platformBdd->create())
+            echo "CREATION";
     }
 
     public function updatePlatformsDataAction(){
-         $args = array(
+        $args = array(
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING
