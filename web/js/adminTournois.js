@@ -3,6 +3,7 @@
 var tournamentModule = {
 	init: function(){
 		tournamentModule.setAdminWrapper();
+		tournamentModule.setTournamentNav();
 
 		tournamentModule.createTournoiIhm();
 	},
@@ -11,10 +12,16 @@ var tournamentModule = {
 	setAdminWrapper : function(){
 		this._adminWrapper = jQuery(".admin-wrapper.tournament");
 	},
+	setTournamentNav : function(){
+		this._tournamentNav = jQuery(".tournament-navbar");
+	},
 
 	//Getter
 	getAdminWrapper : function(){
 		return this._adminWrapper;
+	},
+	getTournamentNav : function(){
+		return this._tournamentNav;
 	},
 
 	//Functions

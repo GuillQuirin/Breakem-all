@@ -1,7 +1,13 @@
 <div class="admin-wrapper tournament" id="admin-onglet-tournament-wrapper">	
 
-	<div class="platform-navbar">
-		
+	<div class="tournament-navbar">		
+		<div class="row align">
+			<div class="grid-md-3 platform-search-wrapper">
+				<form id="platform-search-form">		
+					<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher un tournoi">
+				</form>
+			</div>				
+		</div>
 	</div>
 
 	<div class='admin-data-ihm-title align'>		
