@@ -2,9 +2,10 @@
 
 var platformModule = {
 	init : function(){		
+		platformModule.setAdminDataElTitle();
 		platformModule.setAdminWrapper();
 		platformModule.setPlatformAdd();
-		platformModule.setPlatformNav();
+		platformModule.setPlatformNav();		
 		platformModule.setPlatformAddBtn();
 
 		platformModule.postDataInsert();
@@ -27,7 +28,15 @@ var platformModule = {
 		this._setPlatformNav = jQuery('.platform-navbar');
 	},
 
+	setAdminDataElTitle : function(){
+		this._setAdminDataElTitle = jQuery('.admin-data-ihm-title');
+	},
+
 	//Getter
+	getAdminDataElTitle : function(){
+		return this._setAdminDataElTitle;
+	},
+
 	getPlatformNav : function(){
 		return this._setPlatformNav;
 	},
@@ -53,70 +62,108 @@ var platformModule = {
 	},
 
 	//Function
+
+	//Show ou hide les bouttons Modifier et Supprimer sur hover
 	ihmElemHover : function(){
 		jQuery('.admin-data-ihm').hover(
 		  function() {
-		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').removeClass("hidden");
 		  }, function(e) {
-		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').addClass("hidden");
 		  }
 		);
 	},
-	createPlatformsIhm : function(){		
-		ajaxRequest("admin/getPlatformsData", "GET", function(result){					
-			jQuery.each(result, function(i, field){
-				platformModule.getAdminWrapper().append(				
-
-					"<div class='admin-data-ihm align'>" +
-
-						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
-						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +
-						"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" + field.img + "'></div></div></div>" +
-
-						"<div class='admin-data-ihm-btn hidden relative'>" +
-							"<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>" +  
-							"<button class='admin-btn-default admin-btn-delete platform-btn-delete" + i + "' type='button'><span>Supprimer</span></button>" + 						
-						"</div>" +
-
-						"<div class='index-modal platforms hidden-fade hidden'>" +
-
-							"<div class='index-modal-this index-modal-login align'>" +
-							
-								"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
-									"<form id='platform-form'>" +		
-										"<input type='text' name='id' class='hidden platform-id-p' value='" + field.id + "'>" + 	    
-									    "<label for='email'>Nom :</label>" +
-									    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" + field.name + "'>" +
-									     "<label for='email'>Description :</label>" +
-									    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" + field.description + "</textarea>" +							    							  
-									    "<div class='admin-avatar-wrapper m-a'>" +																	
-											"<img class='admin-avatar img-cover platform-img' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
-										"</div>" +	
-										"<div class='text-center admin-input-file'>" +								 
-										"<input type='file' name='profilpic'>" +
-										"</div>" +
-									    "<button type='button' class='platform-submit-form-btn" + i + " btn btn-pink'><a>Valider</a></button>" +
-							  		"</form>" +
-							  	"</div>" + 	 
-							"</div>" +
-						"</div>" +
-					"<div>" 
-				);			
-				jQuery(".platform-btn-delete" + i).click(function(){
-					platformModule.postDataDelete(i);
-				});
-				jQuery(".platform-submit-form-btn" + i).click(function(){
-					platformModule.postDataUpdate(i);					
-					navbar.form.smoothClosing();	
-				});
-			});	
-			platformModule.ihmElemHover();		
-			navbar.setOpenFormAll();	
-			navbar.form.admin();	
-			navbar.form.closeFormKey();
-	        navbar.form.closeFormClick();			
+	//Check si platform est vide
+	isEmpty : function(callback){
+		var c = 0;
+		var ret;
+		if(callback){
+			ajaxRequest("admin/getPlatformsData", "GET", function(result){						
+				c = result.length;								
+				if(c == 0){					
+					ret = true;
+					callback(ret);
+				}else{	
+					ret = false;
+					callback(ret);													
+				}
+			});			
+		}else{
+			console.log("Missing isEmpty callback");
+		}			
+	},	
+	//Retire les titles si vide
+	toggleIfEmpty : function(){
+		platformModule.isEmpty(function(bool){
+			if(bool){
+				platformModule.getAdminDataElTitle().hide();
+			}else{
+				platformModule.getAdminDataElTitle().show();
+			}
 		});
 	},
+	//Creation de l'ihm
+	createPlatformsIhm : function(){	
+						
+			platformModule.toggleIfEmpty();
+		
+			platformModule.getAdminDataElTitle().show();
+			ajaxRequest("admin/getPlatformsData", "GET", function(result){							
+				jQuery.each(result, function(i, field){				
+					platformModule.getAdminWrapper().append(								
+
+						"<div class='admin-data-ihm align'>" +
+
+							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
+							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +
+							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" + field.img + "'></div></div></div>" +
+
+							"<div class='admin-data-ihm-btn hidden relative'>" +
+								"<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>" +  
+								"<button class='admin-btn-default admin-btn-delete platform-btn-delete" + i + "' type='button'><span>Supprimer</span></button>" + 						
+							"</div>" +
+
+							"<div class='index-modal platforms hidden-fade hidden'>" +
+
+								"<div class='index-modal-this index-modal-login align'>" +
+								
+									"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
+										"<form id='platform-form'>" +		
+											"<input type='text' name='id' class='hidden platform-id-p' value='" + field.id + "'>" + 	    
+										    "<label for='email'>Nom :</label>" +
+										    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" + field.name + "'>" +
+										     "<label for='email'>Description :</label>" +
+										    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" + field.description + "</textarea>" +							    							  
+										    "<div class='admin-avatar-wrapper m-a'>" +																	
+												"<img class='admin-avatar img-cover platform-img' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
+											"</div>" +	
+											"<div class='text-center admin-input-file'>" +								 
+											"<input type='file' name='profilpic'>" +
+											"</div>" +
+										    "<button type='button' class='platform-submit-form-btn" + i + " btn btn-pink'><a>Valider</a></button>" +
+								  		"</form>" +
+								  	"</div>" + 	 
+								"</div>" +
+							"</div>" +
+						"<div>" 
+					);			
+					jQuery(".platform-btn-delete" + i).click(function(){
+						platformModule.postDataDelete(i);
+					});
+					jQuery(".platform-submit-form-btn" + i).click(function(){
+						platformModule.postDataUpdate(i);					
+						navbar.form.smoothClosing();	
+					});				
+				});			
+				platformModule.ihmElemHover();		
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+		        navbar.form.closeFormClick();			
+			});		
+		
+	},
+	//Insert sur le formulaire d'ajout
 	postDataInsert : function(){		
 		platformModule.getPlatformNav().append(
 			'<div class="row align">' +
@@ -168,6 +215,7 @@ var platformModule = {
 		 	}
 		});*/
 	},
+	//Update sur le formulaire modifier
 	postDataUpdate : function(i){
 		var btn = platformModule.getSubmitBtn(i);						
 
@@ -196,6 +244,7 @@ var platformModule = {
 		 		}
 		});		
 	},
+	//Delete sur le boutton Supprimer
 	postDataDelete : function(i){
 		var btn = platformModule.getDeleteBtn(i);
 		
@@ -205,7 +254,8 @@ var platformModule = {
 			url: "admin/deletePlatformData", 
 			type: "POST",
 			data: allData,
-			success: function(result){						
+			success: function(result){		
+				platformModule.toggleIfEmpty();				
 				console.log("Plateforme supprimée");			
 				btn.parent().parent().remove();
 			},
