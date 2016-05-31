@@ -9,7 +9,8 @@ final class register{
 	protected $_idTeamTournament;
 	protected $_idUser;
 	protected $_idTournament;
-	
+	protected $_link;
+
 	// Données du jeu
 	protected $_nomJeu;
 	protected $_imgJeu;
@@ -51,6 +52,9 @@ final class register{
 	}
 	private function setIdTournament($v){
 		$this->_idTournament = $v;
+	}
+	private function setLink($v){
+		$this->_link = $v;
 	}
 
 	// Setters du jeu
@@ -105,6 +109,7 @@ final class register{
 	public function getIdTeamTournament(){return $this->_idTeamTournament;}
 	public function getIdUser(){return $this->_idUser;}
 	public function getIdTournament(){return $this->_idTournament;}
+	public function getLink(){return $this->_link;}
 	
 	// Getters du jeu
 	public function getNomJeu(){return $this->_nomJeu;}

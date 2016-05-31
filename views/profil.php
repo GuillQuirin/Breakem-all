@@ -78,9 +78,13 @@ else{
 							foreach ($listeTournoi as $key => $value) {
 								?>
 								<div class="profil-element profil-tournament-element">	
-									<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/';
+									<?php 
+										echo '<a href="'.WEBPATH.'/tournoi?t='.$value->getLink().'">';
+										  echo '<img class="img-cover" src="' . WEBPATH . '/web/img/';
 											echo $value->getImgJeu();
-										  echo '">';?>
+										  echo '">';
+										echo '</a>';
+									?>
 									<span class="profil-match-element-title-this">
 										<?php 
 											echo $value->getNomJeu();

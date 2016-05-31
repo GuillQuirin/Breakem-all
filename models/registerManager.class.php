@@ -6,7 +6,7 @@ final class registerManager extends basesql{
 
 	public function getTournamentParticipantBy(user $user){
 
-		$sql = "SELECT r.idTournament, g.name as nomJeu, g.img as imgJeu
+		$sql = "SELECT r.idTournament, g.name as nomJeu, g.img as imgJeu, t.link
 				FROM register r 
 				LEFT OUTER JOIN tournament t ON t.id = r.idTournament 
 				LEFT OUTER JOIN gameversion gv ON t.idGameVersion = gv.id 
