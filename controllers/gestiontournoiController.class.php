@@ -15,10 +15,77 @@ class gestiontournoiController extends template{
 
 		$v = new view();
 		$this->assignConnectedProperties($v);
-		$v->assign("css", "gestion");
-		$v->assign("js", "gestion");
-		$v->assign("title", "gestion");
-		$v->assign("content", "Gérer votre tournoi");
+
+		$args = array('t' => FILTER_SANITIZE_STRING);
+
+		$filteredinputs = filter_input_array(INPUT_GET, $args);
+
+		//Si lien fourni sinon redirection liste tournoi
+		if(!empty($filteredinputs)){
+
+			$filteredinputs = array_filter($filteredinputs);
+			$link = $filteredinputs['t'];
+
+			$tm = new tournamentManager();
+
+			//On vérifie que l'utilisateur est bien propriétaire du tournoi
+			$matchedTournament = $tm->getTournamentWithLinkAndOrganizer($link, $this->connectedUser);
+			//var_dump($matchedTournament);exit;
+			if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+
+				$v->assign("css", "gestion");
+				$v->assign("js", "gestion");
+				$v->assign("title", "gestion");
+				$v->assign("content", "Gérer votre tournoi");
+				$v->assign("tournoi", $matchedTournament);
+
+				// Recuperer tous les participants
+				$rm = new registerManager();
+				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
+				// Ne les envoyer ds la vue s'il y en a
+				if(!!$allRegistered)
+					$v->assign("allRegistered", $allRegistered);
+
+				// Recuperer toutes les équipes avec le nombre de places prises
+				$ttm = new teamtournamentManager();
+				$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
+				if(!!$allTournTeams){
+					$freeTeams = [];
+					$fullTeams = [];
+					foreach ($allTournTeams as $key => $teamtournament) {
+						$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+						if(is_array($usersInTeam))
+							$teamtournament->addUsers($usersInTeam);
+						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+							$freeTeams[] = $teamtournament;
+						else
+							$fullTeams[] = $teamtournament;
+					}
+					$v->assign("freeTeams", $freeTeams);
+					$v->assign("fullTeams", $fullTeams);
+				};
+				if($this->isVisitorConnected()){
+					$userAlrdyRegistered = $rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser());
+					// /!\ LORSQUE L'USER N'EST PAS INSCRIT ON SFAIT $userAlrdyRegistered === FALSE DONC CETTE VARIABLE SERA SUPPRIMEE PAR LE FILTER ARRAY DS LE extract() de view.class
+					$v->assign("userAlrdyRegistered", $userAlrdyRegistered);
+					$v->assign("_user", $this->getConnectedUser());
+					unset($ttm, $tm, $rm);
+					$_SESSION['lastTournamentChecked'] = $link;
+				}				
+				$v->setView("detailtournoiDOM");
+				return;
+			};
+			unset($tm);
+			header('Location: '.WEBPATH.'/404');
+		}
+		// Pas de get connu reçu, on affiche la page par défaut des tournois
+		else{
+			$v->assign("css", "tournoi");
+			$v->assign("js", "tournoi");
+			$v->assign("title", "Tournois");
+			$v->assign("content", "Liste principaux tournois jeux vidéos");
+			$v->setView("tournoiDOM");
+		}
 
 		/*MAJ du profil effectuée auparavant (/update) ? */
 		if(isset($_SESSION['referer_method'])){
@@ -39,9 +106,10 @@ class gestiontournoiController extends template{
 		}		
 
 		//Liste des membres
-/*		$jeux = new gameManager();
+		/*
+		$jeux = new gameManager();
 		$v->assign("listeJeux", $jeux->getAllNames());
-*/
+		*/
 		$v->setView("gestiontournoi");
 	}
 	
