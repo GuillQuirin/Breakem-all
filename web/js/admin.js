@@ -134,7 +134,7 @@ var onglet = {
 		return this._adminTeamsWrapper;
 	},
 	getAdminGameWrapper : function(){
-		return this._adminGameWrapper;
+		return this._adminGamesWrapper;
 	},
 	getAdminGametypeWrapper : function(){
 		return this._adminGametypeWrapper;

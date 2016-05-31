@@ -39,9 +39,17 @@ class game{
 		$this->idType=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v))!=0)
-			$this->img = "web/img/".$v;
+		if(strlen(trim($v))!=0 && $v!=NULL){
+			//var_dump(strstr($v, "lol"));
+			if(strstr($v, WEBPATH)) //Image déjà stockée en base
+				$this->img=$v;
+			else //Upload d'une image
+				$this->img=WEBPATH."/web/img/".$v; //Adresse stockée en base
+		}
+		else //Pas d'image uploadée
+			$this->img=WEBPATH."/web/img/default.jpg";
 	}
+
 
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
