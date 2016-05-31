@@ -3,6 +3,19 @@
 *
 */
 final class tournamentManager extends basesql{
+	
+	public function getListTournaments(){
+		$sql = "SELECT * FROM " . $this->table . " ORDER BY name ASC";
+		
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC)) 
+			//user appel la classe plateform
+			$list[] = new tournament($query);
+		
+		return $list;
+	}
 
 	public function getUnstartedTournaments(){
 		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)

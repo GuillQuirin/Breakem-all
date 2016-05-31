@@ -106,9 +106,7 @@ class adminController extends template{
         $platformBdd = new platformManager();
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
         $platformMaj = new platform($filteredinputs);
-
-        var_dump($filteredinputs);
-        //var_dump($platform, $platformMaj);
+        
         if($platformBdd->setPlatform($platform, $platformMaj))
             echo "OK";
     }
@@ -124,6 +122,30 @@ class adminController extends template{
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
 
         $platformBdd->deletePlatform($platform);
+    }
+
+    /* TOURNAMENT */
+
+    public function getTournamentDataAction(){
+        $tm = new tournamentManager();
+        $typesObj = $tm->getListTournaments();
+        $data['res'] = [];        
+        foreach ($typesObj as $key => $obj) {
+            $arr = [];
+            $arr['id'] = $obj->getId();
+            $arr['startDate'] = $obj->getStartDate();
+            $arr['endDate'] = $obj->getEndDate();
+            $arr['name'] = $obj->getName();
+            $arr['description'] = $obj->getDescription();
+            $arr['gameName'] = $obj->getGameName();
+            $arr['gameImg'] = $obj->getGameImg();
+            $arr['pName'] = $obj->getPName();
+            $arr['maxPlayer'] = $obj->getMaxPlayer();
+            $arr['status'] = $obj->getStatus();            
+            $data['res'][] = $arr;
+        }
+        echo json_encode($data['res']);
+        return;
     }
 
     /* TEAM */
