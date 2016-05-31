@@ -23,10 +23,16 @@ class adminController extends template{
             $team = new teamManager();
             $listeteam = $team->getListTeam(-2);
 
-            $typegame = new typegamemanager();
+            $gameBDD = new gameManager();
+            $data = $gameBDD->getAllGames();
+
+            $gametypeBDD = new typegameManager();
+            $listgametype = $gametypeBDD->getAllTypes();
 
 
-            $v->assign("typegame",$typegame);
+            $v->assign("listetypejeu",$listgametype);
+
+            $v->assign("games",$data);
 
             $v->assign("listejoueur",$listejoueurs);
 
@@ -111,11 +117,7 @@ class adminController extends template{
         $reportsBDD->delReport($report);
     }
 
-   public function getGameTypeAction() {
-        $typegameBDD = new typegamemanager();
-        $team = $typegameBDD->getAllTypes();
-        $v->assign("typegame",$team);
-   }
+
 
     public function addGameAction()
     {
@@ -158,9 +160,9 @@ class adminController extends template{
         $gameBDD->mirrorObject = new game($filteredinputs);
         if ($gameBDD->create())
             echo "CREATION";
+        var_dump($filteredinputs);
 
-
-        header('Location: http://localhost/esgi2/admin');
+      header('Location: http://localhost/esgi2/admin');
 
     }
 
@@ -179,6 +181,13 @@ class adminController extends template{
         $gameBDD->deleteGames($filteredinputs);
 
 
+        header('Location: http://localhost/esgi2/admin');
+
     }
+
+
+
+
+
 
 }

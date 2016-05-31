@@ -1,4 +1,5 @@
 <div class="admin-wrapper " id="admin-onglet-games-wrapper">
+
     <form action="admin/addGame" method="post" enctype="multipart/form-data">
         <TABLE border=0>
             <TR>
@@ -28,12 +29,16 @@
                     <input type="text" name="year">
                 </td>
             </TR>
-            <?php print_r($typegame);?>
+
             <TR>
                 <TD>Genre</TD>
                 <td>
-                    <SELECT name=idType" size="1">
-                        <option> <?php ?>
+                    <SELECT name="idType" size="1">
+                      <?php  if(isset($listetypejeu) && is_array($listetypejeu)){
+                               foreach($listetypejeu as $key => $value){
+                                    echo "<option value='".$value->getId()."'>".$value->getName()."</option>";
+                                }
+                            } ?>
                     </SELECT>
                 </td>
             </TR>
@@ -64,7 +69,15 @@
                         <a>Supprimer</a>
                     </button>
                 </TD>
+            </TR>
         </TABLE>
     </form>
+
+    <TABLE border=0>
+        <?php  foreach($games as $key => $value){
+            echo "<TR> <TD>".$value->getName()."</TD><TD><img src='".$value->getImg()."'></TD></TR>";
+        } ?>
+    </TABLE>
+
 
 </div>
