@@ -5,16 +5,40 @@
 final class tournamentManager extends basesql{
 	
 	public function getListTournaments(){
-		$sql = "SELECT * FROM " . $this->table . " ORDER BY name ASC";
+		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)
+			return false;
+		// Ce gros morceau de requete permet d'alimenter un tournoi des noms de sa console, son jeu et plein d'autres trucs super cool comme le nombre de joueurs/teams maximum 
+		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, 
+		gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, 
+		ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, 
+		p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, 
+		u.pseudo as userPseudo, 
+		(SELECT COUNT(r.id) as numberRegistered FROM register r)
+		FROM tournament t ";		
+		// On est obligé de rajouter les % sur les values des array
+		// 	les mettre dans la requete ne fonctionnant apparemment pas
+		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
+		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
+		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
+		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
+		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		
-		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$req->execute();
-		$list = [];
-		while ($query = $req->fetch(PDO::FETCH_ASSOC)) 
-			//user appel la classe plateform
-			$list[] = new tournament($query);
-		
-		return $list;
+		$sql .= " GROUP BY t.id ORDER BY t.startDate";
+		$sth = $this->pdo->query($sql);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0])){
+			$alltournaments = [];
+			$r[0] = array_filter($r[0]);
+			if(is_array($r[0])){
+				foreach ($r as $key => $data) {
+					if(count(array_filter($data)) > 0){
+						$alltournaments[] = new tournament($data);
+					}
+				}
+			}			
+			return (count($alltournaments) > 0) ? $alltournaments : false;
+		}
+		return false;
 	}
 
 	public function getUnstartedTournaments(){

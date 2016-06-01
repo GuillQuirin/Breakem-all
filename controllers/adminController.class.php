@@ -133,24 +133,17 @@ class adminController extends template{
     /* TOURNAMENT */
 
     public function getTournamentDataAction(){
-        $tm = new tournamentManager();
-        $typesObj = $tm->getListTournaments();
-        $data['res'] = [];        
-        foreach ($typesObj as $key => $obj) {
-            $arr = [];
-            $arr['id'] = $obj->getId();
-            $arr['startDate'] = $obj->getStartDate();
-            $arr['endDate'] = $obj->getEndDate();
-            $arr['name'] = $obj->getName();
-            $arr['description'] = $obj->getDescription();
-            $arr['gameName'] = $obj->getGameName();
-            $arr['gameImg'] = $obj->getGameImg();
-            $arr['pName'] = $obj->getPName();
-            $arr['maxPlayer'] = $obj->getMaxPlayer();
-            $arr['status'] = $obj->getStatus();            
-            $data['res'][] = $arr;
+        $tm = new tournamentManager();    
+        $tournamentsArr = $tm->getListTournaments();  
+        $data = [];                          
+        if(!!$tournamentsArr){
+            foreach($tournamentsArr as $key => $tournament){
+                $data[] = $tournament->getAsArr();
+            }            
+            echo json_encode($data);
+        }else{
+            $this->echoJSONerror("tournament","no tournament were found");
         }
-        echo json_encode($data['res']);
         return;
     }
 
