@@ -3,6 +3,19 @@
 		if(is_array($listejoueur)){
 		?>								
 
+			<div class="admin-navbar membres-navbar">		
+				<div class="row align">
+					<div class="grid-md-3 platform-search-wrapper">
+						<form id="platform-search-form">
+							<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher">
+						</form>
+					</div>
+					<div class="grid-md-3 platform-add-wrapper">
+						<button type="button" class="btn btn-pink full open-form admin-add-btn" id="platform-add-btn"><a>Ajouter</a></button>
+					</div>
+				</div>
+			</div>
+
 			<div class='admin-data-ihm-title align'>		
 				<div class='admin-test'><div class='admin-data-ihm-elem-title'><span>Pseudo</span></div></div>
 				<div class='admin-test'><div class='admin-data-ihm-elem-title'><span>E-mail</span></div></div>
