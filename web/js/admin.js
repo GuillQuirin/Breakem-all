@@ -182,6 +182,108 @@ var onglet = {
 	
 			return false;
 		})
+
+		/* Signalement */
+		onglet.getAdminOngletReports().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/reportsView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Team */
+		onglet.getAdminOngletTeams().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/teamsView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Jeux */
+		onglet.getAdminOngletGame().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/gamesView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Type de jeu */
+		onglet.getAdminOngletGametype().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/typegamesView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Comment */
+		onglet.getAdminOngletComment().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/commentsView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Tournois */
+		onglet.getAdminOngletTournament().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/tournamentsView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
 	},
 
 	onClick : function(btnClick, ongletSelector){

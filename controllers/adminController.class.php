@@ -19,7 +19,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listejoueur",$listejoueurs);
-        $v->setView("/includes/admin/membre", "templateEmpty");
+        $v->setView("/includes/admin/membresv2", "templateEmpty");
     }
 
     /* Gère la vue de Plateforme */
@@ -29,7 +29,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listeplatform",$listeplatforms);
-        $v->setView("/includes/admin/platform", "templateEmpty");
+        $v->setView("/includes/admin/platformsv2", "templateEmpty");
     }
 
     /* Gère la vue de Signalements */
@@ -39,7 +39,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listesignalement",$listesignalement);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/reportsv2", "templateEmpty");
     }
 
     /* Gère la vue de Team */
@@ -49,7 +49,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listeteam",$listeteam);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/teamsv2", "templateEmpty");
     }
 
     /* Gère la vue de Jeux */
@@ -59,7 +59,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listejeu",$listegames);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/gamesv2", "templateEmpty");
     }
 
     /* Gère la vue de Type de Jeu */
@@ -69,7 +69,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listetypejeu",$listgametype);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/typegamesv2", "templateEmpty");
     }
 
     /* Gère la vue de Commentaires */
@@ -79,7 +79,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listecomment",$listcomment);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/commentsv2", "templateEmpty");
     }
 
      /* Gère la vue de Tournois */
@@ -89,7 +89,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listetournament",$listtournament);
-        $v->setView("/includes/admin/test", "templateEmpty");
+        $v->setView("/includes/admin/tournamentsv2", "templateEmpty");
     }
 
     

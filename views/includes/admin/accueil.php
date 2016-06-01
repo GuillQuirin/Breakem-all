@@ -59,8 +59,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<div id="admin-container">
 
 					</div>
-					<!-- Fin Default Layout -->
-					
+					<!-- Fin Default Layout -->					
 
 				</div>
 			</div>				
