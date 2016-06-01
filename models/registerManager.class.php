@@ -88,6 +88,16 @@ final class registerManager extends basesql{
 			return (bool) (int) $r['nb'];
 		return false;
 	}
+	public function deleteRegisteredFromTournament(tournament $t, user $u){
+		$sql = "DELETE FROM ".$this->table." WHERE idUser=:idUser AND idTournament=:idTournament";		
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':idUser' => $u->getId(),
+			':idTournament' => $t->getId()
+		]);
+		return $r;
+	}
 }
 /*
 *
