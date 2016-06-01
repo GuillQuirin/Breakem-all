@@ -96,7 +96,7 @@ class tournoiController extends template {
 		
 		// SECU ANTI CSRF
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
-			$this->echoJSONerror("csrf","jetons differents !");
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
 		$link = $filteredinputs['t'];
 		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
 		if($link !== $_SESSION['lastTournamentChecked'])
