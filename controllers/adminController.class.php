@@ -11,6 +11,87 @@ class adminController extends template{
             header('Location: ' .WEBPATH);
         }
     }
+
+    /* Gère la vue de Membres */
+    public function membresViewAction(){
+        $admin = new adminManager();
+        $listejoueurs = $admin->getListUser();  
+
+        $v = new view();
+        $v->assign("listejoueur",$listejoueurs);
+        $v->setView("/includes/admin/membre", "templateEmpty");
+    }
+
+    /* Gère la vue de Plateforme */
+    public function platformsViewAction(){
+        $platform = new platformManager();
+        $listeplatforms = $platform->getListPlatform();
+
+        $v = new view();
+        $v->assign("listeplatform",$listeplatforms);
+        $v->setView("/includes/admin/platform", "templateEmpty");
+    }
+
+    /* Gère la vue de Signalements */
+    public function reportsViewAction(){
+        $report = new signalmentsuserManager();
+        $listesignalement = $report->getListReports();
+
+        $v = new view();
+        $v->assign("listesignalement",$listesignalement);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
+    /* Gère la vue de Team */
+    public function teamsViewAction(){
+        $team = new teamManager();
+        $listeteam = $team->getListTeam(-2);
+
+        $v = new view();
+        $v->assign("listeteam",$listeteam);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
+    /* Gère la vue de Jeux */
+    public function gamesViewAction(){
+        $gameBDD = new gameManager();
+        $listegames = $gameBDD->getAllGames();
+
+        $v = new view();
+        $v->assign("listejeu",$listegames);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
+    /* Gère la vue de Type de Jeu */
+    public function typegamesViewAction(){
+        $gametypeBDD = new typegameManager();
+        $listgametype = $gametypeBDD->getAllTypes();
+
+        $v = new view();
+        $v->assign("listetypejeu",$listgametype);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
+    /* Gère la vue de Commentaires */
+    public function commentsViewAction(){
+        $commentaireBDD = new commentsteamManager();
+        $listcomment = $commentaireBDD->getAllComment();
+
+        $v = new view();
+        $v->assign("listecomment",$listcomment);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
+     /* Gère la vue de Tournois */
+    public function tournamentsViewAction(){
+        $tournamentBdd = new tournamentManager();    
+        $listtournament = $tournamentBdd->getListTournaments();
+
+        $v = new view();
+        $v->assign("listetournament",$listtournament);
+        $v->setView("/includes/admin/test", "templateEmpty");
+    }
+
     
     public function adminAction(){
         if($this->isVisitorConnected() && $this->isAdmin()){
@@ -27,7 +108,7 @@ class adminController extends template{
             $v->assign("content", "Liste des Utilisateurs");
 
             $admin = new adminManager();
-    		$listejoueurs = $admin->getListUser();  
+            $listejoueurs = $admin->getListUser();  
             
             $platform = new platformManager();
             $listeplatforms = $platform->getListPlatform();
@@ -61,6 +142,7 @@ class adminController extends template{
 
             $v->assign("listecomment",$listcomment);
            
+            
             $v->setView("/includes/admin/accueil", "template");
         }
         else{ //On affiche la 404 pour faire croire que le mec tape n'importe quoi

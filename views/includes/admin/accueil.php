@@ -4,6 +4,10 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 ?>
 
+
+
+
+
 <section class="low-height bg-cover-admin relative">
 
 	<div class="align full-height">
@@ -11,6 +15,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			<span class="header-title admin-header-title border-full relative">Administration</span>	
 		</div>
 	</div>	 
+
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
@@ -48,41 +53,14 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
-				<div class="grid-md-12">
-
-					<!-- @Guillaume : Include a changé genre pour que se soit dynamic, coté controlleurs
-
-					<!-- Membre -->
-					<?php include "membres.php"; ?>					
-					<!-- Fin Membre -->		
-
-					<!-- Plateformes -->
-					<?php include "plateformes.php"; ?>				
-					<!-- Fin Plateformes -->						
+				<div class="grid-md-12">						
 					
-					<!-- Reports -->
-					<?php include "reports.php"; ?>	
-					<!-- Fin reports -->
+					<!-- Default Layout -->
+					<div id="admin-container">
 
-					<!-- Team -->
-					<?php include "team.php"; ?>	
-					<!-- Fin Team -->
-
-					<!-- Gametype -->
-					<?php include "gametype.php"; ?>	
-					<!-- Fin Gametype -->
-
-					<!-- Games -->
-					<?php include "games.php"; ?>	
-					<!-- Fin Games -->
-
-					<!-- Comments -->
-					<?php include "comments.php"; ?>	
-					<!-- Fin Comments -->
-
-					<!-- Tournoi -->
-					<?php include "tournoi.php"; ?>	
-					<!-- Fin Comments -->
+					</div>
+					<!-- Fin Default Layout -->
+					
 
 				</div>
 			</div>				

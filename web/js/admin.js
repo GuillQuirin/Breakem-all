@@ -3,7 +3,7 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	admin.init();
+	//admin.init();
 });
 
 var onglet = {
@@ -35,6 +35,8 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletGametype(), onglet.getAdminGametypeWrapper());
 		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
+
+		onglet.callView();
 	},
 
 	//Setter
@@ -146,7 +148,41 @@ var onglet = {
 		return this._adminTournamentWrapper;
 	},
 
+	callView : function(){
+		/* Membres */
+		onglet.getAdminOngletMembres().click(function(){		
 
+		jQuery.ajax({
+		 	url: "admin/membresView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+
+		/* Plateforme */
+		onglet.getAdminOngletPlatforms().click(function(){		
+
+		jQuery.ajax({
+		 	url: "admin/platformsView",
+		 	success: function(result){
+		 			$("#admin-container").html(result);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+			return false;
+		})
+	},
 
 	onClick : function(btnClick, ongletSelector){
 		btnClick.click(function(){
@@ -238,4 +274,3 @@ function deleteComment(id){
 		});
 	}
 }
-
