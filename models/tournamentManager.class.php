@@ -13,7 +13,7 @@ final class tournamentManager extends basesql{
 		ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, 
 		p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, 
 		u.pseudo as userPseudo, 
-		(SELECT COUNT(r.id) as numberRegistered FROM register r)
+		(SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered
 		FROM tournament t ";		
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
