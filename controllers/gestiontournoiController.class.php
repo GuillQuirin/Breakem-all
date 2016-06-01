@@ -21,34 +21,54 @@ class gestiontournoiController extends template{
 		$filteredinputs = filter_input_array(INPUT_GET, $args);
 
 		//Si lien fourni sinon redirection liste tournoi
-		if(!empty($filteredinputs)){
+		if(!empty($filteredinputs) && $this->isVisitorConnected()){
 
 			$filteredinputs = array_filter($filteredinputs);
 			$link = $filteredinputs['t'];
 
-			$tm = new tournamentManager();
+			$tournamentBDD = new tournamentManager();
 
 			//On vérifie que l'utilisateur est bien propriétaire du tournoi
-			$matchedTournament = $tm->getTournamentWithLinkAndOrganizer($link, $this->connectedUser);
-			//var_dump($matchedTournament);exit;
-			if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+
+			$tournament = $tournamentBDD->getTournamentWithLink($link);
+
+			if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
+					&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
 
 				$v->assign("css", "gestion");
 				$v->assign("js", "gestion");
 				$v->assign("title", "gestion");
+				$v->assign("tournoi",$tournament);
 				$v->assign("content", "Gérer votre tournoi");
-				$v->assign("tournoi", $matchedTournament);
+
+				/* MAJ effectuées auparavant */
+				if(isset($_SESSION['referer_method'])){
+					
+					$e = new Exception();
+					$trace = $e->getTrace();
+
+					// Classe appelante
+					$calling_class = (isset($trace[0]['class'])) ? $trace[0]['class'] : false;
+
+					//Methode appelante
+					$calling_method = $_SESSION['referer_method'];
+
+					if($calling_class === "gestiontournoiController" && $calling_method === "update")
+						$v->assign("MAJ","1");
+
+					unset($_SESSION['referer_method']);
+				}
 
 				// Recuperer tous les participants
 				$rm = new registerManager();
-				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
-				// Ne les envoyer ds la vue s'il y en a
+				$allRegistered = $rm->getTournamentParticipants($tournament);
+				// Ne les envoyer ds la vue que s'il y en a
 				if(!!$allRegistered)
 					$v->assign("allRegistered", $allRegistered);
 
 				// Recuperer toutes les équipes avec le nombre de places prises
 				$ttm = new teamtournamentManager();
-				$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
+				$allTournTeams = $ttm->getTournamentTeams($tournament);
 				if(!!$allTournTeams){
 					$freeTeams = [];
 					$fullTeams = [];
@@ -56,7 +76,7 @@ class gestiontournoiController extends template{
 						$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
 						if(is_array($usersInTeam))
 							$teamtournament->addUsers($usersInTeam);
-						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+						if($teamtournament->getTakenPlaces() < $tournament->getMaxPlayerPerTeam())
 							$freeTeams[] = $teamtournament;
 						else
 							$fullTeams[] = $teamtournament;
@@ -64,53 +84,16 @@ class gestiontournoiController extends template{
 					$v->assign("freeTeams", $freeTeams);
 					$v->assign("fullTeams", $fullTeams);
 				};
-				if($this->isVisitorConnected()){
-					$userAlrdyRegistered = $rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser());
-					// /!\ LORSQUE L'USER N'EST PAS INSCRIT ON SFAIT $userAlrdyRegistered === FALSE DONC CETTE VARIABLE SERA SUPPRIMEE PAR LE FILTER ARRAY DS LE extract() de view.class
-					$v->assign("userAlrdyRegistered", $userAlrdyRegistered);
-					$v->assign("_user", $this->getConnectedUser());
-					unset($ttm, $tm, $rm);
-					$_SESSION['lastTournamentChecked'] = $link;
-				}				
-				$v->setView("detailtournoiDOM");
+
+				$v->setView("gestiontournoi");
 				return;
 			};
 			unset($tm);
 			header('Location: '.WEBPATH.'/404');
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois
-		else{
-			$v->assign("css", "tournoi");
-			$v->assign("js", "tournoi");
-			$v->assign("title", "Tournois");
-			$v->assign("content", "Liste principaux tournois jeux vidéos");
-			$v->setView("tournoiDOM");
-		}
-
-		/*MAJ du profil effectuée auparavant (/update) ? */
-		if(isset($_SESSION['referer_method'])){
-			
-			$e = new Exception();
-			$trace = $e->getTrace();
-
-			// Classe appelante
-			$calling_class = (isset($trace[0]['class'])) ? $trace[0]['class'] : false;
-
-			//Methode appelante
-			$calling_method = $_SESSION['referer_method'];
-
-			if($calling_class === "gestiontournoiController" && $calling_method === "update")
-				$v->assign("MAJ","1");
-
-			unset($_SESSION['referer_method']);
-		}		
-
-		//Liste des membres
-		/*
-		$jeux = new gameManager();
-		$v->assign("listeJeux", $jeux->getAllNames());
-		*/
-		$v->setView("gestiontournoi");
+		else
+			header('Location: '.WEBPATH.'/tournoi');		
 	}
 	
 	public function updateAction(){
