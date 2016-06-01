@@ -30,7 +30,8 @@ class userManager extends basesql{
 				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 					return $dbUser;
 			}
-			return -1;
+			else
+				return -1;
 		}
 		return false;
 	}
