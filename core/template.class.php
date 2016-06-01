@@ -9,7 +9,6 @@ class template{
     /*Tant que chaque controller herite de template, le token sera vérifié à chaque rafraichissement de page*/
     $this->checkToken();
   }
-
   protected function getConnectedUser(){return $this->connectedUser;}
 
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
@@ -322,7 +321,7 @@ class template{
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
-
+  public getWebpathAjaxAction(){echo json_encode(["webpath" => WEBPATH]);}
 }
 /*
 *
