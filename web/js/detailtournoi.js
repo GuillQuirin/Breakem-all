@@ -77,4 +77,20 @@ var tournamentRegister = {
 			});
 		});
 	}
+};
+var tournamentUnregister = {
+	init: function(){
+		this.setBtn();
+		if(this.getBtn() instanceof jQuery && this.getBtn().length == 1)
+			this.loadEvent();
+	},
+	setBtn: function(){
+		this._btn = $('.detailtournoi-btn-desinscription');
+	},
+	getBtn: function(){
+		return this._btn;
+	},
+	loadEvent: function(){
+		
+	}
 }
