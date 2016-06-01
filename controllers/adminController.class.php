@@ -19,7 +19,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listejoueur",$listejoueurs);
-        $v->setView("/includes/admin/membresv2", "templateEmpty");
+        $v->setView("/includes/admin/testCss", "templateEmpty");
     }
 
     /* Gère la vue de Plateforme */

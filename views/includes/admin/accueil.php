@@ -55,6 +55,19 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			<div class="row classement-content-row">
 				<div class="grid-md-12">						
 					
+					<div class="admin-navbar membres-navbar">		
+						<div class="row align">
+							<div class="grid-md-3 platform-search-wrapper">
+								<form id="platform-search-form">
+									<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher">
+								</form>
+							</div>
+							<div class="grid-md-3 platform-add-wrapper">
+								<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter</a></button>
+							</div>
+						</div>
+					</div>
+
 					<!-- Default Layout -->
 					<div id="admin-container">
 
