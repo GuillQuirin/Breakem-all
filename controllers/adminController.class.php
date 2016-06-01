@@ -220,7 +220,7 @@ class adminController extends template{
         $data = [];                          
         if(!!$tournamentsArr){
             foreach($tournamentsArr as $key => $tournament){
-                $data[] = $tournament->getAsArr();
+                $data[] = $tournament->returnAsArr();
             }            
             echo json_encode($data);
         }else{

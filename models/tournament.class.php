@@ -205,7 +205,7 @@ final class tournament{
 	public function getUserPseudo(){return $this->_userPseudo;}
 	// Getters de données issues de register
 	public function getNumberRegistered(){return $this->_numberRegistered ;}
-	public function getAsArr(){
+	public function returnAsArr(){
 		return $this->_myArr;
 	}
 }
