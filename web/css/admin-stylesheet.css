@@ -95,14 +95,19 @@
     transition: padding .3s, margin .3s;
 }
 
-.admin-data-ihm:hover{
+.admin-data-ihm:hover{    
+    background:rgba(130, 83, 164, 0.12);
     padding:15px 0;
     margin:5px 0;   
     transition: padding .3s, margin .3s;
 }
 
+.admin-data-ihm:hover .admin-data-ihm-elem{
+    filter: blur(3px);
+}
+
 .admin-data-ihm:hover{    
-    background:rgba(130, 83, 164, 0.4);
+    /*background:rgba(130, 83, 164, 0.4);*/    
 }
 
 .admin-data-ihm-elem{

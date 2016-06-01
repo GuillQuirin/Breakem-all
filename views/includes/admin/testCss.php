@@ -66,6 +66,12 @@
 							echo "</select>";
 						echo "</span></div></div>";
 					echo "</div>";
+
+
+					echo "<div class='admin-data-ihm-btn hidden relative'>";
+						echo "<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>";
+						echo "<button class='admin-btn-default admin-btn-delete platform-btn-delete' type='button'><span>Supprimer</span></button>";
+					echo "</div>";
 				}
 				?>						
 
