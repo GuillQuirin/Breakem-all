@@ -1,4 +1,5 @@
 <?php
+if(isset($tournoi)){
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
@@ -8,15 +9,7 @@
 	<div class="align full-height">
 		<div class="configuration-header-profil-wrapper">
 			<div class="configuration-header-profil-left">
-				<img class="configuration-header-profil-image" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
-
-				<div class="configuration-header-profil-right align">
-					<div class="">
-						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
-						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Dernière connexion inconnu'; ?></span>
-					</div>
-				</div>
+				<img class="configuration-header-profil-image" src="<?php echo $tournoi->getGameImg(); ?>" title="Jeu" alt="Jeu">
 			</div>			
 		</div>
 	</div>
@@ -45,34 +38,19 @@
 						<table class="full-width configuration-form-table">
 							<tr class="text-center">
 								<td colspan="2">
-									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnels</span>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="">	
-									<div class="configuration-first-avatar-wrapper text-center">
-										<div class="configuration-avatar-wrapper m-a">																	
-											<img class="configuration-avatar img-cover" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">										
-										</div>									
-										<input class="" type="file" name="profilpic">									
-									</div>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
+										<span class="configuration-form-menu-tr">Informations du tournoi</span>
 								</td>
 							</tr>
 							<tr>						
-								<td>
-									<span>Nom du tournoi : </span>
-								</td>
-								<td>
-									<input type="text">
-								</td>
+								<td><span>Nom du tournoi : </span></td>
+								<td><input type="text" value="<?php echo $tournoi->getName(); ?>"></td>
 							</tr>
 							<tr>
-								<td>
-									<span>Description : </span>
-								</td>
+								<td><span>Description : </span></td>
 								<td>
 									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
-										<?php echo (isset($_description)) ? $_description : ''; ?>
+										<?php echo $tournoi->getDescription(); ?>
 									</textarea>
 								</td>							
 							</tr>
@@ -96,7 +74,8 @@
 								</td>
 								<td class="configuration-form-email">
 									<div> 
-										<input type="number">
+
+										<input type="number" value="<?php echo $tournoi->getMaxPlayer(); ?>" min="<?php echo $tournoi->getNumberRegistered(); ?>">
 									</div>
 								</td>
 							</tr>
@@ -105,8 +84,7 @@
 									<span>Date du début de tournoi (non modifiable):</span>					
 								</td>
 								<td>
-									<p>DD/MM/YYYY à HH:MM</p>
-									</span>
+									<p><?php echo date('d/m/Y \à H:i', $tournoi->getStartDate()); ?></p>
 								</td>
 							</tr>
 							<tr>
@@ -115,52 +93,38 @@
 								</td>
 								<td>
 									<span class="index-input-default-date">
-										<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31" value="<?php echo (isset($_birthday)) ? date('d', $_birthday) : '' ?>">
-										<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12" value="<?php echo (isset($_birthday)) ? date('m', $_birthday) : '' ?>">
-										<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016" value="<?php echo (isset($_birthday)) ? date('Y', $_birthday) : '' ?>">
+										<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31" value="<?php echo  date('d', $tournoi->getEndDate()); ?>">
+										<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12" value="<?php echo  date('m', $tournoi->getEndDate()); ?>">
+										<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016" value="<?php echo  date('Y', $tournoi->getEndDate()); ?>">
 									</span>
 								</td>
 							</tr>
-							<tr class="text-center">
-								<td colspan="2">
-									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-game.png">';?><span class="configuration-form-menu-tr">Jeux</span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>Message à destination des inscrits : </span>
-								</td>
-								<td>
-									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
-										<?php echo (isset($_description)) ? $_description : ''; ?>
-									</textarea>
-								</td>							
-							</tr>
-							<tr>
-								<td>
-									<span>Liste des inscrits</span>
-								</td>
-								<td>
-									<select>
-									<?php 
-										if(isset($listeJeux)){
-											foreach ($listeJeux as $key => $value) {
-												echo "<option value='".$value['name']."'>".$value['name']."</option>";
-											}
-										}
-									?>
-									</select>
-								</td>
-							</tr>
 						</table>
-						<div class="text-center">
-							<span class="relative"><span class="configuration-input-required irhack">*</span>Champ obligatoire</span>
-						</div>				
+						<div>
+							<h3 class="configuration-form-menu-tr">Membres</h3>
 
+							<p>Liste des inscrits</p>
+							<select>
+								<?php 
+									if(isset($allRegistered) and is_array($allRegistered)){
+										foreach ($allRegistered as $key => $value) {
+											echo "<option value='".$value->getPseudo()."'>".$value->getPseudo()."</option>";
+										}
+									}
+								?>
+							</select>
+
+							<p>Message à destination des inscrits :</p>
+							<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+									<?php echo (isset($_description)) ? $_description : ''; ?>
+							</textarea>
+
+						</div>		
 					</form>				
-
 				</div>
 			</div>				
 		</div>
-
 	</section>
+<?php 
+}
+?>

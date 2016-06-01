@@ -72,6 +72,10 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<?php include "gametype.php"; ?>	
 					<!-- Fin Gametype -->
 
+					<!-- Games -->
+					<?php include "games.php"; ?>	
+					<!-- Fin Games -->
+
 					<!-- Comments -->
 					<?php include "comments.php"; ?>	
 					<!-- Fin Comments -->

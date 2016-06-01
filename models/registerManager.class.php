@@ -4,6 +4,33 @@
 */
 final class registerManager extends basesql{
 
+	public function getTournamentParticipantBy(user $user){
+
+		$sql = "SELECT r.idTournament, g.name as nomJeu, g.img as imgJeu, t.link
+				FROM register r 
+				LEFT OUTER JOIN tournament t ON t.id = r.idTournament 
+				LEFT OUTER JOIN gameversion gv ON t.idGameVersion = gv.id 
+				LEFT OUTER JOIN game g ON gv.idGame = g.id ";
+
+		$sql .="WHERE r.idUser=:idUser ORDER BY r.idTournament DESC LIMIT 0,3";	
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $user->getId()
+		]);
+
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		$allUsers = [];
+		if(isset($r[0])){
+			foreach ($r as $key => $data) {
+				if(count(array_filter($data)) > 0)
+					$allUsers[] = new register($data);
+			}
+		}
+		return (count($allUsers) > 0) ? $allUsers : false;
+	}
+
 	public function getTournamentParticipants(tournament $t){
 		$sql = "SELECT r.id, r.status, r.idTeamTournament, r.idUser, r.idTournament, u.pseudo, u.description, u.email, u.idTeam, u.img, u.isConnected, u.lastConnexion, u.authorize_mail_contact FROM register r";
 		// On est obligé de rajouter les % sur les values des array

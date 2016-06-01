@@ -73,18 +73,33 @@ else{
 						<span>Dernier Tournois joués</span>
 					</div>
 					<div class="text-center align">
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-							<span class="profil-match-element-title-this">Heroes of the Storm</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/rocket.jpeg">';?>
-							<span class="profil-match-element-title-this">Rocket League</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/ssb-bg.jpg">';?>
-							<span class="profil-match-element-title-this">Super Smash Bros</span>
-						</div>
+					<?php 
+						if(isset($listeTournoi) && is_array($listeTournoi)){
+							foreach ($listeTournoi as $key => $value) {
+								?>
+								<div class="profil-element profil-tournament-element">	
+									<?php 
+										echo '<a href="'.WEBPATH.'/tournoi?t='.$value->getLink().'">';
+										  echo '<img class="img-cover" src="' . WEBPATH . '/web/img/';
+											echo $value->getImgJeu();
+										  echo '">';
+										echo '</a>';
+									?>
+									<span class="profil-match-element-title-this">
+										<?php 
+											echo $value->getNomJeu();
+										?>
+									</span>
+								</div>
+								<?php 		
+							}
+						}
+						else{
+							echo '<div class="profil-element profil-tournament-element">';
+								echo 'Pas de tournoi participé.';
+							echo '</div>';
+						}
+					?>
 					</div>
 				</div>
 				<!-- Fin Dernier tournoi -->

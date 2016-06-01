@@ -48,7 +48,7 @@
 						<table class="full-width configuration-form-table">
 							<tr class="text-center">
 								<td colspan="2">
-									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnels</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnelles</span>
 								</td>
 							</tr>
 							<tr>
