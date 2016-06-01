@@ -42,6 +42,7 @@ final class tournament{
 	protected $_userPseudo;
 	// Données provenant de register
 	protected $_numberRegistered;
+	protected $_myArr;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -52,6 +53,8 @@ final class tournament{
 			$method = 'set'.ucfirst($key);
 			if ( method_exists($this, $method) ){
 				$this->$method($value);
+				$method2 = 'get'.ucfirst($key);
+				$this->_myArr[$key] = $this->$method2();
 			}
 		}
 	}
@@ -202,6 +205,9 @@ final class tournament{
 	public function getUserPseudo(){return $this->_userPseudo;}
 	// Getters de données issues de register
 	public function getNumberRegistered(){return $this->_numberRegistered ;}
+	public function getAsArr(){
+		return $this->_myArr;
+	}
 }
 /*
 *
