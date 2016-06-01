@@ -321,7 +321,9 @@ class template{
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
-  public getWebpathAjaxAction(){echo json_encode(["webpath" => WEBPATH]);}
+  public function getWebpathAjaxAction(){
+    echo json_encode(["webpath" => WEBPATH]);
+  }
 }
 /*
 *
