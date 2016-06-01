@@ -4,39 +4,19 @@ window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache 
 	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
+	webpath.init();
+	
+});
+
+function initAll(){
 	connection.init();
 	navbar.init();
 	deconnection.init();
 	register.init();
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 	checkForJustCreatedAccount();
-});
+}
 
-var scroll = {
-	init : function(clickSelector, sectionSelector){
-		if(clickSelector instanceof jQuery && sectionSelector){
-			scroll.clickEvent(clickSelector, sectionSelector);
-		}else{
-			console.log("Pas reçu du dom dans scroll.init()!");
-		}
-	},
-	clickEvent : function(clickSelector, sectionSelector){
-		if(clickSelector instanceof jQuery && sectionSelector){
-			clickSelector.click(function(){
-				scroll.toAnchor(sectionSelector);
-			});
-		}else{
-			console.log("Pas reçu du dom dans scroll.clickEvent");
-		}
-	},
-	toAnchor : function(selector){
-		if(selector instanceof jQuery){
-	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
-    	}else{
-    		console.log("Pas reçu du dom dans scroll.toAnchor()");
-    	}
-	}
-};
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -124,6 +104,62 @@ function checkForJustCreatedAccount(){
 		popup.init("Le compte " + data + " a bien été activé");
 	}
 }
+
+// Recuperation du webpath du server
+var webpath = {
+	init: function(){
+		this.setServerPath();
+	},
+	get: function(){return this._path;},
+	setServerPath: function(){
+		jQuery.ajax({
+		  url: 'index/getWebpathAjax',
+		  type: 'GET',		  
+		  complete: function(xhr, textStatus) {
+		    // console.log("request complted \n");
+		  },
+		  success: function(data, textStatus, xhr) {
+		  	var obj = tryParseData(data);
+		    if(obj != false){
+		    	if(obj.webpath)
+		    		this._path = obj.webpath;
+		    	else
+		    		console.log("webpath couldn't be found");
+		    	initAll();
+		    }
+		  },
+		  error: function(xhr, textStatus, errorThrown) {
+		    console.log("request error !! : \t " + errorThrown);
+		  }
+		});
+	}
+};
+
+var scroll = {
+	init : function(clickSelector, sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
+			scroll.clickEvent(clickSelector, sectionSelector);
+		}else{
+			console.log("Pas reçu du dom dans scroll.init()!");
+		}
+	},
+	clickEvent : function(clickSelector, sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
+			clickSelector.click(function(){
+				scroll.toAnchor(sectionSelector);
+			});
+		}else{
+			console.log("Pas reçu du dom dans scroll.clickEvent");
+		}
+	},
+	toAnchor : function(selector){
+		if(selector instanceof jQuery){
+	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
+    	}else{
+    		console.log("Pas reçu du dom dans scroll.toAnchor()");
+    	}
+	}
+};
 
 // Suffira d'envoyer une string à popup.init et l'ob se chargera du reste 
 var popup = {
