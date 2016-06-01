@@ -1,6 +1,6 @@
 <div class="admin-wrapper tournament" id="admin-onglet-tournament-wrapper">	
 
-	<div class="tournament-navbar">		
+	<div class="admin-navbar tournament-navbar">		
 		<div class="row align">
 			<div class="grid-md-3 platform-search-wrapper">
 				<form id="platform-search-form">		
