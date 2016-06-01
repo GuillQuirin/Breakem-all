@@ -42,7 +42,7 @@
 							</i>
 						</span>
 					</p>
-					<?php $restant = (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered();?>
+					<?php $restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());?>
 					<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
 						<span class="relative">
 							<?php 
