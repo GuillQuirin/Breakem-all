@@ -165,7 +165,7 @@ class tournoiController extends template {
 		if(!empty($filteredinputs))
 			$filteredinputs = array_filter($filteredinputs);
 
-		$v = new View();
+		$v = new view();
 		$v->assign("css", "tournamentslist");
 		$v->assign("js", "tournamentslist");
 		$v->assign("title", "Tournois");
