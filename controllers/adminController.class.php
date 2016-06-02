@@ -110,9 +110,6 @@ class adminController extends template{
             $admin = new adminManager();
             $listejoueurs = $admin->getListUser();  
             
-            $platform = new platformManager();
-            $listeplatforms = $platform->getListPlatform();
-            
             $report = new signalmentsuserManager();
             $listesignalement = $report->getListReports();
             
@@ -129,8 +126,6 @@ class adminController extends template{
             $listcomment = $commentaireBDD->getAllComment();
 
             $v->assign("listejoueur",$listejoueurs);
-
-            $v->assign("listeplatform",$listeplatforms);
 
             $v->assign("listesignalement",$listesignalement);
 
@@ -154,9 +149,6 @@ class adminController extends template{
 
     public function getPlatformsDataAction(){
 
-        $v = new view();
-        $v->setView("/includes/admin/platformsv2", "templateEmpty");
-
         $pm = new platformManager();
         $typesObj = $pm->getListPlatform();
         $data['res'] = [];        
@@ -169,6 +161,7 @@ class adminController extends template{
             $data['res'][] = $arr;
         }
         echo json_encode($data['res']);
+
         return;
     }
 
