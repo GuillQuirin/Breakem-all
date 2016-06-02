@@ -212,9 +212,10 @@ class template{
       $mail->Body=$contenu;
 
       //  Décommentez pour réactiver le mail
-      if(!$mail->Send()){ 
+      //$erreur = $mail->Send();
+
+      if(isset($erreur) && $erreur){ 
         echo $mail->ErrorInfo; 
-        //exit;
       }
 
       $mail->SmtpClose(); 
