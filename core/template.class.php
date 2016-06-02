@@ -186,25 +186,24 @@ class template{
     $adrPHPM = "web/lib/PHPMailer/"; 
     include $adrPHPM."PHPMailerAutoload.php";
     try{
-      $mail = new PHPmailer(); 
+      $mail = new PHPmailer(true); 
       $mail->IsSMTP();
+      $mail->Host="SSL0.OVH.NET";
+      $mail->SMTPAuth = true;
+      $mail->Port = 587;
+      $mail->Username = "contact@breakem-all.com";
+      $mail->Password = "AllBreak75";
       $mail->IsHTML(true); 
+           
+      //$mail->SMTPDebug  = 4; 
 
-      //SMTP du FAI
-      
-      $mail->Host='smtp.free.fr'; // Free
-      //$mail->Host='smtp.bouygtel.fr'; // Bouygues
-      //$mail->Host='smtp.orange.fr'; //Orange
-      //$mail->Host='smtp.sfr.fr'; //SFR
-      //$mail->Host='smtp.??????.fr'; //OVH
-      
       //Expediteur (le site)
-      $mail->From='admin@Bea.fr'; 
-      $mail->AddReplyTo('admin@Bea.fr');      
-      $mail->set('FromName', 'Admin BEA');      
 
-      //Destinataire (l'utilisateur)
+      $mail->From='contact@breakem-all.com'; 
+      $mail->FromName='Administrateur Breakem All'; 
+      $mail->AddReplyTo('contact@breakem-all.com');      
       $mail->AddAddress($destinataire);
+      $mail->setFrom('contact@breakem-all.com', 'Admin BEA');         
       
       $mail->CharSet='UTF-8';
       $mail->Subject=$objet; 
@@ -213,10 +212,10 @@ class template{
       $mail->Body=$contenu;
 
       //  Décommentez pour réactiver le mail
-      /*if(!$mail->Send()){ 
+      if(!$mail->Send()){ 
         echo $mail->ErrorInfo; 
         //exit;
-      }*/
+      }
 
       $mail->SmtpClose(); 
       unset($mail);
@@ -313,10 +312,10 @@ class template{
 
     $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
-      $contenuMail.="<a href=\"http://localhost".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
+      $contenuMail.="<a href=\"http://breakem-all.com".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
     //Appel de la methode d'envoi du mail
-    $this->envoiMail($user->getEmail(),'Inscription à Break em all',$contenuMail);
+    $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
