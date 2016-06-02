@@ -160,7 +160,8 @@ var onglet = {
 
 	callView : function(){
 		/* Membres */
-		onglet.getAdminOngletMembres().click(function(){	
+		onglet.getAdminOngletMembres().click(function(){
+		onglet.getAdminDataIhm().remove();	
 		jQuery.ajax({
 		 	url: "admin/membresView",
 		 	success: function(result){
@@ -177,6 +178,7 @@ var onglet = {
 
 		/* Plateforme */
 		onglet.getAdminOngletPlatforms().click(function(){	
+		onglet.getAdminDataIhm().remove();
 			jQuery.ajax({
 			 	url: "admin/platformsView",
 			 	success: function(result){
@@ -191,7 +193,8 @@ var onglet = {
 		})
 
 		/* Signalement */
-		onglet.getAdminOngletReports().click(function(){	
+		onglet.getAdminOngletReports().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/reportsView",
@@ -208,7 +211,8 @@ var onglet = {
 		})
 
 		/* Team */
-		onglet.getAdminOngletTeams().click(function(){	
+		onglet.getAdminOngletTeams().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/teamsView",
@@ -225,7 +229,8 @@ var onglet = {
 		})
 
 		/* Jeux */
-		onglet.getAdminOngletGame().click(function(){	
+		onglet.getAdminOngletGame().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/gamesView",
@@ -242,7 +247,8 @@ var onglet = {
 		})
 
 		/* Type de jeu */
-		onglet.getAdminOngletGametype().click(function(){	
+		onglet.getAdminOngletGametype().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/typegamesView",
@@ -259,7 +265,8 @@ var onglet = {
 		})
 
 		/* Comment */
-		onglet.getAdminOngletComment().click(function(){	
+		onglet.getAdminOngletComment().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/commentsView",
@@ -276,7 +283,8 @@ var onglet = {
 		})
 
 		/* Tournois */
-		onglet.getAdminOngletTournament().click(function(){	
+		onglet.getAdminOngletTournament().click(function(){
+		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/tournamentsView",

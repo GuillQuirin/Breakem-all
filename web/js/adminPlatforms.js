@@ -100,13 +100,12 @@ var platformModule = {
 			platformModule.getAdminDataElTitle().show();
 			jQuery.ajax({
 		 	url: "admin/getPlatformsData",
-		 	success: function(result){
-		 		onglet.getAdminDataIhm().remove();		
+		 	success: function(result){		
 		 		result = tryParseData(result);
 
 		 		jQuery.each(result, function(i, field){			
 		 			onglet.getAdminWrapper().append(
-		 				"<div class='admin-data-ihm align'>" +
+		 				"<div class='admin-data-ihm align animation fadeLeft'>" +
 
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +

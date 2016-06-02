@@ -27,11 +27,10 @@ var tournamentModule = {
 	//Functions
 
 	createTournoiIhm : function(){
-		ajaxRequest("admin/getTournamentData", "GET", function(result){	
-			onglet.getAdminDataIhm().remove();								
+		ajaxRequest("admin/getTournamentData", "GET", function(result){								
 				jQuery.each(result, function(i, field){				
 					onglet.getAdminWrapper().append(				
-						"<div class='admin-data-ihm align'>" +
+						"<div class='admin-data-ihm align animation fadeLeft'>" +
 
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>" + field.status + "</span></div></div>" +
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='tournament-startDate-g'>" + field.startDate + "</span></div></div>" +

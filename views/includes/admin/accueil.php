@@ -58,7 +58,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 					<!-- Default Layout -->
 					<div id="admin-container">
 						<!-- Admin wrapper -->
-						<div class="admin-wrapper">
+						<div class="admin-wrapper animation fadeLeft">
 							<!-- Admin search -->
 							<div class="admin-navbar">		
 								<div class="row align">
