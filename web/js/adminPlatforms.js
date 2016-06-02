@@ -101,8 +101,8 @@ var platformModule = {
 			jQuery.ajax({
 		 	url: "admin/getPlatformsData",
 		 	success: function(result){
-		 		onglet.getAdminWrapper().empty();
 		 		result = tryParseData(result);
+		 		onglet.getAdminWrapper().empty();
 		 		jQuery.each(result, function(i, field){			
 		 			onglet.getAdminWrapper().append(
 		 				"<div class='admin-data-ihm align'>" +
