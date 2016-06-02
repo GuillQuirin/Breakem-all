@@ -2,19 +2,19 @@
     margin-bottom:60px;
 }
 
-.platform-search-input::-webkit-input-placeholder {
+.admin-search-input::-webkit-input-placeholder {
    text-align: center;
 }
 
-.platform-search-input:-moz-placeholder { /* Firefox 18- */
+.admin-search-input:-moz-placeholder { /* Firefox 18- */
    text-align: center;  
 }
 
-.platform-search-input::-moz-placeholder {  /* Firefox 19+ */
+.admin-search-input::-moz-placeholder {  /* Firefox 19+ */
    text-align: center;  
 }
 
-.platform-search-input:-ms-input-placeholder {  
+.admin-search-input:-ms-input-placeholder {  
    text-align: center; 
 }
 
@@ -37,26 +37,26 @@
     overflow:auto;
 }
 
-.platform-navbar, .admin-navbar{
+.admin-navbar, .admin-navbar{
     padding:25px 0 15px 0;
 }
 
-#platform-search-input{
+#admin-search-input{
     padding:13px 25px;
     margin:0;
 }
 
-.platform-search-form label{
+.admin-search-form label{
     display:inline-block;
 }
 
-.platform-search-wrapper{
+.admin-search-wrapper{
     max-width:300px;
     padding-top:4px;
     padding:35px 0;
 }
 
-.platform-add{
+.admin-add{
     max-width:300px;
 }
 
@@ -122,7 +122,7 @@
     padding:15px;
 }
 
-.admin-wrapper.platforms .admin-data-ihm-elem-img-wrapper{
+.admin-wrapper.admins .admin-data-ihm-elem-img-wrapper{
     height:150px;
     width:240px;
 }
@@ -195,14 +195,6 @@ TOUT RENAME EN ADMIN
     position:relative;   
 }
 
-.admin-wrapper:first-child{
-    display:initial;
-}
-
-.admin-wrapper{
-    display:none;
-}
-
 .admin-table td{
     text-align:center;
 	padding:15px;
@@ -217,7 +209,7 @@ TOUT RENAME EN ADMIN
 	width:50px;	
 }
 
-.admin-table.platform img{
+.admin-table.admin img{
     width:100px;
 }
 
@@ -289,7 +281,6 @@ body, html{
     top:0;
     left:0;
     z-index:100;
-    display:none;
 }
 
 .admin-form-table tr:hover .admin-form-button-wrapper{

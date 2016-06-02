@@ -155,7 +155,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/membresView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -170,10 +170,9 @@ var onglet = {
 		onglet.getAdminOngletPlatforms().click(function(){		
 
 		jQuery.ajax({
-		 	url: "admin/platformsView",
+		 	url: "admin/getPlatformsData",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
-		 		//console.log(result);
+		 		console.log(result);
 		 	},
 		 	error: function(result){
 		 		alert("non");
@@ -189,7 +188,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/reportsView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -206,7 +205,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/teamsView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -223,7 +222,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/gamesView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -240,7 +239,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/typegamesView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -257,7 +256,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/commentsView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -274,7 +273,7 @@ var onglet = {
 		jQuery.ajax({
 		 	url: "admin/tournamentsView",
 		 	success: function(result){
-		 			$("#admin-container").html(result);
+		 		
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
@@ -290,7 +289,6 @@ var onglet = {
 		btnClick.click(function(){
 			jQuery(".admin-onglet-li").removeClass('active');
 			jQuery(this).addClass('active');
-			jQuery(".admin-wrapper").css('display', 'none');
 			onglet.show(ongletSelector);
 		});
 	},

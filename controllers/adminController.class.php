@@ -19,7 +19,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listejoueur",$listejoueurs);
-        $v->setView("/includes/admin/testCss", "templateEmpty");
+        $v->setView("/includes/admin/membresv2", "templateEmpty");
     }
 
     /* Gère la vue de Plateforme */
@@ -153,6 +153,10 @@ class adminController extends template{
     /* PLATEFORME */
 
     public function getPlatformsDataAction(){
+
+        $v = new view();
+        $v->setView("/includes/admin/platformsv2", "templateEmpty");
+
         $pm = new platformManager();
         $typesObj = $pm->getListPlatform();
         $data['res'] = [];        

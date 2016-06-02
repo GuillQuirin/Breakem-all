@@ -57,7 +57,30 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 					<!-- Default Layout -->
 					<div id="admin-container">
+						<!-- Admin wrapper -->
+						<div class="admin-wrapper">
+							<!-- Admin search -->
+							<div class="admin-navbar">		
+								<div class="row align">
+									<div class="grid-md-3 admin-search-wrapper">
+										<form id="admin-search-form">
+											<input type="text" class="admin-search-input input-default" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
+										</form>
+									</div>
+									<div class="grid-md-3 admin-add-wrapper">
+										<button type="button" class="btn btn-pink full open-form admin-add-btn" id="admin-add-btn"><a>Ajouter</a></button>
+									</div>
+								</div>
+							</div>
+							<!-- Fin admin search -->
 
+							<!-- Admin title -->
+							<div class='admin-data-ihm-title align'>
+							</div>
+							<!-- Fin admin title -->
+
+						</div>
+						<!-- Fin admin wrapper -->
 					</div>
 					<!-- Fin Default Layout -->					
 
