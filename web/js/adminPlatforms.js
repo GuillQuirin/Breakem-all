@@ -98,11 +98,14 @@ var platformModule = {
 			platformModule.toggleIfEmpty();
 		
 			platformModule.getAdminDataElTitle().show();
-			ajaxRequest("admin/getPlatformsData", "GET", function(result){							
-				jQuery.each(result, function(i, field){				
-					platformModule.getAdminWrapper().append(								
-
-						"<div class='admin-data-ihm align'>" +
+			jQuery.ajax({
+		 	url: "admin/getPlatformsData",
+		 	success: function(result){
+		 		onglet.getAdminWrapper().empty();
+		 		result = tryParseData(result);
+		 		jQuery.each(result, function(i, field){			
+		 			onglet.getAdminWrapper().append(
+		 				"<div class='admin-data-ihm align'>" +
 
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +
@@ -136,22 +139,27 @@ var platformModule = {
 								"</div>" +
 							"</div>" +
 						"<div>" 
-					);			
-					jQuery(".platform-btn-delete" + i).click(function(){
+	 				);
+	 				jQuery(".platform-btn-delete" + i).click(function(){
 						platformModule.postDataDelete(i);
 					});
 					jQuery(".platform-submit-form-btn" + i).click(function(){
 						platformModule.postDataUpdate(i);					
 						navbar.form.smoothClosing();	
-					});				
-				});			
-				admin.ihmElemHover();		
+					});	
+		 		});
+		 		admin.ihmElemHover();		
 				navbar.setOpenFormAll();	
 				navbar.form.admin();	
 				navbar.form.closeFormKey();
-		        navbar.form.closeFormClick();			
-			});		
-		
+		        navbar.form.closeFormClick();		
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	
+		return false;	
 	},
 	//Insert sur le formulaire d'ajout
 	postDataInsert : function(){		

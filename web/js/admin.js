@@ -3,7 +3,6 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	//admin.init();
 });
 
 var onglet = {
@@ -18,6 +17,7 @@ var onglet = {
 		onglet.setAdminOngletComment();
 		onglet.setAdminOngletTournament();
 
+		onglet.setAdminWrapper();
 		onglet.setAdminPlatformsWrapper();
 		onglet.setAdminMembresWrapper();
 		onglet.setAdminReportsWrapper();
@@ -91,10 +91,15 @@ var onglet = {
 	setAdminTournamentWrapper : function(){
 		this._adminTournamentWrapper = jQuery("#admin-onglet-tournament-wrapper");
 	},
-
+	setAdminWrapper : function(){
+		this._adminWrapper = jQuery('.admin-wrapper');
+	},
 
 
 	//Getter
+	getAdminWrapper : function(){
+		return this._adminWrapper;
+	},
 	getAdminOngletPlatforms : function(){
 		return this._adminOngletPlatforms;
 	},
@@ -168,18 +173,7 @@ var onglet = {
 
 		/* Plateforme */
 		onglet.getAdminOngletPlatforms().click(function(){		
-
-		jQuery.ajax({
-		 	url: "admin/getPlatformsData",
-		 	success: function(result){
-		 		console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	
-			return false;
+			platformModule.init();
 		})
 
 		/* Signalement */
@@ -301,10 +295,6 @@ var onglet = {
 };
 
 var admin = {
-	init : function(){
-		platformModule.init();
-		tournamentModule.init();
-	},
 	ihmElemHover : function(){
 		jQuery('.admin-data-ihm').hover(
 		  function() {
