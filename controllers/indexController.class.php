@@ -39,7 +39,7 @@ class indexController extends template{
 		if(!empty($bestGames)){
 			$v->assign("bestGames", $bestGames);
 		}
-
+		
 		$v->setView("index");
 	}
 
