@@ -1,3 +1,7 @@
+#admin-container{
+    margin-bottom:60px;
+}
+
 .platform-search-input::-webkit-input-placeholder {
    text-align: center;
 }
@@ -25,8 +29,12 @@
 .admin-test{
     width:15%;
     max-width:200px;
-    overflow:scroll;
     margin:0 15px;
+    overflow:hidden;
+}
+
+.admin-data-ihm-elem{
+    overflow:auto;
 }
 
 .platform-navbar, .admin-navbar{
@@ -34,7 +42,7 @@
 }
 
 #platform-search-input{
-    padding:14.9px 25px;
+    padding:13px 25px;
     margin:0;
 }
 
@@ -103,7 +111,7 @@
 }
 
 .admin-data-ihm:hover .admin-data-ihm-elem{
-    filter: blur(3px);
+    //filter: blur(3px);
 }
 
 .admin-data-ihm:hover{    
