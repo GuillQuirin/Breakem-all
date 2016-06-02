@@ -64,7 +64,9 @@ var onglet = {
 	setAdminOngletTournament : function(){
 		this._adminOngletTournament = jQuery('#admin-onglet-tournament');
 	},
-
+	setAdminDataIhm : function(){
+		this._adminDataIhm = jQuery(".admin-data-ihm");
+	},
 
 
 	setAdminPlatformsWrapper : function(){
@@ -97,6 +99,9 @@ var onglet = {
 
 
 	//Getter
+	getAdminDataIhm : function(){
+		return jQuery('.admin-data-ihm');
+	},
 	getAdminWrapper : function(){
 		return this._adminWrapper;
 	},
@@ -156,7 +161,6 @@ var onglet = {
 	callView : function(){
 		/* Membres */
 		onglet.getAdminOngletMembres().click(function(){	
-		onglet.getAdminWrapper().empty();	
 		jQuery.ajax({
 		 	url: "admin/membresView",
 		 	success: function(result){
@@ -173,7 +177,6 @@ var onglet = {
 
 		/* Plateforme */
 		onglet.getAdminOngletPlatforms().click(function(){	
-		onglet.getAdminWrapper().empty();	
 			jQuery.ajax({
 			 	url: "admin/platformsView",
 			 	success: function(result){
@@ -188,8 +191,7 @@ var onglet = {
 		})
 
 		/* Signalement */
-		onglet.getAdminOngletReports().click(function(){
-		onglet.getAdminWrapper().empty();		
+		onglet.getAdminOngletReports().click(function(){	
 
 		jQuery.ajax({
 		 	url: "admin/reportsView",
@@ -206,8 +208,7 @@ var onglet = {
 		})
 
 		/* Team */
-		onglet.getAdminOngletTeams().click(function(){
-		onglet.getAdminWrapper().empty();		
+		onglet.getAdminOngletTeams().click(function(){	
 
 		jQuery.ajax({
 		 	url: "admin/teamsView",
@@ -225,7 +226,6 @@ var onglet = {
 
 		/* Jeux */
 		onglet.getAdminOngletGame().click(function(){	
-		onglet.getAdminWrapper().empty();	
 
 		jQuery.ajax({
 		 	url: "admin/gamesView",
@@ -243,7 +243,6 @@ var onglet = {
 
 		/* Type de jeu */
 		onglet.getAdminOngletGametype().click(function(){	
-		onglet.getAdminWrapper().empty();	
 
 		jQuery.ajax({
 		 	url: "admin/typegamesView",
@@ -260,8 +259,7 @@ var onglet = {
 		})
 
 		/* Comment */
-		onglet.getAdminOngletComment().click(function(){
-		onglet.getAdminWrapper().empty();		
+		onglet.getAdminOngletComment().click(function(){	
 
 		jQuery.ajax({
 		 	url: "admin/commentsView",
@@ -279,13 +277,11 @@ var onglet = {
 
 		/* Tournois */
 		onglet.getAdminOngletTournament().click(function(){	
-		onglet.getAdminWrapper().empty();	
 
 		jQuery.ajax({
 		 	url: "admin/tournamentsView",
 		 	success: function(result){
-		 		
-		 		//console.log(result);
+		 		tournamentModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
