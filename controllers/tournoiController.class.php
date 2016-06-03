@@ -96,7 +96,7 @@ class tournoiController extends template {
 		
 		// SECU ANTI CSRF
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
-			$this->echoJSONerror("csrf","jetons differents !");
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
 		$link = $filteredinputs['t'];
 		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
 		if($link !== $_SESSION['lastTournamentChecked'])
@@ -165,7 +165,7 @@ class tournoiController extends template {
 		if(!empty($filteredinputs))
 			$filteredinputs = array_filter($filteredinputs);
 
-		$v = new View();
+		$v = new view();
 		$v->assign("css", "tournamentslist");
 		$v->assign("js", "tournamentslist");
 		$v->assign("title", "Tournois");
@@ -191,6 +191,44 @@ class tournoiController extends template {
 				$v->assign("tournois", $matchedTournaments);
 		}
 		$v->setView("tournamentslist");
+	}
+
+	public function unregisterAction(){
+		if(!isset($_SESSION['lastTournamentChecked']))
+			$this->echoJSONerror("tournoi","aucun tournoi visité");
+		$args = array(
+            't' => FILTER_SANITIZE_STRING,
+            'sJeton' => FILTER_SANITIZE_STRING
+		);
+		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs","missing input " . $key);
+    	}
+
+		// SECU ANTI CSRF
+		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
+		$link = $filteredinputs['t'];
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
+		if($link !== $_SESSION['lastTournamentChecked'])
+			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+
+		$tm = new tournamentManager();
+		$matchedTournament = $tm->getTournamentWithLink($link);
+		if(!!$matchedTournament){
+			$rm = new registerManager();			
+			if($rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser())){
+				if($rm->deleteRegisteredFromTournament($matchedTournament, $this->getConnectedUser()))
+					echo json_encode(["success" => true]);
+				else
+					$this->echoJSONerror("desinscription", "votre desincription a échoué");
+			}
+			else
+				$this->echoJSONerror("utilisateur","vous n'êtes pas inscrit à ce tournoi !");
+		}
+		else
+			$this->echoJSONerror("tournoi","tournoi inexistant");
 	}
 
 	// Algo d'affectation aléatoire à une team de tournoi lors du register

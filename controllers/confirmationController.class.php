@@ -19,15 +19,10 @@ class confirmationController extends template{
             'email'     => FILTER_VALIDATE_EMAIL
         );
         $filteredinputs = filter_input_array(INPUT_GET, $args);
+
         foreach ($args as $key => $value) {
             if(!isset($filteredinputs[$key])){
-                $v = new view();
-                $v->assign("css", "404");
-                $v->assign("js", "404");
-                $v->assign("title", "Erreur 404");
-                $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
-                $v->setView("templatefail", "templatefail");
-                return;
+               header('Location:' . WEBPATH.'/404');
             }
         }
 
@@ -40,6 +35,7 @@ class confirmationController extends template{
         // On lui met un timeout pour que l'user ne voit le msg que pendant une courte periode de temps
         if($userBDD->checkMailToken($user))
             $_SESSION['compte_validé'] = $user->getEmail();
+
         header('Location:' . WEBPATH);
     }
 

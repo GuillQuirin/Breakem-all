@@ -5,7 +5,7 @@
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 			</h3>
 			<p class="detailtournoi-description-jeu italic">
-				<?php echo $tournoi->getGameDescription(); ?>				
+				<?php echo $tournoi->getGameDescription(); ?>			
 			</p>
 			<div class="detail-tournoi-main-infos align display-flex-row">
 				<div class="detail-tournoi-aside ta-center relative">
@@ -13,10 +13,15 @@
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
 					<?php if(isset($_isConnected)): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && !isset($userAlrdyRegistered)): ?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
 								<div class="relative ta-right">
+									<?php if(isset($userAlrdyRegistered)):?>
+									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
+									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
+									<?php else:?>
 									<button class="detailtournoi-btn-inscription relative btn btn-green"><a>Rejoindre</a></button>
 									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
+									<?php endif; ?>
 								</div>
 							<?php endif; ?>
 						<?php else: ?>
@@ -42,7 +47,7 @@
 							</i>
 						</span>
 					</p>
-					<?php $restant = (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered();?>
+					<?php $restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());?>
 					<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
 						<span class="relative">
 							<?php 

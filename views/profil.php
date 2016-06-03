@@ -164,15 +164,19 @@ else{
 			
 					<!-- Boutons Contact / Report / Config -->
 					<div id="game">
+						<?php 
+						if(isset($_isConnected)):
+						?> 
 						<div class="title_index">
-							<label for="title2">Contacter ce joueur</label>
+							<label for="title2">Communiquer avec ce joueur</label>
 						</div>
+						<?php endif; ?>
 						<div id="communication">
 						<?php 
 							//N'apparaissent que si le visiteur est connecté et n'est pas sur sa propre page
 							if(isset($_isConnected) && !isset($myAccount)){
 								if(isset($authorize_mail_contact) && $authorize_mail_contact==1)
-									echo '<button id="contact" type="button" class="btn btn-pink" title="Envoyer un mail au joueur">	<a href="#">Contacter</a></button>';
+									echo '<button id="contact" type="button" class="btn btn-pink" title="Envoyer un mail au joueur">	<a href="#">Envoyer un message</a></button>';
 								if(isset($already_signaled) && $already_signaled==1)
 									echo '<p id="signalementnope">Vous avez déjà signalé ce joueur</p>';
 								else 

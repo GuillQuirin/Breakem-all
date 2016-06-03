@@ -77,3 +77,12 @@ function canUserRegisterToTeamTournament(user $u, tournament $t, teamtournament 
 function linkCheck($received, $model){
 	return (password_verify($received, $model));
 }*/
+
+
+function cleanTimedOutSession(){
+	if(isset($_SESSION['timeout']) && $_SESSION['timeout'] < time()){
+		session_destroy();		
+	}
+	session_start();
+	session_regenerate_id();
+}

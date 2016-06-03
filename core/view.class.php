@@ -54,9 +54,11 @@ class view{
 	}
 
 	public function __destruct(){
-		// JETON ANTI FAILLE CSRF RAFRAICHIT A CHAQUE RELOAD
+		// JETON ANTI FAILLE CSRF RAFRAICHIT A CHAQUE SESSION
+		flush();
 		$sJeton = sha1(uniqid(rand(), true)) . date('YmdHis');
-	    $_SESSION['sJeton'] = $sJeton;
+		if(!isset($_SESSION['sJeton']))
+			$_SESSION['sJeton'] = $sJeton;
 		extract(array_filter($this->data, 'removeNULL'));
 		include $this->template;
 	}

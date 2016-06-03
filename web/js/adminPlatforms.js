@@ -62,17 +62,7 @@ var platformModule = {
 	},
 
 	//Function
-
-	//Show ou hide les bouttons Modifier et Supprimer sur hover
-	ihmElemHover : function(){
-		jQuery('.admin-data-ihm').hover(
-		  function() {
-		    jQuery(this).find('.admin-data-ihm-btn').removeClass("hidden");
-		  }, function(e) {
-		    jQuery(this).find('.admin-data-ihm-btn').addClass("hidden");
-		  }
-		);
-	},
+	
 	//Check si platform est vide
 	isEmpty : function(callback){
 		var c = 0;
@@ -155,7 +145,7 @@ var platformModule = {
 						navbar.form.smoothClosing();	
 					});				
 				});			
-				platformModule.ihmElemHover();		
+				admin.ihmElemHover();		
 				navbar.setOpenFormAll();	
 				navbar.form.admin();	
 				navbar.form.closeFormKey();
@@ -208,7 +198,7 @@ var platformModule = {
 	    var name = btn.parent().find(jQuery('.platform-nom-p')).val();
 		var description = btn.parent().find(jQuery('.platform-description-p')).val();	
 
-		if(name !== "undefined"){	
+		/*if(name !== "undefined"){	
 			console.log("Enter a value for name and description");
 		}else{
 		    var allData = {name : name, description : description};	
@@ -224,7 +214,7 @@ var platformModule = {
 			 		throw new Error("Couldn't add platform", result);
 			 	}
 			});
-		}
+		}*/
 	},
 	//Update sur le formulaire modifier
 	postDataUpdate : function(i){

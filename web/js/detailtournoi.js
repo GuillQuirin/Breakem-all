@@ -4,6 +4,7 @@ window.addEventListener('load', function load(){
 	// preventQuitPageEvent();
 	dom.init();
 	tournamentRegister.init();
+	tournamentUnregister.init();
 });
 
 var dom = {
@@ -23,13 +24,11 @@ var dom = {
 var tournamentRegister = {
 	init: function(){
 		this.setRandBtn();
+		this.setSjeton();
 		if(this.getRandBtn().length == 1 && this.getRandBtn() instanceof jQuery){
 			this.setTget();
-			if(this.getTget().length > 0){
-				this.setSjeton();
-				if(this.getSjeton().length == 1 && this.getSjeton() instanceof jQuery)
-					this.loadRandRegisterEvent();
-			}
+			if(this.getTget().length > 0 && this.getSjeton().length == 1 && this.getSjeton() instanceof jQuery)
+				this.loadRandRegisterEvent();
 		}
 	},
 	setRandBtn: function(){
@@ -66,6 +65,53 @@ var tournamentRegister = {
 							return;
 						}
 						popup.init('Vous avez été inscrit aléatoirement à une équipe');
+						setTimeout(function(){
+							location.reload();
+						}, 1000);							
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					console.log("request error !! : \t " + errorThrown);
+				}
+			});
+		});
+	}
+};
+var tournamentUnregister = {
+	init: function(){
+		this.setBtn();
+		if(this.getBtn() instanceof jQuery && this.getBtn().length == 1 && tournamentRegister.getSjeton() instanceof jQuery && tournamentRegister.getSjeton().length == 1)
+			this.loadEvent();
+	},
+	setBtn: function(){
+		this._btn = $('.detailtournoi-btn-desinscription');
+	},
+	getBtn: function(){
+		return this._btn;
+	},
+	loadEvent: function(){
+		var _this = this;
+		this.getBtn().click(function(event){
+			jQuery.ajax({
+				url: 'tournoi/unregister',
+				type: 'POST',
+				data: {
+					t: $_GET('t'),
+					sJeton: tournamentRegister.getSjeton().val()
+				},
+				complete: function(xhr, textStatus) {
+					// console.log("request completed \n");
+				},
+				success: function(data, textStatus, xhr) {
+					var obj = tryParseData(data);
+					if(obj != false){
+						if(obj.errors){
+							console.log(obj.errors);
+							return;
+						}else{
+							console.log(obj);
+						}
+						popup.init('Vous avez été déinscrit de ce tournoi');
 						setTimeout(function(){
 							location.reload();
 						}, 1000);							

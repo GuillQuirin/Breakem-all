@@ -167,6 +167,16 @@ var onglet = {
 var admin = {
 	init : function(){
 		platformModule.init();
+		tournamentModule.init();
+	},
+	ihmElemHover : function(){
+		jQuery('.admin-data-ihm').hover(
+		  function() {
+		    jQuery(this).find('.admin-data-ihm-btn').removeClass("hidden");
+		  }, function(e) {
+		    jQuery(this).find('.admin-data-ihm-btn').addClass("hidden");
+		  }
+		);
 	}
 };
 
