@@ -105,15 +105,15 @@ var platformModule = {
 
 		 		jQuery.each(result, function(i, field){			
 		 			onglet.getAdminWrapper().append(
-		 				"<div class='admin-data-ihm align animation fadeLeft'>" +
+		 				"<div class='admin-data-ihm align relative'>" +
 
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" + field.img + "'></div></div></div>" +
 
-							"<div class='admin-data-ihm-btn hidden relative'>" +
-								"<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>" +  
-								"<button class='admin-btn-default admin-btn-delete platform-btn-delete" + i + "' type='button'><span>Supprimer</span></button>" + 						
+							"<div class='admin-data-ihm-btn hidden align'>" +
+								"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +  
+								"<button class='admin-btn-default btn btn-white full admin-btn-delete platform-btn-delete" + i + "' type='button'><a>Supprimer</a></button>" + 						
 							"</div>" +
 
 							"<div class='index-modal platforms hidden-fade hidden'>" +

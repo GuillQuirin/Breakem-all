@@ -68,9 +68,15 @@
     left:0;
 }
 
+.admin-btn-delete{
+    color:#292929;
+}
+
 .admin-btn-default{
+    max-width:150px;
+    height:30px;
     margin:0 5px;
-    padding:0 25px;
+    /*padding:10px 25px;*/
     transform:skew(-8deg);
     z-index:10000;
     cursor: pointer;
@@ -83,7 +89,9 @@
 .admin-data-ihm-btn{
     position:absolute;
     left:0;
-    right:0
+    right:0;
+    top:0;
+    bottom:0;
 }
 
 .admin-data-ihm-title{
@@ -111,7 +119,7 @@
 }
 
 .admin-data-ihm:hover .admin-data-ihm-elem{
-    //filter: blur(3px);
+    filter: blur(3px);
 }
 
 .admin-data-ihm:hover{    
