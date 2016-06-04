@@ -1,10 +1,10 @@
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
-	preventQuitPageEvent();
+	
 	if(dom.init())
 		gameTypesChoice.init();
-	navbar.preventShrink = true;
+	// navbar.preventShrink = true;
 });
 function preventQuitPageEvent(){
 	window.onbeforeunload = function(){
@@ -40,16 +40,20 @@ function loadBtn(string){
 	btn.append('<a class="uppercase">'+string+'</a>');
 }
 
-
 var dom = {
 	init: function(){
 		this.setTitleContainer();
 		this.setContainer();
 		this.setBtn();
+		this.setTreeSection();
 		if(!(this.getTitleContainer() instanceof jQuery)
 			|| !(this.getContainer() instanceof jQuery)
+			|| !(this.getTreeSection() instanceof jQuery)
+			|| (this.getTitleContainer().length > 1 )
+			|| (this.getContainer().length > 1 )
+			|| (this.getTreeSection().length > 1 )
 			|| !(this.getBtn() instanceof jQuery)){
-			console.log("Title || Container || Btn not found ");
+			console.log("Title || Container || Btn || Tree-section not found ");
 			return false;
 		}
 		//this.setTitleContainerMargin();
@@ -65,6 +69,9 @@ var dom = {
 	setBtn: function(){
 		this._btn = jQuery("#creationtournoi-valider");
 	},
+	setTreeSection: function(){
+		this._treeSec = $('.creationtournoi-tree-section');
+	},
 	setTitleContainerMargin: function(){
 		var navHeight = jQuery("#navbar").height();
 		this.getTitleContainer().css('margin-top', navHeight);
@@ -77,14 +84,15 @@ var dom = {
 	},
 	getTitleContainer: function(){return this._title;},
 	getContainer: function(){return this._elementsContainer;},
-	getBtn: function(){return this._btn;}
+	getBtn: function(){return this._btn;},
+	getTreeSection: function(){return this._treeSec;}
 };
 var gameTypesChoice = {
 	_choice: false,
 	_choiceDat: false,
 	possibleChoices: [],
 	init: function(){
-		/*Tous les chargements d'event et autres fonctions de feront dans le success callback retour de ajax*/
+		/*Tous les chargements d'event et autres fonctions se feront dans le success callback retour de ajax*/
 		this.getGameTypes();
 	},
 	getChoice: function(){return this._choice;},
@@ -114,6 +122,7 @@ var gameTypesChoice = {
 			    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
 			    	_this.associateChoiceEvent(jQDomElem, obj.types[prop].name);
+			    	tree.setGameTypeChoices(_this.getPossibleChoices());
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
@@ -764,4 +773,19 @@ var validateChoices = {
 			});				
 		});	
 	}
-}
+};
+var tree = {
+	init: function(){
+		
+	},
+	changeDom: function(){
+
+	},
+	setGameTypeChoices: function(arr){
+		this._gtChoices = arr;
+		if(this._gtChoices.length > 1){
+			// preventQuitPageEvent();
+		}
+	},
+	getGameTypeChoices: function(){return this._gtChoices;}
+};
