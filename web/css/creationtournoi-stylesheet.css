@@ -81,15 +81,17 @@
 	background: rgba(255, 255, 255, .1);
 	border-radius: 0px 0px 5px 5px;
 }
+.creationtournoi-tree-maxcontainer{
+	max-width: 960px;
+}
 .creationtournoi-tree-el{
 	height: 50px;
-	padding: 0 15px 0 15px;
+	width: 19.75%;
 	border: 1px solid #ccc;
 	border-top: none;
 	border-bottom: none;
 	cursor: default;
 	transition: background .2s;
-	/*border-radius: 0px 0px 5px 5px;*/
 }
 .creationtournoi-tree-el:first-of-type{	
 	border-radius: 0px 0px 0px 5px;
@@ -104,6 +106,24 @@
 }
 .creationtournoi-tree-el:hover{
 	background: rgba(255, 255, 255, .1);
+}
+.creationtournoi-tree-el-choices-container{
+	background: inherit;
+	height: 0;
+	font-size: 0;
+	transition: height .2s, font-size 0s;
+	z-index: 2;
+}
+.creationtournoi-tree-el:hover .creationtournoi-tree-el-choices-container{
+	height: auto;
+	font-size: 14px;
+}
+.tree-el-choice{
+	line-height: 40px;
+	cursor: pointer;
+}
+.tree-el-choice:hover{
+	background: rgba(0, 0, 0, .1);
 }
 
 .creationtournoi-element-container{
