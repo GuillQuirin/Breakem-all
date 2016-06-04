@@ -1,3 +1,4 @@
+"use strict";
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
@@ -39,20 +40,46 @@ function loadBtn(string){
 	btn.empty();
 	btn.append('<a class="uppercase">'+string+'</a>');
 }
-function changeTreeEl(jQelTree, obj, choiceName){
+function loadTreeSubEls(jQelTree, obj){
 	if(typeof jQelTree == 'undefined' || typeof obj == 'undefined'
 		|| !(jQelTree instanceof jQuery)
 		|| obj.length == 0
 		)
 		return false;
-	jQelTree.empty();
+	jQelTree.find('.creationtournoi-tree-el-choices-container').empty();
+	jQelTree.find('.creationtournoi-tree-el-choices-container').remove();
 	var content = $('<div class="creationtournoi-tree-el-choices-container absolute display-flex-column full-width">');
-	for(choice in obj){
-		content.append('<div class="full-width tree-el-choice"><p class="m-a text-center">'+obj.name+'</p></div>');
+	var choiceEls = [];
+	for(var choice in obj){
+		var curdom = $('<div class="full-width tree-el-choice"><p class="m-a text-center">'+obj[choice].name+'</p></div>');
+		var arr = [obj[choice], curdom];
+		choiceEls.push(arr);
+		content.append(curdom);
 	}
+	jQelTree.append(content);
+	return choiceEls;
+}
+function loadTreeElTitle(jQelTree, choiceName){
+	if(typeof jQelTree == 'undefined'
+		|| !(jQelTree instanceof jQuery)
+		)
+		return false;
+	var title = jQelTree.find('.creationtournoi-tree-el-title');
+	if(!(title instanceof jQuery)
+		|| title.length == 0
+		)
+		return false;
+	title.text(choiceName);
+}
+function highlightTreeStep(jQelTree){
+	for (var i = dom.getAllTreeEls().length - 1; i >= 0; i--) {
+		dom.getAllTreeEls()[i].removeClass('active-step');
+	}
+	jQelTree.addClass('active-step');
 }
 
 var dom = {
+	_treeEls: [],
 	init: function(){
 		this.setTitleContainer();
 		this.setContainer();
@@ -85,6 +112,11 @@ var dom = {
 		}
 		//this.setTitleContainerMargin();
 		this.setBtnMargin();
+		this._treeEls.push(this.getTreeGameType());
+		this._treeEls.push(this.getTreeGame());
+		this._treeEls.push(this.getTreePlatform());
+		this._treeEls.push(this.getTreeRules());
+		this._treeEls.push(this.getTreeConfirm());
 		return true;
 	},
 	setTitleContainer: function(){
@@ -132,7 +164,8 @@ var dom = {
 	getTreeGame: function(){return this._treeG;},
 	getTreePlatform: function(){return this._treeP;},
 	getTreeRules: function(){return this._treeR;},
-	getTreeConfirm: function(){return this._treeC;}
+	getTreeConfirm: function(){return this._treeC;},
+	getAllTreeEls: function(){return this._treeEls;}
 };
 var gameTypesChoice = {
 	_choice: false,
@@ -169,10 +202,10 @@ var gameTypesChoice = {
 			    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
 			    	_this.associateChoiceEvent(jQDomElem, obj.types[prop].name);
-			    	tree.setGameTypeChoices(obj.types[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
+			    tree.setGameTypeChoices(obj.types);
 			    loadElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
 			    loadTitle("ton style de jeu");
@@ -827,8 +860,12 @@ var tree = {
 	},
 	setGameTypeChoices: function(obj){
 		this._gtChoices = obj;
-		if(obj.name)
-			console.log(obj);
+		if(obj.length > 0){
+			var objAndDom = loadTreeSubEls(dom.getTreeGameType(), obj);
+			loadTreeElTitle(dom.getTreeGameType(), 'Type-de-jeu');
+			highlightTreeStep(dom.getTreeGameType());
+			console.log(objAndDom);
+		}
 	},
 	getGameTypeChoices: function(){return this._gtChoices;}
 };

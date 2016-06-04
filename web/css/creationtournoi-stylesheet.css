@@ -93,6 +93,12 @@
 	cursor: default;
 	transition: background .2s;
 }
+.creationtournoi-tree-el.active-step{
+	background: rgba(255, 255, 255, .5);
+}
+.creationtournoi-tree-el.active-step:hover{
+	background: rgba(255, 255, 255, .3);
+}
 .creationtournoi-tree-el:first-of-type{	
 	border-radius: 0px 0px 0px 5px;
 	border-left-width: 2px;
@@ -101,9 +107,9 @@
 	border-radius: 0px 0px 5px 0px;
 	border-right-width: 2px;
 }
-.creationtournoi-tree-el.active{
+/* .creationtournoi-tree-el.active{
 	background: rgba(255, 255, 255, .1);
-}
+} */
 .creationtournoi-tree-el:hover{
 	background: rgba(255, 255, 255, .1);
 }
@@ -125,6 +131,7 @@
 .tree-el-choice:hover{
 	background: rgba(0, 0, 0, .1);
 }
+
 
 .creationtournoi-element-container{
 	width: 97%;
