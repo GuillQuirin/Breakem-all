@@ -14,7 +14,7 @@
 	<div class="creationtournoi-tree-container full-width">
 		<div class="creationtournoi-tree-maxcontainer display-flex-row m-a full-width">
 			<div id="creationtournoi-tree-gametype" class="creationtournoi-tree-el display-flex-column m-a relative">
-				<p class="m-a text-center title title-4 lowercase">Type-de-jeu</p>
+				<p class="creationtournoi-tree-el-title m-a text-center title title-4 lowercase">Type-de-jeu</p>
 				<div class="creationtournoi-tree-el-choices-container absolute display-flex-column full-width">
 					<div class="full-width tree-el-choice">
 						<p class="m-a text-center">objet 1</p>
