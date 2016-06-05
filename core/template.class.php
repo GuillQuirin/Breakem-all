@@ -129,6 +129,7 @@ class template{
         $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
         $_SESSION[COOKIE_TOKEN] = $token;
         $_SESSION[COOKIE_EMAIL] = $dbUser->getEmail();
+        $_SESSION['timeout'] = $expiration;
         setcookie(COOKIE_TOKEN, $token, $expiration, "/");
         setcookie(COOKIE_EMAIL, $dbUser->getEmail(), $expiration, "/");
         $data["connected"] = true;
