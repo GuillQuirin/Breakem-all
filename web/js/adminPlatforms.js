@@ -25,7 +25,7 @@ var platformModule = {
 	},
 
 	setPlatformNav : function(){
-		this._setPlatformNav = jQuery('.platform-navbar');
+		this._setPlatformNav = jQuery('.admin-navbar');
 	},
 
 	setAdminDataElTitle : function(){
@@ -163,16 +163,7 @@ var platformModule = {
 	},
 	//Insert sur le formulaire d'ajout
 	postDataInsert : function(){		
-		platformModule.getPlatformNav().append(
-			'<div class="row align">' +
-				'<div class="grid-md-3 platform-search-wrapper">' +
-					'<form id="platform-search-form">' +					
-						'<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher une Plateforme">' +
-					'</form>' +
-				'</div>' +
-				'<div class="grid-md-3 platform-add-wrapper">' +
-					'<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter une plateforme</a></button>' +				
-				'</div>' +
+		platformModule.getPlatformNav().find('.row').append(		
 				"<div class='index-modal platforms hidden-fade hidden'>" +
 
 					"<div class='index-modal-this index-modal-login align'>" +
@@ -193,8 +184,7 @@ var platformModule = {
 					  		"</form>" +
 					  	"</div>" + 	 
 					"</div>" +
-				"</div>" + 
-			'</div>'
+				"</div>" 			
 		);
 		navbar.setOpenFormAll();		
 		navbar.form.closeFormKey();
