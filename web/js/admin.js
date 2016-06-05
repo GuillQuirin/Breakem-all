@@ -18,6 +18,7 @@ var onglet = {
 		onglet.setAdminOngletTournament();
 
 		onglet.setAdminWrapper();
+		onglet.setAdminDataRe();
 		onglet.setAdminPlatformsWrapper();
 		onglet.setAdminMembresWrapper();
 		onglet.setAdminReportsWrapper();
@@ -40,6 +41,9 @@ var onglet = {
 	},
 
 	//Setter
+	setAdminDataRe : function(){
+		this._adminDataRe = jQuery('.admin-data-re');
+	},
 	setAdminOngletPlatforms : function(){
 		this._adminOngletPlatforms = jQuery('#admin-onglet-platforms');
 	},
@@ -101,6 +105,9 @@ var onglet = {
 	//Getter
 	getAdminDataIhm : function(){
 		return jQuery('.admin-data-ihm');
+	},
+	getAdminDataRe : function(){
+		return this._adminDataRe;
 	},
 	getAdminWrapper : function(){
 		return this._adminWrapper;

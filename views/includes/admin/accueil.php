@@ -79,6 +79,11 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 							</div>
 							<!-- Fin admin title -->
 
+							<!-- Admin Data -->
+							<div class="admin-data-re">
+							</div>
+							<!-- Fin admin Data -->
+
 						</div>
 						<!-- Fin admin wrapper -->
 					</div>
