@@ -114,27 +114,28 @@ class gestiontournoiController extends template{
 			if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
 					&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
 				
-	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-	    $userBDD = new userManager();
-	    $newuser = new user($checkedDatas);
+			    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
+			    $userBDD = new userManager();
+			    $newuser = new user($checkedDatas);
 
-	    //On force la MAJ des checkbox même si elles sont vides
-	    $newuser->setRss(isset($checkedDatas['rss']));
-	    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
+			    //On force la MAJ des checkbox même si elles sont vides
+			    $newuser->setRss(isset($checkedDatas['rss']));
+			    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
 
-	    // On met à jour
-	    $userBDD->setUser($user, $newuser);
-	    $expiration = time() + (86400 * 7);
-		if(array_key_exists("email", $checkedDatas)){
-			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
-			setcookie(COOKIE_EMAIL, null,-1,'/');
-			setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
-			setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
-		}
+			    // On met à jour
+			    $userBDD->setUser($user, $newuser);
+			    $expiration = time() + (86400 * 7);
+				if(array_key_exists("email", $checkedDatas)){
+					$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
+					setcookie(COOKIE_EMAIL, null,-1,'/');
+					setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
+					setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
+				}
 
-		$_SESSION['referer_method']="update";
+				$_SESSION['referer_method']="update";
 
-		header("Location: ".$_SERVER['HTTP_REFERER']."");
+				header("Location: ".$_SERVER['HTTP_REFERER']."");
+			}
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
