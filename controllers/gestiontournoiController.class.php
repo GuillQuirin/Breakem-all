@@ -99,43 +99,30 @@ class gestiontournoiController extends template{
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-	   
+
 	    $user = $this->getConnectedUser();
-		
-		$filteredinputs = array_filter($filteredinputs);
-			$link = $filteredinputs['t'];
 
-			$tournamentBDD = new tournamentManager();
+		$filteredinputs = array_filter(filter_input_array(INPUT_GET, array('t' => FILTER_SANITIZE_STRING)));
+		$link = $filteredinputs['t'];
 
-			//On vérifie que l'utilisateur est bien propriétaire du tournoi
+		$tournamentBDD = new tournamentManager();
 
-			$tournament = $tournamentBDD->getTournamentWithLink($link);
+		//On vérifie que l'utilisateur est bien propriétaire du tournoi
 
-			if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
-					&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
-				
-			    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-			    $userBDD = new userManager();
-			    $newuser = new user($checkedDatas);
+		$tournament = $tournamentBDD->getTournamentWithLink($link);
 
-			    //On force la MAJ des checkbox même si elles sont vides
-			    $newuser->setRss(isset($checkedDatas['rss']));
-			    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
+		if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
+				&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
 
-			    // On met à jour
-			    $userBDD->setUser($user, $newuser);
-			    $expiration = time() + (86400 * 7);
-				if(array_key_exists("email", $checkedDatas)){
-					$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
-					setcookie(COOKIE_EMAIL, null,-1,'/');
-					setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
-					setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
-				}
+		    $newtournament = new tournament($checkedDatas);
 
-				$_SESSION['referer_method']="update";
+		    // On met à jour
+		    $tournamentBDD->setTournament($tournament, $newtournament);
 
-				header("Location: ".$_SERVER['HTTP_REFERER']."");
-			}
+			$_SESSION['referer_method']="update";
+
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
+		}
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
@@ -143,14 +130,15 @@ class gestiontournoiController extends template{
 
 		//FILTER_SANITIZE_STRING Remove all HTML tags from a string
 	    $args = array(
-	      'nom' => FILTER_SANITIZE_STRING,
+	      'name' => FILTER_SANITIZE_STRING,
 	      'description'   => FILTER_SANITIZE_STRING,
 	      'Dday'   => FILTER_SANITIZE_STRING,     
 	      'Dmonth'   => FILTER_SANITIZE_STRING,     
 	      'Dyear'   => FILTER_SANITIZE_STRING,
 	      'Eday'   => FILTER_SANITIZE_STRING,     
 	      'Emonth'   => FILTER_SANITIZE_STRING,     
-	      'Eyear'   => FILTER_SANITIZE_STRING
+	      'Eyear'   => FILTER_SANITIZE_STRING,
+	      't' => FILTER_SANITIZE_STRING
 	      
 	    );
 
@@ -167,19 +155,29 @@ class gestiontournoiController extends template{
 	    $filteredinputs['Eyear'] = (int) $filteredinputs['Eyear'];
 	    
 
-	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) || !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear']))
-	      $this->echoJSONerror('date', 'La date reçue a fail !');
+	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) || !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear'])){
+	      	$this->echoJSONerror('date', 'La date reçue a fail !');
+	    }
 	    else{
 
 	      $datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
 
 	      $datefin = DateTime::createFromFormat('j-n-Y',$filteredinputs['Eday'].'-'.$filteredinputs['Emonth'].'-'.$filteredinputs['Eyear']);
 	      
-	      if(!$datedeb || !$datefin)
+	      if(!$datedeb || !$datefin){
 	      	$this->echoJSONerror('date', 'La date reçue a fail !');
+	      }
 
-			$filteredinputs['date_deb'] = date_timestamp_get($datedeb);
-			$filteredinputs['date_fin'] = date_timestamp_get($datefin);
+	      unset($filteredinputs['Dday']);
+	      unset($filteredinputs['Dmonth']);
+	      unset($filteredinputs['Dyear']);
+	      unset($filteredinputs['Eday']);
+	      unset($filteredinputs['Emonth']);
+	      unset($filteredinputs['Eyear']);
+
+		  $filteredinputs['startDate'] = date_timestamp_get($datedeb);
+	   	  $filteredinputs['endDate'] = date_timestamp_get($datefin);
+	    
 	    }  	
 
 	    return array_filter($filteredinputs);

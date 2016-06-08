@@ -33,7 +33,7 @@ if(isset($tournoi)){
 			<div class="row classement-content-row">
 				<div class="grid-md-12">
 				
-					<form action="gestiontournoi/update" method="post" enctype="multipart/form-data">
+					<form action="gestiontournoi/update?t=<?php echo $tournoi->getLink(); ?>" method="post" enctype="multipart/form-data">
 
 						<table class="full-width configuration-form-table">
 							<tr class="text-center">
@@ -44,7 +44,7 @@ if(isset($tournoi)){
 							</tr>
 							<tr>						
 								<td><span>Nom du tournoi : </span></td>
-								<td><input type="text" name="nom" value="<?php echo $tournoi->getName(); ?>"></td>
+								<td><input type="text" name="name" value="<?php echo $tournoi->getName(); ?>"></td>
 							</tr>
 							<tr>
 								<td><span>Description : </span></td>

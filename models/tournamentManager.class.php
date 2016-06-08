@@ -96,6 +96,40 @@ final class tournamentManager extends basesql{
 		return false;
 	}
 
+	public function setTournament(tournament $t, tournament $newt){
+		$data = [];
+
+		foreach (get_class_methods($newt) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = ($prop==="img") ? $newt->$method_name(false) : $newt->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
+
+		$compteur=0;
+
+		$sql = "UPDATE ".$this->table." SET ";
+			foreach ($data as $key => $value) {
+				if($compteur!=0) 
+					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
+			}
+		$sql.=" WHERE id=:id";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
+			$query->bindParam(':'.$key, $value);
+	
+		$id = $t->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		$query->execute();
+	}
+
 	// Cette fonction est là pour la recherche de tournois à venir par critere de nom / jeu / console
 	public function getFilteredTournaments($searchArray = []){
 		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)
