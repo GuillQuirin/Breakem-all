@@ -116,12 +116,26 @@ class gestiontournoiController extends template{
 
 		    $newtournament = new tournament($checkedDatas);
 
-		    // On met à jour
-		    $tournamentBDD->setTournament($tournament, $newtournament);
+			//calcul du nombre de jours 
 
-			$_SESSION['referer_method']="update";
+			$date1 = date_create(date('Y-m-d',$tournament->getStartDate()));
+			$date2 = date_create(date('Y-m-d',$newtournament->getStartDate()));
 
-			header("Location: ".$_SERVER['HTTP_REFERER']."");
+			$difference = date_diff($date1, $date2);
+
+			$nbjours = $difference->format("%a");
+			$ecartjour = $difference->format("%R");
+			exit;
+			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null )
+			    echo("Impossible de modifier les dates");
+			else{
+			    // On met à jour
+			    $tournamentBDD->setTournament($tournament, $newtournament);
+
+				$_SESSION['referer_method']="update";
+
+				header("Location: ".$_SERVER['HTTP_REFERER']."");
+			}
 		}
 	}
 
