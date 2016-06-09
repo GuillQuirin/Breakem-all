@@ -118,23 +118,25 @@ class gestiontournoiController extends template{
 
 			//calcul du nombre de jours 
 
-			$date1 = date_create(date('Y-m-d',$tournament->getStartDate()));
-			$date2 = date_create(date('Y-m-d',$newtournament->getStartDate()));
+			$dateactuelle = date_create(date('Y-m-d'));
+			$dateMAJ = date_create(date('Y-m-d',$newtournament->getStartDate()));
 
-			$difference = date_diff($date1, $date2);
+			$difference = date_diff($dateactuelle, $dateMAJ);
 
 			$nbjours = $difference->format("%a");
 			$ecartjour = $difference->format("%R");
-			exit;
-			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null )
-			    echo("Impossible de modifier les dates");
-			else{
-			    // On met à jour
+
+			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null 
+				&& $ecartjour==="+" && $nbjours>="2"){
+				// On met à jour
 			    $tournamentBDD->setTournament($tournament, $newtournament);
 
 				$_SESSION['referer_method']="update";
 
 				header("Location: ".$_SERVER['HTTP_REFERER']."");
+			}
+			else{
+				echo("Impossible de modifier les dates");   
 			}
 		}
 	}
