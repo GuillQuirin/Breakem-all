@@ -168,7 +168,7 @@ else{
 						if(isset($_isConnected)):
 						?> 
 						<div class="title_index">
-							<label for="title2">Communiquer avec ce joueur</label>
+							<label for="title2">Interactions avec ce joueur</label>
 						</div>
 						<?php endif; ?>
 						<div id="communication">
