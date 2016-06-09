@@ -211,8 +211,10 @@ class gestiontournoiController extends template{
         $tournamentBDD = new tournamentManager();
         $tournoi = $tournamentBDD->getFilteredTournaments($filteredinputs['nom'])[0];
     
-        if($tournoi)
+        if($tournoi){
             $tournamentBDD->deleteTour($tournoi);
+        	
+        }
         else
             return null;
 
