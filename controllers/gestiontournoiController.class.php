@@ -203,19 +203,19 @@ class gestiontournoiController extends template{
   	public function deleteTourAction(){
 
         $args = array(
-            'id' => FILTER_VALIDATE_INT
-            //'delname' => FILTER_SANITIZE_STRING
+            'nom' => FILTER_SANITIZE_STRING
         );
 
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        $filteredinputs = filter_input_array(INPUT_GET, $args);
 
-        $gameBDD = new gameManager();
-        $game = $gameBDD->getGameById($filteredinputs['id']);
+        $tournamentBDD = new tournamentManager();
+        $tournoi = $tournamentBDD->getFilteredTournaments($filteredinputs['nom'])[0];
     
-        if($game)
-            $gameBDD->deleteGames($game);
+        if($tournoi)
+            $tournamentBDD->deleteTour($tournoi);
         else
             return null;
+
     }
 
 

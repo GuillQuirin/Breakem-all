@@ -1,10 +1,11 @@
 $("#btn-shut-down").click(function(e){
 	e.preventDefault();
+	var nom = $("#nomTournoi").val();
 	if(confirm("Souhaitez-vous vraiment verrouiller ce tournoi ?")){
 		jQuery.ajax({
 		 	url: "gestiontournoi/deleteTour",
 		 	type: "POST",
-		 	data : "id="+id,
+		 	data : "nom="+nom,
 		 	success: function(result){
 		 		//window.location.href = "http://stackoverflow.com";
 		 	},

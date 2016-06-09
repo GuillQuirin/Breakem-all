@@ -44,7 +44,7 @@ if(isset($tournoi)){
 							</tr>
 							<tr>						
 								<td><span>Nom du tournoi : </span></td>
-								<td><input type="text" name="name" value="<?php echo $tournoi->getName(); ?>"></td>
+								<td><input type="text" id="nomTournoi" name="name" value="<?php echo $tournoi->getName(); ?>"></td>
 							</tr>
 							<tr>
 								<td><span>Description : </span></td>

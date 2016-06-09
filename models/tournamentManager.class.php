@@ -172,6 +172,17 @@ final class tournamentManager extends basesql{
 		}
 		return false;
 	}
+
+	public function deleteTour(tournament $type){
+
+		//Mise à -1 de tous les jeux ayant cet idType
+		$sql = "UPDATE tournament set status = '-1' WHERE id=:id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->bindValue(':id', $type->getId());
+		$sth->execute();
+		return $sth->execute();
+	}
+
 }
 /*
 *
