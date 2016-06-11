@@ -20,7 +20,8 @@ function getGameVersionChoiceDom(name, descri, maxP, minP, maxT, maxPt){
 	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>joueurs minimum: '+minP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
 	return elDOM;
 }
-function loadElementsChoice(arrayJqDOM){
+function loadMainElementsChoice(arrayJqDOM){
+	console.log(arrayJqDOM);
 	var container = dom.getContainer();
 	container.empty();
 	if (typeof arrayJqDOM == "undefined")
@@ -40,25 +41,21 @@ function loadBtn(string){
 	btn.empty();
 	btn.append('<a class="uppercase">'+string+'</a>');
 }
-function loadTreeSubEls(jQelTree, obj){
+function resetTreeEl(jQelTree){
+	jQelTree.find('.creationtournoi-tree-el-choices-container').empty();
+}
+// Cette fonction ajoute la tous les choix disponibles dans un element du tree et renvoie tous ces choix ds un array contenant chaque objet et sa dom associée
+function getCreatedTreeSubEl(jQelTree, obj){
 	if(typeof jQelTree == 'undefined' || typeof obj == 'undefined'
 		|| !(jQelTree instanceof jQuery)
-		|| obj.length == 0
+		|| typeof obj.name == 'undefined'
 		)
 		return false;
-	jQelTree.find('.creationtournoi-tree-el-choices-container').empty();
-	jQelTree.find('.creationtournoi-tree-el-choices-container').remove();
-	var content = $('<div class="creationtournoi-tree-el-choices-container absolute display-flex-column full-width">');
-	var choiceEls = [];
-	for(var choice in obj){
-		var curdom = $('<div class="full-width tree-el-choice"><p class="m-a text-center">'+obj[choice].name+'</p></div>');
-		var arr = [obj[choice], curdom];
-		choiceEls.push(arr);
-		content.append(curdom);
-	}
-	jQelTree.append(content);
-	return choiceEls;
+	var curdom = $('<div class="full-width tree-el-choice"><p class="m-a text-center">'+obj.name+'</p></div>');
+	jQelTree.find('.creationtournoi-tree-el-choices-container').append(curdom);
+	return curdom;
 }
+// Change le titre d'un élément reçu du tree
 function loadTreeElTitle(jQelTree, choiceName){
 	if(typeof jQelTree == 'undefined'
 		|| !(jQelTree instanceof jQuery)
@@ -71,6 +68,7 @@ function loadTreeElTitle(jQelTree, choiceName){
 		return false;
 	title.text(choiceName);
 }
+// Ajoute une classe css à l'élément du tree souhaité pour bien repérer à quelle étape de la création le client se trouve
 function highlightTreeStep(jQelTree){
 	for (var i = dom.getAllTreeEls().length - 1; i >= 0; i--) {
 		dom.getAllTreeEls()[i].removeClass('active-step');
@@ -171,6 +169,7 @@ var gameTypesChoice = {
 	_choice: false,
 	_choiceDat: false,
 	possibleChoices: [],
+	possibleTreeChoices: [],
 	init: function(){
 		/*Tous les chargements d'event et autres fonctions se feront dans le success callback retour de ajax*/
 		this.getGameTypes();
@@ -188,6 +187,7 @@ var gameTypesChoice = {
 		    //called when complete
 		  },
 		  success: function(data, textStatus, xhr) {
+		  	_this.possibleChoices = [];
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
@@ -198,15 +198,22 @@ var gameTypesChoice = {
 		    	}
 		    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
 		    	// On associe les events de choix à chaque élément de l'array
+		    	var treeContainer = dom.getTreeGameType();
+		    	// On reset les choix possibles du choix de tree correspondant
+		    	resetTreeEl(treeContainer);
+		    	highlightTreeStep(treeContainer);
+		    	loadTreeElTitle(treeContainer, 'type de jeu');
 			    for(var prop in obj.types){
+			    	// On crée le dom ds le tree correspondant à un choix et on le recupere
+			    	var treeDom = tree.getObjDom(treeContainer, obj.types[prop]);
 			    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
+			    	// Ajoute les éléments DOM principaux (pas du tree) en tant que choix possibles
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.types[prop].name);
+			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.types[prop].name);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
-			    tree.setGameTypeChoices(obj.types);
-			    loadElementsChoice(_this.possibleChoices);
+			    loadMainElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
 			    loadTitle("ton style de jeu");
 			    loadBtn("suivant");
@@ -219,14 +226,23 @@ var gameTypesChoice = {
 		  }
 		});
 	},
-	associateChoiceEvent: function(jQel, da){
+	associateChoiceEvent: function(jQel, treeSubEl, da){
 		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da);
+			_this.setChoice(jQel, da, treeSubEl);
+			gameChoice.init(da);
+			var treeContainer = dom.getTreeGameType();
+			loadTreeElTitle(treeContainer, da);
+		});
+		treeSubEl.click(function(e) {
+			_this.setChoice(jQel, da, treeSubEl);
+			gameChoice.init(da);
+			var treeContainer = dom.getTreeGameType();
+			loadTreeElTitle(treeContainer, da);
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, da){
+	setChoice: function(jQChoice, da, treeSubEl){
 		this._choice = jQChoice;
 		this._choiceDat = da;
 		var allChoices = this.getPossibleChoices();
@@ -244,6 +260,9 @@ var gameTypesChoice = {
 		jQChoice.addClass('creationtournoi-active-choice');
 		jQChoice.find('h2').removeClass('inverse-border-full');
 		jQChoice.find('p').removeClass('inverse-border-full');
+		
+		treeSubEl.parent().children('.tree-el-choice').removeClass('active-tree-choice');
+		treeSubEl.addClass('active-tree-choice');
 	},
 	loadValidationEvent: function(){
 		var _this = this;
@@ -252,6 +271,8 @@ var gameTypesChoice = {
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
 				gameChoice.init(_this.getChoiceDat());
+				var treeContainer = dom.getTreeGameType();
+				loadTreeElTitle(treeContainer, _this.getChoiceDat());
 			};
 		});
 	}
@@ -276,6 +297,7 @@ var gameChoice = {
 		    //called when complete
 		  },
 		  success: function(data, textStatus, xhr) {
+		  	_this.possibleChoices = [];
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
@@ -284,14 +306,23 @@ var gameChoice = {
 		    		}
 		    		return false;
 		    	}
+		    	var treeContainer = dom.getTreeGame();
+		    	// On reset les choix possibles du choix de tree correspondant
+		    	resetTreeEl(treeContainer);
+		    	highlightTreeStep(treeContainer);
+		    	loadTreeElTitle(treeContainer, 'jeu');
 			    for(var prop in obj.games){
+			    	var treeDom = tree.getObjDom(treeContainer, obj.games[prop]);
 			    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.games[prop].name);
+			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.games[prop].name);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
-			    loadElementsChoice(_this.possibleChoices);
+			    console.log('---> begin games provoked');
+			    console.log(_this.possibleChoices);
+			    console.log('---> end games provoked');
+			    loadMainElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
 			    loadTitle("ton jeu");
 			    loadBtn("suivant");
@@ -304,14 +335,17 @@ var gameChoice = {
 		  }
 		});
 	},
-	associateChoiceEvent: function(jQel, da){
+	associateChoiceEvent: function(jQel, treeSubEl, da){
 		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da);
+			_this.setChoice(jQel, da, treeSubEl);
+		});
+		treeSubEl.click(function(e) {
+			_this.setChoice(jQel, da, treeSubEl);
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, da){
+	setChoice: function(jQChoice, da, treeSubEl){
 		this._choice = jQChoice;
 		this._choiceDat = da;
 		var allChoices = this.getPossibleChoices();
@@ -328,7 +362,9 @@ var gameChoice = {
 		jQChoice.addClass('bg-black');
 		jQChoice.addClass('creationtournoi-active-choice');
 		jQChoice.find('h2').removeClass('inverse-border-full');
-		jQChoice.find('p').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');		
+		treeSubEl.parent().children('.tree-el-choice').removeClass('active-tree-choice');
+		treeSubEl.addClass('active-tree-choice');
 	},
 	loadValidationEvent: function(){
 		var _this = this;
@@ -337,6 +373,8 @@ var gameChoice = {
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
 				consoleChoice.init(_this.getChoiceDat());
+				var treeContainer = dom.getTreeGame();
+				loadTreeElTitle(treeContainer, _this.getChoiceDat());
 			};
 		});
 	}
@@ -361,6 +399,7 @@ var consoleChoice = {
 		    //called when complete
 		  },
 		  success: function(data, textStatus, xhr) {
+		  	_this.possibleChoices = [];
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
@@ -369,15 +408,21 @@ var consoleChoice = {
 		    		}
 		    		return false;
 		    	}
+		    	var treeContainer = dom.getTreePlatform();
+		    	// On reset les choix possibles du choix de tree correspondant
+		    	resetTreeEl(treeContainer);
+		    	highlightTreeStep(treeContainer);
+		    	loadTreeElTitle(treeContainer, 'console');
 			    for(var prop in obj.platforms){
+			    	var treeDom = tree.getObjDom(treeContainer, obj.platforms[prop]);
 			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.platforms[prop].name);
+			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.platforms[prop].name);
 			    	// console.log(obj.platforms[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
-			    loadElementsChoice(_this.possibleChoices);
+			    loadMainElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
 			    loadTitle("ta console");
 			    loadBtn("suivant");
@@ -390,14 +435,17 @@ var consoleChoice = {
 		  }
 		});
 	},
-	associateChoiceEvent: function(jQel, da){
+	associateChoiceEvent: function(jQel, treeSubEl, da){
 		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da);
+			_this.setChoice(jQel, da, treeSubEl);
+		});
+		treeSubEl.click(function(e) {
+			_this.setChoice(jQel, da, treeSubEl);
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, da){
+	setChoice: function(jQChoice, da, treeSubEl){
 		this._choice = jQChoice;
 		this._choiceDat = da;
 		var allChoices = this.getPossibleChoices();
@@ -414,7 +462,9 @@ var consoleChoice = {
 		jQChoice.addClass('bg-black');
 		jQChoice.addClass('creationtournoi-active-choice');
 		jQChoice.find('h2').removeClass('inverse-border-full');
-		jQChoice.find('p').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');		
+		treeSubEl.parent().children('.tree-el-choice').removeClass('active-tree-choice');
+		treeSubEl.addClass('active-tree-choice');
 	},
 	loadValidationEvent: function(){
 		var _this = this;
@@ -423,6 +473,8 @@ var consoleChoice = {
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat()){
 				gameversionChoice.init(_this.getChoiceDat());
+				var treeContainer = dom.getTreePlatform();
+				loadTreeElTitle(treeContainer, _this.getChoiceDat());
 			};
 		});
 	}
@@ -448,6 +500,7 @@ var gameversionChoice = {
 		    //called when complete
 		  },
 		  success: function(data, textStatus, xhr) {
+		  	_this.possibleChoices = [];
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
@@ -456,14 +509,20 @@ var gameversionChoice = {
 		    		}
 		    		return false;
 		    	}
+		    	var treeContainer = dom.getTreeRules();
+		    	// On reset les choix possibles du choix de tree correspondant
+		    	resetTreeEl(treeContainer);
+		    	highlightTreeStep(treeContainer);
+		    	loadTreeElTitle(treeContainer, 'règles');
 			    for(var prop in obj.versions){
+			    	var treeDom = tree.getObjDom(treeContainer, obj.versions[prop]);
 			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].minPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
 			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.associateChoiceEvent(jQDomElem, obj.versions[prop]);
+			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.versions[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
-			    loadElementsChoice(_this.possibleChoices);
+			    loadMainElementsChoice(_this.possibleChoices);
 			    _this.loadValidationEvent();
 			    loadTitle("ton mode de jeu");
 			    loadBtn("suivant");
@@ -509,16 +568,23 @@ var gameversionChoice = {
 		container.find('input[name="name"]').focus();
 		this._currentForm = container;
 	},
-	associateChoiceEvent: function(jQel, objDa){
+	associateChoiceEvent: function(jQel, treeSubEl, objDa){
 		var _this = this;
 		jQel.click(function(e) {
 			if(_this.getChoiceDat() === objDa){
 				_this.resetChoice();
 			}else{
-				_this.setChoice(jQel, objDa);
+				_this.setChoice(jQel, objDa, treeSubEl);
 				_this.putAccordingForm();
-			}
-			
+			}			
+		});
+		treeSubEl.click(function(e) {
+			if(_this.getChoiceDat() === objDa){
+				_this.resetChoice();
+			}else{
+				_this.setChoice(jQel, objDa, treeSubEl);
+				_this.putAccordingForm();
+			}		
 		});
 	},
 	resetChoice: function(){
@@ -538,9 +604,10 @@ var gameversionChoice = {
 		this._currentForm = false;
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
-	setChoice: function(jQChoice, objDa){
+	setChoice: function(jQChoice, da, treeSubEl){
 		this._choice = jQChoice;
-		this._choiceDat = objDa;
+		this._choiceDat = da;
+		console.log(da);
 		var allChoices = this.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
@@ -555,7 +622,9 @@ var gameversionChoice = {
 		jQChoice.addClass('bg-black');
 		jQChoice.addClass('creationtournoi-active-choice');
 		jQChoice.find('h2').removeClass('inverse-border-full');
-		jQChoice.find('p').removeClass('inverse-border-full');
+		jQChoice.find('p').removeClass('inverse-border-full');		
+		treeSubEl.parent().children('.tree-el-choice').removeClass('active-tree-choice');
+		treeSubEl.addClass('active-tree-choice');
 	},
 	isNameValid: function(jQel){
 		var unauthorizedChars = /[^a-z0-9 éàôûîêçùèâ]/i;
@@ -753,7 +822,7 @@ var validateChoices = {
 		$('html, body').animate({
 			scrollTop: 0
 		}, 500);
-		loadElementsChoice();
+		loadMainElementsChoice();
 		loadTitle('Valide tes choix', '');
 		loadBtn('Créer');
 		this.generateSumUp(data);
@@ -855,17 +924,9 @@ var validateChoices = {
 	}
 };
 var tree = {
-	changeDom: function(){
-
-	},
-	setGameTypeChoices: function(obj){
-		this._gtChoices = obj;
-		if(obj.length > 0){
-			var objAndDom = loadTreeSubEls(dom.getTreeGameType(), obj);
-			loadTreeElTitle(dom.getTreeGameType(), 'Type-de-jeu');
-			highlightTreeStep(dom.getTreeGameType());
-			console.log(objAndDom);
-		}
+	getObjDom: function(jQelTree, obj){
+		var treeElDom = getCreatedTreeSubEl(jQelTree, obj);
+		return treeElDom;
 	},
 	getGameTypeChoices: function(){return this._gtChoices;}
 };
