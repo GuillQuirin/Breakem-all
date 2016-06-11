@@ -18,8 +18,10 @@ class adminController extends template{
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
                 $js['admin']="admin";
-                $js['platforms']="platforms";
+                $js['adminPlatforms']="adminPlatforms";
                 $js['gametype']="gametype";
+                $js['adminTournois']="adminTournois";
+                $js['game']="game";
             $v->assign("js",$js);                                       
             $v->assign("title", "admin");
             $v->assign("content", "Liste des Utilisateurs");
@@ -39,6 +41,9 @@ class adminController extends template{
             $gametypeBDD = new typegameManager();
             $listgametype = $gametypeBDD->getAllTypes();
 
+            $gameBDD = new gameManager();
+            $listegames = $gameBDD->getAllGames();
+
             $commentaireBDD = new commentsteamManager();
             $listcomment = $commentaireBDD->getAllComment();
 
@@ -51,6 +56,8 @@ class adminController extends template{
             $v->assign("listeteam",$listeteam);
 
             $v->assign("listetypejeu",$listgametype);
+
+            $v->assign("listejeu",$listegames);
 
             $v->assign("listecomment",$listcomment);
            
@@ -79,8 +86,22 @@ class adminController extends template{
         return;
     }
 
+    public function insertPlatformDataAction(){
+        $args = array(            
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,            
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+                        
+        $platformBdd = new platformManager();
+        $platformBdd->mirrorObject = new platform($filteredinputs);
+        if($platformBdd->create())
+            echo "CREATION";
+    }
+
     public function updatePlatformsDataAction(){
-         $args = array(
+        $args = array(
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING
@@ -91,9 +112,7 @@ class adminController extends template{
         $platformBdd = new platformManager();
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
         $platformMaj = new platform($filteredinputs);
-
-        var_dump($filteredinputs);
-        //var_dump($platform, $platformMaj);
+        
         if($platformBdd->setPlatform($platform, $platformMaj))
             echo "OK";
     }
@@ -109,6 +128,23 @@ class adminController extends template{
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
 
         $platformBdd->deletePlatform($platform);
+    }
+
+    /* TOURNAMENT */
+
+    public function getTournamentDataAction(){
+        $tm = new tournamentManager();    
+        $tournamentsArr = $tm->getListTournaments();  
+        $data = [];                          
+        if(!!$tournamentsArr){
+            foreach($tournamentsArr as $key => $tournament){
+                $data[] = $tournament->returnAsArr();
+            }            
+            echo json_encode($data);
+        }else{
+            $this->echoJSONerror("tournament","no tournament were found");
+        }
+        return;
     }
 
     /* TEAM */
@@ -263,7 +299,7 @@ class adminController extends template{
         $typegameBDD = new typegameManager();
         $typegame = $typegameBDD->getTypeGame($filteredinputs['id']);
         $typegameMAJ = new typegame($filteredinputs);
-        var_dump($typegame, $typegameMAJ);
+        //var_dump($typegame, $typegameMAJ);
         if($typegameBDD->setTypeGame($typegame, $typegameMAJ))
             echo "OK";
     } 
@@ -283,7 +319,73 @@ class adminController extends template{
     } 
 
 
+    /* GAMES */
+
+    public function addGameAction()
+    {
+
+        $args = array(
+            //'id' => FILTER_VALIDATE_INT,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING,
+            'year' => FILTER_SANITIZE_STRING,
+            'idType' => FILTER_VALIDATE_INT,
+        );
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+        if (isset($_FILES['img'])) {
+
+            $uploaddir = '/web/img/';
+            $name = $_FILES['img']['name'];
+
+            $uploadfile = getcwd().$uploaddir.$name;
+            //var_dump($uploadfile);
+
+            define('KB', 1024);
+            define('MB', 1048576);
+            define('GB', 1073741824);
+            define('TB', 1099511627776);
+
+           if ($_FILES['img']['size'] < 1 * MB) {
+                if ($_FILES['img']['error'] == 0) {
+
+                    if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
+                        die("Erreur d'upload");
+                }
+            }
+            $filteredinputs['img'] = $name;
+        }
+
+        $gameBDD = new gameManager();
+        $gameBDD->mirrorObject = new game($filteredinputs);
+        if ($gameBDD->create())
+            echo "CREATION";
+        //var_dump($filteredinputs);
+
+    }
+
+    public function delGameAction(){
+
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+            //'delname' => FILTER_SANITIZE_STRING
+        );
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+        $gameBDD = new gameManager();
+        $game = $gameBDD->getGameById($filteredinputs['id']);
+    
+        if($game)
+            $gameBDD->deleteGames($game);
+        else
+            return null;
+    }
+
     /* COMMENTAIRE */
+
     public function delCommentAction(){
         $args = array(
             'id' => FILTER_VALIDATE_INT

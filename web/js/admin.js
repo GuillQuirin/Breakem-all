@@ -3,7 +3,7 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	platformModule.init();
+	admin.init();
 });
 
 var onglet = {
@@ -134,7 +134,7 @@ var onglet = {
 		return this._adminTeamsWrapper;
 	},
 	getAdminGameWrapper : function(){
-		return this._adminGameWrapper;
+		return this._adminGamesWrapper;
 	},
 	getAdminGametypeWrapper : function(){
 		return this._adminGametypeWrapper;
@@ -164,16 +164,17 @@ var onglet = {
 	}
 };
 
-var platformModule = {
+var admin = {
 	init : function(){
-		platformModule.createPlatformsIhm();
+		platformModule.init();
+		tournamentModule.init();
 	},
 	ihmElemHover : function(){
 		jQuery('.admin-data-ihm').hover(
 		  function() {
-		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').removeClass("hidden");
 		  }, function(e) {
-		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').addClass("hidden");
 		  }
 		);
 	}

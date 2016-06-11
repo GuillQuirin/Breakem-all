@@ -63,7 +63,7 @@
 									<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
 								</div>
 								<div class='text_article'>
-									<h2 class="title-4 uppercase"><?php echo $tournoi->getName(); ?></h2>
+									<h2 class="title-4"><?php echo $tournoi->getName(); ?></h2>
 									<div class='tags_article'>
 										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>

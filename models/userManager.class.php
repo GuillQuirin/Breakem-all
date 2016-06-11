@@ -30,7 +30,8 @@ class userManager extends basesql{
 				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 					return $dbUser;
 			}
-			return -1;
+			else
+				return -1;
 		}
 		return false;
 	}
@@ -128,7 +129,7 @@ class userManager extends basesql{
 		foreach (get_class_methods($newuser) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = $newuser->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newuser->$method_name(false) : $newuser->$method_name(); 
 			}
 		}
 

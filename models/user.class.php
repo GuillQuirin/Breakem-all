@@ -69,16 +69,16 @@ class user{
 	public function setStatus($v){
 		$this->status=$v;
 	}
+
 	public function setImg($v){
-		if(strlen(trim($v))!=0 && $v!=NULL){
-			if(strstr($v, WEBPATH)) //Image déjà stockée en base
-				$this->img=$v; 
-			else //Upload d'une image
-				$this->img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
-		}
-		else //Pas d'image uploadée
-			$this->img=WEBPATH."/web/img/upload/default.jpg";
+		//Image fournie
+		if(strlen(trim($v))!=0 && $v!=NULL)
+				$this->img=$v; //Adresse stockée en base
+
+		else //Image par défaut
+			$this->img="/web/img/upload/default.jpg"; //Adresse stockée en base
 	}
+
 	public function setIdTeam($v){
 		$this->idTeam=$v;
 	}
@@ -144,7 +144,9 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg(){ return $this->img;}
+	public function getImg($webpath=true){ 
+		return ($webpath==true) ? WEBPATH.$this->img : "/web/img/upload/".$this->img;
+	}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
