@@ -339,9 +339,15 @@ var gameChoice = {
 		var _this = this;
 		jQel.click(function(e) {
 			_this.setChoice(jQel, da, treeSubEl);
+			consoleChoice.init(da);
+			var treeContainer = dom.getTreeGame();
+			loadTreeElTitle(treeContainer, da);
 		});
 		treeSubEl.click(function(e) {
 			_this.setChoice(jQel, da, treeSubEl);
+			consoleChoice.init(da);
+			var treeContainer = dom.getTreeGame();
+			loadTreeElTitle(treeContainer, da);
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
@@ -439,9 +445,15 @@ var consoleChoice = {
 		var _this = this;
 		jQel.click(function(e) {
 			_this.setChoice(jQel, da, treeSubEl);
+			gameversionChoice.init(da);
+			var treeContainer = dom.getTreePlatform();
+			loadTreeElTitle(treeContainer, da);
 		});
 		treeSubEl.click(function(e) {
 			_this.setChoice(jQel, da, treeSubEl);
+			gameversionChoice.init(da);
+			var treeContainer = dom.getTreePlatform();
+			loadTreeElTitle(treeContainer, da);
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
