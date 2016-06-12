@@ -2,6 +2,9 @@
 if(isset($tournoi)){
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
+	
+	if(isset($Error))
+		echo("Il n'est plus possible de modifier le tournoi à 48h de son lancement.");  
 	?>
 
 	<section class="middle-height bg-cover-configuration relative">
