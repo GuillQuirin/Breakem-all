@@ -1,10 +1,5 @@
 <?php
-if(isset($tournoi)){
-	if(isset($MAJ))
-		echo "<div>Mise à jour correctement effectuée.</div>";
-	
-	if(isset($Error))
-		echo("Il n'est plus possible de modifier le tournoi à 48h de son lancement.");  
+if(isset($tournoi)){ 
 	?>
 
 	<section class="middle-height bg-cover-configuration relative">
@@ -39,6 +34,12 @@ if(isset($tournoi)){
 					<form action="gestiontournoi/update?t=<?php echo $tournoi->getLink(); ?>" method="post" enctype="multipart/form-data">
 
 						<table class="full-width configuration-form-table">
+							<?php 
+								if(isset($MAJ))
+									echo "<tr class='MAJ text-center'><td colspan='2'>Mise à jour correctement effectuée.</td></tr>";
+								if(isset($Error))
+									echo "<tr class='MAJ text-center'><td colspan='2'>Il n'est plus possible de modifier le tournoi à 48h de son lancement.</td></tr>";
+							?> 
 							<tr class="text-center">
 								<td colspan="2">
 									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?>
@@ -114,7 +115,6 @@ if(isset($tournoi)){
 
 						<p>Message à destination des inscrits :</p>
 						<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
-								<?php echo (isset($_description)) ? $_description : ''; ?>
 						</textarea>
 
 					</div>						
