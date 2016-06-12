@@ -22,6 +22,7 @@ class template{
       $v->assign("_firstname", $this->connectedUser->getFirstname());
       $v->assign("_pseudo", $this->connectedUser->getPseudo());
       $v->assign("_birthday", $this->connectedUser->getBirthday());
+      $v->assign("_lastConnexion", $this->connectedUser->getLastConnexion());
       $v->assign("_description", $this->connectedUser->getDescription());     
       $v->assign("_kind", $this->connectedUser->getKind());
       $v->assign("_city", $this->connectedUser->getCity());
