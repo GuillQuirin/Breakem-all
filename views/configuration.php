@@ -14,7 +14,10 @@
 					<div class="">
 						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Dernière connexion inconnu'; ?></span>
+						<?php 
+						/*
+						<span class="configuration-header-profil-lastconnexion">Précèdente connexion:<br><?php echo (isset($_lastConnexion)) ? strftime('le %e %B à %H:%M', $_lastConnexion) : 'Dernière connexion inconnue'; ?></span>
+						*/ ?>
 					</div>
 				</div>
 			</div>			
@@ -88,6 +91,7 @@
 											</label>
 										</label>
 									</div>
+									<?php /*
 									<div>								
 										<label><input class="checkbox input-default" type="checkbox" name="rss" id="rss"
 											<?php 
@@ -97,6 +101,8 @@
 											</label>
 										</label>
 									</div>
+									*/
+									?>
 								</td>
 							</tr>
 							<tr>

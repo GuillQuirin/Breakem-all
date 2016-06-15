@@ -26,7 +26,9 @@
 							<?php endif; ?>
 						<?php else: ?>
 							<div class="relative ta-right">
-								<button class="detailtournoi-btn-inscription relative btn btn-pink"><a>Gérer</a></button>
+								<button class="detailtournoi-btn-inscription relative btn btn-pink">
+									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
+								</button>
 							</div>
 						<?php endif; ?>
 					<?php endif; ?>

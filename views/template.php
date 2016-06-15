@@ -80,7 +80,7 @@
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
 								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
@@ -271,6 +271,7 @@
 		                <li><a href="#" title="link 2">Nous contacter</a></li>
 		                <li><a href="#" title="link 3">CGU</a></li>
 		                <li><a href="#" title="link 4">About</a></li>
+		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="link 4">RSS</a></li>
 		            </ul>
 		        </div>
 		    </div>
