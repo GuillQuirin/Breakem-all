@@ -179,11 +179,35 @@ class adminController extends template{
             echo "CREATION";
     }
 
+    public function uploadPlatformsImgAction(){
+
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }
+
+        $args = array(
+            'file' => FILTER_SANITIZE_STRING,
+            'id' => FILTER_SANITIZE_STRING
+        )
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        $platformBdd = new platformManager();
+        $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
+        $platformMaj = new platform($filteredinputs);
+        
+        if($platformBdd->setPlatform($platform, $platformMaj))
+            echo "OK";
+
+    }
+
     public function updatePlatformsDataAction(){
         $args = array(
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING
+            'description' => FILTER_SANITIZE_STRING,            
         );        
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);            

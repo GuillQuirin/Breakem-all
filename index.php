@@ -6,7 +6,7 @@ session_destroy();
 exit;*/
 //Messages d'erreur pour debug
 ini_set('display_errors', 1); 
-error_reporting(E_ALL);
+error_reporting(E_ALL | E_STRICT);
 
 require_once "conf.inc.php";
 require_once "functions.php";
