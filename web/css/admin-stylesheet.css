@@ -1,6 +1,32 @@
-.admin-wrapper{
-    border:1px solid #ffffff;
-    margin:35px 0;
+.tournament-navbar{
+
+}
+
+.platform-navbar, .admin-navbar{
+    padding:25px 0 15px 0;
+}
+
+#platform-search-input{
+    padding:14.9px 25px;
+    margin:0;
+}
+
+.platform-search-form label{
+    display:inline-block;
+}
+
+.platform-search-wrapper{
+    max-width:300px;
+    padding-top:4px;
+    padding:35px 0;
+}
+
+.platform-add{
+    max-width:300px;
+}
+
+.admin-wrapper{    
+    margin:0 0 35px 0;
 }
 
 .index-modal-login{
@@ -25,12 +51,30 @@
     right:0
 }
 
+.admin-data-ihm-title{
+    text-align: center;
+    margin:5px 15px;
+    background:rgba(130, 83, 164, 0.2);
+}
+
+.admin-data-ihm-elem-title{
+    padding:15px;
+}
+
 .admin-data-ihm{
     text-align: center;
+    margin:5px 15px;
+    background:rgba(130, 83, 164, 0.2);
 }
 
 .admin-data-ihm:hover{
-    background:rgba(130, 83, 164, 0.2);;
+    padding:15px 0; 
+    margin:5px 0;
+    transition: All .3s;
+}
+
+.admin-data-ihm:hover{    
+    background:rgba(130, 83, 164, 0.4);
 }
 
 .admin-data-ihm-elem{

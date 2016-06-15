@@ -4,40 +4,33 @@ window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache 
 	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
+	webpath.init();
+	
+});
+
+function initAll(){
 	connection.init();
 	navbar.init();
 	deconnection.init();
 	register.init();
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 	checkForJustCreatedAccount();
-});
+}
 
-var scroll = {
-	init : function(clickSelector, sectionSelector){
-		if(clickSelector instanceof jQuery && sectionSelector){
-			scroll.clickEvent(clickSelector, sectionSelector);
-		}else{
-			console.log("Pas reçu du dom dans scroll.init()!");
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
 		}
-	},
-	clickEvent : function(clickSelector, sectionSelector){
-		if(clickSelector instanceof jQuery && sectionSelector){
-			clickSelector.click(function(){
-				scroll.toAnchor(sectionSelector);
-			});
-		}else{
-			console.log("Pas reçu du dom dans scroll.clickEvent");
-		}
-	},
-	toAnchor : function(selector){
-		if(selector instanceof jQuery){
-	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
-    	}else{
-    		console.log("Pas reçu du dom dans scroll.toAnchor()");
-    	}
-	}	
-};
+	);
 
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
 // Cette fonction sera utilisée dans beaucoup d'objets utilisant de l'ajax
 //  Voilà pouruqoi elle est définie en tant que fct générale
 function tryParseData(rawData){
@@ -54,7 +47,33 @@ function tryParseData(rawData){
 
 // Function ajax de flemmard 
 function ajaxRequest(url, type, callback){
-	if(url && callback){
+	
+	/* PAS TOUCHE 
+		if(myData){
+
+		var allData = {}, allData.data = {};
+
+		allData.url = myData.url ? myData.url : console.log('ajaxRequest url not found');
+		allData.type = myData.type ? myData.type : console.log('ajaxRequest type not found');
+		allData.data = myData.data ? myData.data : console.log('ajaxRequest data not found');
+		allData.callback = myData.callback ? myData.callback : console.log('ajaxRequest callback not found');
+
+		jQuery.ajax({
+		 	url: allData.url,
+		 	type: allData.type,
+		 	data: allData.data,
+		 	success: function(result){
+		 		result = tryParseData(result);			 					 		
+				return result;
+		 	}
+		});
+		
+		}else{
+			console.log("myData parameter doesn't exist");
+		}
+	*/
+
+	if(url && type && callback){
 		jQuery.ajax({
 		 	url: url,
 		 	type: type,
@@ -85,6 +104,62 @@ function checkForJustCreatedAccount(){
 		popup.init("Le compte " + data + " a bien été activé");
 	}
 }
+
+// Recuperation du webpath du server
+var webpath = {
+	init: function(){
+		this.setServerPath();
+	},
+	get: function(){return this._path;},
+	setServerPath: function(){
+		jQuery.ajax({
+		  url: 'index/getWebpathAjax',
+		  type: 'GET',		  
+		  complete: function(xhr, textStatus) {
+		    // console.log("request complted \n");
+		  },
+		  success: function(data, textStatus, xhr) {
+		  	var obj = tryParseData(data);
+		    if(obj != false){
+		    	if(obj.webpath)
+		    		this._path = obj.webpath;
+		    	else
+		    		console.log("webpath couldn't be found");
+		    	initAll();
+		    }
+		  },
+		  error: function(xhr, textStatus, errorThrown) {
+		    console.log("request error !! : \t " + errorThrown);
+		  }
+		});
+	}
+};
+
+var scroll = {
+	init : function(clickSelector, sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
+			scroll.clickEvent(clickSelector, sectionSelector);
+		}else{
+			console.log("Pas reçu du dom dans scroll.init()!");
+		}
+	},
+	clickEvent : function(clickSelector, sectionSelector){
+		if(clickSelector instanceof jQuery && sectionSelector){
+			clickSelector.click(function(){
+				scroll.toAnchor(sectionSelector);
+			});
+		}else{
+			console.log("Pas reçu du dom dans scroll.clickEvent");
+		}
+	},
+	toAnchor : function(selector){
+		if(selector instanceof jQuery){
+	    	jQuery('html,body').animate({scrollTop: selector.offset().top},'slow');
+    	}else{
+    		console.log("Pas reçu du dom dans scroll.toAnchor()");
+    	}
+	}
+};
 
 // Suffira d'envoyer une string à popup.init et l'ob se chargera du reste 
 var popup = {
@@ -356,7 +431,7 @@ var navbar = {
         },
         closeFormClick: function(){
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label, p, a'))
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label,textarea, p, a, img'))
 		   			navbar.form.smoothClosing();
 			});
         },
@@ -695,8 +770,8 @@ var connection = {
 				alert("you are missing an input");
 			}
 			else if(obj.errors.user){
-				// email and pass don't match
-				alert("password and email don't match");
+				// email and pass don't match OU BAN
+				alert(obj.errors.user);
 			}
 		}
 	},

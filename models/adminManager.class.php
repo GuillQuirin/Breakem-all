@@ -24,23 +24,5 @@ class adminManager extends basesql{
 			$list[] = new user($query);
 
 		return $list;
-	}
-
-	//Signalements
-	public function getListReports(){
-		$sql="SELECT *
-					FROM signalmentsuser 
-					ORDER BY id ASC";
-
-		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$req->execute();
-		$list = [];
-		while ($query = $req->fetch(PDO::FETCH_ASSOC))
-			//tableau d'objets user
-			$list[] = new signalmentsuser($query);
-	
-		return $list;
-	}
-
-	
+	}	
 }

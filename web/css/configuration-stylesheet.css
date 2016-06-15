@@ -103,9 +103,12 @@ body, html{
 
 .configuration-header-profil-name{
     font-size:25px;
-    text-transform: capitalize;
     font-weight: 600;
     padding:15px;
+}
+
+.configuration-header-profil-name:first-letter {
+    text-transform: uppercase;
 }
 
 .configuration-header-profil-description, .configuration-header-profil-lastconnexion{

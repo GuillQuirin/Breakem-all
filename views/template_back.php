@@ -56,10 +56,6 @@
 	</head>
 
 	<body>
-		<header>
-			<?php include("views/includes/admin/navbar.php");?>
-		</header>
-
 		<div class="search-page hidden-fade hidden">
 			<div class="container m-a">
 				<div class="grid-md-12">

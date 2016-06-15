@@ -9,7 +9,6 @@ class template{
     /*Tant que chaque controller herite de template, le token sera vérifié à chaque rafraichissement de page*/
     $this->checkToken();
   }
-
   protected function getConnectedUser(){return $this->connectedUser;}
 
   /* Cette methode fournira à la view reçue en parametre les propriétés nécessaires à l'affichage d'un user si ce dernier est bien connecté */
@@ -23,6 +22,7 @@ class template{
       $v->assign("_firstname", $this->connectedUser->getFirstname());
       $v->assign("_pseudo", $this->connectedUser->getPseudo());
       $v->assign("_birthday", $this->connectedUser->getBirthday());
+      $v->assign("_lastConnexion", $this->connectedUser->getLastConnexion());
       $v->assign("_description", $this->connectedUser->getDescription());     
       $v->assign("_kind", $this->connectedUser->getKind());
       $v->assign("_city", $this->connectedUser->getCity());
@@ -32,10 +32,11 @@ class template{
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());
-      $teamBBD = new teamManager();
 
       if(!empty($this->connectedUser->getIdTeam())){
-        $team = $teamBBD->getTeam(['id'=>$this->connectedUser->getIdTeam()]);   
+        $teamBBD = new teamManager();
+        $arr['id'] = $this->connectedUser->getIdTeam();
+        $team = $teamBBD->getTeam($arr);   
         $v->assign("_nameTeam",$team->getName());
       }
 
@@ -48,7 +49,7 @@ class template{
       }
     }
   }
-  
+
   protected function isVisitorConnected(){
     return ($this->connectedUser instanceof user);
   }  
@@ -121,20 +122,27 @@ class template{
       $userManager = new userManager();
       $user = new user($filteredinputs);
       $dbUser = $userManager->tryConnect($user);
-      if(!!$dbUser){
+
+      if($dbUser instanceof user){
         // définition du token
         $time = time();
         $expiration = $time + (86400 * 7);
         $token = md5($dbUser->getId().$dbUser->getPseudo().$dbUser->getEmail().SALT.$time);
         $_SESSION[COOKIE_TOKEN] = $token;
         $_SESSION[COOKIE_EMAIL] = $dbUser->getEmail();
+        $_SESSION['timeout'] = $expiration;
         setcookie(COOKIE_TOKEN, $token, $expiration, "/");
         setcookie(COOKIE_EMAIL, $dbUser->getEmail(), $expiration, "/");
         $data["connected"] = true;
         $this->connectedUser = $dbUser;
-      }else{
+      }
+      else if($dbUser == -1){
+        $this->echoJSONerror("user", "You have been banned");
+      }
+      else{
        $this->echoJSONerror("user", "password and email don't match");
       }
+
     }
 
     echo json_encode($data);
@@ -180,25 +188,24 @@ class template{
     $adrPHPM = "web/lib/PHPMailer/"; 
     include $adrPHPM."PHPMailerAutoload.php";
     try{
-      $mail = new PHPmailer(); 
+      $mail = new PHPmailer(true); 
       $mail->IsSMTP();
+      $mail->Host="SSL0.OVH.NET";
+      $mail->SMTPAuth = true;
+      $mail->Port = 587;
+      $mail->Username = "contact@breakem-all.com";
+      $mail->Password = "AllBreak75";
       $mail->IsHTML(true); 
+           
+      //$mail->SMTPDebug  = 4; 
 
-      //SMTP du FAI
-      
-      $mail->Host='smtp.free.fr'; // Free
-      //$mail->Host='smtp.bouygtel.fr'; // Bouygues
-      //$mail->Host='smtp.orange.fr'; //Orange
-      //$mail->Host='smtp.sfr.fr'; //SFR
-      //$mail->Host='smtp.??????.fr'; //OVH
-      
       //Expediteur (le site)
-      $mail->From='admin@Bea.fr'; 
-      $mail->AddReplyTo('admin@Bea.fr');      
-      $mail->set('FromName', 'Admin BEA');      
 
-      //Destinataire (l'utilisateur)
+      $mail->From='contact@breakem-all.com'; 
+      $mail->FromName='Administrateur Breakem All'; 
+      $mail->AddReplyTo('contact@breakem-all.com');      
       $mail->AddAddress($destinataire);
+      $mail->setFrom('contact@breakem-all.com', 'Admin BEA');         
       
       $mail->CharSet='UTF-8';
       $mail->Subject=$objet; 
@@ -207,10 +214,11 @@ class template{
       $mail->Body=$contenu;
 
       //  Décommentez pour réactiver le mail
-      /*if(!$mail->Send()){ 
+      //$erreur = $mail->Send();
+
+      if(isset($erreur) && $erreur){ 
         echo $mail->ErrorInfo; 
-        //exit;
-      }*/
+      }
 
       $mail->SmtpClose(); 
       unset($mail);
@@ -307,15 +315,17 @@ class template{
 
     $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
-      $contenuMail.="<a href=\"http://localhost".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
+      $contenuMail.="<a href=\"http://breakem-all.com".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
     //Appel de la methode d'envoi du mail
-    $this->envoiMail($user->getEmail(),'Inscription à Break em all',$contenuMail);
+    $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
-
+  public function getWebpathAjaxAction(){
+    echo json_encode(["webpath" => WEBPATH]);
+  }
 }
 /*
 *

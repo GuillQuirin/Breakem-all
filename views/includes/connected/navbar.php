@@ -32,11 +32,17 @@
 						Mon compte
 					</a>
 				</li>
-				<li class="navbar-menu-tooltip-li">
-					<a>
-						Ma team
-					</a>
-				</li>
+				<?php
+				if(isset($_nameTeam)){
+				?>
+					<li class="navbar-menu-tooltip-li">
+						<a href="<?php echo WEBPATH.'/detailteam?name='.$_nameTeam; ?>">
+							Ma team
+						</a>
+					</li>
+				<?php 
+				}
+				?>
 				<li class="navbar-menu-tooltip-li">
 					<a>
 						Mes points

@@ -62,6 +62,7 @@
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
 			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/transform.css">';?>
+			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/width.css">';?>
 
 			
 			<?php echo (isset($css)) ? '<link rel="stylesheet" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
@@ -79,13 +80,13 @@
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
-								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH ?>/creationtournoi">
+										<a href="<?php echo WEBPATH; ?>/creationtournoi">
 											Créer 
 										</a>
 									</li>
@@ -95,26 +96,14 @@
 										</a>
 									</li>
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH; ?>/listetournois">
 											Liste
 										</a>
 									</li>																	
 								</ul>
 							</li>
 							<li class="navbar-menu-li navbar-menu-joueur">
-								<a href="">Joueur<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
-								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-joueur">
-									<!-- <li class="navbar-menu-tooltip-li">
-										<a>
-											Créer 
-										</a>
-									</li> -->
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Liste
-										</a>
-									</li>																							
-								</ul>
+								<a href="<?php echo WEBPATH; ?>/listejoueurs">Joueurs</a>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-team">
 								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
@@ -124,7 +113,7 @@
 											echo '<li class="navbar-menu-tooltip-li">';
 
 											if(!empty($_idTeam))
-												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Page de ma team</a>";
+												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
 											
 											else
 												echo "<a href=''>Créer ma team</a>";
@@ -133,7 +122,7 @@
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a>
+										<a href="<?php echo WEBPATH; ?>/listeteams">
 											Liste
 										</a>
 									</li>																							
@@ -282,6 +271,7 @@
 		                <li><a href="#" title="link 2">Nous contacter</a></li>
 		                <li><a href="#" title="link 3">CGU</a></li>
 		                <li><a href="#" title="link 4">About</a></li>
+		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="link 4">RSS</a></li>
 		            </ul>
 		        </div>
 		    </div>

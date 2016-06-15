@@ -14,7 +14,7 @@ class userManager extends basesql{
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status>0";
+		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $user->getEmail()
@@ -24,9 +24,14 @@ class userManager extends basesql{
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 
 		if(isset($r[0])){
-			$dbUser = new user($r[0]);
-			if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
-				return $dbUser;
+			//Membre non-banni
+			if((int)$r[0]['status'] > 0){
+				$dbUser = new user($r[0]);
+				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
+					return $dbUser;
+			}
+			else
+				return -1;
 		}
 		return false;
 	}
@@ -124,7 +129,7 @@ class userManager extends basesql{
 		foreach (get_class_methods($newuser) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = $newuser->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newuser->$method_name(false) : $newuser->$method_name(); 
 			}
 		}
 
@@ -174,5 +179,20 @@ class userManager extends basesql{
 			return false;
 
 		return new user($query);
+	}
+
+	/*RECUPERATION DE TOUS LES USER*/
+	public function getAllUser(){
+		
+		$sql = "SELECT * FROM ".$this->table." WHERE status>0 ";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets user
+			$list[] = new user($query);
+
+		return (count($list) > 0) ? $list : false;
 	}
 }

@@ -12,7 +12,6 @@
 </section>
 
 <section class="my-content-wrapper">
-
 	<div class="creationtournoi-element-container">
 		<div class="relative creationtournoi-element-choice">
 			<img src="web/img/typegame-fps.jpg" alt="">

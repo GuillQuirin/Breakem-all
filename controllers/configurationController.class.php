@@ -4,7 +4,9 @@ class configurationController extends template{
 	
 	public function __construct(){
 		parent::__construct();
-		 if(!($this->isVisitorConnected())){
+
+		//Visiteur ou membre banni
+		if(!($this->isVisitorConnected()) || $this->connectedUser->getStatus()<1){
 		 	header('Location: ' .WEBPATH);
 		}
 	}
@@ -74,6 +76,8 @@ class configurationController extends template{
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
 	private function checkUpdateInputs(){
+
+		//FILTER_SANITIZE_STRING Remove all HTML tags from a string
 	    $args = array(
 	      'email'   => FILTER_VALIDATE_EMAIL,
 	      'password'   => FILTER_SANITIZE_STRING,

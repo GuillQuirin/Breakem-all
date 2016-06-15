@@ -90,7 +90,7 @@ class teamManager extends basesql{
 	
 	//Liste des teams
 	public function getListTeam($status){
-		$sql="SELECT id, name, img, slogan, description,status FROM team WHERE status >'".$status."' ORDER BY name ASC";
+		$sql="SELECT * FROM team WHERE status >'".$status."' ORDER BY name ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -184,9 +184,7 @@ class teamManager extends basesql{
 				$where.= ' AND ';
 		}
 
-		$sql = "SELECT id, id_user_creator, name, img, slogan, description, status 
-					FROM team 
-					WHERE ".$where;
+		$sql = "SELECT * FROM team WHERE ".$where;
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));	
 		$query->execute($data);	
@@ -210,9 +208,7 @@ public function getTeamTest(array $infos){
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
 
-		$sql = "SELECT id, name, img, slogan, description, status 
-					FROM team
-					WHERE ".implode(',', $data);
+		$sql = "SELECT * FROM team WHERE ".implode(',', $data);
 
 		$query = $this->pdo->query($sql)->fetch();
 

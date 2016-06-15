@@ -12,6 +12,14 @@
 .absolute{
   position:absolute;
 }
+.absolute-0-0{
+  top: 0;
+  left: 0;
+}
+.absolute-0-100{
+  top:0;
+  right: 0;
+}
 
 .static{
   position: static;

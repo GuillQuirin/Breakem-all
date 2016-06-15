@@ -3,11 +3,6 @@
 *
 */
 class gameManager extends basesql{
-	/*public function getAllTypes(){
-		$sql = "SELECT DISTINCT(type) FROM ".$this->table;
-		$sth = $this->pdo->query($sql);
-		return $sth->fetchAll(PDO::FETCH_ASSOC);
-	}*/
 	
 	public function getBestGames(){        
          $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu
@@ -35,6 +30,20 @@ class gameManager extends basesql{
 		return false;
 	}
 
+	public function getGameById($id){		
+		$sql = "SELECT * FROM " . $this->table . " WHERE id=:id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':id' => $id
+		]);
+
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0]))
+			return new game($r[0]);
+		else
+			return null;
+	}
+
 	/*public function isGame($name){
 		$sql = "SELECT COUNT(*) as nb FROM game WHERE name = '" . $name['delname']."'";
 
@@ -46,9 +55,10 @@ class gameManager extends basesql{
 		return false;
 	}*/
 
-	public function deleteGames($name){
-		$sql = "DELETE FROM game WHERE name='" . $name['delname']."'";
+	public function deleteGames(game $game){
+		$sql = "DELETE FROM game WHERE id=:id";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->bindValue(':id', $game->getId());
 		$sth->execute();
 	}
 
@@ -68,18 +78,3 @@ class gameManager extends basesql{
 	}
 
 }
-/*
-public function setOwnerTeam(team $t, user $u){
-		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right)
-				VALUES ('', ':idUser', ':idTeam', '1')";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':idUser' => $u->getId(),
-			':idTeam' => $t->getId()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
-*/

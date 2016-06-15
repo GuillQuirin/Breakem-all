@@ -1,7 +1,7 @@
 window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
-	// preventQuitPageEvent();
+	preventQuitPageEvent();
 	if(dom.init())
 		gameTypesChoice.init();
 	navbar.preventShrink = true;
@@ -660,7 +660,6 @@ var gameversionChoice = {
 };
 var validateChoices = {
 	init: function(data, formToDel){
-		console.log(data);
 		formToDel.remove();
 		$('html, body').animate({
 			scrollTop: 0
@@ -672,11 +671,11 @@ var validateChoices = {
 		this.loadValidationEvent();
 	},
 	generateSumUp: function(data){
-		var container = $('<div class="creationtournoi-tournoi-valid-creation"></div>');
+		var container = $('<div class="creationtournoi-tournoi-valid-creation display-flex-column"></div>');
 		var tournamentName = $('<h3 class="creationtournoi-valid-tournoi-name title-2">Nom du tournoi : <span class="data uppercase">'+data.name+'</span></h3>');
 		container.append(tournamentName);
 		if(data.description.length > 0){
-			var tournamentDesc = $('<p class="creationtournoi-valid-tournoi-descr">'+data.name+'</p>');
+			var tournamentDesc = $('<p class="creationtournoi-valid-tournoi-descr">'+data.description+'</p>');
 			container.append(tournamentDesc);
 		};
 

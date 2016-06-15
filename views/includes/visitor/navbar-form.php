@@ -32,7 +32,7 @@
 					<span class="index-input-default-date">
 						<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31">
 						<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12">
-						<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016">
+						<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1980" max="2016">
 					</span>
 				</p>
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">

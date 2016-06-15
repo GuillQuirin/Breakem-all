@@ -18,8 +18,8 @@
 				//Rajouter une tr/td pour les clés (nom, prenom, etc)
 				foreach ($listesignalement as $ligne => $report) {
 					echo "<tr>";
-						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getId_indic_user()."'>".$report->getId_indic_user()."<a/></td>";
-						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getId_signaled_user()."'>".$report->getId_signaled_user()."<a/></td>";
+						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getPseudo_indic_user()."'>".$report->getPseudo_indic_user()."<a/></td>";
+						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getPseudo_signaled_user()."'>".$report->getPseudo_signaled_user()."<a/></td>";
 						echo "<td>".$report->getSubject()."</td>";
 						echo "<td>".$report->getDescription()."</td>";
 						echo "<td>".$report->getDate()."</td>";
@@ -38,13 +38,8 @@
 				</table>
 		<?php
 			}
-			else{
-				?>
-
-				<p>Pas de signalements à récupérer</p>
-
-				<?php
-			} 
+			else
+				echo "<p>Pas de signalements à récupérer</p>";
 		?>		
 
 	<!-- </form>	 -->

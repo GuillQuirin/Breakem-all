@@ -3,7 +3,7 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	platformModule.init();
+	admin.init();
 });
 
 var onglet = {
@@ -81,13 +81,13 @@ var onglet = {
 		this._adminGamesWrapper = jQuery("#admin-onglet-games-wrapper");
 	},
 	setAdminGametypeWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-gametype-wrapper");
+		this._adminGametypeWrapper = jQuery("#admin-onglet-gametype-wrapper");
 	},
 	setAdminCommentWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-comment-wrapper");
+		this._adminCommentWrapper = jQuery("#admin-onglet-comment-wrapper");
 	},
 	setAdminTournamentWrapper : function(){
-		this._adminTeamsWrapper = jQuery("#admin-onglet-tournament-wrapper");
+		this._adminTournamentWrapper = jQuery("#admin-onglet-tournament-wrapper");
 	},
 
 
@@ -164,31 +164,20 @@ var onglet = {
 	}
 };
 
-var platformModule = {
+var admin = {
 	init : function(){
-		platformModule.setAdminDataIhm();	
-		platformModule.createPlatformsIhm();
+		platformModule.init();
+		tournamentModule.init();
 	},
-
-	//Setter
-	setAdminDataIhm : function(){
-		this._adminDataIhm = jQuery('.admin-data-ihm');
-	},	
-
-	//Getter
-	getAdminDataIhm : function(){
-		return this._adminDataIhm;
-	},
-
 	ihmElemHover : function(){
-		platformModule.getAdminDataIhm().hover(
+		jQuery('.admin-data-ihm').hover(
 		  function() {
-		    jQuery(this).find('.admin-data-ihm-btn').removeClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').removeClass("hidden");
 		  }, function(e) {
-		    jQuery(this).find('.admin-data-ihm-btn').addClass( "hidden" );
+		    jQuery(this).find('.admin-data-ihm-btn').addClass("hidden");
 		  }
 		);
-	}	
+	}
 };
 
 //Validation avec tous les id qui commence par validate-form-
@@ -199,19 +188,22 @@ $("button[id^='validate-change-']" ).on('click', function() {
 
 
 
+//Maj user
 function setStatut(pseudo, value){
 	jQuery.ajax({
 	 	url: "admin/updateUserStatus",
 	 	type: "POST",
 	 	data : "pseudo="+pseudo+"&status="+value,
-
+	 	succes: function(result){
+	 		console.log(result);
+	 	},
 	 	error: function(result){
 	 		alert("non");
 	 	}
 	});
 }
 
-
+//Maj signalement
 function deleteReport(id){
 	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
 		jQuery.ajax({
@@ -219,7 +211,26 @@ function deleteReport(id){
 		 	type: "POST",
 		 	data : "id="+id,
 		 	success: function(result){
-		 		alert(result);
+		 		location.reload(true);
+		 		//console.log(result);
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+	}
+}
+
+//Maj commentaire
+function deleteComment(id){
+	if(confirm("Souhaitez vous modérer ce commentaire ?")){
+		jQuery.ajax({
+		 	url: "admin/delComment",
+		 	type: "POST",
+		 	data : "id="+id,
+		 	success: function(result){
+		 		location.reload(true);
+		 		//console.log(result);
 		 	},
 		 	error: function(result){
 		 		alert("non");

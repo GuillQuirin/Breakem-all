@@ -1,14 +1,4 @@
 <?php
-if(isset($err)){
-	?>
-	<section id="absfiche">
-		<div>
-			ERREUR 404, utilisateur introuvable
-			<p><a href="index">Retour à l'accueil</a></p>
-		</div>
-	</section>
-	<?php
-}else{
 	if(isset($MAJ))
 		echo "<div>Mise à jour correctement effectuée.</div>";
 	?>
@@ -24,7 +14,10 @@ if(isset($err)){
 					<div class="">
 						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($_lastConnexion)) ? $_lastConnexion : 'Dernière connexion inconnu'; ?></span>
+						<?php 
+						/*
+						<span class="configuration-header-profil-lastconnexion">Précèdente connexion:<br><?php echo (isset($_lastConnexion)) ? strftime('le %e %B à %H:%M', $_lastConnexion) : 'Dernière connexion inconnue'; ?></span>
+						*/ ?>
 					</div>
 				</div>
 			</div>			
@@ -38,9 +31,9 @@ if(isset($err)){
 			<li class="active">
 				<a>Profil</a>
 			</li><!--
-			--><li>
+			--><!-- li>
 				<a>Team</a>
-			</li>			
+			</li> -->			
 		</ul>
 	</div>
 
@@ -58,7 +51,7 @@ if(isset($err)){
 						<table class="full-width configuration-form-table">
 							<tr class="text-center">
 								<td colspan="2">
-									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnels</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnelles</span>
 								</td>
 							</tr>
 							<tr>
@@ -98,6 +91,7 @@ if(isset($err)){
 											</label>
 										</label>
 									</div>
+									<?php /*
 									<div>								
 										<label><input class="checkbox input-default" type="checkbox" name="rss" id="rss"
 											<?php 
@@ -107,6 +101,8 @@ if(isset($err)){
 											</label>
 										</label>
 									</div>
+									*/
+									?>
 								</td>
 							</tr>
 							<tr>
@@ -157,7 +153,7 @@ if(isset($err)){
 									<span>Team</span>
 								</td>
 								<td>
-									<?php echo (isset($nomTeam)) ? '<a href="team?name='.$nomTeam.'">'.$nomTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
+									<?php echo (isset($_nameTeam)) ? '<a href="team?name='.$_nameTeam.'">'.$_nameTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
 								</td>
 							</tr>
 							<tr class="text-center">
@@ -167,7 +163,7 @@ if(isset($err)){
 							</tr>	
 							<tr>
 								<td>
-									<span>Ancien mot de passe</span>
+									<span>Mot de passe actuel</span>
 								</td>
 								<td>
 									<input class="input-default configuration-input-default" type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>
@@ -206,6 +202,3 @@ if(isset($err)){
 		</div>
 
 	</section>
-<?php 
-} 
-?>
