@@ -1,0 +1,366 @@
+.tournament-navbar{
+
+}
+
+.platform-navbar, .admin-navbar{
+    padding:25px 0 15px 0;
+}
+
+#platform-search-input{
+    padding:14.9px 25px;
+    margin:0;
+}
+
+.platform-search-form label{
+    display:inline-block;
+}
+
+.platform-search-wrapper{
+    max-width:300px;
+    padding-top:4px;
+    padding:35px 0;
+}
+
+.platform-add{
+    max-width:300px;
+}
+
+.admin-wrapper{    
+    margin:0 0 35px 0;
+}
+
+.index-modal-login{
+    left:0;
+}
+
+.admin-btn-default{
+    margin:0 5px;
+    padding:0 25px;
+    transform:skew(-8deg);
+    z-index:10000;
+    cursor: pointer;
+}
+
+.admin-btn-default span{
+
+}
+
+.admin-data-ihm-btn{
+    position:absolute;
+    left:0;
+    right:0
+}
+
+.admin-data-ihm-title{
+    text-align: center;
+    margin:5px 15px;
+    background:rgba(130, 83, 164, 0.2);
+}
+
+.admin-data-ihm-elem-title{
+    padding:15px;
+}
+
+.admin-data-ihm{
+    text-align: center;
+    margin:5px 15px;
+    background:rgba(130, 83, 164, 0.2);
+}
+
+.admin-data-ihm:hover{
+    padding:15px 0; 
+    margin:5px 0;
+    transition: All .3s;
+}
+
+.admin-data-ihm:hover{    
+    background:rgba(130, 83, 164, 0.4);
+}
+
+.admin-data-ihm-elem{
+    padding:15px;
+}
+
+.admin-wrapper.platforms .admin-data-ihm-elem-img-wrapper{
+    height:150px;
+    width:240px;
+}
+
+/*
+TOUT RENAME EN ADMIN 
+*/
+
+.index-modal-login{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:100000000000;
+    opacity:1;
+    top:0;
+}
+
+.index-modal{
+    left:0;
+}
+
+.admin-input-file{
+    padding-bottom:15px;
+}
+
+.admin-form-input-w{
+    background:#ffffff;
+}
+
+#section_inscrip{
+    background-color:rgba(8,3,37,.4);
+}
+
+.form-bg-active{
+    background:rgba(38, 36, 71, 0.71) none repeat scroll 0% 0%
+}
+
+.index-form-submit{
+    margin:25px 0 0 0;
+}
+
+.index-input-default-date{
+    margin-left:10px;
+}
+
+.inscription_rapide{
+    background:rgba(8,3,37,1);
+    border-radius: 5px;
+    color:white;
+    padding: 30px;
+    font-family: Roboto !important;
+    font-size: 13px;
+}
+
+.admin-form-modification{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:100000000000;
+    opacity:1;
+    top:0;
+}
+
+
+.admin-form-add{
+    text-align:center;
+}
+
+.admin-table{
+    position:relative;   
+}
+
+.admin-wrapper:first-child{
+    display:initial;
+}
+
+.admin-wrapper{
+    display:none;
+}
+
+.admin-table td{
+    text-align:center;
+	padding:15px;
+}
+
+.admin-table img{
+    vertical-align: middle;
+    border-radius:2px;
+}
+
+.admin-table.member img{
+	width:50px;	
+}
+
+.admin-table.platform img{
+    width:100px;
+}
+
+/* HEIGHT RESET*/
+
+body, html{
+    height:100%;
+    width:100%;
+    min-height:100%;
+    font-family:Roboto !important;
+}
+
+#content{    
+    margin-top:0;
+}
+
+.admin-onglet-wrapper{
+    position:absolute;
+    bottom:-1px;    
+    left:15vw;
+}
+
+.admin-input-default{
+
+}
+
+.admin-avatar-wrapper{
+    width:250px;
+    height:250px; 
+    padding:15px 0 20px 0;
+}
+
+.admin-avatar{
+    
+}
+
+.admin-onglet-ul{
+    transform:skew(-8deg);
+}
+
+.admin-onglet-ul li{    
+    background:rgba(130, 83, 164, 0.2);
+    cursor:pointer;
+    padding:15px 35px;
+    display:inline-block;    
+    transition: all .3s;
+}
+
+.admin-input-required{
+    color:#D92B4C;
+    position:absolute;
+}
+
+.admin-onglet-ul li:hover{
+    background:#080325;
+    transition:all .3s;
+}
+
+.admin-onglet-ul li.active{
+    opacity:1;
+    background:#080325;
+}
+
+.admin-form-button-wrapper{
+    position:absolute;
+    width:100%;
+    padding:0 !important;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:100;
+    display:none;
+}
+
+.admin-form-table tr:hover .admin-form-button-wrapper{
+    display:inline;
+}
+
+.admin-form-button{
+    background: #ffffff;
+    padding:15px 25px;
+    margin:5px;
+    transform: skew(-8deg);    
+}
+
+.classement-content-wrapper{
+  padding:35px;
+}
+
+.admin-form-table{
+    margin-bottom:15px;
+    border:1px solid #524c7b; 
+}
+
+.admin-form-table tr{
+    position:relative;
+    right:0;
+}
+
+.admin-form-table td{
+    padding:20px 25px;      
+}
+
+.admin-form-table tr:hover{
+ background:rgba(130, 83, 164, 0.1);
+}
+
+.admin-form-table tr:first-child{
+    background:none;
+}
+
+.admin-form-table tr:first-child{
+    border:1px solid #524c7b; 
+}
+
+.admin-form-email div{
+    padding:7px 0;
+}
+
+.admin-form-submit{
+    width:200px;
+}
+
+.admin-form-td-submit{
+    padding-top:25px !important;
+}
+
+.admin-form-menu-tr{
+    font-weight:600;
+    font-size:16px;
+}
+
+.admin-header-title{
+	margin-right:0 !important;
+}
+
+/* HEADER */
+
+.bg-cover-admin{
+    /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/bg-admin.jpg) center no-repeat;
+    margin:0;    
+    -webkit-background-size: cover; 
+    background-size: cover;     
+}
+
+.admin-header-profil-image{
+    width:170px;
+}
+
+.admin-header-profil-name{
+    font-size:25px;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding:15px;
+}
+
+.admin-header-profil-description, .admin-header-profil-lastconnexion{
+    font-size:13px;
+    padding:15px;
+    color:rgba(255,255,255,.5);
+}
+
+.admin-header-profil-left{
+    transform:skew(-8deg);
+}
+
+.admin-header-profil-wrapper{
+    position:relative;
+}
+
+.admin-header-profil-right{
+    position:absolute;
+    right:-170px;
+    width:100%;
+    height:100%;
+    top:0;
+    background:rgba(8,3,37,.4);
+}
+
+.admin-header-profil-right span{
+    display:block;
+}
+
+.irhack{
+    left:-15vwpx;
+}

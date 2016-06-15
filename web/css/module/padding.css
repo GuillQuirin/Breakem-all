@@ -1,5 +1,11 @@
+
+
 /* PADDING */
 
 .p-n{
   padding:0 !important;
+}
+
+.p-width-small{
+	padding:5px;
 }

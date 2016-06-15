@@ -1,4 +1,6 @@
-/*input{
+
+
+.input-search{
 	height:20px;
 	padding:6px 12px;
 	font-size:14px;
@@ -10,13 +12,76 @@
 	border-radius: 4px;
 }
 
-input:focus{
+.input-search:focus{
 	border:1px solid #3FA08F;
 }
 
-input.confirm{
+.input-search.confirm{
 	background-color:#3FA08F;
 	cursor:not-allowed;
 	color:#ffffff;
 	border:1px solid #3FA08F;
+}
+
+.input-default[type=text], .input-default[type=password], .input-default[type=email], .select-default, .textarea-default{
+    width: 100%;
+    padding: 8px 25px;
+    margin: 16px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    transform: skew(-8deg);
+    background-color: #211d3b;
+    transition: background .4s, border .4s; 
+    border:0;
+    color:white;
+}
+
+.input-default[type="number"]{
+    width: 70px;
+    padding: 8px 12px;
+    margin: 16px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    transform: skew(-8deg);
+    background-color: #211d3b;
+    transition: background .4s, border .4s; 
+    border:0;
+    color:white;
+}
+
+.input-default[type=text]:focus, .input-default[type=password]:focus{
+	background-color: white;
+	color:black;
+}
+.input-default[type=text]:hover, .input-default[type=password]:hover{
+	background-color: white;
+	color:black;
+}
+
+.input-default[type=submit] {
+    width: 100%;
+    color: white;
+    background:inherit;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    margin-top:20px;
+    border:2px solid white;
+    transform: skew(-8deg);
+	transition: background .4s, border .4s;
+}
+
+.input-default[type=submit]:hover {
+    background: #D92B4C;
+	border-color: #D92B4C;
+}
+
+.text-area-default{
+    resize:none;
+}
+
+/*.input-required::after{
+    position:absolute;
+    content:"*";
 }*/

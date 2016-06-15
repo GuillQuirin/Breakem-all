@@ -1,15 +1,26 @@
-<img id="Img" src="web/img/SF4B.jpg" />
-<section id ="Info">Rayz<br>
-Joueur Smash bros et Street fighter<br>
-10 victoire - 4 défaites<br>
-team Yes <br></section>
-<section id ="Desc"><p>Description de la team blablalbalbalbalba</p></section>
-<section id ="List"><p>Liste des membres de la team</p></section>
-<div><img id="Balrog" src="web/img/Balrog-gigaton.gif" />
-<button id ="Quit">Quitter le groupe</button></div>
+<!-- Liste des tournois en cours -->
+<?php   
+    if(isset($listeteam)): 
+        foreach ($listeteam as $key => $team):
+?>  
+            <article style="margin-top:50px" id='article<?php echo $key;?>' >
+                <div class='contain_article'>
+                    <div class='img_article'>
+                        <img style="width:50px" src='<?php echo $team->getImg(); ?>'>
+                    </div>
+                    <div class='text_article'>
+                        <h2><?php echo $team->getName(); ?></h2>
+                        <div class='tags_article'>
+                            <h3><?php echo $team->getDescription(); ?></h3>
+                        </div>
+                        <div class='btn_article'>
+                            <h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
+                        </div>
+                    </div>
+                </div>
+            </article>
+<?php 
+        endforeach;
+    endif;
+?>
 
-<footer>
-</footer>
-
-</body>
-</html>

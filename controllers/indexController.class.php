@@ -1,32 +1,58 @@
 <?php
-//<<<<<<< HEAD
-
-// class indexController{
-
-// 	public function indexAction(){
-// 		echo "<br> indexAction was called !<br>";
-// 	}
-	
-// }
-
-//=======
-class indexController{
-
-	public function indexAction($args){
-
-		$article = new articles();
-		$article->setTitle("Mon titre");
-		$article->setContent("Description de ma page");
-		$article->save();
-
+class indexController extends template{
+	public function indexAction($requiredPosts){
 		$v = new view();
+		$this->assignConnectedProperties($v);
 		$v->assign("css", "index");
 		$v->assign("js", "index");
-		$v->setView("index");
 
+		//Categorie
+		$obj = new typegameManager();
+		$typeJeu = $obj->getAllTypes();
+		if(!empty($typeJeu)){
+			$v->assign("categorie", $typeJeu);	
+		}
+
+		/*##### ON N'OUVRE PAS DEUX CONNECTIONS POUR UN MM MANAGER*/
+		//Pagination
+		$pagination = $obj->getAllTypes();
+		if(!empty($pagination)){
+			$v->assign("pagination", $pagination);
+		}
+
+		//Liste Tournois
+		$obj = new tournamentManager();
+		$listetournois = $obj->getUnstartedTournaments();
+		if(!!($listetournois)){
+			$v->assign("listeTournois", $listetournois);
+		}
+		
+		// Cette variable de session est créé uniquement lorsqu'un compte vient d'être validé
+		if(isset($_SESSION['compte_validé'])){
+			$v->assign("compteValide", $_SESSION['compte_validé']);
+			unset($_SESSION['compte_validé']);
+		}
+
+		//Meilleurs Jeux
+		$obj = new gameManager();
+		$bestGames = $obj->getBestGames();
+		if(!empty($bestGames)){
+			$v->assign("bestGames", $bestGames);
+		}
+		
+		$v->setView("index");
 	}
-	public function testAction($args){
-		echo "Petit test";
-	}
+
+
 }
-//>>>>>>> master
+/*
+
+	SELECT t.id, t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, COUNT(r.id) as numberRegistered 
+	FROM tournament t LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id LEFT OUTER JOIN game ga ON ga.id = gv.idGame LEFT OUTER JOIN platform p ON p.id = gv.idPlateform LEFT OUTER JOIN user u ON u.id = t.idUserCreator LEFT OUTER JOIN register r ON r.idTournament = t.id WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME()) ORDER BY t.startDate	
+
+			
+
+		
+
+
+ */

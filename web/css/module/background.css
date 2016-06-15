@@ -1,0 +1,20 @@
+
+
+.bg-blue{
+	background-color:#160962;
+}
+.bg-black{
+	background: #000;
+}
+.bg-pink{
+	background: #D92B4C;
+}
+.bg-green{
+	background: rgb(22, 76, 36);
+}
+.background-wrapper{
+	background:#211d3b;
+	transform:skew(-8deg);
+	padding:25px 15px; 
+	margin:15px;			
+}

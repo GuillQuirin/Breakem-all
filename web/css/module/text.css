@@ -1,3 +1,5 @@
+
+
 .text-center{
     text-align:center;
 }
@@ -16,4 +18,36 @@
 
 .font-bold{
     font-weight: 600;
+}
+
+.title{
+	color:#ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header-title{
+	font-size:45px
+}
+
+.title-1{	
+	font-size: 37px;
+}
+.title-2{	
+	font-size: 28px;
+}
+.title-3{	
+	font-size: 24px;
+}
+.title-4{
+	font-size: 21px;
+}
+
+.winner-color{
+	color:green;
+}
+
+.looser-color{
+	color:red;
 }

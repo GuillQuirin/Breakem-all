@@ -1,198 +1,187 @@
-<div class="max-container">
+<?php if(isset($tournoi)): ?>
 	<section class="detailtournoi-infos flex">
-		<aside class="ta-center relative">
-			<img src="web/img/bf3-bg.jpg" alt="Battlefield 3">
-			<figcaption class="ta-center italic">Pour les gamers sur PC seulement !</figcaption>
-			<div class="relative ta-right">
-				<button class="detailtournoi-btn-inscription relative"><a></a></button>
+		<article class="display-flex-column">			
+			<h3 class="titre1 border-full ta-center">Tournoi - 
+				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
+			</h3>
+			<p class="detailtournoi-description-jeu italic">
+				<?php echo $tournoi->getGameDescription(); ?>			
+			</p>
+			<div class="detail-tournoi-main-infos align display-flex-row">
+				<div class="detail-tournoi-aside ta-center relative">
+					<img src="<?php echo $tournoi->getGameImg();?>" alt="Battlefield 3">
+					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
+					<?php if(isset($_isConnected)): ?>
+						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
+								<div class="relative ta-right">
+									<?php if(isset($userAlrdyRegistered)):?>
+									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
+									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
+									<?php else:?>
+									<button class="detailtournoi-btn-inscription relative btn btn-green"><a>Rejoindre</a></button>
+									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
+						<?php else: ?>
+							<div class="relative ta-right">
+								<button class="detailtournoi-btn-inscription relative btn btn-pink">
+									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
+								</button>
+							</div>
+						<?php endif; ?>
+					<?php endif; ?>
+				</div>
+				<div class="detailtournoi-tournoi-regles flex">
+					<p class="relative detailtournoi-jeu-mode capitalize">Mode:
+						<span class="relative">
+							<?php echo $tournoi->getGvName();
+								if($tournoi->getMaxPlayerPerTeam() > 1){
+									echo " - Equipes";
+									if($tournoi->getGuildOnly() > 0)
+										echo " de guildes uniquement";
+									else if($tournoi->getRandomPlayerMix() > 0)
+										echo " aléatoires";
+								}
+						 	?>						
+							<i class="absolute ta-center lowercase"><?php echo $tournoi->getGvDescription(); ?>
+							</i>
+						</span>
+					</p>
+					<?php $restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());?>
+					<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
+						<span class="relative">
+							<?php 
+							echo $restant;
+						 	?>
+						</span>
+					</p>
+					<p class="relative detailtournoi-points-gagnants">À gagner : 
+						<span class="relative">XXX points
+							<i class="absolute ta-center">??% (XX points) à répartir dans l'équipe gagnante</i>
+						</span>
+					</p>
+					<p class="relative detailtournoi-jeu-console">Console: 
+						<span class="capitalize"><?php echo $tournoi->getPName(); ?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-online">Où: 
+						<span class="capitalize">online</span>
+					</p>
+					<p class="relative detailtournoi-jeu-maxjoueurs">Joueurs max: 
+						<span><?php echo $tournoi->getMaxPlayer(); ?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-minjoueurs">Joueurs min: <span><?php echo $tournoi->getMaxPlayer()/2; ?></span></p>
+					<p class="relative detailtournoi-jeu-victoire">Règles: <span>rencontres de XX (3??) manches</span></p>
+					<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: 
+						<span><?php 						
+							if($tournoi->getMaxPlayerPerTeam() > 1){
+								echo "Equipes de " . $tournoi->getMaxPlayerPerTeam();
+								if($tournoi->getGuildOnly() > 0)
+									echo " - Guildes uniquement";
+								else if($tournoi->getRandomPlayerMix() > 0)
+									echo " - Aléatoires";
+								else
+									echo " - Au choix";
+							}else{
+								echo "Solo";
+							}
+					 	?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-date">Quand : 
+						<span><?php echo date('d-m-Y',$tournoi->getStartDate());?></span>
+					</p>
+					<p class="relative detailtournoi-jeu-organisateur">Orga : 
+						<span class="uppercase"><a href="<?php echo WEBPATH. '/profil?pseudo=' . $tournoi->getUserPseudo(); ?>"><?php echo $tournoi->getUserPseudo(); ?></a></span>
+					</p>
+				</div>
 			</div>
-		</aside>
-		<article>
-			<div class="ta-center">
-				<h3 class="titre1">Tournoi - <span class="uppercase">battlefield 3</span></h3>
-			</div>
-			<p class="detailtournoi-description-jeu italic">L'un des tout meilleurs FPS sur PC. Plongez dans un conflit moderne qui embrase les 4 coins du monde. Avec ses 4 classes customisables, ses armes modifiables, ses nombreux véhicules et son système d'escouade, il s'oriente principalement vers le jeu d'équipe.</p>
-			<div class="detailtournoi-tournoi-regles flex">
-				<p class="relative detailtournoi-jeu-mode">Mode:<span class="relative">Ruée par équipe<i class="absolute ta-center">jouez en équipe pour attaquer et défendre par tour des points</i></span>
-				</p>
-				<p class="relative detailtournoi-points-gagnants">À gagner : <span class="relative">120 points<i class="absolute ta-center">80% (96 points) à répartir dans l'équipe gagnante</i></span></p>
-				<p class="relative detailtournoi-jeu-console">Console: <span>PC</span></p>
-				<p class="relative detailtournoi-jeu-online">Où: <span>online</span></p>
-				<p class="relative detailtournoi-jeu-maxjoueurs">Joueurs max: <span>32 joueurs</span></p>
-				<p class="relative detailtournoi-jeu-minjoueurs">Joueurs min: <span>24 joueurs</span></p>
-				<p class="relative detailtournoi-jeu-victoire">Règles: <span>match de 3 manches</span></p>
-				<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: <span>fixes - random</span></p>
-				<p class="relative detailtournoi-jeu-date">Quand : <span>Le 22/03/2015 - 18h00</span></p>
-				<p class="relative detailtournoi-jeu-organisateur">Orga : <span>Pseudo</span></p>
-			</div>
-			<button class="tablette-only detailtournoi-btn-inscription relative"><a></a></button>	
+			
 		</article>
 	</section>
-	<section class="detailtournoi-participants flex-row">
-		<h2 class="titre2">Participants <span class="detailtournoi-nombre-participants">(16)</span></h2>
-		<div class="flex detailtournoi-liste-participants">
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>Fyjal</a><span class="absolute detailtournoi-stats-joueur">87 victoires, 51%win</span></p>
-				<p class="detailtournoi-participant-points absolute">1200</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
+	<?php if(isset($allRegistered)):?>
+		<section class="detailtournoi-participants">
+			<div class="full-width m-a display-flex-row max-width-1260">
+				<?php $cntReg = count($allRegistered); ?>
+				<h2 class="titre2 border-full">Participant<?php if($cntReg > 1)echo's';?>
+					<span class="detailtournoi-nombre-participants bg-pink"><?php echo $cntReg;?></span>
+				</h2>
+				<div class="flex detailtournoi-liste-participants">
+				<?php foreach ($allRegistered as $key => $user): ?>			
+					<div class="detailtournoi-participant relative flex">
+						<p class="detailtournoi-participant-pseudo"><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a><span class="absolute detailtournoi-stats-joueur">XX victoires, XX%win</span></p>
+						<p class="detailtournoi-participant-points absolute">XXXX points</p>
+					</div>
+				<?php endforeach; ?>				
+				</div>
 			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>dRowiid</a><span class="absolute detailtournoi-stats-joueur">65 victoires, 49%win</span></p>
-				<p class="detailtournoi-participant-points absolute">955</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>	
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>Rcan</a><span class="absolute detailtournoi-stats-joueur">90 victoires, 13%win</span></p>
-				<p class="detailtournoi-participant-points absolute">892</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
+		</section>
+	<?php endif; ?>
+	<?php $teamNumber = 1;?>
+	<?php if(isset($freeTeams)): ?>
+		<section class="full-width m-a detailtournoi-equipeslibres-section">
+			<div class="full-width m-a display-flex-column max-width-1260">
+				<h2 class="titre2 border-full">Equipes rejoignables
+					<span class="detailtournoi-nombre-equipeslibres bg-green"><?php echo count($freeTeams);?></span>
+				</h2>
+				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">				
+					<?php foreach($freeTeams as $key => $team):?>
+						<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
+						<div class="detailtournoi-equipelibre overflow-hidden relative">
+							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
+								<span class="equipelibre-espace bg-green absolute absolute-0-100"><?php echo $placesLeft;?></span>
+							</h5>
+							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">
+								<?php if(count($team->getUsers()) > 0):?>
+									<div class="full-width m-a equipelibre-joueurs-container display-flex-column">
+										<?php foreach($team->getUsers() as $key => $user):?>
+											<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+										<?php endforeach;?>
+									</div>
+								<?php else: ?>
+									<div class="full-width m-a">
+										<p class="text-center m-a">Aucun joueur dans cette équipe</p>
+									</div>
+								<?php endif; ?>
+								<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
+									<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
+									<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
+										<a>Rejoindre <?php echo $teamNumber;?></a>
+									</button>
+								<?php endif; ?>
+							</div>						
+						</div>
+					<?php  $teamNumber++; endforeach; ?>
+				</div>
 			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>ooBsidian</a><span class="absolute detailtournoi-stats-joueur">112 victoires, 9%win</span></p>
-				<p class="detailtournoi-participant-points absolute">865</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>GWlord</a><span class="absolute detailtournoi-stats-joueur">13 victoires, 100%win</span></p>
-				<p class="detailtournoi-participant-points absolute">623</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>milky</a><span class="absolute detailtournoi-stats-joueur">58 victoires, 67%win</span></p>
-				<p class="detailtournoi-participant-points absolute">601</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>anyTi</a><span class="absolute detailtournoi-stats-joueur">12 victoires, 100%win</span></p>
-				<p class="detailtournoi-participant-points absolute">522</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>supYo</a><span class="absolute detailtournoi-stats-joueur">45 victoires, 68%win</span></p>
-				<p class="detailtournoi-participant-points absolute">431</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>dHYdo</a><span class="absolute detailtournoi-stats-joueur">76 victoires, 25%win</span></p>
-				<p class="detailtournoi-participant-points absolute">431</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>comeAgn</a><span class="absolute detailtournoi-stats-joueur">50 victoires, 51%win</span></p>
-				<p class="detailtournoi-participant-points absolute">426</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>headsRoll</a><span class="absolute detailtournoi-stats-joueur">19 victoires, 95%win</span></p>
-				<p class="detailtournoi-participant-points absolute">403</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>n_e_day</a><span class="absolute detailtournoi-stats-joueur">10 victoires, 42%win</span></p>
-				<p class="detailtournoi-participant-points absolute">386</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>i_c_u</a><span class="absolute detailtournoi-stats-joueur">2 victoires, 90%win</span></p>
-				<p class="detailtournoi-participant-points absolute">374</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>pbblyNot</a><span class="absolute detailtournoi-stats-joueur">32 victoires, 12%win</span></p>
-				<p class="detailtournoi-participant-points absolute">327</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>irdc</a><span class="absolute detailtournoi-stats-joueur">5 victoires, 3%win</span></p>
-				<p class="detailtournoi-participant-points absolute">308</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-			<div class="detailtournoi-participant relative flex">
-				<p class="detailtournoi-participant-pseudo"><a>rtfm</a><span class="absolute detailtournoi-stats-joueur">21 victoires, 18%win</span></p>
-				<p class="detailtournoi-participant-points absolute">308</p>
-				<button class="detailtournoi-btn-fichejoueur relative"><a></a></button>
-			</div>
-		</div>
-	</section>
+		</section>
+	<?php endif; ?>
+	<?php if(isset($fullTeams)): ?>
+		<section class="full-width m-a detailtournoi-equipescompletes-section">
+			<div class="full-width m-a display-flex-column max-width-1260">
+				<h2 class="titre2 border-full">Equipes complètes
+					<span class="detailtournoi-nombre-equipeslibres bg-pink"><?php echo count($fullTeams);?></span>
+				</h2>
+				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
+					<?php foreach($fullTeams as $key => $team):?>
+						<div class="detailtournoi-equipecomplete overflow-hidden relative">
+							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
+								<span class="equipecomplete-espace bg-pink absolute absolute-0-100"><?php echo count($team->getUsers());?></span>
+							</h5>
+							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">							
+								<div class="full-width m-a equipecomplete-joueurs-container display-flex-column">
+									<?php foreach($team->getUsers() as $key => $user):?>
+										<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+									<?php endforeach;?>
+								</div>					
+							</div>						
+						</div>
+					<?php  $teamNumber++; endforeach; ?>
+				</div>
+			</div>			
+		</section>
+	<?php endif; ?>
 	<!-- <section class="detailtournoi-bracket">
 		<h2 class="titre2">Resultats des rounds - Bracket</h2>
 	</section> -->
-	<section class="detailtournoi-commentaires flex-row">
-		<h2 class='titre2'>Commentaires</h2>
-		<div class="detailtournoi-container-commentaires">
-			<div class="relative detailtournoi-commentaire">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>16/02 09:08</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>dRowiid</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Futura quidem sed Mihi hodie qualis autem futurum ire coepit Mihi sed inferentem quis supplicio.</p>
-				</div>
-			</div>
-			<div class="relative detailtournoi-commentaire">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>Lun 02:00</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>Fyjal</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Futura quidem sed Mihi hodie qualis autem futurum ire coepit Mihi sed inferentem quis supplicio.</p>
-				</div>
-			</div>
-			<div class="relative detailtournoi-commentaire">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>Lun 03:12</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>Ypsos</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Valet amicitiam ad comparandis ferendum potius Quin ad praeceptum quem amicitiam adhiberemus amare ferendum amicitiis.</p>
-				</div>
-			</div>
-			<div class="relative detailtournoi-commentaire">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>Lun 03:17</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>OopsIdian</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Saeculis Damascus quibus Damascus et monti urbibus Berytus Emissa magnis Sidon celebritateque quibus quibus adclinis.</p>
-				</div>
-			</div>
-			<div class="relative detailtournoi-commentaire detailtournoi-commentaire-current-user">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>Mar 19:17</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>Toi</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Saeculis Damascus quibus Damascus et monti urbibus Berytus Emissa magnis Sidon celebritateque quibus quibus adclinis.</p>
-				</div>
-			</div>
-			<div class="relative detailtournoi-commentaire">
-				<div class="detailtournoi-commentaire-date italic ta-right">
-					<h5>Mar 20:12</h5>
-				</div>
-				<div class="detailtournoi-commentaire-pseudo">
-					<p><a>RxR_d</a></p>
-				</div>
-				<div class="detailtournoi-commentaire-userpick">
-					<p class="detailtournoi-message">Constantio aetatis e atque praefecturae consulares inmaturo et quadriennio ipse.</p>
-				</div>
-			</div>
-		</div>
-		<div class="detailtournoi-container-post-commentaire">
-			<div class="detailtournoi-post-container">
-				<form  method="post">
-					<textarea name="commentaire-post" cols="30" rows="10" placeholder="Votre message ici.." maxlength="255"></textarea>
-					<input type="submit" value="" hidden>
-				</form>
-			</div>
-		</div>
-	</section>
-</div>
+<?php endif; ?>

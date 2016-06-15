@@ -1,3 +1,5 @@
+
+
 /* DISPLAY */
 .display-block{
   display:block;
@@ -19,6 +21,33 @@
 	display:flex;
 }
 
+.display-flex-column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.display-flex-column-space-between{   
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.display-flex-row{    
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+  }
 /* TABLE */
 
 .self-center {
@@ -27,6 +56,10 @@
 
 .align-middle{
   vertical-align: middle;
+}
+
+.flex-end{
+  justify-content: flex-end;
 }
 
 /* HIDDEN */
