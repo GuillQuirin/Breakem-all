@@ -10,6 +10,7 @@ class creationtournoiController extends template{
 	}
 
 	public function creationtournoiAction(){
+		$this->destroyCreationSession();
 		$v = new view();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "creationtournoi");
@@ -20,6 +21,7 @@ class creationtournoiController extends template{
 	}
 	// On retourne ici tous les types de jeux (moba/fps/...)
 	public function getGameTypesAction(){
+		$this->destroyCreationSession();
 		$gm = new typegameManager();
 		$typesObj = $gm->getAllTypes();
 		$data['types'] = [];
@@ -33,8 +35,9 @@ class creationtournoiController extends template{
 		echo json_encode($data);
 		return;
 	}
-	// On retourne ici les jeux disponibles pour le type de jeu sélectionné
+	// On retourne ici les jeux disponibles pour le type de jeu sélectionné en recevant un type de jeu en post (moba/fps etc)
 	public function getGamesAction(){
+		$this->destroyCreationSession();
 		$args = array(
             'name' => FILTER_SANITIZE_STRING   
 		);
@@ -63,8 +66,9 @@ class creationtournoiController extends template{
 		echo json_encode($data);
 		return;
 	}
-	// On retourne ici les plateformes disponibles pour le jeu sélectionné
+	// On retourne ici les plateformes disponibles pour le jeu sélectionné en recevant un jeu en post
 	public function getConsolesAction(){
+		$this->destroyCreationSession(1);
 		if(isset($_SESSION['gametypename'])){
 			$args = array(
 	            'name' => FILTER_SANITIZE_STRING   
@@ -98,7 +102,9 @@ class creationtournoiController extends template{
 		}
 		die("Choisissez d'abord le type de jeu !");
 	}	
+	// On retourne ici les versions de jeu disponible en recevant en la console sélectionnée en post
 	public function getVersionsAction(){
+		$this->destroyCreationSession(2);
 		// On vérifie que les étapes précédentes ont été validées
 			// On se basera sur ces valeurs pour l'enregistrement
 		if(isset($_SESSION['gamename'])){
@@ -147,7 +153,9 @@ class creationtournoiController extends template{
 		}
 		die("Choisis peut être une console avant ...");
 	}
+	// On retourne ici les informations précédemment rentrées et stockées en sessions en recevant en post les regles et descriptifs du tournoi
 	public function getFinalStepAction(){
+		$this->destroyCreationSession(3);
 		if(isset($_SESSION['platformname'])){
 			$args = array(
 	            'name' => FILTER_SANITIZE_STRING,
@@ -273,17 +281,23 @@ class creationtournoiController extends template{
 		}
 	}
 
-	private function destroyCreationSession(){
-		unset($_SESSION['selectedGameVersion']);
+	private function destroyCreationSession($step = 0){
 		unset($_SESSION['selectedTournamentName']);
 		unset($_SESSION['selectedTournamentDescription']);
 		unset($_SESSION['selectedTournamentStartDate']);
 		unset($_SESSION['selectedTournamentEndDate']);
 		unset($_SESSION['selectedTournamentGuild']);
 		unset($_SESSION['selectedTournamentRand']);
+		unset($_SESSION['selectedGameVersion']);
+		if($step > 2)
+			return;
 		unset($_SESSION['platformname']);
-		unset($_SESSION['gamename']);
 		unset($_SESSION['availableGV_ids']);
+		if($step > 1)
+			return;
+		unset($_SESSION['gamename']);
+		if($step > 0)
+			return;
 		unset($_SESSION['gametypename']);
 	}
 	// Cette fonction servira à aller chercher tous les noms des consoles / games / typegames pour les comparer de façon secure à une donnée reçue
