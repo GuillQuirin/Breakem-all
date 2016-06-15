@@ -41,6 +41,11 @@ class gestiontournoiController extends template{
 				$v->assign("tournoi",$tournament);
 				$v->assign("content", "Gérer votre tournoi");
 
+				if($tournament->getStatus()=="-1")
+					$v->assign("verrouillage"," disabled ");
+				else
+					$v->assign("verrouillage"," ");
+
 				/* MAJ effectuées auparavant */
 				if(isset($_SESSION['referer_method'])){
 					
@@ -205,22 +210,37 @@ class gestiontournoiController extends template{
   	public function deleteTourAction(){
 
         $args = array(
-            'nom' => FILTER_SANITIZE_STRING
+            'link' => FILTER_SANITIZE_STRING
         );
 
         $filteredinputs = filter_input_array(INPUT_GET, $args);
 
         $tournamentBDD = new tournamentManager();
-        $tournoi = $tournamentBDD->getFilteredTournaments($filteredinputs['nom'])[0];
+        $tournoi = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
     
-        if($tournoi){
+        if($tournoi && $tournoi->getIdUserCreator() == $_id){
             $tournamentBDD->deleteTour($tournoi);
-        	
         }
         else
             return null;
 
     }
 
+    public function mailMember(){
+
+    	//FILTER_SANITIZE_STRING Remove all HTML tags from a string
+	    $args = array( 'message' => FILTER_SANITIZE_STRING, 
+	    			   'link' => FILTER_SANITIZE_STRING
+	    			);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+
+   		$tournamentBDD = new tournamentManager();
+       	$tournoi = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
+
+		if($filteredinputs && $tournoi->getIdUserCreator() == $_id){
+
+    		$this->envoiMail($user->getEmail(),'Un organisateur de tournoi vous a envoyé un message.',$filteredinputs['message']);
+    	}
+    }
 
 }
