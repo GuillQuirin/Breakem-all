@@ -35,9 +35,9 @@ class gestiontournoiController extends template{
 			if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
 					&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
 
-				$v->assign("css", "gestion");
-				$v->assign("js", "gestion");
-				$v->assign("title", "gestion");
+				$v->assign("css", "gestiontournoi");
+				$v->assign("js", "gestiontournoi");
+				$v->assign("title", "Gestion de votre tournoi");
 				$v->assign("tournoi",$tournament);
 				$v->assign("content", "Gérer votre tournoi");
 
@@ -55,6 +55,9 @@ class gestiontournoiController extends template{
 
 					if($calling_class === "gestiontournoiController" && $calling_method === "update")
 						$v->assign("MAJ","1");
+
+					if($calling_class === "gestiontournoiController" && $calling_method === "error")
+						$v->assign("Error","1");
 
 					unset($_SESSION['referer_method']);
 				}
@@ -99,30 +102,45 @@ class gestiontournoiController extends template{
 	public function updateAction(){
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
-	   
+
 	    $user = $this->getConnectedUser();
-		
-	    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
-	    $userBDD = new userManager();
-	    $newuser = new user($checkedDatas);
 
-	    //On force la MAJ des checkbox même si elles sont vides
-	    $newuser->setRss(isset($checkedDatas['rss']));
-	    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
+		$filteredinputs = array_filter(filter_input_array(INPUT_GET, array('t' => FILTER_SANITIZE_STRING)));
+		$link = $filteredinputs['t'];
 
-	    // On met à jour
-	    $userBDD->setUser($user, $newuser);
-	    $expiration = time() + (86400 * 7);
-		if(array_key_exists("email", $checkedDatas)){
-			$_SESSION[COOKIE_EMAIL]=$checkedDatas['email'];
-			setcookie(COOKIE_EMAIL, null,-1,'/');
-			setcookie(COOKIE_EMAIL, $checkedDatas['email'],$expiration,'/');
-			setcookie(COOKIE_TOKEN, $_SESSION[COOKIE_TOKEN],$expiration,'/');
+		$tournamentBDD = new tournamentManager();
+
+		//On vérifie que l'utilisateur est bien propriétaire du tournoi
+
+		$tournament = $tournamentBDD->getTournamentWithLink($link);
+
+		if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
+				&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
+
+		    $newtournament = new tournament($checkedDatas);
+
+			//calcul du nombre de jours 
+
+			$dateactuelle = date_create(date('Y-m-d'));
+			$dateMAJ = date_create(date('Y-m-d',$newtournament->getStartDate()));
+
+			$difference = date_diff($dateactuelle, $dateMAJ);
+
+			$nbjours = $difference->format("%a");
+			$ecartjour = $difference->format("%R");
+
+			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null 
+				&& $ecartjour==="+" && $nbjours>="2"){
+				// On met à jour
+			    $tournamentBDD->setTournament($tournament, $newtournament);
+
+				$_SESSION['referer_method']="update";
+			}
+			else
+				$_SESSION['referer_method']="error";
+
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
 		}
-
-		$_SESSION['referer_method']="update";
-
-		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
@@ -130,98 +148,79 @@ class gestiontournoiController extends template{
 
 		//FILTER_SANITIZE_STRING Remove all HTML tags from a string
 	    $args = array(
-	      'email'   => FILTER_VALIDATE_EMAIL,
-	      'password'   => FILTER_SANITIZE_STRING,
-	      'new_password'   => FILTER_SANITIZE_STRING,
-	      'new_password_check'   => FILTER_SANITIZE_STRING,
+	      'name' => FILTER_SANITIZE_STRING,
 	      'description'   => FILTER_SANITIZE_STRING,
-	      'day'   => FILTER_SANITIZE_STRING,     
-	      'month'   => FILTER_SANITIZE_STRING,     
-	      'year'   => FILTER_SANITIZE_STRING,
-	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      'rss' => FILTER_VALIDATE_BOOLEAN,     
-	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
+	      'Dday'   => FILTER_SANITIZE_STRING,     
+	      'Dmonth'   => FILTER_SANITIZE_STRING,     
+	      'Dyear'   => FILTER_SANITIZE_STRING,
+	      'Eday'   => FILTER_SANITIZE_STRING,     
+	      'Emonth'   => FILTER_SANITIZE_STRING,     
+	      'Eyear'   => FILTER_SANITIZE_STRING,
+	      't' => FILTER_SANITIZE_STRING
+	      
 	    );
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
 
-		//Date de naissance
-		$filteredinputs['month'] = (int) $filteredinputs['month'];
-	    $filteredinputs['day'] = (int) $filteredinputs['day'];
-	    $filteredinputs['year'] = (int) $filteredinputs['year'];
+		//Début tournoi
+		$filteredinputs['Dmonth'] = (int) $filteredinputs['Dmonth'];
+	    $filteredinputs['Dday'] = (int) $filteredinputs['Dday'];
+	    $filteredinputs['Dyear'] = (int) $filteredinputs['Dyear'];
+
+	    //Fin tournoi
+		$filteredinputs['Emonth'] = (int) $filteredinputs['Emonth'];
+	    $filteredinputs['Eday'] = (int) $filteredinputs['Eday'];
+	    $filteredinputs['Eyear'] = (int) $filteredinputs['Eyear'];
 	    
-	    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-	      $this->echoJSONerror('date', 'La date reçue a fail !');
-	    else{
-	      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-	      
-	      if(!$date)
-	        $this->echoJSONerror('date', 'La date reçue a fail !');
 
-	      $filteredinputs['birthday'] = date_timestamp_get($date);
+	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) || !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear'])){
+	      	$this->echoJSONerror('date', 'La date reçue a fail !');
 	    }
+	    else{
 
-		//IMAGE DE PROFIL
-		if(isset($_FILES['profilpic'])){
+	      $datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
 
-			$uploaddir = '/web/img/upload/';
-			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
+	      $datefin = DateTime::createFromFormat('j-n-Y',$filteredinputs['Eday'].'-'.$filteredinputs['Emonth'].'-'.$filteredinputs['Eyear']);
+	      
+	      if(!$datedeb || !$datefin){
+	      	$this->echoJSONerror('date', 'La date reçue a fail !');
+	      }
 
-			define('KB', 1024);
-			define('MB', 1048576);
-			define('GB', 1073741824);
-			define('TB', 1099511627776);
+	      unset($filteredinputs['Dday']);
+	      unset($filteredinputs['Dmonth']);
+	      unset($filteredinputs['Dyear']);
+	      unset($filteredinputs['Eday']);
+	      unset($filteredinputs['Emonth']);
+	      unset($filteredinputs['Eyear']);
 
-			if($_FILES['profilpic']['size'] < 1*MB){
-				if($_FILES['profilpic']['error']==0){
-					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-					   die("Erreur d'upload");
-				}
-			}
-			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
-    	}
-
-    	//Si le mdp saisi est OK
-    	if(ourOwnPassVerify($filteredinputs['password'], $this->getConnectedUser()->getPassword())){
-    		
-    		/*HASHAGE DU MOT DE PASSE*/
-    			$filteredinputs['password']=ourOwnPassHash($filteredinputs['password']); 
-
-    		//Email
-		    if(!isset($filteredinputs['email']))
-				$this->echoJSONerror('inputs', 'adresse email non vide');
-			else{
-				$userBDD = new userManager();
-
-				$exist_email=$userBDD->emailExists($filteredinputs['email']);
-		    	if($filteredinputs['email']!=$_SESSION[COOKIE_EMAIL] && $exist_email)
-		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
-			}
-
-			//Password  
-		    if(isset($filteredinputs['new_password']) && isset($filteredinputs['new_password_check'])
-		    	&& !empty($filteredinputs['new_password']) && !empty($filteredinputs['new_password_check'])){
-		    	
-		    	if(strlen($filteredinputs['new_password'])<2 || strlen($filteredinputs['new_password'])>15)
-			      $this->echoJSONerror('password', 'votre nouveau mot de passe doit faire entre 2 et 15 caracteres'); 
-			  	else
-			  		$filteredinputs['password']=ourOwnPassHash($filteredinputs['new_password']);
-		    }
-    	}
-    	else
-    		$this->echoJSONerror('password', 'Mot de passe obligatoire');
-
-	    //Date de naissance
-		    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-		    //   $this->echoJSONerror('date', 'La date reçue a fail !');
-		    // else{
-		    //   $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-		    //   if(!$date)
-		    //     $this->echoJSONerror('date', 'La date reçue a fail !');
-		    //   $finalArr['birthday'] = date_timestamp_get($date);
-	    // }
+		  $filteredinputs['startDate'] = date_timestamp_get($datedeb);
+	   	  $filteredinputs['endDate'] = date_timestamp_get($datefin);
+	    
+	    }  	
 
 	    return array_filter($filteredinputs);
   	}
+
+
+  	public function deleteTourAction(){
+
+        $args = array(
+            'nom' => FILTER_SANITIZE_STRING
+        );
+
+        $filteredinputs = filter_input_array(INPUT_GET, $args);
+
+        $tournamentBDD = new tournamentManager();
+        $tournoi = $tournamentBDD->getFilteredTournaments($filteredinputs['nom'])[0];
+    
+        if($tournoi){
+            $tournamentBDD->deleteTour($tournoi);
+        	
+        }
+        else
+            return null;
+
+    }
+
 
 }
