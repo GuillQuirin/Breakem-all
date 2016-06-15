@@ -6,7 +6,7 @@ var platformModule = {
 		platformModule.setAdminWrapper();
 		platformModule.setPlatformAdd();
 		platformModule.setPlatformNav();		
-		platformModule.setPlatformAddBtn();
+		platformModule.setPlatformAddBtn();		
 
 		platformModule.postDataInsert();
 		platformModule.createPlatformsIhm();
@@ -31,14 +31,13 @@ var platformModule = {
 	setAdminDataElTitle : function(){
 		this._setAdminDataElTitle = jQuery('.admin-data-ihm-title');
 	},
+	setAdminDataRe : function(){
+		this._setAdminDataRe = jQuery('.admin-data-re');
+	},
 
 	//Getter
 	getAdminDataElTitle : function(){
 		return this._setAdminDataElTitle;
-	},
-
-	getPlatformNav : function(){
-		return this._setPlatformNav;
 	},
 
 	getPlatformAddBtn : function(){
@@ -104,7 +103,7 @@ var platformModule = {
 		 		result = tryParseData(result);
 
 		 		jQuery.each(result, function(i, field){			
-		 			onglet.getAdminWrapper().append(
+		 			onglet.getAdminDataRe().append(
 		 				"<div class='admin-data-ihm align relative'>" +
 
 							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
@@ -163,7 +162,7 @@ var platformModule = {
 	},
 	//Insert sur le formulaire d'ajout
 	postDataInsert : function(){		
-		platformModule.getPlatformNav().find('.row').append(		
+		onglet.getAdminDataRe().append(		
 				"<div class='index-modal platforms hidden-fade hidden'>" +
 
 					"<div class='index-modal-this index-modal-login align'>" +
