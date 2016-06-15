@@ -80,6 +80,7 @@
     transform:skew(-8deg);
     z-index:10000;
     cursor: pointer;
+    box-shadow: 1px 1px 5px 0px #656565;
 }
 
 .admin-btn-default span{

@@ -21,7 +21,7 @@ var platformModule = {
 	},
 
 	setAdminWrapper : function(){
-		this._adminWrapper = jQuery(".admin-wrapper.platforms");
+		this._adminWrapper = jQuery(".admin-wrapper");
 	},
 
 	setPlatformNav : function(){
