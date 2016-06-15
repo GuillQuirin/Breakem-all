@@ -9,7 +9,7 @@ class RSSController extends template{
 		$v->assign("content", "Fiche de l'utilisateur");
 
 		$tournoiBDD = new tournamentManager();
-		$listtournoi = $tournoiBDD->getNumberofTournaments(5);
+		$listtournoi = $tournoiBDD->getRecentsTournaments(5);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<rss version="2.0">';
