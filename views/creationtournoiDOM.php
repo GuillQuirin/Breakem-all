@@ -47,7 +47,4 @@
 			<h3 class="title title-2">Javascript nécessaire</h3>
 		</div>		
 	</div>
-	<!-- <div class="creationtournoi-validation-container display-flex-column ">
-		<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase"></a></button>
-	</div> -->
 </section>
