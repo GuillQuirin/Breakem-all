@@ -166,14 +166,18 @@ var dom = {
 };
 var validateChoices = {
 	_sumUp: false,
-	init: function(data, formToDel){
-		formToDel.remove();
+	_btn: false,
+	init: function(data){
+		var treeContainer = dom.getTreeConfirm();
+		resetTreeEl(treeContainer);
+		highlightTreeStep(treeContainer);
+    	loadTreeElTitle(treeContainer, 'révision');
+
 		$('html, body').animate({
 			scrollTop: 0
 		}, 500);
 		loadMainElementsChoice();
 		loadTitle('Valide tes choix', '');
-		loadBtn('Créer');
 		this.generateSumUp(data);
 		this.loadValidationEvent();
 	},
@@ -181,6 +185,7 @@ var validateChoices = {
 		if(this._sumUp instanceof jQuery)
 			this._sumUp.remove();
 		this._sumUp=false;
+		this._btn=false;
 	},
 	generateSumUp: function(data){
 		var container = $('<div class="creationtournoi-tournoi-valid-creation display-flex-column"></div>');
@@ -243,12 +248,16 @@ var validateChoices = {
 		mainList.append(finishDate);
 
 		container.append(mainList);
+		var valid = $('<div class="full-width creationtournoi-validation-container display-flex-column "></div>');
+		this._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
+		valid.append(this._btn);
+		container.append(valid);
 		dom.getContainer().after(container);
-		this._sumUp = mainList;
+		this._sumUp = container;
 	},
 	loadValidationEvent: function(){
 		var _this = this;
-		var _btn = dom.getBtn();
+		var _btn = this._btn;
 		_btn.off();
 		_btn.click(function(event) {			
 			jQuery.ajax({
@@ -282,6 +291,7 @@ var gameversionChoice = {
 	_choice: false,
 	_choiceDat: false,
 	_currentForm: false,
+	_btn: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: validateChoices,
@@ -292,6 +302,7 @@ var gameversionChoice = {
 	cleanDOM: function(){
 		this._choiceDat = false;
 		this._choice = false;
+		this._btn = false;
 		for (var i = this.possibleChoices.length - 1; i >= 0; i--) {
 			this.possibleChoices[i].remove();
 		}
@@ -343,7 +354,7 @@ var gameversionChoice = {
 			    	return false;
 			    loadMainElementsChoice(_this.possibleChoices);
 			    loadTitle("ton mode de jeu");
-			    loadBtn("suivant");
+			    
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
 		    }		    
@@ -378,6 +389,10 @@ var gameversionChoice = {
 			_this.randomAndGuildInputEvent(randomAndGuildInputs);
 		}
 		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="10"></textarea></div>');
+		var valid = $('<div class="creationtournoi-validation-container display-flex-column "></div>');
+		this._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
+		valid.append(this._btn);
+		form.append(valid);
 		container.append(form);
 		dom.getContainer().after(container);
 		$('html, body').animate({
@@ -394,6 +409,7 @@ var gameversionChoice = {
 			}else{
 				_this.setChoice(jQel, objDa, treeSubEl);
 				_this.putAccordingForm();
+				_this.loadValidationEvent();
 			}			
 		});
 		treeSubEl.click(function(e) {
@@ -402,6 +418,7 @@ var gameversionChoice = {
 			}else{
 				_this.setChoice(jQel, objDa, treeSubEl);
 				_this.putAccordingForm();
+				_this.loadValidationEvent();
 			}		
 		});
 	},
@@ -425,7 +442,6 @@ var gameversionChoice = {
 	setChoice: function(jQChoice, da, treeSubEl){
 		this._choice = jQChoice;
 		this._choiceDat = da;
-		console.log(da);
 		var allChoices = this.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
@@ -580,7 +596,7 @@ var gameversionChoice = {
 	},
 	loadValidationEvent: function(){
 		var _this = this;
-		var _btn = dom.getBtn();
+		var _btn = this._btn;
 		_btn.off();
 		_btn.click(function(event) {
 			if (!!_this.getChoice() && !!_this.getChoiceDat() && _this.checkForm()){
@@ -622,7 +638,8 @@ var gameversionChoice = {
 					    		}
 					    		return false;
 					    	}
-							validateChoices.init(obj, _this._currentForm);
+					    	_this.cleanDOM();
+							validateChoices.init(obj);
 						}
 					},
 					error: function(xhr, textStatus, errorThrown) {
@@ -630,7 +647,10 @@ var gameversionChoice = {
 					}
 				});
 				
-			};
+			}
+			else{
+				alert("fail maggle !");
+			}
 		});
 	}
 };
@@ -696,7 +716,7 @@ var consoleChoice = {
 			    	return false;
 			    loadMainElementsChoice(_this.possibleChoices);
 			    loadTitle("ta console");
-			    loadBtn("suivant");
+			    
 		    }else{
 		    	console.log("Création du DOM consoles impossible");
 		    }		    
@@ -809,7 +829,7 @@ var gameChoice = {
 			    	return false;
 			    loadMainElementsChoice(_this.possibleChoices);
 			    loadTitle("ton jeu");
-			    loadBtn("suivant");
+			    
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
 		    }		    
@@ -928,7 +948,7 @@ var gameTypesChoice = {
 			    	return false;
 			    loadMainElementsChoice(_this.possibleChoices);
 			    loadTitle("ton style de jeu");
-			    loadBtn("suivant");
+			    
 		    }else{
 		    	console.log("Création du DOM gametype impossible");
 		    }		    
