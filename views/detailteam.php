@@ -1,5 +1,5 @@
 <?php
-
+/*
 if(isset($err)){
     ?>
     <section class="absfiche">
@@ -10,7 +10,7 @@ if(isset($err)){
     </section>
     <?php
 }
-else{
+else{*/
 ?>
     <section class="middle-height bg-cover-classement relative  align full-height">
 
@@ -40,8 +40,13 @@ else{
         <form action="detailteam/updateUserTeam" method="POST">  
             <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
             <?php 
-                if(!empty($_idTeam)){
-                    if($_idTeam == $idteam) { ?>
+                if(empty($_isConnected)){
+                    echo "Connecte toi pour rejoindre cette guilde !";
+                }
+                elseif(!empty($_idTeam)){
+        
+                    if($_idTeam == $idteam) {
+                     ?>
                         <button name='action-team-exit' type='submit' class='btn btn-pink'>
                             <a>Quitter la Team !</a>
                         </button>
@@ -92,4 +97,4 @@ else{
         </div>
 
     </section>
-<?php } ?>
+<?php //} ?>
