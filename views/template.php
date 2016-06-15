@@ -271,6 +271,7 @@
 		                <li><a href="#" title="link 2">Nous contacter</a></li>
 		                <li><a href="#" title="link 3">CGU</a></li>
 		                <li><a href="#" title="link 4">About</a></li>
+		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="link 4">RSS</a></li>
 		            </ul>
 		        </div>
 		    </div>

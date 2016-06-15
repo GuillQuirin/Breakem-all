@@ -56,6 +56,9 @@ class gestiontournoiController extends template{
 					if($calling_class === "gestiontournoiController" && $calling_method === "update")
 						$v->assign("MAJ","1");
 
+					if($calling_class === "gestiontournoiController" && $calling_method === "error")
+						$v->assign("Error","1");
+
 					unset($_SESSION['referer_method']);
 				}
 
@@ -132,12 +135,11 @@ class gestiontournoiController extends template{
 			    $tournamentBDD->setTournament($tournament, $newtournament);
 
 				$_SESSION['referer_method']="update";
+			}
+			else
+				$_SESSION['referer_method']="error";
 
-				header("Location: ".$_SERVER['HTTP_REFERER']."");
-			}
-			else{
-				echo("Impossible de modifier les dates");   
-			}
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
 		}
 	}
 
