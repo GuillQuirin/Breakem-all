@@ -190,22 +190,23 @@ class template{
     try{
       $mail = new PHPmailer(true); 
       $mail->IsSMTP();
-      $mail->Host="SSL0.OVH.NET";
+      $mail->Host = 'smtp.gmail.com';
+      $mail->Port = 465;
       $mail->SMTPAuth = true;
-      $mail->Port = 587;
-      $mail->Username = "contact@breakem-all.com";
-      $mail->Password = "AllBreak75";
+      $mail->Username = "breakemall.contact@gmail.com";
+      $mail->Password = "EveryAm75";
       $mail->IsHTML(true); 
-           
+
+      $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
       //$mail->SMTPDebug  = 4; 
 
       //Expediteur (le site)
 
-      $mail->From='contact@breakem-all.com'; 
+      $mail->From='breakemall.contact@gmail.com'; 
       $mail->FromName='Administrateur Breakem All'; 
-      $mail->AddReplyTo('contact@breakem-all.com');      
+      $mail->AddReplyTo('breakemall.contact@gmail.com');      
       $mail->AddAddress($destinataire);
-      $mail->setFrom('contact@breakem-all.com', 'Admin BEA');         
+      $mail->setFrom('breakemall.contact@gmail.com', 'Admin BEA');         
       
       $mail->CharSet='UTF-8';
       $mail->Subject=$objet; 
