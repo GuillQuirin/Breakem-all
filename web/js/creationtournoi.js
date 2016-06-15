@@ -503,22 +503,6 @@ var gameversionChoice = {
 		}
 		return receivedTime;*/
 	},
-<<<<<<< HEAD
-	associateChoiceEvent: function(jQel, treeSubEl, da){
-		var _this = this;
-		jQel.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			consoleChoice.init(da);
-			var treeContainer = dom.getTreeGame();
-			loadTreeElTitle(treeContainer, da);
-		});
-		treeSubEl.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			consoleChoice.init(da);
-			var treeContainer = dom.getTreeGame();
-			loadTreeElTitle(treeContainer, da);
-		});
-=======
 	isStringValid: function(jQel){
 		if(jQel.val().replace(/ /g, '').length==0){
 			jQel[0].value = "";
@@ -533,7 +517,6 @@ var gameversionChoice = {
 			return false;
 		}
 		return true;
->>>>>>> e0e92b88ce6ace0fc6e5c44ff30ad2f99fa9a838
 	},
 	isGuildAndRandValid: function(randP, guild){
 		var randPVal = randP[0].checked;
@@ -727,17 +710,6 @@ var consoleChoice = {
 		var _this = this;
 		jQel.click(function(e) {
 			_this.setChoice(jQel, da, treeSubEl);
-<<<<<<< HEAD
-			gameversionChoice.init(da);
-			var treeContainer = dom.getTreePlatform();
-			loadTreeElTitle(treeContainer, da);
-		});
-		treeSubEl.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			gameversionChoice.init(da);
-			var treeContainer = dom.getTreePlatform();
-			loadTreeElTitle(treeContainer, da);
-=======
 			if (!!_this.getChoice() && !!da){
 				gameversionChoice.init(da);
 				var treeContainer = dom.getTreePlatform();
@@ -751,7 +723,6 @@ var consoleChoice = {
 				var treeContainer = dom.getTreePlatform();
 				loadTreeElTitle(treeContainer, da);
 			};
->>>>>>> e0e92b88ce6ace0fc6e5c44ff30ad2f99fa9a838
 		});
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
