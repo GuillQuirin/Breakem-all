@@ -12,10 +12,10 @@ $(document).ready(function(){
 			 	type: "POST",
 			 	data : "link="+link,
 			 	success: function(result){
-			 		//window.location.href = "http://stackoverflow.com";
+			 		location.reload();
 			 	},
 			 	error: function(result){
-			 		alert("non");
+			 		$("#result").html("Impossible de supprimer ce tournoi.");
 			 	}
 			});
 		}
@@ -29,9 +29,10 @@ $(document).ready(function(){
 			jQuery.ajax({
 			 	url: "gestiontournoi/mailMember",
 			 	type: "POST",
-			 	data : "message="+message,
+			 	data : "message="+message+"&link="+link,
 			 	success: function(result){
-			 		$("#result").html("Le mail a  correctement été envoyé.");
+			 		console.log(result);
+			 		//$("#result").html("Le mail a  correctement été envoyé.");
 			 	},
 			 	error: function(result){
 			 		$("#result").html("Problème d'envoi du message.");

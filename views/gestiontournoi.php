@@ -32,7 +32,7 @@ if(isset($tournoi)){
 				<div class="grid-md-12">
 					<?php 
 					if(trim($verrouillage)!=="disabled")
-						echo '<form action="gestiontournoi/update?t=<?php echo $tournoi->getLink(); ?>" method="post" enctype="multipart/form-data">';
+						echo '<form action="gestiontournoi/update?t='.$tournoi->getLink().'" method="post" enctype="multipart/form-data">';
 					?>
 						<table class="full-width configuration-form-table">
 							<?php 
@@ -106,10 +106,11 @@ if(isset($tournoi)){
 								</td>
 							</tr>
 						</table>
-						<input type="submit" value="Mettre à jour">
 					<?php 
-					if(trim($verrouillage)!=="disabled")
+					if(trim($verrouillage)!=="disabled"){
+						echo '<input type="submit" value="Mettre à jour">';
 						echo '</form>';
+					}
 					?>
 					<div>
 						<h3 class="configuration-form-menu-tr">Membres</h3>
@@ -125,9 +126,9 @@ if(isset($tournoi)){
 							?>
 						</table>
 
-						<?php if(!empty(trim($verrouillage))){ ?>
+						<?php if(trim($verrouillage)!=="disabled"){ ?>
 							<p>Message à destination des inscrits :</p>
-							<textarea id="msg_tournament" class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
+							<textarea id="msg_tournament" class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
 							</textarea>
 							<button id="btn_member_tournament">Envoyer le mail</button> 
 						<?php 

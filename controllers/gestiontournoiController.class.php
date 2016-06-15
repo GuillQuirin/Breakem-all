@@ -239,7 +239,13 @@ class gestiontournoiController extends template{
 
 		if($filteredinputs && $tournoi->getIdUserCreator() == $_id){
 
-    		$this->envoiMail($user->getEmail(),'Un organisateur de tournoi vous a envoyé un message.',$filteredinputs['message']);
+			$registerBDD = new registerManager();
+			$listeuser = $registerBDD->getTournamentParticipants($tournoi);
+
+			foreach ($listeuser as $user) {
+				$this->envoiMail($user->getEmail(),'Un organisateur de tournoi vous a envoyé un message.',$filteredinputs['message']);
+			}
+ 
     	}
     }
 
