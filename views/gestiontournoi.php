@@ -39,7 +39,7 @@ if(isset($tournoi)){
 								if(isset($MAJ))
 									echo "<tr class='MAJ text-center'><td colspan='2'>Mise à jour correctement effectuée.</td></tr>";
 								if(isset($Error))
-									echo "<tr class='MAJ text-center'><td colspan='2'>Il n'est plus possible de modifier le tournoi à 48h de son lancement.</td></tr>";
+									echo "<tr class='MAJ text-center'><td colspan='2'>Erreur de mise à jour: Il n'est plus possible de modifier le tournoi à 48h de son lancement.</td></tr>";
 								if(trim($verrouillage)==="disabled")
 									echo "<tr class='text-center'><td colspan='2'>Ce tournoi est terminé ou verrouillé</td></tr>";
 							?> 

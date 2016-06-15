@@ -120,7 +120,7 @@ class gestiontournoiController extends template{
 		$tournament = $tournamentBDD->getTournamentWithLink($link);
 
 		if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
-				&& $tournament->getIdUserCreator()==$this->connectedUser->getId()){
+				&& $tournament->getIdUserCreator()==$this->connectedUser->getId() && date('Ymd')<date('Ymd',$tournament->getStartDate())){
 
 		    $newtournament = new tournament($checkedDatas);
 
@@ -140,12 +140,12 @@ class gestiontournoiController extends template{
 			    $tournamentBDD->setTournament($tournament, $newtournament);
 
 				$_SESSION['referer_method']="update";
-			}
-			else
-				$_SESSION['referer_method']="error";
-
-			header("Location: ".$_SERVER['HTTP_REFERER']."");
+			}			
 		}
+		if(!isset($_SESSION['referer_method']))
+			$_SESSION['referer_method']="error";
+		
+		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
 	//Methode présente dans Controller et non template car on ne peut faire de MAJ qu'ici
