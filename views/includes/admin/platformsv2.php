@@ -41,7 +41,7 @@
 					echo "</div>";
 				echo "</div>";
 				//Fin Formulaire
-			echo "<div>";
+			echo "</div>";
 			//Fin Wrapper
 		}					
 	} 
