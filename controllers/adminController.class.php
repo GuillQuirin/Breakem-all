@@ -25,7 +25,7 @@ class adminController extends template{
     /* Gère la vue de Plateforme */
     public function platformsViewAction(){
         $platform = new platformManager();
-        $listeplatforms = $platform->getListPlatform();
+        $listeplatforms = $platform->getListPlatform();        
 
         $v = new view();
         $v->assign("listeplatform",$listeplatforms);
@@ -99,43 +99,13 @@ class adminController extends template{
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
                 $js['admin']="admin";
-                $js['adminPlatforms']="adminPlatforms";
+                //$js['adminPlatforms']="adminPlatforms";
                 $js['gametype']="gametype";
                 $js['adminTournois']="adminTournois";
                 $js['game']="game";
             $v->assign("js",$js);                                       
             $v->assign("title", "admin");
-            $v->assign("content", "Liste des Utilisateurs");
-
-            $admin = new adminManager();
-            $listejoueurs = $admin->getListUser();  
-            
-            $report = new signalmentsuserManager();
-            $listesignalement = $report->getListReports();
-            
-            $team = new teamManager();
-            $listeteam = $team->getListTeam(-2);
-
-            $gametypeBDD = new typegameManager();
-            $listgametype = $gametypeBDD->getAllTypes();
-
-            $gameBDD = new gameManager();
-            $listegames = $gameBDD->getAllGames();
-
-            $commentaireBDD = new commentsteamManager();
-            $listcomment = $commentaireBDD->getAllComment();
-
-            $v->assign("listejoueur",$listejoueurs);
-
-            $v->assign("listesignalement",$listesignalement);
-
-            $v->assign("listeteam",$listeteam);
-
-            $v->assign("listetypejeu",$listgametype);
-
-            $v->assign("listejeu",$listegames);
-
-            $v->assign("listecomment",$listcomment);
+            $v->assign("content", "Liste des Utilisateurs");        
            
             
             $v->setView("/includes/admin/accueil", "template");
@@ -177,30 +147,6 @@ class adminController extends template{
         $platformBdd->mirrorObject = new platform($filteredinputs);
         if($platformBdd->create())
             echo "CREATION";
-    }
-
-    public function uploadPlatformsImgAction(){
-
-        if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'];
-        }
-        else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-        }
-
-        $args = array(
-            'file' => FILTER_SANITIZE_STRING,
-            'id' => FILTER_SANITIZE_STRING
-        )
-
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
-        $platformBdd = new platformManager();
-        $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
-        $platformMaj = new platform($filteredinputs);
-        
-        if($platformBdd->setPlatform($platform, $platformMaj))
-            echo "OK";
-
     }
 
     public function updatePlatformsDataAction(){

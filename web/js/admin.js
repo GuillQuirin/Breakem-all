@@ -188,8 +188,8 @@ var onglet = {
 		onglet.getAdminDataIhm().remove();
 			jQuery.ajax({
 			 	url: "admin/platformsView",
-			 	success: function(result){
-			 		platformModule.init();
+			 	success: function(result){			 		
+			 		jQuery('.admin-data-re').html(result);
 			 	},
 			 	error: function(result){
 			 		alert("non");
