@@ -198,6 +198,8 @@ var onglet = {
 					navbar.form.admin();	
 					navbar.form.closeFormKey();
 			        navbar.form.closeFormClick();	
+					//Delete
+					platformModule.init();			      
 			 	},
 			 	error: function(result){
 			 		console.log("No data found on platform.");
