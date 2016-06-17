@@ -188,11 +188,19 @@ var onglet = {
 		onglet.getAdminDataIhm().remove();
 			jQuery.ajax({
 			 	url: "admin/platformsView",
-			 	success: function(result){			 		
+			 	success: function(result){			 	
+			 		//Affichage de la page	
 			 		jQuery('.admin-data-re').html(result);
+			 		//Affichage des boutons sur hover
+			 		admin.ihmElemHover();
+			 		//Ouverture et Fermeture du formulaire
+			 		navbar.setOpenFormAll();	
+					navbar.form.admin();	
+					navbar.form.closeFormKey();
+			        navbar.form.closeFormClick();	
 			 	},
 			 	error: function(result){
-			 		alert("non");
+			 		console.log("No data found on platform.");
 			 	}
 			});
 		
@@ -339,56 +347,3 @@ $("button[id^='validate-change-']" ).on('click', function() {
 	//Recherche le formulaire le plus proche pour valider
     $(this).closest('form').submit();
 });
-
-
-
-//Maj user
-function setStatut(pseudo, value){
-	jQuery.ajax({
-	 	url: "admin/updateUserStatus",
-	 	type: "POST",
-	 	data : "pseudo="+pseudo+"&status="+value,
-	 	succes: function(result){
-	 		console.log(result);
-	 	},
-	 	error: function(result){
-	 		alert("non");
-	 	}
-	});
-}
-
-//Maj signalement
-function deleteReport(id){
-	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
-		jQuery.ajax({
-		 	url: "admin/DeleteReports",
-		 	type: "POST",
-		 	data : "id="+id,
-		 	success: function(result){
-		 		location.reload(true);
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	}
-}
-
-//Maj commentaire
-function deleteComment(id){
-	if(confirm("Souhaitez vous modérer ce commentaire ?")){
-		jQuery.ajax({
-		 	url: "admin/delComment",
-		 	type: "POST",
-		 	data : "id="+id,
-		 	success: function(result){
-		 		location.reload(true);
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	}
-}

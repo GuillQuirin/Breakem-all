@@ -27,7 +27,7 @@ class adminController extends template{
         $platform = new platformManager();
         $listeplatforms = $platform->getListPlatform();        
 
-        $v = new view();
+        $v = new view();       
         $v->assign("listeplatform",$listeplatforms);
         $v->setView("/includes/admin/platformsv2", "templateEmpty");
     }
@@ -98,10 +98,9 @@ class adminController extends template{
             $v = new view();
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
-                $js['admin']="admin";
-                //$js['adminPlatforms']="adminPlatforms";
-                $js['gametype']="gametype";
-                $js['adminTournois']="adminTournois";
+                $js['admin']="admin";     
+                $js['adminPlatforms']="adminPlatforms";           
+                $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       
             $v->assign("title", "admin");

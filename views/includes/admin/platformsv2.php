@@ -45,5 +45,4 @@
 			//Fin Wrapper
 		}					
 	} 
-	?>		
-</div>
+?>		
