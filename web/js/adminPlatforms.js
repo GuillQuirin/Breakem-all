@@ -5,14 +5,19 @@ var platformModule = {
 	init : function(){
 		platformModule.setDeleteBtn();
 		platformModule.setUpdateBtn();
+		platformModule.setInsertBtn();
 		platformModule.setAdminDataRe();
 		platformModule.postDataDelete();
-		platformModule.postDataUpdate();			
+		platformModule.postDataUpdate();
+		platformModule.postDataInsert();			
 	},
 
 	//Setter
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
+	},
+	setInsertBtn : function(){
+		this._insertBtn = jQuery('.admin-btn-insert');
 	},
 	setUpdateBtn : function(){
 		this._updateBtn = jQuery('.admin-btn-modify');
@@ -24,6 +29,9 @@ var platformModule = {
 	//Getter
 	getUpdateBtn : function(){
 		return this._updateBtn;
+	},
+	getInsertBtn : function(){
+		return this._insertBtn;
 	},
 	getDeleteBtn : function(){
 		return  this._deleteBtn;
@@ -133,6 +141,40 @@ var platformModule = {
 					}
 				});
 			});			
+		});
+	},
+
+	//Ajouter
+	postDataInsert : function(){
+		platformModule.getInsertBtn().on("click", function(e){
+			var btn = jQuery(e.currentTarget);
+
+			btn.parent().parent().append(
+				//Formulaire
+				"<div class='index-modal platforms hidden-fade hidden'>" +
+
+					"<div class='index-modal-this index-modal-login align'>" +
+						
+						"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
+							"<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+								"<input type='text' name='id' class='hidden platform-id-p' value=''>" +
+							    "<label for='email'>Nom :</label>" +
+							    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>" +
+							    "<label for='email'>Description :</label>" +
+							    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>" +						    					 
+							    "<div class='admin-avatar-wrapper m-a'>" +																 
+									"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>" +									 
+								"</div>" +
+								"<div class='text-center admin-input-file'>" +								 
+								"<input type='file' class='platform-image-p' name='profilpic'>" +
+								"</div>" +
+							    "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
+					  		"</form>" +
+					  	"</div>" +
+					"</div>" +
+				"</div>"
+				//Fin Formulaire
+			);			
 		});
 	}	
 };
