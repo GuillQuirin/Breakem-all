@@ -861,3 +861,19 @@ var deconnection = {
 		});
 	}
 }
+
+$(document).ready(function(){
+	$("#cookieaccept").click(function(){
+		jQuery.ajax({
+				url: 'index/acceptCookie',
+				type: 'POST',
+				data: {validation: '1'},
+				success: function(result){
+					$('#cookie_info').slideUp();
+				},
+				error: function(){
+					console.log("erreur validation cookie");
+				}
+			});
+	});
+});

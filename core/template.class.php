@@ -15,6 +15,10 @@ class template{
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
 
+    if($this->acceptCookie()){
+      $v->assign("popupCookie", 1);
+    }
+
     if($this->isVisitorConnected()){
       $v->assign("_isConnected", 1);
       $v->assign("_id", $this->connectedUser->getId());
@@ -48,6 +52,40 @@ class template{
         $v->assign("_isAdmin",0);
       }
     }
+  }
+
+  protected function acceptCookie(){
+    $args = array(
+      'validation' => FILTER_SANITIZE_STRING
+    );
+    $filteredinputs = filter_input_array(INPUT_POST, $args);
+    
+    if($_POST['validation'])
+      $_SESSION["filtered"]='ok';//$_POST['validation'];
+  
+    if($filteredinputs['validation']){
+      $_SESSION[AUTORISATION]=1;
+    }
+
+    //Le cookie est déjà présent
+    if(isset($_COOKIE[AUTORISATION])){
+      
+      if(isset($_SESSION[AUTORISATION]))
+        unset($_SESSION[AUTORISATION]);
+
+      return false;
+    }
+    else{
+        
+      if(isset($_SESSION[AUTORISATION]) && $_SESSION[AUTORISATION]==1){
+        setcookie(AUTORISATION, 1, time()+60*60*24*30*365);
+        unset($_SESSION[AUTORISATION]);
+        return false;
+      }
+    
+    }
+
+    return true;
   }
 
   protected function isVisitorConnected(){
