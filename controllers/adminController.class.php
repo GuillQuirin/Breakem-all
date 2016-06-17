@@ -158,6 +158,13 @@ class adminController extends template{
             'description' => FILTER_SANITIZE_STRING,                
         );                        
         
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }
+
         $filteredinputs = filter_input_array(INPUT_POST, $args);            
         
         $platformBdd = new platformManager();
