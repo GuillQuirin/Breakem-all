@@ -198,7 +198,7 @@ var onglet = {
 					navbar.form.admin();	
 					navbar.form.closeFormKey();
 			        navbar.form.closeFormClick();	
-					//Delete
+					//Platform
 					platformModule.init();			      
 			 	},
 			 	error: function(result){

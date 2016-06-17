@@ -1,21 +1,30 @@
 "use strict";
 
 var platformModule = {	
+	_this: this,
 	init : function(){
-		platformModule.setDeleteBtn();	
+		platformModule.setDeleteBtn();
+		platformModule.setUpdateBtn();
 		platformModule.setAdminDataRe();
-		platformModule.postDataDelete();			
+		platformModule.postDataDelete();
+		platformModule.postDataUpdate();			
 	},
 
 	//Setter
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
+	setUpdateBtn : function(){
+		this._updateBtn = jQuery('.admin-btn-modify');
+	},
 	setAdminDataRe : function(){
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
 
 	//Getter
+	getUpdateBtn : function(){
+		return this._updateBtn;
+	},
 	getDeleteBtn : function(){
 		return  this._deleteBtn;
 	},
@@ -33,6 +42,7 @@ var platformModule = {
 
 			var data = {id : id};				
 
+			//Ajax Delete Controller
 			jQuery.ajax({
 				url: "admin/deletePlatformData", 				
 				type: "POST",
@@ -62,7 +72,40 @@ var platformModule = {
 			 	}
 			});		
 		});				
-	}
+	},
 
 	//Modifier
+	postDataUpdate : function(){
+		platformModule.getUpdateBtn().on("click", function(e){
+			var updateBtn = jQuery(e.currentTarget);
+
+			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-submit-form-btn');
+
+			submitBtn.on("click", function(){
+				var id = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-id-p').val();
+				var name = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-nom-p').val();
+				var description = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-description-p').val();
+				//var img = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p').prop('src');
+
+				var allData = {id : id, name : name, description : description};
+
+
+				jQuery.ajax({
+					url: "admin/updatePlatformsData", 
+					type: "POST",
+					data: allData,
+					success: function(result){
+						console.log("Plateforme mise à jour");
+						//Reload la mise a jour dans l'html
+						updateBtn.parent().parent().find('.platform-nom-g').html(name);
+						updateBtn.parent().parent().find('.platform-description-g').html(description);	
+						navbar.form.smoothClosing();				
+					},
+					error: function(result){
+						throw new Error("Couldn't update platform", result);
+					}
+				});
+			});			
+		});
+	}	
 };
