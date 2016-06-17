@@ -4,7 +4,7 @@ if(isset($err)){
     ?>
     <section class="absfiche">
         <div>
-            ERREUR 404, utilisateur introuvable
+            ERREUR 404, team introuvable
             <p><a href="index">Retour à l'accueil</a></p>
         </div>
     </section>
@@ -40,8 +40,13 @@ else{
         <form action="detailteam/updateUserTeam" method="POST">  
             <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
             <?php 
-                if(!empty($_idTeam)){
-                    if($_idTeam == $idteam) { ?>
+                if(empty($_isConnected)){
+                    echo "Connecte toi pour rejoindre cette guilde !";
+                }
+                elseif(!empty($_idTeam)){
+        
+                    if($_idTeam == $idteam) {
+                     ?>
                         <button name='action-team-exit' type='submit' class='btn btn-pink'>
                             <a>Quitter la Team !</a>
                         </button>

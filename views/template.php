@@ -115,7 +115,7 @@
 												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
 											
 											else
-												echo "<a href=''>Créer ma team</a>";
+												echo "<a href='".WEBPATH."/creationteam'>Créer ma team</a>";
 											
 											echo "</li>";
 										}
