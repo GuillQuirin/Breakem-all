@@ -248,7 +248,6 @@
 
 		if(isset($popupCookie))
 			echo "<div id='cookie_info'>Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez votre accord pour exploiter ces cookies.<button id='cookieaccept'>OK</button></div>";
-		echo "<pre>";var_dump($_SESSION);
 		?>
 
 		<!-- Footer des pages -->

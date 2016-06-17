@@ -15,6 +15,7 @@ function initAll(){
 	register.init();
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 	checkForJustCreatedAccount();
+	cookie.init();
 }
 
 function $_GET(param) {
@@ -862,18 +863,40 @@ var deconnection = {
 	}
 }
 
-$(document).ready(function(){
-	$("#cookieaccept").click(function(){
-		jQuery.ajax({
-				url: 'index/acceptCookie',
+
+var cookie = {
+	init : function(){
+		cookie.setBtnCookie();
+		cookie.setCookieInfo();
+		cookie.postCookie();
+	},
+	setBtnCookie : function(){
+		this._btnCookie = jQuery('#cookieaccept');
+	},
+	setCookieInfo : function(){
+		this._cookieInfo = jQuery('#cookie_info');
+	},
+	getBtnCookie : function(){
+		return this._btnCookie;
+	},
+	getCookieInfo : function(){
+		return this._cookieInfo;
+	},
+
+	postCookie : function(){
+		var allData = {validation : "1"};
+		cookie.getBtnCookie().on("click", function(){
+			jQuery.ajax({
+				utl: 'index/acceptCookie',
 				type: 'POST',
-				data: {validation: '1'},
-				success: function(result){
-					$('#cookie_info').slideUp();
+				data: allData,
+				success : function(result){
+					cookie.getCookieInfo().slideUp();
 				},
-				error: function(){
-					console.log("erreur validation cookie");
+				error: function(result){
+					throw new Error("Erreur de validation cookie", result);
 				}
 			});
-	});
-});
+		});
+	}	
+};

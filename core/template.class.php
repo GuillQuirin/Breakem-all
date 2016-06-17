@@ -60,9 +60,6 @@ class template{
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     
-    if($_POST['validation'])
-      $_SESSION["filtered"]='ok';//$_POST['validation'];
-  
     if($filteredinputs['validation']){
       $_SESSION[AUTORISATION]=1;
     }
