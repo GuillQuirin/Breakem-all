@@ -11,8 +11,14 @@ class detailteamController extends template{
 		$v->assign("content", "Team - Error");
 		$v->setView("detailteam");
 
-		//Si un paramètre GET portant le nom d'une team dans l'URL
         if(isset($_GET['name'])){
+            //Si le paramètre GET['name'] n'exite pas alors tu me renvoi erreur 1   
+            $teamName = new teamManager();
+            $nameTeam = $teamName->getNameTeam($_GET['name']);
+        }
+
+		//Si un paramètre GET portant le nom d'une team dans l'URL
+        if(isset($_GET['name']) && $_GET['name'] != '' && $nameTeam == true){
             $name = $_GET['name'];
             $v->assign("title", "Team - ".$name);
             $v->assign("content", "Team - ".$name);

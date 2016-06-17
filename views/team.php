@@ -1,4 +1,4 @@
-<!-- Liste des tournois en cours -->
+<!-- Liste des teams -->
 <?php   
     if(isset($listeteam)): 
         foreach ($listeteam as $key => $team):

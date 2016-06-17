@@ -1,16 +1,16 @@
 <?php
-/*
+
 if(isset($err)){
     ?>
     <section class="absfiche">
         <div>
-            ERREUR 404, utilisateur introuvable
+            ERREUR 404, team introuvable
             <p><a href="index">Retour à l'accueil</a></p>
         </div>
     </section>
     <?php
 }
-else{*/
+else{
 ?>
     <section class="middle-height bg-cover-classement relative  align full-height">
 
@@ -97,4 +97,4 @@ else{*/
         </div>
 
     </section>
-<?php //} ?>
+<?php } ?>
