@@ -140,7 +140,7 @@ class adminController extends template{
     public function insertPlatformDataAction(){
         $args = array(            
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,            
+            'description' => FILTER_SANITIZE_STRING,                      
         );
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
@@ -155,11 +155,11 @@ class adminController extends template{
         $args = array(
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,            
-        );        
+            'description' => FILTER_SANITIZE_STRING,                
+        );                        
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);            
-
+        
         $platformBdd = new platformManager();
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
         $platformMaj = new platform($filteredinputs);

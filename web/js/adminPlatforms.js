@@ -87,7 +87,7 @@ var platformModule = {
 				var description = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-description-p').val();
 				//var img = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p').prop('src');
 
-				var allData = {id : id, name : name, description : description};
+				var allData = {id : id, name : name, description : description, img : img};
 
 
 				jQuery.ajax({

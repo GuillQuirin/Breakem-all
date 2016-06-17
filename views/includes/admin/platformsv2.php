@@ -2,7 +2,7 @@
 	if(isset($listeplatform)){	
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {
-				//Wrapper
+				//Wrapper				
 				echo "<div class='admin-data-ihm align relative'>";
 
 					//Affichage
