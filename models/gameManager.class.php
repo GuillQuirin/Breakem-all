@@ -5,9 +5,9 @@
 class gameManager extends basesql{
 	
 	public function getBestGames(){        
-         $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu
+         $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu, G.img
                  FROM tournament T, gameversion GV, game G
-                WHERE G.id = GV.idGame AND GV.id = T.idGameVersion
+                 WHERE G.id = GV.idGame AND GV.id = T.idGameVersion
                  LIMIT 0,3";
         $sth = $this->pdo->query($sql);
         return $sth->fetchAll(PDO::FETCH_ASSOC);
