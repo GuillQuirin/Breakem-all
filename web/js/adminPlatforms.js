@@ -93,36 +93,45 @@ var platformModule = {
 				var id = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-id-p').val();
 				var name = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-nom-p').val();
 				var description = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-description-p').val();
-				var img = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p');
+				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p');
 
 				var allData = {id : id, name : name, description : description};
 
 				//Upload des images
-			    /*if (typeof FormData !== 'undefined') {
+			    if (typeof FormData !== 'undefined') {
 			           
-			        var file = img.prop('files')[0];   
-				    var imgData = new FormData();                  
-				    imgData.append('file', file);				    		                             
-				    jQuery.ajax({
-			            url: "admin/updatePlatformsData", 
-			            dataType: 'text',  
-			            cache: false,
-			            contentType: false,
-			            processData: false,
-			            data: imgData,                         
-			            type: 'POST',
-			            success: function(result2){
-			                console.log("Image uploadé.");
-			                console.log(file.name);
-			            },
-			            error: function(result2){
-			                console.log(result2);
-			            }
-				    });
+			        //Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
 
+			        if(file){
+
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = "upload/" + file.name;
+
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);				    		                             
+					    jQuery.ajax({
+				            url: "admin/updatePlatformsData", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image uploadé.");
+				                console.log(file.name);
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+			        }   				    
 			    } else {    	
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
-			    }*/   
+			    } 		
+
+			    console.log("out", allData);
 
 			    //Update de la platform
 				jQuery.ajax({
@@ -130,6 +139,7 @@ var platformModule = {
 					type: "POST",
 					data: allData,
 					success: function(result){
+						console.log("in", allData);
 						console.log("Plateforme mise à jour");
 						//Reload la mise a jour dans l'html
 						updateBtn.parent().parent().find('.platform-nom-g').html(name);
