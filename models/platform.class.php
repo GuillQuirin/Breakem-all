@@ -32,7 +32,9 @@ class platform{
 	}
 	public function setImg($v){
 		if(strlen(trim($v))!=0)
-			$this->img = "web/img/".$v;
+			//set image x2 pourquoi?
+			//$this->img = "web/img/".$v;
+			$this->img = $v;
 	}
 
 	public function getId(){return $this->id;}
