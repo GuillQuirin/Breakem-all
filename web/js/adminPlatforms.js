@@ -3,10 +3,18 @@
 var platformModule = {	
 	_this: this,
 	init : function(){
+		//Setter
 		platformModule.setDeleteBtn();
 		platformModule.setUpdateBtn();
 		platformModule.setInsertBtn();
+		platformModule.setPreviewInput();
+		platformModule.setImgWrapper();
 		platformModule.setAdminDataRe();
+
+		//Preview
+		platformModule.previewImg();
+
+		//Supprime/Modifie/Ajoute
 		platformModule.postDataDelete();
 		platformModule.postDataUpdate();
 		platformModule.postDataInsert();			
@@ -25,6 +33,12 @@ var platformModule = {
 	setAdminDataRe : function(){
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
+	setPreviewInput : function(){
+		this._previewInput = jQuery('.platform-image-p');
+	},
+	setImgWrapper : function(){
+		this._imgWrapper = jQuery('.platform-img');
+	},
 
 	//Getter
 	getUpdateBtn : function(){
@@ -38,6 +52,18 @@ var platformModule = {
 	},
 	getAdminDataRe : function(){
 		return this._adminDataRe;
+	},
+	getPreviewInput : function(){
+		return this._previewInput;
+	},
+	getImgWrapper : function(){
+		return this._imgWrapper;
+	},
+
+	previewImg : function(){
+		platformModule.getPreviewInput().on('change', function(){
+    		previewUpload(this, platformModule.getImgWrapper());
+		});
 	},
 
 	//Delete sur le boutton Supprimer

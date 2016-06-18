@@ -56,6 +56,22 @@ function uploadImage(myController, data) {
     }   
 }
 
+
+//Preview de l'image avant upload
+function previewUpload(input, targetSrc) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            targetSrc.attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 

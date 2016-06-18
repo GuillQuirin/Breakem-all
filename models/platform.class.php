@@ -5,7 +5,7 @@ class platform{
 	protected $id = null;
 	protected $name = null;
 	protected $description = null;
-	protected $img = null;	
+	protected $img = null;		
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -31,10 +31,8 @@ class platform{
 		$this->description=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v))!=0)
-			//set image x2 pourquoi?
-			//$this->img = "web/img/".$v;
-			$this->img = $v;
+		if(strlen(trim($v))!=0)		
+			$this->img = "web/img/".$v;				
 	}
 
 	public function getId(){return $this->id;}
