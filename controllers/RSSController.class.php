@@ -11,6 +11,8 @@ class RSSController extends template{
 		$tournoiBDD = new tournamentManager();
 		$listtournoi = $tournoiBDD->getRecentsTournaments(5);
 
+		//Rédaction du fichier
+
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<rss version="2.0">';
 			$xml .= '<channel>'; 
@@ -33,11 +35,14 @@ class RSSController extends template{
 			$xml .= '</channel>';
 		$xml .= '</rss>';
 
+		//Ecriture dans le fichier
 		$fichier = fopen("flux.xml", 'w+');
 		fputs($fichier, $xml);
 		fclose($fichier);
 
 		$rss = simplexml_load_file('flux.xml'); 
+
+		//Affichage du contenu sur la page
 		foreach ($rss->channel->item as $item) { 
 		  echo '<div>
 		           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
