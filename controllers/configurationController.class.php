@@ -35,6 +35,16 @@ class configurationController extends template{
 			if($calling_class === "configurationController" && $calling_method === "update")
 				$v->assign("MAJ","1");
 
+			if(isset($_SESSION['err_img_upload'])){
+				$v->assign("err_img_upload","1");
+				unset($_SESSION["err_img_upload"]);
+			}
+			
+			if(isset($_SESSION['err_img_size'])){
+				$v->assign("err_img_size","1");
+				unset($_SESSION["err_img_size"]);				
+			}
+
 			unset($_SESSION['referer_method']);
 		}		
 
@@ -111,6 +121,7 @@ class configurationController extends template{
 	    }
 
 		//IMAGE DE PROFIL
+
 		if(isset($_FILES['profilpic'])){
 
 			$uploaddir = '/web/img/upload/';
@@ -121,12 +132,15 @@ class configurationController extends template{
 			define('GB', 1073741824);
 			define('TB', 1099511627776);
 
-			if($_FILES['profilpic']['size'] < 1*MB){
+			if($_FILES['profilpic']['size'] < 3*MB){
 				if($_FILES['profilpic']['error']==0){
 					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-					   die("Erreur d'upload");
+					   $_SESSION['err_img_upload']=1;
 				}
 			}
+			else
+				$_SESSION['err_img_size']=1;
+
 			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
     	}
 

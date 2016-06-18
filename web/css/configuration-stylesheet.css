@@ -12,6 +12,16 @@ body, html{
     margin-top:0;
 }
 
+.success{
+    color: green;
+    font-weight: bold;
+}
+
+.error{
+    color:red;
+    font-weight: bold;
+}
+
 .configuration-onglet-wrapper{
     position:absolute;
     bottom:-1px;    
