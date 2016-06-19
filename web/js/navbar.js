@@ -8,6 +8,21 @@ window.addEventListener('load', function load(){
 	
 });
 
+// Cookie
+$(document).ready(function(){
+	//au chargement de la page je règle le marginTop de #barre à 0 (il etait fixé à -50px dans le css) en 500ms
+     $('.barre-cookie').animate({
+        marginTop: "0",
+    }, 500);
+
+	//au clic sur #fermer qui est la croix j'anime le marginTop de #barre à -30px pour le faire remonter et laisser le border bottom apparent
+    $(".accepter").mousedown(function(){
+        $('.barre-cookie').animate({ 
+            marginBottom: "-50px",
+        }, 500);
+    });
+});
+
 function initAll(){
 	connection.init();
 	navbar.init();
