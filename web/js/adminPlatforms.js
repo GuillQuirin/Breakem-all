@@ -146,7 +146,7 @@ var platformModule = {
 				            type: 'POST',
 				            success: function(result2){
 				                console.log("Image uploadé.");
-				                console.log(file.name);
+				                console.log(file.name);				       
 				            },
 				            error: function(result2){
 				                console.log(result2);
@@ -156,8 +156,6 @@ var platformModule = {
 			    } else {    	
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
-
-			    console.log("out", allData);
 
 			    //Update de la platform
 				jQuery.ajax({
@@ -169,7 +167,11 @@ var platformModule = {
 						console.log("Plateforme mise à jour");
 						//Reload la mise a jour dans l'html
 						updateBtn.parent().parent().find('.platform-nom-g').html(name);
-						updateBtn.parent().parent().find('.platform-description-g').html(description);	
+						updateBtn.parent().parent().find('.platform-description-g').html(description);
+						//Si l'image uploadé existe on l'envoi dans la dom
+						if(allData.img){
+							updateBtn.parent().parent().find('.platform-img-up').attr('src', allData.img);	
+						}	
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
