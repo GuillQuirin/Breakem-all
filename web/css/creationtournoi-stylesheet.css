@@ -69,12 +69,8 @@
 .creationtournoi-active-choice{
 	z-index: 2;
 }
-.navbar{	
-	background-color: rgba(0, 0, 0, .8)!important;
-	color: #000 !important;
-}
-.navbar:hover{
-	background-color: rgba(0, 0, 0, 1)!important;
+.navbar{
+	background-color: rgba(8,3,37,0.5) !important;
 }
 
 .creationtournoi-element-container{
