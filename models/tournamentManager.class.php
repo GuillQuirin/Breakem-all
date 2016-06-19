@@ -41,7 +41,7 @@ final class tournamentManager extends basesql{
 		return false;
 	}
 
-	public function getNumberofTournaments($nb=20){
+	public function getRecentsTournaments($nb=20){
 		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)
 			return false;
 		// Ce gros morceau de requete permet d'alimenter un tournoi des noms de sa console, son jeu et plein d'autres trucs super cool comme le nombre de joueurs/teams maximum 

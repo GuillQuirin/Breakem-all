@@ -86,7 +86,7 @@
 	</head>
 
 	<body>
-		
+
 		<header>
 			
 			<!-- Navbar top -->
@@ -262,7 +262,12 @@
 			<?php include $this->view; ?>
 		</div>
 
+		<?php 
+		//Notification d'utilisation de cookie
 
+		if(isset($popupCookie))
+			echo "<div id='cookie_info'>Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez votre accord pour exploiter ces cookies.<button id='cookieaccept'>OK</button></div>";
+		?>	
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
@@ -270,34 +275,51 @@
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
-		                <li><a href="<?php echo WEBPATH ?>" title="accueil">Accueil</a></li>
-		                <li><a href="#" title="link 2">Tournoi</a></li>
-		                <li><a href="#" title="link 3">Team</a></li>
-		                <li><a href="#" title="link 4">Classement</a></li>
+		                <li><a href="<?php echo WEBPATH.'/index'; ?>" title="accueil">Accueil</a></li>
+		                <li><a href="<?php echo WEBPATH.'/listetournois'; ?>" title="Liste des tournois">Tournois</a></li>
+		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
+		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 		            </ul>
 		        </div>
 		        <div class="footer_content">
-		            <h3 class="footer_title">Tournoi - Team</h3>
+		            <h3 class="footer_title">Nous rejoindre</h3>
 		            <ul>
-		                <li><a href="#" title="link 3">Créer un tournoi</a></li>
-		                <li><a href="#" title="link 4">Créer une team</a></li>
+		        <?php 
+				if(isset($_isConnected)){
+					?>
+	                <li><a href="<?php echo WEBPATH.'/creationtournoi'; ?>" title="Créer mon tournoi">Créer un tournoi</a></li>
+					<li>
+						<?php 
+						if(!empty($_idTeam))
+							echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."' title='Ma team'>Ma team</a>";
+						else
+							echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créer ma team</a>";
+						?>	
+					</li>
+			        <?php 
+		        }
+		        ?>
+		                <li><a href="<?php echo WEBPATH.'/listejoueurs'; ?>" title="Nos joueurs">Les joueurs</a></li>
 		            </ul>
 		        </div>
 		        <div class="footer_content">
 		            <h3 class="footer_title">Help</h3>
 		            <ul>
-		                <li><a href="#" title="link 1">Profil</a></li>
+		                <?php 
+		                if(isset($_isConnected))
+		                	echo "<li><a href='".WEBPATH."/profil?pseudo=".$_pseudo."' title='Acceder à ma page'>Profil</a></li>";
+		                ?>
 		                <li><a href="#" title="link 2">Nous contacter</a></li>
-		                <li><a href="#" title="link 3">CGU</a></li>
-		                <li><a href="#" title="link 4">About</a></li>
-		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="link 4">RSS</a></li>
+		                <li><a href="<?php echo WEBPATH.'/CGU'; ?>" title="Conditions d'utilisation">CGU</a></li>
+		                <li><a href="<?php echo WEBPATH.'/copyright'; ?>" title="Reglement">About</a></li>
+		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="Flux RSS">RSS</a></li>
 		            </ul>
 		        </div>
 		    </div>
 		</div>
 
 		<div class="copy">
-		    <div class="copy_wrap">Copyright &copy; ESGI Break'em All. All right reserved. 2016 | <a href="#">Privacy</a></div>
+			<div class="copy_wrap">Copyright &copy; ESGI Break'em All. All right reserved. 2016</div>
 		</div>
 		</footer>
 

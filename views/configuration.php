@@ -1,8 +1,3 @@
-<?php
-	if(isset($MAJ))
-		echo "<div>Mise à jour correctement effectuée.</div>";
-	?>
-
 	<section class="middle-height bg-cover-configuration relative">
 
 	<div class="align full-height">
@@ -29,11 +24,8 @@
 	<div class="configuration-onglet-wrapper">
 		<ul class="configuration-onglet-ul">
 			<li class="active">
-				<a>Profil</a>
-			</li><!--
-			--><!-- li>
-				<a>Team</a>
-			</li> -->			
+				Profil
+			</li>			
 		</ul>
 	</div>
 
@@ -49,6 +41,18 @@
 					<form action="configuration/update" method="post" enctype="multipart/form-data">
 
 						<table class="full-width configuration-form-table">
+							<?php 
+
+							if(isset($MAJ))
+								echo '<tr class="success text-center"><td colspan="2">Mise à jour correctement effectuée.</td></tr>';
+
+							if(isset($err_img_upload))
+								echo '<tr class="error text-center"><td colspan="2">Erreur dans le téléchargement de votre image.</td></tr>';
+
+							if(isset($err_img_size))
+								echo '<tr class="error text-center"><td colspan="2">Attention votre fichier ne doit pas excéder 3MB.</td></tr>';
+							?>
+
 							<tr class="text-center">
 								<td colspan="2">
 									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnelles</span>

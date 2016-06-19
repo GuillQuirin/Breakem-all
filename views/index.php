@@ -189,15 +189,14 @@
 					<label for="title2">Jeux les plus utlisés</label>
 				</div>
 				<?php 
-					if(isset($bestGames)):
-						foreach ($bestGames as $key => $value):
-				?>			
-							<div class='game'><img src="echo .WEBPATH. '/web/img/band.jpg'">
-								<p><?php echo $value['name']; ?></p>
-							</div>
-				<?php
-						endforeach;
-					endif;
+					if(isset($bestGames)){
+						foreach ($bestGames as $key => $value){	
+							echo "<div class='game'>";
+								echo "<img src='".WEBPATH.'/web/img/'.$value['img']."'>";
+								echo "<p>".$value['name']."</p>";
+							echo "</div>";
+						}
+					}
 				?>
 			</div>
 
@@ -212,7 +211,7 @@
 					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php// echo $catego->getName(); ?></p><br>
+								<p><?php // echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
 					// 	endforeach;
