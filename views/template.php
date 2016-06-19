@@ -66,23 +66,6 @@
 
 		<?php echo (isset($css)) ? '<link rel="stylesheet" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
-
-		<script type="text/javascript">
- 
-   			$(document).ready(function(){
-				//au chargement de la page je règle le marginTop de #barre à 0 (il etait fixé à -50px dans le css) en 500ms
-	             $('#barre-cookie').animate({
-	                marginTop: "0",
-	            }, 500);
-	 
-				//au clic sur #fermer qui est la croix j'anime le marginTop de #barre à -30px pour le faire remonter et laisser le border bottom apparent
-	            $("#fermer").mousedown(function(){
-	                $('#barre').animate({ 
-	                        marginTop: "-30px",
-	                }, 500);
-	            });
-    		});
- 		</script>
 	</head>
 
 	<body>
@@ -262,12 +245,6 @@
 			<?php include $this->view; ?>
 		</div>
 
-		<?php 
-		//Notification d'utilisation de cookie
-
-		if(isset($popupCookie))
-			echo "<div id='cookie_info'>Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez votre accord pour exploiter ces cookies.<button id='cookieaccept'>OK</button></div>";
-		?>	
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
@@ -325,10 +302,15 @@
 
 
 		<!-- Barre de Cookie -->
-		<div class="barre-cookie">
-    		En continuant à naviguer sur notre site, vous acceptez l'utilisation des cookies. <a href="https://www.google.com/intl/fr_fr/policies/technologies/types/">En savoir plus</a>
-    		<p class="accepter">J'accepte</p>
-		</div>
+		<?php 
+		if(isset($popupCookie)){ ?>
+			<div id='cookie_info' class="barre-cookie">
+	    		En continuant à naviguer sur notre site, vous acceptez l'utilisation des cookies. <a href="https://www.google.com/intl/fr_fr/policies/technologies/types/">En savoir plus</a>
+	    		<p id='cookieaccept' class="accepter">J'accepte</p>
+			</div>
+		<?php 
+		} ?>
+
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
 		<?php 
 			if(isset($js)){ 
