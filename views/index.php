@@ -78,13 +78,11 @@
 				endif;
 			?>
 
-			<div class="page_article">
+			<div>
 				<ul>
 					<nav class="nav_hori page">
 						<ul>
-
 							<!-- Pagination -->
-
 							<?php 
 								if(isset($pagination)):
 									//$nbpages = new tournoi($pagination);
