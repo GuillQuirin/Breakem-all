@@ -10,14 +10,16 @@ var platformModule = {
 		platformModule.setPreviewInput();
 		platformModule.setImgWrapper();
 		platformModule.setAdminDataRe();
+		platformModule.setInsertValidationBtn();
 
 		//Preview
 		platformModule.previewImg();
 
-		//Supprime/Modifie/Ajoute
+		//CRUD
 		platformModule.postDataDelete();
 		platformModule.postDataUpdate();
-		platformModule.postDataInsert();			
+		platformModule.postDataInsertForm();	
+		platformModule.postDataInsert();		
 	},
 
 	//Setter
@@ -39,6 +41,9 @@ var platformModule = {
 	setImgWrapper : function(){
 		this._imgWrapper = jQuery('.platform-img');
 	},
+	setInsertValidationBtn : function(){
+		this._insertValidationBtn = jQuery('.platform-submit-add-form-btn');
+	},
 
 	//Getter
 	getUpdateBtn : function(){
@@ -59,6 +64,9 @@ var platformModule = {
 	getImgWrapper : function(){
 		return this._imgWrapper;
 	},
+	getInsertValidationBtn : function(){
+		return this._insertValidationBtn;
+	};
 
 	previewImg : function(){
 		platformModule.getPreviewInput().on('change', function(){
@@ -183,36 +191,76 @@ var platformModule = {
 	},
 
 	//Ajouter
-	postDataInsert : function(){
+	postDataInsertForm : function(){
 		platformModule.getInsertBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
 
-			btn.parent().parent().append(
-				//Formulaire
-				"<div class='index-modal platforms hidden-fade hidden'>" +
-
-					"<div class='index-modal-this index-modal-login align'>" +
-						
-						"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
-							"<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-								"<input type='text' name='id' class='hidden platform-id-p' value=''>" +
-							    "<label for='email'>Nom :</label>" +
-							    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>" +
-							    "<label for='email'>Description :</label>" +
-							    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>" +						    					 
-							    "<div class='admin-avatar-wrapper m-a'>" +																 
-									"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>" +									 
-								"</div>" +
-								"<div class='text-center admin-input-file'>" +								 
-								"<input type='file' class='platform-image-p' name='profilpic'>" +
-								"</div>" +
-							    "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-					  		"</form>" +
-					  	"</div>" +
-					"</div>" +
+			btn.parent().parent().find('.admin-add-form-wrapper').html(
+				"<div class='index-modal-this index-modal-login align'>"+
+							
+					"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>"+
+						"<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>"+
+							"<input type='text' name='id' class='hidden platform-id-p' value=''>"+
+						   	"<label for='email'>Nom :</label>"+
+						   	"<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>"+
+						   	"<label for='email'>Description :</label>"+
+						   	"<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>"+							    						
+						   	"<div class='admin-avatar-wrapper m-a'>"+																	
+								"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>"+										
+							"</div>"+
+							"<div class='text-center admin-input-file'>"+								 
+							"<input type='file' class='platform-image-p' name='profilpic'>"+
+							"</div>"+
+						   	"<button type='button' class='platform-submit-add-form-btn btn btn-pink'><a>Valider</a></button>"+
+				  		"</form>"+
+				  	"</div>"+
 				"</div>"
-				//Fin Formulaire
-			);			
+			);		
 		});
-	}	
+		navbar.setOpenFormAll();	
+		navbar.form.admin();	
+		navbar.form.closeFormKey();
+        navbar.form.closeFormClick();
+	},
+	postDataInsert : function(){
+		platformModule.getInsertValidationBtn().on("click", function(e){
+			var btn = jQuery(e.currentTarget);
+
+			
+			/*var id = btn.parent().parent().find(jQuery('.platform-id-p')).val();	
+			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune plateforme enregistrée pour le moment.</span></div>";
+
+			var data = {id : id};				
+
+			//Ajax Delete Controller
+			jQuery.ajax({
+				url: "admin/deletePlatformData", 				
+				type: "POST",
+				data: data,
+				success: function(result){					
+					console.log("Plateforme supprimée");							
+					btn.parent().parent().remove();		
+
+					//Vérification si il n'y a plus de plateforme
+					jQuery.ajax({
+					 	url: "admin/platformsView",			 	
+					 	success: function(result1){	
+					 		//trim pour enlever les espaces
+					 		var isEmpty = jQuery.trim(result1);	
+					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
+					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
+					 			platformModule.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucune plateforme enregistrée pour le moment.</span></div>");
+					 		}		     			 		
+					 	},
+					 	error: function(result1){
+					 		console.log("No data found on platform.");
+					 	}
+					});								
+				},
+			 	error: function(result){
+			 		throw new Error("Couldn't delete this platform", result);
+			 	}
+			});*/
+		});
+	}
 };

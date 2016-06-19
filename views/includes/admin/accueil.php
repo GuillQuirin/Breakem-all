@@ -72,27 +72,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 									</div>
 
 									<!-- Formulaire d'ajout -->
-									<div class='index-modal hidden-fade hidden'>
-
-										<div class='index-modal-this index-modal-login align'>
-										
-											<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>
-												<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>
-													<!--<input type='text' name='id' class='hidden platform-id-p' value=''>
-												    <label for='email'>Nom :</label>
-												    <input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>
-												    <label for='email'>Description :</label>
-												    <textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>							    						
-												    <div class='admin-avatar-wrapper m-a'>																	
-														<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>										
-													</div>
-													<div class='text-center admin-input-file'>								 
-													<input type='file' class='platform-image-p' name='profilpic'>
-													</div>
-												    <button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>-->
-										  		</form>
-										  	</div>
-										</div>
+									<div class='index-modal admin-add-form-wrapper hidden-fade hidden'>
 									</div>
 									<!-- Fin Formulaire d'ajout -->
 

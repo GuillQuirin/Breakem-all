@@ -8,6 +8,7 @@ window.addEventListener('load', function load(){
 var onglet = {
 	_this: this,
 	init : function(){
+		//Setter
 		onglet.setAdminOngletPlatforms();
 		onglet.setAdminOngletMembres();
 		onglet.setAdminOngletReports();
@@ -17,6 +18,7 @@ var onglet = {
 		onglet.setAdminOngletComment();
 		onglet.setAdminOngletTournament();
 
+		//Getter
 		onglet.setAdminWrapper();
 		onglet.setAdminDataRe();
 		onglet.setAdminPlatformsWrapper();
@@ -28,6 +30,7 @@ var onglet = {
 		onglet.setAdminCommentWrapper();
 		onglet.setAdminTournamentWrapper();
 
+		//Ouverture des onglets
 		onglet.onClick(onglet.getAdminOngletPlatforms(), onglet.getAdminPlatformsWrapper());
 		onglet.onClick(onglet.getAdminOngletMembres(), onglet.getAdminMembresWrapper());
 		onglet.onClick(onglet.getAdminOngletReports(), onglet.getAdminReportsWrapper());
@@ -37,6 +40,7 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
+		//Appel les vues (Refactorisation : a faire une par une pour les appels ajax)
 		onglet.callView();
 	},
 
@@ -194,10 +198,10 @@ var onglet = {
 			 		//Affichage des boutons sur hover
 			 		admin.ihmElemHover();
 			 		//Ouverture et Fermeture du formulaire
-			 		navbar.setOpenFormAll();	
+					navbar.setOpenFormAll();	
 					navbar.form.admin();	
 					navbar.form.closeFormKey();
-			        navbar.form.closeFormClick();	
+        			navbar.form.closeFormClick();
 					//Platform
 					platformModule.init();			      
 			 	},
