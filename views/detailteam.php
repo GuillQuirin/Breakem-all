@@ -11,13 +11,15 @@ if(isset($err)){
     <?php
 }
 else{
-?>
-    <section class="middle-height bg-cover-classement relative  align full-height">
+?>  
 
-        <div id="ID" class=" ">
-            <img id="profil" class="grid-md-5 align full-height" src="<?php echo (isset($imgteam)) ? $imgteam : $img; ?>">
-            <span class="header-title align full-height" id="name"><?php echo $nameteam;?></span>
+    <section class="middle-height bg-cover-detailteam relative  align full-height">
+        <div class="team-title">
+            <img class="grid-md-5 align full-height" src="<?php echo (isset($imgteam)) ? $imgteam : $img; ?>">
+            <span class="header-title align full-height"><?php echo $nameteam;?></span>
         </div>
+
+        <img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
     </section>
 
     <div style="margin-top:100px"class="inscription_team">
