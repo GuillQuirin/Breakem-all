@@ -119,36 +119,41 @@ class adminController extends template{
 
     /* PLATEFORME */
 
-    public function getPlatformsDataAction(){
-
-        $pm = new platformManager();
-        $typesObj = $pm->getListPlatform();
-        $data['res'] = [];        
-        foreach ($typesObj as $key => $obj) {
-            $arr = [];
-            $arr['id'] = $obj->getId();
-            $arr['name'] = $obj->getName();
-            $arr['img'] = $obj->getImg();
-            $arr['description'] = $obj->getDescription();
-            $data['res'][] = $arr;
-        }
-        echo json_encode($data['res']);
-
-        return;
-    }
-
-    public function insertPlatformDataAction(){
+    public function insertPlatformsDataAction(){
         $args = array(            
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,                      
+            'description' => FILTER_SANITIZE_STRING                
         );
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+        $p = new platform($filteredinputs);
+
+        $pBdd = new platformManager();
+        $pBdd->mirrorObject = $p;
+        $pBdd->create();
+
+        /*$tournoi = new tournament([
+                    'startDate' => $_SESSION['selectedTournamentStartDate'],
+                    'endDate' => $_SESSION['selectedTournamentEndDate'],
+                    'name' => $_SESSION['selectedTournamentName'],
+                    'description' => $_SESSION['selectedTournamentDescription'],
+                    'guildOnly' => $_SESSION['selectedTournamentGuild'],
+                    'randomPlayerMix' => $_SESSION['selectedTournamentRand'],
+                    'idGameVersion' => $_SESSION['selectedGameVersion'],
+                    'idUserCreator' => $this->connectedUser->getId(),
+                    'link' => ourOwnPassHash( time().$_SESSION['selectedTournamentName'].$this->connectedUser->getId() )
+                ]);
+            $tm = new tournamentManager();
+            $tm->mirrorObject = $tournoi;
+            $tm->create();*/
+        
+        /*$filteredinputs = filter_input_array(INPUT_POST, $args);
                         
         $platformBdd = new platformManager();
         $platformBdd->mirrorObject = new platform($filteredinputs);
         if($platformBdd->create())
-            echo "CREATION";
+            echo "CREATION";*/
     }
 
     public function updatePlatformsDataAction(){
