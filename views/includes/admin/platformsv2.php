@@ -1,4 +1,5 @@
-<?php 			
+<?php
+	echo "<button type='button' class='mytestbtn'>test</button>";		
 	if(isset($listeplatform)){	
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {

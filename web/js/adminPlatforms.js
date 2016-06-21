@@ -65,6 +65,7 @@ var platformModule = {
 
 	previewImg : function(){
 		platformModule.getPreviewInput().on('change', function(){
+			console.log("Image changed.");
     		previewUpload(this, platformModule.getImgWrapper());
 		});
 	},
@@ -247,8 +248,7 @@ var platformModule = {
 				            data: imgData,                         
 				            type: 'POST',
 				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
+				                console.log("Image '" + file.name + "' uploadé.");			       
 				            },
 				            error: function(result2){
 				                console.log(result2);
@@ -260,17 +260,18 @@ var platformModule = {
 			    } 	
 
 			    //Insert de la platform
-					jQuery.ajax({
-						url: "admin/insertPlatformsData", 
-						type: "POST",
-						data: allData,
-						success: function(result){
-							console.log(result);
-							navbar.form.smoothClosing();				
-						},
-						error: function(result){
-							throw new Error("Couldn't update platform", result);
-						}
+				jQuery.ajax({
+					url: "admin/insertPlatformsData", 
+					type: "POST",
+					data: allData,
+					success: function(result){
+						console.log("Platforme ajoutée.");
+						console.log(allData);
+						navbar.form.smoothClosing();				
+					},
+					error: function(result){
+						throw new Error("Couldn't update platform", result);
+					}
 				});
 			});
 

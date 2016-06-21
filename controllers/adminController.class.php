@@ -125,7 +125,7 @@ class adminController extends template{
         }
         else {                        
             move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-        }  
+        }
 
         $args = array(            
             'name' => FILTER_SANITIZE_STRING,
@@ -135,8 +135,11 @@ class adminController extends template{
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
 
-        var_dump($filteredinputs);
+        $pbdd = new platformManager();
+        $p = new platform($filteredinputs);
 
+        if($pbdd->addPlatform($p))
+            echo "OK";
     }
 
     public function updatePlatformsDataAction(){
