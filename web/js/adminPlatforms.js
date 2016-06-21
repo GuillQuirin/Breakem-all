@@ -221,12 +221,12 @@ var platformModule = {
 				var name = subBtn.parent().find('.platform-nom-p').val();
 				var description = subBtn.parent().find('.platform-description-p').val();
 
-				var myImg = subBtn.parent().parent().find('.admin-input-file > paltform-image-p');
+				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
 				var allData = {name : name, description : description};
 
 				//Image
-			 	/*if (typeof FormData !== 'undefined') {
+			 	if (typeof FormData !== 'undefined') {
 				           
 			        //Pour l'upload coté serveur
 			        var file = myImg.prop('files')[0];
@@ -257,7 +257,7 @@ var platformModule = {
 			        }   				    
 			    } else {    	
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
-			    } 	*/
+			    } 	
 
 			    //Insert de la platform
 					jQuery.ajax({

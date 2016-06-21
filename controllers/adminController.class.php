@@ -120,40 +120,23 @@ class adminController extends template{
     /* PLATEFORME */
 
     public function insertPlatformsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+
         $args = array(            
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING                
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING           
         );
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
 
-        $p = new platform($filteredinputs);
+        var_dump($filteredinputs);
 
-        $pBdd = new platformManager();
-        $pBdd->mirrorObject = $p;
-        $pBdd->create();
-
-        /*$tournoi = new tournament([
-                    'startDate' => $_SESSION['selectedTournamentStartDate'],
-                    'endDate' => $_SESSION['selectedTournamentEndDate'],
-                    'name' => $_SESSION['selectedTournamentName'],
-                    'description' => $_SESSION['selectedTournamentDescription'],
-                    'guildOnly' => $_SESSION['selectedTournamentGuild'],
-                    'randomPlayerMix' => $_SESSION['selectedTournamentRand'],
-                    'idGameVersion' => $_SESSION['selectedGameVersion'],
-                    'idUserCreator' => $this->connectedUser->getId(),
-                    'link' => ourOwnPassHash( time().$_SESSION['selectedTournamentName'].$this->connectedUser->getId() )
-                ]);
-            $tm = new tournamentManager();
-            $tm->mirrorObject = $tournoi;
-            $tm->create();*/
-        
-        /*$filteredinputs = filter_input_array(INPUT_POST, $args);
-                        
-        $platformBdd = new platformManager();
-        $platformBdd->mirrorObject = new platform($filteredinputs);
-        if($platformBdd->create())
-            echo "CREATION";*/
     }
 
     public function updatePlatformsDataAction(){
