@@ -144,14 +144,14 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
-	/*MODIFICATION USER*/
+	/*MODIFICATION TEAM*/
 	public function setTeam(team $u, team $newteam){
 		$data = [];
 
 		foreach (get_class_methods($newteam) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = $newteam->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newuser->$method_name(true) : $newuser->$method_name(); 
 			}
 		}
 

@@ -44,15 +44,7 @@ class team{
 		$this->name=$v;
 	}
 	private function setImg($v){
-		if(strlen(trim($v))!=0 && $v!=NULL){
-			
-			if(strstr($v, WEBPATH)) //Image déjà stockée en base
-				$this->img=$v; 
-			else //Upload d'une image
-				$this->img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
-		}
-		else //Pas d'image uploadée
-			$this->img=WEBPATH."/web/img/upload/default.jpg";
+		$this->img=$v;
 	}
 	public function setSlogan($v){
 		$this->slogan=$v;
@@ -82,7 +74,20 @@ class team{
 		
 	}
 	public function getName(){return $this->name;}
-	public function getImg(){return	$this->img;}
+	public function getImg($upload=false){
+		if($upload){
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return $this->img;
+
+			return "default.jpg";
+		}
+		else{
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return "/web/img/upload/".$this->img;
+
+			return "/web/img/upload/default.jpg";	
+		}
+	}
 	public function getSlogan(){return $this->slogan;}
 	public function getDescription(){return	$this->description;}
 	
