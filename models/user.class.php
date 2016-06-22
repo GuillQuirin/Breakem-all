@@ -71,12 +71,7 @@ class user{
 	}
 
 	public function setImg($v){
-		//Image fournie
-		if(strlen(trim($v))!=0 && $v!=NULL)
-				$this->img=$v; //Adresse stockée en base
-
-		else //Image par défaut
-			$this->img="/web/img/upload/default.jpg"; //Adresse stockée en base
+		$this->img=$v;
 	}
 
 	public function setIdTeam($v){
@@ -144,8 +139,20 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg($webpath=true){ 
-		return ($webpath==true) ? WEBPATH.$this->img : "/web/img/upload/".$this->img;
+	public function getImg($upload=false){
+		
+		if($upload){
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return $this->img;
+
+			return "default.jpg";
+		}
+		else{
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return "/web/img/upload/".$this->img;
+
+			return "/web/img/upload/default.jpg";	
+		}
 	}
 	public function getIdTeam(){return $this->idTeam;}
 	public function getIsConnected(){return $this->isConnected;}
