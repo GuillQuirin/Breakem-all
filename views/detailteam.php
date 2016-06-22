@@ -4,20 +4,22 @@ if(isset($err)){
     ?>
     <section class="absfiche">
         <div>
-            ERREUR 404, utilisateur introuvable
+            ERREUR 404, team introuvable
             <p><a href="index">Retour à l'accueil</a></p>
         </div>
     </section>
     <?php
 }
 else{
-?>
-    <section class="middle-height bg-cover-classement relative  align full-height">
+?>  
 
-        <div id="ID" class=" ">
-            <img id="profil" class="grid-md-5 align full-height" src="<?php echo (isset($imgteam)) ? $imgteam : $img; ?>">
-            <span class="header-title align full-height" id="name"><?php echo $nameteam;?></span>
+    <section class="middle-height bg-cover-detailteam relative  align full-height">
+        <div class="team-title">
+            <img class="grid-md-5 align full-height" src="<?php echo (isset($imgteam)) ? $imgteam : $img; ?>">
+            <span class="header-title align full-height"><?php echo $nameteam;?></span>
         </div>
+
+        <img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
     </section>
 
     <div style="margin-top:100px"class="inscription_team">
@@ -40,8 +42,13 @@ else{
         <form action="detailteam/updateUserTeam" method="POST">  
             <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
             <?php 
-                if(!empty($_idTeam)){
-                    if($_idTeam == $idteam) { ?>
+                if(empty($_isConnected)){
+                    echo "Connecte toi pour rejoindre cette guilde !";
+                }
+                elseif(!empty($_idTeam)){
+        
+                    if($_idTeam == $idteam) {
+                     ?>
                         <button name='action-team-exit' type='submit' class='btn btn-pink'>
                             <a>Quitter la Team !</a>
                         </button>
