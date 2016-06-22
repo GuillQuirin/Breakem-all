@@ -1,13 +1,17 @@
 
 "use strict";
 window.addEventListener('load', function load(){
-	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache 
-	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
+	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache
+	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois)
 	window.removeEventListener('load', load, false);
 	webpath.init();
-	
-});
 
+});
+function isElSoloJqueryInstance(el){
+	if(el.length == 1 && el instanceof jQuery)
+		return true;
+	return false;
+}
 function initAll(){
 	connection.init();
 	navbar.init();
