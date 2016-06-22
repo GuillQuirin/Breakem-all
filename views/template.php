@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 	<head>		
 
@@ -20,58 +20,59 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="index,follow" />
-			<title>Break'em All<?php echo (isset($title)) ? ' - '.$title : '';?></title>
-			<?php echo '<link rel="shortcut icon" href="' . WEBPATH . '/web/img/icon/logo-full.ico" type="image/x-icon">';?>
-			<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>Break'em All<?php echo (isset($title)) ? ' - '.$title : '';?></title>
+		<?php echo '<link rel="shortcut icon" href="' . WEBPATH . '/web/img/icon/logo-full.ico" type="image/x-icon">';?>
+		<meta name="description" content=<?php echo (isset($content)) ? '"'.$content.'"' : 'tournois de jeux vidéos';?>>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-				<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/template.css" media="screen">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/template.css" media="screen">';?>
 
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/general-stylesheet.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/general-stylesheet.css">';?>
 
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/animation.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/border.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/caption.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/cursor.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/display.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/float.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/fonts.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/grid.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/hr.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/icon.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input-radio.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/loading.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/margin.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/navbar.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/overflow.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/padding.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/position.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/shadow.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/select.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/transform.css">';?>
-			<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/width.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/animation.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/background.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/body.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/border.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/button.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/caption.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/checkbox.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/cursor.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/display.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/failed-input.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/float.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/fonts.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/grid.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/hr.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/icon.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/image.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input-radio.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/input.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/loading.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/margin.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/menu.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/navbar.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/overflow.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/padding.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/position.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/search.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/shadow.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/select.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/size.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/text.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/header.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/transform.css">';?>
+		<?php echo '<link rel="stylesheet" href="' . WEBPATH . '/web/css/module/width.css">';?>
 
-			
-			<?php echo (isset($css)) ? '<link rel="stylesheet" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
+		<?php echo (isset($css)) ? '<link rel="stylesheet" href="'.WEBPATH.'/web/css/'.$css.'-stylesheet.css">' : '';?>
 
 	</head>
 
 	<body>
+
 		<header>
-						<!-- Navbar top -->
+			
+			<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 				<div class="container resultat-container m-a">
 
@@ -153,6 +154,7 @@
 					<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
 
 					<!-- FIN MENU -->
+
 
 					<!-- MENU TOGGLE -->
 					<div class="grid-md-12 hidden-md hidden-lg navbar-menu">
@@ -242,13 +244,6 @@
 		<div id="content">
 			<?php include $this->view; ?>
 		</div>
-		
-		<?php 
-		//Notification d'utilisation de cookie
-
-		if(isset($popupCookie))
-			echo "<div id='cookie_info'>Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez votre accord pour exploiter ces cookies.<button id='cookieaccept'>OK</button></div>";
-		?>
 
 		<!-- Footer des pages -->
 		<footer class="relative">
@@ -259,7 +254,7 @@
 		            <ul>
 		                <li><a href="<?php echo WEBPATH.'/index'; ?>" title="accueil">Accueil</a></li>
 		                <li><a href="<?php echo WEBPATH.'/listetournois'; ?>" title="Liste des tournois">Tournois</a></li>
-		                <li><a href="<?php echo WEBPATH.'/listeteams'; ?>" title="Ensemble des teams">Teams</a></li>
+		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 		            </ul>
 		        </div>
@@ -306,6 +301,16 @@
 		</footer>
 
 
+		<!-- Barre de Cookie -->
+		<?php 
+		if(isset($popupCookie)){ ?>
+			<div id='cookie_info' class="barre-cookie">
+	    		En continuant à naviguer sur notre site, vous acceptez l'utilisation des cookies. <a href="https://www.google.com/intl/fr_fr/policies/technologies/types/">En savoir plus</a>
+	    		<p id='cookieaccept' class="accepter">J'accepte</p>
+			</div>
+		<?php 
+		} ?>
+
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
 		<?php 
 			if(isset($js)){ 
@@ -318,5 +323,7 @@
 			}
 		?>
 		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
+		
+		
 	</body>
 </html>
