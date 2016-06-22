@@ -15,6 +15,7 @@ class user{
 	protected $status = null;
 	protected $img = null;
 	protected $idTeam = null;
+	protected $nameTeam = null;
 	protected $isConnected = null;
 	protected $lastConnexion = null;
 	protected $token = null;
@@ -77,6 +78,10 @@ class user{
 	public function setIdTeam($v){
 		$this->idTeam=$v;
 	}
+	public function setNameTeam($v){
+		$this->nameTeam=$v;
+	}
+
 	// en public pour les besoins de la deconnexion
 	public function setIsConnected($v){
 		$this->isConnected=$v;
@@ -155,6 +160,7 @@ class user{
 		}
 	}
 	public function getIdTeam(){return $this->idTeam;}
+	public function getNameTeam(){return $this->nameTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
 	public function getToken(){return $this->token;}
