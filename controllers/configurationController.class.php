@@ -6,7 +6,7 @@ class configurationController extends template{
 		parent::__construct();
 
 		//Visiteur ou membre banni
-		if(!($this->isVisitorConnected()) || $this->connectedUser->getStatus()<1){
+		if(!($this->isVisitorConnected()) || !$this->connectedUser || $this->connectedUser->getStatus()<1){
 		 	header('Location: ' .WEBPATH);
 		}
 	}
@@ -45,8 +45,38 @@ class configurationController extends template{
 				unset($_SESSION["err_img_size"]);				
 			}
 
+			if(isset($_SESSION['fail_date'])){
+				$v->assign("fail_date","1");
+				unset($_SESSION["fail_date"]);				
+			}
+
+			if(isset($_SESSION['fail_email'])){
+				$v->assign("fail_email","1");
+				unset($_SESSION["fail_email"]);				
+			}
+
+			if(isset($_SESSION['double_email'])){
+				$v->assign("double_email","1");
+				unset($_SESSION["double_email"]);				
+			}
+
+			if(isset($_SESSION['fail_password'])){
+				$v->assign("fail_password","1");
+				unset($_SESSION["fail_password"]);				
+			}
+
+			if(isset($_SESSION['empty_password'])){
+				$v->assign("empty_password","1");
+				unset($_SESSION["empty_password"]);				
+			}
+
 			unset($_SESSION['referer_method']);
 		}		
+
+		//Team
+		$team = new teamManager();
+		if(isset($_idTeam) && $_idTeam!==NULL)
+			$v->assign("imgTeam", $team->getTeam(array('id'=>$_idTeam))->getImg());
 
 		//Liste des jeux
 		$jeux = new gameManager();
@@ -98,7 +128,7 @@ class configurationController extends template{
 	      'month'   => FILTER_SANITIZE_STRING,     
 	      'year'   => FILTER_SANITIZE_STRING,
 	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      'rss' => FILTER_VALIDATE_BOOLEAN,     
+	      //'rss' => FILTER_VALIDATE_BOOLEAN,     
 	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
 	    );
 
@@ -110,12 +140,12 @@ class configurationController extends template{
 	    $filteredinputs['year'] = (int) $filteredinputs['year'];
 	    
 	    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-	      $this->echoJSONerror('date', 'La date reçue a fail !');
+	    	$_SESSION['fail_date']=1;
 	    else{
 	      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
 	      
 	      if(!$date)
-	        $this->echoJSONerror('date', 'La date reçue a fail !');
+	        $_SESSION['fail_date']=1;
 
 	      $filteredinputs['birthday'] = date_timestamp_get($date);
 	    }
@@ -152,13 +182,13 @@ class configurationController extends template{
 
     		//Email
 		    if(!isset($filteredinputs['email']))
-				$this->echoJSONerror('inputs', 'adresse email non vide');
+				$_SESSION['fail_email']=1;
 			else{
 				$userBDD = new userManager();
 
 				$exist_email=$userBDD->emailExists($filteredinputs['email']);
 		    	if($filteredinputs['email']!=$_SESSION[COOKIE_EMAIL] && $exist_email)
-		     		$this->echoJSONerror('email', 'cet email est déjà utilisé');
+		     		$_SESSION['double_email']=1;
 			}
 
 			//Password  
@@ -166,23 +196,15 @@ class configurationController extends template{
 		    	&& !empty($filteredinputs['new_password']) && !empty($filteredinputs['new_password_check'])){
 		    	
 		    	if(strlen($filteredinputs['new_password'])<2 || strlen($filteredinputs['new_password'])>15)
-			      $this->echoJSONerror('password', 'votre nouveau mot de passe doit faire entre 2 et 15 caracteres'); 
+			      $_SESSION['fail_password']=1; 
 			  	else
 			  		$filteredinputs['password']=ourOwnPassHash($filteredinputs['new_password']);
 		    }
     	}
-    	else
-    		$this->echoJSONerror('password', 'Mot de passe obligatoire');
-
-	    //Date de naissance
-		    // if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-		    //   $this->echoJSONerror('date', 'La date reçue a fail !');
-		    // else{
-		    //   $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-		    //   if(!$date)
-		    //     $this->echoJSONerror('date', 'La date reçue a fail !');
-		    //   $finalArr['birthday'] = date_timestamp_get($date);
-	    // }
+    	else{
+    		$_SESSION['empty_password']=1;
+    		unset($filteredinputs['password']);//On retire le mdp pour éviter toute update
+    	}
 
 	    return array_filter($filteredinputs);
   	}
