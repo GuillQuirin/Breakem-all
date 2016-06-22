@@ -1,11 +1,11 @@
 <?php if(isset($tournoi)): ?>
 	<section class="detailtournoi-infos flex">
-		<article class="display-flex-column">			
-			<h3 class="titre1 border-full ta-center">Tournoi - 
+		<article class="display-flex-column">
+			<h3 class="titre1 border-full ta-center">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 			</h3>
 			<p class="detailtournoi-description-jeu italic">
-				<?php echo $tournoi->getGameDescription(); ?>			
+				<?php echo $tournoi->getGameDescription(); ?>
 			</p>
 			<div class="detail-tournoi-main-infos align display-flex-row">
 				<div class="detail-tournoi-aside ta-center relative">
@@ -19,7 +19,7 @@
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 									<?php else:?>
-									<button class="detailtournoi-btn-inscription relative btn btn-green"><a>Rejoindre</a></button>
+									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 									<?php endif; ?>
 								</div>
@@ -44,7 +44,7 @@
 									else if($tournoi->getRandomPlayerMix() > 0)
 										echo " aléatoires";
 								}
-						 	?>						
+						 	?>
 							<i class="absolute ta-center lowercase"><?php echo $tournoi->getGvDescription(); ?>
 							</i>
 						</span>
@@ -124,7 +124,7 @@
 				<h2 class="titre2 border-full">Equipes rejoignables
 					<span class="detailtournoi-nombre-equipeslibres bg-green"><?php echo count($freeTeams);?></span>
 				</h2>
-				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">				
+				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
 					<?php foreach($freeTeams as $key => $team):?>
 						<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
 						<div class="detailtournoi-equipelibre overflow-hidden relative">
@@ -149,7 +149,7 @@
 										<a>Rejoindre <?php echo $teamNumber;?></a>
 									</button>
 								<?php endif; ?>
-							</div>						
+							</div>
 						</div>
 					<?php  $teamNumber++; endforeach; ?>
 				</div>
