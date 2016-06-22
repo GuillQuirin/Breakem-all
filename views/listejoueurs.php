@@ -11,7 +11,6 @@
 			<tr>	
 				<td class="picture">
 					<?php echo '<img class="img-player" src="'.$joueur->getImg().'">';?>
-					<?php //echo $joueur->getImg(); ?>
 				</td>
 				<td class="pseudo">
 					<a href="<?php echo WEBPATH.'/profil?pseudo='.$joueur->getPseudo(); ?>"><?php echo $joueur->getPseudo(); ?></a>
@@ -20,7 +19,7 @@
 					<span><?php echo $joueur->getDescription(); ?></span>
 				</td>
 				<td class="team">
-					<?php echo ($joueur->getIdTeam()) ? "<a href='".WEBPATH."/detailteam?name=".$joueur->getIdTeam()."'>".$joueur->getIdTeam()."</a>" : "" ; ?>
+					<?php echo ($joueur->getNameTeam()) ? "<a href='".WEBPATH."/detailteam?name=".$joueur->getNameTeam()."'>".$joueur->getNameTeam()."</a>" : "" ; ?>
 				</td>
 				<td class="page">
 					<button>
