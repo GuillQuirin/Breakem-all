@@ -1,4 +1,4 @@
-<form action="admin/addGame" method="post" enctype="multipart/form-data">
+<form action="admin/addTeam" method="post" enctype="multipart/form-data">
     <table border=0>
         <tr>
             <td>Nom</td>
