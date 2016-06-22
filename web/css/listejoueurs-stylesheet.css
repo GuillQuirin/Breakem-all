@@ -1,0 +1,44 @@
+
+
+
+.list-players{
+	margin-top:300px; 
+}
+
+.list-players table{
+	width: 90%;
+    margin: 0 auto;
+	text-align: center;
+}
+
+.list-players table th{
+    height: 100px;
+    vertical-align: middle;
+    background-color: #24203c;
+}
+
+.list-players table .picture{
+	width: 10%;
+}
+	.img-player{
+		width: 100%;
+		height: auto;
+		vertical-align: middle;
+	}
+
+.list-players table .pseudo{
+	width: 25%;
+}
+
+.list-players table .desc{
+	width: 40%;
+}
+
+.list-players table .team{
+	width: 15%;
+}
+
+.list-players table .page{
+	width: 10%;
+}
+
