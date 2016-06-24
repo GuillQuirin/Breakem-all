@@ -1,0 +1,9 @@
+article {
+    margin: 30px auto;
+    width: 90%;
+}
+
+li {
+    display: block;
+    margin: 15px 0;
+}
