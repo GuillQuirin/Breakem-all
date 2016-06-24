@@ -42,6 +42,11 @@ var onglet = {
 
 		//Appel les vues (Refactorisation : a faire une par une pour les appels ajax)
 		onglet.callView();
+
+		//Plateforme
+		onglet.getAdminOngletPlatforms().click(function(){	
+			onglet.platformView();
+		});
 	},
 
 	//Setter
@@ -169,6 +174,33 @@ var onglet = {
 		return this._adminTournamentWrapper;
 	},
 
+	platformView : function(){
+	/* Plateforme */
+	onglet.getAdminDataIhm().remove();
+		jQuery.ajax({
+		 	url: "admin/platformsView",
+		 	success: function(result){			 	
+		 		//Affichage de la page	
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Platform
+				platformModule.init();			      
+		 	},
+		 	error: function(result){
+		 		console.log("No data found on platform.");
+		 	}
+		});
+	
+		return false;
+	
+	},
+
 	callView : function(){
 		/* Membres */
 		onglet.getAdminOngletMembres().click(function(){
@@ -183,32 +215,6 @@ var onglet = {
 		 	}
 		});
 	
-			return false;
-		})
-
-		/* Plateforme */
-		onglet.getAdminOngletPlatforms().click(function(){	
-		onglet.getAdminDataIhm().remove();
-			jQuery.ajax({
-			 	url: "admin/platformsView",
-			 	success: function(result){			 	
-			 		//Affichage de la page	
-			 		jQuery('.admin-data-re').html(result);
-			 		//Affichage des boutons sur hover
-			 		admin.ihmElemHover();
-			 		//Ouverture et Fermeture du formulaire
-					navbar.setOpenFormAll();	
-					navbar.form.admin();	
-					navbar.form.closeFormKey();
-        			navbar.form.closeFormClick();
-					//Platform
-					platformModule.init();			      
-			 	},
-			 	error: function(result){
-			 		console.log("No data found on platform.");
-			 	}
-			});
-		
 			return false;
 		})
 

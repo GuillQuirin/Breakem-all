@@ -1,4 +1,4 @@
-<?php 			
+<?php
 	if(isset($listeplatform)){	
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {
