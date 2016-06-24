@@ -129,19 +129,16 @@ else{
 
 			<div class="grid-md-4">
 				<div id="contain_right">
-
-					<div id="contain_search">
-						<label for="search">Rechercher :</label>
-					    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
-					    <div id="statistiques">
-							<h4>Statistiques</h4>
-							<ul>
-								<li>Matchs gagnés: 78
-								<li>Matchs perdus: 92
-								<li>Ratio : 0.78
-								<li>Points : 1072
-							</ul>
-						</div>
+					<div class="title_index">
+						<label for="title1">Statistiques</label>
+					</div>
+				    <div id="statistiques" class="fight">
+						<ul>
+							<li>Matchs gagnés: 78
+							<li>Matchs perdus: 92
+							<li>Ratio : 0.78
+							<li>Points : 1072
+						</ul>
 					</div>
 
 					<div class="title_index">
