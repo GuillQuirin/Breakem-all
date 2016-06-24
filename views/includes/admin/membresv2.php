@@ -50,7 +50,7 @@
 						echo "<div class='index-modal-this index-modal-login align'>";
 							
 							echo "<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>";
-								echo "<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+								echo "<form class='membres-form' enctype='multipart/form-data' accept-charset='utf-8'>";
 									echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $joueur->getId() . "'>";
 								    echo "<label for='email'>Nom :</label>";
 								    echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" . $joueur->getName() . "'>";								    								 
