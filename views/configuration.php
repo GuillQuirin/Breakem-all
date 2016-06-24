@@ -206,8 +206,8 @@
 								</td>
 							</tr>	
 						</table>
-						<div class="text-center">
-							<span class="relative"><span class="configuration-input-required irhack">*</span>Champ obligatoire</span>
+						<div class="text-center"><span class="configuration-input-required irhack">*</span>
+							<span class="relative">Champ obligatoire</span>
 						</div>				
 
 					</form>				
