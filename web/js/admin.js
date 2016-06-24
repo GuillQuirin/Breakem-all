@@ -175,9 +175,8 @@ var onglet = {
 		onglet.getAdminDataIhm().remove();	
 		jQuery.ajax({
 		 	url: "admin/membresView",
-		 	success: function(result){
-		 		
-		 		//console.log(result);
+		 	success: function(result){		 		
+		 		jQuery('.admin-data-re').html(result);
 		 	},
 		 	error: function(result){
 		 		alert("non");

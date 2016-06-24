@@ -30,22 +30,22 @@
 				foreach ($listejoueur as $ligne => $joueur) {
 					echo "<div class='admin-data-ihm align'>";
 						//Pseudo
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
 						//Email
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>" .$joueur->getEmail(). "</span></div></div>";						
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
 						//Image
 						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" .$joueur->getImg(). "'></div></div></div>";						
 						//Team
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>" .$joueur->getIdTeam(). "</span></div></div>";
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-idteam-g'>" .$joueur->getIdTeam(). "</span></div></div>";
 						//Report Number
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>" .$joueur->getReportNumber(). "</span></div></div>";
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
 						//Is Connected
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>";
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-isconnected-g'>";
 							if($joueur->getIsConnected())
 								echo "X";
 							echo "</span></div></div>";
 						//Status
-						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize tournament-nom-g'>";
+						echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
 							echo "<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 								echo "<option value='-1'";
 									echo ($joueur->getStatus()==-1) ? " selected " : " "; 
