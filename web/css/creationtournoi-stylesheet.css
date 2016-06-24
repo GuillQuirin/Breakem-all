@@ -1,5 +1,5 @@
 .bg-cover-creationtournoi{    
-    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/bg-over.jpg) center no-repeat;
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/tournoi.jpg) center no-repeat;
     margin:0;    
     -webkit-background-size: cover; 
     background-size: cover;     
@@ -69,12 +69,8 @@
 .creationtournoi-active-choice{
 	z-index: 2;
 }
-.navbar{	
-	background-color: rgba(0, 0, 0, .8)!important;
-	color: #000 !important;
-}
-.navbar:hover{
-	background-color: rgba(0, 0, 0, 1)!important;
+.navbar{
+	background-color: rgba(8,3,37,0.5) !important;
 }
 
 .creationtournoi-element-container{

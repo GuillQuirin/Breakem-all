@@ -15,6 +15,7 @@ class user{
 	protected $status = null;
 	protected $img = null;
 	protected $idTeam = null;
+	protected $nameTeam = null;
 	protected $isConnected = null;
 	protected $lastConnexion = null;
 	protected $token = null;
@@ -71,17 +72,16 @@ class user{
 	}
 
 	public function setImg($v){
-		//Image fournie
-		if(strlen(trim($v))!=0 && $v!=NULL)
-				$this->img=$v; //Adresse stockée en base
-
-		else //Image par défaut
-			$this->img="/web/img/upload/default.jpg"; //Adresse stockée en base
+		$this->img=$v;
 	}
 
 	public function setIdTeam($v){
 		$this->idTeam=$v;
 	}
+	public function setNameTeam($v){
+		$this->nameTeam=$v;
+	}
+
 	// en public pour les besoins de la deconnexion
 	public function setIsConnected($v){
 		$this->isConnected=$v;
@@ -144,10 +144,23 @@ class user{
 	public function getEmail(){return $this->email;}
 	public function getPassword(){return	$this->password;}
 	public function getStatus(){return $this->status;}
-	public function getImg($webpath=true){ 
-		return ($webpath==true) ? WEBPATH.$this->img : "/web/img/upload/".$this->img;
+	public function getImg($upload=false){
+		
+		if($upload){
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return $this->img;
+
+			return "default.jpg";
+		}
+		else{
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return "/web/img/upload/".$this->img;
+
+			return "/web/img/upload/default.jpg";	
+		}
 	}
 	public function getIdTeam(){return $this->idTeam;}
+	public function getNameTeam(){return $this->nameTeam;}
 	public function getIsConnected(){return $this->isConnected;}
 	public function getLastConnexion(){return $this->lastConnexion;}
 	public function getToken(){return $this->token;}
