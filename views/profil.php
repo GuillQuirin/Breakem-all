@@ -70,7 +70,7 @@ else{
 				<!-- Dernier tournoi -->
 				<div class="profil-wrapper profil-tournament-wrapper">
 					<div class="profil-title profil-tournament-title">	
-						<span>Dernier Tournois joués</span>
+						<span>Derniers Tournois joués</span>
 					</div>
 					<div class="text-center align">
 					<?php 

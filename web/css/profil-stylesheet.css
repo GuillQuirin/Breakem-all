@@ -46,9 +46,8 @@
     text-align: center;
 }
 
-.profil-watch button{
-    width:150px;    
-    margin-bottom:15px;
+#communication button{
+    margin: 10px 0;
 }
 
 .profil-match-element-center{
@@ -259,7 +258,7 @@ input[name="search"]{
     transform: skew(-8deg);
 }
 .title_index,label[for='title1']{
-    margin-top:50px;
+    margin: 30px 0;
 }
 .fight{
     width:100%;
