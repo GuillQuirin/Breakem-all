@@ -29,10 +29,16 @@ class profilController extends template{
 					if(strpos($method, 'get') !== FALSE){
 						$col = lcfirst(str_replace('get', '', $method));
 						$this->columns[$col] = $user->$method();
-						$v->assign($col, $user->$method());
-								
+						$v->assign($col, $user->$method());	
 					};
 				}
+				if($user->getIdTeam()!==null){
+					$teamBDD = new teamManager();
+					$team = $teamBDD->getTeam(array('id' => $user->getIdTeam()));
+					$v->assign("imgTeamProfil", $team->getImg());
+					$v->assign("nameTeamProfil", $team->getName());
+				}
+
 				
 				$registerBDD = new registerManager();
 

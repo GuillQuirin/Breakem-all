@@ -253,18 +253,33 @@ input[name="search"]{
 .title_index{
     width:88%;
     padding:10px;
-    text-align: right;
+    text-align: center;
     background-color: #211d3b;
     transform: skew(-8deg);
 }
 .title_index,label[for='title1']{
     margin: 30px 0;
 }
+
+.team{
+    width:100%;
+    text-align: center;
+    margin-top:20px;
+}
+.team:hover h3{
+    color:#d92b4c;
+    transition: .4s;
+}
+
+.team img{
+    width: 80px;
+    transform: skew(-8deg);
+}
+
 .fight{
     width:100%;
     text-align: center;
     margin-top:20px;
-    cursor:pointer;
 }
 .fight:hover h3{
     color:#d92b4c;

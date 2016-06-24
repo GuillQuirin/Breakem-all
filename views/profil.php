@@ -130,6 +130,23 @@ else{
 			<div class="grid-md-4">
 				<div id="contain_right">
 					<div class="title_index">
+						<label for="title1">Team</label>
+					</div>
+				    <div id="team" class="team">
+						<?php 
+							if(isset($nameTeamProfil) && $nameTeamProfil!==null){
+								echo '<a href="detailteam?name='.$nameTeamProfil.'">';
+									echo '<figure>';
+										echo '<img src="'.$imgTeamProfil.'" alt="Team du joueur">';
+										echo '<figcaption>'.$nameTeamProfil.'</figcaption>';
+									echo '</figure>';
+								echo '</a>';
+							}
+							else
+								echo "<p>Ce joueur n'appartient à aucune team.</p>";
+						?>
+					</div>
+					<div class="title_index">
 						<label for="title1">Statistiques</label>
 					</div>
 				    <div id="statistiques" class="fight">
