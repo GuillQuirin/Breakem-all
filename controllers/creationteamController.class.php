@@ -1,5 +1,5 @@
 <?php
-class creationTeamController extends template{
+class creationteamController extends template{
     public function creationteamAction(){
 
         //Initialisation de la vue

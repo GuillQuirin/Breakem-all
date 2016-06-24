@@ -27,5 +27,3 @@
     </table>
 </form>
 </div>
-
-<p class="az">efiueriufberfbu</p>
