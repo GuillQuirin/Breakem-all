@@ -50,6 +50,29 @@
 	margin-top:70px;
 
 }
+
+#currentTournament{
+	cursor:pointer;
+}
+
+#wrapperCurrentTournament{
+    display: none;
+    position: fixed;
+    top: 25%;
+    background-color: #27073A;
+    width: 50%;
+    left: 25%;
+    color: white;
+    z-index: 5;
+    border: 13px #511071 solid;
+    padding: 20px;
+    font-size: 15px;
+}
+
+.img-popup{
+	max-width: 30%;
+}
+
 .tri{
 	float:right;
 	margin-top:-65px;
