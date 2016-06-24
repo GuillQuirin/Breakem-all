@@ -900,3 +900,42 @@ var cookie = {
 		});
 	}	
 };
+
+
+
+$(document).ready(function(){
+	//Affichages des popups
+	$("#contactAdmin").click(function(){
+		$("#wrapperAdmin").fadeIn();
+		return false;
+	});
+
+	//Controle des messages
+	$("#btn_contactAdmin").click(function(){
+		if($("#mess_contactAdmin").val()==""){
+			alert('Veuillez ne pas laisser un message vide.');
+		}
+		else{
+			$.ajax({method: "POST",
+					data:{message: $("#mess_contactAdmin").val()},
+					url: "demo_test.txt", 
+					success: function(result){
+	            		alert(result);
+	        		}
+	        	}
+	        );
+		}
+	});
+	//return false;
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $("#wrapperAdmin");
+
+    if(!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.fadeOut();
+    }
+});
+
