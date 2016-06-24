@@ -43,6 +43,39 @@ class indexController extends template{
 		$v->setView("index");
 	}
 
+	public function contactAdminAction(){
+		var_dump($_POST);exit;
+		$args = array(
+				'expediteur' => FILTER_VALIDATE_EMAIL,
+				'message' => FILTER_SANITIZE_STRING 
+				);
+		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+
+		/*
+			###########################################################################
+			###########################################################################
+		*/
+			// ARRAY FILTER SUPPRIME LES MSG VIDES, 0, FALSE ou NULL
+			// IL FAUT OBLIGATOIREMENT UTILISER CETTE METHODE DE FOREACH APRES UN array_filter(filter_input_array)
+		/*
+			###########################################################################
+			###########################################################################
+		*/
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key])){      
+				die("Manque information : ".$key);
+			}
+		}	
+
+		$contenuMail = "<h3>Un utilisateur vous a contacté.Vous pouvez lui répondre à <a href='".$filteredinputs['expediteur']."'>cette adresse</a>.</h3>";
+	    $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+
+		$this->envoiMail('breakemall.contact@gmail.com', 'Demande de contact.', $contenuMail);
+
+		header('Location: '.$_SERVER['HTTP_REFERER']);
+		
+	}
 
 }
 /*

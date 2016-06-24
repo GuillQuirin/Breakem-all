@@ -247,13 +247,12 @@
 
 		<section id="wrapperAdmin">
 			<div>
-				<form action="" method="post">
-					<h4>Contacter les administrateurs du site.</h4>
-					<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
-					<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
-					</textarea>
-					<input type="submit" id="btn_contactAdmin" value="Envoyer">
-				</form>
+				<h4>Contacter les administrateurs du site.</h4>
+				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
+				<input type="email" name="expediteur" id="expediteurContactAdmin">
+				<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				</textarea>
+				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>
 

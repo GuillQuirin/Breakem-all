@@ -915,12 +915,18 @@ $(document).ready(function(){
 		if($("#mess_contactAdmin").val()==""){
 			alert('Veuillez ne pas laisser un message vide.');
 		}
+		else if($("#expediteurContactAdmin").val()==""){
+			alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
+		}
 		else{
 			$.ajax({method: "POST",
-					data:{message: $("#mess_contactAdmin").val()},
-					url: "demo_test.txt", 
+					data:{
+						message: $("#mess_contactAdmin").val(),
+						expediteur: $("#expediteurContactAdmin").val()
+					},
+					url: "index/contactAdmin", 
 					success: function(result){
-	            		alert(result);
+	            		$("#wrapperAdmin").html("OK");
 	        		}
 	        	}
 	        );
