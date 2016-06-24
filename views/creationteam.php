@@ -1,4 +1,5 @@
-<form action="admin/addTeam" method="post" enctype="multipart/form-data">
+<div class="formteam">
+    <form class="formteam1" action="admin/addTeam" method="post" enctype="multipart/form-data">
     <table border=0>
         <tr>
             <td>Nom</td>
@@ -25,3 +26,6 @@
         </tr>
     </table>
 </form>
+</div>
+
+<p class="az">efiueriufberfbu</p>
