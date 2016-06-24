@@ -202,7 +202,7 @@
 							</tr>
 							<tr class="text-center">
 								<td colspan="2" class="border-none configuration-form-td-submit">																	
-									<button id="navbar-inscription" type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
+									<button type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
 								</td>
 							</tr>	
 						</table>
