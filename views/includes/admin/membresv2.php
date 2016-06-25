@@ -1,5 +1,17 @@
 <?php 			
 	if(isset($listejoueurs)){	
+
+		echo "<div class='admin-data-ihm-title align relative'>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Id Team</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Connecté</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>";
+
+		echo "</div>";
+
 		if(is_array($listejoueurs)){			
 			foreach ($listejoueurs as $ligne => $joueur) {
 				//Wrapper				
