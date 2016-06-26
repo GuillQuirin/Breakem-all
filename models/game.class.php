@@ -39,15 +39,7 @@ class game{
 		$this->idType=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v))!=0 && $v!=NULL){
-			//var_dump(strstr($v, "lol"));
-			if(strstr($v, WEBPATH)) //Image déjà stockée en base
-				$this->img=$v;
-			else //Upload d'une image
-				$this->img=WEBPATH."/web/img/".$v; //Adresse stockée en base
-		}
-		else //Pas d'image uploadée
-			$this->img=WEBPATH."/web/img/default.jpg";
+		$this->img=$v;
 	}
 
 
@@ -55,7 +47,20 @@ class game{
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
 	public function getYear(){return $this->year;}
-	public function getImg(){return $this->img;}
+	public function getImg($upload=false){
+		if($upload){
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/".$this->img))
+				return $this->img;
+
+			return "default.jpg";
+		}
+		else{
+			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/".$this->img))
+				return "/web/img/".$this->img;
+
+			return "/web/img/default.jpg";	
+		}
+	}
 	public function getIdType(){return $this->idType;}
 	
 }

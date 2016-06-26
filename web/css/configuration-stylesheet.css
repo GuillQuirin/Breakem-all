@@ -28,14 +28,20 @@ body, html{
     left:15vw;
 }
 
-.configuration-input-default{
-
+.configuration-textarea-description{
+    height: 70px;
+    vertical-align: middle;
 }
 
 .configuration-avatar-wrapper{
     width:250px;
     height:250px; 
     padding:15px 0 20px 0;
+}
+
+.configuration-team{
+    width: 20%;
+    vertical-align: middle;
 }
 
 .configuration-avatar{
@@ -54,7 +60,6 @@ body, html{
 
 .configuration-input-required{
     color:#D92B4C;
-    position:absolute;
 }
 
 .configuration-onglet-ul li:hover{
@@ -77,6 +82,10 @@ body, html{
 .configuration-form-table td{
     padding:20px 25px;      
     border:1px solid #524c7b;  
+}
+
+.configuration-form-table td:first-child{
+    width: 40%;
 }
 
 .configuration-form-email div{

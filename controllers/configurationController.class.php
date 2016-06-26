@@ -75,8 +75,8 @@ class configurationController extends template{
 
 		//Team
 		$team = new teamManager();
-		if(isset($_idTeam) && $_idTeam!==NULL)
-			$v->assign("imgTeam", $team->getTeam(array('id'=>$_idTeam))->getImg());
+		if($this->getConnectedUser()->getIdTeam()!==NULL)
+			$v->assign("imgTeam", $team->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()))->getImg());
 
 		//Liste des jeux
 		$jeux = new gameManager();

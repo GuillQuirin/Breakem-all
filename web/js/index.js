@@ -5,6 +5,20 @@ $(document).ready( function(){
             _height = $(window).height();
     });
 
+	//Affichages des popups
+	$("#currentTournament").click(function(){
+		$.ajax({
+				method: "GET",
+				url: "index/currentTournament", 
+				success: function(result){
+	           		$("#contentCurrentTournament").html(result);
+        			$("#wrapperCurrentTournament").fadeIn();
+        		}
+        	}
+        );
+		return false;
+	});
+
     /*if($('.li').hasClass('.defaut')){
     	console.log('test');
     	$('.li').removeClass('.border_menu');
@@ -22,4 +36,15 @@ $(document).ready( function(){
 		$("#menu2 > ul").hide();
 	});*/
 
+});
+
+
+$(document).mouseup(function(e)
+{
+    var container = $("#wrapperCurrentTournament");
+
+    if(!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.fadeOut();
+    }
 });

@@ -42,12 +42,14 @@
 					</li>
 				<?php 
 				}
-				?>
+				/*
 				<li class="navbar-menu-tooltip-li">
 					<a>
 						Mes points
 					</a>
-				</li>								
+				</li>	
+				*/
+				?>							
 				<li class="navbar-menu-tooltip-li">
 					<a id="nav-deconnection">
 						Deconnexion
