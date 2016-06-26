@@ -53,10 +53,9 @@ final class registerManager extends basesql{
 		}
 		return (count($allRegistered) > 0) ? $allRegistered : false;
 	}
+	// retourne le nombre de users dans une team
 	public function getTeamTournamentUsers(teamtournament $tt){
 		$sql = "SELECT u.id, u.status, u.pseudo, u.description, u.email, u.idTeam, u.img, u.isConnected, u.lastConnexion, u.authorize_mail_contact FROM register r";
-		// On est obligé de rajouter les % sur les values des array
-		// 	les mettre dans la requete ne fonctionnant apparemment pas
 		$sql .= " LEFT OUTER JOIN user u ON u.id = r.idUser";
 		$sql .= " WHERE r.idTeamTournament = :id";
 		
