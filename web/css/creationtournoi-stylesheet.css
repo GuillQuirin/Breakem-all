@@ -1,5 +1,5 @@
 .bg-cover-creationtournoi{    
-    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/bg-over.jpg) center no-repeat;
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/tournoi.jpg) center no-repeat;
     margin:0;    
     -webkit-background-size: cover; 
     background-size: cover;     
@@ -69,13 +69,9 @@
 .creationtournoi-active-choice{
 	z-index: 2;
 }
-.navbar{	
-	/*background-color: rgba(0, 0, 0, .8)!important;*/
-	/*color: #000 !important;*/
-}
 .navbar:hover{
-	/*background-color: rgba(0, 0, 0, 1)!important;*/
-}
+ 	/*background-color: rgba(0, 0, 0, 1)!important;*/
+ }
 
 .creationtournoi-tree-container{
 	background: rgba(0, 0, 0, 1);
@@ -103,11 +99,11 @@
 .creationtournoi-tree-el.active-step:hover{
 	background: rgba(8,3,37,1)
 }
-.creationtournoi-tree-el:first-of-type{	
+.creationtournoi-tree-el:first-of-type{
 	border-radius: 0px 0px 0px 5px;
 	border-left-width: 2px;
 }
-.creationtournoi-tree-el:last-of-type{	
+.creationtournoi-tree-el:last-of-type{
 	border-radius: 0px 0px 5px 0px;
 	border-right-width: 2px;
 }

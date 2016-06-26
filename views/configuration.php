@@ -1,8 +1,3 @@
-<?php
-	if(isset($MAJ))
-		echo "<div>Mise à jour correctement effectuée.</div>";
-	?>
-
 	<section class="middle-height bg-cover-configuration relative">
 
 	<div class="align full-height">
@@ -14,10 +9,6 @@
 					<div class="">
 						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
-						<?php 
-						/*
-						<span class="configuration-header-profil-lastconnexion">Précèdente connexion:<br><?php echo (isset($_lastConnexion)) ? strftime('le %e %B à %H:%M', $_lastConnexion) : 'Dernière connexion inconnue'; ?></span>
-						*/ ?>
 					</div>
 				</div>
 			</div>			
@@ -29,11 +20,8 @@
 	<div class="configuration-onglet-wrapper">
 		<ul class="configuration-onglet-ul">
 			<li class="active">
-				<a>Profil</a>
-			</li><!--
-			--><!-- li>
-				<a>Team</a>
-			</li> -->			
+				Profil
+			</li>			
 		</ul>
 	</div>
 
@@ -49,6 +37,33 @@
 					<form action="configuration/update" method="post" enctype="multipart/form-data">
 
 						<table class="full-width configuration-form-table">
+							<?php 
+
+							if(isset($MAJ))
+								echo '<tr class="success text-center"><td colspan="2">Modifications enregistrées.</td></tr>';
+
+							if(isset($err_img_upload))
+								echo '<tr class="error text-center"><td colspan="2">Erreur dans le téléchargement de votre image.</td></tr>';
+
+							if(isset($err_img_size))
+								echo '<tr class="error text-center"><td colspan="2">Attention votre fichier ne doit pas excéder 3MB.</td></tr>';
+
+							if(isset($fail_date))
+								echo '<tr class="error text-center"><td colspan="2">La date de naissance n\'est pas correcte.</td></tr>';
+
+							if(isset($fail_email))
+								echo '<tr class="error text-center"><td colspan="2">Une adresse email valide est obligatoire</td></tr>';
+
+							if(isset($double_email))
+								echo '<tr class="error text-center"><td colspan="2">Cette adresse email est déjà utilisée</td></tr>';
+
+							if(isset($fail_password))
+								echo '<tr class="error text-center"><td colspan="2">Le nouveau mot de passe doit faire entre 2 et 15 caractères</td></tr>';
+
+							if(isset($empty_password))
+								echo '<tr class="error text-center"><td colspan="2">Veuillez saisir votre mot de passe pour toute modification.</td></tr>';
+							?>
+
 							<tr class="text-center">
 								<td colspan="2">
 									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-profil.png">';?><span class="configuration-form-menu-tr">Mes informations personnelles</span>
@@ -91,18 +106,6 @@
 											</label>
 										</label>
 									</div>
-									<?php /*
-									<div>								
-										<label><input class="checkbox input-default" type="checkbox" name="rss" id="rss"
-											<?php 
-											echo (isset($_rss) && $_rss==1) ? 'checked=checked' : '';?>>
-											<label for="rss">
-											Activation du flux RSS.
-											</label>
-										</label>
-									</div>
-									*/
-									?>
 								</td>
 							</tr>
 							<tr>
@@ -129,9 +132,10 @@
 							</tr>
 							<tr class="text-center">
 								<td colspan="2">
-									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-game.png">';?><span class="configuration-form-menu-tr">Jeux</span>
+									<?php echo '<img class="icon icon-size-3 navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-game.png">';?><span class="configuration-form-menu-tr">Team</span>
 								</td>
 							</tr>
+							<?php /* 
 							<tr>
 								<td>
 									<span>Jeux préféré</span>
@@ -148,13 +152,22 @@
 									</select>
 								</td>
 							</tr>
+							*/
+							?>
 							<tr>
-								<td>
-									<span>Team</span>
-								</td>
-								<td>
-									<?php echo (isset($_nameTeam)) ? '<a href="team?name='.$_nameTeam.'">'.$_nameTeam.'</a>' : 'Vous n\'appartenez à aucune team.'; ?></p>
-								</td>
+								<?php 
+								if(isset($_nameTeam)){
+									echo "<td>";
+										echo '<img class="icon icon-size-3 navbar-icon" src="'.$imgTeam.'">';
+									echo "</td>";
+									echo "<td>";
+										echo '<a href="team?name='.$_nameTeam.'">'.$_nameTeam.'</a>';
+									echo "</td>";
+								}
+								else{
+									echo "<td class='text-center' colspan='2'>Vous n'appartenez à aucune team.</td>";
+								}
+								?>
 							</tr>
 							<tr class="text-center">
 								<td colspan="2">
@@ -163,10 +176,10 @@
 							</tr>	
 							<tr>
 								<td>
-									<span>Mot de passe actuel</span>
+									<span>Mot de passe actuel</span><span class="configuration-input-required p-width-small">*</span>
 								</td>
 								<td>
-									<input class="input-default configuration-input-default" type="password" name="password" required> <span class="configuration-input-required p-width-small">*</span>
+									<input class="input-default configuration-input-default" type="password" name="password" required>
 								</td>						
 							</tr>	
 							<tr>

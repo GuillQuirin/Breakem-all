@@ -10,26 +10,59 @@ window.addEventListener('load', function load(){
 var dom = {
 	init: function(){
 		this.setDetailTournoiInfos();
-		if(!!this.getDetailTournoiInfos())
+		this.setEquipesLibresSection();
+		if(isElSoloJqueryInstance(this.getDetailTournoiInfos()) && isElSoloJqueryInstance(this.getEquipesLibresSection()))
 			adaptMarginToNavHeight(this.getDetailTournoiInfos());
+		this.setBtnsTeam();
 	},
 	setDetailTournoiInfos: function(){
 		this._detailTournoiInfos = $('section.detailtournoi-infos');
 	},
+	setEquipesLibresSection: function(){
+		this._eqLibSec = $('.detailtournoi-equipeslibres-section');
+	},
+	setBtnsTeam: function(){
+		this._btnsTeamJoin = $('.equipelibre-btn-inscription');
+	},
 	getDetailTournoiInfos: function(){
 		return this._detailTournoiInfos;
+	},
+	getEquipesLibresSection: function(){
+		return this._eqLibSec;
+	},
+	getBtnsTeam: function(){
+		return this._btnsTeamJoin;
 	}
 }
 
 var tournamentRegister = {
 	init: function(){
+		var _this = this;
 		this.setRandBtn();
 		this.setSjeton();
-		if(this.getRandBtn().length == 1 && this.getRandBtn() instanceof jQuery){
-			this.setTget();
-			if(this.getTget().length > 0 && this.getSjeton().length == 1 && this.getSjeton() instanceof jQuery)
-				this.loadRandRegisterEvent();
+		this.setTget();
+		if(!isElSoloJqueryInstance(this.getSjeton()))
+			return;
+		if(this.getTget().length < 5)
+			return;
+		// Event du cas où le tournoi est à l'inscription random
+		if(isElSoloJqueryInstance(this.getRandBtn())){
+			this.loadRandRegisterEvent();
+			return;
 		}
+
+		this.setChoiceBtn();
+		if(isElSoloJqueryInstance(this.getChoiceBtn())){
+			dom.getBtnsTeam().each(function(index, el) {
+				_this.loadJoinTeamEvent($(el));
+			});
+			this.loadChooseTeamBtnEvent();
+			return;
+		}
+
+	},
+	setChoiceBtn: function(){
+		this._choiceBtn = $('.detailtournoi-btn-inscription-choisie');
 	},
 	setRandBtn: function(){
 		this._randBtn = $('.detailtournoi-btn-inscription');
@@ -40,6 +73,7 @@ var tournamentRegister = {
 	setSjeton: function(){
 		this._sJeton = $('#sJeton');
 	},
+	getChoiceBtn: function(){return this._choiceBtn;},
 	getRandBtn: function(){return this._randBtn;},
 	getTget: function(){return this._tGet;},
 	getSjeton: function(){return this._sJeton;},
@@ -67,7 +101,7 @@ var tournamentRegister = {
 						popup.init('Vous avez été inscrit aléatoirement à une équipe');
 						setTimeout(function(){
 							location.reload();
-						}, 1000);							
+						}, 1000);
 					}
 				},
 				error: function(xhr, textStatus, errorThrown) {
@@ -75,6 +109,58 @@ var tournamentRegister = {
 				}
 			});
 		});
+	},
+	loadChooseTeamBtnEvent: function(){
+		var _this = this;
+		scroll.init(this.getChoiceBtn(), dom.getEquipesLibresSection());
+		this.getChoiceBtn().click(function(event){
+			popup.init("Choisissez votre équipe");
+			dom.getEquipesLibresSection().addClass('animation fade fadeRight');
+			// setTimeout(function(){
+			// 	dom.getEquipesLibresSection().removeClass('animation fade fadeRight');
+			// }, 550);
+			_this.getChoiceBtn().off();
+		});
+	},
+	loadJoinTeamEvent: function(jQBtn){
+		var _this = this;
+		if(isElSoloJqueryInstance(jQBtn)){
+			var _hInput = jQBtn.parent().find('.equipelibre-tt-id');
+			var _teamId = parseInt(_hInput.val());
+			_hInput.remove();
+			jQBtn.click(function(e){
+				jQuery.ajax({
+					url: 'tournoi/teamRegister',
+					type: 'POST',
+					data: {
+						t: _this.getTget(),
+						ttid: _teamId,
+						sJeton: _this.getSjeton().val()
+					},
+					complete: function(xhr, textStatus) {
+						// console.log("request completed \n");
+					},
+					success: function(data, textStatus, xhr) {
+						console.log(data);
+						// var obj = tryParseData(data);
+						// if(obj != false){
+						// 	if(obj.errors){
+						// 		console.log(obj.errors);
+
+						// 		return;
+						// 	}
+						// 	popup.init('Vous avez été inscrit aléatoirement à une équipe');
+						// 	setTimeout(function(){
+						// 		location.reload();
+						// 	}, 1000);
+						// }
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						console.log("request error !! : \t " + errorThrown);
+					}
+				});
+			});
+		}
 	}
 };
 var tournamentUnregister = {

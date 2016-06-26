@@ -5,7 +5,7 @@ class listejoueursController extends template{
             $v = new view();
     		$this->assignConnectedProperties($v);
             $v->assign("css", "listejoueurs");
-            $v->assign("js","listejoueurs");   
+            //$v->assign("js","listejoueurs");   
             $v->assign("title", "Liste des joueurs");
             $v->assign("content", "Liste des Utilisateurs");
 

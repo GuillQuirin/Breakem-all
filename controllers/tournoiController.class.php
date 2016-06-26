@@ -57,7 +57,7 @@ class tournoiController extends template {
 					$v->assign("_user", $this->getConnectedUser());
 					unset($ttm, $tm, $rm);
 					$_SESSION['lastTournamentChecked'] = $link;
-				}				
+				}
 				$v->setView("detailtournoiDOM");
 				return;
 			};
@@ -93,7 +93,7 @@ class tournoiController extends template {
 			if(!isset($filteredinputs[$key]))
 				$this->echoJSONerror("inputs","missing input " . $key);
     	}
-		
+
 		// SECU ANTI CSRF
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
 			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
@@ -153,8 +153,44 @@ class tournoiController extends template {
 				$this->echoJSONerror('tournoi', 'aucune equipe trouvée pour ce tournoi');
 		};
 		unset($tm);
-		
 	}
+
+	public function teamRegisterAction(){
+		if(!isset($_SESSION['lastTournamentChecked']))
+			$this->echoJSONerror("tournoi","aucun tournoi visité");
+		$args = array(
+            't' => FILTER_SANITIZE_STRING,
+            'ttid' => FILTER_VALIDATE_INT,
+            'sJeton' => FILTER_SANITIZE_STRING
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+		$filteredinputs = array_filter($filteredinputs);
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs","missing input " . $key);
+    	}
+
+		// SECU ANTI CSRF
+		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
+		$link = $filteredinputs['t'];
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
+		if($link !== $_SESSION['lastTournamentChecked'])
+			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+
+		$tm = new tournamentManager();
+		$matchedTournament = $tm->getTournamentWithLink($link);
+		// Si le chercheur renvoie autre chose que false
+		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+			// On vérifie l'égibilité de l'user au tournoi
+			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
+				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+
+			$
+
+		}
+	}
+
 	public function searchAction(){
 		$args = array(
             'nom' => FILTER_SANITIZE_STRING,
@@ -247,5 +283,12 @@ class tournoiController extends template {
 			}
 			return $tableauPondere[rand(0, count($tableauPondere)-1)];
 		}
+	}
+
+	private function canUserRegisterToTeam(teamtournament $tt, tournament $t){
+		$ttm = new teamtournamentManager();
+		if(!($ttm->isTeamInTournament($tt, $t)))
+			return false;
+		
 	}
 }
