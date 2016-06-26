@@ -257,7 +257,8 @@ class creationtournoiController extends template{
 			$tm->create();
 			// on recupere toutes les infos du tournoi tout juste créé
 			$dbTournoi = $tm->getTournamentWithLink($tournoi->getLink());
-
+			if(is_bool($dbTournoi))
+				$this->echoJSONerror('creation tournoi', 'problème de création');
 			// on crée toutes les lignes teamtournament correspondant à maxTeam
 			$ttm = new teamtournamentManager();
 			$ttm->createTournamentTeams($dbTournoi);
@@ -344,13 +345,14 @@ class creationtournoiController extends template{
 			$this->echoJSONerror("dateDebut", "La date de debut doit etre dans le futur");
 		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
 			$this->echoJSONerror("dateDebut", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
-		$nbJours = 90;
-		$limiteMax = 86400 * $nbJours;
+		$nbJours = $t->_gtMaxStartDaysInterval() / 86400;
+		$limiteMax = $t->_gtMaxStartDaysInterval();
 		if($d1->getTimestamp() > time() + $limiteMax)
 			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant ".$nbJours." jours");
-		$deuxSemaines = 86400 * 14;
-		$t->setStartDate($d1->getTimestamp());
-		$t->setEndDate($d1->getTimestamp() + $deuxSemaines);
+		$intervalMax = $t->_gtMaxIntervalBetweenDates();
+
+
+		$t->setStartDate($d1->getTimestamp(), true);
 
 		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
 			$this->echoJSONerror("nom", "Le nom de votre tournoi contient des caracteres speciaux !");
