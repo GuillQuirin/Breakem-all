@@ -62,10 +62,10 @@ final class tournament{
 	private function setId($v){
 		$this->_id = $v;
 	}
-	private function setStartDate($v){
+	public function setStartDate($v){
 		$this->_startDate = $v;
 	}
-	private function setEndDate($v){
+	public function setEndDate($v){
 		$this->_endDate = $v;
 	}
 	private function setName($v){
