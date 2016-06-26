@@ -3,6 +3,11 @@
 *
 */
 final class tournament{
+	// 86400 = nb de secondes/jour
+	private $_maxStartDate = 86400 * 90;
+	private $_spaceBetweenDates = 86400 * 14;
+	private $_endDateWasAutoCreated = false;
+
 	protected $_id;
 	protected $_startDate;
 	protected $_endDate;
@@ -62,11 +67,17 @@ final class tournament{
 	private function setId($v){
 		$this->_id = $v;
 	}
-	public function setStartDate($v){
+	public function setStartDate($v, $setEndDate = false){
 		$this->_startDate = $v;
+		if($setEndDate){
+			$this->setEndDate($v+$this->_gtMaxIntervalBetweenDates());
+			$this->_endDateWasAutoCreated = true;
+		}
+			
 	}
 	public function setEndDate($v){
-		$this->_endDate = $v;
+		if(!$this->_endDateWasAutoCreated)
+			$this->_endDate = $v;
 	}
 	private function setName($v){
 		$this->_name = trim($v);
@@ -207,6 +218,14 @@ final class tournament{
 	public function getNumberRegistered(){return $this->_numberRegistered ;}
 	public function returnAsArr(){
 		return $this->_myArr;
+	}
+
+
+	public function _gtMaxStartDaysInterval(){
+		return $this->_maxStartDate;
+	}
+	public function _gtMaxIntervalBetweenDates(){
+		return $this->_spaceBetweenDates;
 	}
 }
 /*
