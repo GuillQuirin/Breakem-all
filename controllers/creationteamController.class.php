@@ -34,7 +34,7 @@ public function addTeamAction()
 
     if (isset($_FILES['img'])) {
 
-        $uploaddir = '/web/img/';
+        $uploaddir = '/web/img/upload/';
         $name = $_FILES['img']['name'];
 
         $uploadfile = getcwd().$uploaddir.$name;
@@ -60,6 +60,8 @@ public function addTeamAction()
     if ($teamBDD->create())
         echo "CREATION";
 //var_dump($filteredinputs);
+
+
 
 }
 

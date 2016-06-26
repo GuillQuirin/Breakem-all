@@ -1,21 +1,21 @@
 <div class="formteam">
-    <form class="formteam1" action="admin/addTeam" method="post" enctype="multipart/form-data">
+    <form class="formteam1" action="creationteam/addTeam" method="post" enctype="multipart/form-data">
     <table border=0>
         <tr>
-            <td>Nom</td>
-            <td><input type=text name="name"></td>
+            <td>Nom : </td>
+            <td><input class="input-default" type=text name="name"></td>
         </tr>
         <tr>
-            <td>Description</td>
-            <td><textarea rows="3" name="description"></textarea></td>
+            <td>Description : </td>
+            <td><textarea  class="desc-default" rows="3" name="description"></textarea></td>
         </tr>
         <tr>
-            <td>Image</td>
-            <td><input type=file name="img"></td>
+            <td>Image : </td>
+            <td><input class="image-default" type=file name="img"></td>
         </tr>
         <tr>
-            <td>Slogan</td>
-            <td><input type="text" name="slogan"></td>
+            <td>Slogan : </td>
+            <td><input class="input-default" type="text" name="slogan"></td>
         </tr>
         <tr>
             <td colspan=2>
