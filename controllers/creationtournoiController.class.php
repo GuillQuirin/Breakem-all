@@ -160,7 +160,6 @@ class creationtournoiController extends template{
 			$args = array(
 	            'name' => FILTER_SANITIZE_STRING,
 	            'startDate' => FILTER_SANITIZE_STRING,
-	            'endDate' => FILTER_SANITIZE_STRING,
 	            'description' => FILTER_SANITIZE_STRING,
 	            'randomPlayerMix' => FILTER_VALIDATE_BOOLEAN,
 	            'guildOnly' => FILTER_VALIDATE_BOOLEAN,
@@ -173,13 +172,16 @@ class creationtournoiController extends template{
 	            'gversionMaxPlayerPerTeam' => FILTER_VALIDATE_INT
 			);
 			$filteredinputs = filter_input_array(INPUT_POST, $args);
-			// print_r($filteredinputs);
 			foreach ($args as $key => $value) {
 				if(!isset($filteredinputs[$key]))
 					$this->echoJSONerror("inputs", "manque: ".$key);
 			}
 			$tournoi = new tournament($filteredinputs);
+
+			// On valide ici les données reçues, sans quoi le script d'arrete et retourne un json descriptif d'erreur
 			$this->validTournoiData($tournoi);
+
+
 			$receivedVersion = new gameversion(
 				[
 					'name' => $filteredinputs['gversionName'],
@@ -198,8 +200,8 @@ class creationtournoiController extends template{
 				$_SESSION['selectedGameVersion'] = $receivedVersion->getId();
 				$_SESSION['selectedTournamentName'] = $tournoi->getName();
 				$_SESSION['selectedTournamentDescription'] = $tournoi->getDescription();
-				$_SESSION['selectedTournamentStartDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getStartDate())->getTimestamp();
-				$_SESSION['selectedTournamentEndDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getEndDate())->getTimestamp();
+				$_SESSION['selectedTournamentStartDate'] = $tournoi->getStartDate();
+				$_SESSION['selectedTournamentEndDate'] = $tournoi->getEndDate();
 				$_SESSION['selectedTournamentGuild'] = $tournoi->getGuildOnly();
 				$_SESSION['selectedTournamentRand'] = $tournoi->getRandomPlayerMix();
 				$data = [];
@@ -331,30 +333,24 @@ class creationtournoiController extends template{
 		return false;
 	}
 	private function validTournoiData(tournament $t){
-		if(!(validateDate($t->getStartDate(), 'd/m/Y')))
-			$this->echoJSONerror("dateDebut", "C'est quoi cette date ?");
-		if(!(validateDate($t->getEndDate(), 'd/m/Y')))
-			$this->echoJSONerror("dateFin", "C'est quoi cette date ?");
+		if(!(validateDate($t->getStartDate(), 'Y-m-d')))
+			$this->echoJSONerror("dateDebut", "Mauvais format de date reçu: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
 
-		$d1 = DateTime::createFromFormat('d/m/Y', $t->getStartDate());
-		$d2 = DateTime::createFromFormat('d/m/Y', $t->getEndDate());
+		$d1 = DateTime::createFromFormat('Y-m-d', $t->getStartDate());
 
-		$baseDate= DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+		$baseDate= DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
 		$baseDateTime = $baseDate->getTimestamp();
 		if($d1->getTimestamp() < $baseDateTime)
 			$this->echoJSONerror("dateDebut", "La date de debut doit etre dans le futur");
 		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
-			$this->echoJSONerror("dateDebut", "Il n'est plus possible de creer de tournois pour le jour meme passe 18h");
-		if($d2->getTimestamp() < $d1->getTimestamp())
-			$this->echoJSONerror("dateFin", "La date de fin doit etre superieure a celle de debut");
-		if($d2->getTimestamp() - $d1->getTimestamp() < 86400)
-			$this->echoJSONerror("dateFin", "Pour limiter le nombre de tournois par compte cree et par jour il est necessaire que le tournoi finisse au moins un jour apres son debut");
+			$this->echoJSONerror("dateDebut", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
+		$nbJours = 90;
+		$limiteMax = 86400 * $nbJours;
+		if($d1->getTimestamp() > time() + $limiteMax)
+			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant ".$nbJours." jours");
 		$deuxSemaines = 86400 * 14;
-		$uneSemaine = 86400 * 7;
-		if($d1->getTimestamp() - time() > $deuxSemaines)
-			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant 14 jours");
-		if($d2->getTimestamp() - $d1->getTimestamp() > $uneSemaine)
-			$this->echoJSONerror("dateFin", "Le tournoi ne doit pas durer plus de 7 jours");
+		$t->setStartDate($d1->getTimestamp());
+		$t->setEndDate($d1->getTimestamp() + $deuxSemaines);
 
 		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
 			$this->echoJSONerror("nom", "Le nom de votre tournoi contient des caracteres speciaux !");

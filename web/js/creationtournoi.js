@@ -10,6 +10,19 @@ window.addEventListener('load', function load(){
 	newdate.setDate(newdate.getDate() + 36600);
 	// navbar.preventShrink = true;
 });
+
+function getDateFromInt(timestamp){
+	if(typeof timestamp == 'undefined')
+		return false;
+
+	var months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','obtobre','novembre','décembre'];
+	var d1 = new Date(parseInt(timestamp) * 1000);
+	var year = d1.getFullYear();
+	var month = months[d1.getMonth()];
+	var day = d1.getDate();
+
+	return day + ' ' + month + ' ' + year;
+}
 function preventQuitPageEvent(){
 	window.onbeforeunload = function(){
 	  return 'Are you sure you want to leave?';
@@ -243,11 +256,12 @@ var validateChoices = {
 			mainList.append(maxPlayersPerTeam);
 		};
 
+		
 
-		var startingDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-startDate"><span>Date de début :</span><span class="uppercase absolute data">'+data.dateDebut+'</span></li>');
+		var startingDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-startDate"><span>Date de début :</span><span class="uppercase absolute data">'+getDateFromInt(data.dateDebut)+'</span></li>');
 		mainList.append(startingDate);
 
-		var finishDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-endDate"><span>Date de fin :</span><span class="uppercase absolute data">'+data.dateFin+'</span></li>');
+		var finishDate = $('<li class="relative title-4 creationtournoi-valid-tournoi-endDate"><span>Date de fin :</span><span class="uppercase absolute data">'+getDateFromInt(data.dateFin)+'</span></li>');
 		mainList.append(finishDate);
 
 		container.append(mainList);
@@ -273,9 +287,7 @@ var validateChoices = {
 					var obj = tryParseData(data);
 					if(!!obj){
 						if(obj.errors){
-				    		for(var prop in obj.errors){
-				    			alert(obj.errors[prop]);
-				    		}
+				    		popup.init(obj.errors);
 				    		return false;
 				    	}
 				    	else if(obj.success){
@@ -336,9 +348,7 @@ var gameversionChoice = {
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
-		    		for(var prop in obj.errors){
-		    			alert(obj.errors[prop]);
-		    		}
+		    		popup.init(obj.errors);
 		    		return false;
 		    	}
 		    	var treeContainer = dom.getTreeRules();
@@ -384,7 +394,7 @@ var gameversionChoice = {
 		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
-		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">jj/mm/aaaa</p></div><div class="form-input-group"><label for="endDate">Donne la date de sa fin (Requis)</label><input class="border-full" type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="endDate" required/><p class="creationtournoi-tip">jj/mm/aaaa</p></div></form>');
+		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">aaaa-mm-dd</p></div></form>');
 		// on est dans le cas équipe
 		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
 			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div><div class="form-input-group"><label for="guildOnly">Pour guildeux only ?</label><input class="border-full" type="checkbox" name="guildOnly"></div>');
@@ -469,15 +479,16 @@ var gameversionChoice = {
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
 			register.highlightInput(jQel);
-			alert("name fail");
+			popup.init("name fail");
 			return false;
 		}
 		return true;
 	},
 	isDateFormatValid: function(jQel){
-		var unauthorizedChars = /[^\d{2}\/\d{2}\/\d{4}]/;
+		var unauthorizedChars = /[^\d{2}\-\d{2}\-\d{4}]/;
 		if(jQel.val().match(unauthorizedChars)){
-			alert("date fail !");
+			console.log(jQel.val());
+			popup.init("Votre date doit etre de la forme jj/mm/aaaa");
 			jQel[0].value = "";
 			jQel.focus();
 			return false;
@@ -532,7 +543,7 @@ var gameversionChoice = {
 			|| jQel.val().length < 10 
 			|| jQel.val().length > 200){
 			register.highlightInput(jQel);
-			alert("description fail");
+			popup.init("description fail");
 			return false;
 		}
 		return true;
@@ -541,7 +552,7 @@ var gameversionChoice = {
 		var randPVal = randP[0].checked;
 		var guildVal = guild[0].checked;
 		if(guildVal && randPVal){
-			alert("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
+			popup.init("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
 			return false;
 		}
 			
@@ -560,16 +571,6 @@ var gameversionChoice = {
 		var _startDate = form.find('input[name="startDate"]');
 		if(_startDate.length != 1 || !this.isDateFormatValid(_startDate))
 			return false;
-
-		var _endDate = form.find('input[name="endDate"]');
-		if(_endDate.length != 1 || !this.isDateFormatValid(_endDate))
-			return false;
-
-		/*	// S'il y a moins d'un jour entre le debut et la fin du tournoi
-		if(_endDate - _startDate < 86400){
-			alert("Le tounoi doit se finir après au moins un jour");
-			return false;
-		};*/
 
 		var _description = form.find('textarea[name="description"]');
 		if(_description.val().length > 0 && !this.isStringValid(_description))
@@ -607,7 +608,6 @@ var gameversionChoice = {
 				var toSend = {};
 				toSend.name = form.find('input[name="name"]').val();		
 				toSend.startDate = form.find('input[name="startDate"]').val();
-				toSend.endDate = form.find('input[name="endDate"]').val();
 				toSend.description = form.find('textarea[name="description"]').val();
 				var joueursParEquipe = _this.getChoiceDat().maxPlayerPerTeam;
 				if (joueursParEquipe > 1){
@@ -636,9 +636,7 @@ var gameversionChoice = {
 						var obj = tryParseData(data);
 						if(!!obj){
 							if(obj.errors){
-					    		for(var prop in obj.errors){
-					    			alert(obj.errors[prop]);
-					    		}
+					    		popup.init(obj.errors);
 					    		return false;
 					    	}
 					    	_this.cleanDOM();
@@ -696,10 +694,8 @@ var consoleChoice = {
 		  	_this.possibleChoices = [];
 		    var obj = tryParseData(data);
 		    if(!!obj){
-		    	if(obj.errors){
-		    		for(var prop in obj.errors){
-		    			alert(obj.errors[prop]);
-		    		}
+		    	if(obj.errors){		    		
+		    		popup.init(obj.errors);		    		
 		    		return false;
 		    	}
 		    	var treeContainer = dom.getTreePlatform();
@@ -811,9 +807,7 @@ var gameChoice = {
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
-		    		for(var prop in obj.errors){
-		    			alert(obj.errors[prop]);
-		    		}
+		    		popup.init(obj.errors);
 		    		return false;
 		    	}
 		    	var treeContainer = dom.getTreeGame();
@@ -926,9 +920,7 @@ var gameTypesChoice = {
 		    var obj = tryParseData(data);
 		    if(!!obj){
 		    	if(obj.errors){
-		    		for(var prop in obj.errors){
-		    			alert(obj.errors[prop]);
-		    		}
+		    		popup.init(obj.errors);
 		    		return false;
 		    	}
 		    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
