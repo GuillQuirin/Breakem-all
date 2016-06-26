@@ -80,7 +80,7 @@
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+								<a href="<?php echo WEBPATH; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
 								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
@@ -263,7 +263,7 @@
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
-		                <li><a href="<?php echo WEBPATH.'/index'; ?>" title="accueil">Accueil</a></li>
+		                <li><a href="<?php echo WEBPATH ; ?>" title="accueil">Accueil</a></li>
 		                <li><a href="<?php echo WEBPATH.'/listetournois'; ?>" title="Liste des tournois">Tournois</a></li>
 		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
