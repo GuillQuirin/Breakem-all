@@ -62,6 +62,22 @@ final class teamtournamentManager extends basesql{
 		return ( count($allTournTeams) > 0 ) ? $allTournTeams : false;
 	}
 
+	public function getTeamtournamentById(teamtournament $tt){
+		$sql = "SELECT id, rank, idTournament FROM teamtournament WHERE id = :id";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':id' => $tt->getId()
+		]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		$allTournTeams = [];
+		if(isset($r[0])){
+			return new teamtournament($r[0]);
+		}
+		return false;
+	}
+
 	public function isTeamInTournament(teamtournament $tt, tournament $t){
 		$sql = "SELECT count(tt.id) as nb
 		FROM teamtournament tt

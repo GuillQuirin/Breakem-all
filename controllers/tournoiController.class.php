@@ -5,7 +5,6 @@ class tournoiController extends template {
 		$v = new view();
 		$this->assignConnectedProperties($v);
 
-
 		$args = array(
             't' => FILTER_SANITIZE_STRING
 		);
@@ -126,7 +125,6 @@ class tournoiController extends template {
 					else
 						$fullTeams[] = $teamtournament;
 				}
-				// Cas où l'affectation d'équipe est random
 				if((bool)$matchedTournament->getRandomPlayerMix()){
 					// On recupere une equipe random à laquelle affecter l'user
 					$affectedTeam = $this->getRandomTeamToAffectUser($matchedTournament, $freeTeams);
@@ -186,8 +184,33 @@ class tournoiController extends template {
 			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
 				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
 
-			$
+			$tt = new teamtournament(['id' => $filteredinputs['ttid']]);
+			// On récupère la team visée en db
+			$ttm = new teamtournamentManager();
+			$tt = $ttm->getTeamtournamentById($tt);
 
+			$rm = new registerManager();
+			$usersInTeam = $rm->getTeamTournamentUsers($tt);
+			if(is_array($usersInTeam))
+				$tt->addUsers($usersInTeam);
+
+			// on vérifie que l'utilisateur peut bien s'inscrire ds cette team
+			if(!canUserRegisterToTeamTournament($this->getConnectedUser(), $matchedTournament, $tt))
+				$this->echoJSONerror('problème d\'équipe', 'vous ne pouvez pas vous inscrire dans cette équipe');
+
+			// On peut désormais enregistrer l'user dans la team
+			$rm->mirrorObject = new register([
+				'status' => 1,
+				'idTeamTournament' => $tt->getId(),
+				'idUser' => $this->getConnectedUser()->getId(),
+				'idTournament' => $matchedTournament->getId()
+			]);
+			if($rm->create() !== FALSE){
+				echo json_encode(["success" => "Vous avez été inscrit au tournoi ".$matchedTournament->getName()]);
+				return;
+			}
+			else
+				$this->echoJSONerror("enregistrement", "problème lors de votre inscription au tournoi " . $matchedTournament->getName());
 		}
 	}
 
@@ -285,10 +308,5 @@ class tournoiController extends template {
 		}
 	}
 
-	private function canUserRegisterToTeam(teamtournament $tt, tournament $t){
-		$ttm = new teamtournamentManager();
-		if(!($ttm->isTeamInTournament($tt, $t)))
-			return false;
-		
-	}
+	
 }

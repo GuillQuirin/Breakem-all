@@ -141,19 +141,21 @@ var tournamentRegister = {
 						// console.log("request completed \n");
 					},
 					success: function(data, textStatus, xhr) {
-						console.log(data);
-						// var obj = tryParseData(data);
-						// if(obj != false){
-						// 	if(obj.errors){
-						// 		console.log(obj.errors);
-
-						// 		return;
-						// 	}
-						// 	popup.init('Vous avez été inscrit aléatoirement à une équipe');
-						// 	setTimeout(function(){
-						// 		location.reload();
-						// 	}, 1000);
-						// }
+						var obj = tryParseData(data);
+						if(obj != false){
+							if(obj.errors){
+								popup.init(obj.errors);
+								return;
+							}
+							if(obj.success){
+								popup.init(obj.success);
+								setTimeout(function(){
+									location.reload();
+								}, 1000);
+								return;
+							}
+							
+						}
 					},
 					error: function(xhr, textStatus, errorThrown) {
 						console.log("request error !! : \t " + errorThrown);
