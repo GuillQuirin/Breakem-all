@@ -130,6 +130,11 @@ var dom = {
 		this._treeEls.push(this.getTreePlatform());
 		this._treeEls.push(this.getTreeRules());
 		this._treeEls.push(this.getTreeConfirm());
+
+
+
+		// Sert à savoir plus tard dans le JS si l'user a bien une guilde
+		this.setUserHasGuild()
 		return true;
 	},
 	setTitleContainer: function(){
@@ -169,6 +174,13 @@ var dom = {
 		this.getBtn().css('margin-top', navHeight/2);
 		this.getBtn().css('margin-bottom', navHeight/2);
 	},
+	setUserHasGuild: function(){
+		var hInp = jQuery('#creationtournoi-userHasGuild');
+		if(hInp instanceof jQuery && hInp.length == 1)
+			this._uhg = true;
+		else
+			this._uhg = false;
+	},
 	getTitleContainer: function(){return this._title;},
 	getContainer: function(){return this._elementsContainer;},
 	getBtn: function(){return this._btn;},
@@ -178,7 +190,8 @@ var dom = {
 	getTreePlatform: function(){return this._treeP;},
 	getTreeRules: function(){return this._treeR;},
 	getTreeConfirm: function(){return this._treeC;},
-	getAllTreeEls: function(){return this._treeEls;}
+	getAllTreeEls: function(){return this._treeEls;},
+	doesUserHaveGuild: function(){return this._uhg;}
 };
 var validateChoices = {
 	_sumUp: false,
@@ -397,7 +410,11 @@ var gameversionChoice = {
 		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">aaaa-mm-dd</p></div></form>');
 		// on est dans le cas équipe
 		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
-			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div><div class="form-input-group"><label for="guildOnly">Pour guildeux only ?</label><input class="border-full" type="checkbox" name="guildOnly"></div>');
+			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div>');
+			if(dom.doesUserHaveGuild())
+				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Activer le mode "tournoi inter-guildes"</label><input class="border-full" type="checkbox" name="guildOnly"></div>');
+			else
+				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Vous ne pouvez pas créer de tournoi inter-guilde à moins d\'en avoir une</label><input class="border-full" type="checkbox" disabled name="guildOnly"></div>');
 			form.append(randomAndGuildInputs);
 			_this.randomAndGuildInputEvent(randomAndGuildInputs);
 		}

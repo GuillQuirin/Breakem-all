@@ -225,7 +225,7 @@ class creationtournoiController extends template{
 			}
 			$this->echoJSONerror("version", "Ta version de jeu est inconnue au bataillon");
 		}
-		die("Choisis peut être une console avant ...");
+		$this->echoJSONerror("Choisis peut être une console avant ...");
 	}
 
 	private function wereAllStepsValid(){
@@ -335,36 +335,39 @@ class creationtournoiController extends template{
 	}
 	private function validTournoiData(tournament $t){
 		if(!(validateDate($t->getStartDate(), 'Y-m-d')))
-			$this->echoJSONerror("dateDebut", "Mauvais format de date reçu: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
+			$this->echoJSONerror("", "Mauvais format de date reçu: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
 
 		$d1 = DateTime::createFromFormat('Y-m-d', $t->getStartDate());
 
 		$baseDate= DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
 		$baseDateTime = $baseDate->getTimestamp();
 		if($d1->getTimestamp() < $baseDateTime)
-			$this->echoJSONerror("dateDebut", "La date de debut doit etre dans le futur");
+			$this->echoJSONerror("", "La date de debut doit etre dans le futur");
 		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
-			$this->echoJSONerror("dateDebut", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
+			$this->echoJSONerror("", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
 		$nbJours = $t->_gtMaxStartDaysInterval() / 86400;
 		$limiteMax = $t->_gtMaxStartDaysInterval();
 		if($d1->getTimestamp() > time() + $limiteMax)
-			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant ".$nbJours." jours");
+			$this->echoJSONerror("", "Le tournoi doit commencer avant ".$nbJours." jours");
 		$intervalMax = $t->_gtMaxIntervalBetweenDates();
 
 
 		$t->setStartDate($d1->getTimestamp(), true);
 
 		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
-			$this->echoJSONerror("nom", "Le nom de votre tournoi contient des caracteres speciaux !");
-		if(!empty(trim($t->getDescription()))){
+			$this->echoJSONerror("", "Le nom de votre tournoi contient des caracteres speciaux !");
+		if( strlen(trim($t->getDescription())) > 0 ){
 			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
-				$this->echoJSONerror("descripiton", "La description de votre tournoi contient des caracteres speciaux !");
-			if(strlen($t->getDescription()) > 199 || strlen($t->getDescription()) < 15)
-				$this->echoJSONerror("descripiton", "La description, lorsque utilisée, doit faire entre 15 et 199 caracteres");
+				$this->echoJSONerror("", "La description de votre tournoi contient des caracteres speciaux !");
+			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 15)
+				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 15 et 250 caracteres");
 		}
-			
-
-		if($t->getGuildOnly() === 1 && $t->getRandomPlayerMix() === 1)
-			$this->echoJSONerror("equipe", "Les équipes de guilde ne peuvent etre faconnees aleatoierement");
+		
+		if( (bool)$t->getGuildOnly() ){
+			if ( !is_numeric($this->getConnectedUser()->getIdTeam()) )
+				$this->echoJSONerror("", "Vous devez vous-même être dans une guilde pour créer un tournoi inter-guilde");
+			if( (bool) $t->getRandomPlayerMix() )
+				$this->echoJSONerror("", "Les équipes de guilde ne peuvent etre faconnees aleatoierement");
+		}
 	}
 }

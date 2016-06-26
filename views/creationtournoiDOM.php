@@ -48,3 +48,6 @@
 		</div>		
 	</div>
 </section>
+<?php if( isset($_idTeam) && is_numeric($_idTeam) ): ?>
+<input id="creationtournoi-userHasGuild" type="hidden">
+<?php endif; ?>
