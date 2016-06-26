@@ -211,7 +211,7 @@ class template{
   }
 
   protected function echoJSONerror($name, $msg){
-    $data['errors'][$name] = $msg;
+    $data['errors'] = $name . ' : ' .$msg;
     echo json_encode($data);
     flush();
     exit;
