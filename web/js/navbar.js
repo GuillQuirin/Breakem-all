@@ -904,3 +904,48 @@ var cookie = {
 		});
 	}	
 };
+
+
+
+$(document).ready(function(){
+	//Affichages des popups
+	$("#contactAdmin").click(function(){
+		$("#wrapperAdmin").fadeIn();
+		return false;
+	});
+
+	//Controle des messages
+	$("#btn_contactAdmin").click(function(){
+		if($("#mess_contactAdmin").val()==""){
+			alert('Veuillez ne pas laisser un message vide.');
+		}
+		else if($("#expediteurContactAdmin").val()==""){
+			alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
+		}
+		else{
+			$.ajax({method: "POST",
+					data:{
+						message: $("#mess_contactAdmin").val(),
+						expediteur: $("#expediteurContactAdmin").val()
+					},
+					url: "index/contactAdmin", 
+					success: function(result){
+	            		$("#wrapperAdmin").html("OK");
+	        		}
+	        	}
+	        );
+		}
+	});
+	//return false;
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $("#wrapperAdmin");
+
+    if(!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.fadeOut();
+    }
+});
+

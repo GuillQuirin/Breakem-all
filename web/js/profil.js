@@ -15,16 +15,16 @@ $(document).ready(function(){
 		if($("#mess_plainte").val()=="" || $("#liste_plainte").val()==0){
 			alert('Veuillez justifier votre signalement.');
 		}
-		else{
-			$.ajax({method: "POST",
-					data:{motif: $("#liste_plainte").val(), justif: $("#mess_plainte").val()},
-					url: "demo_test.txt", 
-					success: function(result){
-	            		alert(result);
-	        		}
-	        	}
-	        );
-		}
+		// else{
+		// 	$.ajax({method: "POST",
+		// 			data:{motif: $("#liste_plainte").val(), justif: $("#mess_plainte").val()},
+		// 			url: "demo_test.txt", 
+		// 			success: function(result){
+	 //            		alert(result);
+	 //        		}
+	 //        	}
+	 //        );
+		// }
 		//return false;
 	});
 
@@ -32,16 +32,16 @@ $(document).ready(function(){
 		if($("#mess_contact").val()==""){
 			alert('Veuillez ne pas laisser un message vide.');
 		}
-		else{
-			$.ajax({method: "POST",
-					data:{message: $("#mess_contact").val()},
-					url: "demo_test.txt", 
-					success: function(result){
-	            		alert(result);
-	        		}
-	        	}
-	        );
-		}
+		// else{
+		// 	$.ajax({method: "POST",
+		// 			data:{message: $("#mess_contact").val()},
+		// 			url: "demo_test.txt", 
+		// 			success: function(result){
+	 //            		alert(result);
+	 //        		}
+	 //        	}
+	 //        );
+		// }
 	});
 	//return false;
 });

@@ -245,6 +245,17 @@
 			<?php include $this->view; ?>
 		</div>
 
+		<section id="wrapperAdmin">
+			<div>
+				<h4>Contacter les administrateurs du site.</h4>
+				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
+				<input type="email" name="expediteur" id="expediteurContactAdmin">
+				<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				</textarea>
+				<input type="submit" id="btn_contactAdmin" value="Envoyer">
+			</div>
+		</section>
+
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
@@ -286,7 +297,7 @@
 		                if(isset($_isConnected))
 		                	echo "<li><a href='".WEBPATH."/profil?pseudo=".$_pseudo."' title='Acceder à ma page'>Profil</a></li>";
 		                ?>
-		                <li><a href="#" title="link 2">Nous contacter</a></li>
+		                <li><a id="contactAdmin" title="Joindre les admins">Nous contacter</a></li>
 		                <li><a href="<?php echo WEBPATH.'/CGU'; ?>" title="Conditions d'utilisation">CGU</a></li>
 		                <li><a href="<?php echo WEBPATH.'/copyright'; ?>" title="Reglement">About</a></li>
 		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="Flux RSS">RSS</a></li>
