@@ -120,7 +120,7 @@ var dom = {
 			|| (this.getTreeRules().length > 1 )
 			|| (this.getTreeConfirm().length > 1 )
 			|| !(this.getBtn() instanceof jQuery)){
-			console.log("Title || Container || Btn || Tree-section not found ");
+			popup.init("Titre, container, bouton ou section introuvables !");
 			return false;
 		}
 		//this.setTitleContainerMargin();
@@ -296,7 +296,7 @@ var validateChoices = {
 					}
 				},
 				error: function(xhr, textStatus, errorThrown) {
-					console.log("request error !! : \t " + errorThrown);
+					popup.init("request error !! : \t " + errorThrown);
 				}
 			});				
 		});	
@@ -369,11 +369,11 @@ var gameversionChoice = {
 			    loadTitle("ton mode de jeu");
 			    
 		    }else{
-		    	console.log("Création du DOM consoles impossible");
+		    	popup.init("Création du DOM consoles impossible");
 		    }		    
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
+		   popup.init("request error !! : \t " + errorThrown);
 		  }
 		});
 	},
@@ -487,51 +487,12 @@ var gameversionChoice = {
 	isDateFormatValid: function(jQel){
 		var unauthorizedChars = /[^\d{2}\-\d{2}\-\d{4}]/;
 		if(jQel.val().match(unauthorizedChars)){
-			console.log(jQel.val());
 			popup.init("Votre date doit etre de la forme jj/mm/aaaa");
 			jQel[0].value = "";
 			jQel.focus();
 			return false;
 		};
 		return true;
-		/*var day = parseInt(jQel.val().substring(0, 2));
-		var month = parseInt(jQel.val().substring(3, 5)) - 1;
-		var year = parseInt(jQel.val().substring(6));
-		var d = new Date(year, month, day);
-		var receivedTime = d.getTime();
-		console.log("1: "+ receivedTime);
-
-
-		var today = new Date();
-		var curD = today.getDate();
-		var curM = today.getMonth();
-		var curY = today.getFullYear();
-		var firstHourToday = new Date(curY, curM, curD);
-
-
-		var baseTime = firstHourToday.getTime();
-		console.log("2: "+ baseTime);
-		console.log("3: "+today.getTime());
-		// S'il est midi passé ou si le mec essaye de creer un tournoi ds le passé
-		if (receivedTime - baseTime < 0){
-			alert("Date d'aujourd'hui minimum");
-			jQel[0].value = "";
-			jQel.focus();
-			return false
-		};
-		if (today.getTime() == baseTime && today.getHours() > 12){
-			alert("Il n'est plus possible de créer de tournoi pour le jour même passé 13h!");
-			jQel[0].value = "";
-			jQel.focus();
-			return false
-		};
-		if (receivedTime - baseTime > 2678400){
-			alert("Le tournoi doit débuter avant un mois");
-			jQel[0].value = "";
-			jQel.focus();
-			return false
-		}
-		return receivedTime;*/
 	},
 	isStringValid: function(jQel){
 		if(jQel.val().replace(/ /g, '').length==0){
@@ -644,7 +605,7 @@ var gameversionChoice = {
 						}
 					},
 					error: function(xhr, textStatus, errorThrown) {
-						console.log("request error !! : \t " + errorThrown);
+						popup.init("request error !! : \t " + errorThrown);
 					}
 				});
 				
@@ -709,7 +670,6 @@ var consoleChoice = {
 			    	_this.possibleChoices.push(jQDomElem);
 			    	_this.possibleTreeChoices.push(treeDom);
 			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.platforms[prop].name);
-			    	// console.log(obj.platforms[prop]);
 			    }
 			    if(_this.getPossibleChoices().length == 0)
 			    	return false;
@@ -717,11 +677,11 @@ var consoleChoice = {
 			    loadTitle("ta console");
 			    
 		    }else{
-		    	console.log("Création du DOM consoles impossible");
+		    	popup.init("Création du DOM consoles impossible");
 		    }		    
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
+		    popup.init("request error !! : \t " + errorThrown);
 		  }
 		});
 	},
@@ -828,11 +788,11 @@ var gameChoice = {
 			    loadTitle("ton jeu");
 			    
 		    }else{
-		    	console.log("Création du DOM gametype impossible");
+		    	popup.init("Création du DOM gametype impossible");
 		    }		    
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
+		   popup.init("request error !! : \t " + errorThrown);
 		  }
 		});
 	},
@@ -945,11 +905,11 @@ var gameTypesChoice = {
 			    loadTitle("ton style de jeu");
 			    
 		    }else{
-		    	console.log("Création du DOM gametype impossible");
+		    	popup.init("Création du DOM gametype impossible");
 		    }		    
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
+		    popup.init("request error !! : \t " + errorThrown);
 		  }
 		});
 	},
