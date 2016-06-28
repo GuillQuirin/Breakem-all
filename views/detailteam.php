@@ -22,8 +22,7 @@ else{
         <img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
     </section>
 
-    <div style="margin-top:100px"class="inscription_team">
-        Nom de la team : <?php echo $nameteam; ?><br>
+    <div style="margin-top:100px" class="inscription_team">
         Nombre de membre : <br>
         
         <?php 
