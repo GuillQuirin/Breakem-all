@@ -9,6 +9,7 @@
             <td>Description : </td>
             <td><textarea  class="desc-default" rows="3" name="description"></textarea></td>
         </tr>
+
         <tr>
             <td>Image : </td>
             <td><input class="image-default" type=file name="img"></td>
