@@ -215,6 +215,7 @@ class teamManager extends basesql{
 		return new team($r);
 	}
 
+	
 	public function setIdTeam($id){
 
 		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
