@@ -60,10 +60,11 @@ public function addTeamAction()
     $teamBDD->create();
     $idteam = new userManager();
     $t = $idteam->SearchIdTeam($filteredinputs['name']);
-    if(isset($_id) == true)
+  
     $idteam->setNewTeamId( $this->connectedUser->getId(), $t[0]["id"] );
 
-    header('Location: '.WEBPATH.'/detailteam?name='.$filteredinputs['name']);
+
+   // header('Location: '.WEBPATH.'/detailteam?name='.$filteredinputs['name']);
 
 }
 
