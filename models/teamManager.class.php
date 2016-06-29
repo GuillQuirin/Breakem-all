@@ -231,13 +231,3 @@ class teamManager extends basesql{
 	}
 }
 
-/*$sql = "UPDATE team SET status = :status WHERE id= :id";
-		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$req->execute([
-			':status' => $t->getStatus(),
-			':id' => $t->getId()
-		]);
-		$res = $req->fetchAll();
-		if(isset($res[0]))
-			return true;
-		return false;  id_user_creator*/

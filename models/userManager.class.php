@@ -193,6 +193,7 @@ class userManager extends basesql{
 		return new user($query);
 	}
 
+	
 	/*RECUPERATION DE TOUS LES USER*/
 	public function getAllUser(){
 		
