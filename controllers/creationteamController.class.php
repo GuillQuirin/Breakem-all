@@ -22,7 +22,7 @@ public function addTeamAction()
 {
 
     $args = array(
-//'id' => FILTER_VALIDATE_INT,
+        'id' => FILTER_VALIDATE_INT,
         'name' => FILTER_SANITIZE_STRING,
         'description' => FILTER_SANITIZE_STRING,
         'img' => FILTER_SANITIZE_STRING,
@@ -57,11 +57,12 @@ public function addTeamAction()
 
     $teamBDD = new teamManager();
     $teamBDD->mirrorObject = new team($filteredinputs);
-    if ($teamBDD->create())
-        echo "CREATION";
-//var_dump($filteredinputs);
+    $teamBDD->create();
+    $idteam = new userManager();
+    $idteam->setNewTeam($_id, $filteredinputs['id'] );
 
 
+    header('Location: '.WEBPATH.'/detailteam?name='.$filteredinputs['name']);
 
 }
 
