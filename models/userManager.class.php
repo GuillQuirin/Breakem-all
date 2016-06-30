@@ -193,6 +193,7 @@ class userManager extends basesql{
 		return new user($query);
 	}
 
+	
 	/*RECUPERATION DE TOUS LES USER*/
 	public function getAllUser(){
 		
@@ -212,4 +213,32 @@ class userManager extends basesql{
 
 		return (count($list) > 0) ? $list : false;
 	}
+
+	public function SearchIdTeam($t){
+		$sql = "SELECT id FROM team WHERE name = :name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		 $sth->execute([
+			':name' => $t
+		]);
+
+		$r = $sth->fetchAll();
+
+		return $r;
+
+	}
+
+	public function setNewTeamId($u, $t){
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id = :id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTeam' => $t,
+			':id' => $u
+		]);
+	}
 }
+/*$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
+$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+$r = $sth->execute([
+	':email' => $u->getEmail()
+]);
+return $r;*/

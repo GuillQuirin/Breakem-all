@@ -215,22 +215,19 @@ class teamManager extends basesql{
 		return new team($r);
 	}
 
+	public function setIdTeam($id){
 
-public function getTeamTest(array $infos){
-		
-		$cols = array_keys($infos);
-		$data = [];
-		foreach ($cols as $key) {
-			$data[$key] = $key.'="'.$infos[$key].'"';
-		}
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
+    (SELECT id FROM Race WHERE nom = 'Berger Allemand'); ";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':idTeam' => $id,
 
-		$sql = "SELECT * FROM team WHERE ".implode(',', $data);
-
-		$query = $this->pdo->query($sql)->fetch();
-
-		if($query === FALSE)
-			return false;
-
-		return new team($query);
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
 	}
 }
+

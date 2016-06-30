@@ -77,15 +77,10 @@ class team{
 	public function getImg($upload=false){
 		if($upload){
 			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
-				return $this->img;
-
 			return "default.jpg";
 		}
 		else{
-			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
-				return "/web/img/upload/".$this->img;
-
-			return "/web/img/upload/default.jpg";	
+			return $this->img;
 		}
 	}
 	public function getSlogan(){return $this->slogan;}
