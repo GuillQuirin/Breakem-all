@@ -11,8 +11,14 @@ class detailteamController extends template{
 		$v->assign("content", "Team - Error");
 		$v->setView("detailteam");
 
+        if(isset($_GET['name'])){
+            //Si le paramètre GET['name'] n'exite pas alors tu me renvoi erreur 1   
+            $teamName = new teamManager();
+            $nameTeam = $teamName->getNameTeam($_GET['name']);
+        }
+
 		//Si un paramètre GET portant le nom d'une team dans l'URL
-        if(isset($_GET['name']) && $this->getConnectedUser()){
+        if(isset($_GET['name']) && $_GET['name'] != '' && $nameTeam == true){
             $name = $_GET['name'];
             $v->assign("title", "Team - ".$name);
             $v->assign("content", "Team - ".$name);
@@ -37,8 +43,16 @@ class detailteamController extends template{
             //$this : objet du user connecté grâce au template
             $v->assign("currentUser",$this);
 
+            //Liste des membres
+            $listemember = $teamBDD->getListMember($name);
+            $v->assign("listmember", $listemember);
+
+
             //Récupération de l'id de la team du user connecté
-            $getIdTeam = $this->getConnectedUser()->getIdTeam();
+            if($this->getConnectedUser()){
+               $getIdTeam = $this->getConnectedUser()->getIdTeam();
+            }
+
             //Verification si l'user une Team
             if(!empty($getIdTeam)){
                 $infos_team = ['id'=>$getIdTeam];

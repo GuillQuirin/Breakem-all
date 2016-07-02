@@ -43,8 +43,49 @@ class indexController extends template{
 		$v->setView("index");
 	}
 
+	public function contactAdminAction(){
+		$args = array(
+				'expediteur' => FILTER_VALIDATE_EMAIL,
+				'message' => FILTER_SANITIZE_STRING 
+				);
+		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
+
+		/*
+			###########################################################################
+			###########################################################################
+		*/
+			// ARRAY FILTER SUPPRIME LES MSG VIDES, 0, FALSE ou NULL
+			// IL FAUT OBLIGATOIREMENT UTILISER CETTE METHODE DE FOREACH APRES UN array_filter(filter_input_array)
+		/*
+			###########################################################################
+			###########################################################################
+		*/
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key])){      
+				die("Manque information : ".$key);
+			}
+		}	
+
+		$contenuMail = "<h3>Un utilisateur vous a contacté.Vous pouvez lui répondre à <a href='".$filteredinputs['expediteur']."'>cette adresse</a>.</h3>";
+	    $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+
+		$this->envoiMail('breakemall.contact@gmail.com', 'Demande de contact.', $contenuMail);	
+	}
+
+
+	public function currentTournamentAction(){
+
+		$tournamentBDD = new tournamentManager();
+		$tournoi = $tournamentBDD->getRecentsTournaments(1)[0];
+
+		$contenu="<p>Date de début: Le ".date('d/m/Y \à h:i',$tournoi->getStartDate())."</p>";
+		$contenu.="<p>Date de fin: Le ".date('d/m/Y \à h:i',$tournoi->getEndDate())."</p>";
+		$contenu.="<p>Jeu ciblé : <img class='img-popup' src='".$tournoi->getGameImg()."'></p>";
+		echo $contenu;
+	}
 }
+
 /*
 
 	SELECT t.id, t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, COUNT(r.id) as numberRegistered 

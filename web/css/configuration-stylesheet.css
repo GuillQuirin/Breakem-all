@@ -12,20 +12,36 @@ body, html{
     margin-top:0;
 }
 
+.success{
+    color: green;
+    font-weight: bold;
+}
+
+.error{
+    color:red;
+    font-weight: bold;
+}
+
 .configuration-onglet-wrapper{
     position:absolute;
     bottom:-1px;    
     left:15vw;
 }
 
-.configuration-input-default{
-
+.configuration-textarea-description{
+    height: 70px;
+    vertical-align: middle;
 }
 
 .configuration-avatar-wrapper{
     width:250px;
     height:250px; 
     padding:15px 0 20px 0;
+}
+
+.configuration-team{
+    width: 20%;
+    vertical-align: middle;
 }
 
 .configuration-avatar{
@@ -44,7 +60,6 @@ body, html{
 
 .configuration-input-required{
     color:#D92B4C;
-    position:absolute;
 }
 
 .configuration-onglet-ul li:hover{
@@ -69,6 +84,10 @@ body, html{
     border:1px solid #524c7b;  
 }
 
+.configuration-form-table td:first-child{
+    width: 40%;
+}
+
 .configuration-form-email div{
     padding:7px 0;
 }
@@ -90,7 +109,7 @@ body, html{
 
 .bg-cover-configuration{
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
-    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/tokyo.jpg) center top no-repeat;
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/profil.jpg) center top no-repeat;
     margin:0;
     padding:0;
     -webkit-background-size: cover; 

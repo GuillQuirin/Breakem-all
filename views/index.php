@@ -4,7 +4,7 @@
 	<div class="align full-height animation fadeLeft">
 		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
 			<div class="index-header-btn"> 			
-				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Tournoi du moment</a></button>				
+				<button type="button" class="btn btn-pink index-header-btn-pink-width" id="currentTournament"><a>Tournoi du moment</a></button>				
 				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
 			</div>
 		</span>	
@@ -78,13 +78,11 @@
 				endif;
 			?>
 
-			<div class="page_article">
+			<div>
 				<ul>
 					<nav class="nav_hori page">
 						<ul>
-
 							<!-- Pagination -->
-
 							<?php 
 								if(isset($pagination)):
 									//$nbpages = new tournoi($pagination);
@@ -191,15 +189,14 @@
 					<label for="title2">Jeux les plus utlisés</label>
 				</div>
 				<?php 
-					if(isset($bestGames)):
-						foreach ($bestGames as $key => $value):
-				?>			
-							<div class='game'><img src="echo .WEBPATH. '/web/img/band.jpg'">
-								<p><?php echo $value['name']; ?></p>
-							</div>
-				<?php
-						endforeach;
-					endif;
+					if(isset($bestGames)){
+						foreach ($bestGames as $key => $value){	
+							echo "<div class='game'>";
+								echo "<img src='".WEBPATH.'/web/img/'.$value['img']."'>";
+								echo "<p>".$value['name']."</p>";
+							echo "</div>";
+						}
+					}
 				?>
 			</div>
 
@@ -214,7 +211,7 @@
 					// 		$catego = new typegame($value);
 				?>
 							<div class='categorie'>
-								<p><?php// echo $catego->getName(); ?></p><br>
+								<p><?php // echo $catego->getName(); ?></p><br>
 							</div>
 				<?php 
 					// 	endforeach;
@@ -247,5 +244,12 @@
 			<a href="https://www.youtube.com/channel/UCnVPB635znITQ8t2_v7P0SQ"><?php echo '<img src="' . WEBPATH . '/web/img/icon/youtube.png">';?></a>
 			<p> Youtube </p>
 		</div>
+	</div>
+</section>
+
+<section id="wrapperCurrentTournament">
+	<h4>Prochain tournoi....</h4>
+	<div id="contentCurrentTournament">
+
 	</div>
 </section>

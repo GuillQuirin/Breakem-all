@@ -46,9 +46,8 @@
     text-align: center;
 }
 
-.profil-watch button{
-    width:150px;    
-    margin-bottom:15px;
+#communication button{
+    margin: 10px 0;
 }
 
 .profil-match-element-center{
@@ -185,7 +184,7 @@ body, html{
 
 .bg-cover-configuration{
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
-    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/tokyo.jpg) center top no-repeat;
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/profil.jpg) center top no-repeat;
     margin:0;
     padding:0;
     -webkit-background-size: cover; 
@@ -254,18 +253,33 @@ input[name="search"]{
 .title_index{
     width:88%;
     padding:10px;
-    text-align: right;
+    text-align: center;
     background-color: #211d3b;
     transform: skew(-8deg);
 }
 .title_index,label[for='title1']{
-    margin-top:50px;
+    margin: 30px 0;
 }
+
+.team{
+    width:100%;
+    text-align: center;
+    margin-top:20px;
+}
+.team:hover h3{
+    color:#d92b4c;
+    transition: .4s;
+}
+
+.team img{
+    width: 80px;
+    transform: skew(-8deg);
+}
+
 .fight{
     width:100%;
     text-align: center;
     margin-top:20px;
-    cursor:pointer;
 }
 .fight:hover h3{
     color:#d92b4c;

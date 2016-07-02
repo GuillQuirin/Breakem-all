@@ -23,11 +23,18 @@ class teamController extends template{
 		$v->assign("title", "Team");
 		$v->assign("content", "Liste des teams");
 
+        
 
         //Liste des teams
         $obj = new teamManager();
 
         $listeteam = $obj->getListTeam(-1);
+
+        //Pagination
+        $pagination = $obj->getListMember(-1);
+        if(!empty($pagination)){
+            $v->assign("pagination", $pagination);
+        }
 
         $v->assign("listeteam", $listeteam);
      

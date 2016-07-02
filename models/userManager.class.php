@@ -14,7 +14,13 @@ class userManager extends basesql{
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
+						u.description, u.kind, u.city, u.email, u.password, u.status, 
+						u.img, u.idTeam, u.isConnected, u.lastConnexion,
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+					FROM ".$this->table." u, team t 
+					WHERE u.email=:email";
+
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $user->getEmail()
@@ -80,7 +86,13 @@ class userManager extends basesql{
 		--> cette methode est appelée à chaque rechargement de page.
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
 		*/
-		$sql = "SELECT * FROM ".$this->table." WHERE email=:email AND status>0";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
+						u.description, u.kind, u.city, u.email, u.password, u.status, 
+						u.img, u.idTeam, u.isConnected, u.lastConnexion,
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+					FROM ".$this->table." u, team t 
+					WHERE u.email=:email AND u.status>0";
+
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $_SESSION[COOKIE_EMAIL]
@@ -129,7 +141,7 @@ class userManager extends basesql{
 		foreach (get_class_methods($newuser) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = ($prop==="img") ? $newuser->$method_name(false) : $newuser->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newuser->$method_name(true) : $newuser->$method_name(); 
 			}
 		}
 
@@ -166,12 +178,12 @@ class userManager extends basesql{
 			$data[$key] = $key.'="'.$infos[$key].'"';
 		}
 
-		$sql = "SELECT id, name, firstname, pseudo, birthday, 
-						description, kind, city, email, status, 
-						img, idTeam, isConnected, lastConnexion,
-						rss, authorize_mail_contact, token 
-					FROM ".$this->table." 
-					WHERE status<>0 AND " . implode(',', $data);
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
+						u.description, u.kind, u.city, u.email, u.password, u.status, 
+						u.img, u.idTeam, u.isConnected, u.lastConnexion,
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+					FROM ".$this->table." u, team t 
+					WHERE u.status<>0 AND " . implode(',', $data);
 
 		$query = $this->pdo->query($sql)->fetch();
 
@@ -181,10 +193,16 @@ class userManager extends basesql{
 		return new user($query);
 	}
 
+	
 	/*RECUPERATION DE TOUS LES USER*/
 	public function getAllUser(){
 		
-		$sql = "SELECT * FROM ".$this->table." WHERE status>0 ";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
+						u.description, u.kind, u.city, u.email, u.password, u.status, 
+						u.img, u.idTeam, u.isConnected, u.lastConnexion,
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+					FROM ".$this->table." u, team t 
+					WHERE u.status>0";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -195,4 +213,19 @@ class userManager extends basesql{
 
 		return (count($list) > 0) ? $list : false;
 	}
+
+	public function setNewTeamId($u, $t){
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id = :id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTeam' => $t,
+			':id' => $u
+		]);
+	}
 }
+/*$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
+$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+$r = $sth->execute([
+	':email' => $u->getEmail()
+]);
+return $r;*/

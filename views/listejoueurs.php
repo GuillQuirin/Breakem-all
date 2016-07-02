@@ -1,32 +1,36 @@
-<?php 
-if(isset($liste) && is_array($liste)){
-	foreach ($liste as $key => $joueur) {
-	?>
-		<div class="classement-select background-wrapper shadow-bottom-full">	
-			<ul class="grid-md-6 grid-md-offset-1 classement-select-ul classement-header-select-ul">	
-				<li>
-					<?php echo '<img class="classement-select-image" src="' . WEBPATH . '/web/img/upload/'.$joueur->getId().'.jpg">';?>
-				</li>
-				<li>
-					<span><?php echo $joueur->getPseudo(); ?></span>
-				</li>
-				<li class="classement-select-li-quote">
-					<button><a href="">Profil</a></button>
-				</li>
-				<?php 
-					if($joueur->getIdTeam()){
-						?>
-							<li class="classement-select-pts">
-								<button><a href="">Team</a></button>
-							</li>
-						<?php
-					}
-				?>																			
-			</ul>																						
-		</div>	
-	<?php
-	}
-}
-else
-	echo "Pas de joueurs trouvés.";
-?>
+<div class="list-players">	
+	<table>
+		<thead>
+			<th>Image</th><th>Pseudo</th><th>Description</th><th>Team</th><th>Profil</th>
+		</thead>
+		<tbody>
+		<?php 
+		if(isset($liste) && is_array($liste)){
+			foreach ($liste as $key => $joueur) {
+			?>
+			<tr>	
+				<td class="picture">
+					<?php echo '<img class="img-player" src="'.$joueur->getImg().'">';?>
+				</td>
+				<td class="pseudo">
+					<a href="<?php echo WEBPATH.'/profil?pseudo='.$joueur->getPseudo(); ?>"><?php echo $joueur->getPseudo(); ?></a>
+				</td>
+				<td class="desc">
+					<span><?php echo $joueur->getDescription(); ?></span>
+				</td>
+				<td class="team">
+					<?php echo ($joueur->getNameTeam()) ? "<a href='".WEBPATH."/detailteam?name=".$joueur->getNameTeam()."'>".$joueur->getNameTeam()."</a>" : "" ; ?>
+				</td>
+				<td class="page">
+					<button>
+						<a href="<?php echo WEBPATH.'/profil?pseudo='.$joueur->getPseudo(); ?>">Accèder à la page du joueur</a>
+					</button>
+				</td>																			
+			</tr>																							
+			<?php
+			}
+		}
+		?>
+		</tbody>
+	</table>
+</div>
