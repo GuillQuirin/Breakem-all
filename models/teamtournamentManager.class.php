@@ -94,6 +94,35 @@ final class teamtournamentManager extends basesql{
 			return (bool) (int) $r['nb'];
 		return false;
 	}
+
+	public function getTeamsOfMatch(matchs $m){
+		$sql = "SELECT tt.id, tt.rank, tt.idTournament, COUNT(r.idTeamTournament) as takenPlaces 
+		FROM teamtournament tt 
+		LEFT OUTER JOIN register r 
+		ON r.idTournament = tt.idTournament
+		AND r.idTeamTournament = tt.id
+		LEFT OUTER JOIN matchparticipants mm 
+		ON mm.idTeamTournament = tt.id
+		AND mm.idMatch = :idMatch
+		GROUP BY tt.id
+		ORDER BY tt.id";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':idMatch' => $m->getId()
+		]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		$allTournTeams = [];
+		if(isset($r[0])){
+			foreach ($r as $key => $datas) {
+				if(count(array_filter($datas)) > 0)
+					$allTournTeams[] = new teamtournament($datas);
+			}
+		}
+		$allTournTeams = array_filter($allTournTeams);
+		return ( count($allTournTeams) > 0 ) ? $allTournTeams : false;
+	}
 }
 
 /*
