@@ -100,7 +100,7 @@ class creationtournoiController extends template{
 			echo json_encode($data);
 			return;
 		}
-		die("Choisissez d'abord le type de jeu !");
+		$this->echoJSONerror("", "Choisissez d'abord le type de jeu !");
 	}	
 	// On retourne ici les versions de jeu disponible en recevant en la console sélectionnée en post
 	public function getVersionsAction(){
@@ -151,7 +151,7 @@ class creationtournoiController extends template{
 			echo json_encode($data);
 			return;
 		}
-		die("Choisis peut être une console avant ...");
+		$this->echoJSONerror("", "Choisis peut être une console avant ...");
 	}
 	// On retourne ici les informations précédemment rentrées et stockées en sessions en recevant en post les regles et descriptifs du tournoi
 	public function getFinalStepAction(){
@@ -354,7 +354,7 @@ class creationtournoiController extends template{
 
 		$t->setStartDate($d1->getTimestamp(), true);
 
-		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
+		if(preg_match("/[^a-z0-9 \-éàôûîêçùèâ]/i", $t->getName()))
 			$this->echoJSONerror("", "Le nom de votre tournoi contient des caracteres speciaux !");
 		if( strlen(trim($t->getDescription())) > 0 ){
 			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))

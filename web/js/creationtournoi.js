@@ -491,7 +491,7 @@ var gameversionChoice = {
 		treeSubEl.addClass('active-tree-choice');
 	},
 	isNameValid: function(jQel){
-		var unauthorizedChars = /[^a-z0-9 éàôûîêçùèâ]/i;
+		var unauthorizedChars = /[^a-z0-9 \-éàôûîêçùèâ]/i;
 		if(jQel.val().match(unauthorizedChars) 
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
@@ -626,9 +626,6 @@ var gameversionChoice = {
 					}
 				});
 				
-			}
-			else{
-				alert("fail maggle !");
 			}
 		});
 	}
