@@ -5,7 +5,7 @@
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Id Team</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Connecté</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>";
@@ -19,23 +19,42 @@
 
 					//Affichage
 					//Pseudo
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
 					//Email
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
 					//Image
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" .$joueur->getImg(). "'></div></div></div>";						
 					//Team
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-idteam-g'>" .$joueur->getIdTeam(). "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-idteam-g'>"; 
+						if($joueur->getIdTeam()){
+							echo $joueur->getIdTeam();
+						}
+					echo "</span></div></div>";
 					//Report Number
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
 					//Is Connected
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-isconnected-g'>";
-						if($joueur->getIsConnected())
-							echo "X";
-						echo "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'>";
+						if($joueur->getIsConnected()){
+							echo "<span class='capitalize membre-isconnected-g green'>Connecté</span>";
+						}else{
+							echo "<span class='capitalize membre-isconnected-g red'>Déconnecté</span>";
+						}
+						echo "</div></div>";
 					//Status
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
-						echo "<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
+						echo "<span class='capitalize membre-status-g'>";
+						switch ($joueur->getStatus()) {
+						    case -1:
+						        echo "Banni";
+						        break;
+						    case 1:
+						        echo "Utilisateur";
+						        break;
+						    case 3:
+						        echo "Administrateur";
+						        break;
+						}
+						/*echo "<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 							echo "<option value='-1'";
 								echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 							echo ">Banni</option>
@@ -45,7 +64,7 @@
 							<option value='3'";
 								echo ($joueur->getStatus()==3) ? " selected " : " ";
 							echo ">Admin</option>";
-						echo "</select>";
+						echo "</select>";*/
 					echo "</span></div></div>";
 					//Fin Affichage
 

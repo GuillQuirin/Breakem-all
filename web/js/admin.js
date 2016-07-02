@@ -47,6 +47,10 @@ var onglet = {
 		onglet.getAdminOngletPlatforms().click(function(){	
 			onglet.platformView();
 		});
+		//Admin
+		onglet.getAdminOngletMembres().click(function(){
+			onglet.membresView();
+		});
 	},
 
 	//Setter
@@ -200,24 +204,35 @@ var onglet = {
 		return false;
 	
 	},
-
-	callView : function(){
-		/* Membres */
-		onglet.getAdminOngletMembres().click(function(){
-		onglet.getAdminDataIhm().remove();	
+	membresView : function(){
+	/* Membres */
+		
+	onglet.getAdminDataIhm().remove();	
 		jQuery.ajax({
 		 	url: "admin/membresView",
-		 	success: function(result){		 		
+		 	success: function(result){	
+		 		//Affichage de la page		 		
 		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		console.log("No data found on membres.");
 		 	}
 		});
-	
-			return false;
-		})
 
+		return false;
+
+	},
+
+	callView : function(){
+		
 		/* Signalement */
 		onglet.getAdminOngletReports().click(function(){
 		onglet.getAdminDataIhm().remove();	
