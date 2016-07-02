@@ -217,8 +217,7 @@ class teamManager extends basesql{
 
 	public function setIdTeam($id){
 
-		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
-    (SELECT id FROM Race WHERE nom = 'Berger Allemand'); ";
+		$sql = "UPDATE user SET idTeam = :idTeam";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute([
 			':idTeam' => $id,
