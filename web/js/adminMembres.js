@@ -1,6 +1,19 @@
 "use strict";
 var membreModule = {	
 	_this: this,
+	init: function(){
+		//Setter
+
+		//Preview
+
+		//CRUD
+
+	},
+	//Setter
+
+	//Getter
+
+
 };
 
 //Maj user
