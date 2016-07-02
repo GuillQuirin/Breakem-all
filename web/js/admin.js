@@ -221,6 +221,7 @@ var onglet = {
 				navbar.form.closeFormKey();
     			navbar.form.closeFormClick();
 				//Membre
+				membreModule.init();
 		 	},
 		 	error: function(result){
 		 		console.log("No data found on membres.");

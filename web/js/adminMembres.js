@@ -1,3 +1,8 @@
+"use strict";
+var membreModule = {	
+	_this: this,
+};
+
 //Maj user
 function setStatut(pseudo, value){
 	jQuery.ajax({

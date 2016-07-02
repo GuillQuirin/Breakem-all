@@ -62,7 +62,7 @@ var platformModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
-
+	//Preview
 	previewImg : function(){
 		platformModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
