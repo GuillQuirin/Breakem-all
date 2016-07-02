@@ -157,20 +157,6 @@ class teamManager extends basesql{
 		return false;
 	}
 
-	/*Ajouter le président de la team*/
-	public function setOwnerTeam(team $t, user $u){
-		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
-				VALUES ('', ':idUser', ':idTeam', '1')";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':idUser' => $u->getId(),
-			':idTeam' => $t->getId()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
 	/*MODIFICATION TEAM*/
 	public function setTeam(team $u, team $newteam){
 		$data = [];
@@ -256,8 +242,23 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+
+
+	public function SearchIdTeam(team $t){
+		$sql = "SELECT id FROM team WHERE name = :name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':name' => $t->getName()
+		]);
+
+		$r = $sth->fetchAll();
+
+		return $r;
+
+	}
+
 }
 
 
-}
+
 
