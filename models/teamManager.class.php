@@ -230,5 +230,21 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+
+
+	public function SearchIdTeam(team $t){
+		$sql = "SELECT id FROM team WHERE name = :name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':name' => $t->getName()
+		]);
+
+		$r = $sth->fetchAll();
+
+		return $r;
+
+	}
+
+
 }
 
