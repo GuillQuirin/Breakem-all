@@ -11,5 +11,9 @@ class detailtournoiController extends template{
 		$v->assign("content", "Tournoi <<name>>");
 		$v->setView("detailtournoiDOM");
 	}
+
+	public function createFirstMatchsAction(){
+		echo json_encode(['errors' => 'this is a test run']);
+	}
 	
 }

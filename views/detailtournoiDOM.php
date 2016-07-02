@@ -1,5 +1,5 @@
 <?php if(isset($tournoi)): ?>
-	<section class="detailtournoi-infos flex">
+	<section class="detailtournoi detailtournoi-infos flex">
 		<article class="display-flex-column">
 			<h3 class="titre1 border-full ta-center">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
@@ -95,12 +95,62 @@
 						<span class="uppercase"><a href="<?php echo WEBPATH. '/profil?pseudo=' . $tournoi->getUserPseudo(); ?>"><?php echo $tournoi->getUserPseudo(); ?></a></span>
 					</p>
 				</div>
-			</div>
-			
+			</div>			
 		</article>
 	</section>
+	<?php if ($tournoi->doesTournamentHaveWinner()): ?>
+		<section class="detailtournoi detailtournoi-winner">
+			<h3 class="titre2 border-full ta-center">Remporté par l'équipe X</h3>
+		</section>
+	<?php endif ?>
+	<section class="detailtournoi detailtournoi-matchs display-flex-column">
+		<?php if(!!$tournoi->gtAllMatchs()): ?>
+			<h3 class="titre1 border-full ta-center">Les matchs</h3>
+			<div class="detailtournoi-matchs-container full-width display-flex-row">
+			<?php foreach ($tournoi->gtAllMatchs() as $key => $match): ?>
+				<?php $winnerTeam = $match->gtWinningTeam(); ?>
+				<?php $losingTeams = $match->getLosingTeams(); ?>
+				<?php if (!!$winnerTeam): ?>
+					<div class="detailtournoi-match-over display-flex-row">
+						<div class="detailtournoi-match-winningteam display-flex-column">
+							<h4 class="titre4 ta-center">Equipe vainqueur</h4>
+							<div class="detailtournoi-match-winningteam-users display-flex-column">
+								<?php foreach ($winneTeam->getUsers() as $key => $u): ?>
+									<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
+								<?php endforeach ?>
+							</div>
+						</div>
+						<div class="detailtournoi-match-losingteams display-flex-column">
+							<h4 class="titre4 ta-center"><?php echo (count($losingTeams) > 1) ? 'Equipes vaincues' : 'Equipe vaincue'; ?></h4>
+							<div class="detailtournoi-match-losingteams display-flex-column">
+								<?php foreach ($losingTeams as $key => $lTeam): ?>
+									<div class="detailtournoi-match-losingteam display-flex-column">
+										<?php foreach ($lTeam->getUsers() as $key => $u): ?>
+										<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
+										<?php endforeach ?>
+									</div>
+								<?php endforeach ?>
+							</div>
+						</div>
+					</div>
+				<?php else: ?>
+
+				<?php endif ?>
+			<?php endforeach ?>
+			</div>
+		<?php else: ?>
+			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
+				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
+					<button id="detailtournoi-btn-create-matchs" class="relative btn btn-green m-a"><a>Créer les premières rencontres !</a></button>
+				<?php else: ?>
+					<?php $placesRestantesRequises = $tournoi->getMaxPlayer()/2 - $tournoi->getNumberRegistered();?>
+					<h3 class="titre4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>
+				<?php endif ?>
+			<?php endif ?>
+		<?php endif; ?>
+	</section>
 	<?php if(isset($allRegistered)):?>
-		<section class="detailtournoi-participants">
+		<section class="detailtournoi detailtournoi-participants">
 			<div class="full-width m-a display-flex-row max-width-1260">
 				<?php $cntReg = count($allRegistered); ?>
 				<h2 class="titre2 border-full">Participant<?php if($cntReg > 1)echo's';?>
@@ -119,7 +169,7 @@
 	<?php endif; ?>
 	<?php $teamNumber = 1;?>
 	<?php if(isset($freeTeams)): ?>
-		<section class="full-width m-a detailtournoi-equipeslibres-section">
+		<section class="detailtournoi full-width m-a detailtournoi-equipeslibres-section">
 			<div class="full-width m-a display-flex-column max-width-1260">
 				<h2 class="titre2 border-full">Equipes rejoignables
 					<span class="detailtournoi-nombre-equipeslibres bg-green"><?php echo count($freeTeams);?></span>
@@ -157,7 +207,7 @@
 		</section>
 	<?php endif; ?>
 	<?php if(isset($fullTeams)): ?>
-		<section class="full-width m-a detailtournoi-equipescompletes-section">
+		<section class="detailtournoi full-width m-a detailtournoi-equipescompletes-section">
 			<div class="full-width m-a display-flex-column max-width-1260">
 				<h2 class="titre2 border-full">Equipes complètes
 					<span class="detailtournoi-nombre-equipeslibres bg-pink"><?php echo count($fullTeams);?></span>
