@@ -96,7 +96,7 @@ class configurationController extends template{
 	    $newuser = new user($checkedDatas);
 
 	    //On force la MAJ des checkbox même si elles sont vides
-	    $newuser->setRss(isset($checkedDatas['rss']));
+	    //$newuser->setRss(isset($checkedDatas['rss']));
 	    $newuser->setAuthorize_mail_contact(isset($checkedDatas['authorize_mail_contact']));
 
 	    // On met à jour
@@ -155,7 +155,7 @@ class configurationController extends template{
 		if(isset($_FILES['profilpic'])){
 
 			$uploaddir = '/web/img/upload/';
-			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
+			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getPseudo().'.jpg';
 
 			define('KB', 1024);
 			define('MB', 1048576);
@@ -171,7 +171,7 @@ class configurationController extends template{
 			else
 				$_SESSION['err_img_size']=1;
 
-			$filteredinputs['img'] = $this->getConnectedUser()->getId().'.jpg';
+			$filteredinputs['img'] = $this->getConnectedUser()->getPseudo().'.jpg';
     	}
 
     	//Si le mdp saisi est OK
