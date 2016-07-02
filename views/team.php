@@ -20,25 +20,24 @@
 
 			<?php   
                 if(isset($listeteam)): 
-                foreach ($listeteam as $key => $team):
-            ?>  
-				
-				<div class="team-select background-wrapper shadow-bottom-full">	
-					<ul class="grid-md-12 team-select-ul">	
-						<li>
-							<img class="team-select-image" src='<?php echo $team->getImg(); ?>'>
-						</li>
-						<li class="team-select-li-name">
-							<span><?php echo $team->getName(); ?></span>
-						</li>
-						<li class="team-select-li-quote">
-							<span>"<?php echo $team->getDescription(); ?>"</span>
-						</li>
-						<li class="team-select-btn">
-							<h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
-						</li>																		
-					</ul>																						
-				</div>	
+	                foreach ($listeteam as $key => $team):
+	        ?>  
+						<div class="team-select background-wrapper shadow-bottom-full">	
+							<ul class="grid-md-12 team-select-ul">	
+								<li>
+									<img class="team-select-image" src='<?php echo WEBPATH."/web/img/upload/".$team->getImg(); ?>'>
+								</li>
+								<li class="team-select-li-name">
+									<span><?php echo $team->getName(); ?></span>
+								</li>
+								<li class="team-select-li-quote">
+									<span>"<?php echo $team->getDescription(); ?>"</span>
+								</li>
+								<li class="team-select-btn">
+									<h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
+								</li>																		
+							</ul>																						
+						</div>	
 			<?php 
                     endforeach;
                 endif;
@@ -65,6 +64,4 @@
 			</div>
 		</div>
 	</div>
-
-
 </section>

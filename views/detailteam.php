@@ -15,15 +15,14 @@ else{
 
     <section class="middle-height bg-cover-detailteam relative  align full-height">
         <div class="team-title">
-            <img class="grid-md-5 align full-height" src="<?php echo (isset($imgteam)) ? $imgteam : $img; ?>">
+            <img class="grid-md-5 align full-height" src="<?php if(isset($img))echo WEBPATH."/web/img/upload/".$img ?>">
             <span class="header-title align full-height"><?php echo $nameteam;?></span>
         </div>
 
         <img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
     </section>
 
-    <div style="margin-top:100px"class="inscription_team">
-        Nom de la team : <?php echo $nameteam; ?><br>
+    <div style="margin-top:100px" class="inscription_team">
         Nombre de membre : <br>
         
         <?php 
@@ -74,19 +73,50 @@ else{
                     <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
                 </div>
             </div>
+
+             <?php   
+                if(isset($listemember)): 
+                    foreach ($listemember as $key => $team):
+            ?>  
+                        <div class="team-select background-wrapper shadow-bottom-full"> 
+                            <ul class="grid-md-12 team-select-ul">  
+                                <li>
+                                    <img class="team-select-image" src='<?php echo WEBPATH."/web/img/upload/".$team->getImg(); ?>'>
+                                </li>
+                                <li class="team-select-li-name">
+                                    <span><?php echo $team->getName(); ?></span>
+                                </li>
+                                <li class="team-select-li-quote">
+                                    <span>"<?php echo $team->getDescription(); ?>"</span>
+                                </li>
+                                <li class="team-select-btn">
+                                    <h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
+                                </li>                                                                       
+                            </ul>                                                                                       
+                        </div>  
+            <?php 
+                    endforeach;
+                endif;
+            ?>
+
+
+            <!--
             <div id="container2">
                 <div id="member">
+               
                     <p id="member1">Membres</p>
                 </div>
-                <div id="member2" >
-                    <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                    <span class=" name" >Rayz</span>
-                    <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                    <span class=" name" >Rayz</span>
-                    <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
-                    <span class="name"  >Rayz</span>
-                </div>
+                        <div id="member2" >
+                            <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
+                            <span class=" name" >Rayz</span>
+                            <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
+                            <span class=" name" >Rayz</span>
+                            <img id="profil1" class="grid-md-5 " src="web/img/Rayz.jpg">
+                            <span class="name"  >Rayz</span>
+                        </div>
             </div>
+
+
             <div id="container3">
                 <div id="match">
                     <p id="match1">Prochain matchs</p>
@@ -96,7 +126,9 @@ else{
                 </div>
             </div>
 
-        </div>
+        </div>-->
 
     </section>
-<?php } ?>
+<?php 
+} 
+?>
