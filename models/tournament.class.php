@@ -48,6 +48,8 @@ final class tournament{
 	// Données provenant de register
 	protected $_numberRegistered;
 	protected $_myArr;
+	// Données provenant de matchs
+	protected $_matchs = [];
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -177,6 +179,10 @@ final class tournament{
 		$this->_numberRegistered = (int) $v;
 	}
 
+	public function addMatch(matchs $m){
+		$this->_matchs[] = $m;
+	}
+
 
 	public function getId(){return $this->_id;}
 	public function getStartDate(){return $this->_startDate;}
@@ -219,6 +225,8 @@ final class tournament{
 	public function returnAsArr(){
 		return $this->_myArr;
 	}
+	// Getters des matchs
+	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
 
 
 	public function _gtMaxStartDaysInterval(){
@@ -226,6 +234,10 @@ final class tournament{
 	}
 	public function _gtMaxIntervalBetweenDates(){
 		return $this->_spaceBetweenDates;
+	}
+
+	public function doesTournamentHaveWinner(){
+		return is_numeric($this->getIdWinningTeam());
 	}
 }
 /*
