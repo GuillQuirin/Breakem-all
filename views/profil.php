@@ -137,7 +137,9 @@ else{
 							if(isset($nameTeamProfil) && $nameTeamProfil!==null){
 								echo '<a href="detailteam?name='.$nameTeamProfil.'">';
 									echo '<figure>';
-										echo '<img src="'.$imgTeamProfil.'" alt="Team du joueur">';
+										if(isset($imgTeamProfil) && $imgTeamProfil!==null){
+											echo '<img src="'.$imgTeamProfil.'" alt="Team du joueur">';
+										}
 										echo '<figcaption>'.$nameTeamProfil.'</figcaption>';
 									echo '</figure>';
 								echo '</a>';
