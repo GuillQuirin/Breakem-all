@@ -45,7 +45,7 @@ function tryParseData(rawData){
 	}
 	catch(err) {
 		console.log(rawData);
-		alert("Problem during server processes \n Check console for details");
+		alert("Problem during server processes");
 	}
 	return false;
 }
@@ -464,47 +464,47 @@ var register = {
 	init: function(){
 		this.setFormToWatch();
 		if(!(this.getFormToWatch() instanceof jQuery)){
-			console.log("Missing form");
+			popup.init("Manque le formulaire !");
 			return;
 		}
 		this.setPseudoToWatch();
 		if(!(this.getPseudoToWatch() instanceof jQuery)){
-			console.log("Missing pseudo");
+			popup.init("Manque votre pseudo !");
 			return;
 		}
 		this.setEmailToWatch();
 		if(!(this.getEmailToWatch() instanceof jQuery)){
-			console.log("Missing email");
+			popup.init("Manque votre email !");
 			return;
 		}
 		this.setPassToWatch();
 		if(!(this.getPassToWatch() instanceof jQuery)){
-			console.log("Missing pass");
+			popup.init("Manque votre mot de passe !");
 			return;
 		}
 		this.setPassCheckToWatch();
 		if(!(this.getPassCheckToWatch() instanceof jQuery)){
-			console.log("Missing passcheck");
+			popup.init("Manque votre confirmation de mot de passe !");
 			return;
 		}
 		this.setCguToWatch();
 		if(!(this.getCguToWatch() instanceof jQuery)){
-			console.log("Missing cgu");
+			popup.init("Manque les CGU !");
 			return;
 		}
 		this.setDayToWatch();
 		if(!(this.getDayToWatch() instanceof jQuery)){
-			console.log("Missing day");
+			popup.init("Manque le jour de naissance !");
 			return;
 		}
 		this.setMonthToWatch();
 		if(!(this.getMonthToWatch() instanceof jQuery)){
-			console.log("Missing month");
+			popup.init("Manque le mois de naissance !");
 			return;
 		}
 		this.setYearToWatch();
 		if(!(this.getYearToWatch() instanceof jQuery)){
-			console.log("Missing year");
+			popup.init("Manque l'année de naissance !");
 			return;
 		}
 		this.sendEvent();
@@ -624,7 +624,7 @@ var register = {
 	},
 	highlightInput: function(jQinput){
 		jQinput.addClass('failed-input');
-		jQinput.val('');
+		// jQinput.val('');
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
@@ -638,14 +638,14 @@ var register = {
 		else{
 			if(obj.errors){
 				if(obj.errors.pseudo){
-					alert(obj.errors.pseudo);
+					popup.init(obj.errors.pseudo);
 				}
 				else if(obj.errors.email){
-					alert(obj.errors.email);
+					popup.init(obj.errors.email);
 				}
 				else{
-					console.log(obj.errors);
-					alert("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
+					popup.init(obj.errors);
+					// ("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
 				}			
 			}
 		}
