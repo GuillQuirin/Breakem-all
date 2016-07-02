@@ -48,7 +48,8 @@ class teamManager extends basesql{
 		else
 			header('Location: '.WEBPATH);		
 	}*/
-	
+
+
 	/*AJOUT PRESIDENT TEAM*/
 	public function setOwnerTeam(team $t, user $u){
 		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
@@ -62,7 +63,6 @@ class teamManager extends basesql{
 
 		return (bool) $r[0][0];
 	}
-
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
 	public function isNameUsed(team $t){
 		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
@@ -101,6 +101,19 @@ class teamManager extends basesql{
 	
 		return $list;
 	}
+	//Liste des membres avec le nom de la team
+	public function getListMember($nameTeam){
+		$sql = "SELECT pseudo FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
 
 	//Vérification du name en paramètre dans la bdd
 	public function getNameTeam($nameTeam){
@@ -114,8 +127,7 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
-
-
+	
 
 	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
 	public function changeStatusTeam(team $t){
@@ -144,6 +156,21 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+
+	/*Ajouter le président de la team*/
+	public function setOwnerTeam(team $t, user $u){
+		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
+	}
+
 	/*MODIFICATION TEAM*/
 	public function setTeam(team $u, team $newteam){
 		$data = [];
@@ -215,7 +242,6 @@ class teamManager extends basesql{
 		return new team($r);
 	}
 
-	
 	public function setIdTeam($id){
 
 		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
@@ -230,20 +256,7 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
-
-
-	public function SearchIdTeam(team $t){
-		$sql = "SELECT id FROM team WHERE name = :name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-
-		$r = $sth->fetchAll();
-
-		return $r;
-
-	}
+}
 
 
 }

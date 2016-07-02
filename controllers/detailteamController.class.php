@@ -43,10 +43,16 @@ class detailteamController extends template{
             //$this : objet du user connecté grâce au template
             $v->assign("currentUser",$this);
 
+            //Liste des membres
+            $listemember = $teamBDD->getListMember($name);
+            $v->assign("listmember", $listemember);
+
+
             //Récupération de l'id de la team du user connecté
             if($this->getConnectedUser()){
                $getIdTeam = $this->getConnectedUser()->getIdTeam();
             }
+
             //Verification si l'user une Team
             if(!empty($getIdTeam)){
                 $infos_team = ['id'=>$getIdTeam];

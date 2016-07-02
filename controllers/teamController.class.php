@@ -31,7 +31,7 @@ class teamController extends template{
         $listeteam = $obj->getListTeam(-1);
 
         //Pagination
-        $pagination = $obj->getListTeam(-1);
+        $pagination = $obj->getListMember(-1);
         if(!empty($pagination)){
             $v->assign("pagination", $pagination);
         }
