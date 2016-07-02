@@ -218,7 +218,7 @@ class gestiontournoiController extends template{
         $tournamentBDD = new tournamentManager();
         $tournoi = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
     
-        if($tournoi && $tournoi->getIdUserCreator() == $_id){
+        if(!!$tournoi && $tournoi->getIdUserCreator() == $this->getConnectedUser()->getId()){
             $tournamentBDD->deleteTour($tournoi);
         }
         else
