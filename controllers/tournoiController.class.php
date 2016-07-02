@@ -22,7 +22,6 @@ class tournoiController extends template {
 				$v->assign("js", "detailtournoi");
 				$v->assign("title", "Tournoi ".$matchedTournament->getName());
 				$v->assign("content", "Tournoi ".$matchedTournament->getName());
-				$v->assign("tournoi", $matchedTournament);
 
 				// Recuperer tous les participants
 				$rm = new registerManager();
@@ -57,6 +56,28 @@ class tournoiController extends template {
 					unset($ttm, $tm, $rm);
 					$_SESSION['lastTournamentChecked'] = $link;
 				}
+				// Recuprer tous les matchs du tournoi
+				$matchsManager = new matchsManager();
+				$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
+				// S'il y a des matchs
+				if(!!$allMatchs){
+					$ttm = new teamtournamentManager();
+					$rm = new registerManager();
+					foreach ($allMatchs as $key => $m) {
+						$teamsOfMatch = $ttm->getTeamsOfMatch($m);
+						if(!!$teamsOfMatch){
+							foreach ($teamsOfMatch as $key => $t) {
+								$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+								if(is_array($usersInTeam))
+									$teamtournament->addUsers($usersInTeam);
+								$m->addTeamTournament($t);
+							}
+						}
+						$matchedTournaments->addMatch($m);
+					}
+					unset($ttm, $rm);
+				}
+				$v->assign("tournoi", $matchedTournament);
 				$v->setView("detailtournoiDOM");
 				return;
 			};
