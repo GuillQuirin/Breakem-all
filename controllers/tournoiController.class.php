@@ -56,7 +56,7 @@ class tournoiController extends template {
 					unset($ttm, $tm, $rm);
 					$_SESSION['lastTournamentChecked'] = $link;
 				}
-				// Recuprer tous les matchs du tournoi
+				// Recuperer tous les matchs du tournoi
 				$matchsManager = new matchsManager();
 				$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
 				// S'il y a des matchs
@@ -328,6 +328,4 @@ class tournoiController extends template {
 			return $tableauPondere[rand(0, count($tableauPondere)-1)];
 		}
 	}
-
-	
 }
