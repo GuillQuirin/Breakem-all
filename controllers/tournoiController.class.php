@@ -66,7 +66,7 @@ class tournoiController extends template {
 			$v->assign("css", "404");
 			$v->assign("js", "404");
 			$v->assign("title", "Erreur 404");
-	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
+	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."/index'>Retour à l'accueil</a>.");
 	        $v->setView("templatefail", "templatefail");
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois

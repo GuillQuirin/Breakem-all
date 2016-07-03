@@ -13,7 +13,7 @@ class confirmationController extends template{
 	public function checkAction(){
         // Un utilisateur déjà connecté ne va pas valider un mail de toute façon
         if($this->isVisitorConnected())
-            header('Location:' . WEBPATH);
+            header('Location:' . WEBPATH.'/index');
         $args = array(
             'token'     => FILTER_SANITIZE_STRING,
             'email'     => FILTER_VALIDATE_EMAIL
@@ -36,7 +36,7 @@ class confirmationController extends template{
         if($userBDD->checkMailToken($user))
             $_SESSION['compte_validé'] = $user->getEmail();
 
-        header('Location:' . WEBPATH);
+        header('Location:' . WEBPATH.'/index');
     }
 
     public function lostAction(){

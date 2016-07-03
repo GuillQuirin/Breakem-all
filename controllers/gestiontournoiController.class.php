@@ -7,7 +7,7 @@ class gestiontournoiController extends template{
 
 		//Visiteur ou membre banni
 		if(!($this->isVisitorConnected()) || $this->connectedUser->getStatus()<1){
-		 	header('Location: ' .WEBPATH);
+		 	header('Location: ' .WEBPATH.'/index');
 		}
 	}
 

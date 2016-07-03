@@ -6,8 +6,8 @@ class configurationController extends template{
 		parent::__construct();
 
 		//Visiteur ou membre banni
-		if(!($this->isVisitorConnected()) || !$this->connectedUser || $this->connectedUser->getStatus()<1){
-		 	header('Location: ' .WEBPATH);
+		if(!$this->isVisitorConnected() || !$this->connectedUser || $this->connectedUser->getStatus()<1){
+		 	header('Location: ' .WEBPATH.'/index');
 		}
 	}
 
