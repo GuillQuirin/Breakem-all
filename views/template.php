@@ -244,9 +244,15 @@
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
 				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
-				<input type="email" name="expediteur" id="expediteurContactAdmin">
-				<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				<p>Votre adresse email : <input type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
+				Contenu du message: <textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 				</textarea>
+				<?php 
+					/*echo '<span class="loadGIF">';
+					echo '<img src="'. WEBPATH .'/web/img/load.gif">';
+					echo '</span>';
+					*/
+				?>
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>

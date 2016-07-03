@@ -67,8 +67,10 @@ class indexController extends template{
 			}
 		}	
 
-		$contenuMail = "<h3>Un utilisateur vous a contacté.Vous pouvez lui répondre à <a href='".$filteredinputs['expediteur']."'>cette adresse</a>.</h3>";
-	    $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+		$contenuMail = "<h3>Un utilisateur vous a contacté.</h3>";
+		$contenuMail .= "<div>Vous pouvez lui répondre à cette adresse : ".$filteredinputs['expediteur'].".</div>";
+	    $contenuMail.="<p>Contenu du message: </p>";
+	    $contenuMail.="<div>".$filteredinputs['message']."</div>";
 
 		$this->envoiMail('breakemall.contact@gmail.com', 'Demande de contact.', $contenuMail);	
 	}
