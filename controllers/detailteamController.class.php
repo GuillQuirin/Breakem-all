@@ -25,6 +25,9 @@ class detailteamController extends template{
 
             //La team courante
             $teamBDD = new teamManager();
+            //Liste des membres
+            $listemember = $teamBDD->getListMember($name);
+            $v->assign("listemember", $listemember);
 
             $args = array('name' => FILTER_SANITIZE_STRING );
 
@@ -42,11 +45,6 @@ class detailteamController extends template{
 
             //$this : objet du user connecté grâce au template
             $v->assign("currentUser",$this);
-
-            //Liste des membres
-            $listemember = $teamBDD->getListMember($name);
-            $v->assign("listmember", $listemember);
-
 
             //Récupération de l'id de la team du user connecté
             if($this->getConnectedUser()){
@@ -128,15 +126,42 @@ class detailteamController extends template{
         $teamBDD = new teamManager();
 
         $args = array('slogan' => FILTER_SANITIZE_STRING
-                     ,'description' => FILTER_SANITIZE_STRING);
+                     ,'description' => FILTER_SANITIZE_STRING
+                     ,'img' => FILTER_SANITIZE_STRING);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        if (isset($_FILES['img'])) {
+
+        $uploaddir = '/web/img/upload/';
+        $name = $_FILES['img']['name'];
+
+        $uploadfile = getcwd().$uploaddir.$name;
+        //var_dump($uploadfile);
+
+        define('KB', 1024);
+        define('MB', 1048576);
+        define('GB', 1073741824);
+        define('TB', 1099511627776);
+
+        if ($_FILES['img']['size'] < 1 * MB) {
+            if ($_FILES['img']['error'] == 0) {
+
+                if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
+                    die("Erreur d'upload");
+            }
+        }
+        $filteredinputs['img'] = $name;
+    }
+
 
         $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
         
         $team->setSlogan($filteredinputs['slogan']);
         $team->setDescription($filteredinputs['description']);
+        $team->setImg($filteredinputs['img']);
 
         $teamBDD->updateTeam($team);
+
         header("Location:../detailteam?name=".$team->getName());
     }   
 

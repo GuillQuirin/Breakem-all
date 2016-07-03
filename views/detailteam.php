@@ -12,6 +12,19 @@ if(isset($err)){
 }
 else{
 ?>  
+     <section class="popup">
+        <div class="popup-contain">
+            <h2>Modifie ta Team</h2>
+            <form action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">
+                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
+                Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
+                Image :
+                <input class="" type=file name="img"><br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="popup-fond"></div>
+    </section> 
 
     <section class="middle-height bg-cover-detailteam relative  align full-height">
         <div class="team-title">
@@ -22,48 +35,97 @@ else{
         <img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
     </section>
 
-    <div style="margin-top:100px" class="inscription_team">
-        Nombre de membre : <br>
-        
-        <?php 
-            if(isset($idcreator) && $idcreator == $_id){ ?>
-                <form action="detailteam/updateTeam" method="POST" >
-                    Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
-                    Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
-                    <input type="submit">
-                 </form>
-      <?php }else{ ?>
-                Slogan : <?php echo $descripteam; ?>
-                Description : <?php echo $descripteam; ?>
-      <?php } ?>
-       
-
-        <form action="detailteam/updateUserTeam" method="POST">  
-            <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
-            <?php 
-                if(empty($_isConnected)){
-                    echo "Connecte toi pour rejoindre cette guilde !";
-                }
-                elseif(!empty($_idTeam)){
-        
-                    if($_idTeam == $idteam) {
-                     ?>
-                        <button name='action-team-exit' type='submit' class='btn btn-pink'>
-                            <a>Quitter la Team !</a>
+     <section class="relative align">
+        <form action="detailteam/updateUserTeam" method="POST"> 
+            <div class="align relative button-team">
+                <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
+                <?php 
+                    if(empty($_isConnected)){
+                        echo "Connecte toi pour rejoindre cette guilde !";
+                    }
+                    elseif(!empty($_idTeam)){
+                        if(isset($idcreator) && isset($_id) && $_id == $idcreator){
+                        ?>
+                            <button name='action-team-dissoudre' type='submit' class='btn btn-pink'>
+                                <a>Dissoudre la Team !</a>
+                            </button>
+                            <button class="main btn btn-pink">
+                                <a href="#" class="btn-modif-team">Modifier Team</a>
+                            </button>
+                        <?php
+                        }elseif($_idTeam == $idteam) {
+                         ?>
+                            <button name='action-team-exit' type='submit' class='btn btn-pink'>
+                                <a>Quitter la Team !</a>
+                            </button>
+                        <?php
+                        }else{
+                            echo "Vous faites déjà parti de la team ".$nameUserTeam;
+                        } 
+                    }else{ ?>
+                        <button name='action-team-rejoin' type='submit' class='btn btn-pink'>
+                            <a>Rejoindre la Team !</a>
                         </button>
-                    <?php
-                    }else{
-                        echo "Vous faites déjà parti de la team ".$nameUserTeam;
-                    } 
-                }else{ ?>
-                    <button name='action-team-rejoin' type='submit' class='btn btn-pink'>
-                        <a>Rejoindre la Team !</a>
-                    </button>
-            <?php } ?>     
+                <?php } ?>     
+            </div>
         </form>
-    </div>
-    <section class="classement-content-wrapper  align full-height" id ="onglet">
+    </section>
 
+                Slogan : <?php echo $sloganteam; ?>
+                Description : <?php echo $descripteam; ?>
+
+    <section class="contain-team align full-height">
+
+          <div class="grid-md-4 grid-md-offset-8 contain-member team-select shadow-bottom-full">
+            <div class="title_index">
+                <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
+            </div>
+             <?php   
+                if(isset($listemember)): 
+                    foreach ($listemember as $key => $user):
+            ?>  
+                        <div class=""> 
+                            <ul class="grid-md-12 team-select-ul">  
+                                <li>
+                                    <img class="" src='<?php echo WEBPATH.$user->getImg(); ?>'>
+                                </li>
+                                <li class="team-select-li-name">
+                                    <ul><span><?php echo $user->getPseudo(); ?></span>
+                                    </ul>
+                                </li>                        
+                            </ul>                                                                                       
+                        </div>  
+            <?php 
+                    endforeach;
+                endif;
+            ?>
+            </div>
+    </section>
+
+    <section class="contain align full-height">
+            <div class="grid-md-4">
+                <div class="title_index">
+                    <label for="title1">Prochain match</label>
+                </div>
+                <div class="fight">
+
+                    <!-- Match à venir -->
+                    <?php //echo $fight; ?>
+                    <h3>ESL</h3>
+                    <p class="date_fight">1er Avril 2016, 17h00</p>
+                    <?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+                    <?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+                    <div class="name_fight">
+                        <ul>
+                            <li>Navi</li>
+                            <li>Fnatic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!--
         <div class="container m-a content-border " id="container">
             <div id="container1">
                 <div class="activite ">
@@ -73,32 +135,7 @@ else{
                     <div class="border"><img class="img" src="web/img/logo-esgi.png"><div><p class="team">ESGI</br></br></br>Il y a 3 mois</br></br></br>ESGI team ssb, mk</p></div></div>
                 </div>
             </div>
-
-             <?php   
-                if(isset($listemember)): 
-                    foreach ($listemember as $key => $team):
-            ?>  
-                        <div class="team-select background-wrapper shadow-bottom-full"> 
-                            <ul class="grid-md-12 team-select-ul">  
-                                <li>
-                                    <img class="team-select-image" src='<?php echo WEBPATH."/web/img/upload/".$team->getImg(); ?>'>
-                                </li>
-                                <li class="team-select-li-name">
-                                    <span><?php echo $team->getName(); ?></span>
-                                </li>
-                                <li class="team-select-li-quote">
-                                    <span>"<?php echo $team->getDescription(); ?>"</span>
-                                </li>
-                                <li class="team-select-btn">
-                                    <h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
-                                </li>                                                                       
-                            </ul>                                                                                       
-                        </div>  
-            <?php 
-                    endforeach;
-                endif;
-            ?>
-
+          
 
             <!--
             <div id="container2">

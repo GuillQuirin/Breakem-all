@@ -43,7 +43,7 @@ class team{
 	private function setName($v){
 		$this->name=$v;
 	}
-	private function setImg($v){
+	public function setImg($v){
 		$this->img=$v;
 	}
 	public function setSlogan($v){

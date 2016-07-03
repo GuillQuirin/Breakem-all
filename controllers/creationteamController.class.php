@@ -38,7 +38,7 @@ public function addTeamAction()
         $name = $_FILES['img']['name'];
 
         $uploadfile = getcwd().$uploaddir.$name;
-//var_dump($uploadfile);
+        //var_dump($uploadfile);
 
         define('KB', 1024);
         define('MB', 1048576);
