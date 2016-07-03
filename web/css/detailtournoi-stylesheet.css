@@ -225,6 +225,9 @@ section:hover{
 		padding: 13px 16px;
 	}
 	/* ##### CREER LES PREMIERS RENCONTRES ##### */
+		.createFirstMatchContainer{
+			z-index: 9999;
+		}
 		#detailtournoi-btn-create-matchs{
 			max-width: 280px;
 			margin-top: 20px;
