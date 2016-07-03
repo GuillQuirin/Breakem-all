@@ -62,12 +62,13 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 							<!-- Admin search -->
 							<div class="admin-navbar">		
 								<div class="row align">
-									<div class="grid-md-3 admin-search-wrapper">
+									<!--<div class="grid-md-3 admin-search-wrapper">
 										<form id="admin-search-form">
 											<input type="text" class="admin-search-input input-default" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
 										</form>
 									</div>
-									<div class="grid-md-3 admin-add-wrapper">
+									-->
+									<div class="grid-md-3 admin-add-wrapper" style="padding:25px 0;">
 										<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>
 									</div>
 

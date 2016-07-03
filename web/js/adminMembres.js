@@ -72,17 +72,21 @@ var membreModule = {
 	postDataDelete : function(){
 		membreModule.getDeleteBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
-			var id = btn.parent().parent().find(jQuery('.membre-id-p')).val();	
+			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
+
+			var status = -1;
+
 			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucun membre enregistré pour le moment.</span></div>";
 
-			var data = {id : id};				
+			var data = {"pseudo" : pseudo, "status" : status};			
 
 			//Ajax Delete Controller
 			jQuery.ajax({
-				url: "admin/deleteMembreData", 				
+				url: "admin/updateUserStatus", 				
 				type: "POST",
 				data: data,
-				success: function(result){					
+				success: function(result){			
+					console.log(result);		
 					console.log("Membre supprimée");							
 					btn.parent().parent().remove();		
 
@@ -105,7 +109,7 @@ var membreModule = {
 			 	error: function(result){
 			 		throw new Error("Couldn't delete this membre", result);
 			 	}
-			});		
+			});
 		});				
 	},
 	postDataUpdate : function(){
