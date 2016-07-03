@@ -46,10 +46,15 @@ final class tournament{
 	// Données provenant de user (nécessite un inner / outer join)
 	protected $_userPseudo;
 	// Données provenant de register
-	protected $_numberRegistered;
+	protected $_numberRegistered = false;
+	protected $_registeredList = [];
+
 	protected $_myArr;
 	// Données provenant de matchs
 	protected $_matchs = [];
+	// Données provenant de teamtournament
+	protected $_fullteams = [];
+	protected $_freeteams = [];
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -178,9 +183,19 @@ final class tournament{
 	private function setNumberRegistered($v){
 		$this->_numberRegistered = (int) $v;
 	}
+	public function addRegisteredUser(register $usr){
+		$this->_registeredList[] = $usr;
+	}
 
 	public function addMatch(matchs $m){
 		$this->_matchs[] = $m;
+	}
+
+	public function addFreeTeam(teamtournament $tt){
+		$this->_freeteams[] = $tt;
+	}
+	public function addFullTeam(teamtournament $tt){
+		$this->_fullteams[] = $tt;
 	}
 
 
@@ -221,13 +236,16 @@ final class tournament{
 	// Getters de données issues de user
 	public function getUserPseudo(){return $this->_userPseudo;}
 	// Getters de données issues de register
-	public function getNumberRegistered(){return $this->_numberRegistered ;}
+	public function getNumberRegistered(){return (!!$this->_numberRegistered) ? $this->_numberRegistered : count($this->gtAllRegistered());}
+	public function gtAllRegistered(){return $this->_registeredList;}
 	public function returnAsArr(){
 		return $this->_myArr;
 	}
 	// Getters des matchs
 	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
-
+	// Getters des teamtournament
+	public function gtFreeTeams(){return $this->_freeteams;}
+	public function gtFullTeams(){return $this->_fullteams;}
 
 	public function _gtMaxStartDaysInterval(){
 		return $this->_maxStartDate;

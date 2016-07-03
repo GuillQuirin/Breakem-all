@@ -2,10 +2,12 @@ window.addEventListener('load', function load(){
 	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
 	window.removeEventListener('load', load, false);
 	// preventQuitPageEvent();
-	dom.init();
-	tournamentRegister.init();
-	tournamentUnregister.init();
-	createFirstMatchs.init();
+	if (dom.init()){
+		tournamentRegister.init();
+		tournamentUnregister.init();
+		createFirstMatchs.init();
+	};
+	
 });
 
 var dom = {
@@ -13,9 +15,20 @@ var dom = {
 		this.setDetailTournoiInfos();
 		this.setEquipesLibresSection();
 		this.setPremiersMatchsBtn();
-		if(isElSoloJqueryInstance(this.getDetailTournoiInfos()) && isElSoloJqueryInstance(this.getEquipesLibresSection()))
+		this.setSjeton();
+		this.setTget();
+		if(isElSoloJqueryInstance(this.getDetailTournoiInfos()) && 
+			isElSoloJqueryInstance(this.getEquipesLibresSection()) && 
+			isElSoloJqueryInstance(this.getSjeton()) &&
+			this.getTget().length > 10
+		)
 			adaptMarginToNavHeight(this.getDetailTournoiInfos());
+		else {
+			console.log("fail");
+			return false;
+		}
 		this.setBtnsTeam();
+		return true;
 	},
 	setPremiersMatchsBtn: function(){
 		this._premMatchsBtn = $('#detailtournoi-btn-create-matchs');
@@ -29,6 +42,12 @@ var dom = {
 	setBtnsTeam: function(){
 		this._btnsTeamJoin = $('.equipelibre-btn-inscription');
 	},
+	setSjeton: function(){
+		this._sJeton = $('#sJeton');
+	},	
+	setTget: function(){
+		this._tGet = $_GET('t');
+	},
 	getDetailTournoiInfos: function(){
 		return this._detailTournoiInfos;
 	},
@@ -40,6 +59,12 @@ var dom = {
 	},
 	getPremiersMatchsBtn: function(){
 		return (isElSoloJqueryInstance(this._premMatchsBtn)) ? this._premMatchsBtn : false;
+	},
+	getSjeton: function(){
+		return this._sJeton;
+	},	
+	getTget: function(){
+		return this._tGet;
 	}
 }
 
@@ -47,12 +72,6 @@ var tournamentRegister = {
 	init: function(){
 		var _this = this;
 		this.setRandBtn();
-		this.setSjeton();
-		this.setTget();
-		if(!isElSoloJqueryInstance(this.getSjeton()))
-			return;
-		if(this.getTget().length < 5)
-			return;
 		// Event du cas où le tournoi est à l'inscription random
 		if(isElSoloJqueryInstance(this.getRandBtn())){
 			this.loadRandRegisterEvent();
@@ -75,16 +94,8 @@ var tournamentRegister = {
 	setRandBtn: function(){
 		this._randBtn = $('.detailtournoi-btn-inscription');
 	},
-	setTget: function(){
-		this._tGet = $_GET('t');
-	},
-	setSjeton: function(){
-		this._sJeton = $('#sJeton');
-	},
 	getChoiceBtn: function(){return this._choiceBtn;},
 	getRandBtn: function(){return this._randBtn;},
-	getTget: function(){return this._tGet;},
-	getSjeton: function(){return this._sJeton;},
 	loadRandRegisterEvent: function(){
 		var _this = this;
 		this.getRandBtn().click(function(event){
@@ -92,8 +103,8 @@ var tournamentRegister = {
 				url: 'tournoi/randRegister',
 				type: 'POST',
 				data: {
-					t: _this.getTget(),
-					sJeton: _this.getSjeton().val()
+					t: dom.getTget(),
+					sJeton: dom.getSjeton().val()
 				},
 				complete: function(xhr, textStatus) {
 					// console.log("request completed \n");
@@ -141,9 +152,9 @@ var tournamentRegister = {
 					url: 'tournoi/teamRegister',
 					type: 'POST',
 					data: {
-						t: _this.getTget(),
+						t: dom.getTget(),
 						ttid: _teamId,
-						sJeton: _this.getSjeton().val()
+						sJeton: dom.getSjeton().val()
 					},
 					complete: function(xhr, textStatus) {
 						// console.log("request completed \n");
@@ -176,7 +187,7 @@ var tournamentRegister = {
 var tournamentUnregister = {
 	init: function(){
 		this.setBtn();
-		if(this.getBtn() instanceof jQuery && this.getBtn().length == 1 && tournamentRegister.getSjeton() instanceof jQuery && tournamentRegister.getSjeton().length == 1)
+		if(isElSoloJqueryInstance(this.getBtn()))
 			this.loadEvent();
 	},
 	setBtn: function(){
@@ -192,8 +203,8 @@ var tournamentUnregister = {
 				url: 'tournoi/unregister',
 				type: 'POST',
 				data: {
-					t: $_GET('t'),
-					sJeton: tournamentRegister.getSjeton().val()
+					t: dom.getTget(),
+					sJeton: dom.getSjeton().val()
 				},
 				complete: function(xhr, textStatus) {
 					// console.log("request completed \n");
@@ -268,7 +279,11 @@ var createFirstMatchs = {
 	sendCreationRequest: function(){
 		jQuery.ajax({
 			url: 'detailtournoi/createFirstMatchs',
-			type: 'GET',
+			type: 'POST',
+			data: {
+				t: dom.getTget(),
+				sJeton: dom.getSjeton().val()
+			},
 			complete: function(xhr, textStatus) {
 				// console.log("request completed \n");
 			},
