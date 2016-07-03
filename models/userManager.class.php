@@ -223,9 +223,3 @@ class userManager extends basesql{
 		]);
 	}
 }
-/*$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
-$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-$r = $sth->execute([
-	':email' => $u->getEmail()
-]);
-return $r;*/

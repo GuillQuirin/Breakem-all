@@ -49,20 +49,6 @@ class teamManager extends basesql{
 			header('Location: '.WEBPATH);		
 	}*/
 
-
-	/*AJOUT PRESIDENT TEAM*/
-	public function setOwnerTeam(team $t, user $u){
-		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
-				VALUES ('', ':idUser', ':idTeam', '1')";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':idUser' => $u->getId(),
-			':idTeam' => $t->getId()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
 	public function isNameUsed(team $t){
 		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
@@ -101,6 +87,7 @@ class teamManager extends basesql{
 	
 		return $list;
 	}
+
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
 		$sql = "SELECT pseudo FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
@@ -109,11 +96,11 @@ class teamManager extends basesql{
 		
 		$list = [];
 		while ($query = $req->fetch(PDO::FETCH_ASSOC))
-			//tableau d'objets team
-			$list[] = new team($query);
+			//tableau d'objets user
+			$list[] = new user($query);
 	
 		return $list;
-	}
+	}	
 
 	//Vérification du name en paramètre dans la bdd
 	public function getNameTeam($nameTeam){
@@ -144,17 +131,32 @@ class teamManager extends basesql{
 	}
 	//UPDATE LE SLOGAN ET DESCRIPTION DE LA TEAM DANS L'ADMIN
 	public function updateTeam(team $t){
-		$sql = "UPDATE team SET slogan = :slogan, description = :description WHERE id= :id";
+		$sql = "UPDATE team SET img = :img, slogan = :slogan, description = :description WHERE id= :id";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute([
 			':slogan' => $t->getSlogan(),
 			':description' => $t->getDescription(),
+			':img' => $t->getImg(),
 			':id' => $t->getId()
 		]);
 		$res = $req->fetchAll();
 		if(isset($res[0]))
 			return true;
 		return false;
+	}
+
+	/*Droit de la team
+	public function setOwnerTeam(team $t, user $u){
+		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
 	}
 
 	/*MODIFICATION TEAM*/

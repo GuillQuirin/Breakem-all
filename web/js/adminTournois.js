@@ -10,10 +10,10 @@ var tournamentModule = {
 
 	//Setter
 	setAdminWrapper : function(){
-		this._adminWrapper = jQuery(".admin-wrapper.tournament");
+		this._adminWrapper = $(".admin-wrapper.tournament");
 	},
 	setTournamentNav : function(){
-		this._tournamentNav = jQuery(".tournament-navbar");
+		this._tournamentNav = $(".tournament-navbar");
 	},
 
 	//Getter
