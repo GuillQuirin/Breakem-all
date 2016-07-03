@@ -223,6 +223,28 @@ class adminController extends template{
     }
 
     /* MEMBRES */
+    public function updateUserAction(){
+        $args = array(
+            'pseudo' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT,
+            'email' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $userBDD = new userManager();
+        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
+
+        $newuser = new user(array('status'=>$filteredinputs['status']));
+        
+        //Déconnexion automatique du membre banni
+        if($filteredinputs['status']==-1)
+            $userBDD->disconnecting($user);
+
+        $userBDD->setUser($user, $newuser);
+    }
+
 
     public function updateUserStatusAction(){
         $args = array(
