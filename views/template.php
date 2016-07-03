@@ -300,7 +300,6 @@
 		                ?>
 		                <li><a id="contactAdmin" title="Joindre les admins">Nous contacter</a></li>
 		                <li><a href="<?php echo WEBPATH.'/CGU'; ?>" title="Conditions d'utilisation">CGU</a></li>
-		                <li><a href="<?php echo WEBPATH.'/copyright'; ?>" title="Reglement">About</a></li>
 		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="Flux RSS">RSS</a></li>
 		            </ul>
 		        </div>
