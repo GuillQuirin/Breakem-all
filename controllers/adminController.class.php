@@ -222,7 +222,20 @@ class adminController extends template{
        header('Location: '.WEBPATH.'/admin');
     }
 
-    /* USER */
+    /* MEMBRES */
+    public function deleteMembreDataAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $membreBdd = new userManager();
+        $membre = $membreBdd->getIdMembre($filteredinputs['id']);
+
+        $membreBdd->deleteMembre($membre);
+    }
+
     public function updateUserStatusAction(){
         $args = array(
             'pseudo' => FILTER_SANITIZE_STRING,

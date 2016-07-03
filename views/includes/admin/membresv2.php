@@ -83,19 +83,19 @@
 							echo "<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>";
 								echo "<form class='membres-form' enctype='multipart/form-data' accept-charset='utf-8'>";
 									//Id
-									echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $joueur->getId() . "'>";
+									echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
 									//Pseudo
 								    echo "<label for='pseudo'>Pseudo :</label>";
-								    echo "<input class='input-default admin-form-input-w platform-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";	
+								    echo "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";	
 								    //Email
 								    echo "<label for='email'>Email :</label>";
-								    echo "<input class='input-default admin-form-input-w platform-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
+								    echo "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
 								    //Team
 								    echo "<label for='team'>Team :</label>";
-								    echo "<input class='input-default admin-form-input-w platform-team-p' name='team' type='text' value='" . $joueur->getIdTeam() . "'>";	
+								    echo "<input class='input-default admin-form-input-w membre-team-p' name='team' type='text' value='" . $joueur->getIdTeam() . "'>";	
 								    //Report
 								    echo "<label for='report'>Report :</label>";
-								    echo "<input class='input-default admin-form-input-w platform-report-p' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
+								    echo "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
 								    //Status
 								    echo "<label for='status'>Status :</label>";
 								    echo "<select class='select-default' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
@@ -111,12 +111,12 @@
 									echo "</select>";	
 								    //Image							    								 
 								    echo "<div class='admin-avatar-wrapper m-a'>";																	
-										echo "<img class='admin-avatar img-cover platform-img' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";										
+										echo "<img class='admin-avatar img-cover membre-img' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";										
 									echo "</div>";
 									echo "<div class='text-center admin-input-file'>";								 
-									echo "<input type='file' class='platform-image-p' name='profilpic'>";
+									echo "<input type='file' class='membre-image-p' name='profilpic'>";
 									echo "</div>";
-								    echo "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+								    echo "<button type='button' class='membre-submit-form-btn btn btn-pink'><a>Valider</a></button>";
 						  		echo "</form>";
 						  	echo "</div>";
 						echo "</div>";
@@ -127,6 +127,6 @@
 			}					
 		}
 	}else{
-		echo "<div class='grid-md-12 no-platform align'><span>Aucun joueur enregistré pour le moment.</span></div>";		
+		echo "<div class='grid-md-12 no-platform align'><span>Aucun membre enregistré pour le moment.</span></div>";		
 	} 
 ?>		
