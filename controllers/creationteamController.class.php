@@ -58,15 +58,17 @@ public function addTeamAction()
     $teamBDD = new teamManager();
     $teamBDD->mirrorObject = new team($filteredinputs);
     $teamBDD->create();
+    $team = $teamBDD->getTeam(array('name'=>$filteredinputs['name']));
+    $t = $teamBDD->SearchIdTeam($team);
+
     $idteam = new userManager();
-    $t = $idteam->SearchIdTeam($filteredinputs['name']);
-  
     $idteam->setNewTeamId( $this->connectedUser->getId(), $t[0]["id"] );
 
-
+//vérifier si la creation s'est bien passé (voir configuration de guillaume)
+//si l'user co actuellement a un id team -> redirection (template ligne 40)
    header('Location: '.WEBPATH.'/detailteam?name='.$filteredinputs['name']);
 
 }
-
+//$team = $teamBDD->getTeam(array('name'=>$filteredinputs['name']));
 
 }

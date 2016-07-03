@@ -10,6 +10,45 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
+/*	
+	public function create(team $team){	
+	// Check afin de savoir qui appele cette méthode
+		$e = new Exception();
+		$trace = $e->getTrace();
+
+		// get calling class:
+		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
+		// get calling method
+		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
+
+
+		if(!$calling_class || !$calling_method)
+			header('Location: '.WEBPATH);
+
+		// Si appelée depuis la page tournoi
+		if ($calling_class === "creationtournoiController" 
+				&& $calling_method === "finalValidationAction"){
+
+			$this->columns = [];
+			$team_methods = get_class_methods($team);
+
+			foreach ($team_methods as $key => $method) {
+				if(strpos($method, 'get') !== FALSE){
+					$col = lcfirst(str_replace('get', '', $method));
+					$this->columns[$col] = $team->$method();
+				};
+			}
+			// Toutes les propriétés à 0 sont remove de l'array à ce moment là
+			// Pas impactant ici puisque les default value dans tournoi sont à 0
+			$this->columns = array_filter($this->columns);
+
+			$this->save();
+
+		}
+		else
+			header('Location: '.WEBPATH);		
+	}*/
+
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
 	public function isNameUsed(team $t){
 		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
@@ -118,7 +157,7 @@ class teamManager extends basesql{
 		$r = $sth->fetchAll();
 
 		return (bool) $r[0][0];
-	}*/
+	}
 
 	/*MODIFICATION TEAM*/
 	public function setTeam(team $u, team $newteam){
@@ -190,5 +229,38 @@ class teamManager extends basesql{
 
 		return new team($r);
 	}
+
+	public function setIdTeam($id){
+
+		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
+    (SELECT id FROM Race WHERE nom = 'Berger Allemand'); ";
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([
+			':idTeam' => $id,
+
+		]);
+		$res = $req->fetchAll();
+		if(isset($res[0]))
+			return true;
+		return false;
+	}
+
+
+	public function SearchIdTeam(team $t){
+		$sql = "SELECT id FROM team WHERE name = :name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':name' => $t->getName()
+		]);
+
+		$r = $sth->fetchAll();
+
+		return $r;
+
+	}
+
 }
+
+
+
 

@@ -106,7 +106,7 @@
 								<a href="<?php echo WEBPATH; ?>/listejoueurs">Joueurs</a>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-team">
-								<a href="<?php echo WEBPATH ?>/team">Team<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/team">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-team">
 									<?php 
 										if(isset($_isConnected)){
@@ -120,12 +120,7 @@
 											
 											echo "</li>";
 										}
-									?>
-									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/listeteams">
-											Liste
-										</a>
-									</li>																							
+									?>																			
 								</ul>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-classement">
@@ -249,9 +244,15 @@
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
 				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
-				<input type="email" name="expediteur" id="expediteurContactAdmin">
-				<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				<p>Votre adresse email : <input type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
+				Contenu du message: <textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 				</textarea>
+				<?php 
+					/*echo '<span class="loadGIF">';
+					echo '<img src="'. WEBPATH .'/web/img/load.gif">';
+					echo '</span>';
+					*/
+				?>
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>

@@ -147,13 +147,10 @@ class user{
 	public function getImg($upload=false){
 		
 		if($upload){
-			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
-				return $this->img;
-
-			return "default.jpg";
+			return $this->img;
 		}
 		else{
-			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/upload/".$this->img))
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/".$this->img))
 				return "/web/img/upload/".$this->img;
 
 			return "/web/img/upload/default.jpg";	
