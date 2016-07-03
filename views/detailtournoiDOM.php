@@ -3,6 +3,7 @@
 		<article class="display-flex-column">
 			<h3 class="titre1 border-full ta-center">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
+				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 			</h3>
 			<p class="detailtournoi-description-jeu italic">
 				<?php echo $tournoi->getGameDescription(); ?>
@@ -17,10 +18,8 @@
 								<div class="relative ta-right">
 									<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
-									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 									<?php else:?>
 									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
-									<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 									<?php endif; ?>
 								</div>
 							<?php endif; ?>
