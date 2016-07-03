@@ -87,7 +87,7 @@ else{
                         <div class=""> 
                             <ul class="grid-md-12 team-select-ul">  
                                 <li>
-                                    <img class="" src='<?php echo WEBPATH.$user->getImg(); ?>'>
+                                    <img class="" src='<?php echo $user->getImg(); ?>'>
                                 </li>
                                 <li class="team-select-li-name">
                                     <ul><span><?php echo $user->getPseudo(); ?></span>

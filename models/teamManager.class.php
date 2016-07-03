@@ -90,7 +90,7 @@ class teamManager extends basesql{
 
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
-		$sql = "SELECT pseudo FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
+		$sql = "SELECT user.pseudo, user.img FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
 		
