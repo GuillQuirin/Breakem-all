@@ -113,7 +113,80 @@ var membreModule = {
 		});				
 	},
 	postDataUpdate : function(){
+		membreModule.getUpdateBtn().on("click", function(e){
+			var updateBtn = jQuery(e.currentTarget);
 
+			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+
+			submitBtn.on("click", function(){
+				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
+				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
+				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
+				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
+				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
+				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
+				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+
+				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+
+				console.log(allData);
+
+				//Upload des images
+			    if (typeof FormData !== 'undefined') {
+			           
+			        //Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
+
+			        if(file){
+
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = "upload/" + file.name;
+
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);				    		                             
+					    jQuery.ajax({
+				            url: "admin/updatePlatformsData", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image uploadé.");
+				                console.log(file.name);				       
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+			        }   				    
+			    } else {    	
+			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			    } 		
+
+			    //Update de la membre
+				jQuery.ajax({
+					url: "admin/updatePlatformsData", 
+					type: "POST",
+					data: allData,
+					success: function(result){
+						console.log("Plateforme mise à jour");
+						//Reload la mise a jour dans l'html
+						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
+						//updateBtn.parent().parent().find('.membre-description-g').html(description);
+						//Si l'image uploadé existe on l'envoi dans la dom
+						if(allData.img){
+							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
+						}	
+						navbar.form.smoothClosing();				
+					},
+					error: function(result){
+						throw new Error("Couldn't update membre", result);
+					}
+				});
+			});			
+		});
 	},
 	postDataInsert : function(){
 

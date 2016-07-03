@@ -71,7 +71,7 @@
 					//Boutton
 					echo "<div class='admin-data-ihm-btn hidden align'>";
 						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
-						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
+						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Bannir</a></button>";
 					echo "</div>"; 
 					//Fin Boutton
 
@@ -81,12 +81,27 @@
 						echo "<div class='index-modal-this index-modal-login align'>";
 							
 							echo "<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>";
-								echo "<form class='membres-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+								echo "<form class='membre-form' enctype='multipart/form-data' accept-charset='utf-8'>";
 									//Id
 									echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
+									//Nom
+								    echo "<label for='nom'>Nom :</label>";
+								    echo "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text' value='" . $joueur->getName() . "'>";
+								    //Prenom
+								    echo "<label for='prenom'>Prénom :</label>";
+								    echo "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
 									//Pseudo
 								    echo "<label for='pseudo'>Pseudo :</label>";
-								    echo "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";	
+								    echo "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";
+								    //Birthday
+								    echo "<label for='birthday'>Date de naissance :</label>";
+								    echo "<input class='input-default admin-form-input-w membre-birthday-p' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
+								    //Kind
+								    echo "<label for='kind'>Genre :</label>";
+								    echo "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text' value='" . $joueur->getKind() . "'>";
+							    	//Description
+								    echo "<label for='description'>Description :</label>";
+								    echo "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text' value='" . $joueur->getDescription() . "'>";
 								    //Email
 								    echo "<label for='email'>Email :</label>";
 								    echo "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
@@ -98,7 +113,7 @@
 								    echo "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
 								    //Status
 								    echo "<label for='status'>Status :</label>";
-								    echo "<select class='select-default' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+								    echo "<select class='select-default membre-status-p' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 										echo "<option value='-1'";
 											echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 										echo ">Banni</option>
