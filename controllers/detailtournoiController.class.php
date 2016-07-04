@@ -66,7 +66,7 @@ class detailtournoiController extends template{
 				if($this->canMatchsBeCreated($matchedTournament)){
 					// pondre un algo pour random les rencontres en prévoyant le cas où le nb d'équipe est impair
 						// ds ce cas de non-parité: créer un mini tournoi préliminaire pour en éliminer une.
-					echo json_encode(["errors" => "TUDUBUEN"]);
+					$this->createMatchs($matchedTournament, 2);
 				}
 					
 			};
@@ -91,6 +91,49 @@ class detailtournoiController extends template{
 		}
 
 		return true;
+	}
+
+	// Le tournoi reçu doit contenir toutes les équipes ainsi que les inscrits
+	private function createFirstMatchs(tournament $t, $teamsPerMatch, $matchWinner){
+		$num = $t->getNumberRegistered();
+		$prekey = "s_";
+		// On crée n matchs où n = $num/2
+		if($num%$teamsPerMatch===0){
+			$allTeams = $t->gtAllTeams();
+			$len = count($allTeams);
+			$maxNumbMatch = $len/$teamsPerMatch;
+			$mirrorMatchs = [];
+
+			
+
+			$teamIndexes = [];
+			while(count($mirrorMatchs) < $maxNumbMatch){
+				for ($i=0; $i < $teamsPerMatch; $i++) {
+					$newIndex=rand(0, $len-1);
+					while( in_array($newIndex, $teamIndexes) )
+						$newIndex=rand(0, $len-1);
+
+					$custom_key = $prekey.$newIndex;
+					$teamIndexes[$custom_key] = $newIndex;
+				}
+				
+
+				$match = new matchs([
+					"startDate" => $t->getStartDate(),
+					'idTournament' =>$t->getId(),
+					"matchNumber" => 0
+				]);
+				foreach ($teamIndexes as $key => $tInd) {
+					$match->addTeamTournament($allTeams[$tInd]);
+				}
+				$mirrorMatchs[] = $match;
+			}
+			return $mirrorMatchs;
+		}
+		// On crée un pré-match pour éliminer assez d'équipe pour qu'il ne reste que des manches "normales"
+		else{
+			$numberOfTeamsToEliminate = $num%$teamsPerMatch;
+		}
 	}
 	
 }

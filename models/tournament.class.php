@@ -246,6 +246,7 @@ final class tournament{
 	// Getters des teamtournament
 	public function gtFreeTeams(){return $this->_freeteams;}
 	public function gtFullTeams(){return $this->_fullteams;}
+	public function gtAllTeams(){return array_merge($this->gtFreeTeams(), $this->gtFullTeams());}
 
 	public function _gtMaxStartDaysInterval(){
 		return $this->_maxStartDate;

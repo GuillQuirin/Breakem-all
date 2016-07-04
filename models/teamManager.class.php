@@ -90,7 +90,10 @@ class teamManager extends basesql{
 
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
-		$sql = "SELECT user.pseudo, user.img FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
+		$sql = "SELECT user.pseudo, user.img 
+				FROM user 
+				INNER JOIN team ON user.idTeam = team.id 
+				WHERE team.name = '".$nameTeam."'";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
 		
@@ -136,7 +139,7 @@ class teamManager extends basesql{
 		$req->execute([
 			':slogan' => $t->getSlogan(),
 			':description' => $t->getDescription(),
-			':img' => $t->getImg(),
+			':img' => $t->getImg(true),
 			':id' => $t->getId()
 		]);
 		$res = $req->fetchAll();
@@ -166,7 +169,7 @@ class teamManager extends basesql{
 		foreach (get_class_methods($newteam) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = ($prop==="img") ? $newuser->$method_name(true) : $newuser->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newteam->$method_name(true) : $newteam->$method_name(); 
 			}
 		}
 

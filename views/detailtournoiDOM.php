@@ -140,7 +140,7 @@
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
-					<button id="detailtournoi-btn-create-matchs" class="relative btn btn-green m-a"><a>Créer les premières rencontres !</a></button>
+					<button id="detailtournoi-btn-create-matchs" class="relative btn btn-pink m-a"><a>Créer les premières rencontres !</a></button>
 				<?php else: ?>
 					<?php $placesRestantesRequises = $tournoi->getMaxPlayer()/2 - $tournoi->getNumberRegistered();?>
 					<h3 class="titre4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>

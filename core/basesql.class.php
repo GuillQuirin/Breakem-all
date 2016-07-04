@@ -54,12 +54,11 @@ abstract class basesql{
 		foreach ($object_methods as $key => $method) {
 			if(strpos($method, 'get') !== FALSE){
 				$col = lcfirst(str_replace('get', '', $method));
-				$this->columns[$col] = $this->mirrorObject->$method();
+				$this->columns[$col] = ($col==="img") ? $this->mirrorObject->$method(true) : $this->mirrorObject->$method();
 			};
 		}
 		$this->columns = array_filter($this->columns);
 		$this->save();
-		
 	}
 
 	protected function save(){

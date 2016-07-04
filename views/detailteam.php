@@ -28,7 +28,7 @@ else{
 
     <section class="middle-height bg-cover-detailteam relative  align full-height">
         <div class="team-title">
-            <img class="grid-md-5 align full-height" src="<?php if(isset($img))echo WEBPATH."/web/img/upload/".$img ?>">
+            <img class="grid-md-5 align full-height" src="<?php if(isset($img))echo $img; ?>">
             <span class="header-title align full-height"><?php echo $nameteam;?></span>
         </div>
 
