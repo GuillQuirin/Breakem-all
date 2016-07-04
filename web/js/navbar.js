@@ -118,26 +118,13 @@ var webpath = {
 	},
 	get: function(){return this._path;},
 	setServerPath: function(){
-		jQuery.ajax({
-		  url: 'index/getWebpathAjax',
-		  type: 'GET',		  
-		  complete: function(xhr, textStatus) {
-		    // console.log("request complted \n");
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	var obj = tryParseData(data);
-		    if(obj != false){
-		    	if(obj.webpath)
-		    		this._path = obj.webpath;
-		    	else
-		    		console.log("webpath couldn't be found");
-		    	initAll();
-		    }
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
-		  }
-		});
+		var hiddenInp = $('#webpath');
+		if(isElSoloJqueryInstance(hiddenInp)){
+			this._path = hiddenInp.val();
+			hiddenInp.remove();
+		}
+		else
+			this._path = false;
 	}
 };
 

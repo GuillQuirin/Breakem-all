@@ -71,7 +71,7 @@
 	<body>
 
 		<header>
-			
+			<input type="hidden" name"webpath" id="webpath" value="<?php echo WEBPATH;?>">
 			<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 				<div class="container resultat-container m-a">
