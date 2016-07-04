@@ -193,10 +193,13 @@ else{
 							if(isset($_isConnected) && !isset($myAccount)){
 								if(isset($authorize_mail_contact) && $authorize_mail_contact==1)
 									echo '<button id="contact" type="button" class="btn btn-pink" title="Envoyer un mail au joueur">	<a>Envoyer un message</a></button>';
-								if(isset($already_signaled) && $already_signaled==1)
-									echo '<p id="signalementnope">Vous avez déjà signalé ce joueur</p>';
-								else 
-									echo '<button id="signalement" type="button" class="btn btn-pink"><a>Signaler le joueur</a></button>';
+
+								echo "<span id='gestionplainte'>";
+									if(isset($already_signaled) && $already_signaled==1)
+										echo '<p id="signalementnope">Vous avez déjà signalé ce joueur</p>';
+									else 
+										echo '<button id="signalement" type="button" class="btn btn-pink"><a>Signaler le joueur</a></button>';
+								echo "</span>";
 							}
 							else if(isset($myAccount))
 								echo '<button type="button" class="btn btn-pink"><a href="configuration" id="configuration">Configurer mon compte</a></button>';
@@ -212,31 +215,31 @@ else{
 
 <section id="formplainte">
 	<div>
-		<form action="profil/report" method="post">
-			<h4>Signaler un joueur</h4>
-			<ul>
-				<li>Vous trouvez que ce joueur ne respecte pas les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> ?
-				<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
-				<li>Selectionnez la raison de votre signalement:
-					<input type="text" name="subject" required>
-			</ul>
-			<p>
-				Veuillez justifier votre plainte (obligatoire):
-			</p>
-			<textarea id="mess_plainte" name="description" required></textarea>
-			<input type="submit" id="btn_plainte" value="Envoyer">
-		</form>
+		<h4>Signaler un joueur</h4>
+		<ul>
+			<li>Vous trouvez que ce joueur ne respecte pas les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> ?
+			<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
+			<li>Selectionnez la raison de votre signalement:
+				<input type="text" id="suj_plainte" name="subject" required>
+		</ul>
+		<p>
+			Veuillez justifier votre plainte (obligatoire):
+		</p>
+		<textarea id="mess_plainte" name="description" required></textarea>
+		<p class="sendOk">Votre message a correctement été envoyé</p>
+		<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
+		<input type="submit" id="btn_plainte" value="Envoyer">
 	</div>
 </section>
 <section id="formcontact">
 	<div>
-		<form action="profil/contact" method="post">
-			<h4>Contacter le joueur</h4>
-			<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
-			<textarea id="mess_contact" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
-			</textarea>
-			<input type="submit" id="btn_contact" value="Envoyer">
-		</form>
+		<h4>Contacter le joueur</h4>
+		<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
+		<textarea id="mess_contact" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+		</textarea>
+		<p class="sendOk">Votre message a correctement été envoyé</p>
+		<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
+		<input type="submit" id="btn_contact" value="Envoyer">
 	</div>
 </section>
 	<?php

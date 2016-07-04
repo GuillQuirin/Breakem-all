@@ -195,7 +195,7 @@
 							</tr>	
 							<tr>
 								<td>
-									<span>Ressaisir le nouveau mot de passe:</span>
+									<span>Resaisir le nouveau mot de passe:</span>
 								</td>
 								<td>
 									<input class="input-default configuration-input-default" type="password" name="new_password_check">

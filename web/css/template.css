@@ -355,6 +355,10 @@ display:block;
     color:#d92b4c;
 }
 
+.sendOk, .sendError{
+    display: none;
+}
+
 /* Image de chargement lors de l'envoi d'un mail
 
 .loadGIF{
