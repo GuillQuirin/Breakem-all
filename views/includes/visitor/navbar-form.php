@@ -36,7 +36,7 @@
 					</span>
 				</p>
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
-			    Vous acceptez les Conditions Générales du site Break'em All</label>
+			    Vous acceptez les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> du site Break'em All</label>
 			   
 			    <button type="button" class="btn btn-pink index-form-submit"><a>S'inscrire et jouer</a></button>
 	  		</form>

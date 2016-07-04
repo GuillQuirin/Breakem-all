@@ -192,11 +192,11 @@ else{
 							//N'apparaissent que si le visiteur est connecté et n'est pas sur sa propre page
 							if(isset($_isConnected) && !isset($myAccount)){
 								if(isset($authorize_mail_contact) && $authorize_mail_contact==1)
-									echo '<button id="contact" type="button" class="btn btn-pink" title="Envoyer un mail au joueur">	<a href="#">Envoyer un message</a></button>';
+									echo '<button id="contact" type="button" class="btn btn-pink" title="Envoyer un mail au joueur">	<a>Envoyer un message</a></button>';
 								if(isset($already_signaled) && $already_signaled==1)
 									echo '<p id="signalementnope">Vous avez déjà signalé ce joueur</p>';
 								else 
-									echo '<button id="signalement" type="button" class="btn btn-pink"><a href="#">Signaler le joueur</a></button>';
+									echo '<button id="signalement" type="button" class="btn btn-pink"><a>Signaler le joueur</a></button>';
 							}
 							else if(isset($myAccount))
 								echo '<button type="button" class="btn btn-pink"><a href="configuration" id="configuration">Configurer mon compte</a></button>';
@@ -215,7 +215,7 @@ else{
 		<form action="profil/report" method="post">
 			<h4>Signaler un joueur</h4>
 			<ul>
-				<li>Vous trouvez que ce joueur ne respecte pas les <a href="#">Conditions Générales d'Utilisation</a> ?
+				<li>Vous trouvez que ce joueur ne respecte pas les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> ?
 				<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
 				<li>Selectionnez la raison de votre signalement:
 					<input type="text" name="subject" required>

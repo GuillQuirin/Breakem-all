@@ -1,8 +1,17 @@
+
+.paddingHeader{
+	padding-top: 50px;
+}
+
 article {
     margin: 30px auto;
     width: 90%;
 }
 
+article p{
+	font-weight: bold;
+	font-size: 16px;
+}
 li {
     display: block;
     margin: 15px 0;

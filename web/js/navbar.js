@@ -20,6 +20,7 @@ function initAll(){
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 	checkForJustCreatedAccount();
 	cookie.init();
+	contactadmin.init();
 }
 
 function $_GET(param) {
@@ -906,46 +907,60 @@ var cookie = {
 };
 
 
+var contactadmin = {
+	init : function(){
+		//Affichages des popups
+		$("#contactAdmin").click(function(){
+			$("#wrapperAdmin").fadeIn();
+			return false;
+		});
 
-$(document).ready(function(){
-	//Affichages des popups
-	$("#contactAdmin").click(function(){
-		$("#wrapperAdmin").fadeIn();
-		return false;
-	});
+		//Controle des messages
+		$("#btn_contactAdmin").click(function(){
+			if($("#expediteurContactAdmin").val()==""){
+				alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
+			}
+			else if($("#mess_contactAdmin").val()==""){
+				alert('Veuillez ne pas envoyer de message vide.');
+			} 
+			else{
+				$.ajax({method: "POST",
+						data:{
+							message: $("#mess_contactAdmin").val(),
+							expediteur: $("#expediteurContactAdmin").val()
+						},
+						url: "index/contactAdmin", 
+						success: function(result){
+		            		alert('Le message a correctement été envoyé.');
+		            		$("#wrapperAdmin").fadeOut();
+		            		$("#mess_contactAdmin").val("");
+		            		$("#expediteurContactAdmin").val("");
+		            		//$("loadGIF").css("display","none");
+		            		//console.log(result);
+		        		},
+		        		// load: function(){
+		        		// 	$("loadGIF").css("display","block");
+		        		// },
+		        		fail: function(){
+		        			alert("Une erreur est survenue lors de l'envoi du message.");
+		        		}
+		        	}
+		        );
+			}
+		});
 
-	//Controle des messages
-	$("#btn_contactAdmin").click(function(){
-		if($("#mess_contactAdmin").val()==""){
-			alert('Veuillez ne pas laisser un message vide.');
-		}
-		else if($("#expediteurContactAdmin").val()==""){
-			alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
-		}
-		else{
-			$.ajax({method: "POST",
-					data:{
-						message: $("#mess_contactAdmin").val(),
-						expediteur: $("#expediteurContactAdmin").val()
-					},
-					url: "index/contactAdmin", 
-					success: function(result){
-	            		$("#wrapperAdmin").html("OK");
-	        		}
-	        	}
-	        );
-		}
-	});
-	//return false;
-});
+		$(document).mouseup(function(e)
+		{
+		    var container = $("#wrapperAdmin");
 
-$(document).mouseup(function(e)
-{
-    var container = $("#wrapperAdmin");
+		    if(!container.is(e.target) && container.has(e.target).length === 0) 
+		    {
+		        container.fadeOut();
+		    	$("#mess_contactAdmin").val("");
+           		$("#expediteurContactAdmin").val("");
+		    }
+		});
+	}
+}
 
-    if(!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.fadeOut();
-    }
-});
 

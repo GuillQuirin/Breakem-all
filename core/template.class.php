@@ -252,7 +252,7 @@ class template{
       $mail->Body=$contenu;
 
       //  Décommentez pour réactiver le mail
-      //$erreur = $mail->Send();
+      $erreur = $mail->Send();
 
       if(isset($erreur) && $erreur){ 
         echo $mail->ErrorInfo; 

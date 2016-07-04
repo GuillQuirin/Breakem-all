@@ -14,22 +14,22 @@ var platformModule = {
 
 	//Setter
 	setPlatformAdd : function(){
-		this._setPlatformAdd = jQuery('.platform-add-wrapper');
+		this._setPlatformAdd = $('.platform-add-wrapper');
 	},
 	setPlatformAddBtn : function(){
-		this._setPlatformAddBtn = jQuery('#platform-add-btn');
+		this._setPlatformAddBtn = $('#platform-add-btn');
 	},
 
 	setAdminWrapper : function(){
-		this._adminWrapper = jQuery(".admin-wrapper.platforms");
+		this._adminWrapper = $(".admin-wrapper.platforms");
 	},
 
 	setPlatformNav : function(){
-		this._setPlatformNav = jQuery('.platform-navbar');
+		this._setPlatformNav = $('.platform-navbar');
 	},
 
 	setAdminDataElTitle : function(){
-		this._setAdminDataElTitle = jQuery('.admin-data-ihm-title');
+		this._setAdminDataElTitle = $('.admin-data-ihm-title');
 	},
 
 	//Getter
