@@ -49,13 +49,13 @@ class game{
 	public function getYear(){return $this->year;}
 	public function getImg($upload=false){
 		if($upload){
-			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/".$this->img))
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
 				return $this->img;
 
 			return "default.jpg";
 		}
 		else{
-			if(strlen(trim($this->img)!=0) && file_exists(getcwd()."/web/img/".$this->img))
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
 				return "/web/img/".$this->img;
 
 			return "/web/img/default.jpg";	

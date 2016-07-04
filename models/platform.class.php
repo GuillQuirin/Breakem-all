@@ -31,13 +31,25 @@ class platform{
 		$this->description=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v))!=0)
-			$this->img = "web/img/".$v;
+		$this->img = $v;
 	}
 
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
-	public function getImg(){return $this->img;}
+	public function getImg($upload=false){
+		if($upload){
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
+				return $this->img;
+
+			return "default.jpg";
+		}
+		else{
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
+				return "/web/img/".$this->img;
+
+			return "/web/img/default.jpg";	
+		}
+	}
 	
 }
