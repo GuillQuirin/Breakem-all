@@ -2,9 +2,11 @@
 	if(isset($listesignalement)){	
 
 		echo "<div class='admin-data-ihm-title align relative'>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Emetteur</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Accusé</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Motif</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>";
 		echo "</div>";
 
 		if(is_array($listesignalement)){			
@@ -13,9 +15,11 @@
 				echo "<div class='admin-data-ihm align relative'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $signalement->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-subject-g'>" . $signalement->getSubject() . "</span></div></div>";
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $signalement->getDescription() . "</span></div></div>";
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover platform-img-up' src='" . $signalement->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-date-g'>" . $signalement->getDate() . "</span></div></div>";	
 					//Fin Affichage
 
 					//Boutton
@@ -54,6 +58,6 @@
 			}					
 		}
 	}else{
-		echo "<div class='grid-md-12 no-platform align'><span>Aucune plateforme enregistrée pour le moment.</span></div>";		
+		echo "<div class='grid-md-12 no-platform align'><span>Aucun signalement enregistré pour le moment.</span></div>";		
 	} 
 ?>		

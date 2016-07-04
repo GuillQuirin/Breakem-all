@@ -52,6 +52,9 @@ var onglet = {
 			onglet.membresView();
 		});
 		//Signalements
+		onglet.getAdminOngletReports().click(function(){
+			onglet.reportsView();
+		});
 	},
 
 	//Setter
@@ -232,26 +235,36 @@ var onglet = {
 		return false;
 
 	},
-
-	callView : function(){
-		
+	reportsView : function(){
 		/* Signalement */
-		onglet.getAdminOngletReports().click(function(){
+		
 		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/reportsView",
 		 	success: function(result){
-		 		
-		 		//console.log(result);
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				signalementModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
 		 	}
 		});
-	
-			return false;
-		})
+
+		return false;
+
+	},
+
+	callView : function(){
 
 		/* Team */
 		onglet.getAdminOngletTeams().click(function(){
