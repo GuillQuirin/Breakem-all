@@ -907,7 +907,7 @@ var contactadmin = {
 			if($("#expediteurContactAdmin").val()==""){
 				alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
 			}
-			else if($("#mess_contactAdmin").val()==""){
+			else if($.trim($("#mess_contactAdmin")).val()==""){
 				alert('Veuillez ne pas envoyer de message vide.');
 			} 
 			else{
@@ -919,17 +919,14 @@ var contactadmin = {
 						url: "index/contactAdmin", 
 						success: function(result){
 		            		alert('Le message a correctement été envoyé.');
-		            		$("#wrapperAdmin").fadeOut();
-		            		$("#mess_contactAdmin").val("");
-		            		$("#expediteurContactAdmin").val("");
+		            		$("#wrapperAdmin .sendOk").fadeIn();
 		            		//$("loadGIF").css("display","none");
-		            		//console.log(result);
 		        		},
 		        		// load: function(){
 		        		// 	$("loadGIF").css("display","block");
 		        		// },
 		        		fail: function(){
-		        			alert("Une erreur est survenue lors de l'envoi du message.");
+		        			$("#wrapperAdmin .sendOk").fadeIn();
 		        		}
 		        	}
 		        );
@@ -942,6 +939,7 @@ var contactadmin = {
 
 		    if(!container.is(e.target) && container.has(e.target).length === 0) 
 		    {
+		    	$(".sendOk, .sendError").fadeOut();
 		        container.fadeOut();
 		    	$("#mess_contactAdmin").val("");
            		$("#expediteurContactAdmin").val("");

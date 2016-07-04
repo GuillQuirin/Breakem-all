@@ -247,12 +247,8 @@
 				<p>Votre adresse email : <input type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
 				Contenu du message: <textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 				</textarea>
-				<?php 
-					/*echo '<span class="loadGIF">';
-					echo '<img src="'. WEBPATH .'/web/img/load.gif">';
-					echo '</span>';
-					*/
-				?>
+				<p class="sendOk">Votre message a correctement été envoyé</p>
+				<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>

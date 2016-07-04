@@ -74,20 +74,9 @@ class profilController extends template{
 
 	public function contactAction(){
 	
-		$args = array('msg' => FILTER_SANITIZE_STRING );
+		$args = array('message' => FILTER_SANITIZE_STRING );
 		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-
-		/*
-			###########################################################################
-			###########################################################################
-		*/
-			// ARRAY FILTER SUPPRIME LES MSG VIDES, 0, FALSE ou NULL
-			// IL FAUT OBLIGATOIREMENT UTILISER CETTE METHODE DE FOREACH APRES UN array_filter(filter_input_array)
-		/*
-			###########################################################################
-			###########################################################################
-		*/
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
 				die("Manque information : ".$key);
@@ -101,18 +90,14 @@ class profilController extends template{
 		$expediteur = $this->getConnectedUser();
 
 		$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
-			//$pseudoProfil = explode("&",$pseudoProfil);
-			$data = array('pseudo' => $pseudoProfil);
+		$data = array('pseudo' => $pseudoProfil);
 		$destinataire = $userBDD->getUser($data);	
 
 		$contenuMail = "<h3>Vous avez reçu un message de <a href=\"http://breakem-all.com/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
-	      $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+	      $contenuMail.="<div>".$filteredinputs['message']."</div>";
 	      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
 
 		$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
-
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-		
 	}
 
 	public function reportAction(){
@@ -121,16 +106,7 @@ class profilController extends template{
 			'description' => FILTER_SANITIZE_STRING
 		);
 		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
-		/*
-			###########################################################################
-			###########################################################################
-		*/
-			// ARRAY FILTER SUPPRIME LES MSG VIDES, 0, FALSE ou NULL
-			// IL FAUT OBLIGATOIREMENT UTILISER CETTE METHODE DE FOREACH APRES UN filter__input_array
-		/*
-			###########################################################################
-			###########################################################################
-		*/
+
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
 				die("Manque information : ".$key);
@@ -151,7 +127,5 @@ class profilController extends template{
 		$plainteBDD = new signalmentsuserManager();
 		$plainteBDD->mirrorObject = new signalmentsuser($filteredinputs);
 		$plainteBDD->create();
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-		
 	}
 }

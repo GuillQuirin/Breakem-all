@@ -201,8 +201,10 @@ class userManager extends basesql{
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
-					WHERE u.status>0";
+					FROM ".$this->table." u
+					LEFT OUTER JOIN team t ON u.idTeam = t.id
+					WHERE u.status>0
+						GROUP BY u.id";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
