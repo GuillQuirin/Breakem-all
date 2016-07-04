@@ -99,9 +99,7 @@ if(isset($tournoi)){
 								</td>
 								<td>
 									<span class="index-input-default-date">
-										<input class="input-default" type="number" name="Eday"   placeholder="dd" min="1" max="31" value="<?php echo  date('d', $tournoi->getEndDate()); ?>" <?php echo $verrouillage; ?>>
-										<input class="input-default" type="number" name="Emonth" placeholder="mm" min="1" max="12" value="<?php echo  date('m', $tournoi->getEndDate()); ?>" <?php echo $verrouillage; ?>>
-										<input class="input-default" type="number" name="Eyear"  placeholder="yyyy" min="1950" max="2016" value="<?php echo  date('Y', $tournoi->getEndDate()); ?>" <?php echo $verrouillage; ?>>
+										<?php echo  date('d / m / Y', $tournoi->getEndDate()); ?>
 									</span>
 								</td>
 							</tr>
