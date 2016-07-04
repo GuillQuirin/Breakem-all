@@ -122,9 +122,12 @@ var webpath = {
 		if(isElSoloJqueryInstance(hiddenInp)){
 			this._path = hiddenInp.val();
 			hiddenInp.remove();
+			initAll();
 		}
-		else
+		else{
 			this._path = false;
+			console.log("couldn't find webpath !");
+		}
 	}
 };
 
