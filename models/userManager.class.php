@@ -76,7 +76,6 @@ class userManager extends basesql{
 			':email' => $u->getEmail(),
 			':password' => $password
 		]);
-		
 		return $r;
 	}
 
@@ -182,11 +181,11 @@ class userManager extends basesql{
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
+					FROM ".$this->table." u
+					LEFT OUTER JOIN team t ON u.idTeam = t.id
 					WHERE u.status<>0 AND " . implode(',', $data);
 
 		$query = $this->pdo->query($sql)->fetch();
-
 		if($query === FALSE)
 			return false;
 
