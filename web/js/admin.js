@@ -51,6 +51,7 @@ var onglet = {
 		onglet.getAdminOngletMembres().click(function(){
 			onglet.membresView();
 		});
+		//Signalements
 	},
 
 	//Setter

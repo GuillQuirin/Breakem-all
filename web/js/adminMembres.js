@@ -15,7 +15,7 @@ var membreModule = {
 
 		//CRUD
 		membreModule.postDataDelete();
-		membreModule.postDataUpdate();
+		//membreModule.postDataUpdate();
 		membreModule.postDataInsert();		
 	},
 

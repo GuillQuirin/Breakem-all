@@ -32,17 +32,17 @@
 							
 							echo "<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>";
 								echo "<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>";
-									echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
-								    echo "<label for='email'>Nom :</label>";
-								    echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" . $platform->getName() . "'>";
-								    echo "<label for='email'>Description :</label>";
-								    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    						
-								    echo "<div class='admin-avatar-wrapper m-a'>";																	
+									echo "<div class='admin-avatar-wrapper m-a'>";																	
 										echo "<img class='admin-avatar img-cover platform-img' src='" . $platform->getImg() . "' title='Image de profil' alt='Image de profil'>";										
 									echo "</div>";
 									echo "<div class='text-center admin-input-file'>";								 
 									echo "<input type='file' class='platform-image-p' name='profilpic'>";
 									echo "</div>";
+									echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
+								    echo "<label for='email'>Nom :</label>";
+								    echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" . $platform->getName() . "'>";
+								    echo "<label for='email'>Description :</label>";
+								    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														    
 								    echo "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>";
 						  		echo "</form>";
 						  	echo "</div>";
