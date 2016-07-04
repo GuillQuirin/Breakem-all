@@ -111,7 +111,7 @@ class detailteamController extends template{
             $teamBDD = new teamManager();
 
             $args = array('nameTeam' => FILTER_SANITIZE_STRING,
-                        'action-team-rejoin' => FILTER_SANITIZE_STRING);
+                        'action-team-exit' => FILTER_SANITIZE_STRING);
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
             // $team = un objet -> La team de la page
