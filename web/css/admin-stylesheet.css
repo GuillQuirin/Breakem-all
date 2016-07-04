@@ -1,3 +1,7 @@
+.membre-input-wrapper{
+    margin: 0 10px 0 0;
+}
+
 .membre-submit-form-btn{
     max-width:250px;
 }
@@ -6,19 +10,19 @@
     margin-bottom:60px;
 }
 
-.admin-search-input::-webkit-input-placeholder {
+.admin-search-input::-webkit-input-placeholder, input {
    text-align: center;
 }
 
-.admin-search-input:-moz-placeholder { /* Firefox 18- */
+.admin-search-input:-moz-placeholder, input { /* Firefox 18- */
    text-align: center;  
 }
 
-.admin-search-input::-moz-placeholder {  /* Firefox 19+ */
+.admin-search-input::-moz-placeholder, input {  /* Firefox 19+ */
    text-align: center;  
 }
 
-.admin-search-input:-ms-input-placeholder {  
+.admin-search-input:-ms-input-placeholder, input {  
    text-align: center; 
 }
 
