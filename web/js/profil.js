@@ -18,8 +18,8 @@ $(document).ready(function(){
 		else{
 	        $.ajax({method: "POST",
 						data:{
-							message: $("#mess_plainte").val(),
-							motif: $("#suj_plainte").val()
+							description: $("#mess_plainte").val(),
+							subject: $("#suj_plainte").val()
 						},
 						url: "profil/report", 
 						success: function(result){

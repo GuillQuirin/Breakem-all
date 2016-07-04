@@ -98,15 +98,12 @@ class profilController extends template{
 	      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
 
 		$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
-
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-		
 	}
 
 	public function reportAction(){
 		$args = array(
-			'motif' => FILTER_SANITIZE_STRING,
-			'message' => FILTER_SANITIZE_STRING
+			'subject' => FILTER_SANITIZE_STRING,
+			'description' => FILTER_SANITIZE_STRING
 		);
 		$filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
@@ -130,7 +127,5 @@ class profilController extends template{
 		$plainteBDD = new signalmentsuserManager();
 		$plainteBDD->mirrorObject = new signalmentsuser($filteredinputs);
 		$plainteBDD->create();
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-		
 	}
 }
