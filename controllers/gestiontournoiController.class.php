@@ -27,12 +27,11 @@ class gestiontournoiController extends template{
 
 		$args = array('t' => FILTER_SANITIZE_STRING);
 
-		$filteredinputs = filter_input_array(INPUT_GET, $args);
+		$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 
 		//Si lien fourni sinon redirection liste tournoi
 		if(!empty($filteredinputs) && $this->isVisitorConnected()){
 
-			$filteredinputs = array_filter($filteredinputs);
 			$link = $filteredinputs['t'];
 
 			$tournamentBDD = new tournamentManager();
@@ -146,6 +145,7 @@ class gestiontournoiController extends template{
 			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null 
 				&& $ecartjour==="+" && $nbjours>="2"){
 				// On met à jour
+			    $newtournament->setStartDate($newtournament->getStartDate(), true);
 			    $tournamentBDD->setTournament($tournament, $newtournament);
 
 				$_SESSION['referer_method']="update";
