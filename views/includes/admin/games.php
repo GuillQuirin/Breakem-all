@@ -15,15 +15,16 @@
             ?>
         </tbody>
     </table>
-    <form action="admin/addGame" method="post" enctype="multipart/form-data">
+    <div class="formgame">
+    <form class="formgame1" action="admin/addGame" method="post" enctype="multipart/form-data">
         <TABLE border=0>
             <TR>
                 <TD>Nom</TD>
-                <TD><INPUT type=text name="name"></TD>
+                <TD><INPUT class="input-default" type=text name="name"></TD>
             </TR>
             <TR>
                 <TD>Description</TD>
-                <TD><textarea rows="3" name="description"></textarea></TD>
+                <TD><textarea class="desc-default" rows="3" name="description"></textarea></TD>
             </TR>
             <TR>
                 <TD>Image</TD>
@@ -31,12 +32,12 @@
             </TR>
             <TR>
                 <TD>Année</TD>
-                <td><input type="text" name="year"></td>
+                <td><input class="input-default" type="text" name="year"></td>
             </TR>
             <TR>
                 <TD>Genre</TD>
                 <td>
-                    <SELECT name="idType" size="1">
+                    <SELECT class="input-default" name="idType" size="1">
                       <?php  if(isset($listetypejeu) && is_array($listetypejeu)){
                                foreach($listetypejeu as $key => $value){
                                     echo "<option value='".$value->getId()."'>".$value->getName()."</option>";
@@ -54,4 +55,5 @@
             </TR>
         </TABLE>
     </form>
+    </div>
 </div>

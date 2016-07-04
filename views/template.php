@@ -71,7 +71,7 @@
 	<body>
 
 		<header>
-			<input type="hidden" name"webpath" id="webpath" value="<?php echo WEBPATH;?>">
+			<input type="hidden" name="webpath" id="webpath" value="<?php echo WEBPATH;?>">
 			<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 				<div class="container resultat-container m-a">
@@ -80,7 +80,7 @@
 					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
 								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
