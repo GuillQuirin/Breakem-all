@@ -39,16 +39,13 @@ class platform{
 	public function getDescription(){return $this->description;}
 	public function getImg($upload=false){
 		if($upload){
-			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
-				return $this->img;
-
-			return "default.jpg";
+			return $this->img;
 		}
 		else{
 			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
-				return "/web/img/".$this->img;
+				return WEBPATH."/web/img/".$this->img;
 
-			return "/web/img/default.jpg";	
+			return WEBPATH."/web/img/default.jpg";	
 		}
 	}
 	

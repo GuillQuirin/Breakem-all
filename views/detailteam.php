@@ -12,7 +12,7 @@ if(isset($err)){
 }
 else{
 ?>  
-     <section class="popup">
+    <section class="popup">
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
             <form action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">
