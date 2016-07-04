@@ -106,11 +106,27 @@ class detailteamController extends template{
             $userBDD->setNewTeam($this->getConnectedUser(),$team);
             header("Location:../detailteam?name=".$team->getName());
         }
+        
         if(isset($_POST['action-team-exit'])){
             $teamBDD = new teamManager();
 
             $args = array('nameTeam' => FILTER_SANITIZE_STRING,
                         'action-team-rejoin' => FILTER_SANITIZE_STRING);
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            // $team = un objet -> La team de la page
+            $team = $teamBDD->getTeam(array('name'=>$filteredinputs['nameTeam']));
+            $userBDD = new userManager();
+
+            $userBDD->setNewTeam($this->getConnectedUser());
+            header("Location:../detailteam?name=".$team->getName());
+        }
+
+        if(isset($_POST['action-team-dissoudre'])){
+            $teamBDD = new teamManager();
+
+            $args = array('nameTeam' => FILTER_SANITIZE_STRING,
+                        'action-team-dissoudre' => FILTER_SANITIZE_STRING);
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
             // $team = un objet -> La team de la page
