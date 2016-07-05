@@ -204,6 +204,11 @@ class detailteamController extends template{
         $commentBDD = new commentManager();
         $commentBDD->mirrorObject = new comment($filteredinputs);
         $commentBDD->create();
+
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+        
+        header("Location:../detailteam?name=".$team->getName());
     }
 
 }
