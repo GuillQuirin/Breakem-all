@@ -9,7 +9,7 @@ if(isset($err)){
 					<div class="unfound_user">
 						<div class="">
 							<span class="configuration-header-profil-name">Utilisateur introuvable</span>	
-							<p><a href="index">Retour à l'accueil</a></p>
+							<p><a href="<?php echo WEBPATH.'/index'; ?>">Retour à l'accueil</a></p>
 						</div>
 					</div>
 				</div>			
@@ -28,7 +28,7 @@ else if(isset($banni) && $banni==1){
 						<p class="configuration-header-profil-name">	
 							Cet utilisateur a été banni pour non respect de la charte de bonne conduite.
 						</p>
-						<p><a href="index">Retour à l'accueil</a></p>
+						<p><a href="<?php echo WEBPATH.'/index'; ?>">Retour à l'accueil</a></p>
 					</div>
 				</div>			
 			</div>
@@ -135,7 +135,7 @@ else{
 				    <div id="team" class="team">
 						<?php 
 							if(isset($nameTeamProfil) && $nameTeamProfil!==null){
-								echo '<a href="detailteam?name='.$nameTeamProfil.'">';
+								echo '<a href="'.WEBPATH.'/detailteam?name='.$nameTeamProfil.'">';
 									echo '<figure>';
 										if(isset($imgTeamProfil) && $imgTeamProfil!==null){
 											echo '<img src="'.$imgTeamProfil.'" alt="Team du joueur">';
@@ -201,8 +201,11 @@ else{
 										echo '<button id="signalement" type="button" class="btn btn-pink"><a>Signaler le joueur</a></button>';
 								echo "</span>";
 							}
-							else if(isset($myAccount))
-								echo '<button type="button" class="btn btn-pink"><a href="configuration" id="configuration">Configurer mon compte</a></button>';
+							else if(isset($myAccount)){
+								echo '<button type="button" class="btn btn-pink">';
+									echo '<a href="'.WEBPATH.'/configuration" id="configuration">Configurer mon compte</a>';
+								echo '</button>';
+							}
 						?>
 						</div>
 					</div>

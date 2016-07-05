@@ -5,7 +5,7 @@ if(isset($err)){
     <section class="absfiche">
         <div>
             ERREUR 404, team introuvable
-            <p><a href="index">Retour à l'accueil</a></p>
+            <p><a href="<?php echo WEBPATH.'/index'; ?>">Retour à l'accueil</a></p>
         </div>
     </section>
     <?php
@@ -50,7 +50,7 @@ else{
                                 <a>Dissoudre la Team !</a>
                             </button>
                             <button class="main btn btn-pink">
-                                <a href="#" class="btn-modif-team">Modifier Team</a>
+                                <a class="btn-modif-team">Modifier Team</a>
                             </button>
                         <?php
                         }elseif($_idTeam == $idteam) {

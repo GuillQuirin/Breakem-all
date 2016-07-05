@@ -158,13 +158,13 @@
 								<?php 
 								if(isset($_nameTeam)){
 									echo "<td class='text-center'>";
-										echo '<a href="detailteam?name='.$_nameTeam.'">';
+										echo '<a href="'.WEBPATH.'/detailteam?name='.$_nameTeam.'">';
 											if(isset($imgTeam) && $imgTeam!==NULL)
 												echo '<img class="configuration-team navbar-icon" src="'.$imgTeam.'">';
 										echo '</a>';
 									echo "</td>";
 									echo "<td>";
-										echo '<a href="detailteam?name='.$_nameTeam.'">'.$_nameTeam.'</a>';
+										echo '<a href="'.WEBPATH.'/detailteam?name='.$_nameTeam.'">'.$_nameTeam.'</a>';
 									echo "</td>";
 								}
 								else{

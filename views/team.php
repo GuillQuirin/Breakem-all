@@ -34,7 +34,9 @@
 									<span>"<?php echo $team->getDescription(); ?>"</span>
 								</li>
 								<li class="team-select-btn">
-									<h3 class='btn btn-pink'><a href="detailteam?name=<?php echo $team->getName(); ?>">Voir la team</a><h3>
+									<h3 class='btn btn-pink'>
+										<a href="<?php echo WEBPATH.'/detailteam?name='.$team->getName(); ?>">Voir la team</a>
+									<h3>
 								</li>																		
 							</ul>																						
 						</div>	
