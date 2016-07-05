@@ -83,7 +83,7 @@
 								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
-								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a>Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
 									<li class="navbar-menu-tooltip-li">
 										<a href="<?php echo WEBPATH; ?>/creationtournoi">
@@ -96,7 +96,7 @@
 										</a>
 									</li>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/listetournois">
+										<a href="<?php echo WEBPATH; ?>/tournoi">
 											Liste
 										</a>
 									</li>																	
@@ -106,7 +106,7 @@
 								<a href="<?php echo WEBPATH; ?>/listejoueurs">Joueurs</a>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-team">
-								<a href="<?php echo WEBPATH ?>/team">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a>Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-team">
 									<?php 
 										if(isset($_isConnected)){
@@ -120,7 +120,12 @@
 											
 											echo "</li>";
 										}
-									?>																			
+									?>
+									<li class="navbar-menu-tooltip-li">
+										<a href="<?php echo WEBPATH; ?>/team">
+											Liste des teams
+										</a>
+									</li>																			
 								</ul>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-classement">
