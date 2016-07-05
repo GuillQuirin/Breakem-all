@@ -7,7 +7,9 @@ if(isset($tournoi)){
 	<div class="align full-height">
 		<div class="configuration-header-profil-wrapper">
 			<div class="configuration-header-profil-left">
-				<img class="gestiontournoi-header-profil-image" src="<?php echo $tournoi->getGameImg(); ?>" title="Jeu" alt="Jeu">
+				<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">
+					<img class="gestiontournoi-header-profil-image" src="<?php echo $tournoi->getGameImg(); ?>" title="Page du tournoi" alt="Jeu">
+				</a>
 			</div>			
 		</div>
 	</div>
@@ -70,7 +72,9 @@ if(isset($tournoi)){
 									</td>
 									<td>
 										<p>Attention: cette action est définitive !</p>
-										<button id="btn-shut-down">Verrouiller le tournoi</button>
+										<button id="btn-shut-down" class="btn btn-pink index-header-btn-pink-width">
+											<a>Verrouiller le tournoi</a>
+										</button>
 									</td>
 								</tr>
 							<?php 
@@ -98,15 +102,15 @@ if(isset($tournoi)){
 									<span>Date de fin de tournoi :</span>					
 								</td>
 								<td>
-									<span class="index-input-default-date">
-										<?php echo  date('d / m / Y', $tournoi->getEndDate()); ?>
-									</span>
+									<?php echo  date('d / m / Y', $tournoi->getEndDate()); ?>
 								</td>
 							</tr>
 						</table>
 					<?php 
 					if(trim($verrouillage)!=="disabled"){
-						echo '<input type="submit" value="Mettre à jour">';
+						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width">';
+							echo '<a>Mettre à jour</a>';
+						echo '</button>'; 
 						echo '</form>';
 					}
 					?>
@@ -128,7 +132,9 @@ if(isset($tournoi)){
 							<p>Message à destination des inscrits :</p>
 							<textarea id="msg_tournament" class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
 							</textarea>
-							<button id="btn_member_tournament">Envoyer le mail</button> 
+							<button id="btn_member_tournament" class="btn btn-pink index-header-btn-pink-width">
+								<a>Envoyer le mail</a>
+							</button> 
 						<?php 
 						}
 						?>
