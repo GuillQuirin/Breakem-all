@@ -112,15 +112,12 @@ class profilController extends template{
 				die("Manque information : ".$key);
 			}
 		}
-
-		$data = array('email' => $_SESSION[COOKIE_EMAIL]);
-
-		$userBDD = new userManager();
-		$victime = $userBDD->getUser($data);
-		$filteredinputs['id_indic_user'] = $victime->getId();
+		$filteredinputs['id_indic_user'] = $this->getConnectedUser()->getId();
 
 		$pseudoProfil = substr($_SERVER['HTTP_REFERER'],strpos($_SERVER['HTTP_REFERER'],"=")+1);
 		$data = array('pseudo' => $pseudoProfil);
+
+		$userBDD = new userManager();
 		$accuse = $userBDD->getUser($data);
 		$filteredinputs['id_signaled_user'] = $accuse->getId();
 

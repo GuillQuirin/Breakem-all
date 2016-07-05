@@ -86,7 +86,7 @@ class teamController extends template{
         if(is_numeric($this->connectedUser->getIdTeam()))
             $this->echoJSONerror("userhasteam", "vous avez déjà une team!");
             
-        //Créaton team
+        //Création team
         $dbTeam->mirrorObject = $team;
         $dbTeam->create();
         // Récupération team (avec nouvel id)
