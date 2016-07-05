@@ -64,9 +64,6 @@
 	thead {
 		display: table-header-group;
 	}
-	a:not([href]){
-	    cursor: default;
-	}
 /* ############################### */
 
 /* ########## POLICES ############ */
