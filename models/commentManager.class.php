@@ -7,7 +7,7 @@ class commentManager extends basesql{
 
 	public function getComment($id){
 		$sql = "SELECT *
-				FROM commentsteam 
+				FROM comment 
 				WHERE id=:id";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -41,7 +41,7 @@ class commentManager extends basesql{
 		$sql="SELECT c.id, c.message, c.date, c.status,  
 							(SELECT pseudo from user WHERE id=c.idUser) as pseudo,
 							(SELECT name from team WHERE id=c.idTeam) as NomTeam
-				FROM commentsteam c
+				FROM comment c
 				ORDER BY id ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -57,8 +57,8 @@ class commentManager extends basesql{
 	public function delComment(comment $comment){
 
 		$sql = ($comment->getStatus()==1) ? 
-				"UPDATE commentsteam SET status=0 WHERE id=:id" :
-				"UPDATE commentsteam SET status=1 WHERE id=:id";
+				"UPDATE comment SET status=0 WHERE id=:id" :
+				"UPDATE comment SET status=1 WHERE id=:id";
 		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->bindValue(':id', $comment->getId());
