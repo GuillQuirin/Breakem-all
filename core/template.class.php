@@ -353,7 +353,7 @@ class template{
 
     $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
-      $contenuMail.="<a href=\"http://breakem-all.com".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
+      $contenuMail.="<a href=\"".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
     //Appel de la methode d'envoi du mail
     $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);

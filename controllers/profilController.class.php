@@ -93,7 +93,7 @@ class profilController extends template{
 		$data = array('pseudo' => $pseudoProfil);
 		$destinataire = $userBDD->getUser($data);	
 
-		$contenuMail = "<h3>Vous avez reçu un message de <a href=\"http://breakem-all.com/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
+		$contenuMail = "<h3>Vous avez reçu un message de <a href=\"".WEBPATH."/profil?pseudo=".$expediteur->getPseudo()."\">".$expediteur->getPseudo()."</a></h3>";
 	      $contenuMail.="<div>".$filteredinputs['message']."</div>";
 	      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
 
