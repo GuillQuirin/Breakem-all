@@ -162,38 +162,41 @@
 					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>" class="active">Accueil
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="active">Accueil</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH; ?>/tournoi">Tournois
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
+								<a href="<?php echo WEBPATH; ?>/creationtournoi">Creer mon tournoi</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/creationtournoi">Creer<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/team">Teams</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/team">Team 
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
+								<a href="<?php echo WEBPATH.'/listejoueurs'; ?>">Joueurs</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="">Joueur
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
-							</li>
-							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/resultat">Classement
+								<a href="<?php echo WEBPATH ?>/classement">Classement
 								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
-								<a href="">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
-								</a>
-							</li>
+							<?php 
+								if(isset($_isConnected)){
+									?>
+										<li class="navbar-menu-li">
+											<a href="">
+											<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
+											</a>
+										</li>
+									<?php 
+								}
+								else{
+									?>
+
+								<?php } ?>
 							<li class="navbar-menu-li">
 								<button type="button" class="search-toggle" style="padding:0 35px;">
 								<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
