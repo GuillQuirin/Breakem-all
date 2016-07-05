@@ -124,7 +124,32 @@ else{
                 </div>
             </div>
         </section>
+         <?php
+        if($_idTeam == $idteam){
+            ?>
+            <button name='action-comment-write' type='submit' class='btn btn-pink'>
+                <a>Rédiger un commentaire</a>
+            </button>
+            <section class="contain align full-height">
+                <?php 
+                if(isset($listecomment) && is_array($listecomment)){
+                    foreach($listecomment as $commentaire){
+                        echo '<div>';
+                            echo '<p>'.$commentaire->getPseudo().'</p>';
+                            echo '<p>'.$commentaire->getComment().'</p>';
+                        echo '</div>';
+                    }
+                }
+                ?>
+            </section>
+            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+            <textarea name="comment"></textarea>
+            <input type="submit">
+            </form>
 
+            <?php
+        }
+        ?>
 <!--
         <div class="container m-a content-border " id="container">
             <div id="container1">

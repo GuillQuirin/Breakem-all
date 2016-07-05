@@ -1,6 +1,6 @@
 <?php 
 
-class commentsteamManager extends basesql{
+class commentManager extends basesql{
 	public function __construct(){
 		parent::__construct();
 	}
@@ -14,7 +14,26 @@ class commentsteamManager extends basesql{
 		$sth->execute([ ':id' => $id ]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		
-		return new commentsteam($r[0]);
+		return new comment($r[0]);
+	}
+
+	public function getCommentsByTeam(team $team){
+		$sql = "SELECT c.id, c.date, c.comment, c.status, c.idUser, c.idEntite as idTeam,  
+							(SELECT pseudo from user WHERE id=c.idUser) as pseudo,
+							(SELECT name from team WHERE id=c.idEntite) as nomTeam
+				FROM comment c
+				WHERE c.idEntite=:idEntite 
+					AND c.entite=1";
+		
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute([ ':idEntite' => $team->getId() ]);
+
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets comment
+			$list[] = new comment($query);
+
+		return $list;
 	}
 
 	public function getAllComment(){
@@ -29,13 +48,13 @@ class commentsteamManager extends basesql{
 		$req->execute();
 		$list = [];
 		while ($query = $req->fetch(PDO::FETCH_ASSOC))
-			//tableau d'objets user
-			$list[] = new commentsteam($query);
+			//tableau d'objets comment
+			$list[] = new comment($query);
 	
 		return $list;
 	}
 
-	public function delComment(commentsteam $comment){
+	public function delComment(comment $comment){
 
 		$sql = ($comment->getStatus()==1) ? 
 				"UPDATE commentsteam SET status=0 WHERE id=:id" :
