@@ -107,7 +107,7 @@ class teamManager extends basesql{
 
 	//Vérification du name en paramètre dans la bdd
 	public function getNameTeam($nameTeam){
-		$sql = "SELECT name FROM team WHERE name = '".$nameTeam."'";
+		$sql = "SELECT name FROM team WHERE name = '".$nameTeam."' AND status = 1	";
 		
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -121,10 +121,9 @@ class teamManager extends basesql{
 
 	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
 	public function changeStatusTeam(team $t){
-		$sql = "UPDATE team SET status = :status WHERE id= :id";
+		$sql = "UPDATE team SET status = -1 WHERE id= :id";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute([
-			':status' => $t->getStatus(),
 			':id' => $t->getId()
 		]);
 		$res = $req->fetchAll();
@@ -132,6 +131,7 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+
 	//UPDATE LE SLOGAN ET DESCRIPTION DE LA TEAM DANS L'ADMIN
 	public function updateTeam(team $t){
 		$sql = "UPDATE team SET img = :img, slogan = :slogan, description = :description WHERE id= :id";

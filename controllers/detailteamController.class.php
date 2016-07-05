@@ -15,6 +15,7 @@ class detailteamController extends template{
             //Si le paramètre GET['name'] n'exite pas alors tu me renvoi erreur 1   
             $teamName = new teamManager();
             $nameTeam = $teamName->getNameTeam($_GET['name']);
+            
         }
 
 		//Si un paramètre GET portant le nom d'une team dans l'URL
@@ -133,8 +134,9 @@ class detailteamController extends template{
             $team = $teamBDD->getTeam(array('name'=>$filteredinputs['nameTeam']));
             $userBDD = new userManager();
 
-            $userBDD->setNewTeam($this->getConnectedUser());
-            header("Location:../detailteam?name=".$team->getName());
+            $userBDD->setAllUser($team);
+            $teamBDD->changeStatusTeam($team);
+            header("Location:../team");
         }
     }
     
