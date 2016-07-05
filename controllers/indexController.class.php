@@ -33,10 +33,17 @@ class indexController extends template{
 			unset($_SESSION['compte_validé']);
 		}
 
+		//Liste des jeux
+		$obj = new gameManager();
+		$listejeux = $obj->getAllGames();
+		if(!!($listejeux)){
+			$v->assign("listeJeux", $listejeux);
+		}
+
 		//Meilleurs Jeux
 		$obj = new gameManager();
 		$bestGames = $obj->getBestGames();
-		if(!empty($bestGames)){
+		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
 		}
 		

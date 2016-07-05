@@ -9,7 +9,7 @@
 
 			    <label for="pwd1">Mot de passe : </label>
 			    <input class="input-default" type="password" id="pwd1" name="password">			 		
-			    <a href="confirmation/lost">Mot de passe oublié ? </a> 
+			    <a href="<?php echo WEBPATH; ?>/confirmation/lost">Mot de passe oublié ? </a> 
 			    <button type="button" class="btn btn-pink"><a>Se connecter</a></button>
 	  		</form>
 	  	</div>

@@ -19,17 +19,31 @@ class RSSController extends template{
 				$xml .= '<title>Break\'em All</title>';
 				$xml .= '<link>http://breakem-all.com/</link>';
 				$xml .= '<description>Site de tournois communautaires.</description>';
-
-				foreach ($listtournoi as $tournoi) {
-					$xml .= '<item>';
-						$xml .= '<title>'.$tournoi->getName().'</title>';
-						$xml .= '<link>'.WEBPATH.'/tournoi?t='.$tournoi->getLink().'</link>';
-						$xml .= '<debDate>le '.date('d/m/Y \à H:i',$tournoi->getStartDate()).'</debDate>';
-						$xml .= '<finDate>le '.date('d/m/Y \à H:i',$tournoi->getEndDate()).'</finDate>';
-						$xml .= '<creator>'.$tournoi->getUserPseudo().'</creator>';
-						$xml .= '<game>'.$tournoi->getGameName().'</game>';
-						$xml .= '<description>'.$tournoi->getDescription().'</description>';
-					$xml .= '</item>';
+				if($listtournoi){
+					if(is_array($listtournoi)){
+						foreach ($listtournoi as $tournoi) {
+							$xml .= '<item>';
+								$xml .= '<title>'.$tournoi->getName().'</title>';
+								$xml .= '<link>'.WEBPATH.'/tournoi?t='.$tournoi->getLink().'</link>';
+								$xml .= '<debDate>le '.date('d/m/Y \à H:i',$tournoi->getStartDate()).'</debDate>';
+								$xml .= '<finDate>le '.date('d/m/Y \à H:i',$tournoi->getEndDate()).'</finDate>';
+								$xml .= '<creator>'.$tournoi->getUserPseudo().'</creator>';
+								$xml .= '<game>'.$tournoi->getGameName().'</game>';
+								$xml .= '<description>'.$tournoi->getDescription().'</description>';
+							$xml .= '</item>';
+						}
+					}
+					else{
+						$xml .= '<item>';
+							$xml .= '<title>'.$listtournoi->getName().'</title>';
+							$xml .= '<link>'.WEBPATH.'/tournoi?t='.$listtournoi->getLink().'</link>';
+							$xml .= '<debDate>le '.date('d/m/Y \à H:i',$listtournoi->getStartDate()).'</debDate>';
+							$xml .= '<finDate>le '.date('d/m/Y \à H:i',$listtournoi->getEndDate()).'</finDate>';
+							$xml .= '<creator>'.$listtournoi->getUserPseudo().'</creator>';
+							$xml .= '<game>'.$listtournoi->getGameName().'</game>';
+							$xml .= '<description>'.$listtournoi->getDescription().'</description>';
+						$xml .= '</item>';
+					}
 				}
 
 			$xml .= '</channel>';
@@ -37,20 +51,26 @@ class RSSController extends template{
 
 		//Ecriture dans le fichier
 		$fichier = fopen("flux.xml", 'w+');
-		fputs($fichier, $xml);
-		fclose($fichier);
+		if($fichier){
+			fputs($fichier, $xml);
+			fclose($fichier);
+		}
 
-		$rss = simplexml_load_file('flux.xml'); 
+		if(file_exists('flux.xml')){
+			$rss = simplexml_load_file('flux.xml'); 
 
-		//Affichage du contenu sur la page
-		foreach ($rss->channel->item as $item) { 
-		  echo '<div>
-		           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
-		           <div>organisé par '.$item->creator.'</div>
-		           <div>'.$item->description.'</div>
-		           <a href="'.$item->link.'">Voir le tournoi</a>
-		        </div>';
-		} 
+			//Affichage du contenu sur la page
+			if(is_array($rss->channel->item)){
+				foreach ($rss->channel->item as $item) { 
+				  echo '<div>
+				           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
+				           <div>organisé par '.$item->creator.'</div>
+				           <div>'.$item->description.'</div>
+				           <a href="'.$item->link.'">Voir le tournoi</a>
+				        </div>';
+				} 
+			}
+		}
 
 		$v->setView("blank","notemplate");
 	}

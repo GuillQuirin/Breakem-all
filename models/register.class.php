@@ -105,7 +105,17 @@ final class register{
 	
 	// Getters du jeu
 	public function getNomJeu(){return $this->_nomJeu;}
-	public function getImgJeu(){return $this->_imgJeu;}
+	public function getImgJeu($upload=false){
+		if($upload){
+			return $this->_imgJeu;
+		}
+		else{
+			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_imgJeu)
+				return WEBPATH."/web/img/".$this->_imgJeu;
+
+			return WEBPATH."/web/img/default.jpg";	
+		}
+	}
 
 	// Getters de user
 	public function getPseudo(){return $this->_pseudo;}

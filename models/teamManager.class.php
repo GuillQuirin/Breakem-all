@@ -23,7 +23,7 @@ class teamManager extends basesql{
 
 
 		if(!$calling_class || !$calling_method)
-			header('Location: '.WEBPATH);
+			header('Location: '.WEBPATH.'/index');
 
 		// Si appelée depuis la page tournoi
 		if ($calling_class === "creationtournoiController" 
@@ -46,7 +46,7 @@ class teamManager extends basesql{
 
 		}
 		else
-			header('Location: '.WEBPATH);		
+			header('Location: '.WEBPATH.'/index');		
 	}*/
 
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/

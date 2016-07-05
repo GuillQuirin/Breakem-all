@@ -5,7 +5,7 @@ if(isset($err)){
     <section class="absfiche">
         <div>
             ERREUR 404, team introuvable
-            <p><a href="index">Retour à l'accueil</a></p>
+            <p><a href="<?php echo WEBPATH.'/index'; ?>">Retour à l'accueil</a></p>
         </div>
     </section>
     <?php
@@ -59,7 +59,7 @@ else{
                                 <a>Dissoudre la Team !</a>
                             </button>
                             <button class="main btn btn-pink">
-                                <a href="#" class="btn-modif-team">Modifier Team</a>
+                                <a class="btn-modif-team">Modifier Team</a>
                             </button>
                         <?php
                         //Si le user est dans la guilde
@@ -132,8 +132,34 @@ else{
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+ <?php
+        if($_idTeam == $idteam){
+            ?>
+            <button name='action-comment-write' type='submit' class='btn btn-pink'>
+                <a>Rédiger un commentaire</a>
+            </button>
+            <section class="contain align full-height">
+                <?php 
+                if(isset($listecomment) && is_array($listecomment)){
+                    foreach($listecomment as $commentaire){
+                        echo '<div>';
+                            echo '<p>'.$commentaire->getPseudo().'</p>';
+                            echo '<p>'.$commentaire->getComment().'</p>';
+                        echo '</div>';
+                    }
+                }
+                ?>
+            </section>
+            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+            <textarea name="comment"></textarea>
+            <input type="submit">
+            </form>
+
+            <?php
+        }
+        ?>
 <?php 
 } 
 ?>

@@ -44,7 +44,7 @@ class adminController extends template{
             $gameBDD = new gameManager();
             $listegames = $gameBDD->getAllGames();
 
-            $commentaireBDD = new commentsteamManager();
+            $commentaireBDD = new commentManager();
             $listcomment = $commentaireBDD->getAllComment();
 
             $v->assign("listejoueur",$listejoueurs);
@@ -393,7 +393,7 @@ class adminController extends template{
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
         
-        $commentBDD = new commentsteamManager();
+        $commentBDD = new commentManager();
         $comment = $commentBDD->getComment($filteredinputs['id']);
 
         $commentBDD->delComment($comment);

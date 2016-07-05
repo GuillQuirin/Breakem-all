@@ -1,15 +1,19 @@
 <?php 
 
-class commentsteam{
+class comment{
 	//Ca doit être un miroir par rapport au nom des colonnes dans la table
 	protected $id = null;
+
 	protected $idUser = null;
 	protected $pseudo = null;
-	protected $idTeam = null;
+	
+	protected $idEntite = null;
 	protected $nomTeam = null;
+	
 	protected $date = null;
-	protected $message = null;
+	protected $comment = null;
 	protected $status = null;
+	protected $entite = null;
 
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
@@ -35,8 +39,8 @@ class commentsteam{
 	private function setPseudo($v){
 		$this->pseudo=$v;
 	}
-	private function setIdTeam($v){
-		$this->idTeam=$v;
+	private function setIdEntite($v){
+		$this->idEntite=$v;
 	}
 	private function setNomTeam($v){
 		$this->nomTeam=$v;
@@ -44,19 +48,23 @@ class commentsteam{
 	private function setDate($v){
 		$this->date=$v;
 	}
-	private function setMessage($v){
-		$this->message=$v;
+	private function setComment($v){
+		$this->comment=$v;
 	}
 	private function setStatus($v){
 		$this->status=$v;
+	}
+	private function setEntite($v){
+		$this->entite=$v;
 	}
 
 	public function getId(){return $this->id;}
 	public function getIdUser(){return $this->idUser;}
 	public function getPseudo(){return $this->pseudo;}
-	public function getIdTeam(){return $this->idTeam;}
+	public function getIdEntite(){return $this->idEntite;}
 	public function getNomTeam(){return $this->nomTeam;}
 	public function getDate(){return $this->date;}
-	public function getMessage(){return $this->message;}
+	public function getComment(){return $this->comment;}
 	public function getStatus(){return $this->status;}
+	public function getEntite(){return $this->entite;}
 }
