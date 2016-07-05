@@ -196,7 +196,7 @@
 					<label for="title2">Jeux les plus utlisés</label>
 				</div>
 				<?php 
-					if(isset($bestGames)){
+					if(isset($bestGames) && !empty($bestGames) && is_array($bestGames)){
 						foreach ($bestGames as $key => $value){	
 							echo "<div class='game'>";
 								echo "<img src='".WEBPATH.'/web/img/'.$value['img']."'>";

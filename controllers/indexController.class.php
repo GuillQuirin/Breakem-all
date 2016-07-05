@@ -43,7 +43,7 @@ class indexController extends template{
 		//Meilleurs Jeux
 		$obj = new gameManager();
 		$bestGames = $obj->getBestGames();
-		if(!empty($bestGames)){
+		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
 		}
 		
