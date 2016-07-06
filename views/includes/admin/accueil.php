@@ -19,7 +19,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
-			<li class="active admin-onglet-li" id="admin-onglet-membres">
+			<li class="admin-onglet-li" id="admin-onglet-membres">
 				<a>Membres</a>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
@@ -53,9 +53,29 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
-				<div class="grid-md-12">															
-
+				<div class="grid-md-12">	
 					<!-- Default Layout -->
+					<div id="admin-board">
+						<div class="grid-md-12 text-center">
+							<span class="grid-md-12 admin-board-title">How To</span>
+							<span class="grid-md-12 admin-board-intro">Hello <span class="capitalize font-bold"><?php echo $_pseudo ?></span>, vous vous trouvez sur l'interface d'administration du site.</span>
+						</div>
+						<div class="grid-md-4">
+							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto1.png'>";?>
+							<!-- <span>Cliquez sur un des onglets pour accéder a une des données</span> -->
+						</div>
+						<div class="grid-md-4">
+							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto2.png'>";?>
+							<!-- <span>Placez votre curseur sur l'élément souhaité</span> -->
+						</div>
+						<div class="grid-md-4">
+							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto3.png'>";?>
+							<!-- <span>Complétez les champs du formulaire</span> -->
+						</div>
+					</div>
+					<!-- Fin Default Layout -->
+
+					<!-- Admin Layout -->
 					<div id="admin-container">
 						<!-- Admin wrapper -->
 						<div class="admin-wrapper">
@@ -94,7 +114,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 						</div>
 						<!-- Fin admin wrapper -->
 					</div>
-					<!-- Fin Default Layout -->					
+					<!-- Fin Admin Layout -->					
 
 				</div>
 			</div>				
