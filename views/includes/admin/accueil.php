@@ -61,15 +61,15 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 							<span class="grid-md-12 admin-board-intro">Hello <span class="capitalize font-bold"><?php echo $_pseudo ?></span>, vous vous trouvez sur l'interface d'administration du site.</span>
 						</div>
 						<div class="grid-md-4">
-							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto1.png'>";?>
+							<?php echo "<img src='" . WEBPATH . "/web/img/admin-howto1.png'>";?>
 							<!-- <span>Cliquez sur un des onglets pour accéder a une des données</span> -->
 						</div>
 						<div class="grid-md-4">
-							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto2.png'>";?>
+							<?php echo "<img src='" . WEBPATH . "/web/img/admin-howto2.png'>";?>
 							<!-- <span>Placez votre curseur sur l'élément souhaité</span> -->
 						</div>
 						<div class="grid-md-4">
-							<?php echo "<img src='" . WEBPATH . "web/img/admin-howto3.png'>";?>
+							<?php echo "<img src='" . WEBPATH . "/web/img/admin-howto3.png'>";?>
 							<!-- <span>Complétez les champs du formulaire</span> -->
 						</div>
 					</div>
