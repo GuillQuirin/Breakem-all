@@ -80,9 +80,12 @@
 
 						echo "<div class='index-modal-this index-modal-login align'>";
 							
-							echo "<div id='login-form' class='grid-md-4 inscription_rapide animation fade'>";
+							echo "<div id='login-form' class='grid-md-6 inscription_rapide animation fade'>";
 								echo "<form class='membre-form' enctype='multipart/form-data' accept-charset='utf-8'>";
-									echo "<div class='grid-md-12'>";
+									echo "<div class='grid-md-12 form-title-wrapper'>";
+										echo "<span class='form-title'>Membres</span>";
+									echo "</div>";
+									/*echo "<div class='grid-md-4'>";
 										//Image							    								 
 								    	echo "<div class='admin-avatar-wrapper m-a'>";																	
 											echo "<img class='admin-avatar img-cover membre-img' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
@@ -90,7 +93,7 @@
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='membre-image-p' name='profilpic'>";
 										echo "</div>";
-									echo "</div>";
+									echo "</div>";*/
 
 									echo "<div class='grid-md-6'>";
 										//Id

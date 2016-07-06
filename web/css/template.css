@@ -76,6 +76,15 @@ footer{
     color:#d92b4c; 
 }
 
+.form-title{
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.form-title-wrapper{
+    margin: 5px 0 20px 0;
+}
+
 #wrapperAdmin{
     display: none;
     position: fixed;
