@@ -103,7 +103,9 @@ class adminController extends template{
                 $js['adminMembres']="adminMembres";
                 $js['adminSignalement']="adminSignalement";
                 $js['adminComments']="adminComments";   
-                $js['adminTypeJeu']="adminTypeJeu";       
+                $js['adminTypeJeu']="adminTypeJeu"; 
+                $js['adminJeux']="adminJeux"; 
+                $js['adminTournoi']="adminTournoi";     
                 $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       

@@ -68,6 +68,10 @@ var onglet = {
 		onglet.getAdminOngletComment().click(function(){
 			onglet.commentsView();
 		});
+		//Tournoi
+		onglet.getAdminOngletTournament().click(function(){
+			onglet.tournamentsView();
+		});
 	},
 
 	//Setter
@@ -361,7 +365,7 @@ var onglet = {
 
 	},
 	commentsView : function(){
-		/* Signalement */
+		/* Commentaires */
 		
 		onglet.getAdminDataIhm().remove();	
 
@@ -388,65 +392,34 @@ var onglet = {
 		return false;
 
 	},
-
-	callView : function(){
-
-	
-
-		/* Type de jeu */
-		onglet.getAdminOngletGametype().click(function(){
-		onglet.getAdminDataIhm().remove();	
-
-		jQuery.ajax({
-		 	url: "admin/typegamesView",
-		 	success: function(result){
-		 		
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	
-			return false;
-		})
-
-		/* Comment */
-		onglet.getAdminOngletComment().click(function(){
-		onglet.getAdminDataIhm().remove();	
-
-		jQuery.ajax({
-		 	url: "admin/commentsView",
-		 	success: function(result){
-		 		
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	
-			return false;
-		})
-
-		/* Tournois */
-		onglet.getAdminOngletTournament().click(function(){
+	tournamentsView : function(){
+		/* Tournoi */
+		
 		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/tournamentsView",
 		 	success: function(result){
-		 		tournamentModule.init();
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				tournoiModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
 		 	}
 		});
-	
-			return false;
-		})
-	},
 
+		return false;
+
+	},
 	onClick : function(btnClick, ongletSelector){
 		btnClick.click(function(){
 			jQuery(".admin-onglet-li").removeClass('active');
