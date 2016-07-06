@@ -53,9 +53,14 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
-				<div class="grid-md-12">															
-
+				<div class="grid-md-12">	
 					<!-- Default Layout -->
+					<div id="admin-board">
+						
+					</div>
+					<!-- Fin Default Layout -->
+
+					<!-- Admin Layout -->
 					<div id="admin-container">
 						<!-- Admin wrapper -->
 						<div class="admin-wrapper">
@@ -94,7 +99,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 						</div>
 						<!-- Fin admin wrapper -->
 					</div>
-					<!-- Fin Default Layout -->					
+					<!-- Fin Admin Layout -->					
 
 				</div>
 			</div>				

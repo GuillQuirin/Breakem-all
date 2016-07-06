@@ -20,6 +20,7 @@ var onglet = {
 
 		//Setter
 		onglet.setAdminContainer();
+		onglet.setAdminBoard();
 		onglet.setAdminWrapper();
 		onglet.setAdminDataRe();
 		onglet.setAdminPlatformsWrapper();
@@ -44,50 +45,61 @@ var onglet = {
 		onglet.getAdminContainer().hide();
 
 		//Plateforme
-		onglet.getAdminOngletPlatforms().click(function(){	
+		onglet.getAdminOngletPlatforms().click(function(){
+			onglet.getAdminBoard().hide();	
 			onglet.getAdminContainer().show();
 			onglet.platformView();
 		});
 		//Admin
 		onglet.getAdminOngletMembres().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.membresView();
 		});
 		//Signalements
 		onglet.getAdminOngletReports().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.reportsView();
 		});
 		//Teams
 		onglet.getAdminOngletTeams().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.teamsView();
 		});
 		//Jeux
 		onglet.getAdminOngletGame().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.gamesView();
 		});
 		//Type de Jeu
 		onglet.getAdminOngletGametype().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.typegamesView();
 		});
 		//Commentaires
 		onglet.getAdminOngletComment().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.commentsView();
 		});
 		//Tournoi
 		onglet.getAdminOngletTournament().click(function(){
+			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.tournamentsView();
 		});
 	},
 
 	//Setter
+	setAdminBoard : function(){
+		this._adminBoard = jQuery('#admin-board');
+	},
 	setAdminContainer : function(){
-		this._adminContainer = jQuery('.admin-content-wrapper');
+		this._adminContainer = jQuery('#admin-container');
 	},
 	setAdminDataRe : function(){
 		this._adminDataRe = jQuery('.admin-data-re');
@@ -151,6 +163,9 @@ var onglet = {
 
 
 	//Getter
+	getAdminBoard : function(){
+		return this._adminBoard;
+	},
 	getAdminContainer : function(){
 		return this._adminContainer;
 	},
