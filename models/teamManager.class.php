@@ -192,7 +192,7 @@ class teamManager extends basesql{
 
 		return new team($r);
 	}
-
+/*
 	public function setIdTeam($id){
 
 		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
@@ -206,7 +206,7 @@ class teamManager extends basesql{
 		if(isset($res[0]))
 			return true;
 		return false;
-	}
+	}*/
 
 
 	public function SearchIdTeam(team $t){
