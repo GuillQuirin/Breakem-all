@@ -64,6 +64,10 @@ var onglet = {
 		onglet.getAdminOngletGametype().click(function(){
 			onglet.typegamesView();
 		});
+		//Commentaires
+		onglet.getAdminOngletComment().click(function(){
+			onglet.commentsView();
+		});
 	},
 
 	//Setter
@@ -347,6 +351,34 @@ var onglet = {
     			navbar.form.closeFormClick();
 				//Membre
 				typegameModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	commentsView : function(){
+		/* Signalement */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/commentsView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				commentModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
