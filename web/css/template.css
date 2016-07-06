@@ -79,6 +79,8 @@ footer{
 .form-title{
     font-size: 25px;
     font-weight: 800;
+    vertical-align: middle;
+    padding:0 10px;
 }
 
 .form-title-wrapper{

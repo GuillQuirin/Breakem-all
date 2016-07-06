@@ -1,3 +1,10 @@
+.membre-form label{
+    display:inline-block;
+    padding: 10px 25px;
+    margin:16px 0;
+    text-align:left;
+}
+
 .membre-input-wrapper{
     margin: 0 10px 0 0;
 }
