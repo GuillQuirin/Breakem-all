@@ -83,7 +83,7 @@
 							echo "<div id='login-form' class='grid-md-6 inscription_rapide animation fade'>";
 								echo "<form class='membre-form' enctype='multipart/form-data' accept-charset='utf-8'>";
 									echo "<div class='grid-md-12 form-title-wrapper'>";
-										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membres</span>";
+										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
 									echo "</div>";
 									echo "<div class='grid-md-12'>";
 										//Image							    								 
