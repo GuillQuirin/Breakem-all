@@ -69,7 +69,7 @@ class adminController extends template{
 
         $v = new view();
         $v->assign("listetypejeu",$listgametype);
-        $v->setView("/includes/admin/typegamesv2", "templateEmpty");
+        $v->setView("/includes/admin/gametypesv2", "templateEmpty");
     }
 
     /* Gère la vue de Commentaires */
@@ -102,7 +102,8 @@ class adminController extends template{
                 $js['adminPlatforms']="adminPlatforms";
                 $js['adminMembres']="adminMembres";
                 $js['adminSignalement']="adminSignalement";
-                $js['adminComments']="adminComments";           
+                $js['adminComments']="adminComments";   
+                $js['adminTypeJeu']="adminTypeJeu";       
                 $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       

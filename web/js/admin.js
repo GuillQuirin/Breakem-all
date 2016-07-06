@@ -60,6 +60,10 @@ var onglet = {
 		onglet.getAdminOngletGame().click(function(){
 			onglet.gamesView();
 		});
+		//Type de Jeu
+		onglet.getAdminOngletGametype().click(function(){
+			onglet.typegamesView();
+		});
 	},
 
 	//Setter
@@ -241,7 +245,7 @@ var onglet = {
 
 	},
 	reportsView : function(){
-		/* Signalement */
+		/* Signalements */
 		
 		onglet.getAdminDataIhm().remove();	
 
@@ -269,7 +273,7 @@ var onglet = {
 
 	},
 	teamsView : function(){
-		/* Signalement */
+		/* Teams */
 		
 		onglet.getAdminDataIhm().remove();	
 
@@ -297,7 +301,7 @@ var onglet = {
 
 	},
 	gamesView : function(){
-		/* Signalement */
+		/* Jeux */
 		
 		onglet.getAdminDataIhm().remove();	
 
@@ -315,6 +319,34 @@ var onglet = {
     			navbar.form.closeFormClick();
 				//Membre
 				gameModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	typegamesView : function(){
+		/* Signalement */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/typegamesView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				typegameModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
