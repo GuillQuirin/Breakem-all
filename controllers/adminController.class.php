@@ -4,11 +4,11 @@ class adminController extends template{
     public function __construct(){        
         parent::__construct();
         if(!($this->isVisitorConnected())){
-            header('Location: ' .WEBPATH);
+            header('Location: ' .WEBPATH.'/index');
         }
 
         if((int)$this->getConnectedUser()->getStatus() !== 3){
-            header('Location: ' .WEBPATH);
+            header('Location: ' .WEBPATH.'/index');
         }
     }
 
@@ -74,7 +74,7 @@ class adminController extends template{
 
     /* Gère la vue de Commentaires */
     public function commentsViewAction(){
-        $commentaireBDD = new commentsteamManager();
+        $commentaireBDD = new commentManager();
         $listcomment = $commentaireBDD->getAllComment();
 
         $v = new view();
