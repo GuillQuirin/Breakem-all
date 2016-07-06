@@ -1,11 +1,13 @@
 <?php
 	if(isset($listeplatform)){	
 
-		echo "<div class='admin-data-ihm-title align relative'>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>";
-		echo "</div>";
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+		</div>";
+
+		echo $cat;
 
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {

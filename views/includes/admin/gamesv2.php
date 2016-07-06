@@ -1,12 +1,14 @@
 <?php
 	if(isset($listejeu)){	
 
-		echo "<div class='admin-data-ihm-title align relative'>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Année</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>";
-		echo "</div>";
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Année</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>
+		</div>";
+
+		echo $cat;
 
 		if(is_array($listejeu)){			
 			foreach ($listejeu as $ligne => $jeu) {

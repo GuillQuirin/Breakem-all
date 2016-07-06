@@ -1,13 +1,15 @@
 <?php
 	if(isset($listesignalement)){	
 
-		echo "<div class='admin-data-ihm-title align relative'>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Emetteur</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Accusé</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Motif</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>";
-		echo "</div>";
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Emetteur</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Accusé</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Motif</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
+		</div>";
+
+		echo $cat;
 
 		if(is_array($listesignalement)){			
 			foreach ($listesignalement as $ligne => $signalement) {

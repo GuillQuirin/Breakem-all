@@ -1,13 +1,15 @@
 <?php
 	if(isset($listetournament)){	
 
-		echo "<div class='admin-data-ihm-title align relative'>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Début</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Fin</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nombre de match</span></div></div>";
-		echo "</div>";
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Début</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Fin</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nombre de match</span></div></div>
+		</div>";
+
+		echo $cat;
 
 		if(is_array($listetournament)){			
 			foreach ($listetournament as $ligne => $tournament) {
