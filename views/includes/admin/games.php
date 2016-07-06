@@ -1,59 +1,83 @@
-<div class="admin-wrapper " id="admin-onglet-games-wrapper">
-    <table class='full-width admin-form-table admin-table member' border='1'>
-        <thead><tr><th>Image</th><th>Nom</th><th>Supprimer</th></tr></thead>
-        <tbody>
-            <?php  
-            if(isset($listejeu) && is_array($listejeu)){
-                foreach($listejeu as $key => $value){
-                    echo "<tr>";
-                        echo "<td>".$value->getName()."</td>";
-                        echo "<td><img src='".$value->getImg()."'></TD>";
-                        echo "<td><button onclick=deleteGame(".$value->getId().")>Effacer</button></td>";
-                    echo "</tr>";
-                }
-            } 
-            ?>
-        </tbody>
-    </table>
-    <div class="formgame">
-    <form class="formgame1" action="admin/addGame" method="post" enctype="multipart/form-data">
-        <TABLE border=0>
-            <TR>
-                <TD>Nom</TD>
-                <TD><INPUT class="input-default" type=text name="name"></TD>
-            </TR>
-            <TR>
-                <TD>Description</TD>
-                <TD><textarea class="desc-default" rows="3" name="description"></textarea></TD>
-            </TR>
-            <TR>
-                <TD>Image</TD>
-                <TD><INPUT type=file name="img"></TD>
-            </TR>
-            <TR>
-                <TD>Année</TD>
-                <td><input class="input-default" type="text" name="year"></td>
-            </TR>
-            <TR>
-                <TD>Genre</TD>
-                <td>
-                    <SELECT class="input-default" name="idType" size="1">
-                      <?php  if(isset($listetypejeu) && is_array($listetypejeu)){
-                               foreach($listetypejeu as $key => $value){
-                                    echo "<option value='".$value->getId()."'>".$value->getName()."</option>";
-                                }
-                            } ?>
-                    </SELECT>
-                </td>
-            </TR>
-            <TR>
-                <TD COLSPAN=2>
-                    <button id='validate-form-games' type='submit' class='btn btn-pink admin-form-submit'>
-                        <a>Ajouter</a>
-                    </button>
-                </TD>
-            </TR>
-        </TABLE>
-    </form>
-    </div>
-</div>
+<?php
+	if(isset($listejeu)){	
+
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Année</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>
+		</div>";
+
+		echo $cat;
+
+		if(is_array($listejeu)){			
+			foreach ($listejeu as $ligne => $jeu) {
+				//Wrapper				
+				echo "<div class='admin-data-ihm align relative'>";
+
+					//Affichage
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover jeu-img-up' src='" . $jeu->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-nom-g'>" . $jeu->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" . $jeu->getYear() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-type-g'>" . $jeu->getIdType() . "</span></div></div>";
+					//Fin 
+
+					//Boutton
+					echo "<div class='admin-data-ihm-btn hidden align'>";
+						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
+						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
+					echo "</div>"; 
+					//Fin Boutton
+
+					//Formulaire
+					echo "<div class='index-modal jeus hidden-fade hidden'>";
+
+						echo "<div class='index-modal-this index-modal-login align'>";
+							
+							echo "<div class='grid-md-4 inscription_rapide animation fade'>";
+								echo "<form class='jeu-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+									//Title
+									echo "<div class='grid-md-12 form-title-wrapper'>";
+										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-jeu.png'><span class='form-title'>Jeu</span>";
+									echo "</div>";
+									//Image
+									echo "<div class='grid-md-12'>";
+										echo "<div class='membre-form-img-size m-a'>";																	
+											echo "<img class='img-cover jeu-img membre-form-img-size' src='" . $jeu->getImg() . "' title='Image de profil' alt='Image de profil'>";										
+										echo "</div>";
+										echo "<div class='text-center admin-input-file'>";								 
+											echo "<input type='file' class='jeu-image-p' name='profilpic'>";
+										echo "</div>";
+									echo "</div>";
+									//Label
+									echo "<div class='grid-md-4 text-left'>";
+									    echo "<label for='nom'>Nom :</label>";
+									    echo "<label for='scription'>Description :</label>";
+									    echo "<label for='year'>Année :</label>";
+									    echo "<label for='type'>Type :</label>";
+								    echo "</div>";
+								    //Input
+								    echo "<div class='grid-md-8'>";
+										echo "<input type='text' name='id' class='hidden jeu-id-p' value='" . $jeu->getId() . "'>";
+										echo "<input class='input-default admin-form-input-w jeu-nom-p' name='nom' type='text' value='" . $jeu->getName() . "'>";
+										echo "<input class='input-default admin-form-input-w jeu-description-p' name='description' type='text' value='" . $jeu->getDescription() . "'>";
+										echo "<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text' value='" . $jeu->getYear() . "'>";
+										echo "<input class='input-default admin-form-input-w jeu-type-p' name='type' type='text' value='" . $jeu->getIdType() . "'>";
+									echo "</div>";
+									//Submit
+									echo "<div class='grid-md-12'>"; 
+								    	echo "<button type='button' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+						  			echo "</div>";
+						  		echo "</form>";
+						  	echo "</div>";
+						echo "</div>";
+					echo "</div>";
+					//Fin Formulaire
+				echo "</div>";
+				//Fin Wrapper
+			}					
+		}
+	}else{
+		echo "<div class='grid-md-12 no-platform align'><span>Aucun jeu enregistré pour le moment.</span></div>";		
+	} 
+?>		
