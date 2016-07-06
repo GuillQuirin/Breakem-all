@@ -1,22 +1,22 @@
 "use strict";
-var signalementModule = {	
+var teamModule = {	
 	_this: this,
 	init: function(){
 		//Setter
-		signalementModule.setDeleteBtn();
-		signalementModule.setUpdateBtn();
-		signalementModule.setInsertBtn();
-		signalementModule.setPreviewInput();
-		signalementModule.setImgWrapper();
-		signalementModule.setAdminDataRe();
+		teamModule.setDeleteBtn();
+		teamModule.setUpdateBtn();
+		teamModule.setInsertBtn();
+		teamModule.setPreviewInput();
+		teamModule.setImgWrapper();
+		teamModule.setAdminDataRe();
 
 		//Preview
-		signalementModule.previewImg();
+		teamModule.previewImg();
 
 		//CRUD
-		//signalementModule.postDataDelete();
-		//signalementModule.postDataUpdate();
-		//signalementModule.postDataInsert();		
+		//teamModule.postDataDelete();
+		//teamModule.postDataUpdate();
+		//teamModule.postDataInsert();		
 	},
 
 	//Setter
@@ -63,20 +63,20 @@ var signalementModule = {
 	},
 	//Preview
 	previewImg : function(){
-		signalementModule.getPreviewInput().on('change', function(){
+		teamModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
-    		previewUpload(this, signalementModule.getImgWrapper());
+    		previewUpload(this, teamModule.getImgWrapper());
 		});
 	},
 	//CRUD
 	postDataDelete : function(){
-		signalementModule.getDeleteBtn().on("click", function(e){
+		teamModule.getDeleteBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
 			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
 
 			var status = -1;
 
-			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucun signalement enregistré pour le moment.</span></div>";
+			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>";
 
 			var data = {"pseudo" : pseudo, "status" : status};			
 
@@ -98,7 +98,7 @@ var signalementModule = {
 					 		var isEmpty = jQuery.trim(result1);	
 					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
 					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
-					 			membre.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucun signalement enregistré pour le moment.</span></div>");
+					 			membre.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>");
 					 		}		     			 		
 					 	},
 					 	error: function(result1){
@@ -113,7 +113,7 @@ var signalementModule = {
 		});				
 	},
 	postDataUpdate : function(){
-		signalementModule.getUpdateBtn().on("click", function(e){
+		teamModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
 			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
@@ -192,38 +192,3 @@ var signalementModule = {
 
 	}
 };
-
-//Maj user
-function setStatut(pseudo, value){
-	jQuery.ajax({
-	 	url: "admin/updateUserStatus",
-	 	type: "POST",
-	 	data : "pseudo="+pseudo+"&status="+value,
-	 	succes: function(result){
-	 		console.log(result);
-	 	},
-	 	error: function(result){
-	 		alert("non");
-	 	}
-	});
-}
-
-
-
-//Maj signalement
-function deleteReport(id){
-	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
-		jQuery.ajax({
-		 	url: "admin/DeleteReports",
-		 	type: "POST",
-		 	data : "id="+id,
-		 	success: function(result){
-		 		location.reload(true);
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	}
-}

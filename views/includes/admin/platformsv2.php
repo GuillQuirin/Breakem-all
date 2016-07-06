@@ -2,9 +2,9 @@
 	if(isset($listeplatform)){	
 
 		echo "<div class='admin-data-ihm-title align relative'>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>";
 		echo "</div>";
 
 		if(is_array($listeplatform)){			
@@ -13,9 +13,9 @@
 				echo "<div class='admin-data-ihm align relative'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover platform-img-up' src='" . $platform->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
 					//Fin Affichage
 
 					//Boutton

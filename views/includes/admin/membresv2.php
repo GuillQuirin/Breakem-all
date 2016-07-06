@@ -2,9 +2,9 @@
 	if(isset($listejoueurs)){	
 
 		echo "<div class='admin-data-ihm-title align relative'>";
+			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>";
-			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>";
 			echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Connecté</span></div></div>";
@@ -18,12 +18,12 @@
 				echo "<div class='admin-data-ihm align relative'>";
 
 					//Affichage
+					//Image
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='img-cover' src='" .$joueur->getImg(). "'></div></div></div>";						
 					//Pseudo
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
 					//Email
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
-					//Image
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='img-cover' src='" .$joueur->getImg(). "'></div></div></div>";						
 					//Team
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-idteam-g'>"; 
 						if($joueur->getIdTeam()){
