@@ -44,7 +44,7 @@
 								echo "<form class='team-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>";
 									//Title
 									echo "<div class='grid-md-12 form-title-wrapper'>";
-										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-plateforme.png'><span class='form-title'>Plateforme</span>";
+										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-team.png'><span class='form-title'>Team</span>";
 									echo "</div>";
 									//Image
 									echo "<div class='grid-md-12'>";
@@ -55,16 +55,22 @@
 											echo "<input type='file' class='team-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-5 text-left'>";
-									    echo "<label for='email'>Nom :</label>";
-									    echo "<label for='email'>Description :</label>";
-								    echo "</div>";
-								    //Input
-								    echo "<div class='grid-md-7'>";
-										echo "<input type='text' name='id' class='hidden team-id-p' value='" . $team->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w team-nom-p' name='nom' type='text' value='" . $team->getName() . "'>";
-									    echo "<textarea class='input-default admin-form-input-w team-description-p' name='description' type='text'>" . $team->getDescription() . "</textarea>";							    														   
+									echo "<div class='grid-md-12'>";
+										//Label
+										echo "<div class='grid-md-5 text-left'>";
+										    echo "<label for='nom'>Nom :</label>";
+										    echo "<label for='slogan'>Slogan :</label>";
+										    echo "<label for='description'>Description :</label>";
+										    echo "<label for='status'>status :</label>";
+									    echo "</div>";
+									    //Input
+									    echo "<div class='grid-md-7'>";
+											echo "<input type='text' name='id' class='hidden team-id-p' value='" . $team->getId() . "'>";
+											echo "<input class='input-default admin-form-input-w team-nom-p' name='nom' type='text' value='" . $team->getName() . "'>";
+											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
+											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
+											echo "<input class='input-default admin-form-input-w team-status-p' name='status' type='text' value='" . $team->getStatus() . "'>";
+										echo "</div>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 
