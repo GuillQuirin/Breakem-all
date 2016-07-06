@@ -8,7 +8,7 @@ window.addEventListener('load', function load(){
 var onglet = {
 	_this: this,
 	init : function(){
-		//Setter
+		//Setter Onglet
 		onglet.setAdminOngletPlatforms();
 		onglet.setAdminOngletMembres();
 		onglet.setAdminOngletReports();
@@ -18,7 +18,8 @@ var onglet = {
 		onglet.setAdminOngletComment();
 		onglet.setAdminOngletTournament();
 
-		//Getter
+		//Setter
+		onglet.setAdminContainer();
 		onglet.setAdminWrapper();
 		onglet.setAdminDataRe();
 		onglet.setAdminPlatformsWrapper();
@@ -40,41 +41,54 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
+		onglet.getAdminContainer().hide();
+
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){	
+			onglet.getAdminContainer().show();
 			onglet.platformView();
 		});
 		//Admin
 		onglet.getAdminOngletMembres().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.membresView();
 		});
 		//Signalements
 		onglet.getAdminOngletReports().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.reportsView();
 		});
 		//Teams
 		onglet.getAdminOngletTeams().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.teamsView();
 		});
 		//Jeux
 		onglet.getAdminOngletGame().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.gamesView();
 		});
 		//Type de Jeu
 		onglet.getAdminOngletGametype().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.typegamesView();
 		});
 		//Commentaires
 		onglet.getAdminOngletComment().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.commentsView();
 		});
 		//Tournoi
 		onglet.getAdminOngletTournament().click(function(){
+			onglet.getAdminContainer().show();
 			onglet.tournamentsView();
 		});
 	},
 
 	//Setter
+	setAdminContainer : function(){
+		this._adminContainer = jQuery('.admin-content-wrapper');
+	},
 	setAdminDataRe : function(){
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
@@ -137,6 +151,9 @@ var onglet = {
 
 
 	//Getter
+	getAdminContainer : function(){
+		return this._adminContainer;
+	},
 	getAdminDataIhm : function(){
 		return jQuery('.admin-data-ihm');
 	},
