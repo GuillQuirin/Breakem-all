@@ -1,3 +1,9 @@
+.membre-form-img-size{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+}
+
 .membre-form label{
     display:inline-block;
     padding: 10px 25px;
@@ -174,7 +180,7 @@ TOUT RENAME EN ADMIN
 }
 
 .admin-input-file{
-    padding-bottom:15px;
+    padding:10px 0;
 }
 
 .admin-form-input-w{

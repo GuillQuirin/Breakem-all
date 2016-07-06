@@ -87,8 +87,8 @@
 									echo "</div>";
 									echo "<div class='grid-md-12'>";
 										//Image							    								 
-								    	echo "<div class='admin-avatar-wrapper m-a'>";																	
-											echo "<img class='admin-avatar img-cover membre-img' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
+								    	echo "<div class='membre-form-img-size m-a'>";																	
+											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='membre-image-p' name='profilpic'>";

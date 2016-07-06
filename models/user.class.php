@@ -151,9 +151,9 @@ class user{
 		}
 		else{
 			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/".$this->img))
-				return "/web/img/upload/".$this->img;
+				return "web/img/upload/".$this->img;
 
-			return "/web/img/upload/default.jpg";	
+			return "web/img/upload/default.jpg";	
 		}
 	}
 	public function getIdTeam(){return $this->idTeam;}
