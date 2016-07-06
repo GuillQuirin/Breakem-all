@@ -26,9 +26,12 @@ class detailteamController extends template{
 
             //La team courante
             $teamBDD = new teamManager();
+
             //Liste des membres
             $listemember = $teamBDD->getListMember($name);
             $v->assign("listemember", $listemember);
+
+
 
             $args = array('name' => FILTER_SANITIZE_STRING );
 
@@ -93,6 +96,7 @@ class detailteamController extends template{
         $v->setView("detailteam");
 	}
 
+    //Action sur detailteam : rejoindre, quitter et dissoudre la team
     public function updateUserTeamAction(){
  
         if(isset($_POST['action-team-rejoin'])){
@@ -143,6 +147,7 @@ class detailteamController extends template{
         }
     }
     
+    //Modification de la team : slogan, description et image 
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
@@ -185,6 +190,7 @@ class detailteamController extends template{
         header("Location:../detailteam?name=".$team->getName());
     }   
 
+    //Action : Commentaire d'une team
     public function createCommentAction(){
         $args = array(
             'comment' => FILTER_SANITIZE_STRING

@@ -4,17 +4,17 @@
 
 /* DOM <button class="tournoi-btn-creertournoi relative"><a></a></button> */
 .btn{
-		height: 40px;
-		width: 100%;
-		font-size: 14px;
-		position: relative;
-		background: inherit;
-		color: #fff;
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: middle;
-		transition: background .4s, border .4s;
-	}
+	height: 40px;
+	width: 100%;
+	font-size: 14px;
+	position: relative;
+	background: inherit;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	transition: background .4s, border .4s;
+}
 .btn a:after{		
     justify-content: center;
 }

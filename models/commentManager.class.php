@@ -18,9 +18,10 @@ class commentManager extends basesql{
 	}
 
 	public function getCommentsByTeam(team $team){
-		$sql = "SELECT c.id, c.date, c.comment, c.status, c.idUser, c.idEntite as idTeam,  
+		$sql = "SELECT c.id, c.date, c.comment, c.status, c.idUser, c.idEntite as idTeam,
 							(SELECT pseudo from user WHERE id=c.idUser) as pseudo,
-							(SELECT name from team WHERE id=c.idEntite) as nomTeam
+							(SELECT name from team WHERE id=c.idEntite) as nomTeam,
+							(SELECT img from user WHERE id=c.idUser) as img
 				FROM comment c
 				WHERE c.idEntite=:idEntite 
 					AND c.entite=1";
