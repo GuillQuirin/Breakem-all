@@ -285,6 +285,7 @@
   margin:0;
   padding:0;
   transition: 0.5s ease;
+  cursor: pointer;
   border-bottom:1px solid transparent;;
 }
 

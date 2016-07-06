@@ -5,11 +5,12 @@ class creationtournoiController extends template{
 	public function __construct(){
 		parent::__construct();
 		if(!($this->isVisitorConnected())){
-			header('Location: ' .WEBPATH);
+			header('Location: ' .WEBPATH.'/index');
 		}
 	}
 
 	public function creationtournoiAction(){
+		$this->destroyCreationSession();
 		$v = new view();
 		$this->assignConnectedProperties($v);
 		$v->assign("css", "creationtournoi");
@@ -20,6 +21,7 @@ class creationtournoiController extends template{
 	}
 	// On retourne ici tous les types de jeux (moba/fps/...)
 	public function getGameTypesAction(){
+		$this->destroyCreationSession();
 		$gm = new typegameManager();
 		$typesObj = $gm->getAllTypes();
 		$data['types'] = [];
@@ -33,8 +35,9 @@ class creationtournoiController extends template{
 		echo json_encode($data);
 		return;
 	}
-	// On retourne ici les jeux disponibles pour le type de jeu sélectionné
+	// On retourne ici les jeux disponibles pour le type de jeu sélectionné en recevant un type de jeu en post (moba/fps etc)
 	public function getGamesAction(){
+		$this->destroyCreationSession();
 		$args = array(
             'name' => FILTER_SANITIZE_STRING   
 		);
@@ -63,8 +66,9 @@ class creationtournoiController extends template{
 		echo json_encode($data);
 		return;
 	}
-	// On retourne ici les plateformes disponibles pour le jeu sélectionné
+	// On retourne ici les plateformes disponibles pour le jeu sélectionné en recevant un jeu en post
 	public function getConsolesAction(){
+		$this->destroyCreationSession(1);
 		if(isset($_SESSION['gametypename'])){
 			$args = array(
 	            'name' => FILTER_SANITIZE_STRING   
@@ -96,9 +100,11 @@ class creationtournoiController extends template{
 			echo json_encode($data);
 			return;
 		}
-		die("Choisissez d'abord le type de jeu !");
+		$this->echoJSONerror("", "Choisissez d'abord le type de jeu !");
 	}	
+	// On retourne ici les versions de jeu disponible en recevant en la console sélectionnée en post
 	public function getVersionsAction(){
+		$this->destroyCreationSession(2);
 		// On vérifie que les étapes précédentes ont été validées
 			// On se basera sur ces valeurs pour l'enregistrement
 		if(isset($_SESSION['gamename'])){
@@ -145,14 +151,15 @@ class creationtournoiController extends template{
 			echo json_encode($data);
 			return;
 		}
-		die("Choisis peut être une console avant ...");
+		$this->echoJSONerror("", "Choisis peut être une console avant ...");
 	}
+	// On retourne ici les informations précédemment rentrées et stockées en sessions en recevant en post les regles et descriptifs du tournoi
 	public function getFinalStepAction(){
+		$this->destroyCreationSession(3);
 		if(isset($_SESSION['platformname'])){
 			$args = array(
 	            'name' => FILTER_SANITIZE_STRING,
 	            'startDate' => FILTER_SANITIZE_STRING,
-	            'endDate' => FILTER_SANITIZE_STRING,
 	            'description' => FILTER_SANITIZE_STRING,
 	            'randomPlayerMix' => FILTER_VALIDATE_BOOLEAN,
 	            'guildOnly' => FILTER_VALIDATE_BOOLEAN,
@@ -165,13 +172,16 @@ class creationtournoiController extends template{
 	            'gversionMaxPlayerPerTeam' => FILTER_VALIDATE_INT
 			);
 			$filteredinputs = filter_input_array(INPUT_POST, $args);
-			// print_r($filteredinputs);
 			foreach ($args as $key => $value) {
 				if(!isset($filteredinputs[$key]))
 					$this->echoJSONerror("inputs", "manque: ".$key);
 			}
 			$tournoi = new tournament($filteredinputs);
+
+			// On valide ici les données reçues, sans quoi le script d'arrete et retourne un json descriptif d'erreur
 			$this->validTournoiData($tournoi);
+
+
 			$receivedVersion = new gameversion(
 				[
 					'name' => $filteredinputs['gversionName'],
@@ -190,8 +200,8 @@ class creationtournoiController extends template{
 				$_SESSION['selectedGameVersion'] = $receivedVersion->getId();
 				$_SESSION['selectedTournamentName'] = $tournoi->getName();
 				$_SESSION['selectedTournamentDescription'] = $tournoi->getDescription();
-				$_SESSION['selectedTournamentStartDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getStartDate())->getTimestamp();
-				$_SESSION['selectedTournamentEndDate'] = DateTime::createFromFormat('d/m/Y', $tournoi->getEndDate())->getTimestamp();
+				$_SESSION['selectedTournamentStartDate'] = $tournoi->getStartDate();
+				$_SESSION['selectedTournamentEndDate'] = $tournoi->getEndDate();
 				$_SESSION['selectedTournamentGuild'] = $tournoi->getGuildOnly();
 				$_SESSION['selectedTournamentRand'] = $tournoi->getRandomPlayerMix();
 				$data = [];
@@ -215,7 +225,7 @@ class creationtournoiController extends template{
 			}
 			$this->echoJSONerror("version", "Ta version de jeu est inconnue au bataillon");
 		}
-		die("Choisis peut être une console avant ...");
+		$this->echoJSONerror("Choisis peut être une console avant ...");
 	}
 
 	private function wereAllStepsValid(){
@@ -247,7 +257,8 @@ class creationtournoiController extends template{
 			$tm->create();
 			// on recupere toutes les infos du tournoi tout juste créé
 			$dbTournoi = $tm->getTournamentWithLink($tournoi->getLink());
-
+			if(is_bool($dbTournoi))
+				$this->echoJSONerror('creation tournoi', 'problème de création');
 			// on crée toutes les lignes teamtournament correspondant à maxTeam
 			$ttm = new teamtournamentManager();
 			$ttm->createTournamentTeams($dbTournoi);
@@ -273,17 +284,23 @@ class creationtournoiController extends template{
 		}
 	}
 
-	private function destroyCreationSession(){
-		unset($_SESSION['selectedGameVersion']);
+	private function destroyCreationSession($step = 0){
 		unset($_SESSION['selectedTournamentName']);
 		unset($_SESSION['selectedTournamentDescription']);
 		unset($_SESSION['selectedTournamentStartDate']);
 		unset($_SESSION['selectedTournamentEndDate']);
 		unset($_SESSION['selectedTournamentGuild']);
 		unset($_SESSION['selectedTournamentRand']);
+		unset($_SESSION['selectedGameVersion']);
+		if($step > 2)
+			return;
 		unset($_SESSION['platformname']);
-		unset($_SESSION['gamename']);
 		unset($_SESSION['availableGV_ids']);
+		if($step > 1)
+			return;
+		unset($_SESSION['gamename']);
+		if($step > 0)
+			return;
 		unset($_SESSION['gametypename']);
 	}
 	// Cette fonction servira à aller chercher tous les noms des consoles / games / typegames pour les comparer de façon secure à une donnée reçue
@@ -317,42 +334,40 @@ class creationtournoiController extends template{
 		return false;
 	}
 	private function validTournoiData(tournament $t){
-		if(!(validateDate($t->getStartDate(), 'd/m/Y')))
-			$this->echoJSONerror("dateDebut", "C'est quoi cette date ?");
-		if(!(validateDate($t->getEndDate(), 'd/m/Y')))
-			$this->echoJSONerror("dateFin", "C'est quoi cette date ?");
+		if(!(validateDate($t->getStartDate(), 'Y-m-d')))
+			$this->echoJSONerror("", "Mauvais format de date reçu: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
 
-		$d1 = DateTime::createFromFormat('d/m/Y', $t->getStartDate());
-		$d2 = DateTime::createFromFormat('d/m/Y', $t->getEndDate());
+		$d1 = DateTime::createFromFormat('Y-m-d', $t->getStartDate());
 
-		$baseDate= DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+		$baseDate= DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
 		$baseDateTime = $baseDate->getTimestamp();
 		if($d1->getTimestamp() < $baseDateTime)
-			$this->echoJSONerror("dateDebut", "La date de debut doit etre dans le futur");
+			$this->echoJSONerror("", "La date de debut doit etre dans le futur");
 		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
-			$this->echoJSONerror("dateDebut", "Il n'est plus possible de creer de tournois pour le jour meme passe 18h");
-		if($d2->getTimestamp() < $d1->getTimestamp())
-			$this->echoJSONerror("dateFin", "La date de fin doit etre superieure a celle de debut");
-		if($d2->getTimestamp() - $d1->getTimestamp() < 86400)
-			$this->echoJSONerror("dateFin", "Pour limiter le nombre de tournois par compte cree et par jour il est necessaire que le tournoi finisse au moins un jour apres son debut");
-		$deuxSemaines = 86400 * 14;
-		$uneSemaine = 86400 * 7;
-		if($d1->getTimestamp() - time() > $deuxSemaines)
-			$this->echoJSONerror("dateDebut", "Le tournoi doit commencer avant 14 jours");
-		if($d2->getTimestamp() - $d1->getTimestamp() > $uneSemaine)
-			$this->echoJSONerror("dateFin", "Le tournoi ne doit pas durer plus de 7 jours");
+			$this->echoJSONerror("", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
+		$nbJours = $t->_gtMaxStartDaysInterval() / 86400;
+		$limiteMax = $t->_gtMaxStartDaysInterval();
+		if($d1->getTimestamp() > time() + $limiteMax)
+			$this->echoJSONerror("", "Le tournoi doit commencer avant ".$nbJours." jours");
+		$intervalMax = $t->_gtMaxIntervalBetweenDates();
 
-		if(preg_match("/[^a-z0-9 éàôûîêçùèâ]/i", $t->getName()))
-			$this->echoJSONerror("nom", "Le nom de votre tournoi contient des caracteres speciaux !");
-		if(!empty(trim($t->getDescription()))){
+
+		$t->setStartDate($d1->getTimestamp(), true);
+
+		if(preg_match("/[^a-z0-9 \-éàôûîêçùèâ]/i", $t->getName()))
+			$this->echoJSONerror("", "Le nom de votre tournoi contient des caracteres speciaux !");
+		if( strlen(trim($t->getDescription())) > 0 ){
 			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
-				$this->echoJSONerror("descripiton", "La description de votre tournoi contient des caracteres speciaux !");
-			if(strlen($t->getDescription()) > 199 || strlen($t->getDescription()) < 15)
-				$this->echoJSONerror("descripiton", "La description, lorsque utilisée, doit faire entre 15 et 199 caracteres");
+				$this->echoJSONerror("", "La description de votre tournoi contient des caracteres speciaux !");
+			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 15)
+				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 15 et 250 caracteres");
 		}
-			
-
-		if($t->getGuildOnly() === 1 && $t->getRandomPlayerMix() === 1)
-			$this->echoJSONerror("equipe", "Les équipes de guilde ne peuvent etre faconnees aleatoierement");
+		
+		if( (bool)$t->getGuildOnly() ){
+			if ( !is_numeric($this->getConnectedUser()->getIdTeam()) )
+				$this->echoJSONerror("", "Vous devez vous-même être dans une guilde pour créer un tournoi inter-guilde");
+			if( (bool) $t->getRandomPlayerMix() )
+				$this->echoJSONerror("", "Les équipes de guilde ne peuvent etre faconnees aleatoierement");
+		}
 	}
 }

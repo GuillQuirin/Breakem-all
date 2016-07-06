@@ -1,9 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Paris');
 setlocale(LC_TIME, 'fr_FR');
-/*flush();
-session_destroy();
-exit;*/
+
 //Messages d'erreur pour debug
 ini_set('display_errors', 1); 
 error_reporting(E_ALL | E_STRICT);
@@ -12,6 +10,10 @@ require_once "conf.inc.php";
 require_once "functions.php";
 
 cleanTimedOutSession();
+
+/*flush();
+session_destroy();
+exit;*/
 
 // Reloader automatique
 function mon_loader($class){

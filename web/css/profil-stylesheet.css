@@ -416,3 +416,6 @@ hr{
     text-decoration: underline;
 }
 
+.sendError, .sendOK{
+    display: none;
+}

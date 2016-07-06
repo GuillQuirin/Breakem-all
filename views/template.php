@@ -71,7 +71,7 @@
 	<body>
 
 		<header>
-			
+			<input type="hidden" name="webpath" id="webpath" value="<?php echo WEBPATH;?>">
 			<!-- Navbar top -->
 			<nav class="navbar full fixed transparent" id="navbar">
 				<div class="container resultat-container m-a">
@@ -83,7 +83,7 @@
 								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
 							</li>
 							<li class="navbar-menu-li navbar-menu-tournoi">
-								<a href="<?php echo WEBPATH; ?>/tournoi">Tournoi<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a class="cursor-default">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
 									<li class="navbar-menu-tooltip-li">
 										<a href="<?php echo WEBPATH; ?>/creationtournoi">
@@ -96,7 +96,7 @@
 										</a>
 									</li>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/listetournois">
+										<a href="<?php echo WEBPATH; ?>/tournoi">
 											Liste
 										</a>
 									</li>																	
@@ -106,7 +106,7 @@
 								<a href="<?php echo WEBPATH; ?>/listejoueurs">Joueurs</a>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-team">
-								<a href="<?php echo WEBPATH ?>/team">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a class="cursor-default">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-team">
 									<?php 
 										if(isset($_isConnected)){
@@ -120,7 +120,12 @@
 											
 											echo "</li>";
 										}
-									?>																			
+									?>
+									<li class="navbar-menu-tooltip-li">
+										<a href="<?php echo WEBPATH; ?>/team">
+											Liste des teams
+										</a>
+									</li>																			
 								</ul>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-classement">
@@ -162,38 +167,41 @@
 					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>" class="active">Accueil
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="active">Accueil</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a href="<?php echo WEBPATH; ?>/tournoi">Tournois
 									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/tournoi">Tournoi
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
+								<a href="<?php echo WEBPATH; ?>/creationtournoi">Creer mon tournoi</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/creationtournoi">Creer<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH ?>/team">Teams</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/team">Team 
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
+								<a href="<?php echo WEBPATH.'/listejoueurs'; ?>">Joueurs</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="">Joueur
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
-							</li>
-							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/resultat">Classement
+								<a href="<?php echo WEBPATH ?>/classement">Classement
 								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<li class="navbar-menu-li">
-								<a href="">
-								<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
-								</a>
-							</li>
+							<?php 
+								if(isset($_isConnected)){
+									?>
+										<li class="navbar-menu-li">
+											<a href="">
+											<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
+											</a>
+										</li>
+									<?php 
+								}
+								else{
+									?>
+
+								<?php } ?>
 							<li class="navbar-menu-li">
 								<button type="button" class="search-toggle" style="padding:0 35px;">
 								<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
@@ -244,9 +252,11 @@
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
 				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
-				<input type="email" name="expediteur" id="expediteurContactAdmin">
-				<textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				<p>Votre adresse email : <input type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
+				Contenu du message: <textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 				</textarea>
+				<p class="sendOk">Votre message a correctement été envoyé</p>
+				<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>
@@ -258,7 +268,7 @@
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
-		                <li><a href="<?php echo WEBPATH.'/index'; ?>" title="accueil">Accueil</a></li>
+		                <li><a href="<?php echo WEBPATH ; ?>" title="accueil">Accueil</a></li>
 		                <li><a href="<?php echo WEBPATH.'/listetournois'; ?>" title="Liste des tournois">Tournois</a></li>
 		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
@@ -294,7 +304,6 @@
 		                ?>
 		                <li><a id="contactAdmin" title="Joindre les admins">Nous contacter</a></li>
 		                <li><a href="<?php echo WEBPATH.'/CGU'; ?>" title="Conditions d'utilisation">CGU</a></li>
-		                <li><a href="<?php echo WEBPATH.'/copyright'; ?>" title="Reglement">About</a></li>
 		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="Flux RSS">RSS</a></li>
 		            </ul>
 		        </div>

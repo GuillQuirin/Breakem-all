@@ -42,7 +42,7 @@ function canUserRegisterToTournament(user $u, tournament $t){
 		unset($rm);
 		return false;
 	}
-	// On vérifie si le tournoi est en guilde only et que conséquemment l'user est bien dans une guilde
+	// On vérifie si le tournoi est en guilde only et que conséquemment l'user a bien une guilde
 	if( ((bool) $t->getGuildOnly()) && !(is_numeric($u->getIdTeam())) ){
 		unset($rm);
 		return false;
@@ -55,14 +55,17 @@ function canUserRegisterToTeamTournament(user $u, tournament $t, teamtournament 
 	// On vérifie si le tournoi est en guilde only et que la team souhaitée ne contient pas de membres d'une autre equipe conséquemment l'user est bien dans une guilde
 	if( ((bool) $t->getGuildOnly()) && !(is_numeric($u->getIdTeam())) )
 		return false;
+
 	// Vérifie la limite de joueurs maxi du tournoi
 	if($t->getNumberRegistered() >= (int) $t->getMaxPlayer())
 		return false;
+
 	// Vérifie les places restantes ds l'equipe
-	if( (int) $tt->getTakenPlaces() >= (int) $t->getMaxPlayerPerTeam() )
+	if( $tt->getTakenPlaces() >= (int) $t->getMaxPlayerPerTeam() )
 		return false;
-	// On vérifie la présence de membres d'autres guildes
-	if((bool) $t->getGuildOnly() && count($tt->getUsers()) > 0){
+
+	// On vérifie la présence de membres d'autres guildes dans la team
+	if( (bool) $t->getGuildOnly() ){
 		foreach ($tt->getUsers() as $key => $ttUser) {
 			if($ttUser->getIdTeam() !== $u->getIdTeam())
 				return false;

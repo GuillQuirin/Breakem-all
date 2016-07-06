@@ -13,7 +13,7 @@ class confirmationController extends template{
 	public function checkAction(){
         // Un utilisateur déjà connecté ne va pas valider un mail de toute façon
         if($this->isVisitorConnected())
-            header('Location:' . WEBPATH);
+            header('Location:' . WEBPATH.'/index');
         $args = array(
             'token'     => FILTER_SANITIZE_STRING,
             'email'     => FILTER_VALIDATE_EMAIL
@@ -36,7 +36,7 @@ class confirmationController extends template{
         if($userBDD->checkMailToken($user))
             $_SESSION['compte_validé'] = $user->getEmail();
 
-        header('Location:' . WEBPATH);
+        header('Location:' . WEBPATH.'/index');
     }
 
     public function lostAction(){
@@ -60,15 +60,13 @@ class confirmationController extends template{
             $newuser->setToken($token);
             
             $userBDD->setUser($user,$newuser);
-
             $contenuMail = "<h1>Ceci est un message de récupération de mot de passe sur le site <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
               $contenuMail.="<div>Vous pouvez le modifier en cliquant sur le lien ci-dessous</div>";
-              $contenuMail.="<a href=\"http://localhost".WEBPATH."/confirmation/lost?token=".$user->getToken()."\">Récupérer mon compte</a>";
+              $contenuMail.="<a href=\"".WEBPATH."/confirmation/lost?token=".$newuser->getToken()."\">Récupérer mon compte</a>";
               $contenuMail.="<h2>Attention: si vous n'avez jamais effectué la demande, ignorez ce message</h2>";
 
             //Appel de la methode d'envoi du mail
             $this->envoiMail($user->getEmail(),'Récupération de compte',$contenuMail);
-
             $v->assign("envoi",1);
         }
         //Nouveaux mots de passe
@@ -87,27 +85,34 @@ class confirmationController extends template{
             $filteredinputs['password']=ourOwnPassHash($filteredinputs['new_password']);
 
             $userBDD->recoverAccount($user, $filteredinputs['password']);
+            header('Location: '.WEBPATH.'/index');
         }
         //Token envoyé
         else if(isset($_GET['token'])){
-             $args = array(
+            $args = array(
                     'token' => FILTER_SANITIZE_STRING
                 );
-            $filteredinputs = filter_input_array(INPUT_GET, $args);
+            $filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+            
+            if(!$filteredinputs)
+                header('Location: '.WEBPATH.'/index');
+
             $userBDD = new userManager();
             $user = $userBDD->getUser($filteredinputs);
+            if($user){
+                //Initialisation d'une session pour transférer l'adresse e-mail du mec
+                $_SESSION[COOKIE_EMAIL] = $user->getEmail();
 
-            //Initialisation d'une session pour transférer l'adresse e-mail du mec
-            $_SESSION[COOKIE_EMAIL] = $user->getEmail();
-
-            $v->assign("recoverpwd",1);    
+                $v->assign("recoverpwd",1);
+            }
+            else 
+                header('Location: '.WEBPATH.'/index');    
         }
         //Formulaire par défaut
         else{
             $v->assign("pwdlost",1);
         }
 
-        $v->setView("validationInscription");
-        return;
+        $v->setView("validationInscription","template");
     }
 }

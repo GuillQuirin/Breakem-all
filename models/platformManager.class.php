@@ -98,7 +98,7 @@ class platformManager extends basesql{
 		foreach (get_class_methods($nouveau) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = $nouveau->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $nouveau->$method_name(true) : $nouveau->$method_name(); 
 			}
 		}
 

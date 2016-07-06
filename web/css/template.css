@@ -365,3 +365,20 @@ display:block;
 .accepter:hover {
     color:#d92b4c;
 }
+
+.sendOk, .sendError{
+    display: none;
+}
+
+/* Image de chargement lors de l'envoi d'un mail
+
+.loadGIF{
+    display: none;
+    position: absolute;
+    width: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.loadGIF img{
+    max-width: 100%;
+}*/

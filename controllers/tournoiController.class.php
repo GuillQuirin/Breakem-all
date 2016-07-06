@@ -5,7 +5,6 @@ class tournoiController extends template {
 		$v = new view();
 		$this->assignConnectedProperties($v);
 
-
 		$args = array(
             't' => FILTER_SANITIZE_STRING
 		);
@@ -23,7 +22,6 @@ class tournoiController extends template {
 				$v->assign("js", "detailtournoi");
 				$v->assign("title", "Tournoi ".$matchedTournament->getName());
 				$v->assign("content", "Tournoi ".$matchedTournament->getName());
-				$v->assign("tournoi", $matchedTournament);
 
 				// Recuperer tous les participants
 				$rm = new registerManager();
@@ -57,7 +55,29 @@ class tournoiController extends template {
 					$v->assign("_user", $this->getConnectedUser());
 					unset($ttm, $tm, $rm);
 					$_SESSION['lastTournamentChecked'] = $link;
-				}				
+				}
+				// Recuperer tous les matchs du tournoi
+				$matchsManager = new matchsManager();
+				$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
+				// S'il y a des matchs
+				if(!!$allMatchs){
+					$ttm = new teamtournamentManager();
+					$rm = new registerManager();
+					foreach ($allMatchs as $key => $m) {
+						$teamsOfMatch = $ttm->getTeamsOfMatch($m);
+						if(!!$teamsOfMatch){
+							foreach ($teamsOfMatch as $key => $t) {
+								$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+								if(is_array($usersInTeam))
+									$teamtournament->addUsers($usersInTeam);
+								$m->addTeamTournament($t);
+							}
+						}
+						$matchedTournaments->addMatch($m);
+					}
+					unset($ttm, $rm);
+				}
+				$v->assign("tournoi", $matchedTournament);
 				$v->setView("detailtournoiDOM");
 				return;
 			};
@@ -66,7 +86,7 @@ class tournoiController extends template {
 			$v->assign("css", "404");
 			$v->assign("js", "404");
 			$v->assign("title", "Erreur 404");
-	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."'>Retour à l'accueil</a>.");
+	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."/index'>Retour à l'accueil</a>.");
 	        $v->setView("templatefail", "templatefail");
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois
@@ -93,7 +113,7 @@ class tournoiController extends template {
 			if(!isset($filteredinputs[$key]))
 				$this->echoJSONerror("inputs","missing input " . $key);
     	}
-		
+
 		// SECU ANTI CSRF
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
 			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
@@ -126,7 +146,6 @@ class tournoiController extends template {
 					else
 						$fullTeams[] = $teamtournament;
 				}
-				// Cas où l'affectation d'équipe est random
 				if((bool)$matchedTournament->getRandomPlayerMix()){
 					// On recupere une equipe random à laquelle affecter l'user
 					$affectedTeam = $this->getRandomTeamToAffectUser($matchedTournament, $freeTeams);
@@ -153,8 +172,69 @@ class tournoiController extends template {
 				$this->echoJSONerror('tournoi', 'aucune equipe trouvée pour ce tournoi');
 		};
 		unset($tm);
-		
 	}
+
+	public function teamRegisterAction(){
+		if(!isset($_SESSION['lastTournamentChecked']))
+			$this->echoJSONerror("tournoi","aucun tournoi visité");
+		$args = array(
+            't' => FILTER_SANITIZE_STRING,
+            'ttid' => FILTER_VALIDATE_INT,
+            'sJeton' => FILTER_SANITIZE_STRING
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+		$filteredinputs = array_filter($filteredinputs);
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs","missing input " . $key);
+    	}
+
+		// SECU ANTI CSRF
+		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
+		$link = $filteredinputs['t'];
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
+		if($link !== $_SESSION['lastTournamentChecked'])
+			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+
+		$tm = new tournamentManager();
+		$matchedTournament = $tm->getTournamentWithLink($link);
+		// Si le chercheur renvoie autre chose que false
+		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+			// On vérifie l'égibilité de l'user au tournoi
+			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
+				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+
+			$tt = new teamtournament(['id' => $filteredinputs['ttid']]);
+			// On récupère la team visée en db
+			$ttm = new teamtournamentManager();
+			$tt = $ttm->getTeamtournamentById($tt);
+
+			$rm = new registerManager();
+			$usersInTeam = $rm->getTeamTournamentUsers($tt);
+			if(is_array($usersInTeam))
+				$tt->addUsers($usersInTeam);
+
+			// on vérifie que l'utilisateur peut bien s'inscrire ds cette team
+			if(!canUserRegisterToTeamTournament($this->getConnectedUser(), $matchedTournament, $tt))
+				$this->echoJSONerror('problème d\'équipe', 'vous ne pouvez pas vous inscrire dans cette équipe');
+
+			// On peut désormais enregistrer l'user dans la team
+			$rm->mirrorObject = new register([
+				'status' => 1,
+				'idTeamTournament' => $tt->getId(),
+				'idUser' => $this->getConnectedUser()->getId(),
+				'idTournament' => $matchedTournament->getId()
+			]);
+			if($rm->create() !== FALSE){
+				echo json_encode(["success" => "Vous avez été inscrit au tournoi ".$matchedTournament->getName()]);
+				return;
+			}
+			else
+				$this->echoJSONerror("enregistrement", "problème lors de votre inscription au tournoi " . $matchedTournament->getName());
+		}
+	}
+
 	public function searchAction(){
 		$args = array(
             'nom' => FILTER_SANITIZE_STRING,

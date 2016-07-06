@@ -77,15 +77,7 @@ final class register{
 		$this->_email=$v;
 	}
 	public function setImg($v){
-		if(strlen(trim($v))!=0 && $v!=NULL){
-			//var_dump(strstr($v, "lol"));
-			if(strstr($v, WEBPATH)) //Image déjà stockée en base
-				$this->_img=$v; 
-			else //Upload d'une image
-				$this->_img=WEBPATH."/web/img/upload/".$v; //Adresse stockée en base
-		}
-		else //Pas d'image uploadée
-			$this->_img=WEBPATH."/web/img/upload/default.jpg";
+		$this->_img=$v; 	
 	}
 	public function setIsConnected($v){
 		$this->_isConnected=$v;
@@ -113,13 +105,33 @@ final class register{
 	
 	// Getters du jeu
 	public function getNomJeu(){return $this->_nomJeu;}
-	public function getImgJeu(){return $this->_imgJeu;}
+	public function getImgJeu($upload=false){
+		if($upload){
+			return $this->_imgJeu;
+		}
+		else{
+			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_imgJeu)
+				return WEBPATH."/web/img/".$this->_imgJeu;
+
+			return WEBPATH."/web/img/default.jpg";	
+		}
+	}
 
 	// Getters de user
 	public function getPseudo(){return $this->_pseudo;}
 	public function getDescription(){return $this->_description;}
 	public function getEmail(){return $this->_email;}
-	public function getImg(){ return $this->_img;}
+	public function getImg($upload=false){
+		if($upload){
+			return $this->_img;
+		}
+		else{
+			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_img)
+				return WEBPATH."/web/img/".$this->_img;
+
+			return WEBPATH."/web/img/default.jpg";	
+		}
+	}
 	public function getIdTeam(){return $this->_idTeam;}
 	public function getIsConnected(){return $this->_isConnected;}
 	public function getLastConnexion(){return $this->_lastConnexion;}

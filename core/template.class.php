@@ -210,8 +210,10 @@ class template{
     ];
   }
 
-  protected function echoJSONerror($name, $msg){
-    $data['errors'][$name] = $msg;
+  protected function echoJSONerror($name = '', $msg){
+    if( strlen(trim($name)) > 0)
+      $name = $name .' : ';
+    $data['errors'] = $name.$msg;
     echo json_encode($data);
     flush();
     exit;
@@ -250,7 +252,7 @@ class template{
       $mail->Body=$contenu;
 
       //  Décommentez pour réactiver le mail
-      //$erreur = $mail->Send();
+      $erreur = $mail->Send();
 
       if(isset($erreur) && $erreur){ 
         echo $mail->ErrorInfo; 
@@ -351,16 +353,13 @@ class template{
 
     $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
-      $contenuMail.="<a href=\"http://breakem-all.com".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
+      $contenuMail.="<a href=\"".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 
     //Appel de la methode d'envoi du mail
     $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);
 
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
-  }
-  public function getWebpathAjaxAction(){
-    echo json_encode(["webpath" => WEBPATH]);
   }
 }
 /*

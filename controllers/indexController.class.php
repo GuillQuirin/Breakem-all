@@ -33,10 +33,17 @@ class indexController extends template{
 			unset($_SESSION['compte_validé']);
 		}
 
+		//Liste des jeux
+		$obj = new gameManager();
+		$listejeux = $obj->getAllGames();
+		if(!!($listejeux)){
+			$v->assign("listeJeux", $listejeux);
+		}
+
 		//Meilleurs Jeux
 		$obj = new gameManager();
 		$bestGames = $obj->getBestGames();
-		if(!empty($bestGames)){
+		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
 		}
 		
@@ -67,8 +74,10 @@ class indexController extends template{
 			}
 		}	
 
-		$contenuMail = "<h3>Un utilisateur vous a contacté.Vous pouvez lui répondre à <a href='".$filteredinputs['expediteur']."'>cette adresse</a>.</h3>";
-	    $contenuMail.="<div>".$filteredinputs['msg']."</div>";
+		$contenuMail = "<h3>Un utilisateur vous a contacté.</h3>";
+		$contenuMail .= "<div>Vous pouvez lui répondre à cette adresse : ".$filteredinputs['expediteur'].".</div>";
+	    $contenuMail.="<p>Contenu du message: </p>";
+	    $contenuMail.="<div>".$filteredinputs['message']."</div>";
 
 		$this->envoiMail('breakemall.contact@gmail.com', 'Demande de contact.', $contenuMail);	
 	}

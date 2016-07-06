@@ -10,59 +10,6 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-/*	
-	public function create(team $team){	
-	// Check afin de savoir qui appele cette méthode
-		$e = new Exception();
-		$trace = $e->getTrace();
-
-		// get calling class:
-		$calling_class = (isset($trace[1]['class'])) ? $trace[1]['class'] : false;
-		// get calling method
-		$calling_method = (isset($trace[1]['function'])) ? $trace[1]['function'] : false;
-
-
-		if(!$calling_class || !$calling_method)
-			header('Location: '.WEBPATH);
-
-		// Si appelée depuis la page tournoi
-		if ($calling_class === "creationtournoiController" 
-				&& $calling_method === "finalValidationAction"){
-
-			$this->columns = [];
-			$team_methods = get_class_methods($team);
-
-			foreach ($team_methods as $key => $method) {
-				if(strpos($method, 'get') !== FALSE){
-					$col = lcfirst(str_replace('get', '', $method));
-					$this->columns[$col] = $team->$method();
-				};
-			}
-			// Toutes les propriétés à 0 sont remove de l'array à ce moment là
-			// Pas impactant ici puisque les default value dans tournoi sont à 0
-			$this->columns = array_filter($this->columns);
-
-			$this->save();
-
-		}
-		else
-			header('Location: '.WEBPATH);		
-	}*/
-
-
-	/*AJOUT PRESIDENT TEAM*/
-	public function setOwnerTeam(team $t, user $u){
-		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
-				VALUES ('', ':idUser', ':idTeam', '1')";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':idUser' => $u->getId(),
-			':idTeam' => $t->getId()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
 	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
 	public function isNameUsed(team $t){
 		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
@@ -101,23 +48,27 @@ class teamManager extends basesql{
 	
 		return $list;
 	}
+
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
-		$sql = "SELECT pseudo FROM user INNER JOIN team ON user.idTeam = team.id WHERE team.name = '".$nameTeam."'";
+		$sql = "SELECT user.pseudo, user.img 
+				FROM user 
+				INNER JOIN team ON user.idTeam = team.id 
+				WHERE team.name = '".$nameTeam."'";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
 		
 		$list = [];
 		while ($query = $req->fetch(PDO::FETCH_ASSOC))
-			//tableau d'objets team
-			$list[] = new team($query);
+			//tableau d'objets user
+			$list[] = new user($query);
 	
 		return $list;
-	}
+	}	
 
 	//Vérification du name en paramètre dans la bdd
 	public function getNameTeam($nameTeam){
-		$sql = "SELECT name FROM team WHERE name = '".$nameTeam."'";
+		$sql = "SELECT name FROM team WHERE name = '".$nameTeam."' AND status = 1	";
 		
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -131,10 +82,9 @@ class teamManager extends basesql{
 
 	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
 	public function changeStatusTeam(team $t){
-		$sql = "UPDATE team SET status = :status WHERE id= :id";
+		$sql = "UPDATE team SET status = -1 WHERE id= :id";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute([
-			':status' => $t->getStatus(),
 			':id' => $t->getId()
 		]);
 		$res = $req->fetchAll();
@@ -142,19 +92,35 @@ class teamManager extends basesql{
 			return true;
 		return false;
 	}
+
 	//UPDATE LE SLOGAN ET DESCRIPTION DE LA TEAM DANS L'ADMIN
 	public function updateTeam(team $t){
-		$sql = "UPDATE team SET slogan = :slogan, description = :description WHERE id= :id";
+		$sql = "UPDATE team SET img = :img, slogan = :slogan, description = :description WHERE id= :id";
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute([
 			':slogan' => $t->getSlogan(),
 			':description' => $t->getDescription(),
+			':img' => $t->getImg(true),
 			':id' => $t->getId()
 		]);
 		$res = $req->fetchAll();
 		if(isset($res[0]))
 			return true;
 		return false;
+	}
+
+	/*Droit de la team
+	public function setOwnerTeam(team $t, user $u){
+		$sql = "INSERT INTO rightsteam (id, idUser, idTeam, right) 
+				VALUES ('', ':idUser', ':idTeam', '1')";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idUser' => $u->getId(),
+			':idTeam' => $t->getId()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
 	}
 
 	/*MODIFICATION TEAM*/
@@ -164,7 +130,7 @@ class teamManager extends basesql{
 		foreach (get_class_methods($newteam) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = ($prop==="img") ? $newuser->$method_name(true) : $newuser->$method_name(); 
+				$data[$prop] = ($prop==="img") ? $newteam->$method_name(true) : $newteam->$method_name(); 
 			}
 		}
 

@@ -15,6 +15,13 @@ section:nth-child(even){
 section:hover{
 	background: rgba(255, 255, 255, 0.05);
 }
+
+.detailtournoi h3{
+	margin-top: 20px;
+	display: inline-block;
+	border-bottom: 1px solid #fff;
+	padding: 20px;
+}
 /* ################## INFOS PRINCIPALES TOURNOI ################### */
 	.detailtournoi-infos{
 		/*margin-top: 142px;*/
@@ -62,10 +69,7 @@ section:hover{
 		max-width: 900px;
 	}
 	.detailtournoi-infos article h3{
-		margin: 0 auto;
-		margin-top: 20px;
-		display: inline-block;
-		padding: 14px 20px 14px 20px;
+		padding: 20px;
 	}
 	.detailtournoi-description-jeu{
 		margin: 0 auto;
@@ -216,6 +220,26 @@ section:hover{
 		height: 20px;
 	}
 
+/* ################## MATCHS ################# */
+	.detailtournoi-matchs h3{
+		padding: 13px 16px;
+	}
+	/* ##### CREER LES PREMIERS RENCONTRES ##### */
+		.createFirstMatchContainer{
+			z-index: 9999;
+		}
+		#detailtournoi-btn-create-matchs{
+			max-width: 280px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		.detailtournoi-creatematchs-btn-event-container{
+			padding: 10px 0;
+		}
+		.detailtournoi-creatematchs-btn-event-container button{
+			margin: 0 5px;
+			max-width: 280px;
+		}
 /* ################## BRACKET TOURNOI ################### */
 	.detailtournoi-bracket{
 		width: 90%;

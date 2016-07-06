@@ -9,7 +9,7 @@
 
 			    <label for="pwd1">Mot de passe : </label>
 			    <input class="input-default" type="password" id="pwd1" name="password">			 		
-			    <a href="confirmation/lost">Mot de passe oublié ? </a> 
+			    <a href="<?php echo WEBPATH; ?>/confirmation/lost">Mot de passe oublié ? </a> 
 			    <button type="button" class="btn btn-pink"><a>Se connecter</a></button>
 	  		</form>
 	  	</div>
@@ -36,7 +36,7 @@
 					</span>
 				</p>
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu"><label for="cgu">
-			    Vous acceptez les Conditions Générales du site Break'em All</label>
+			    Vous acceptez les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> du site Break'em All</label>
 			   
 			    <button type="button" class="btn btn-pink index-form-submit"><a>S'inscrire et jouer</a></button>
 	  		</form>

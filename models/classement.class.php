@@ -30,8 +30,7 @@ class classement{
 		$this->name=$v;
 	}
 	private function setImg($v){
-		if(strlen(trim($v))!=0)
-			$this->img=$v;
+		$this->img = $v;
 	}
 	private function setSlogan($v){
 		$this->slogan=$v;
@@ -44,7 +43,17 @@ class classement{
 	
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
-	public function getImg(){return	$this->img;}
+	public function getImg($upload=false){
+		if($upload){
+			return $this->img;
+		}
+		else{
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
+				return WEBPATH."/web/img/".$this->img;
+
+			return WEBPATH."/web/img/default.jpg";	
+		}
+	}
 	public function getSlogan(){return $this->slogan;}
 	public function getDescription(){return	$this->description;}
 	

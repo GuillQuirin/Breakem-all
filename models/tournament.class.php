@@ -3,6 +3,11 @@
 *
 */
 final class tournament{
+	// 86400 = nb de secondes/jour
+	private $_maxStartDate = 86400 * 90;
+	private $_spaceBetweenDates = 86400 * 14;
+	private $_endDateWasAutoCreated = false;
+
 	protected $_id;
 	protected $_startDate;
 	protected $_endDate;
@@ -41,8 +46,15 @@ final class tournament{
 	// Données provenant de user (nécessite un inner / outer join)
 	protected $_userPseudo;
 	// Données provenant de register
-	protected $_numberRegistered;
+	protected $_numberRegistered = false;
+	protected $_registeredList = [];
+
 	protected $_myArr;
+	// Données provenant de matchs
+	protected $_matchs = [];
+	// Données provenant de teamtournament
+	protected $_fullteams = [];
+	protected $_freeteams = [];
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -62,11 +74,17 @@ final class tournament{
 	private function setId($v){
 		$this->_id = $v;
 	}
-	private function setStartDate($v){
+	public function setStartDate($v, $setEndDate = false){
 		$this->_startDate = $v;
+		if($setEndDate){
+			$this->setEndDate($v+$this->_gtMaxIntervalBetweenDates());
+			$this->_endDateWasAutoCreated = true;
+		}
+			
 	}
-	private function setEndDate($v){
-		$this->_endDate = $v;
+	public function setEndDate($v){
+		if(!$this->_endDateWasAutoCreated)
+			$this->_endDate = $v;
 	}
 	private function setName($v){
 		$this->_name = trim($v);
@@ -165,6 +183,20 @@ final class tournament{
 	private function setNumberRegistered($v){
 		$this->_numberRegistered = (int) $v;
 	}
+	public function addRegisteredUser(register $usr){
+		$this->_registeredList[] = $usr;
+	}
+
+	public function addMatch(matchs $m){
+		$this->_matchs[] = $m;
+	}
+
+	public function addFreeTeam(teamtournament $tt){
+		$this->_freeteams[] = $tt;
+	}
+	public function addFullTeam(teamtournament $tt){
+		$this->_fullteams[] = $tt;
+	}
 
 
 	public function getId(){return $this->_id;}
@@ -204,9 +236,27 @@ final class tournament{
 	// Getters de données issues de user
 	public function getUserPseudo(){return $this->_userPseudo;}
 	// Getters de données issues de register
-	public function getNumberRegistered(){return $this->_numberRegistered ;}
+	public function getNumberRegistered(){return (!!$this->_numberRegistered) ? $this->_numberRegistered : count($this->gtAllRegistered());}
+	public function gtAllRegistered(){return $this->_registeredList;}
 	public function returnAsArr(){
 		return $this->_myArr;
+	}
+	// Getters des matchs
+	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
+	// Getters des teamtournament
+	public function gtFreeTeams(){return $this->_freeteams;}
+	public function gtFullTeams(){return $this->_fullteams;}
+	public function gtAllTeams(){return array_merge($this->gtFreeTeams(), $this->gtFullTeams());}
+
+	public function _gtMaxStartDaysInterval(){
+		return $this->_maxStartDate;
+	}
+	public function _gtMaxIntervalBetweenDates(){
+		return $this->_spaceBetweenDates;
+	}
+
+	public function doesTournamentHaveWinner(){
+		return is_numeric($this->getIdWinningTeam());
 	}
 }
 /*

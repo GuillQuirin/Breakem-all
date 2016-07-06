@@ -15,6 +15,7 @@ class detailteamController extends template{
             //Si le paramètre GET['name'] n'exite pas alors tu me renvoi erreur 1   
             $teamName = new teamManager();
             $nameTeam = $teamName->getNameTeam($_GET['name']);
+            
         }
 
 		//Si un paramètre GET portant le nom d'une team dans l'URL
@@ -25,6 +26,9 @@ class detailteamController extends template{
 
             //La team courante
             $teamBDD = new teamManager();
+            //Liste des membres
+            $listemember = $teamBDD->getListMember($name);
+            $v->assign("listemember", $listemember);
 
             $args = array('name' => FILTER_SANITIZE_STRING );
 
@@ -43,17 +47,12 @@ class detailteamController extends template{
             //$this : objet du user connecté grâce au template
             $v->assign("currentUser",$this);
 
-            //Liste des membres
-            $listemember = $teamBDD->getListMember($name);
-            $v->assign("listmember", $listemember);
-
-
             //Récupération de l'id de la team du user connecté
             if($this->getConnectedUser()){
                $getIdTeam = $this->getConnectedUser()->getIdTeam();
             }
 
-            //Verification si l'user une Team
+            //Verification si l'user possède une Team
             if(!empty($getIdTeam)){
                 $infos_team = ['id'=>$getIdTeam];
                 //$userTeam = un objet -> Ma team (Team du user connecté)
@@ -80,6 +79,9 @@ class detailteamController extends template{
                         $v->assign($col, $team->$method());    
                     }
                 }
+                $commentBDD = new commentManager();
+                $listecomment = $commentBDD->getCommentsByTeam($team);
+                $v->assign("listecomment", $listecomment);
             }
             else{
                 $v->assign("err", "1");
@@ -108,11 +110,12 @@ class detailteamController extends template{
             $userBDD->setNewTeam($this->getConnectedUser(),$team);
             header("Location:../detailteam?name=".$team->getName());
         }
+        
         if(isset($_POST['action-team-exit'])){
             $teamBDD = new teamManager();
 
             $args = array('nameTeam' => FILTER_SANITIZE_STRING,
-                        'action-team-rejoin' => FILTER_SANITIZE_STRING);
+                        'action-team-exit' => FILTER_SANITIZE_STRING);
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
             // $team = un objet -> La team de la page
@@ -122,22 +125,92 @@ class detailteamController extends template{
             $userBDD->setNewTeam($this->getConnectedUser());
             header("Location:../detailteam?name=".$team->getName());
         }
+
+        if(isset($_POST['action-team-dissoudre'])){
+            $teamBDD = new teamManager();
+
+            $args = array('nameTeam' => FILTER_SANITIZE_STRING,
+                        'action-team-dissoudre' => FILTER_SANITIZE_STRING);
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            // $team = un objet -> La team de la page
+            $team = $teamBDD->getTeam(array('name'=>$filteredinputs['nameTeam']));
+            $userBDD = new userManager();
+
+            $userBDD->setAllUser($team);
+            $teamBDD->changeStatusTeam($team);
+            header("Location:../team");
+        }
     }
     
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
         $args = array('slogan' => FILTER_SANITIZE_STRING
-                     ,'description' => FILTER_SANITIZE_STRING);
+                     ,'description' => FILTER_SANITIZE_STRING
+                     ,'img' => FILTER_SANITIZE_STRING);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        if (isset($_FILES['img'])) {
+            $uploaddir = '/web/img/upload/';
+            $name = $_FILES['img']['name'];
+
+            $uploadfile = getcwd().$uploaddir.$name;
+            //var_dump($uploadfile);
+
+            define('KB', 1024);
+            define('MB', 1048576);
+            define('GB', 1073741824);
+            define('TB', 1099511627776);
+
+            if ($_FILES['img']['size'] < 1 * MB) {
+                if ($_FILES['img']['error'] == 0) {
+
+                    if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
+                        die("Erreur d'upload");
+                }
+            }
+            $filteredinputs['img'] = $name;
+        }
+
 
         $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
         
         $team->setSlogan($filteredinputs['slogan']);
         $team->setDescription($filteredinputs['description']);
+        $team->setImg($filteredinputs['img']);
 
         $teamBDD->updateTeam($team);
+
         header("Location:../detailteam?name=".$team->getName());
     }   
+
+    public function createCommentAction(){
+        $args = array(
+            'comment' => FILTER_SANITIZE_STRING
+        );
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){      
+                die("Manque information : ".$key);
+            }
+        }
+
+        //Infos du joueur
+        $filteredinputs['idUser']=intval($this->getConnectedUser()->getId());
+        //Infos de la team
+        $filteredinputs['idEntite']=intval($this->getConnectedUser()->getIdTeam());
+        $filteredinputs['entite']=1; // type de contenu -> team
+        
+        $commentBDD = new commentManager();
+        $commentBDD->mirrorObject = new comment($filteredinputs);
+        $commentBDD->create();
+
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+        
+        header("Location:../detailteam?name=".$team->getName());
+    }
 
 }

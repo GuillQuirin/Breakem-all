@@ -7,10 +7,19 @@ class gestiontournoiController extends template{
 
 		//Visiteur ou membre banni
 		if(!($this->isVisitorConnected()) || $this->connectedUser->getStatus()<1){
-		 	header('Location: ' .WEBPATH);
+		 	header('Location: ' .WEBPATH.'/index');
 		}
 	}
 
+	//Pour setter la date de fin automatiquement: utilise setStartDate($valeur, true)
+	// public function setStartDate($v, $setEndDate = false){
+	// 	$this->_startDate = $v;
+	// 	if($setEndDate){
+	// 		$this->setEndDate($v+$this->_gtMaxIntervalBetweenDates());
+	// 		$this->_endDateWasAutoCreated = true;
+	// 	}
+			
+	// }
 	public function gestiontournoiAction(){
 
 		$v = new view();
@@ -18,12 +27,11 @@ class gestiontournoiController extends template{
 
 		$args = array('t' => FILTER_SANITIZE_STRING);
 
-		$filteredinputs = filter_input_array(INPUT_GET, $args);
+		$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
 
 		//Si lien fourni sinon redirection liste tournoi
 		if(!empty($filteredinputs) && $this->isVisitorConnected()){
 
-			$filteredinputs = array_filter($filteredinputs);
 			$link = $filteredinputs['t'];
 
 			$tournamentBDD = new tournamentManager();
@@ -137,6 +145,7 @@ class gestiontournoiController extends template{
 			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null 
 				&& $ecartjour==="+" && $nbjours>="2"){
 				// On met à jour
+			    $newtournament->setStartDate($newtournament->getStartDate(), true);
 			    $tournamentBDD->setTournament($tournament, $newtournament);
 
 				$_SESSION['referer_method']="update";
@@ -158,9 +167,9 @@ class gestiontournoiController extends template{
 	      'Dday'   => FILTER_SANITIZE_STRING,     
 	      'Dmonth'   => FILTER_SANITIZE_STRING,     
 	      'Dyear'   => FILTER_SANITIZE_STRING,
-	      'Eday'   => FILTER_SANITIZE_STRING,     
-	      'Emonth'   => FILTER_SANITIZE_STRING,     
-	      'Eyear'   => FILTER_SANITIZE_STRING,
+	      // 'Eday'   => FILTER_SANITIZE_STRING,     
+	      // 'Emonth'   => FILTER_SANITIZE_STRING,     
+	      // 'Eyear'   => FILTER_SANITIZE_STRING,
 	      't' => FILTER_SANITIZE_STRING
 	      
 	    );
@@ -173,34 +182,34 @@ class gestiontournoiController extends template{
 	    $filteredinputs['Dyear'] = (int) $filteredinputs['Dyear'];
 
 	    //Fin tournoi
-		$filteredinputs['Emonth'] = (int) $filteredinputs['Emonth'];
-	    $filteredinputs['Eday'] = (int) $filteredinputs['Eday'];
-	    $filteredinputs['Eyear'] = (int) $filteredinputs['Eyear'];
+		// $filteredinputs['Emonth'] = (int) $filteredinputs['Emonth'];
+	 //    $filteredinputs['Eday'] = (int) $filteredinputs['Eday'];
+	 //    $filteredinputs['Eyear'] = (int) $filteredinputs['Eyear'];
 	    
 
-	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) || !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear'])){
+	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) 
+	    	//|| !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear'])
+	       )
 	      	$this->echoJSONerror('date', 'La date reçue a fail !');
-	    }
 	    else{
 
 	      $datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
 
-	      $datefin = DateTime::createFromFormat('j-n-Y',$filteredinputs['Eday'].'-'.$filteredinputs['Emonth'].'-'.$filteredinputs['Eyear']);
+	      //$datefin = DateTime::createFromFormat('j-n-Y',$filteredinputs['Eday'].'-'.$filteredinputs['Emonth'].'-'.$filteredinputs['Eyear']);
 	      
-	      if(!$datedeb || !$datefin){
+	      if(!$datedeb /*|| !$datefin*/){
 	      	$this->echoJSONerror('date', 'La date reçue a fail !');
 	      }
 
 	      unset($filteredinputs['Dday']);
 	      unset($filteredinputs['Dmonth']);
 	      unset($filteredinputs['Dyear']);
-	      unset($filteredinputs['Eday']);
-	      unset($filteredinputs['Emonth']);
-	      unset($filteredinputs['Eyear']);
+	      // unset($filteredinputs['Eday']);
+	      // unset($filteredinputs['Emonth']);
+	      // unset($filteredinputs['Eyear']);
 
 		  $filteredinputs['startDate'] = date_timestamp_get($datedeb);
-	   	  $filteredinputs['endDate'] = date_timestamp_get($datefin);
-	    
+	   	  //$filteredinputs['endDate'] = date_timestamp_get($datefin);
 	    }  	
 
 	    return array_filter($filteredinputs);
@@ -218,7 +227,7 @@ class gestiontournoiController extends template{
         $tournamentBDD = new tournamentManager();
         $tournoi = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
     
-        if($tournoi && $tournoi->getIdUserCreator() == $_id){
+        if(!!$tournoi && $tournoi->getIdUserCreator() == $this->getConnectedUser()->getId()){
             $tournamentBDD->deleteTour($tournoi);
         }
         else

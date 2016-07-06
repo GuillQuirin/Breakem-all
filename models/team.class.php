@@ -43,7 +43,7 @@ class team{
 	private function setName($v){
 		$this->name=$v;
 	}
-	private function setImg($v){
+	public function setImg($v){
 		$this->img=$v;
 	}
 	public function setSlogan($v){
@@ -76,25 +76,14 @@ class team{
 	public function getName(){return $this->name;}
 	public function getImg($upload=false){
 		if($upload){
-			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/".$this->img))
-			return "default.jpg";
-		}
-		else{
 			return $this->img;
 		}
-		/*
+		else{
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/".$this->img))
+				return WEBPATH."/web/img/upload/".$this->img;
 
-			if($upload){
-				return $this->img;
-			}
-			else{
-				if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/".$this->img))
-					return "/web/img/upload/".$this->img;
-
-				return "/web/img/upload/default.jpg";	
-			}
-	
-		*/
+			return WEBPATH."/web/img/upload/default.jpg";	
+		}
 	}
 	public function getSlogan(){return $this->slogan;}
 	public function getDescription(){return	$this->description;}

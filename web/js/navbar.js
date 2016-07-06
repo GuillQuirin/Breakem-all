@@ -1,13 +1,17 @@
 
 "use strict";
 window.addEventListener('load', function load(){
-	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache 
-	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
+	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache
+	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois)
 	window.removeEventListener('load', load, false);
 	webpath.init();
-	
-});
 
+});
+function isElSoloJqueryInstance(el){
+	if(el.length == 1 && el instanceof jQuery)
+		return true;
+	return false;
+}
 function initAll(){
 	connection.init();
 	navbar.init();
@@ -16,6 +20,7 @@ function initAll(){
 	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
 	checkForJustCreatedAccount();
 	cookie.init();
+	contactadmin.init();
 }
 
 /**
@@ -96,7 +101,7 @@ function tryParseData(rawData){
 	}
 	catch(err) {
 		console.log(rawData);
-		alert("Problem during server processes \n Check console for details");
+		alert("Problem during server processes");
 	}
 	return false;
 }
@@ -168,26 +173,16 @@ var webpath = {
 	},
 	get: function(){return this._path;},
 	setServerPath: function(){
-		jQuery.ajax({
-		  url: 'index/getWebpathAjax',
-		  type: 'GET',		  
-		  complete: function(xhr, textStatus) {
-		    // console.log("request complted \n");
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	var obj = tryParseData(data);
-		    if(obj != false){
-		    	if(obj.webpath)
-		    		this._path = obj.webpath;
-		    	else
-		    		console.log("webpath couldn't be found");
-		    	initAll();
-		    }
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		    console.log("request error !! : \t " + errorThrown);
-		  }
-		});
+		var hiddenInp = $('#webpath');
+		if(isElSoloJqueryInstance(hiddenInp)){
+			this._path = hiddenInp.val();
+			hiddenInp.remove();
+			initAll();
+		}
+		else{
+			this._path = false;
+			console.log("couldn't find webpath !");
+		}
 	}
 };
 
@@ -515,47 +510,47 @@ var register = {
 	init: function(){
 		this.setFormToWatch();
 		if(!(this.getFormToWatch() instanceof jQuery)){
-			console.log("Missing form");
+			popup.init("Manque le formulaire !");
 			return;
 		}
 		this.setPseudoToWatch();
 		if(!(this.getPseudoToWatch() instanceof jQuery)){
-			console.log("Missing pseudo");
+			popup.init("Manque votre pseudo !");
 			return;
 		}
 		this.setEmailToWatch();
 		if(!(this.getEmailToWatch() instanceof jQuery)){
-			console.log("Missing email");
+			popup.init("Manque votre email !");
 			return;
 		}
 		this.setPassToWatch();
 		if(!(this.getPassToWatch() instanceof jQuery)){
-			console.log("Missing pass");
+			popup.init("Manque votre mot de passe !");
 			return;
 		}
 		this.setPassCheckToWatch();
 		if(!(this.getPassCheckToWatch() instanceof jQuery)){
-			console.log("Missing passcheck");
+			popup.init("Manque votre confirmation de mot de passe !");
 			return;
 		}
 		this.setCguToWatch();
 		if(!(this.getCguToWatch() instanceof jQuery)){
-			console.log("Missing cgu");
+			popup.init("Manque les CGU !");
 			return;
 		}
 		this.setDayToWatch();
 		if(!(this.getDayToWatch() instanceof jQuery)){
-			console.log("Missing day");
+			popup.init("Manque le jour de naissance !");
 			return;
 		}
 		this.setMonthToWatch();
 		if(!(this.getMonthToWatch() instanceof jQuery)){
-			console.log("Missing month");
+			popup.init("Manque le mois de naissance !");
 			return;
 		}
 		this.setYearToWatch();
 		if(!(this.getYearToWatch() instanceof jQuery)){
-			console.log("Missing year");
+			popup.init("Manque l'année de naissance !");
 			return;
 		}
 		this.sendEvent();
@@ -675,7 +670,7 @@ var register = {
 	},
 	highlightInput: function(jQinput){
 		jQinput.addClass('failed-input');
-		jQinput.val('');
+		// jQinput.val('');
 		jQinput.focus();
 		this.removeFailAnimationEvent(jQinput);
 	},
@@ -689,14 +684,14 @@ var register = {
 		else{
 			if(obj.errors){
 				if(obj.errors.pseudo){
-					alert(obj.errors.pseudo);
+					popup.init(obj.errors.pseudo);
 				}
 				else if(obj.errors.email){
-					alert(obj.errors.email);
+					popup.init(obj.errors.email);
 				}
 				else{
-					console.log(obj.errors);
-					alert("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
+					popup.init(obj.errors);
+					// ("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
 				}			
 			}
 		}
@@ -957,46 +952,58 @@ var cookie = {
 };
 
 
+var contactadmin = {
+	init : function(){
+		//Affichages des popups
+		$("#contactAdmin").click(function(){
+			$("#wrapperAdmin").fadeIn();
+			return false;
+		});
 
-$(document).ready(function(){
-	//Affichages des popups
-	$("#contactAdmin").click(function(){
-		$("#wrapperAdmin").fadeIn();
-		return false;
-	});
+		//Controle des messages
+		$("#btn_contactAdmin").click(function(){
+			if($("#expediteurContactAdmin").val()==""){
+				alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
+			}
+			else if($.trim($("#mess_contactAdmin")).val()==""){
+				alert('Veuillez ne pas envoyer de message vide.');
+			} 
+			else{
+				$.ajax({method: "POST",
+						data:{
+							message: $("#mess_contactAdmin").val(),
+							expediteur: $("#expediteurContactAdmin").val()
+						},
+						url: "index/contactAdmin", 
+						success: function(result){
+		            		alert('Le message a correctement été envoyé.');
+		            		$("#wrapperAdmin .sendOk").fadeIn();
+		            		//$("loadGIF").css("display","none");
+		        		},
+		        		// load: function(){
+		        		// 	$("loadGIF").css("display","block");
+		        		// },
+		        		fail: function(){
+		        			$("#wrapperAdmin .sendOk").fadeIn();
+		        		}
+		        	}
+		        );
+			}
+		});
 
-	//Controle des messages
-	$("#btn_contactAdmin").click(function(){
-		if($("#mess_contactAdmin").val()==""){
-			alert('Veuillez ne pas laisser un message vide.');
-		}
-		else if($("#expediteurContactAdmin").val()==""){
-			alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
-		}
-		else{
-			$.ajax({method: "POST",
-					data:{
-						message: $("#mess_contactAdmin").val(),
-						expediteur: $("#expediteurContactAdmin").val()
-					},
-					url: "index/contactAdmin", 
-					success: function(result){
-	            		$("#wrapperAdmin").html("OK");
-	        		}
-	        	}
-	        );
-		}
-	});
-	//return false;
-});
+		$(document).mouseup(function(e)
+		{
+		    var container = $("#wrapperAdmin");
 
-$(document).mouseup(function(e)
-{
-    var container = $("#wrapperAdmin");
+		    if(!container.is(e.target) && container.has(e.target).length === 0) 
+		    {
+		    	$(".sendOk, .sendError").fadeOut();
+		        container.fadeOut();
+		    	$("#mess_contactAdmin").val("");
+           		$("#expediteurContactAdmin").val("");
+		    }
+		});
+	}
+}
 
-    if(!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.fadeOut();
-    }
-});
 

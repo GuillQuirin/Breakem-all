@@ -39,7 +39,7 @@ final class teamtournament{
 	public function getId(){return $this->_id;}
 	public function getRank(){return $this->_rank;}
 	public function getIdTournament(){return $this->_idTournament;}
-	public function getTakenPlaces(){return $this->_takenPlaces;}
+	public function getTakenPlaces(){return (is_numeric($this->_takenPlaces)) ? $this->_takenPlaces : count($this->getUsers());}
 	public function getUsers(){return $this->_users;}
 
 

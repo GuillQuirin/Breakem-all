@@ -5,7 +5,9 @@
 		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
 			<div class="index-header-btn"> 			
 				<button type="button" class="btn btn-pink index-header-btn-pink-width" id="currentTournament"><a>Tournoi du moment</a></button>				
-				<button type="button" class="btn btn-pink index-header-btn-pink-width"><a>Nos Jeux</a></button>			
+				<button type="button" class="btn btn-pink index-header-btn-pink-width">
+					<a href="<?php echo WEBPATH.'/team'; ?>">Nos Teams</a>
+				</button>			
 			</div>
 		</span>	
 
@@ -68,7 +70,9 @@
 										<h3><?php echo $tournoi->getDescription(); ?></h3>
 									</div>
 									<div class='btn_article'>
-										<h3 class='btn btn-pink'><a href="tournoi?t=<?php echo $tournoi->getLink(); ?>">Regarder</a><h3>
+										<h3 class='btn btn-pink'>
+											<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">Regarder</a>
+										<h3>
 									</div>
 								</div>
 							</div>
@@ -128,11 +132,14 @@
 					<nav class="tab_hori">
 						<ul>
 							<!-- Liste des jeux -->
-							<?php //echo $Jeux; ?>
 							<li class=" active_tab"><a href="#">Tous</a></li>
-							<li class=""><a href="#">HOT</a></li>
-							<li class=""><a href="#">DOTA2</a></li>
-							<li class=""><a href="#">LoL</a></li>
+							<?php 
+							if(isset($listeJeux) && is_array($listeJeux)){
+								foreach($listeJeux as $jeu){
+									echo '<li class=""><a>'.$jeu->getName().'</a></li>';
+								}
+							}
+							?>
 						</ul>
 					</nav>
 				</ul>
@@ -189,7 +196,7 @@
 					<label for="title2">Jeux les plus utlisés</label>
 				</div>
 				<?php 
-					if(isset($bestGames)){
+					if(isset($bestGames) && !empty($bestGames) && is_array($bestGames)){
 						foreach ($bestGames as $key => $value){	
 							echo "<div class='game'>";
 								echo "<img src='".WEBPATH.'/web/img/'.$value['img']."'>";

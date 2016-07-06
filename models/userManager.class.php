@@ -76,7 +76,6 @@ class userManager extends basesql{
 			':email' => $u->getEmail(),
 			':password' => $password
 		]);
-		
 		return $r;
 	}
 
@@ -134,6 +133,15 @@ class userManager extends basesql{
 		]);
 	}
 
+	/*Modification tous les users d'une team : dissoudre la team*/
+	public function setAllUser(team $t=NULL){
+		$sql = "UPDATE user SET idTeam = NULL WHERE idTeam = :idTeam;";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTeam' => (($t)?$t->getId():NULL)
+		]);
+	}
+
 	/*MODIFICATION USER*/
 	public function setUser(user $u, user $newuser){
 		$data = [];
@@ -182,11 +190,11 @@ class userManager extends basesql{
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
+					FROM ".$this->table." u
+					LEFT OUTER JOIN team t ON u.idTeam = t.id
 					WHERE u.status<>0 AND " . implode(',', $data);
 
 		$query = $this->pdo->query($sql)->fetch();
-
 		if($query === FALSE)
 			return false;
 
@@ -201,8 +209,10 @@ class userManager extends basesql{
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
-					WHERE u.status>0";
+					FROM ".$this->table." u
+					LEFT OUTER JOIN team t ON u.idTeam = t.id
+					WHERE u.status>0
+						GROUP BY u.id";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -223,9 +233,3 @@ class userManager extends basesql{
 		]);
 	}
 }
-/*$sql = "UPDATE ".$this->table." SET status = 1, token = '' WHERE email=:email AND status=0";
-$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-$r = $sth->execute([
-	':email' => $u->getEmail()
-]);
-return $r;*/
