@@ -1,3 +1,13 @@
+.admin-board-title{
+    font-size:35px;
+    padding:45px 0;
+    transform:skew(-8deg);
+}
+
+.admin-board-intro{
+    margin:0 0 10px 0;
+}
+
 .membre-form-img-size{
     width:100px;
     height:100px;
