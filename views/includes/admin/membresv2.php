@@ -54,17 +54,6 @@
 						        echo "Administrateur";
 						        break;
 						}
-						/*echo "<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
-							echo "<option value='-1'";
-								echo ($joueur->getStatus()==-1) ? " selected " : " "; 
-							echo ">Banni</option>
-							<option value='1'";
-								echo ($joueur->getStatus()==1) ? " selected " : " ";
-							echo ">Utilisateur</option>
-							<option value='3'";
-								echo ($joueur->getStatus()==3) ? " selected " : " ";
-							echo ">Admin</option>";
-						echo "</select>";*/
 					echo "</span></div></div>";
 					//Fin Affichage
 
@@ -80,13 +69,14 @@
 
 						echo "<div class='index-modal-this index-modal-login align'>";
 							
-							echo "<div id='login-form' class='grid-md-6 inscription_rapide animation fade'>";
-								echo "<form class='membre-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+							echo "<div class='grid-md-6 inscription_rapide animation fade'>";
+								echo "<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+									//Title
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
 									echo "</div>";
 									echo "<div class='grid-md-12'>";
-										//Image							    								 
+									//Image							    								 
 								    	echo "<div class='membre-form-img-size m-a'>";																	
 											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
 										echo "</div>";
@@ -94,8 +84,8 @@
 											echo "<input type='file' class='membre-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-
 									echo "<div class='grid-md-6'>";
+										//Label
 										echo "<div class='grid-md-5 text-left'>";
 											echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
 											echo "<label for='nom'>Nom :</label>";
@@ -104,7 +94,7 @@
 											echo "<label for='birthday'>Birthday :</label>";
 											echo "<label for='report'>Report :</label>";
 										echo "</div>";
-
+										//Input
 										echo "<div class='grid-md-7'>";
 										    echo "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text' value='" . $joueur->getName() . "'>";									    
 										    echo "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
@@ -117,6 +107,7 @@
 								    echo "<div class='grid-md-6'>";
 									   	
 									   	echo "<div class='grid-md-5 text-left'>";
+									   		//Label
 										    echo "<label for='kind'>Genre :</label>";
 										    echo "<label for='description'>Description :</label>";
 											echo "<label for='email'>Email :</label>";
@@ -125,6 +116,7 @@
 										echo "</div>";
 
 										echo "<div class='grid-md-7'>";
+											//Input
 										    echo "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text' value='" . $joueur->getKind() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text' value='" . $joueur->getDescription() . "'>";			    
 										    echo "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
@@ -142,9 +134,9 @@
 											echo "</select>";		
 										echo "</div>";							 
 								    echo "</div>";
-
+								    //Submit
 								    echo "<div class='grid-md-12'>";
-								    	echo "<button type='button' class='membre-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+								    	echo "<button type='button' class='admin-form-submit membre-submit-form-btn btn btn-pink'><a>Valider</a></button>";
 								    echo "</div>";
 						  		echo "</form>";
 						  	echo "</div>";
