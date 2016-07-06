@@ -16,7 +16,34 @@ else{
     <section class="popup">
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
-            <form action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">
+            <form class="formteam" action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">  
+                <table>
+                    <tr>
+                        <td>Slogan : </td>
+                        <td>
+                            <input class="input-default" type="text" name="slogan" value="<?php echo $sloganteam; ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Description : </td>
+                        <td>
+                            <textarea  class="desc-default" rows="3" name="description" ><?php echo $descripteam; ?></textarea>
+                        </td>
+                    </tr>
+                    <tr><!--
+                        <td>Image : </td>
+                        <td>
+                            <input class="image-default" type=file name="img">
+                        </td>-->
+                    </tr>
+                    <tr>
+                        <td colspan=2>
+                            <button id='action-team-modif' type='submit' class='btn btn-pink admin-form-submit'>
+                                <a>Modifier ma team</a>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
                 Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
                 Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
                 Image :
@@ -43,7 +70,7 @@ else{
 
     <!-- Bouton selon le user --> 
      <section class="relative align">
-        
+        <form action="detailteam/updateUserTeam" method="POST"> 
             <div class="align relative button-team">
                 <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
                 <?php 
@@ -54,24 +81,20 @@ else{
                     elseif(!empty($_idTeam)){
                         //Si le user est le créateur de la team
                         if(isset($idcreator) && isset($_id) && $_id == $idcreator){
-                        ?>  
-
-                            <button class="main btn btn-pink">
-                                <a class="btn-modif-team">Modifier Team</a>
+                        ?>
+                            <button name='action-team-dissoudre' type='submit' class='btn btn-pink'>
+                                <a>Dissoudre la Team !</a>
                             </button>
-                            <form action="detailteam/updateUserTeam" method="POST">
-                                <button name='action-team-dissoudre' type='submit' class='btn btn-pink'>
-                                    <a>Dissoudre la Team !</a>
-                                </button>
-                            
+                            <button class="main btn btn-pink">
+                                <a href="#" class="btn-modif-team">Modifier Team</a>
+                            </button>
                         <?php
                         //Si le user est dans la team
                         }elseif($_idTeam == $idteam) {
                          ?>
-                            <form action="detailteam/updateUserTeam" method="POST">
-                                <button name='action-team-exit' type='submit' class='btn btn-pink'>
-                                    <a>Quitter la Team !</a>
-                                </button>
+                            <button name='action-team-exit' type='submit' class='btn btn-pink'>
+                                <a>Quitter la Team !</a>
+                            </button>
                         <?php
                         //Si le user appartient à une autre team
                         }else{
@@ -79,10 +102,9 @@ else{
                         } 
                     //Si le user n'a pas de team
                     }else{ ?>
-                        <form action="detailteam/updateUserTeam" method="POST">
-                            <button name='action-team-rejoin' type='submit' class='btn btn-pink'>
-                                <a>Rejoindre la Team !</a>
-                            </button>
+                        <button name='action-team-rejoin' type='submit' class='btn btn-pink'>
+                            <a>Rejoindre la Team !</a>
+                        </button>
                 <?php } ?>     
             </div>
         </form>
