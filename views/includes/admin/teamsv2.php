@@ -57,14 +57,14 @@
 									echo "</div>";
 									echo "<div class='grid-md-12'>";
 										//Label
-										echo "<div class='grid-md-5 text-left'>";
+										echo "<div class='grid-md-4 text-left'>";
 										    echo "<label for='nom'>Nom :</label>";
 										    echo "<label for='slogan'>Slogan :</label>";
 										    echo "<label for='description'>Description :</label>";
-										    echo "<label for='status'>status :</label>";
+										    echo "<label for='status'>Status :</label>";
 									    echo "</div>";
 									    //Input
-									    echo "<div class='grid-md-7'>";
+									    echo "<div class='grid-md-8'>";
 											echo "<input type='text' name='id' class='hidden team-id-p' value='" . $team->getId() . "'>";
 											echo "<input class='input-default admin-form-input-w team-nom-p' name='nom' type='text' value='" . $team->getName() . "'>";
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
