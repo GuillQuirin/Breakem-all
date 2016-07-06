@@ -40,9 +40,6 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
-		//Appel les vues (Refactorisation : a faire une par une pour les appels ajax)
-		onglet.callView();
-
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){	
 			onglet.platformView();
@@ -58,6 +55,10 @@ var onglet = {
 		//Teams
 		onglet.getAdminOngletTeams().click(function(){
 			onglet.teamsView();
+		});
+		//Jeux
+		onglet.getAdminOngletGame().click(function(){
+			onglet.gamesView();
 		});
 	},
 
@@ -295,44 +296,38 @@ var onglet = {
 		return false;
 
 	},
-
-	callView : function(){
-
-		/* Team */
-		onglet.getAdminOngletTeams().click(function(){
-		onglet.getAdminDataIhm().remove();	
-
-		jQuery.ajax({
-		 	url: "admin/teamsView",
-		 	success: function(result){
-		 		
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	
-			return false;
-		})
-
-		/* Jeux */
-		onglet.getAdminOngletGame().click(function(){
+	gamesView : function(){
+		/* Signalement */
+		
 		onglet.getAdminDataIhm().remove();	
 
 		jQuery.ajax({
 		 	url: "admin/gamesView",
 		 	success: function(result){
-		 		
-		 		//console.log(result);
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				gameModule.init();
 		 	},
 		 	error: function(result){
 		 		alert("non");
 		 	}
 		});
+
+		return false;
+
+	},
+
+	callView : function(){
+
 	
-			return false;
-		})
 
 		/* Type de jeu */
 		onglet.getAdminOngletGametype().click(function(){
