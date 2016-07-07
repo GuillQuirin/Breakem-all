@@ -1,271 +1,284 @@
 "use strict";
 
-var platformModule = {
-	init : function(){		
-		platformModule.setAdminDataElTitle();
-		platformModule.setAdminWrapper();
-		platformModule.setPlatformAdd();
-		platformModule.setPlatformNav();		
-		platformModule.setPlatformAddBtn();
+var platformModule = {	
+	_this: this,
+	init : function(){
+		//Setter
+		platformModule.setDeleteBtn();
+		platformModule.setUpdateBtn();
+		platformModule.setInsertBtn();
+		platformModule.setPreviewInput();
+		platformModule.setImgWrapper();
+		platformModule.setAdminDataRe();
 
-		platformModule.postDataInsert();
-		platformModule.createPlatformsIhm();
+		//Preview
+		platformModule.previewImg();
+
+		//CRUD
+		platformModule.postDataDelete();
+		platformModule.postDataUpdate();
+		platformModule.postDataInsert();		
 	},
 
 	//Setter
-	setPlatformAdd : function(){
-		this._setPlatformAdd = $('.platform-add-wrapper');
+	setDeleteBtn : function(){
+		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
-	setPlatformAddBtn : function(){
-		this._setPlatformAddBtn = $('#platform-add-btn');
+	setInsertBtn : function(){
+		this._insertBtn = jQuery('.admin-btn-insert');
 	},
-
-	setAdminWrapper : function(){
-		this._adminWrapper = $(".admin-wrapper.platforms");
+	setUpdateBtn : function(){
+		this._updateBtn = jQuery('.admin-btn-modify');
 	},
-
-	setPlatformNav : function(){
-		this._setPlatformNav = $('.platform-navbar');
+	setAdminDataRe : function(){
+		this._adminDataRe = jQuery('.admin-data-re');
 	},
-
-	setAdminDataElTitle : function(){
-		this._setAdminDataElTitle = $('.admin-data-ihm-title');
+	setPreviewInput : function(){
+		this._previewInput = jQuery('.platform-image-p');
+	},
+	setImgWrapper : function(){
+		this._imgWrapper = jQuery('.platform-img');
 	},
 
 	//Getter
-	getAdminDataElTitle : function(){
-		return this._setAdminDataElTitle;
+	getUpdateBtn : function(){
+		return this._updateBtn;
 	},
-
-	getPlatformNav : function(){
-		return this._setPlatformNav;
+	getInsertBtn : function(){
+		return this._insertBtn;
 	},
-
-	getPlatformAddBtn : function(){
-		return this._setPlatformAddBtn;
+	getDeleteBtn : function(){
+		return  this._deleteBtn;
 	},
-
-	getAdminWrapper : function(){
-		return this._adminWrapper;
+	getAdminDataRe : function(){
+		return this._adminDataRe;
 	},
-
-	getSubmitBtn : function(i){
-		return jQuery('.platform-submit-form-btn' + i);
+	getPreviewInput : function(){
+		return this._previewInput;
 	},
-
-	getDeleteBtn : function(i){
-		return jQuery('.platform-btn-delete' + i);
+	getImgWrapper : function(){
+		return this._imgWrapper;
 	},
-
-	getPlatformAddBtn : function(){
-		return this._setPlatformAddBtn;
+	getInsertValidationBtn : function(){
+		return this._insertValidationBtn;
 	},
-
-	//Function
-	
-	//Check si platform est vide
-	isEmpty : function(callback){
-		var c = 0;
-		var ret;
-		if(callback){
-			ajaxRequest("admin/getPlatformsData", "GET", function(result){						
-				c = result.length;								
-				if(c == 0){					
-					ret = true;
-					callback(ret);
-				}else{	
-					ret = false;
-					callback(ret);													
-				}
-			});			
-		}else{
-			console.log("Missing isEmpty callback");
-		}			
-	},	
-	//Retire les titles si vide
-	toggleIfEmpty : function(){
-		platformModule.isEmpty(function(bool){
-			if(bool){
-				platformModule.getAdminDataElTitle().hide();
-			}else{
-				platformModule.getAdminDataElTitle().show();
-			}
+	//Preview
+	previewImg : function(){
+		platformModule.getPreviewInput().on('change', function(){
+			console.log("Image changed.");
+    		previewUpload(this, platformModule.getImgWrapper());
 		});
 	},
-	//Creation de l'ihm
-	createPlatformsIhm : function(){	
-						
-			platformModule.toggleIfEmpty();
-		
-			platformModule.getAdminDataElTitle().show();
-			ajaxRequest("admin/getPlatformsData", "GET", function(result){							
-				jQuery.each(result, function(i, field){				
-					platformModule.getAdminWrapper().append(								
 
-						"<div class='admin-data-ihm align'>" +
+	//Delete sur le boutton Supprimer
+	postDataDelete : function(){		
 
-							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + field.name + "</span></div></div>" +
-							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + field.description + "</span></div></div>" +
-							"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover' src='" + field.img + "'></div></div></div>" +
+		platformModule.getDeleteBtn().on("click", function(e){
+			var btn = jQuery(e.currentTarget);
+			var id = btn.parent().parent().find(jQuery('.platform-id-p')).val();	
+			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune plateforme enregistrée pour le moment.</span></div>";
 
-							"<div class='admin-data-ihm-btn hidden relative'>" +
-								"<button class='admin-btn-default admin-btn-modify open-form' type='button'><span>Modifier</span></button>" +  
-								"<button class='admin-btn-default admin-btn-delete platform-btn-delete" + i + "' type='button'><span>Supprimer</span></button>" + 						
-							"</div>" +
+			var data = {id : id};				
 
-							"<div class='index-modal platforms hidden-fade hidden'>" +
-
-								"<div class='index-modal-this index-modal-login align'>" +
-								
-									"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
-										"<form id='platform-form'>" +		
-											"<input type='text' name='id' class='hidden platform-id-p' value='" + field.id + "'>" + 	    
-										    "<label for='email'>Nom :</label>" +
-										    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" + field.name + "'>" +
-										     "<label for='email'>Description :</label>" +
-										    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" + field.description + "</textarea>" +							    							  
-										    "<div class='admin-avatar-wrapper m-a'>" +																	
-												"<img class='admin-avatar img-cover platform-img' src='" + field.img + "' title='Image de profil' alt='Image de profil'>" +										
-											"</div>" +	
-											"<div class='text-center admin-input-file'>" +								 
-											"<input type='file' name='profilpic'>" +
-											"</div>" +
-										    "<button type='button' class='platform-submit-form-btn" + i + " btn btn-pink'><a>Valider</a></button>" +
-								  		"</form>" +
-								  	"</div>" + 	 
-								"</div>" +
-							"</div>" +
-						"<div>" 
-					);			
-					jQuery(".platform-btn-delete" + i).click(function(){
-						platformModule.postDataDelete(i);
-					});
-					jQuery(".platform-submit-form-btn" + i).click(function(){
-						platformModule.postDataUpdate(i);					
-						navbar.form.smoothClosing();	
-					});				
-				});			
-				admin.ihmElemHover();		
-				navbar.setOpenFormAll();	
-				navbar.form.admin();	
-				navbar.form.closeFormKey();
-		        navbar.form.closeFormClick();			
-			});		
-		
-	},
-	//Insert sur le formulaire d'ajout
-	postDataInsert : function(){		
-		platformModule.getPlatformNav().append(
-			'<div class="row align">' +
-				'<div class="grid-md-3 platform-search-wrapper">' +
-					'<form id="platform-search-form">' +					
-						'<input type="text" class="platform-search-input input-default" id="platform-search-input" name="platform-search-input" placeholder="Rechercher une Plateforme">' +
-					'</form>' +
-				'</div>' +
-				'<div class="grid-md-3 platform-add-wrapper">' +
-					'<button type="button" class="btn btn-pink full open-form" id="platform-add-btn"><a>Ajouter une plateforme</a></button>' +				
-				'</div>' +
-				"<div class='index-modal platforms hidden-fade hidden'>" +
-
-					"<div class='index-modal-this index-modal-login align'>" +
-					
-						"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>" +
-							"<form id='platform-form'>" +		
-							    "<label for='email'>Nom :</label>" +
-							    "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' placeholder='Le nom de votre plateforme'>" +
-							    "<label for='email'>Description :</label>" +
-							    "<textarea class='input-default admin-form-input-w platform-description-p' placeholder='Une petite description' name='description' type='text'></textarea>" +							    							  
-							    "<div class='admin-avatar-wrapper m-a'>" +																	
-									"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>" +										
-								"</div>" +	
-								"<div class='text-center admin-input-file'>" +								 
-								"<input type='file' name='profilpic'>" +
-								"</div>" +
-							    "<button type='button' class='platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-					  		"</form>" +
-					  	"</div>" + 	 
-					"</div>" +
-				"</div>" + 
-			'</div>'
-		);
-		navbar.setOpenFormAll();		
-		navbar.form.closeFormKey();
-	    navbar.form.closeFormClick();
-	    navbar.form.admin();	
-
-	    var btn = platformModule.getPlatformAddBtn();	    
-
-	    var name = btn.parent().find(jQuery('.platform-nom-p')).val();
-		var description = btn.parent().find(jQuery('.platform-description-p')).val();	
-
-		/*if(name !== "undefined"){	
-			console.log("Enter a value for name and description");
-		}else{
-		    var allData = {name : name, description : description};	
-
+			//Ajax Delete Controller
 			jQuery.ajax({
-				url: "admin/insertPlatformData", 
+				url: "admin/deletePlatformData", 				
 				type: "POST",
-				data: allData,
-				success: function(result){						
-					console.log("Plateforme ajoutée");							
+				data: data,
+				success: function(result){					
+					console.log("Plateforme supprimée");							
+					btn.parent().parent().remove();		
+
+					//Vérification si il n'y a plus de plateforme
+					jQuery.ajax({
+					 	url: "admin/platformsView",			 	
+					 	success: function(result1){	
+					 		//trim pour enlever les espaces
+					 		var isEmpty = jQuery.trim(result1);	
+					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
+					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
+					 			platformModule.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucune plateforme enregistrée pour le moment.</span></div>");
+					 		}		     			 		
+					 	},
+					 	error: function(result1){
+					 		console.log("No data found on platform.");
+					 	}
+					});								
 				},
 			 	error: function(result){
-			 		throw new Error("Couldn't add platform", result);
+			 		throw new Error("Couldn't delete this platform", result);
 			 	}
-			});
-		}*/
+			});		
+		});				
 	},
-	//Update sur le formulaire modifier
-	postDataUpdate : function(i){
-		var btn = platformModule.getSubmitBtn(i);						
 
-			var id = btn.parent().find(jQuery('.platform-id-p')).val();
-			var name = btn.parent().find(jQuery('.platform-nom-p')).val();
-			var description = btn.parent().find(jQuery('.platform-description-p')).val();		
+	//Modifier
+	postDataUpdate : function(){
+		platformModule.getUpdateBtn().on("click", function(e){
+			var updateBtn = jQuery(e.currentTarget);
 
-			//Plus rapide de créer l'objet en une fois si il y'a peu de data
-			var allData = {id : id, name : name, description : description};					
+			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-submit-form-btn');
 
-			jQuery.ajax({
-			 	url: "admin/updatePlatformsData",
-			 	type: "POST",
-			 	data: allData,
-			 	success: function(result){			 		 						 					 
-					console.log("Plateforme mise à jour");
-					var ihm = btn.parent().parent().parent().parent().parent();			
-					console.log("platform", ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-nom-g'));
+			submitBtn.on("click", function(){
+				var id = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-id-p').val();
+				var name = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-nom-p').val();
+				var description = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-description-p').val();
+				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p');
 
-					//Plus rapide que refaire une demande coté serv pour les données
-					ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-nom-g').html(name);			
-					ihm.find('.grid-md-4 > .admin-data-ihm-elem > .platform-description-g').html(description);			
-			 	},
-			 	error: function(result){
-			 		throw new Error("Couldn't update this platform", result)
-		 		}
-		});		
-	},
-	//Delete sur le boutton Supprimer
-	postDataDelete : function(i){
-		var btn = platformModule.getDeleteBtn(i);
-		
-		var allData = {id : btn.parent().parent().find(jQuery('.platform-id-p')).val()};		
+				var allData = {id : id, name : name, description : description};
 
-		jQuery.ajax({
-			url: "admin/deletePlatformData", 
-			type: "POST",
-			data: allData,
-			success: function(result){		
-				platformModule.toggleIfEmpty();				
-				console.log("Plateforme supprimée");			
-				btn.parent().parent().remove();
-			},
-		 	error: function(result){
-		 		throw new Error("Couldn't delete this platform", result);
-		 	}
+				//Upload des images
+			    if (typeof FormData !== 'undefined') {
+			           
+			        //Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
+
+			        if(file){
+
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = "upload/" + file.name;
+
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);				    		                             
+					    jQuery.ajax({
+				            url: "admin/updatePlatformsData", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image uploadé.");
+				                console.log(file.name);				       
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+			        }   				    
+			    } else {    	
+			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			    } 		
+
+			    //Update de la platform
+				jQuery.ajax({
+					url: "admin/updatePlatformsData", 
+					type: "POST",
+					data: allData,
+					success: function(result){
+						console.log("Plateforme mise à jour");
+						//Reload la mise a jour dans l'html
+						updateBtn.parent().parent().find('.platform-nom-g').html(name);
+						updateBtn.parent().parent().find('.platform-description-g').html(description);
+						//Si l'image uploadé existe on l'envoi dans la dom
+						if(allData.img){
+							updateBtn.parent().parent().find('.platform-img-up').attr('src', allData.img);	
+						}	
+						navbar.form.smoothClosing();				
+					},
+					error: function(result){
+						throw new Error("Couldn't update platform", result);
+					}
+				});
+			});			
 		});
+	},
+
+	//Ajouter
+	postDataInsert : function(){
+
+		//Ajout du formulaire dans la dom
+		platformModule.getInsertBtn().on("click", function(e){
+			var btn = jQuery(e.currentTarget);
+
+			btn.parent().parent().find('.admin-add-form-wrapper').html(
+				"<div class='index-modal-this index-modal-login align'>"+
+							
+					"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>"+
+						"<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>"+
+						   	"<label for='email'>Nom :</label>"+
+						   	"<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>"+
+						   	"<label for='email'>Description :</label>"+
+						   	"<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>"+							    						
+						   	"<div class='admin-avatar-wrapper m-a'>"+																	
+								"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>"+										
+							"</div>"+
+							"<div class='text-center admin-input-file'>"+								 
+							"<input type='file' class='platform-image-p' name='profilpic'>"+
+							"</div>"+
+						   	"<button type='button' class='platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>"+
+				  		"</form>"+
+				  	"</div>"+
+				"</div>"
+			);
+
+			//Envoi dans la BDD
+			var submitBtn = btn.parent().parent().find('.platform-submit-add-this-form-btn');
+
+			submitBtn.click(function(ev){
+				console.log("lol");
+				var subBtn = jQuery(ev.currentTarget);
+				var name = subBtn.parent().find('.platform-nom-p').val();
+				var description = subBtn.parent().find('.platform-description-p').val();
+
+				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
+
+				var allData = {name : name, description : description};
+
+				//Image
+			 	if (typeof FormData !== 'undefined') {
+				           
+			        //Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
+
+			        if(file){
+
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = "upload/" + file.name;
+
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);				    		                             
+					    jQuery.ajax({
+				            url: "admin/insertPlatformsData", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image '" + file.name + "' uploadé.");			       
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+			        }   				    
+			    } else {    	
+			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			    } 	
+
+			    //Insert de la platform
+				jQuery.ajax({
+					url: "admin/insertPlatformsData", 
+					type: "POST",
+					data: allData,
+					success: function(result){
+						console.log("Platforme ajoutée.");
+						console.log(allData);
+						navbar.form.smoothClosing();				
+					},
+					error: function(result){
+						throw new Error("Couldn't update platform", result);
+					}
+				});
+			});
+
+		});
+		navbar.setOpenFormAll();	
+		navbar.form.admin();	
+		navbar.form.closeFormKey();
+        navbar.form.closeFormClick();
 	}
 };
-
-
-

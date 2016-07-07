@@ -133,6 +133,15 @@ class userManager extends basesql{
 		]);
 	}
 
+	/*Modification tous les users d'une team : dissoudre la team*/
+	public function setAllUser(team $t=NULL){
+		$sql = "UPDATE user SET idTeam = NULL WHERE idTeam = :idTeam;";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTeam' => (($t)?$t->getId():NULL)
+		]);
+	}
+
 	/*MODIFICATION USER*/
 	public function setUser(user $u, user $newuser){
 		$data = [];

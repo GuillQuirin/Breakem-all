@@ -13,3 +13,4 @@ $(document).ready(function(){
 		$('.popup').fadeOut(500);
 	});
 });
+

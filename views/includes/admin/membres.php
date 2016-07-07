@@ -1,52 +1,155 @@
-<div class="admin-wrapper" id="admin-onglet-membres-wrapper">
-	<?php 			
-		if(is_array($listejoueur)){
-		?>							
-			<table class='full-width admin-form-table admin-table member' border='1'>
-			<thead>
-				<th>Pseudo</th>
-				<th>E-mail</th>
-				<!--<th>Statut</th>-->
-				<th>Image</th>
-				<th>Team</th>
-				<th>Signalements</th>
-				<th>En ligne</th>
-				<th>Statut de l'utilisateur</th>
-			</thead>
+<?php 			
+	if(isset($listejoueurs)){	
 
-			<?php
-			//Rajouter une tr/td pour les clés (nom, prenom, etc)
-			foreach ($listejoueur as $ligne => $joueur) {
-				echo "<tr>";
-					echo "<td><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></td>";
-					echo "<td>".$joueur->getEmail()."</td>";
-					//echo "<td>".$joueur->getStatusName($joueur->getStatus())."</td>";
-					echo "<td><img src='".$joueur->getImg()."'></td>";
-					echo "<td>".$joueur->getIdTeam()."</td>";
-					echo "<td>".$joueur->getReportNumber()."</td>";
-					echo "<td>";
-							if($joueur->getIsConnected()) 
-								echo "X";
-						echo "</td>";
-					echo "<td>
-							<select name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>
-								<option value='-1'";
-									echo ($joueur->getStatus()==-1) ? " selected " : " "; 
-								echo ">Banni</option>
-								<option value='1'";
-									echo ($joueur->getStatus()==1) ? " selected " : " ";
-								echo ">Utilisateur</option>
-								<option value='3'";
-									echo ($joueur->getStatus()==3) ? " selected " : " ";
-								echo ">Admin</option>
-							</select>
-						</td>";							
-					echo "</tr>";
-			}
-			?>
-			</tbody>					
-			</table>
-	<?php
-		} 
-	?>		
-</div>
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Connecté</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
+
+		</div>";
+
+		echo $cat;
+
+		if(is_array($listejoueurs)){			
+			foreach ($listejoueurs as $ligne => $joueur) {
+				//Wrapper				
+				echo "<div class='admin-data-ihm align relative'>";
+
+					//Affichage
+					//Image
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='img-cover' src='" .$joueur->getImg(). "'></div></div></div>";						
+					//Pseudo
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."<a/></span></div></div>";						
+					//Email
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
+					//Team
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-idteam-g'>"; 
+						if($joueur->getIdTeam()){
+							echo $joueur->getIdTeam();
+						}
+					echo "</span></div></div>";
+					//Report Number
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
+					//Is Connected
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'>";
+						if($joueur->getIsConnected()){
+							echo "<span class='capitalize membre-isconnected-g green'>Connecté</span>";
+						}else{
+							echo "<span class='capitalize membre-isconnected-g red'>Déconnecté</span>";
+						}
+						echo "</div></div>";
+					//Status
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
+						echo "<span class='capitalize membre-status-g'>";
+						switch ($joueur->getStatus()) {
+						    case -1:
+						        echo "Banni";
+						        break;
+						    case 1:
+						        echo "Utilisateur";
+						        break;
+						    case 3:
+						        echo "Administrateur";
+						        break;
+						}
+					echo "</span></div></div>";
+					//Fin Affichage
+
+					//Boutton
+					echo "<div class='admin-data-ihm-btn hidden align'>";
+						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
+						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Bannir</a></button>";
+					echo "</div>"; 
+					//Fin Boutton
+
+					//Formulaire
+					echo "<div class='index-modal platforms hidden-fade hidden'>";
+
+						echo "<div class='index-modal-this index-modal-login align'>";
+							
+							echo "<div class='grid-md-6 inscription_rapide animation fade'>";
+								echo "<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+									//Title
+									echo "<div class='grid-md-12 form-title-wrapper'>";
+										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
+									echo "</div>";
+									echo "<div class='grid-md-12'>";
+									//Image							    								 
+								    	echo "<div class='membre-form-img-size m-a'>";																	
+											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
+										echo "</div>";
+										echo "<div class='text-center admin-input-file'>";								 
+											echo "<input type='file' class='membre-image-p' name='profilpic'>";
+										echo "</div>";
+									echo "</div>";
+									echo "<div class='grid-md-6'>";
+										//Label
+										echo "<div class='grid-md-5 text-left'>";
+											echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
+											echo "<label for='nom'>Nom :</label>";
+											echo "<label for='prenom'>Prénom :</label>";
+											echo "<label for='pseudo'>Pseudo :</label>";
+											echo "<label for='birthday'>Birthday :</label>";
+											echo "<label for='report'>Report :</label>";
+										echo "</div>";
+										//Input
+										echo "<div class='grid-md-7'>";
+										    echo "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text' value='" . $joueur->getName() . "'>";									    
+										    echo "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-birthday-p' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
+										echo "</div>";								   
+								    echo "</div>";
+
+								    echo "<div class='grid-md-6'>";
+									   	
+									   	echo "<div class='grid-md-5 text-left'>";
+									   		//Label
+										    echo "<label for='kind'>Genre :</label>";
+										    echo "<label for='description'>Description :</label>";
+											echo "<label for='email'>Email :</label>";
+	 										echo "<label for='team'>Team :</label>";
+											echo "<label for='status'>Status :</label>";
+										echo "</div>";
+
+										echo "<div class='grid-md-7'>";
+											//Input
+										    echo "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text' value='" . $joueur->getKind() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text' value='" . $joueur->getDescription() . "'>";			    
+										    echo "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-team-p' name='team' type='text' value='" . $joueur->getIdTeam() . "'>";
+										    echo "<select class='select-default membre-status-p' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+												echo "<option value='-1'";
+													echo ($joueur->getStatus()==-1) ? " selected " : " "; 
+												echo ">Banni</option>
+												<option value='1'";
+													echo ($joueur->getStatus()==1) ? " selected " : " ";
+												echo ">Utilisateur</option>
+												<option value='3'";
+													echo ($joueur->getStatus()==3) ? " selected " : " ";
+												echo ">Admin</option>";
+											echo "</select>";		
+										echo "</div>";							 
+								    echo "</div>";
+								    //Submit
+								    echo "<div class='grid-md-12'>";
+								    	echo "<button type='button' class='admin-form-submit membre-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+								    echo "</div>";
+						  		echo "</form>";
+						  	echo "</div>";
+						echo "</div>";
+					echo "</div>";
+					//Fin Formulaire
+				echo "</div>";
+				//Fin Wrapper
+			}					
+		}
+	}else{
+		echo "<div class='grid-md-12 no-platform align'><span>Aucun membre enregistré pour le moment.</span></div>";		
+	} 
+?>		

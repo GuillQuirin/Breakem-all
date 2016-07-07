@@ -11,56 +11,108 @@ class adminController extends template{
             header('Location: ' .WEBPATH.'/index');
         }
     }
+
+    /* Gère la vue de Membres */
+    public function membresViewAction(){
+        $admin = new adminManager();
+        $listejoueurs = $admin->getListUser();  
+
+        $v = new view();
+        $v->assign("listejoueurs",$listejoueurs);
+        $v->setView("/includes/admin/membres", "templateEmpty");
+    }
+
+    /* Gère la vue de Plateforme */
+    public function platformsViewAction(){
+        $platform = new platformManager();
+        $listeplatforms = $platform->getListPlatform();        
+
+        $v = new view();       
+        $v->assign("listeplatform",$listeplatforms);
+        $v->setView("/includes/admin/platforms", "templateEmpty");
+    }
+
+    /* Gère la vue de Signalements */
+    public function reportsViewAction(){
+        $report = new signalmentsuserManager();
+        $listesignalement = $report->getListReports();
+
+        $v = new view();
+        $v->assign("listesignalement",$listesignalement);
+        $v->setView("/includes/admin/reports", "templateEmpty");
+    }
+
+    /* Gère la vue de Team */
+    public function teamsViewAction(){
+        $team = new teamManager();
+        $listeteam = $team->getListTeam(-2);
+
+        $v = new view();
+        $v->assign("listeteam",$listeteam);
+        $v->setView("/includes/admin/teams", "templateEmpty");
+    }
+
+    /* Gère la vue de Jeux */
+    public function gamesViewAction(){
+        $gameBDD = new gameManager();
+        $listegames = $gameBDD->getAllGames();
+
+        $v = new view();
+        $v->assign("listejeu",$listegames);
+        $v->setView("/includes/admin/games", "templateEmpty");
+    }
+
+    /* Gère la vue de Type de Jeu */
+    public function typegamesViewAction(){
+        $gametypeBDD = new typegameManager();
+        $listgametype = $gametypeBDD->getAllTypes();
+
+        $v = new view();
+        $v->assign("listetypejeu",$listgametype);
+        $v->setView("/includes/admin/gametypes", "templateEmpty");
+    }
+
+    /* Gère la vue de Commentaires */
+    public function commentsViewAction(){
+        $commentaireBDD = new commentManager();
+        $listcomment = $commentaireBDD->getAllComment();
+
+        $v = new view();
+        $v->assign("listecomment",$listcomment);
+        $v->setView("/includes/admin/comments", "templateEmpty");
+    }
+
+     /* Gère la vue de Tournois */
+    public function tournamentsViewAction(){
+        $tournamentBdd = new tournamentManager();    
+        $listtournament = $tournamentBdd->getListTournaments();
+
+        $v = new view();
+        $v->assign("listetournament",$listtournament);
+        $v->setView("/includes/admin/tournaments", "templateEmpty");
+    }
+
     
     public function adminAction(){
         if($this->isVisitorConnected() && $this->isAdmin()){
             $v = new view();
     		$this->assignConnectedProperties($v);
             $v->assign("css", "admin");
-                $js['admin']="admin";
+                $js['admin']="admin";     
                 $js['adminPlatforms']="adminPlatforms";
-                $js['gametype']="gametype";
-                $js['adminTournois']="adminTournois";
+                $js['adminMembres']="adminMembres";
+                $js['adminSignalement']="adminSignalement";
+                $js['adminComments']="adminComments";   
+                $js['adminTypeJeu']="adminTypeJeu"; 
+                $js['adminJeux']="adminJeux"; 
+                $js['adminTournoi']="adminTournoi";     
+                $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       
             $v->assign("title", "admin");
-            $v->assign("content", "Liste des Utilisateurs");
-
-            $admin = new adminManager();
-    		$listejoueurs = $admin->getListUser();  
-            
-            $platform = new platformManager();
-            $listeplatforms = $platform->getListPlatform();
-            
-            $report = new signalmentsuserManager();
-            $listesignalement = $report->getListReports();
-            
-            $team = new teamManager();
-            $listeteam = $team->getListTeam(-2);
-
-            $gametypeBDD = new typegameManager();
-            $listgametype = $gametypeBDD->getAllTypes();
-
-            $gameBDD = new gameManager();
-            $listegames = $gameBDD->getAllGames();
-
-            $commentaireBDD = new commentManager();
-            $listcomment = $commentaireBDD->getAllComment();
-
-            $v->assign("listejoueur",$listejoueurs);
-
-            $v->assign("listeplatform",$listeplatforms);
-
-            $v->assign("listesignalement",$listesignalement);
-
-            $v->assign("listeteam",$listeteam);
-
-            $v->assign("listetypejeu",$listgametype);
-
-            $v->assign("listejeu",$listegames);
-
-            $v->assign("listecomment",$listcomment);
+            $v->assign("content", "Liste des Utilisateurs");        
            
+            
             $v->setView("/includes/admin/accueil", "template");
         }
         else{ //On affiche la 404 pour faire croire que le mec tape n'importe quoi
@@ -70,44 +122,45 @@ class adminController extends template{
 
     /* PLATEFORME */
 
-    public function getPlatformsDataAction(){
-        $pm = new platformManager();
-        $typesObj = $pm->getListPlatform();
-        $data['res'] = [];        
-        foreach ($typesObj as $key => $obj) {
-            $arr = [];
-            $arr['id'] = $obj->getId();
-            $arr['name'] = $obj->getName();
-            $arr['img'] = $obj->getImg();
-            $arr['description'] = $obj->getDescription();
-            $data['res'][] = $arr;
+    public function insertPlatformsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
         }
-        echo json_encode($data['res']);
-        return;
-    }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }
 
-    public function insertPlatformDataAction(){
         $args = array(            
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,            
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING           
         );
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
-                        
-        $platformBdd = new platformManager();
-        $platformBdd->mirrorObject = new platform($filteredinputs);
-        if($platformBdd->create())
-            echo "CREATION";
+
+        $pbdd = new platformManager();
+        $p = new platform($filteredinputs);
+
+        if($pbdd->addPlatform($p))
+            echo "OK";
     }
 
     public function updatePlatformsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+
         $args = array(
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING
-        );        
-        
-        $filteredinputs = filter_input_array(INPUT_POST, $args);            
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING                     
+        );                                        
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
         $platformBdd = new platformManager();
         $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
@@ -172,7 +225,30 @@ class adminController extends template{
        header('Location: '.WEBPATH.'/admin');
     }
 
-    /* USER */
+    /* MEMBRES */
+    public function updateUserAction(){
+        $args = array(
+            'pseudo' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT,
+            'email' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $userBDD = new userManager();
+        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
+
+        $newuser = new user(array('status'=>$filteredinputs['status']));
+        
+        //Déconnexion automatique du membre banni
+        if($filteredinputs['status']==-1)
+            $userBDD->disconnecting($user);
+
+        $userBDD->setUser($user, $newuser);
+    }
+
+
     public function updateUserStatusAction(){
         $args = array(
             'pseudo' => FILTER_SANITIZE_STRING,
@@ -393,7 +469,7 @@ class adminController extends template{
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
         
-        $commentBDD = new commentManager();
+        $commentBDD = new commentsteamManager();
         $comment = $commentBDD->getComment($filteredinputs['id']);
 
         $commentBDD->delComment($comment);

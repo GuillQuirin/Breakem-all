@@ -4,6 +4,10 @@
     text-align:center;
 }
 
+.text-left{
+	text-align: left;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -50,4 +54,12 @@
 
 .looser-color{
 	color:red;
+}
+
+.red{
+	color:red;
+}
+
+.green{
+	color:green;
 }

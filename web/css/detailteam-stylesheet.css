@@ -23,6 +23,14 @@
     justify-content: center;
     max-width:200px;
 }
+.slogan-title{
+    margin-top:-150px;
+    margin-bottom:120px;
+    font-size:35px;
+    position: relative;
+    text-align: center;
+    font-style: italic;
+}
 
 .header-info{
     font-size:20px;
@@ -35,21 +43,25 @@
 .contain-team{
     border:1px solid white;
 }
-.contain-member{
 
-}
 .contain-member img{
     width:100px;
+}
+.team-content-wrapper{
+    padding:15px;
+}
+.team-tournoi{
+    margin-top:15px;
+}
+.team-container{
+    width:85%;
 }
 .title_index{
     width:88%;
     padding:10px;
     text-align: right;
-    background-color: .211d3b;
+    background-color: #211d3b;
     transform: skew(-8deg);
-}
-.title_index,label[for='title1']{
-    margin-top:50px;
 }
 
 .button-team{

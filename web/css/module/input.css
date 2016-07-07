@@ -49,6 +49,11 @@
     color:white;
 }
 
+.select-default.select-default-w{
+    background:#fff !important;
+    color:#000 !important;
+}
+
 .input-default[type=text]:focus, .input-default[type=password]:focus{
 	background-color: white;
 	color:black;

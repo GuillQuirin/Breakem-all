@@ -1,46 +1,81 @@
-<div class="admin-wrapper" id="admin-onglet-reports-wrapper">
-	<!-- <form action="admin/update" method="post" enctype="multipart/form-data"> -->
+<?php
+	if(isset($listesignalement)){	
 
-		<?php 			
-			if(isset($listesignalement) && is_array($listesignalement)){
-			?>							
-				<table class='full-width admin-form-table admin-table report' border='1'>
-				<thead>
-					<th>Emetteur</th>
-					<th>Accusé</th>
-					<th>Motif</th>
-					<th>Description</th>
-					<th>Date</th>
-					<th>Supprimer</th>
-				</thead>
+		$cat = "<div class='admin-data-ihm-title align relative'>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Emetteur</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Accusé</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Motif</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
+		</div>";
 
-				<?php
-				//Rajouter une tr/td pour les clés (nom, prenom, etc)
-				foreach ($listesignalement as $ligne => $report) {
-					echo "<tr>";
-						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getPseudo_indic_user()."'>".$report->getPseudo_indic_user()."<a/></td>";
-						echo "<td><a href='".WEBPATH."/profil?pseudo=".$report->getPseudo_signaled_user()."'>".$report->getPseudo_signaled_user()."<a/></td>";
-						echo "<td>".$report->getSubject()."</td>";
-						echo "<td>".$report->getDescription()."</td>";
-						echo "<td>".$report->getDate()."</td>";
-						echo "<td><button onclick=deleteReport(".$report->getId().")>Effacer</button></td>";						
-					echo "</tr>";
-				}
-				?>
-				<tr class='text-center'>
-					<td colspan='7' class='border-none admin-form-td-submit'>								
-						<button id='navbar-inscription' type='submit' class='btn btn-pink admin-form-submit'>
-							<a>Valider</a>
-						</button>
-					</td>
-				</tr>	
-				</tbody>					
-				</table>
-		<?php
-			}
-			else
-				echo "<p>Pas de signalements à récupérer</p>";
-		?>		
+		echo $cat;
 
-	<!-- </form>	 -->
-</div>
+		if(is_array($listesignalement)){			
+			foreach ($listesignalement as $ligne => $signalement) {
+				//Wrapper				
+				echo "<div class='admin-data-ihm align relative'>";
+
+					//Affichage
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-subject-g'>" . $signalement->getSubject() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $signalement->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-date-g'>" . $signalement->getDate() . "</span></div></div>";	
+					//Fin Affichage
+
+					//Boutton
+					echo "<div class='admin-data-ihm-btn hidden align'>";
+						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
+						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
+					echo "</div>"; 
+					//Fin Boutton
+
+					//Formulaire
+					echo "<div class='index-modal platforms hidden-fade hidden'>";
+
+						echo "<div class='index-modal-this index-modal-login align'>";
+							
+							echo "<div class='grid-md-4 inscription_rapide animation fade'>";
+								echo "<form class='report-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>";
+									//Title
+									echo "<div class='grid-md-12 form-title-wrapper'>";
+										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-report.png'><span class='form-title'>Signalement</span>";
+									echo "</div>";
+									echo "<div class='grid-md-12'>";
+										//Label
+										echo "<div class='grid-md-5 text-left'>";
+											echo "<input type='text' name='id' class='hidden report-id-p' value='" . $signalement->getId() . "'>";
+											echo "<label for='objet'>Objet :</label>";
+											echo "<label for='description'>Description :</label>";
+											echo "<label for='date'>Date :</label>";
+											echo "<label for='indic'>Emétteur :</label>";
+											echo "<label for='signaled'>Accusé :</label>";
+										echo "</div>";
+										//Input
+										echo "<div class='grid-md-7'>";
+										    echo "<input class='input-default admin-form-input-w report-objet-p' name='objet' type='text' value='" . $signalement->getSubject() . "'>";									    
+										    echo "<input class='input-default admin-form-input-w report-description-p' name='description' type='text' value='" . $signalement->getDescription() . "'>";
+										    echo "<input class='input-default admin-form-input-w report-date-p' name='date' type='text' value='" . $signalement->getDate() . "'>";
+										    echo "<input class='input-default admin-form-input-w report-indic-p' name='indic' type='text' value='" . $signalement->getPseudo_indic_user() . "'>";
+										    echo "<input class='input-default admin-form-input-w report-signaled-p' name='signaled' type='text' value='" . $signalement->getPseudo_signaled_user() . "'>";	
+										echo "</div>";								   
+								    echo "</div>";
+
+								    //Submit
+								    echo "<div class='grid-md-12'>";
+								    	echo "<button type='button' class='admin-form-submit report-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+								    echo "</div>";
+						  		echo "</form>";
+						  	echo "</div>";
+						echo "</div>";
+					echo "</div>";
+					//Fin Formulaire
+				echo "</div>";
+				//Fin Wrapper
+			}					
+		}
+	}else{
+		echo "<div class='grid-md-12 no-platform align'><span>Aucun signalement enregistré pour le moment.</span></div>";		
+	} 
+?>		

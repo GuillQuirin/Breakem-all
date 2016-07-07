@@ -4,6 +4,10 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 ?>
 
+
+
+
+
 <section class="low-height bg-cover-admin relative">
 
 	<div class="align full-height">
@@ -11,6 +15,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			<span class="header-title admin-header-title border-full relative">Administration</span>	
 		</div>
 	</div>	 
+
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
@@ -48,41 +53,53 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 		<div class="container m-a classement-container">
 
 			<div class="row classement-content-row">
-				<div class="grid-md-12">
+				<div class="grid-md-12">	
+					<!-- Default Layout -->
+					<div id="admin-board">
+						
+					</div>
+					<!-- Fin Default Layout -->
 
-					<!-- @Guillaume : Include a changé genre pour que se soit dynamic, coté controlleurs
+					<!-- Admin Layout -->
+					<div id="admin-container">
+						<!-- Admin wrapper -->
+						<div class="admin-wrapper">
+							<!-- Admin search -->
+							<div class="admin-navbar">		
+								<div class="row align">
+									<!--<div class="grid-md-3 admin-search-wrapper">
+										<form id="admin-search-form">
+											<input type="text" class="admin-search-input input-default" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
+										</form>
+									</div>
+									-->
+									<div class="grid-md-3 admin-add-wrapper" style="padding:25px 0;">
+										<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>
+									</div>
 
-					<!-- Membre -->
-					<?php include "membres.php"; ?>					
-					<!-- Fin Membre -->		
+									<!-- Formulaire d'ajout -->
+									<div class='index-modal admin-add-form-wrapper hidden-fade hidden'>
+									</div>
+									<!-- Fin Formulaire d'ajout -->
 
-					<!-- Plateformes -->
-					<?php include "plateformes.php"; ?>				
-					<!-- Fin Plateformes -->						
-					
-					<!-- Reports -->
-					<?php include "reports.php"; ?>	
-					<!-- Fin reports -->
+								</div>
+							</div>
+							<!-- Fin admin search -->
 
-					<!-- Team -->
-					<?php include "team.php"; ?>	
-					<!-- Fin Team -->
+							<!-- Admin title -->
+							<div class='admin-data-ihm-title align'>
+							</div>
+							<!-- Fin admin title -->
 
-					<!-- Gametype -->
-					<?php include "gametype.php"; ?>	
-					<!-- Fin Gametype -->
+							<!-- Admin Data -->
+							<div class="admin-data-re">
+							</div>
+							<!-- Fin admin Data -->
 
-					<!-- Games -->
-					<?php include "games.php"; ?>	
-					<!-- Fin Games -->
-
-					<!-- Comments -->
-					<?php include "comments.php"; ?>	
-					<!-- Fin Comments -->
-
-					<!-- Tournoi -->
-					<?php include "tournoi.php"; ?>	
-					<!-- Fin Comments -->
+						</div>
+						<!-- Fin admin wrapper -->
+					</div>
+					<!-- Fin Admin Layout -->					
 
 				</div>
 			</div>				
