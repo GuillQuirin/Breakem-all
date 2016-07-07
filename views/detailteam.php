@@ -71,7 +71,7 @@ else{
                         <?php
                         //Si le user appartient à une autre guilde
                         }else{
-                            echo "Vous faites déjà parti de la team <a href='".$linkUserTeam."'>".$nameUserTeam."</a>";
+                            echo "Vous faites déjà parti de la team".$nameUserTeam;
                         } 
                     //Si le user n'a pas de guilde
                     }else{ ?>
