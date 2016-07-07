@@ -31,14 +31,14 @@ else{
     <section class="middle-height bg-cover-detailteam relative  align full-height">
 
         <div class="team-title">
-            <img class="grid-md-5 align full-height" src="<?php if(isset($img))echo $img; ?>">
-            <span class="header-title align full-height"><?php echo $nameteam;?></span>
+            <img class="grid-md-5 align full-height" src="<?php if(isset($img)) echo $img; ?>">
+            <span class="header-title align full-height"><?php if(isset($nameteam)) echo $nameteam;?></span>
         </div>
     </section>
 
     <!-- Slogan -->
     <div class="slogan-title align">
-        "<?php echo $sloganteam; ?>"
+        <?php if(isset($sloganteam)) echo '"'.$sloganteam.'"'; ?>
     </div>
 
     <!-- Bouton selon le user --> 
@@ -59,7 +59,7 @@ else{
                                 <a>Dissoudre la Team !</a>
                             </button>
                             <button class="main btn btn-pink">
-                                <a class="btn-modif-team">Modifier Team</a>
+                                <a class="btn-modif-team">Modifier la Team</a>
                             </button>
                         <?php
                         //Si le user est dans la guilde
@@ -71,7 +71,7 @@ else{
                         <?php
                         //Si le user appartient à une autre guilde
                         }else{
-                            echo "Vous faites déjà parti de la team ".$nameUserTeam;
+                            echo "Vous faites déjà parti de la team <a href='".$linkUserTeam."'>".$nameUserTeam."</a>";
                         } 
                     //Si le user n'a pas de guilde
                     }else{ ?>
@@ -89,7 +89,13 @@ else{
             <div class="grid-md-4 grid-md-offset-8 contain-member ">
                 <div class="title_index">
                     <!-- Récupération de tous les membres de la guilde -->
-                    <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
+                    <label for="title1">Membres : 
+                    <?php if(isset($listemember)) 
+                            echo count($listemember);
+                          else 
+                            echo "Aucun membre dans cette team"; 
+                    ?>            
+                    </label>
                 </div>
                  <?php   
                     if(isset($listemember)): 

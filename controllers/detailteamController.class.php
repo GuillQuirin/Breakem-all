@@ -59,6 +59,7 @@ class detailteamController extends template{
                 $userTeam = $teamBDD->getTeam($infos_team);
                 $v->assign("userTeam",$userTeam);
                 $v->assign("nameUserTeam", $userTeam->getName());
+                $v->assign("linkUserTeam", $userTeam->getLink());
                 //$v->assign('idUserTeam',$userTeam->getId());
             }
 
