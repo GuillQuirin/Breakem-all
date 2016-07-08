@@ -213,7 +213,35 @@ class detailteamController extends template{
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }
 
-    public function reportAction(){
+    public function editCommentAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'comment' => FILTER_SANITIZE_STRING
+        );
+
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+        
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){      
+                die("Manque information : ".$key);
+            }
+        }
+
+        $commentBDD = new commentManager();
+        $commentaire = $commentBDD->getComment($filteredinputs['id']);
+
+        if($commentaire->getIdUser()==$this->getConnectedUser()->getId()
+            && time()-strtotime($commentaire->getDate())<3600){ // Limite de 1h pour éditer le commentaire
+            $commentBDD->editComment($commentaire, $filteredinputs['comment']);
+        }
+
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+    }
+
+    public function reportCommentAction(){
         $args = array(
             'id' => FILTER_SANITIZE_STRING
         );
