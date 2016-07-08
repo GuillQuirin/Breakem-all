@@ -54,6 +54,24 @@ class commentManager extends basesql{
 		return $list;
 	}
 
+	public function reportComment(comment $comment){
+		if($comment->getStatus()==0)
+			$sql = "UPDATE comment SET status=1 WHERE id=:id";
+		
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->bindValue(':id', $comment->getId());
+		$sth->execute();
+	}
+	
+	public function editComment(comment $comment, $message){
+		$sql = "UPDATE comment SET comment=:comment WHERE id=:id";
+		
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->bindValue(':id', $comment->getId());
+		$sth->bindValue(':comment', $message);
+		$sth->execute();
+	}
+
 	public function delComment(comment $comment){
 
 		$sql = ($comment->getStatus()==1) ? 
