@@ -108,7 +108,7 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser(),$team);
-            header("Location:../detailteam?name=".$team->getName());
+            header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
         
         if(isset($_POST['action-team-exit'])){
@@ -123,7 +123,7 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser());
-            header("Location:../detailteam?name=".$team->getName());
+            header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
 
         if(isset($_POST['action-team-dissoudre'])){
@@ -139,7 +139,7 @@ class detailteamController extends template{
 
             $userBDD->setAllUser($team);
             $teamBDD->changeStatusTeam($team);
-            header("Location:../team");
+            header("Location: ".WEBPATH."/team");
         }
     }
     
@@ -182,7 +182,7 @@ class detailteamController extends template{
 
         $teamBDD->updateTeam($team);
 
-        header("Location:../detailteam?name=".$team->getName());
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
 
     public function createCommentAction(){
@@ -210,7 +210,23 @@ class detailteamController extends template{
         $teamBDD = new teamManager();
         $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
         
-        header("Location:../detailteam?name=".$team->getName());
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+    }
+
+    public function reportAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING
+        );
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){      
+                die("Manque information : ".$key);
+            }
+        }
+
+        $commentBDD = new commentManager();
+        $commentBDD->reportComment($commentBDD->getComment($filteredinputs['id']));
     }
 
 }
