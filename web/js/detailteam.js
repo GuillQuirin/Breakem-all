@@ -29,10 +29,13 @@ $(document).ready(function(){
 	$("img[id^='comment-edit-']" ).on({
 		click: function(){
 			$("#MAJComment").prop("action","detailteam/editComment");
+			
 			var id = $(this).prop('id').replace("comment-edit-","");
 			$(this).parent().append("<input type='hidden' name='id' value='"+id+"'>");
+			
 			var message = $(this).parent().find(".message").html();
 			$(this).parent().find(".message").html("<textarea name='comment'>"+message+"</textarea>");
+			
 			$(this).parent().append("<input type='submit' value='Mettre à jour'>");		
 			}
 		});
