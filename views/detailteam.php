@@ -143,16 +143,20 @@ else{
  <?php
         if($_idTeam == $idteam){
             ?>
-            <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                <a>Rédiger un commentaire</a>
-            </button>
+            
             <section class="contain align full-height">
                 <?php 
                 if(isset($listecomment) && is_array($listecomment)){
                     foreach($listecomment as $commentaire){
                         echo '<div>';
+                            if($commentaire->getStatus()=="0")
+                                echo '<img class="cursor-pointer" id="comment-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
+                            
                             echo '<p>'.$commentaire->getPseudo().'</p>';
-                            echo '<p>'.$commentaire->getComment().'</p>';
+
+                            echo ($commentaire->getStatus()==-1) ? 
+                                    '<p class="italic">Ce commentaire a été modéré.</p>' :
+                                    '<p>'.$commentaire->getComment().'</p>';
                         echo '</div>';
                     }
                 }
@@ -160,7 +164,9 @@ else{
             </section>
             <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
             <textarea name="comment"></textarea>
-            <input type="submit">
+            <button name='action-comment-write' type='submit' class='btn btn-pink'>
+                <a>Rédiger un commentaire</a>
+            </button>
             </form>
 
             <?php
