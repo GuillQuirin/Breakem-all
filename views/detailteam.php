@@ -141,54 +141,43 @@ else{
         </section>
 
  <?php
-        if($_idTeam == $idteam){
-            ?>
-            
-            <section class="contain align full-height">
-                <?php 
-                if(isset($listecomment) && is_array($listecomment)){
-                    echo "<table>";
-                    foreach($listecomment as $commentaire){
-                        echo '<tr><td>';
-                            if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id) //Le mec va pas s'auto-ban
-                                echo '<img class="cursor-pointer signalement" id="comment-report-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
-                            
-                            if($commentaire->getStatus()=="0" 
-                                && $commentaire->getIdUser()==$_id
-                                && time()-strtotime($commentaire->getDate())<1800)
-                                echo '<img class="cursor-pointer edition" id="comment-edit-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/edit.png"><a/>';
-                                    
-                            echo '<p>'.$commentaire->getPseudo().'</p>';
-
-                            echo ($commentaire->getStatus()==-1) ? 
-                                    '<p class="italic">Ce commentaire a été modéré.</p>' :
-                                    '<p class="message">'.$commentaire->getComment().'</p>';
-                        echo '</td></tr>';
-                    }
-                    echo "</table>";
-                }
-                ?>
-            </section>
-            Création d'un commentaire:<br>
-            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-            <textarea name="comment"></textarea>
-            <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                <a>Rédiger un commentaire</a>
-            </button>
-            </form>
-
-            Edition du commentaire numero 5:<br>
-            <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="POST">
-            <input type="hidden" name="id" value="5">
-            <textarea name="comment"></textarea>
-            <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                <a>Modifier le commentaire</a>
-            </button>
-            </form>
-
-            <?php
-        }
+    if($_idTeam == $idteam){
         ?>
-<?php 
+        <section class="contain align full-height">
+        <form id="MAJComment" method="POST">
+            <?php 
+            if(isset($listecomment) && is_array($listecomment)){
+                echo "<table>";
+                foreach($listecomment as $commentaire){
+                    echo '<tr><td>';
+                        if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id) //Le mec va pas s'auto-ban
+                            echo '<img class="cursor-pointer signalement" id="comment-report-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
+                        
+                        if($commentaire->getStatus()=="0" 
+                            && $commentaire->getIdUser()==$_id
+                            && time()-strtotime($commentaire->getDate())<1800)
+                            echo '<img class="cursor-pointer edition" id="comment-edit-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/edit.png"><a/>';
+                                
+                        echo '<p>'.$commentaire->getPseudo().'</p>';
+
+                        echo ($commentaire->getStatus()==-1) ? 
+                                '<p class="italic">Ce commentaire a été modéré.</p>' :
+                                '<p class="message">'.$commentaire->getComment().'</p>';
+                    echo '</td></tr>';
+                }
+                echo "</table>";
+            }
+            ?>
+        </form>
+        </section>
+        Création d'un commentaire:<br>
+        <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+        <textarea name="comment"></textarea>
+        <button name='action-comment-write' type='submit' class='btn btn-pink'>
+            <a>Rédiger un commentaire</a>
+        </button>
+        </form>
+        <?php
+    }
 } 
 ?>
