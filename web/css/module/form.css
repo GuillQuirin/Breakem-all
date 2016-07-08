@@ -1,0 +1,41 @@
+/* Taille des formulaires */
+.form-pop{
+	max-width: 600px;
+	width:100%;
+}
+
+/* LG */
+ @media screen and (max-width: 801px) {
+ 	.form-pop{
+		max-width: 600px;
+		width:100%;
+	}
+ }
+
+ /* MD */
+ @media screen and (max-width: 801px) {
+ 	.form-pop{
+		max-width: 600px;
+		width:100%;
+	}
+ }
+
+/* SM */
+ @media screen and (max-width: 801px) {
+ 	.form-pop{
+		max-width: 600px;
+		width:100%;
+	}
+ }
+
+/* XS */
+ @media screen and (max-width: 801px) {
+ 	.form-pop{
+		max-width: 600px;
+		width:100%;
+	}
+ }
+
+
+
+
