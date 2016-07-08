@@ -12,5 +12,19 @@ $(document).ready(function(){
 	$('.popup-fond').click(function() {
 		$('.popup').fadeOut(500);
 	});
+
+	$("img[id^='comment-']" ).on('click', function() {
+		var commentaire = $(this).prop('id').replace("comment-","");
+		$.ajax({method: "POST",
+				data:{id: commentaire},
+				url: "detailteam/reportAction", 
+				success: function(result){
+					console.log($(this));
+            		$(this).html("");
+        		}
+        	}
+        );
+	});
+
 });
 
