@@ -136,3 +136,7 @@
     background:#080325;
 }
 /*Fin du popup */
+
+img.edition, img.signalement{
+    max-width: 10%;
+}

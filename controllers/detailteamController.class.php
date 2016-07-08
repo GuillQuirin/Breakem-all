@@ -231,7 +231,7 @@ class detailteamController extends template{
         $commentaire = $commentBDD->getComment($filteredinputs['id']);
 
         if($commentaire->getIdUser()==$this->getConnectedUser()->getId()
-            && time()-strtotime($commentaire->getDate())<3600){ // Limite de 1h pour éditer le commentaire
+            && time()-strtotime($commentaire->getDate())<1800){ // Limite de 30min pour éditer le commentaire
             $commentBDD->editComment($commentaire, $filteredinputs['comment']);
         }
 
