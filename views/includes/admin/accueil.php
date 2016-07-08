@@ -55,8 +55,22 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			<div class="row classement-content-row">
 				<div class="grid-md-12">	
 					<!-- Default Layout -->
-					<div id="admin-board">
-						
+					<div id="admin-board" class="admin-board text-center">
+						<!-- Dashboard Title -->
+						<div class="grid-md-12">
+							<span class="admin-board-title">Tableau de bord</span>
+						</div>
+						<!-- Fin Dashboard Title -->
+						<!-- Dashboard Introduction -->
+						<div class="grid-md-12">
+							<span>Bienvenue <?php echo $_pseudo?>, vous vous trouvez actuellement sur l'interface d'administration.</span>
+						</div>
+						<!-- Fin Dashbard Introduction -->
+						<!-- Dashboard Content -->
+						<div class="grid-md-12">
+
+						</div>
+						<!-- Fin Dashboard Content -->
 					</div>
 					<!-- Fin Default Layout -->
 

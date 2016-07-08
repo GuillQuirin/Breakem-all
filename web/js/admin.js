@@ -43,6 +43,7 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
 		onglet.getAdminContainer().hide();
+		onglet.getAdminBoard().show();
 
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){
