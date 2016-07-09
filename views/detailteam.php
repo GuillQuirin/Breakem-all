@@ -17,8 +17,8 @@ else{
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
             <form action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
-                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
-                Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
+                Slogan : <input type="text" name="slogan" value="<?php if(isset($sloganteam)) echo $sloganteam; ?>"> <br>
+                Description : <input type="text" name="description" value="<?php if(isset($descripteam)) echo $descripteam; ?>"><br>
                 Image :
                 <input class="" type="file" name="img"><br>
                 <input type="submit">
