@@ -61,6 +61,16 @@
 	border-color: #D92B4C;
 }
 
+.btn.btn-yellow.full a{
+	background: #e7b934;
+	border-color: #e7b934;
+}
+
+.btn.btn-white.full a{
+	background: #fff;
+	border-color: #fff;
+}
+
 /* BOUTON CIRCLE */
 .circle-button.default {
 	border: 1px solid #ffffff;

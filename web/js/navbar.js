@@ -23,6 +23,61 @@ function initAll(){
 	contactadmin.init();
 }
 
+/**
+*
+* Envoi l'image en ajax au controlleur
+*
+*/ 
+function uploadImage(myController, data) {
+
+	var el = {};
+
+	el.selector = data.selector ? data.selector : console.log("uploadImage() : Selector is missing");
+	el.id = data.id ? data.id : console.log("uploadImage() : Id is missing");
+
+    if (typeof FormData !== 'undefined') {
+           
+        var file_data = $(el.selector).prop('files')[0];   
+	    var form_data = new FormData();                  
+	    form_data.append('file', file_data);
+	    form_data.append('id', el.id);		                              
+	    jQuery.ajax({
+            url: myController, 
+            dataType: 'text',  
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(data){
+                console.log("Image uploadé.");
+            },
+            error: function(data){
+                console.log(data);
+            }
+	    });
+
+    } else {    	
+       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+    }   
+}
+
+
+//Preview de l'image avant upload
+function previewUpload(input, targetSrc) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            targetSrc.attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -427,7 +482,7 @@ var navbar = {
         },
         closeFormClick: function(){
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, input, button, label,textarea, p, a, img'))
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, [class*="grid-"] , select, option, .admin-input-file, input, button, label,textarea, p, a, img'))
 		   			navbar.form.smoothClosing();
 			});
         },

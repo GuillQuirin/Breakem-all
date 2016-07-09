@@ -88,10 +88,14 @@ class indexController extends template{
 		$tournamentBDD = new tournamentManager();
 		$tournoi = $tournamentBDD->getRecentsTournaments(1)[0];
 
-		$contenu="<p>Date de début: Le ".date('d/m/Y \à h:i',$tournoi->getStartDate())."</p>";
-		$contenu.="<p>Date de fin: Le ".date('d/m/Y \à h:i',$tournoi->getEndDate())."</p>";
-		$contenu.="<p>Jeu ciblé : <img class='img-popup' src='".$tournoi->getGameImg()."'></p>";
-		echo $contenu;
+		if($tournoi){
+			$contenu="<p>Date de début: Le ".date('d/m/Y \à h:i',$tournoi->getStartDate())."</p>";
+			$contenu.="<p>Date de fin: Le ".date('d/m/Y \à h:i',$tournoi->getEndDate())."</p>";
+			$contenu.="<p>Jeu ciblé : <img class='img-popup' src='".$tournoi->getGameImg()."'></p>";
+			echo $contenu;
+		}
+		else
+			echo "<p>Pas de nouveau tournoi de prévu</p>";
 	}
 }
 

@@ -3,12 +3,12 @@
 window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	onglet.init();
-	admin.init();
 });
 
 var onglet = {
 	_this: this,
 	init : function(){
+		//Setter Onglet
 		onglet.setAdminOngletPlatforms();
 		onglet.setAdminOngletMembres();
 		onglet.setAdminOngletReports();
@@ -18,6 +18,11 @@ var onglet = {
 		onglet.setAdminOngletComment();
 		onglet.setAdminOngletTournament();
 
+		//Setter
+		onglet.setAdminContainer();
+		onglet.setAdminBoard();
+		onglet.setAdminWrapper();
+		onglet.setAdminDataRe();
 		onglet.setAdminPlatformsWrapper();
 		onglet.setAdminMembresWrapper();
 		onglet.setAdminReportsWrapper();
@@ -27,6 +32,7 @@ var onglet = {
 		onglet.setAdminCommentWrapper();
 		onglet.setAdminTournamentWrapper();
 
+		//Ouverture des onglets
 		onglet.onClick(onglet.getAdminOngletPlatforms(), onglet.getAdminPlatformsWrapper());
 		onglet.onClick(onglet.getAdminOngletMembres(), onglet.getAdminMembresWrapper());
 		onglet.onClick(onglet.getAdminOngletReports(), onglet.getAdminReportsWrapper());
@@ -35,9 +41,69 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletGametype(), onglet.getAdminGametypeWrapper());
 		onglet.onClick(onglet.getAdminOngletComment(), onglet.getAdminCommentWrapper());
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
+
+		onglet.getAdminContainer().hide();
+
+		//Plateforme
+		onglet.getAdminOngletPlatforms().click(function(){
+			onglet.getAdminBoard().hide();	
+			onglet.getAdminContainer().show();
+			onglet.platformView();
+		});
+		//Admin
+		onglet.getAdminOngletMembres().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.membresView();
+		});
+		//Signalements
+		onglet.getAdminOngletReports().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.reportsView();
+		});
+		//Teams
+		onglet.getAdminOngletTeams().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.teamsView();
+		});
+		//Jeux
+		onglet.getAdminOngletGame().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.gamesView();
+		});
+		//Type de Jeu
+		onglet.getAdminOngletGametype().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.typegamesView();
+		});
+		//Commentaires
+		onglet.getAdminOngletComment().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.commentsView();
+		});
+		//Tournoi
+		onglet.getAdminOngletTournament().click(function(){
+			onglet.getAdminBoard().hide();
+			onglet.getAdminContainer().show();
+			onglet.tournamentsView();
+		});
 	},
 
 	//Setter
+	setAdminBoard : function(){
+		this._adminBoard = jQuery('#admin-board');
+	},
+	setAdminContainer : function(){
+		this._adminContainer = jQuery('#admin-container');
+	},
+	setAdminDataRe : function(){
+		this._adminDataRe = jQuery('.admin-data-re');
+	},
 	setAdminOngletPlatforms : function(){
 		this._adminOngletPlatforms = jQuery('#admin-onglet-platforms');
 	},
@@ -62,7 +128,9 @@ var onglet = {
 	setAdminOngletTournament : function(){
 		this._adminOngletTournament = jQuery('#admin-onglet-tournament');
 	},
-
+	setAdminDataIhm : function(){
+		this._adminDataIhm = jQuery(".admin-data-ihm");
+	},
 
 
 	setAdminPlatformsWrapper : function(){
@@ -89,10 +157,27 @@ var onglet = {
 	setAdminTournamentWrapper : function(){
 		this._adminTournamentWrapper = jQuery("#admin-onglet-tournament-wrapper");
 	},
-
+	setAdminWrapper : function(){
+		this._adminWrapper = jQuery('.admin-wrapper');
+	},
 
 
 	//Getter
+	getAdminBoard : function(){
+		return this._adminBoard;
+	},
+	getAdminContainer : function(){
+		return this._adminContainer;
+	},
+	getAdminDataIhm : function(){
+		return jQuery('.admin-data-ihm');
+	},
+	getAdminDataRe : function(){
+		return this._adminDataRe;
+	},
+	getAdminWrapper : function(){
+		return this._adminWrapper;
+	},
 	getAdminOngletPlatforms : function(){
 		return this._adminOngletPlatforms;
 	},
@@ -146,13 +231,231 @@ var onglet = {
 		return this._adminTournamentWrapper;
 	},
 
+	platformView : function(){
+	/* Plateforme */
+	onglet.getAdminDataIhm().remove();
+		jQuery.ajax({
+		 	url: "admin/platformsView",
+		 	success: function(result){			 	
+		 		//Affichage de la page	
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Platform
+				platformModule.init();			      
+		 	},
+		 	error: function(result){
+		 		console.log("No data found on platform.");
+		 	}
+		});
+	
+		return false;
+	
+	},
+	membresView : function(){
+	/* Membres */
+		
+	onglet.getAdminDataIhm().remove();	
+		jQuery.ajax({
+		 	url: "admin/membresView",
+		 	success: function(result){	
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				membreModule.init();
+		 	},
+		 	error: function(result){
+		 		console.log("No data found on membres.");
+		 	}
+		});
 
+		return false;
 
+	},
+	reportsView : function(){
+		/* Signalements */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/reportsView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				signalementModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	teamsView : function(){
+		/* Teams */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/teamsView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				teamModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	gamesView : function(){
+		/* Jeux */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/gamesView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				gameModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	typegamesView : function(){
+		/* Signalement */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/typegamesView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				typegameModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	commentsView : function(){
+		/* Commentaires */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/commentsView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				commentModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
+	tournamentsView : function(){
+		/* Tournoi */
+		
+		onglet.getAdminDataIhm().remove();	
+
+		jQuery.ajax({
+		 	url: "admin/tournamentsView",
+		 	success: function(result){
+		 		//Affichage de la page		 		
+		 		jQuery('.admin-data-re').html(result);
+		 		//Affichage des boutons sur hover
+		 		admin.ihmElemHover();
+		 		//Ouverture et Fermeture du formulaire
+				navbar.setOpenFormAll();	
+				navbar.form.admin();	
+				navbar.form.closeFormKey();
+    			navbar.form.closeFormClick();
+				//Membre
+				tournoiModule.init();
+		 	},
+		 	error: function(result){
+		 		alert("non");
+		 	}
+		});
+
+		return false;
+
+	},
 	onClick : function(btnClick, ongletSelector){
 		btnClick.click(function(){
 			jQuery(".admin-onglet-li").removeClass('active');
 			jQuery(this).addClass('active');
-			jQuery(".admin-wrapper").css('display', 'none');
 			onglet.show(ongletSelector);
 		});
 	},
@@ -165,10 +468,6 @@ var onglet = {
 };
 
 var admin = {
-	init : function(){
-		platformModule.init();
-		tournamentModule.init();
-	},
 	ihmElemHover : function(){
 		jQuery('.admin-data-ihm').hover(
 		  function() {
@@ -185,57 +484,3 @@ $("button[id^='validate-change-']" ).on('click', function() {
 	//Recherche le formulaire le plus proche pour valider
     $(this).closest('form').submit();
 });
-
-
-
-//Maj user
-function setStatut(pseudo, value){
-	jQuery.ajax({
-	 	url: "admin/updateUserStatus",
-	 	type: "POST",
-	 	data : "pseudo="+pseudo+"&status="+value,
-	 	succes: function(result){
-	 		console.log(result);
-	 	},
-	 	error: function(result){
-	 		alert("non");
-	 	}
-	});
-}
-
-//Maj signalement
-function deleteReport(id){
-	if(confirm("Souhaitez vous supprimer cet avertissement ?")){
-		jQuery.ajax({
-		 	url: "admin/DeleteReports",
-		 	type: "POST",
-		 	data : "id="+id,
-		 	success: function(result){
-		 		location.reload(true);
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	}
-}
-
-//Maj commentaire
-function deleteComment(id){
-	if(confirm("Souhaitez vous modérer ce commentaire ?")){
-		jQuery.ajax({
-		 	url: "admin/delComment",
-		 	type: "POST",
-		 	data : "id="+id,
-		 	success: function(result){
-		 		location.reload(true);
-		 		//console.log(result);
-		 	},
-		 	error: function(result){
-		 		alert("non");
-		 	}
-		});
-	}
-}
-
