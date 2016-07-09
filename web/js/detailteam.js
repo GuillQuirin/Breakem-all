@@ -22,8 +22,7 @@ $(document).ready(function(){
 				data:{id: commentaire},
 				url: "detailteam/reportComment", 
 				success: function(result){
-					console.log($(this));
-            		$(this).html("");
+            		$("#comment-report-"+commentaire).remove();
         		}
         	}
         );
