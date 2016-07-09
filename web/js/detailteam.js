@@ -8,11 +8,12 @@ $(document).ready(function(){
 	//Edition de la team
 	$('.btn-modif-team').click(function() {
 		$('.popup').fadeIn('100');
+		return false;
 	});
 
-	// $('.popup-fond').click(function() {
-	// 	$('.popup').fadeOut(500);
-	// });
+	$('.popup-fond').click(function() {
+		$('.popup').fadeOut(500);
+	});
 
 	//Signalement d'un commentaire
 	$("img[id^='comment-report-']" ).on('click', function() {
