@@ -16,7 +16,7 @@ else{
     <section class="popup">
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
-            <form class="formteam" action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">
+            <form class="formteam" action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
 		<table>
                     <tr>
                         <td>Slogan : </td>
