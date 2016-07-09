@@ -21,11 +21,11 @@
 .team-title img{
     display: flex;
     justify-content: center;
-    max-width:200px;
+    width:200px;
 }
 .slogan-title{
     margin-top:-150px;
-    margin-bottom:120px;
+    margin-bottom:100px;
     font-size:35px;
     position: relative;
     text-align: center;
@@ -174,9 +174,6 @@
     background:#080325;
     padding:5;
 }
-.popup-comment-edit{
-    display: none;
-
 .popup-contain h2{
     text-align: center;
     font-size:25px;
@@ -224,10 +221,6 @@
 
 /*Fin du popup */
 
-img.edition, img.signalement{
-    max-width: 10%;
-}
-
 .commentaire-team img{
     width:100px;
 }
@@ -247,9 +240,6 @@ img.edition, img.signalement{
     margin-top:15px;
     margin-left:20px;
 }
-.comment-img img{
-    width:50px;
-}
 .team-comment{
     width:200px;
     text-decoration: underline;
@@ -266,7 +256,6 @@ img.edition, img.signalement{
     font-size:15px;
     transform: skew(-8deg);
 }
-
 .crown{
     width:50px !important;
     margin-top:-50px;
@@ -287,6 +276,10 @@ img.edition, img.signalement{
         position: relative;
         margin-top:0px;
     }
+    .contain-member{
+        position: absolute;
+        margin-top:250px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -296,4 +289,4 @@ img.edition, img.signalement{
         margin-right:50px;
         width:150px;
     }
-}/*Fin du popup */
+}
