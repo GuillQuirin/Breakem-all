@@ -42,7 +42,7 @@ $(document).ready(function(){
 		var id = $(this).prop('id').replace("comment-edit-","");
 		$('.popup-comment-edit input[name="id"]').prop("value", id);
 
-		var message = $(this).parent().find(".message").html();
+		var message = $.trim($(this).parent().find(".message").html());
 		$('.popup-comment-edit textarea').text(message);
 
 		$('.popup-comment-edit').fadeIn('100');
