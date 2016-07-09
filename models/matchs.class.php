@@ -67,7 +67,7 @@ final class matchs{
 		return false;
 	}
 
-	public function getLosingTeams(){
+	public function gtLosingTeams(){
 		if(!is_numeric($this->_idWinningTeam) || count($this->_teamstournament) == 0)
 			return false;
 		$losingTeams= [];

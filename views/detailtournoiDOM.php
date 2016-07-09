@@ -108,7 +108,7 @@
 			<div class="detailtournoi-matchs-container full-width display-flex-row">
 			<?php foreach ($tournoi->gtAllMatchs() as $key => $match): ?>
 				<?php $winnerTeam = $match->gtWinningTeam(); ?>
-				<?php $losingTeams = $match->getLosingTeams(); ?>
+				<?php $losingTeams = $match->gtLosingTeams(); ?>
 				<?php if (!!$winnerTeam): ?>
 					<div class="detailtournoi-match-over display-flex-row">
 						<div class="detailtournoi-match-winningteam display-flex-column">
