@@ -135,6 +135,10 @@
     margin-top:-250px;
     background:#080325;
 }
+.popup-comment-edit{
+    display: none;
+}
+
 /*Fin du popup */
 
 img.edition, img.signalement{
