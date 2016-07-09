@@ -44,11 +44,6 @@ else{
                         </td>
                     </tr>
                 </table>                
-                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
-                Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
-                Image :
-                <input class="" type="file" name="img"><br>
-                <input type="submit">
             </form>
         </div>
         <div class="popup-fond"></div>
@@ -56,7 +51,6 @@ else{
 
     <!-- Titre : Nom de la team -->
     <section class="middle-height bg-cover-detailteam relative  align full-height">
-
         <div class="team-title">
             <img class="grid-md-5 align full-height" src="<?php if(isset($img)) echo $img; ?>">
             <span class="header-title align full-height"><?php if(isset($nameteam)) echo $nameteam;?></span>
@@ -112,7 +106,7 @@ else{
 
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
-        <div class=" container m-a content-border team-container">
+        <div class=" container m-a team-container">
             <div class="grid-md-4 grid-md-offset-8 contain-member ">
                 <div class="title_index">
                     <!-- Récupération de tous les membres de la team -->
@@ -237,50 +231,71 @@ else{
                 <div class="title_index">
                     <label for="title3">Commentaire</label>
                 </div>
-            </div>
 
-                 <?php
-                  if(!empty($_isConnected)){
-                  ?>
-                     <div class="contain full-height">
-                        <?php 
-                          if(isset($listecomment) && is_array($listecomment)){
-                              foreach($listecomment as $commentaire){
-                              ?>
-                                  <div class='container-comment'>
-                                      <div class='comment-img'>
-                                          <?php echo '<img src="' .$commentaire->getImg().'">'; ?>
-                                      </div>
-                                      <div class='contain-text-comment'>
-                                          <div class='comment-user pseudo'>
-                                              <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$commentaire->getPseudo();?>">
-                                                     <?php echo $commentaire->getPseudo(); ?></a>
-                                              </span>
-                                         </div>
-                                          <div class='comment'>
-                                              "<?php echo $commentaire->getComment(); ?>"
-                                          </div>
-                                      </div>
-                                  </div>
-                              <?php
-                              }
-                          }
-                         ?>
-                     </div>
-                      <div class="textarea-comment">
-                          <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-                              <h2>Rédiger un commentaire :</h2>
-                             <textarea name="comment" placeholder='Mettez votre commentaire ici !'></textarea><br>
-                              <button name='action-team-comment' type='submit' class='btn btn-pink team-comment'>
-                                  <a>Envoyer votre commentaire</a>
-                              </button>
-                          </form>
-                      </div>
-                 <?php
-                  }else{ 
+                <?php
+                if(!empty($_isConnected)){
+                ?>
+                    <div class="contain full-height">
+                        <form id="MAJComment" method="POST">
+                            <?php 
+                                if(isset($listecomment) && is_array($listecomment)){
+                                    foreach($listecomment as $commentaire){
+                                ?>
+                                        <div class='container-comment'>
+                                            <div class='comment-img'>
+                                                <?php echo '<img src="' .$commentaire->getImg().'">'; ?>
+                                            </div>
+                                            <div class='contain-text-comment'>
+                                                <div class='comment-user pseudo'>
+                                                    <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$commentaire->getPseudo();?>">
+                                                        <?php echo $commentaire->getPseudo(); ?></a>
+                                                    </span>
+                                                </div>
+                                                <div class='comment'>
+                                                    "<?php echo $commentaire->getComment(); ?>"
+                                                </div>
+                                            </div>
+                                            
+                                            <div class='contain-signal-comment'>
+                                                <?php 
+                                                //Pas d'auto-ban
+                                                if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id){ 
+                                                ?>
+                                                    <img class="cursor-pointer signalement" id="comment-report-<?php echo $commentaire->getId();?>" src="<?php echo WEBPATH.'/web/img/alert.ico';?> ">
+                                                <?php }?>
+                                            </div>
+                                                <?php
+                                                if($commentaire->getStatus()=="0" 
+                                                    && $commentaire->getIdUser()==$_id 
+                                                    && time()-strtotime($commentaire->getDate())<1800){
+                                                ?>
+                                                <img class="comment-img cursor-pointer edition" id="comment-edit-<?php echo $commentaire->getId();?>" src="<?php echo WEBPATH.'/web/img/edit.png';?>">
+                                                <?php 
+                                                } ?>
+                                            
+                                        </div>
+                                <?php
+                                    }
+                                }
+                            ?>
+                        </form>
+                    </div>
+                    <div class="textarea-comment">
+                        <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+                            <h2>Rédiger un commentaire :</h2>
+                            <textarea name="comment" placeholder='Mettez votre commentaire ici !'></textarea><br>
+                            <button name='action-team-comment' type='submit' class='btn btn-pink team-comment'>
+                                <a>Envoyer votre commentaire</a>
+                            </button>
+                        </form>
+                    </div>
+                <?php
+                }else{ 
                     echo "Connecte toi pour voir les commentaires de cette team";
-                }
-
+                }?>
+            </div>
+        <?php
+/*
 		//Espace commentaire: reservé aux membres de la team
 	    if(isset($_idTeam) && $_idTeam == $idteam){
          ?>
@@ -316,13 +331,6 @@ else{
                     ?>
                 </form>
             </section>
-            Création d'un commentaire:<br>
-            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-                <textarea name="comment" required></textarea>
-                <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                    <a>Rédiger un commentaire</a>
-                </button>
-            </form>
 
             <section class="popup-comment-edit">
                 <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
@@ -334,7 +342,7 @@ else{
             </section>
     </div>
     <?php
-        }
+        }*/
 
         ?>
 <?php 

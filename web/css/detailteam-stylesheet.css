@@ -247,6 +247,9 @@ img.edition, img.signalement{
     margin-top:15px;
     margin-left:20px;
 }
+.comment-img img{
+    width:50px;
+}
 .team-comment{
     width:200px;
     text-decoration: underline;
@@ -263,6 +266,7 @@ img.edition, img.signalement{
     font-size:15px;
     transform: skew(-8deg);
 }
+
 .crown{
     width:50px !important;
     margin-top:-50px;
