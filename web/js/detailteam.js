@@ -29,6 +29,14 @@ $(document).ready(function(){
         );
 	});
 
+	//Rédaction d'un commentaire
+	$("button[name='action-comment-write']").click(function(){
+		if($.trim($(this).parent().find('textarea').val())==""){
+			console.log("Message non vide obligatoire");
+			return false;
+		}
+	});
+
 	//Edition d'un commentaire
 	$("img[id^='comment-edit-']").click(function() {
 		var id = $(this).prop('id').replace("comment-edit-","");

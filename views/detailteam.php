@@ -141,6 +141,7 @@ else{
         </section>
 
  <?php
+    //Espace commentaire: reservé aux membres de la team
     if(isset($_idTeam) && $_idTeam == $idteam){
         ?>
         <section class="contain align full-height">
@@ -172,10 +173,10 @@ else{
         </section>
         Création d'un commentaire:<br>
         <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-        <textarea name="comment"></textarea>
-        <button name='action-comment-write' type='submit' class='btn btn-pink'>
-            <a>Rédiger un commentaire</a>
-        </button>
+            <textarea name="comment" required></textarea>
+            <button name='action-comment-write' type='submit' class='btn btn-pink'>
+                <a>Rédiger un commentaire</a>
+            </button>
         </form>
 
         <section class="popup-comment-edit">
