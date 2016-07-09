@@ -30,11 +30,11 @@ else{
                             <textarea  class="desc-default" rows="3" name="description" ><?php echo $descripteam; ?></textarea>
                         </td>
                     </tr>
-                    <tr><!--
+                    <tr>
                         <td>Image : </td>
                         <td>
                             <input class="image-default" type=file name="img">
-                        </td>-->
+                        </td>
                     </tr>
                     <tr>
                         <td colspan=2>
@@ -43,12 +43,7 @@ else{
                             </button>
                         </td>
                     </tr>
-                </table>
-                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
-                Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
-                Image :
-                <input class="" type="file" name="img"><br>
-                <input type="submit">
+                </table>    
             </form>
         </div>
         <div class="popup-fond"></div>
