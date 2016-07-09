@@ -73,7 +73,7 @@ class tournoiController extends template {
 								$m->addTeamTournament($t);
 							}
 						}
-						$matchedTournaments->addMatch($m);
+						$matchedTournament->addMatch($m);
 					}
 					unset($ttm, $rm);
 				}
