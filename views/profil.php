@@ -54,7 +54,7 @@ else{
 						<?php 
 							if(isset($isConnected))
 								echo "Connecté";
-							elseif(isset($lastConnexion)){
+							elseif(isset($lastConnexion))
 							 	echo strftime('le %e %B à %H:%M', $lastConnexion);
 							else 
 								echo "Pas de dernière connexion.";
