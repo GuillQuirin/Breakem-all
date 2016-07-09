@@ -177,6 +177,16 @@ else{
             <a>Rédiger un commentaire</a>
         </button>
         </form>
+
+        <section class="popup-comment-edit">
+            <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
+                <input type="hidden" name="id" value="">
+                <textarea name="comment"></textarea>
+                <input type="submit" value="Mettre à jour">
+                <input type="reset" class="cancel" value="Annuler">
+            </form>
+        </section>
+
         <?php
     }
 } 
