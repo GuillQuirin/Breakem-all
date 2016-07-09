@@ -17,7 +17,7 @@ else{
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
             <form class="formteam" action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
-		<table>
+		        <table>
                     <tr>
                         <td>Slogan : </td>
                         <td>
@@ -30,11 +30,11 @@ else{
                             <textarea  class="desc-default" rows="3" name="description" ><?php echo $descripteam; ?></textarea>
                         </td>
                     </tr>
-                    <tr><!--
+                    <tr>
                         <td>Image : </td>
                         <td>
                             <input class="image-default" type=file name="img">
-                        </td>-->
+                        </td>
                     </tr>
                     <tr>
                         <td colspan=2>
@@ -43,7 +43,8 @@ else{
                             </button>
                         </td>
                     </tr>
-                </table>                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
+                </table>                
+                Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
                 Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
                 Image :
                 <input class="" type="file" name="img"><br>
@@ -116,48 +117,49 @@ else{
                 <div class="title_index">
                     <!-- Récupération de tous les membres de la team -->
                     <label for="title1">Membres : 
-			<?php if(isset($listemember)) 
-				echo count($listemember);
-			      else 
-				echo "Aucun membre dans cette team" 
-			?>
-		     </label>
+    			    <?php 
+                        if(isset($listemember)) 
+    				        echo count($listemember);
+    			        else 
+    				        echo "Aucun membre dans cette team"; 
+    			    ?>
+    		        </label>
                 </div>
-                 <?php   
-                    if(isset($listemember)): 
+                <?php   
+                    if(isset($listemember) && is_array($listemember)): 
                         foreach ($listemember as $key => $user):
                 ?>  
                             <div class="liste_member"> 
-                                    <ul class="grid-md-12 team-select-ul">  
-                                        <li>
-                                            <img src='<?php echo $user->getImg(); ?>'>
-                                            <ul class="pseudo_member pseudo">
-                                                <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
-                                                    <?php echo $user->getPseudo(); ?></a>
-                                                </span>
-                                                <?php 
-                                                if($idcreator == $user->getId()){ ?>
-                                                    <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
-                                                <?php  
-                                                } ?>
-                                            </ul>
-                                            
-                                        </li>                     
-                                    </ul>   
-                                </div>  
-                    <?php 
-                            endforeach;
-                        endif;
-                    ?>
-                </div>
-            </section>
+                                <ul class="grid-md-12 team-select-ul">  
+                                    <li>
+                                        <img src='<?php echo $user->getImg(); ?>'>
+                                        <ul class="pseudo_member pseudo">
+                                            <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
+                                                <?php echo $user->getPseudo(); ?></a>
+                                            </span>
+                                            <?php 
+                                            if($idcreator == $user->getId()){ ?>
+                                                <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
+                                            <?php  
+                                            } ?>
+                                        </ul>
+                                    </li>                     
+                                </ul>   
+                            </div>  
+                <?php 
+                        endforeach;
+                    endif;
+                ?>
+            </div>
+        </div>
+    </section>
 
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
         <div class=" container m-a content-border team-container">
             <div class="liste_member grid-md-4">
                 <?php   
-                    if(isset($listemember)): 
+                    if(isset($listemember) && is_array($listemember)): 
                         foreach ($listemember as $key => $user):
                             if($idcreator == $user->getId()){ ?>
                                 <div class="leader_member"> 
@@ -174,9 +176,9 @@ else{
                                                     <?php echo $user->getPseudo(); ?></a>
                                                 </span>
                                             </ul>
-                                    </li>                        
-                                </ul>                                                                                       
-                            </div>  
+                                        </li>                        
+                                    </ul>                                                                                       
+                                </div>  
                 <?php 
                             }
                         endforeach;
@@ -230,63 +232,69 @@ else{
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="grid-md-10 commentaire-team">
-                <div class="title_index">
-                    <label for="title3">Commentaire</label>
-                </div>
+        <div class="grid-md-10 commentaire-team">
+            <div class="title_index">
+                <label for="title3">Commentaire</label>
+            </div>
+        </div>
 
- <?php
+        <?php
 		//Espace commentaire: reservé aux membres de la team
-	        if(isset($_idTeam) && $_idTeam == $idteam){
-            ?>
-            <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                <a>Rédiger un commentaire</a>
-            </button>
+	    if(isset($_idTeam) && $_idTeam == $idteam){
+         ?>
+
             <section class="contain align full-height">
-        <form id="MAJComment" method="POST">
-            <?php 
-            if(isset($listecomment) && is_array($listecomment)){
-                echo "<table>";
-                foreach($listecomment as $commentaire){
-                    echo '<tr><td>';
-                        if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id) //Le mec va pas s'auto-ban
-                            echo '<img class="cursor-pointer signalement" id="comment-report-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
-                        
-                        if($commentaire->getStatus()=="0" 
-                            && $commentaire->getIdUser()==$_id
-                            && time()-strtotime($commentaire->getDate())<1800)
-                            echo '<img class="cursor-pointer edition" id="comment-edit-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/edit.png"><a/>';
+                <form id="MAJComment" method="POST">
+                    <?php 
+                    if(isset($listecomment) && is_array($listecomment)){
+                        echo "<table>";
+                        foreach($listecomment as $commentaire){
+
+                            echo '<tr><td>';
+                                if($commentaire->getStatus()=="0" 
+                                    && $commentaire->getIdUser()!==$_id){ //Le mec va pas s'auto-ban
+                                    echo '<img class="cursor-pointer signalement" id="comment-report-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
+                                }
                                 
-                        echo '<p>'.$commentaire->getPseudo().'</p>';
+                                if($commentaire->getStatus()=="0" 
+                                    && $commentaire->getIdUser()==$_id 
+                                    && time()-strtotime($commentaire->getDate())<1800){
+                                        echo '<img class="cursor-pointer edition" id="comment-edit-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/edit.png"><a/>';
+                                    }
+                                    echo '<p>'.$commentaire->getPseudo().'</p>';
 
-                        echo ($commentaire->getStatus()==-1) ? 
-                                '<p class="italic">Ce commentaire a été modéré.</p>' :
-                                '<p class="message">'.$commentaire->getComment().'</p>';
-                    echo '</td></tr>';
-                }
-                echo "</table>";
-            }
-            ?>
-        </form>
-        </section>
-        Création d'un commentaire:<br>
-        <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-            <textarea name="comment" required></textarea>
-            <button name='action-comment-write' type='submit' class='btn btn-pink'>
-                <a>Rédiger un commentaire</a>
-            </button>
-        </form>
-
-        <section class="popup-comment-edit">
-            <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
-                <input type="hidden" name="id" value="">
-                <textarea name="comment"></textarea>
-                <input type="submit" value="Mettre à jour">
-                <input type="reset" class="cancel" value="Annuler">
+                                    echo ($commentaire->getStatus()==-1) ? 
+                                            '<p class="italic">Ce commentaire a été modéré.</p>' :
+                                            '<p class="message">'.$commentaire->getComment().'</p>';
+                                    echo '</td></tr>';
+                                
+                        }
+                        echo "</table>";
+                    }
+                    ?>
+                </form>
+            </section>
+            Création d'un commentaire:<br>
+            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+                <textarea name="comment" required></textarea>
+                <button name='action-comment-write' type='submit' class='btn btn-pink'>
+                    <a>Rédiger un commentaire</a>
+                </button>
             </form>
-        </section>
+
+            <section class="popup-comment-edit">
+                <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
+                    <input type="hidden" name="id" value="">
+                    <textarea name="comment"></textarea>
+                    <input type="submit" value="Mettre à jour">
+                    <input type="reset" class="cancel" value="Annuler">
+                </form>
+            </section>
+    <?php
         }
+
         ?>
 <?php 
 } 
