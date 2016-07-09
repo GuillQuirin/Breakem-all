@@ -232,15 +232,55 @@ else{
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="grid-md-10 commentaire-team">
-            <div class="title_index">
-                <label for="title3">Commentaire</label>
+            <div class="grid-md-10 commentaire-team">
+                <div class="title_index">
+                    <label for="title3">Commentaire</label>
+                </div>
             </div>
-        </div>
 
-        <?php
+                 <?php
+                  if(!empty($_isConnected)){
+                  ?>
+                     <div class="contain full-height">
+                        <?php 
+                          if(isset($listecomment) && is_array($listecomment)){
+                              foreach($listecomment as $commentaire){
+                              ?>
+                                  <div class='container-comment'>
+                                      <div class='comment-img'>
+                                          <?php echo '<img src="' .$commentaire->getImg().'">'; ?>
+                                      </div>
+                                      <div class='contain-text-comment'>
+                                          <div class='comment-user pseudo'>
+                                              <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$commentaire->getPseudo();?>">
+                                                     <?php echo $commentaire->getPseudo(); ?></a>
+                                              </span>
+                                         </div>
+                                          <div class='comment'>
+                                              "<?php echo $commentaire->getComment(); ?>"
+                                          </div>
+                                      </div>
+                                  </div>
+                              <?php
+                              }
+                          }
+                         ?>
+                     </div>
+                      <div class="textarea-comment">
+                          <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+                              <h2>Rédiger un commentaire :</h2>
+                             <textarea name="comment" placeholder='Mettez votre commentaire ici !'></textarea><br>
+                              <button name='action-team-comment' type='submit' class='btn btn-pink team-comment'>
+                                  <a>Envoyer votre commentaire</a>
+                              </button>
+                          </form>
+                      </div>
+                 <?php
+                  }else{ 
+                    echo "Connecte toi pour voir les commentaires de cette team";
+                }
+
 		//Espace commentaire: reservé aux membres de la team
 	    if(isset($_idTeam) && $_idTeam == $idteam){
          ?>
@@ -292,6 +332,7 @@ else{
                     <input type="reset" class="cancel" value="Annuler">
                 </form>
             </section>
+    </div>
     <?php
         }
 
