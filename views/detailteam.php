@@ -105,55 +105,46 @@ else{
     </section>
 
     
-    <section class="my-content-wrapper team-content-wrapper align full-height">
-        <div class=" container m-a team-container">
-            <div class="grid-md-4 grid-md-offset-8 contain-member ">
-                <div class="title_index">
-                    <!-- Récupération de tous les membres de la team -->
-                    <label for="title1">Membres : 
-    			    <?php 
-                        if(isset($listemember)) 
-    				        echo count($listemember);
-    			        else 
-    				        echo "Aucun membre dans cette team"; 
-    			    ?>
-    		        </label>
-                </div>
-                <?php   
-                    if(isset($listemember) && is_array($listemember)): 
-                        foreach ($listemember as $key => $user):
-                ?>  
-                            <div class="liste_member"> 
-                                <ul class="grid-md-12 team-select-ul">  
-                                    <li>
-                                        <img src='<?php echo $user->getImg(); ?>'>
-                                        <ul class="pseudo_member pseudo">
-                                            <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
-                                                <?php echo $user->getPseudo(); ?></a>
-                                            </span>
-                                            <?php 
-                                            if($idcreator == $user->getId()){ ?>
-                                                <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
-                                            <?php  
-                                            } ?>
-                                        </ul>
-                                    </li>                     
-                                </ul>   
-                            </div>  
-                <?php 
-                        endforeach;
-                    endif;
-                ?>
+    <section >
+        <div class="grid-md-4 grid-md-offset-8 grid-xs-offset-1 contain-member ">
+            <div class="title_index">
+                <!-- Récupération de tous les membres de la team -->
+                <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
             </div>
+            <?php   
+                if(isset($listemember)): 
+                    foreach ($listemember as $key => $user):
+            ?>  
+                        <div class="liste_member"> 
+                            <ul class="grid-md-12 team-select-ul">  
+                                <li>
+                                    <img src='<?php echo $user->getImg(); ?>'>
+                                    <ul class="pseudo_member pseudo">
+                                        <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
+                                            <?php echo $user->getPseudo(); ?></a>
+                                        </span>
+                                        <?php 
+                                        if($idcreator == $user->getId()){ ?>
+                                            <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
+                                        <?php  
+                                        } ?>
+                                    </ul>
+                                    
+                                </li>                     
+                            </ul>   
+                        </div>  
+            <?php 
+                    endforeach;
+                endif;
+            ?>
         </div>
     </section>
-
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
         <div class=" container m-a content-border team-container">
             <div class="liste_member grid-md-4">
                 <?php   
-                    if(isset($listemember) && is_array($listemember)): 
+                    if(isset($listemember)): 
                         foreach ($listemember as $key => $user):
                             if($idcreator == $user->getId()){ ?>
                                 <div class="leader_member"> 
@@ -170,8 +161,8 @@ else{
                                                     <?php echo $user->getPseudo(); ?></a>
                                                 </span>
                                             </ul>
-                                        </li>                        
-                                    </ul>                                                                                       
+                                        </li>    
+                                    </ul>   
                                 </div>  
                 <?php 
                             }
@@ -236,49 +227,29 @@ else{
                 if(!empty($_isConnected)){
                 ?>
                     <div class="contain full-height">
-                        <form id="MAJComment" method="POST">
-                            <?php 
-                                if(isset($listecomment) && is_array($listecomment)){
-                                    foreach($listecomment as $commentaire){
-                                ?>
-                                        <div class='container-comment'>
-                                            <div class='comment-img'>
-                                                <?php echo '<img src="' .$commentaire->getImg().'">'; ?>
-                                            </div>
-                                            <div class='contain-text-comment'>
-                                                <div class='comment-user pseudo'>
-                                                    <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$commentaire->getPseudo();?>">
-                                                        <?php echo $commentaire->getPseudo(); ?></a>
-                                                    </span>
-                                                </div>
-                                                <div class='comment'>
-                                                    "<?php echo $commentaire->getComment(); ?>"
-                                                </div>
-                                            </div>
-                                            
-                                            <div class='contain-signal-comment'>
-                                                <?php 
-                                                //Pas d'auto-ban
-                                                if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id){ 
-                                                ?>
-                                                    <img class="cursor-pointer signalement" id="comment-report-<?php echo $commentaire->getId();?>" src="<?php echo WEBPATH.'/web/img/alert.ico';?> ">
-                                                <?php }?>
-                                            </div>
-                                                <?php
-                                                if($commentaire->getStatus()=="0" 
-                                                    && $commentaire->getIdUser()==$_id 
-                                                    && time()-strtotime($commentaire->getDate())<1800){
-                                                ?>
-                                                <img class="comment-img cursor-pointer edition" id="comment-edit-<?php echo $commentaire->getId();?>" src="<?php echo WEBPATH.'/web/img/edit.png';?>">
-                                                <?php 
-                                                } ?>
-                                            
-                                        </div>
-                                <?php
-                                    }
-                                }
+                        <?php 
+                        if(isset($listecomment) && is_array($listecomment)){
+                            foreach($listecomment as $commentaire){
                             ?>
-                        </form>
+                                <div class='container-comment'>
+                                    <div class='comment-img'>
+                                        <?php echo '<img src="' .$commentaire->getImg().'">'; ?>
+                                    </div>
+                                    <div class='contain-text-comment'>
+                                        <div class='comment-user pseudo'>
+                                            <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$commentaire->getPseudo();?>">
+                                                    <?php echo $commentaire->getPseudo(); ?></a>
+                                            </span>
+                                        </div>
+                                        <div class='comment'>
+                                            "<?php echo $commentaire->getComment(); ?>"
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="textarea-comment">
                         <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
@@ -290,10 +261,13 @@ else{
                         </form>
                     </div>
                 <?php
-                }else{ 
-                    echo "Connecte toi pour voir les commentaires de cette team";
-                }?>
+                }else{
+                     echo "Connecte toi pour voir les commentaires de cette team !";
+                }
+                ?>
             </div>
+        </div>   
+    </section>
         <?php
 /*
 		//Espace commentaire: reservé aux membres de la team
