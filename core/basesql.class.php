@@ -58,7 +58,7 @@ abstract class basesql{
 			};
 		}
 		$this->columns = array_filter($this->columns);
-		$this->save();
+		return $this->save();
 	}
 
 	protected function save(){
@@ -70,7 +70,7 @@ abstract class basesql{
 		foreach($this->columns as $key => $value)
 			$data[$key] = $value;
 
-		$query->execute($data);
+		return $query->execute($data);
 	}
 	
 	public function getAllNames(){
