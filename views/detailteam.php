@@ -16,7 +16,7 @@ else{
     <section class="popup">
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
-            <form action="detailteam/updateTeam" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
                 Slogan : <input type="text" name="slogan" value="<?php echo $sloganteam; ?>"> <br>
                 Description : <input type="text" name="description" value="<?php echo $descripteam; ?>"><br>
                 Image :
@@ -43,7 +43,7 @@ else{
 
     <!-- Bouton selon le user --> 
      <section class="relative align">
-        <form action="detailteam/updateUserTeam" method="POST"> 
+        <form action="<?php echo WEBPATH.'/detailteam/updateUserTeam'; ?>" method="POST"> 
             <div class="align relative button-team">
                 <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
                 <?php 
