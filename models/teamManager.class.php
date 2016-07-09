@@ -99,13 +99,11 @@ class teamManager extends basesql{
 		$req->execute([
 			':slogan' => $t->getSlogan(),
 			':description' => $t->getDescription(),
-			':img' => $t->getImg(),
+			':img' => $t->getImg(true),
 			':id' => $t->getId()
 		]);
-		var_dump($req);
 
 		$res = $req->fetchAll();
-		var_dump($res);
 		if(isset($res[0]))
 			return true;
 		return false;
