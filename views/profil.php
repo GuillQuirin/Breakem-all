@@ -50,7 +50,16 @@ else{
 					<div class="">
 						<span class="configuration-header-profil-name"><?php echo (isset($pseudo)) ? $pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($description)) ? '"' . $description . '"' : 'Sans description.'; ?></span>
-						<span class="configuration-header-profil-lastconnexion"><?php echo (isset($isConnected)) ? "Connecté" : strftime('le %e %B à %H:%M', $lastConnexion); ?></span>
+						<span class="configuration-header-profil-lastconnexion">
+						<?php 
+							if(isset($isConnected))
+								echo "Connecté";
+							elseif(isset($lastConnexion)){
+							 	echo strftime('le %e %B à %H:%M', $lastConnexion);
+							else 
+								echo "Pas de dernière connexion.";
+						 ?>
+						 </span>
 					</div>
 				</div>
 			</div>			
