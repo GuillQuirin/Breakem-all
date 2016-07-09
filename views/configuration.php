@@ -34,7 +34,7 @@
 			<div class="row classement-content-row">
 				<div class="grid-md-12">
 				
-					<form action="configuration/update" method="post" enctype="multipart/form-data">
+					<form action="<?php echo WEBPATH.'/configuration/update'; ?>" method="post" enctype="multipart/form-data">
 
 						<table class="full-width configuration-form-table">
 							<?php 
