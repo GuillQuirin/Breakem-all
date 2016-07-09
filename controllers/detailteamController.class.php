@@ -26,12 +26,9 @@ class detailteamController extends template{
 
             //La team courante
             $teamBDD = new teamManager();
-
             //Liste des membres
             $listemember = $teamBDD->getListMember($name);
             $v->assign("listemember", $listemember);
-
-
 
             $args = array('name' => FILTER_SANITIZE_STRING );
 
@@ -96,7 +93,6 @@ class detailteamController extends template{
         $v->setView("detailteam");
 	}
 
-    //Action sur detailteam : rejoindre, quitter et dissoudre la team
     public function updateUserTeamAction(){
  
         if(isset($_POST['action-team-rejoin'])){
@@ -112,7 +108,7 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser(),$team);
-            header("Location:../detailteam?name=".$team->getName());
+            header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
         
         if(isset($_POST['action-team-exit'])){
@@ -127,7 +123,7 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser());
-            header("Location:../detailteam?name=".$team->getName());
+            header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
 
         if(isset($_POST['action-team-dissoudre'])){
@@ -143,11 +139,10 @@ class detailteamController extends template{
 
             $userBDD->setAllUser($team);
             $teamBDD->changeStatusTeam($team);
-            header("Location:../team");
+            header("Location: ".WEBPATH."/team");
         }
     }
     
-    //Modification de la team : slogan, description et image 
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
@@ -187,14 +182,14 @@ class detailteamController extends template{
 
         $teamBDD->updateTeam($team);
 
-        header("Location:../detailteam?name=".$team->getName());
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
 
-    //Action : Commentaire d'une team
     public function createCommentAction(){
         $args = array(
             'comment' => FILTER_SANITIZE_STRING
         );
+        $args['comment']=trim($args['comment']);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         foreach ($args as $key => $value) {
@@ -216,7 +211,51 @@ class detailteamController extends template{
         $teamBDD = new teamManager();
         $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
         
-        header("Location:../detailteam?name=".$team->getName());
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+    }
+
+    public function editCommentAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'comment' => FILTER_SANITIZE_STRING
+        );
+
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+        
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){      
+                die("Manque information : ".$key);
+            }
+        }
+
+        $commentBDD = new commentManager();
+        $commentaire = $commentBDD->getComment($filteredinputs['id']);
+
+        if($commentaire->getIdUser()==$this->getConnectedUser()->getId()
+            && time()-strtotime($commentaire->getDate())<1800){ // Limite de 30min pour éditer le commentaire
+            $commentBDD->editComment($commentaire, trim($filteredinputs['comment']));
+        }
+
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+
+        header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+    }
+
+    public function reportCommentAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING
+        );
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+        foreach ($args as $key => $value) {
+            if(!isset($filteredinputs[$key])){      
+                die("Manque information : ".$key);
+            }
+        }
+
+        $commentBDD = new commentManager();
+        $commentBDD->reportComment($commentBDD->getComment($filteredinputs['id']));
     }
 
 }

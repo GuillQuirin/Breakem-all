@@ -23,7 +23,7 @@ public function addTeamAction()
 
     $args = array(
         'id' => FILTER_VALIDATE_INT,
-        'id_user_creator' => FILTER_VALIDATE_INT,
+        //'id_user_creator' => FILTER_VALIDATE_INT,
         'name' => FILTER_SANITIZE_STRING,
         'description' => FILTER_SANITIZE_STRING,
         'img' => FILTER_SANITIZE_STRING,
