@@ -104,37 +104,55 @@
 	<?php endif ?>
 	<section class="detailtournoi detailtournoi-matchs display-flex-column">
 		<?php if(!!$tournoi->gtAllMatchs()): ?>
+		<?php  ?>
 			<h3 class="titre1 border-full ta-center">Les matchs</h3>
-			<div class="detailtournoi-matchs-container full-width display-flex-row">
-			<?php foreach ($tournoi->gtAllMatchs() as $key => $match): ?>
-				<?php $winnerTeam = $match->gtWinningTeam(); ?>
-				<?php $losingTeams = $match->gtLosingTeams(); ?>
-				<?php if (!!$winnerTeam): ?>
-					<div class="detailtournoi-match-over display-flex-row">
-						<div class="detailtournoi-match-winningteam display-flex-column">
-							<h4 class="titre4 ta-center">Equipe vainqueur</h4>
-							<div class="detailtournoi-match-winningteam-users display-flex-column">
-								<?php foreach ($winneTeam->getUsers() as $key => $u): ?>
-									<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
-								<?php endforeach ?>
+			<div class="detailtournoi-matchs-container full-width display-flex-column">
+			<!-- On affiche les matchs par niveau -->
+			<?php foreach ($tournoi->gtMatchesSortedByRank() as $rank => $arrayOfMatchedInRank): ?>
+				<div class="detailtournoi-matches-in-rank-container display-flex-row" id="detailtournoi-rank-<?php echo $rank; ?>">
+					<!-- Matchs du niveau rank -->
+					<?php foreach ($arrayOfMatchedInRank as $key => $match): ?>
+						
+						<!-- Matchs déjà joués -->
+						<?php if (is_numeric($match->gtWinningTeam())): ?>
+							<div class="detailtournoi-match detailtournoi-finished-match display-flex-column">
+								<h3 class="titre4 ta-center m-a border-full bg-success">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
+								<div class="detailtournoi-match-teams display-flex-column">
+									
+								</div>
 							</div>
-						</div>
-						<div class="detailtournoi-match-losingteams display-flex-column">
-							<h4 class="titre4 ta-center"><?php echo (count($losingTeams) > 1) ? 'Equipes vaincues' : 'Equipe vaincue'; ?></h4>
-							<div class="detailtournoi-match-losingteams display-flex-column">
-								<?php foreach ($losingTeams as $key => $lTeam): ?>
-									<div class="detailtournoi-match-losingteam display-flex-column">
-										<?php foreach ($lTeam->getUsers() as $key => $u): ?>
-										<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
-										<?php endforeach ?>
-									</div>
-								<?php endforeach ?>
+						<!-- Matchs non joués -->
+						<?php else: ?>
+							<div class="detailtournoi-match detailtournoi-unfinished-match">
+								<h3 class="titre4 ta-center m-a border-full bg-pink">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
+								<div class="detailtournoi-match-teams display-flex-column">
+									<!-- Equipes du match  -->
+									<?php foreach ($match->gtAllTeamsTournament() as $key => $teamInMatch): ?>
+										<div class="detailtournoi-match-team display-flex-column">
+											<h4 class="detailtournoi-match-team-number">Equipe <?php echo $tournoi->gtPublicTeamIdToPrint($teamInMatch); ?></h4>
+											<!-- Detail d'une équipe -->
+											<div class="detailtournoi-match-team-detail display-flex-column">
+												<p class="detailtournoi-match-team-number-users"><?php echo $teamInMatch->getTakenPlaces(); ?> joueur<?php echo ($teamInMatch->getTakenPlaces() > 1) ? 's': ''; ?></p>
+												<div class="detailtournoi-match-team-users-container display-flex-column">
+													<?php foreach ($teamInMatch->getUsers() as $key => $userInTeam): ?>
+														<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$userInTeam->getPseudo(); ?>"><?php echo $userInTeam->getPseudo();?></a>
+													<?php endforeach ?>
+												</div>
+											</div>
+											
+										</div>
+										<!-- Séparateur de teams (VERSUS) -->
+										<?php if (isset($match->gtAllTeamsTournament()[$key+1])): ?>
+											<p class="detailtournoi-match-team-separator uppercase title-7">versus</p>
+										<?php endif ?>
+									<?php endforeach ?>
+								</div>
 							</div>
-						</div>
-					</div>
-				<?php else: ?>
-
-				<?php endif ?>
+						<?php endif ?>
+					<?php endforeach ?>
+				</div>
+				
+				
 			<?php endforeach ?>
 			</div>
 		<?php else: ?>
@@ -166,7 +184,6 @@
 			</div>
 		</section>
 	<?php endif; ?>
-	<?php $teamNumber = 1;?>
 	<?php if(isset($freeTeams)): ?>
 		<section class="detailtournoi full-width m-a detailtournoi-equipeslibres-section">
 			<div class="full-width m-a display-flex-column max-width-1260">
@@ -177,7 +194,7 @@
 					<?php foreach($freeTeams as $key => $team):?>
 						<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
 						<div class="detailtournoi-equipelibre overflow-hidden relative">
-							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
+							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $tournoi->gtPublicTeamIdToPrint($team); ?>
 								<span class="equipelibre-espace bg-green absolute absolute-0-100"><?php echo $placesLeft;?></span>
 							</h5>
 							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">
@@ -200,7 +217,7 @@
 								<?php endif; ?>
 							</div>
 						</div>
-					<?php  $teamNumber++; endforeach; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</section>
@@ -214,7 +231,7 @@
 				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
 					<?php foreach($fullTeams as $key => $team):?>
 						<div class="detailtournoi-equipecomplete overflow-hidden relative">
-							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
+							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $tournoi->gtPublicTeamIdToPrint($team); ?>
 								<span class="equipecomplete-espace bg-pink absolute absolute-0-100"><?php echo count($team->getUsers());?></span>
 							</h5>
 							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">							
@@ -225,7 +242,7 @@
 								</div>					
 							</div>						
 						</div>
-					<?php  $teamNumber++; endforeach; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>			
 		</section>
