@@ -64,13 +64,13 @@ class tournoiController extends template {
 					$ttm = new teamtournamentManager();
 					$rm = new registerManager();
 					foreach ($allMatchs as $key => $m) {
-						$teamsOfMatch = $ttm->getTeamsOfMatch($m);
+						$teamsOfMatch = $ttm->getTeamsOfMatch($matchedTournament, $m);
 						if(!!$teamsOfMatch){
-							foreach ($teamsOfMatch as $key => $t) {
-								$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+							foreach ($teamsOfMatch as $key => $teamOfMatch) {
+								$usersInTeam = $rm->getTeamTournamentUsers($teamOfMatch);
 								if(is_array($usersInTeam))
-									$teamtournament->addUsers($usersInTeam);
-								$m->addTeamTournament($t);
+									$teamOfMatch->addUsers($usersInTeam);
+								$m->addTeamTournament($teamOfMatch);
 							}
 						}
 						$matchedTournament->addMatch($m);

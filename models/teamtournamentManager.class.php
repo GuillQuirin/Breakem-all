@@ -95,21 +95,28 @@ final class teamtournamentManager extends basesql{
 		return false;
 	}
 
-	public function getTeamsOfMatch(matchs $m){
+	public function getTeamsOfMatch(tournament $t, matchs $m){
 		$sql = "SELECT tt.id, tt.rank, tt.idTournament, COUNT(r.idTeamTournament) as takenPlaces 
 		FROM teamtournament tt 
-		LEFT OUTER JOIN register r 
+		INNER JOIN register r 
 		ON r.idTournament = tt.idTournament
 		AND r.idTeamTournament = tt.id
-		LEFT OUTER JOIN matchparticipants mm 
+		INNER JOIN matchparticipants mm 
 		ON mm.idTeamTournament = tt.id
 		AND mm.idMatch = :idMatch
+		AND mm.idMatch IS NOT NULL
+		AND mm.idTeamTournament IS NOT NULL
+		INNER JOIN matchs m
+		ON m.id = mm.idMatch
+		AND m.id IS NOT NULL
+		WHERE tt.idTournament = :idTournament
 		GROUP BY tt.id
 		ORDER BY tt.id";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$r = $sth->execute([
-			':idMatch' => $m->getId()
+			':idMatch' => $m->getId(),
+			':idTournament' => $t->getId()
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 
