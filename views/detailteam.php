@@ -141,7 +141,7 @@ else{
         </section>
 
  <?php
-    if($_idTeam == $idteam){
+    if(isset($_idTeam) && $_idTeam == $idteam){
         ?>
         <section class="contain align full-height">
         <form id="MAJComment" method="POST">
