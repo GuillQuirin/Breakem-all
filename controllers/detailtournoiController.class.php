@@ -71,9 +71,47 @@ class detailtournoiController extends template{
 					if($createdMatchs instanceof matchs){
 						$mm = new matchsManager();
 						$mm->mirrorObject = $createdMatchs;
-						print_r($createdMatchs);
-						// var_dump($mm->create());
+						if($mm->create()){
+							$dbMatch = $mm->getLastCreatedMatchOfTournament($matchedTournament);
+							if(!!$dbMatch)
+								if($this->createMatchParticipantsOfMatch($dbMatch, $createdMatchs->gtAllTeamsTournament())){
+									echo json_encode(["success" => "Un premier match aura lieu pour éliminer l'équipe en trop !"]);
+									exit;
+								}
+
+							else{
+								// On ne peut pas récupérer le dernier match créé et on ne peut pas relier les matchsparticipants au dernier match sans l'id nouvellement créé en db -> il faut donc supprimer le match avant d'afficher l'erreur
+								$this->echoJSONerror("X2", "Problème interne lors de la création du match d'ouverture");
+							}
+						}
+						else
+							$this->echoJSONerror("X1", "Problème interne lors de la création du match d'ouverture");
+						$this->echoJSONerror("X4", "Problème interne lors de la création du match d'ouverture");
 					}
+					// Le nombre d'équipe est pair
+					else if(is_array($createdMatchs) && count($createdMatchs) > 0){
+						$errors = false;
+						foreach ($createdMatchs as $key => $createdMatch) {
+							$mm = new matchsManager();
+							$mm->mirrorObject = $createdMatch;
+							if($mm->create()){
+								$dbMatch = $mm->getLastCreatedMatchOfTournament($matchedTournament);
+								if(!!$dbMatch)
+									if(!$this->createMatchParticipantsOfMatch($dbMatch, $createdMatch->gtAllTeamsTournament()))
+										$this->echoJSONerror("X8", "Problème interne lors de la création des matchs d'ouverture");
+								else{
+									// On ne peut pas récupérer le dernier match créé et on ne peut pas relier les matchsparticipants au dernier match sans l'id nouvellement créé en db -> il faut donc supprimer le match avant d'afficher l'erreur
+									$this->echoJSONerror("X7", "Problème interne lors de la création des matchs d'ouverture");
+								}
+							}
+							else
+								$this->echoJSONerror("X6", "Problème interne lors de la création des matchs d'ouverture");
+						}
+						echo json_encode(["success" => "La première série de matchs a été créée !"]);
+						exit;
+					}
+					else
+						$this->echoJSONerror("X10", "Problème interne lors de la création du match d'ouverture");
 				}
 					
 			};
@@ -162,6 +200,28 @@ class detailtournoiController extends template{
 
 			return $match;
 		}
+	}
+
+	/*
+	 **@params (matchs) match récupéré en db, (array) teamtournaments ac id
+	 **returns (boolean)
+	 --> Insert en db les équipes asssociées au match nouvellement inséré en base
+	*/
+	private function createMatchParticipantsOfMatch(matchs $m, $teamsTournamentsArray){
+		$mpm = new matchParticipantsManager();
+		foreach ($teamsTournamentsArray as $key => $tt) {
+			$mp = new matchParticipants([
+				'idMatch' => $m->getId(),
+				'idTeamTournament' => $tt->getId()
+			]);
+			$mpm->mirrorObject = $mp;
+			if(!$mpm->create()){
+				unset($mpm);
+				$this->echoJSONerror("X3", "Problème interne lors de la création du match d'ouverture");
+			}
+		}
+		unset($mpm);
+		return true;
 	}
 	
 }

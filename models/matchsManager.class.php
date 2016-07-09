@@ -28,6 +28,28 @@ final class matchsManager extends basesql{
 		return false;
 	}
 
+	public function getLastCreatedMatchOfTournament(tournament $t){
+		$sql = "SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber
+		FROM matchs m 
+		WHERE m.idTournament = :idTournament
+		ORDER BY m.id DESC
+		LIMIT 0,1
+		";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':idTournament' => $t->getId()
+		]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		// print_r($r);
+		if(isset($r[0])){
+			$r[0] = array_filter($r[0]);
+			if(is_array($r[0]))
+				return new matchs($r[0]);
+		}
+		return false;
+	}
+
 }
 /*
 *
