@@ -146,8 +146,9 @@ class detailteamController extends template{
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
-        $args = array('slogan' => FILTER_SANITIZE_STRING
-                     ,'description' => FILTER_SANITIZE_STRING);
+        $args = array('name' => FILTER_SANITIZE_STRING
+                    ,'slogan' => FILTER_SANITIZE_STRING
+                    ,'description' => FILTER_SANITIZE_STRING);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         if (isset($_FILES['img'])) {
@@ -172,15 +173,17 @@ class detailteamController extends template{
             $filteredinputs['img'] = $name;
         }
 
-
         $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
         
         $team->setSlogan($filteredinputs['slogan']);
         $team->setDescription($filteredinputs['description']);
         $team->setImg($filteredinputs['img']);
 
-        $teamBDD->updateTeam($team);    
 
+
+        $test = $teamBDD->updateTeam($team);    
+        var_dump($test);
+        die();
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
 
