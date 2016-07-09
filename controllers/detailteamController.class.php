@@ -182,8 +182,8 @@ class detailteamController extends template{
 
 
         $test = $teamBDD->updateTeam($team);    
-        var_dump($test);
-        die();
+        //var_dump($test);
+        //die();
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
 
