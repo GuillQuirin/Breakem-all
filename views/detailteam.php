@@ -244,6 +244,16 @@ else{
                                         <div class='comment'>
                                             "<?php echo $commentaire->getComment(); ?>"
                                         </div>
+                                        <div>
+                                        <?php
+                                            if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id)  
+                                                //Le mec va pas s'auto-ban
+                                                echo "<p class='cursor-pointer'>Signaler</p>";
+                                            if($commentaire->getStatus()=="0" && $commentaire->getIdUser()==$_id && time()-strtotime($commentaire->getDate())<1800)
+                                                //Commentaire modifiable à 30 min
+                                                echo "<p class='cursor-pointer'>Modifier</p>";
+                                        ?>
+                                        </div>
                                     </div>
                                 </div>
                             <?php
