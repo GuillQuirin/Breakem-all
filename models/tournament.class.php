@@ -52,9 +52,11 @@ final class tournament{
 	protected $_myArr;
 	// Données provenant de matchs
 	protected $_matchs = [];
+	protected $_minIdMatch = PHP_INT_MAX;
 	// Données provenant de teamtournament
 	protected $_fullteams = [];
 	protected $_freeteams = [];
+	protected $_minIdTeam = PHP_INT_MAX;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -189,13 +191,19 @@ final class tournament{
 
 	public function addMatch(matchs $m){
 		$this->_matchs[] = $m;
+		if((int) $m->getId() < $this->_minIdMatch)
+			$this->_minIdMatch = (int) $m->getId();
 	}
 
 	public function addFreeTeam(teamtournament $tt){
 		$this->_freeteams[] = $tt;
+		if((int) $tt->getId() < $this->_minIdTeam)
+			$this->_minIdTeam = (int) $tt->getId();
 	}
 	public function addFullTeam(teamtournament $tt){
 		$this->_fullteams[] = $tt;
+		if((int) $tt->getId() < $this->_minIdTeam)
+			$this->_minIdTeam = (int) $tt->getId();
 	}
 
 
@@ -243,10 +251,28 @@ final class tournament{
 	}
 	// Getters des matchs
 	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
+	public function gtPublicMatchIdToPrint(matchs $m){
+		return ((int) $m->getId() - $this->_minIdMatch + 1);
+	}
+
+
 	// Getters des teamtournament
 	public function gtFreeTeams(){return $this->_freeteams;}
 	public function gtFullTeams(){return $this->_fullteams;}
 	public function gtAllTeams(){return array_merge($this->gtFreeTeams(), $this->gtFullTeams());}
+	public function gtMatchesSortedByRank(){
+		$sortedMatches = [];
+		$min = PHP_INT_MAX;
+		$max = 0;
+		foreach ($this->gtAllMatchs() as $key => $match) {
+			$currentMatchRank = (int) $match->getMatchNumber();
+			$sortedMatches[$currentMatchRank][] = $match;
+		}
+		return $sortedMatches;
+	}
+	public function gtPublicTeamIdToPrint(teamtournament $tt){
+		return ((int) $tt->getId() - $this->_minIdTeam + 1);
+	}
 
 	public function _gtMaxStartDaysInterval(){
 		return $this->_maxStartDate;

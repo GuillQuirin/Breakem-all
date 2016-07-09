@@ -40,10 +40,14 @@ class tournoiController extends template {
 						$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
 						if(is_array($usersInTeam))
 							$teamtournament->addUsers($usersInTeam);
-						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam()){
+							$matchedTournament->addFreeTeam($teamtournament);
 							$freeTeams[] = $teamtournament;
-						else
+						}
+						else{
 							$fullTeams[] = $teamtournament;
+							$matchedTournament->addFullTeam($teamtournament);
+						}
 					}
 					$v->assign("freeTeams", $freeTeams);
 					$v->assign("fullTeams", $fullTeams);
@@ -74,6 +78,7 @@ class tournoiController extends template {
 							}
 						}
 						$matchedTournament->addMatch($m);
+						// var_dump($m);
 					}
 					unset($ttm, $rm);
 				}
