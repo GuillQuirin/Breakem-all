@@ -22,18 +22,14 @@ public function addTeamAction()
 {
 
     $args = array(
-        'id' => FILTER_VALIDATE_INT,
         'name' => FILTER_SANITIZE_STRING,
         'description' => FILTER_SANITIZE_STRING,
-        'img' => FILTER_SANITIZE_STRING,
         'slogan' => FILTER_SANITIZE_STRING
-
     );
 
-    $filteredinputs = filter_input_array(INPUT_POST, $args);
-
-    if (isset($_FILES['img'])) {
-
+    $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+    
+    if (isset($_FILES['img']) && $_FILES['img']['error'] != 4) {
         $uploaddir = '/web/img/upload/';
         $name = $_FILES['img']['name'];
 
@@ -54,6 +50,8 @@ public function addTeamAction()
         }
         $filteredinputs['img'] = $name;
     }
+
+    $filteredinputs['id_user_creator'] = $this->connectedUser->getId();
 
     $teamBDD = new teamManager();
     $teamBDD->mirrorObject = new team($filteredinputs);

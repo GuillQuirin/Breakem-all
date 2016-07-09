@@ -51,7 +51,7 @@ class teamManager extends basesql{
 
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
-		$sql = "SELECT user.pseudo, user.img 
+		$sql = "SELECT user.id, user.pseudo, user.img 
 				FROM user 
 				INNER JOIN team ON user.idTeam = team.id 
 				WHERE team.name = '".$nameTeam."'";
@@ -79,7 +79,6 @@ class teamManager extends basesql{
 		return false;
 	}
 	
-
 	//UPDATE LE STATUS DE LA TEAM DANS L'ADMIN
 	public function changeStatusTeam(team $t){
 		$sql = "UPDATE team SET status = -1 WHERE id= :id";
@@ -160,7 +159,7 @@ class teamManager extends basesql{
 
 	/*RECUPERATION TEAM*/
 	public function getTeam(array $infos){
-
+		
 		//tab[name]='Test'
 		$cols = array_keys($infos);
 		$data = [];
@@ -193,7 +192,7 @@ class teamManager extends basesql{
 
 		return new team($r);
 	}
-
+/*
 	public function setIdTeam($id){
 
 		$sql = "UPDATE user SET idTeam = :idTeam WHERE id =
@@ -207,7 +206,7 @@ class teamManager extends basesql{
 		if(isset($res[0]))
 			return true;
 		return false;
-	}
+	}*/
 
 
 	public function SearchIdTeam(team $t){
