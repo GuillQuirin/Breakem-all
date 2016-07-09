@@ -189,6 +189,7 @@ class detailteamController extends template{
         $args = array(
             'comment' => FILTER_SANITIZE_STRING
         );
+        $args['comment']=trim($args['comment']);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         foreach ($args as $key => $value) {
@@ -232,7 +233,7 @@ class detailteamController extends template{
 
         if($commentaire->getIdUser()==$this->getConnectedUser()->getId()
             && time()-strtotime($commentaire->getDate())<1800){ // Limite de 30min pour éditer le commentaire
-            $commentBDD->editComment($commentaire, $filteredinputs['comment']);
+            $commentBDD->editComment($commentaire, trim($filteredinputs['comment']));
         }
 
         $teamBDD = new teamManager();

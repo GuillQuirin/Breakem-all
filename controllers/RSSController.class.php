@@ -57,18 +57,22 @@ class RSSController extends template{
 		}
 
 		if(file_exists('flux.xml')){
-			$rss = simplexml_load_file('flux.xml'); 
-
-			//Affichage du contenu sur la page
-			if(is_array($rss->channel->item)){
-				foreach ($rss->channel->item as $item) { 
-				  echo '<div>
-				           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
-				           <div>organisé par '.$item->creator.'</div>
-				           <div>'.$item->description.'</div>
-				           <a href="'.$item->link.'">Voir le tournoi</a>
-				        </div>';
-				} 
+			$rss = file_get_contents('flux.xml');
+			if(trim($rss)!==""){
+				$rss = simplexml_load_file('flux.xml'); 
+				if($rss && !empty($rss)){
+					//Affichage du contenu sur la page
+					if(is_array($rss->channel->item)){
+						foreach ($rss->channel->item as $item) { 
+						  echo '<div>
+						           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
+						           <div>organisé par '.$item->creator.'</div>
+						           <div>'.$item->description.'</div>
+						           <a href="'.$item->link.'">Voir le tournoi</a>
+						        </div>';
+						} 
+					}
+				}
 			}
 		}
 
