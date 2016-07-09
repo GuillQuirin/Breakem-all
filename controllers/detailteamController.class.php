@@ -147,8 +147,7 @@ class detailteamController extends template{
         $teamBDD = new teamManager();
 
         $args = array('slogan' => FILTER_SANITIZE_STRING
-                     ,'description' => FILTER_SANITIZE_STRING
-                     ,'img' => FILTER_SANITIZE_STRING);
+                     ,'description' => FILTER_SANITIZE_STRING);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         if (isset($_FILES['img'])) {
@@ -180,7 +179,7 @@ class detailteamController extends template{
         $team->setDescription($filteredinputs['description']);
         $team->setImg($filteredinputs['img']);
 
-        $teamBDD->updateTeam($team);
+        $teamBDD->updateTeam($team);    
 
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
