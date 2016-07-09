@@ -110,8 +110,8 @@ else{
         </form>
     </section>
 
-    <section class="position:absolute">
-                <div class="grid-md-4 grid-md-offset-8 contain-member ">
+    <section >
+                <div class="grid-md-4 grid-md-offset-8 grid-xs-offset-1 contain-member ">
                     <div class="title_index">
                         <!-- Récupération de tous les membres de la team -->
                         <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
