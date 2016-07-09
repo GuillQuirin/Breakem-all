@@ -159,7 +159,7 @@ class teamManager extends basesql{
 
 	/*RECUPERATION TEAM*/
 	public function getTeam(array $infos){
-
+		
 		//tab[name]='Test'
 		$cols = array_keys($infos);
 		$data = [];
