@@ -331,7 +331,11 @@ section:hover{
 			max-width: 280px;
 		}
 
-	
+	/* ##### CREER LES RENCONTRES SUIVANTES ##### */
+		#detailtournoi-btn-create-next-matchs{
+			max-width: 240px;
+			margin-top: 20px;
+		}
 
 /* ################## EQUIPES #################### */
 	.detailtournoi-equipeslibres-section,
