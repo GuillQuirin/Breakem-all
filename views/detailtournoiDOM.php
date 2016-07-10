@@ -109,6 +109,7 @@
 			<div class="detailtournoi-matchs-container full-width display-flex-column">
 			<!-- On affiche les matchs par niveau -->
 			<?php foreach ($tournoi->gtMatchesSortedByRank() as $rank => $arrayOfMatchedInRank): ?>
+				<h3 class="detailtournoi-rank-number titre2 m-a ta-center capitalize"><?php echo getIntInLetters($rank); ?> tour</h3>
 				<div class="detailtournoi-matches-in-rank-container display-flex-row" id="detailtournoi-rank-<?php echo $rank; ?>">
 					<!-- Matchs du niveau rank -->
 					<?php foreach ($arrayOfMatchedInRank as $key => $match): ?>
@@ -186,15 +187,7 @@
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
-		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->
-		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed): ?>
-			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
-				<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
-			<?php else: ?>				
-				<p class="titre4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>				
-			<?php endif ?>
-		<!-- Cas où aucun match n'a été joué -->
-		<?php endif; ?>
+		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
@@ -204,6 +197,14 @@
 					<h3 class="titre4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>
 				<?php endif ?>
 			<?php endif ?>
+		<?php endif; ?>
+		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed): ?>
+			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
+				<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
+			<?php else: ?>				
+				<p class="titre4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>				
+			<?php endif ?>
+		<!-- Cas où aucun match n'a été joué -->
 		<?php endif; ?>
 	</section>
 	<?php if(isset($allRegistered)):?>
