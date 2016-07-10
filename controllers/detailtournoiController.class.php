@@ -135,7 +135,6 @@ class detailtournoiController extends template{
 			if(!isset($filteredinputs[$key]))
 				$this->echoJSONerror("inputs","missing input " . $key);
     	}
-
 		// SECU ANTI CSRF
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
 			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
@@ -202,7 +201,12 @@ class detailtournoiController extends template{
 				$winnerTT = $teamAndMatchArr['tt'];
 				// À partir d'ici on peut être sûr d'avoir reçu un match qui n'est pas encore joué et que l'équipe reçue participe bien à ce match
 				/* ---> On peut donc update la table match et renvoyer un success à la view */
-				
+				$mm = new matchsManager();
+				if($mm->setMatchWinner($m, $winnerTT))
+					echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . "remporte donc le match"]);
+				else
+					$this->echoJSONerror("error: DT_SW_4", "Impossible de définir l'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT)." comme gagnante, si le problème persiste veuillez contacter un admin");
+				exit;
 			}
 			else
 				$this->echoJSONerror("error: DT_SW_3", "L'équipe et le match ne correspondent pas");
@@ -325,6 +329,8 @@ class detailtournoiController extends template{
 						return ['m'=>$match, 'tt'=>$team];
 				}
 			}
+			else if($match->gtWinningTeam() && $match->getId() == $realMatchId)
+				$this->echoJSONerror("error: DT_GTMM_1", "Ce match s'est déjà vu choisir un vainqueur");
 
 		}
 		return false;
