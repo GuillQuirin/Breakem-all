@@ -50,6 +50,16 @@ final class matchsManager extends basesql{
 		return false;
 	}
 
+	public function setMatchWinner(matchs $m, teamtournament $tt){
+		$sql = "UPDATE matchs set idWinningTeam = :tId WHERE id=:mId";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':tId' => $tt->getId(),
+			':mId' => $m->getId()
+		]);
+		return $sth->execute();
+	}
+
 }
 /*
 *
