@@ -103,8 +103,8 @@
 		</section>
 	<?php endif ?>
 	<section class="detailtournoi detailtournoi-matchs display-flex-column">
+		<?php $availableMatchedAllPlayed = true;?>
 		<?php if(!!$tournoi->gtAllMatchs()): ?>
-		<?php  ?>
 			<h3 class="titre1 border-full ta-center">Les matchs</h3>
 			<div class="detailtournoi-matchs-container full-width display-flex-column">
 			<!-- On affiche les matchs par niveau -->
@@ -113,9 +113,9 @@
 					<!-- Matchs du niveau rank -->
 					<?php foreach ($arrayOfMatchedInRank as $key => $match): ?>
 						<!-- Matchs déjà joués -->
-						<?php if (is_numeric($match->gtWinningTeam())): ?>
+						<?php if (is_numeric($match->getIdWinningTeam())): ?>
 							<div class="detailtournoi-match detailtournoi-finished-match display-flex-column m-a">
-								<h3 class="titre4 ta-center m-a border-full bg-success">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
+								<h3 class="titre4 ta-center m-a border-full bg-green">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
 								<div class="detailtournoi-match-teams m-a display-flex-row">
 									<!-- Equipes du match  -->
 									<?php $maxTCount= count($match->gtAllTeamsTournament())-1; $teamcount=0; ?>
@@ -147,6 +147,7 @@
 							</div>
 						<!-- Matchs non joués -->
 						<?php else: ?>
+							<?php $availableMatchedAllPlayed = false;?>
 							<div class="detailtournoi-match detailtournoi-unfinished-match display-flex-column">
 								<h3 class="titre3 ta-center m-a ">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
 								<div class="detailtournoi-match-teams display-flex-row">
@@ -179,13 +180,21 @@
 							</div>
 						<?php endif ?>
 					<?php endforeach ?>
-				</div>
-				
+				</div>				
 				<?php if (isset($tournoi->gtMatchesSortedByRank()[$rank+1])): ?>
 					<div class="detailtournoi-rank-separator">RANK SEPARATOR</div>
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
+		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->
+		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed): ?>
+			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
+				<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
+			<?php else: ?>				
+				<p class="titre4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>				
+			<?php endif ?>
+		<!-- Cas où aucun match n'a été joué -->
+		<?php endif; ?>
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
