@@ -32,7 +32,7 @@ class detailtournoiController extends template{
 		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
 			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
 		$link = $filteredinputs['t'];
-		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité	
 		if($link !== $_SESSION['lastTournamentChecked'])
 			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
 
@@ -115,6 +115,97 @@ class detailtournoiController extends template{
 				}
 					
 			};
+		}
+	}
+
+	public function selectWinnerAction(){
+		if(!$this->isVisitorConnected())
+			$this->echoJSONerror("","Vous n'êtes pas connecté !");
+		if(!isset($_SESSION['lastTournamentChecked']))
+			$this->echoJSONerror("tournoi","aucun tournoi visité");
+		$args = array(
+            't' => FILTER_SANITIZE_STRING,
+            'sJeton' => FILTER_SANITIZE_STRING,
+            'mId' => FILTER_VALIDATE_INT,
+            'ttId' => FILTER_VALIDATE_INT
+		);
+		$filteredinputs = filter_input_array(INPUT_POST, $args);
+		$filteredinputs = array_filter($filteredinputs);
+		foreach ($args as $key => $value) {
+			if(!isset($filteredinputs[$key]))
+				$this->echoJSONerror("inputs","missing input " . $key);
+    	}
+
+		// SECU ANTI CSRF
+		if($filteredinputs['sJeton'] !== $_SESSION['sJeton'])
+			$this->echoJSONerror("csrf","jetons ".$filteredinputs['sJeton']." et ".$_SESSION['sJeton']." differents !");
+		$link = $filteredinputs['t'];
+		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité	
+		if($link !== $_SESSION['lastTournamentChecked'])
+			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+
+		$tm = new tournamentManager();
+		$matchedTournament = $tm->getTournamentWithLink($link);
+
+		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false && $this->getConnectedUser()->getId() == $matchedTournament->getIdUserCreator() && !is_numeric($matchedTournament->getIdWinningTeam())){
+			// Recuperer tous les participants
+			$rm = new registerManager();
+			$allRegistered = $rm->getTournamentParticipants($matchedTournament);
+
+			// Recuperer toutes les équipes avec le nombre de places prises
+			$ttm = new teamtournamentManager();
+			$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
+			if(!!$allTournTeams){
+				foreach ($allTournTeams as $key => $teamtournament) {
+					$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+					if(is_array($usersInTeam))
+						$teamtournament->addUsers($usersInTeam);
+					if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+						$matchedTournament->addFreeTeam($teamtournament);
+					else
+						$matchedTournament->addFullTeam($teamtournament);
+				}
+			}
+			else
+				$this->echoJSONerror("error: DT_SW_1", "aucune équipe n'est créée pour ce tournoi !");
+			// Recuperer tous les matchs du tournoi
+			$matchsManager = new matchsManager();
+			$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
+			// S'il y a des matchs
+			if(!!$allMatchs){
+				$ttm = new teamtournamentManager();
+				$rm = new registerManager();
+				foreach ($allMatchs as $key => $m) {
+					$teamsOfMatch = $ttm->getTeamsOfMatch($matchedTournament, $m);
+					if(!!$teamsOfMatch){
+						foreach ($teamsOfMatch as $key => $teamOfMatch) {
+							$usersInTeam = $rm->getTeamTournamentUsers($teamOfMatch);
+							if(is_array($usersInTeam))
+								$teamOfMatch->addUsers($usersInTeam);
+							$m->addTeamTournament($teamOfMatch);
+						}
+					}
+					$matchedTournament->addMatch($m);
+					// var_dump($m);
+				}
+				unset($ttm, $rm);
+			}
+			else
+				$this->echoJSONerror("error: DT_SW_2", "aucun match n'a été créé pour ce tournoi !");
+
+			// Arrivé ici on a récupéré les matchs et leurs équipes participantes, ainsi qu'une liste de toutes les équipes. Toutes ces entités sont remplies de leurs datas correspondantes et respectives
+			$m = new matchs(['id' => $filteredinputs['mId']]);
+			$winnerTT = new teamtournament(['id' => $filteredinputs['ttId']]);
+			$teamAndMatchArr = $this->getTeamOfMatchAndMatch($matchedTournament, $m, $winnerTT);
+			if(is_array($teamAndMatchArr)){
+				$m = $teamAndMatchArr['m'];
+				$winnerTT = $teamAndMatchArr['tt'];
+				// À partir d'ici on peut être sûr d'avoir reçu un match qui n'est pas encore joué et que l'équipe reçue participe bien à ce match
+				/* ---> On peut donc update la table match et renvoyer un success à la view */
+				
+			}
+			else
+				$this->echoJSONerror("error: DT_SW_3", "L'équipe et le match ne correspondent pas");
 		}
 	}
 
@@ -222,6 +313,21 @@ class detailtournoiController extends template{
 		}
 		unset($mpm);
 		return true;
+	}
+
+	private function getTeamOfMatchAndMatch(tournament $t, matchs $m, teamtournament $tt){
+		$realMatchId = $t->gtRevertPublicMatchId($m);
+		$realTeamId = $t->gtRevertPublicTeamId($tt);
+		foreach ($t->gtAllMatchs() as $key => $match) {
+			if(!$match->gtWinningTeam() && $match->getId() == $realMatchId){
+				foreach ($match->gtAllTeamsTournament() as $key => $team) {
+					if($team->getId() == $realTeamId)
+						return ['m'=>$match, 'tt'=>$team];
+				}
+			}
+
+		}
+		return false;
 	}
 	
 }

@@ -1,4 +1,26 @@
+@-webkit-keyframes wiggle {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	50% {
+		transform: rotateZ(10deg);
+	}
+	100% {
+		transform: rotateZ(0deg);
+	}
+}
 
+@keyframes wiggle {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	50% {
+		transform: rotateZ(10deg);
+	}
+	100% {
+		transform: rotateZ(0deg);
+	}
+}
 
 body {
 	line-height: 1;
@@ -221,10 +243,78 @@ section:hover{
 	}
 
 /* ################## MATCHS ################# */
+	section.detailtournoi-matchs{
+		padding: 20px 5px;
+	}
+	.detailtournoi-match{
+		padding: 10px 20px;
+		margin-top: 20px;
+		border-bottom: 2px solid #fff;
+		background: linear-gradient( to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, .1));
+	}
+	.detailtournoi-match h3{
+		border: none;
+	}
+	.detailtournoi-match:nth-child(odd){
+		/**/
+		/*background: rgba(255, 255, 255, .2);*/
+	}
+	.detailtournoi-match:nth-child(even){
+		;
+		/*background: rgba(255, 255, 255, .4);*/
+	}
 	.detailtournoi-matchs h3{
 		padding: 13px 16px;
+		margin-top: 0;
 	}
-	/* ##### CREER LES PREMIERS RENCONTRES ##### */
+	.detailtournoi-match-team{
+		padding: 5px 15px;
+	}
+	.detailtournoi-match-team h4{
+		font-weight: 700;
+		padding: 5px 10px;
+		letter-spacing: 1px;
+	}
+	/* .detailtournoi-match-team:nth-of-type(odd) h4{
+		color: rgb(8,3,37);
+		background: linear-gradient( to left, rgb(8,3,37), #D92B4C);
+	}
+	.detailtournoi-match-team:nth-of-type(even) h4{
+		color: linear-gradient( to right, rgb(8,3,37), #D92B4C)
+	} */
+	.detailtournoi-match-team-detail{
+		overflow: hidden;
+		height: 0;
+		/*max-height: 50px;*/
+		font-size: 0;
+		transition: .2s height ease-in-out, .2s font-size ease-in-out;
+	}
+	img.detailtournoi-match-team-separator{
+		max-width: 50px;
+		/*cursor: pointer;*/
+	}
+	.detailtournoi-match:hover img.detailtournoi-match-team-separator{
+		animation: wiggle .2s alternate;
+	}
+	.detailtournoi-match:hover .detailtournoi-match-team-detail{
+		overflow: default;
+		height: auto;
+		font-size: 14px;
+	}
+	.detailtournoi-match:hover .detailtournoi-btn-match-select-winner{
+		margin-bottom: 10px;
+	}
+	.detailtournoi-match-team-users-container{
+		margin-top: 10px;
+	}
+	.detailtournoi-match-team-users-container a{
+		border-bottom: 1px solid #fff;
+		transition: .1s letter-spacing;
+	}
+	.detailtournoi-match-team-users-container a:hover{
+		letter-spacing: 1px;
+	}
+	/* ##### CREER LES PREMIERES RENCONTRES ##### */
 		.createFirstMatchContainer{
 			z-index: 9999;
 		}
@@ -240,28 +330,8 @@ section:hover{
 			margin: 0 5px;
 			max-width: 280px;
 		}
-/* ################## BRACKET TOURNOI ################### */
-	.detailtournoi-bracket{
-		width: 90%;
-		margin: 0 auto;
-		margin-top: 4vh;
-	}
 
-	.detailtournoi-bracket h2{
-		padding-bottom: 1vh;
-		border-bottom: 1px solid #fff;
-		display: inline-block;
-	}
-	/*	width: 90%;
-		margin: 0 auto;
-		margin-top: 4vh;*/
-	}
-
-	.detailtournoi-bracket h2{
-		/*padding-bottom: 1vh;
-		border-bottom: 1px solid #fff;
-		display: inline-block;*/
-	}
+	
 
 /* ################## EQUIPES #################### */
 	.detailtournoi-equipeslibres-section,

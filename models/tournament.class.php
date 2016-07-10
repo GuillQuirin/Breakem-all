@@ -254,6 +254,9 @@ final class tournament{
 	public function gtPublicMatchIdToPrint(matchs $m){
 		return ((int) $m->getId() - $this->_minIdMatch + 1);
 	}
+	public function gtRevertPublicMatchId(matchs $m){
+		return ((int) $m->getId() + $this->_minIdMatch - 1);
+	}
 
 
 	// Getters des teamtournament
@@ -272,6 +275,9 @@ final class tournament{
 	}
 	public function gtPublicTeamIdToPrint(teamtournament $tt){
 		return ((int) $tt->getId() - $this->_minIdTeam + 1);
+	}
+	public function gtRevertPublicTeamId(teamtournament $tt){
+		return ((int) $tt->getId() + $this->_minIdTeam - 1);
 	}
 
 	public function _gtMaxStartDaysInterval(){
