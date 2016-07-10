@@ -89,3 +89,49 @@ function cleanTimedOutSession(){
 	session_start();
 	session_regenerate_id();
 }
+
+
+function getIntInLetters($n){
+	if(!is_int($n))
+		return false;
+	switch ($n) {
+		case 1:
+			return "premier";
+		case 2:
+			return "deuxième";
+		case 3:
+			return "troisième";
+		case 4:
+			return "quatrième";
+		case 5:
+			return "cinquième";
+		case 6:
+			return "sixième";
+		case 7:
+			return "septième";
+		case 8:
+			return "huitième";
+		case 9:
+			return "neuvième";
+		case 10:
+			return "dixième";		
+		default:
+			return false;
+	}
+}
+function getRoundNameFromLeftTeamNumber($teamNumberLeft){
+	if(!is_int($teamNumberLeft))
+		return false;
+	switch ($teamNumberLeft) {
+		case 2:
+			return "finale";
+		case 4:
+			return "demi-finale";
+		case 8:
+			return "huitièmes de finale";
+		case 16:
+			return "seixièmes de finale";	
+		default:
+			return false;
+	}
+}
