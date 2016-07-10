@@ -242,16 +242,21 @@ else{
                                             </span>
                                         </div>
                                         <div class='comment'>
-                                            "<?php echo $commentaire->getComment(); ?>"
+                                            <?php
+                                            echo ($commentaire->getStatus()==-1) ? 
+                                                '<p class="italic">Ce commentaire a été modéré.</p>' :
+                                                $commentaire->getComment();
+                                            ?>
                                         </div>
                                         <div>
                                         <?php
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id)  
                                                 //Le mec va pas s'auto-ban
-                                                echo "<p class='cursor-pointer'>Signaler</p>";
+                                                echo "<p class='cursor-pointer' id='comment-report-".$commentaire->getId()."'>Signaler</p>";
+                                            
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()==$_id && time()-strtotime($commentaire->getDate())<1800)
                                                 //Commentaire modifiable à 30 min
-                                                echo "<p class='cursor-pointer'>Modifier</p>";
+                                                echo "<p class='cursor-pointer' id='comment-edit-".$commentaire->getId()."'>Modifier</p>";
                                         ?>
                                         </div>
                                     </div>
@@ -278,6 +283,14 @@ else{
             </div>
         </div>   
     </section>
+    <section class="popup-comment-edit">
+        <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
+            <input type="hidden" name="id" value="">
+            <textarea name="comment"></textarea>
+            <input type="submit" value="Mettre à jour">
+            <input type="reset" class="cancel" value="Annuler">
+        </form>
+    </section>
         <?php
 /*
 		//Espace commentaire: reservé aux membres de la team
@@ -294,13 +307,13 @@ else{
                             echo '<tr><td>';
                                 if($commentaire->getStatus()=="0" 
                                     && $commentaire->getIdUser()!==$_id){ //Le mec va pas s'auto-ban
-                                    echo '<img class="cursor-pointer signalement" id="comment-report-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/alert.ico"><a/>';
+                                    echo '<img class="cursor-pointer signalement"  src="' . WEBPATH . '/web/img/alert.ico"><a/>';
                                 }
                                 
                                 if($commentaire->getStatus()=="0" 
                                     && $commentaire->getIdUser()==$_id 
                                     && time()-strtotime($commentaire->getDate())<1800){
-                                        echo '<img class="cursor-pointer edition" id="comment-edit-'.$commentaire->getId().'" src="' . WEBPATH . '/web/img/edit.png"><a/>';
+                                        echo '<img class="cursor-pointer edition"  src="' . WEBPATH . '/web/img/edit.png"><a/>';
                                     }
                                     echo '<p>'.$commentaire->getPseudo().'</p>';
 
@@ -316,14 +329,6 @@ else{
                 </form>
             </section>
 
-            <section class="popup-comment-edit">
-                <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
-                    <input type="hidden" name="id" value="">
-                    <textarea name="comment"></textarea>
-                    <input type="submit" value="Mettre à jour">
-                    <input type="reset" class="cancel" value="Annuler">
-                </form>
-            </section>
     </div>
     <?php
         }*/

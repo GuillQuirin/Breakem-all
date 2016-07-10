@@ -16,14 +16,13 @@ $(document).ready(function(){
 	});
 
 	//Signalement d'un commentaire
-	$("img[id^='comment-report-']" ).on('click', function() {
+	$("p[id^='comment-report-']" ).on('click', function() {
 		var commentaire = $(this).prop('id').replace("comment-report-","");
 		$.ajax({method: "POST",
 				data:{id: commentaire},
 				url: "detailteam/reportComment", 
 				success: function(result){
-					console.log($(this));
-            		$(this).html("");
+            		$("#comment-report-"+commentaire).remove();
         		}
         	}
         );
@@ -38,11 +37,11 @@ $(document).ready(function(){
 	});
 
 	//Edition d'un commentaire
-	$("img[id^='comment-edit-']").click(function() {
+	$("p[id^='comment-edit-']").click(function() {
 		var id = $(this).prop('id').replace("comment-edit-","");
 		$('.popup-comment-edit input[name="id"]').prop("value", id);
 
-		var message = $.trim($(this).parent().find(".message").html());
+		var message = $.trim($(this).parent().parent().find(".comment").html());
 		$('.popup-comment-edit textarea').text(message);
 
 		$('.popup-comment-edit').fadeIn('100');
