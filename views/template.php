@@ -327,6 +327,7 @@
 		} ?>
 
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
+		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 		<?php 
 			if(isset($js)){ 
 				if(is_array($js)){
@@ -337,7 +338,7 @@
 					echo '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>';
 			}
 		?>
-		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
+		
 		
 		
 	</body>
