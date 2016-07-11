@@ -119,14 +119,16 @@ function getIntInLetters($n){
 			return false;
 	}
 }
-function getRoundNameFromLeftTeamNumber($teamNumberLeft){
-	if(!is_int($teamNumberLeft))
+function getRoundNameFromMatchesInRank($matchNumber){
+	if(!is_int($matchNumber))
 		return false;
-	switch ($teamNumberLeft) {
-		case 2:
+	switch ($matchNumber) {
+		case 1:
 			return "finale";
+		case 2:
+			return "demi finale";
 		case 4:
-			return "demi-finale";
+			return "quarts de finale";
 		case 8:
 			return "huitièmes de finale";
 		case 16:
