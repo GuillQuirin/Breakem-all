@@ -117,13 +117,13 @@ var platformModule = {
 		platformModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.platform-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-id-p').val();
-				var name = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-nom-p').val();
-				var description = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .platform-description-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .platform-form > .admin-input-file > .platform-image-p');
+				var id = updateBtn.parent().parent().find('.platform-id-p').val();
+				var name = updateBtn.parent().parent().find('.platform-nom-p').val();
+				var description = updateBtn.parent().parent().find('.platform-description-p').val();
+				var myImg = updateBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
 				var allData = {id : id, name : name, description : description};
 
@@ -131,10 +131,8 @@ var platformModule = {
 			    if (typeof FormData !== 'undefined') {
 			           
 			        //Pour l'upload coté serveur
-			        var file = myImg.prop('files')[0];
-
-			        if(file){
-
+			        if(myImg){
+			        	var file = myImg.prop('files')[0];
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
 
@@ -156,31 +154,33 @@ var platformModule = {
 				                console.log(result2);
 				            }
 					    });
-			        }   				    
+			        }			    
 			    } else {    	
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    //Update de la platform
-				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log("Plateforme mise à jour");
-						//Reload la mise a jour dans l'html
-						updateBtn.parent().parent().find('.platform-nom-g').html(name);
-						updateBtn.parent().parent().find('.platform-description-g').html(description);
-						//Si l'image uploadé existe on l'envoi dans la dom
-						if(allData.img){
-							updateBtn.parent().parent().find('.platform-img-up').attr('src', allData.img);	
-						}	
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update platform", result);
-					}
-				});
+			    if(allData.name && allData.description){
+				    //Update de la platform
+					jQuery.ajax({
+						url: "admin/updatePlatformsData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log("Plateforme mise à jour");
+							//Reload la mise a jour dans l'html
+							updateBtn.parent().parent().find('.platform-nom-g').html(name);
+							updateBtn.parent().parent().find('.platform-description-g').html(description);
+							//Si l'image uploadé existe on l'envoi dans la dom
+							if(allData.img){
+								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+							}	
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update platform", result);
+						}
+					});	
+				}
 			});			
 		});
 	},
@@ -193,46 +193,62 @@ var platformModule = {
 			var btn = jQuery(e.currentTarget);
 
 			btn.parent().parent().find('.admin-add-form-wrapper').html(
-				"<div class='index-modal-this index-modal-login align'>"+
-							
-					"<div id='login-form' class='grid-md-3 inscription_rapide animation fade'>"+
-						"<form class='platform-form' enctype='multipart/form-data' accept-charset='utf-8'>"+
-						   	"<label for='email'>Nom :</label>"+
-						   	"<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value=''>"+
-						   	"<label for='email'>Description :</label>"+
-						   	"<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>"+							    						
-						   	"<div class='admin-avatar-wrapper m-a'>"+																	
-								"<img class='admin-avatar img-cover platform-img' src='' title='Image de profil' alt='Image de profil'>"+										
-							"</div>"+
-							"<div class='text-center admin-input-file'>"+								 
-							"<input type='file' class='platform-image-p' name='profilpic'>"+
-							"</div>"+
-						   	"<button type='button' class='platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>"+
-				  		"</form>"+
-				  	"</div>"+
+				//Formulaire
+				"<div class='index-modal-this index-modal-login align'>" +
+					
+					"<div class='grid-md-4 inscription_rapide animation fade'>" +
+						"<form class='platform-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+							//Title
+							"<div class='grid-md-12 form-title-wrapper'>" +
+								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-plateforme.png'><span class='form-title'>Plateforme</span>" +
+							"</div>" +
+							//Image
+							"<div class='grid-md-12'>" +
+								"<div class='membre-form-img-size m-a'>" +																	
+									"<img class='img-cover platform-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +										
+								"</div>" +
+								"<div class='text-center admin-input-file'>" +								 
+									"<input type='file' class='platform-image-p' name='profilpic'>" +
+								"</div>" +
+							"</div>" +
+							//Label
+							"<div class='grid-md-5 text-left'>" +
+							    "<label for='email'>Nom :</label>" +
+							    "<label for='email'>Description :</label>" +
+						    "</div>" +
+						    //Input
+						    "<div class='grid-md-7'>" +
+								"<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text'>" +
+							    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'></textarea>" +							    														   
+							"</div>" +
+							//Submit
+							"<div class='grid-md-12'>" + 
+				   				"<button type='button' class='platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+				  			"</div>" +
+				  		"</form>" +
+				  	"</div>" +
 				"</div>"
+				//Fin Formulaire
 			);
 
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.platform-submit-add-this-form-btn');
 
 			submitBtn.click(function(ev){
-				console.log("lol");
 				var subBtn = jQuery(ev.currentTarget);
-				var name = subBtn.parent().find('.platform-nom-p').val();
-				var description = subBtn.parent().find('.platform-description-p').val();
+				var name = subBtn.parent().parent().find('.platform-nom-p').val();
+				var description = subBtn.parent().parent().find('.platform-description-p').val();
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
 				var allData = {name : name, description : description};
 
 				//Image
-			 	if (typeof FormData !== 'undefined') {
-				           
-			        //Pour l'upload coté serveur
-			        var file = myImg.prop('files')[0];
+			 	if (typeof FormData !== 'undefined') {				           
 
-			        if(file){
+			        if(myImg){
+			        	//Pour l'upload coté serveur
+			        	var file = myImg.prop('files')[0];
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -259,20 +275,22 @@ var platformModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
+			    if(allData.name && allData.description){
 			    //Insert de la platform
-				jQuery.ajax({
-					url: "admin/insertPlatformsData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log("Platforme ajoutée.");
-						console.log(allData);
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update platform", result);
-					}
-				});
+					jQuery.ajax({
+						url: "admin/insertPlatformsData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log("Platforme ajoutée.");
+							console.log(allData);
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update platform", result);
+						}
+					});
+				}
 			});
 
 		});

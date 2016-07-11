@@ -1,7 +1,32 @@
+.admin-board{
+    padding:25px 0;
+    margin: 35px 0;
+}
+
+.admin-board-section-text{
+    padding: 25px 0;
+}
+
+.admin-board-title-wrapper{
+    padding:25px 0;
+}
+
+.admin-board-title{
+    font-size: 25px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.admin-board-intro-wrapper{
+    padding:0 0 25px 0;
+}
+
 .membre-form-img-size{
     width:100px;
     height:100px;
     border-radius:50%;
+    line-height: 100px;
+    text-align: center;
 }
 
 .admin-form-submit{

@@ -43,6 +43,7 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
 		onglet.getAdminContainer().hide();
+		onglet.getAdminBoard().show();
 
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){
@@ -99,7 +100,7 @@ var onglet = {
 		this._adminBoard = jQuery('#admin-board');
 	},
 	setAdminContainer : function(){
-		this._adminContainer = jQuery('#admin-container');
+		this._adminContainer = jQuery('.admin-container');
 	},
 	setAdminDataRe : function(){
 		this._adminDataRe = jQuery('.admin-data-re');
