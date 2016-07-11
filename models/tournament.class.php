@@ -52,9 +52,12 @@ final class tournament{
 	protected $_myArr;
 	// Données provenant de matchs
 	protected $_matchs = [];
+	protected $_minIdMatch = PHP_INT_MAX;
+	protected $_biggestMatchNumber = 0;
 	// Données provenant de teamtournament
 	protected $_fullteams = [];
 	protected $_freeteams = [];
+	protected $_minIdTeam = PHP_INT_MAX;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -189,13 +192,21 @@ final class tournament{
 
 	public function addMatch(matchs $m){
 		$this->_matchs[] = $m;
+		if((int) $m->getId() < $this->_minIdMatch)
+			$this->_minIdMatch = (int) $m->getId();
+		if((int) $m->getMatchNumber() > $this->_biggestMatchNumber)
+			$this->_biggestMatchNumber = (int) $m->getMatchNumber();
 	}
 
 	public function addFreeTeam(teamtournament $tt){
 		$this->_freeteams[] = $tt;
+		if((int) $tt->getId() < $this->_minIdTeam)
+			$this->_minIdTeam = (int) $tt->getId();
 	}
 	public function addFullTeam(teamtournament $tt){
 		$this->_fullteams[] = $tt;
+		if((int) $tt->getId() < $this->_minIdTeam)
+			$this->_minIdTeam = (int) $tt->getId();
 	}
 
 
@@ -243,10 +254,46 @@ final class tournament{
 	}
 	// Getters des matchs
 	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
+	public function gtPublicMatchIdToPrint(matchs $m){
+		return ((int) $m->getId() - $this->_minIdMatch + 1);
+	}
+	public function gtRevertPublicMatchId(matchs $m){
+		return ((int) $m->getId() + $this->_minIdMatch - 1);
+	}
+	public function gtBiggestMatchNumber(){
+		return $this->_biggestMatchNumber;
+	}
+
+
 	// Getters des teamtournament
 	public function gtFreeTeams(){return $this->_freeteams;}
 	public function gtFullTeams(){return $this->_fullteams;}
 	public function gtAllTeams(){return array_merge($this->gtFreeTeams(), $this->gtFullTeams());}
+	public function gtParticipatingTeams(){
+		$minimumRequiredMemberNumbersTeam = [];
+		foreach ($this->gtAllTeams() as $key => $team) {
+			if((int) $team->getTakenPlaces() >= ($this->getMaxPlayerPerTeam()/2))
+				$minimumRequiredMemberNumbersTeam[] = $team;
+		}
+		return $minimumRequiredMemberNumbersTeam;
+		// var_dump($minimumRequiredMemberNumbersTeam);
+	}
+	public function gtMatchesSortedByRank(){
+		$sortedMatches = [];
+		$min = PHP_INT_MAX;
+		$max = 0;
+		foreach ($this->gtAllMatchs() as $key => $match) {
+			$currentMatchRank = (int) $match->getMatchNumber();
+			$sortedMatches[$currentMatchRank][] = $match;
+		}
+		return $sortedMatches;
+	}
+	public function gtPublicTeamIdToPrint(teamtournament $tt){
+		return ((int) $tt->getId() - $this->_minIdTeam + 1);
+	}
+	public function gtRevertPublicTeamId(teamtournament $tt){
+		return ((int) $tt->getId() + $this->_minIdTeam - 1);
+	}
 
 	public function _gtMaxStartDaysInterval(){
 		return $this->_maxStartDate;
@@ -257,6 +304,29 @@ final class tournament{
 
 	public function doesTournamentHaveWinner(){
 		return is_numeric($this->getIdWinningTeam());
+	}
+	public function gtWinningTeam(){
+		foreach ($this->gtAllTeams() as $key => $team) {
+			if($team->getId() == $this->getIdWinningTeam())
+				return $team;
+		}
+		return false;
+	}
+
+
+	public function resetUsersMatchsTeamsDatas(){
+		$this->_numberRegistered = false;
+		$this->_registeredList = [];
+
+		$this->_myArr = [];
+		// Données provenant de matchs
+		$this->_matchs = [];
+		$this->_minIdMatch = PHP_INT_MAX;
+		$this->_biggestMatchNumber = 0;
+		// Données provenant de teamtournament
+		$this->_fullteams = [];
+		$this->_freeteams = [];
+		$this->_minIdTeam = PHP_INT_MAX;
 	}
 }
 /*
