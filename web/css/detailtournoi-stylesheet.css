@@ -362,6 +362,12 @@ section:hover{
 		border-radius: 5px;
 		background: linear-gradient( to top, rgb(8,3,37), rgba(255, 255, 255, 0));
 	}
+	.detailtournoi-match-winner-announcement{
+		margin-top: 25px;
+	}
+	.detailtournoi-match-winner-announcement span{
+		padding: 5px 2px;
+	}
 /* ################## EQUIPES #################### */
 	.detailtournoi-equipeslibres-section,
 	.detailtournoi-equipescompletes-section{
