@@ -12,9 +12,9 @@
 				<div class="detail-tournoi-aside ta-center relative">
 					<img src="<?php echo $tournoi->getGameImg();?>" alt="Battlefield 3">
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
-					<?php if(isset($_isConnected)): ?>
+					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0): ?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 ): ?>
 								<div class="relative ta-right">
 									<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
@@ -49,18 +49,25 @@
 						</span>
 					</p>
 					<?php $restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());?>
-					<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
-						<span class="relative">
-							<?php 
-							echo $restant;
-						 	?>
-						</span>
-					</p>
-					<p class="relative detailtournoi-points-gagnants">À gagner : 
+					<?php if ( !$tournoi->doesTournamentHaveWinner() && !$tournoi->gtAllMatchs() ): ?>
+						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
+							<span class="relative">
+								<?php 
+								echo $restant;
+							 	?>
+							</span>
+						</p>
+					<?php elseif( !$tournoi->doesTournamentHaveWinner() && is_array($tournoi->gtAllMatchs()) ) : ?>
+						<p class="relative detailtournoi-jeu-mode bg-green">Le tournoi a commencé !</p>
+					<?php else: ?>
+						<p class="relative detailtournoi-jeu-mode bg-pink">Tournoi clôturé !</p>
+					<?php endif ?>
+					
+					<!-- <p class="relative detailtournoi-points-gagnants">À gagner : 
 						<span class="relative">XXX points
 							<i class="absolute ta-center">??% (XX points) à répartir dans l'équipe gagnante</i>
 						</span>
-					</p>
+					</p> -->
 					<p class="relative detailtournoi-jeu-console">Console: 
 						<span class="capitalize"><?php echo $tournoi->getPName(); ?></span>
 					</p>
@@ -71,7 +78,11 @@
 						<span><?php echo $tournoi->getMaxPlayer(); ?></span>
 					</p>
 					<p class="relative detailtournoi-jeu-minjoueurs">Joueurs min: <span><?php echo $tournoi->getMaxPlayer()/2; ?></span></p>
-					<p class="relative detailtournoi-jeu-victoire">Règles: <span>rencontres de XX (3??) manches</span></p>
+					<!-- Si le tournoi a débuté -->
+					<?php if (is_array($tournoi->gtAllMatchs())): ?>
+						<?php $numberOfParticipatingTeams = count($tournoi->gtParticipatingTeams()); ?>
+						<p class="relative detailtournoi-jeu-victoire">Règles: <span>en <?php echo ( $numberOfParticipatingTeams%2 === 0) ? $numberOfParticipatingTeams : ((int)($numberOfParticipatingTeams+1)/2) ;?> manches</span></p>
+					<?php endif ?>
 					<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: 
 						<span><?php 						
 							if($tournoi->getMaxPlayerPerTeam() > 1){
@@ -98,54 +109,132 @@
 		</article>
 	</section>
 	<?php if ($tournoi->doesTournamentHaveWinner()): ?>
-		<section class="detailtournoi detailtournoi-winner">
-			<h3 class="titre2 border-full ta-center">Remporté par l'équipe X</h3>
+		<?php $winningTeam = $tournoi->gtWinningTeam(); ?>
+		<section class="detailtournoi detailtournoi-winner display-flex-column">
+			<?php if ($tournoi->getMaxPlayerPerTeam() > 1): ?>
+				<h3 class="title-2 border-full ta-center m-a bg-green">Remporté par l'équipe <?php echo $tournoi->gtPublicTeamIdToPrint($winningTeam); ?></h3>
+				<div class="detailtournoi-winner-details display-flex-column">
+					<h4 class="title-4 ta-center m-a">Les membres</h4>
+					<?php foreach ($winningTeam->getUsers() as $key => $user): ?>
+						<p class="detailtournoi-winner-users">
+							<a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+						</p>
+					<?php endforeach ?>
+				</div>
+			<?php else: ?>
+				<h3 class="title-2 border-full ta-center m-a bg-green">Remporté par <a href="<?php echo WEBPATH.'/profil?pseudo='.$winningTeam->getUsers()[0]->getPseudo(); ?>"><?php echo $winningTeam->getUsers()[0]->getPseudo(); ?></a></h3>
+			<?php endif ?>			
 		</section>
 	<?php endif ?>
 	<section class="detailtournoi detailtournoi-matchs display-flex-column">
+		<?php $availableMatchedAllPlayed = true;?>
 		<?php if(!!$tournoi->gtAllMatchs()): ?>
 			<h3 class="titre1 border-full ta-center">Les matchs</h3>
-			<div class="detailtournoi-matchs-container full-width display-flex-row">
-			<?php foreach ($tournoi->gtAllMatchs() as $key => $match): ?>
-				<?php $winnerTeam = $match->gtWinningTeam(); ?>
-				<?php $losingTeams = $match->getLosingTeams(); ?>
-				<?php if (!!$winnerTeam): ?>
-					<div class="detailtournoi-match-over display-flex-row">
-						<div class="detailtournoi-match-winningteam display-flex-column">
-							<h4 class="titre4 ta-center">Equipe vainqueur</h4>
-							<div class="detailtournoi-match-winningteam-users display-flex-column">
-								<?php foreach ($winneTeam->getUsers() as $key => $u): ?>
-									<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
-								<?php endforeach ?>
+			<div class="detailtournoi-matchs-container full-width display-flex-column">
+			<!-- On affiche les matchs par niveau -->
+			<?php foreach ($tournoi->gtMatchesSortedByRank() as $rank => $arrayOfMatchedInRank): ?>
+				<h3 class="detailtournoi-rank-number titre2 m-a ta-center capitalize"><!-- 
+					 --><?php echo (!!getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) && $rank > 1) ? getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) : getIntInLetters($rank).' tour'; ?><!-- 
+				--></h3>
+				<div class="detailtournoi-matches-in-rank-container display-flex-row" id="detailtournoi-rank-<?php echo $rank; ?>">
+					<!-- Matchs du niveau rank -->
+					<?php foreach ($arrayOfMatchedInRank as $key => $match): ?>
+						<!-- Matchs déjà joués -->
+						<?php if (is_numeric($match->getIdWinningTeam())): ?>
+							<div class="detailtournoi-match detailtournoi-finished-match display-flex-column m-a">
+								<h3 class="title-4 ta-center m-a border-full bg-green">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
+								<div class="detailtournoi-match-teams m-a display-flex-row">
+									<!-- Equipes du match  -->
+									<?php $maxTCount= count($match->gtAllTeamsTournament())-1; $teamcount=0; ?>
+									<?php foreach ($match->gtAllTeamsTournament() as $key => $teamInMatch): ?>
+										<div class="detailtournoi-match-team m-a display-flex-column">
+											<?php if ($teamInMatch->getId() == $match->getIdWinningTeam()): ?>
+											<h4 class="detailtournoi-match-team-number bg-green">Equipe <?php echo $tournoi->gtPublicTeamIdToPrint($teamInMatch); ?></h4>
+											<?php else: ?>
+											<h4 class="detailtournoi-match-team-number">Equipe <?php echo $tournoi->gtPublicTeamIdToPrint($teamInMatch); ?></h4>
+											<?php endif ?>
+											<!-- Detail d'une équipe -->
+											<div class="detailtournoi-match-team-detail m-a display-flex-column">
+												<p class="detailtournoi-match-team-number-users"><?php echo $teamInMatch->getTakenPlaces(); ?> joueur<?php echo ($teamInMatch->getTakenPlaces() > 1) ? 's': ''; ?></p>
+												<div class="detailtournoi-match-team-users-container display-flex-column">
+													<?php foreach ($teamInMatch->getUsers() as $key => $userInTeam): ?>
+														<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$userInTeam->getPseudo(); ?>"><?php echo $userInTeam->getPseudo();?></a>
+													<?php endforeach ?>
+												</div>
+											</div>
+											
+										</div>
+										<!-- Séparateur de teams (VERSUS) -->
+										<?php if ( $teamcount < $maxTCount ): ?>
+											<img class="detailtournoi-match-team-separator" src="<?php echo WEBPATH;?>/web/img/icon/logo.ico" alt="versus">
+										<?php endif ?>
+										<?php $teamcount++; ?>
+									<?php endforeach ?>
+								</div>
 							</div>
-						</div>
-						<div class="detailtournoi-match-losingteams display-flex-column">
-							<h4 class="titre4 ta-center"><?php echo (count($losingTeams) > 1) ? 'Equipes vaincues' : 'Equipe vaincue'; ?></h4>
-							<div class="detailtournoi-match-losingteams display-flex-column">
-								<?php foreach ($losingTeams as $key => $lTeam): ?>
-									<div class="detailtournoi-match-losingteam display-flex-column">
-										<?php foreach ($lTeam->getUsers() as $key => $u): ?>
-										<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$u->getPseudo(); ?>"><?php echo $u->getPseudo();?></a>
-										<?php endforeach ?>
-									</div>
-								<?php endforeach ?>
+						<!-- Matchs non joués -->
+						<?php else: ?>
+							<?php $availableMatchedAllPlayed = false;?>
+							<div class="detailtournoi-match detailtournoi-unfinished-match display-flex-column">
+								<h3 class="titre3 ta-center m-a ">Match <?php echo $tournoi->gtPublicMatchIdToPrint($match); ?></h3>
+								<div class="detailtournoi-match-teams display-flex-row">
+									<!-- Equipes du match  -->
+									<?php $maxTCount= count($match->gtAllTeamsTournament())-1; $teamcount=0; ?>
+									<?php foreach ($match->gtAllTeamsTournament() as $key => $teamInMatch): ?>
+										<div class="detailtournoi-match-team display-flex-column">
+											<h4 class="detailtournoi-match-team-number">Equipe <?php echo $tournoi->gtPublicTeamIdToPrint($teamInMatch); ?></h4>
+											<?php if (isset($_id) && $tournoi->getIdUserCreator() == $_id): ?>
+												<button data-m="<?php echo $tournoi->gtPublicMatchIdToPrint($match); ?>" data-tt="<?php echo $tournoi->gtPublicTeamIdToPrint($teamInMatch); ?>" class="detailtournoi-btn-match-select-winner relative btn btn-pink m-a"><a>A gagné !</a></button>
+											<?php endif ?>
+											<!-- Detail d'une équipe -->
+											<div class="detailtournoi-match-team-detail m-a display-flex-column">
+												<p class="detailtournoi-match-team-number-users"><?php echo $teamInMatch->getTakenPlaces(); ?> joueur<?php echo ($teamInMatch->getTakenPlaces() > 1) ? 's': ''; ?></p>
+												<div class="detailtournoi-match-team-users-container display-flex-column">
+													<?php foreach ($teamInMatch->getUsers() as $key => $userInTeam): ?>
+														<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$userInTeam->getPseudo(); ?>"><?php echo $userInTeam->getPseudo();?></a>
+													<?php endforeach ?>
+												</div>
+											</div>
+											
+										</div>
+										<!-- Séparateur de teams (VERSUS) -->
+										<?php if ( $teamcount < $maxTCount ): ?>
+											<img class="detailtournoi-match-team-separator" src="<?php echo WEBPATH;?>/web/img/icon/logo.ico" alt="versus">
+										<?php endif ?>										
+										<?php $teamcount++; ?>
+									<?php endforeach ?>
+								</div>
 							</div>
-						</div>
-					</div>
-				<?php else: ?>
-
+						<?php endif ?>
+					<?php endforeach ?>
+				</div>				
+				<?php if (isset($tournoi->gtMatchesSortedByRank()[$rank+1])): ?>
+					<div class="full-width m-a detailtournoi-rank-separator"></div>
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
+		<!-- Cas où aucun match n'a été joué -->
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
 					<button id="detailtournoi-btn-create-matchs" class="relative btn btn-pink m-a"><a>Créer les premières rencontres !</a></button>
 				<?php else: ?>
 					<?php $placesRestantesRequises = $tournoi->getMaxPlayer()/2 - $tournoi->getNumberRegistered();?>
-					<h3 class="titre4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>
+					<h3 class="title-4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>
 				<?php endif ?>
 			<?php endif ?>
+		<?php endif; ?>
+		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
+		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed ): ?>
+			<?php if (!$tournoi->doesTournamentHaveWinner()): ?>
+				<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
+					<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
+				<?php else: ?>				
+					<p class="title-4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>
+				<?php endif ?>
+			<?php else: ?>
+				<p class="detailtournoi-match-winner-announcement title-4 m-a ta-center"><span class="bg-green">L'équipe <?php echo $tournoi->gtPublicTeamIdToPrint($tournoi->gtWinningTeam()); ?></span> a gagné ce tournoi !</p>
+			<?php endif ?>			
 		<?php endif; ?>
 	</section>
 	<?php if(isset($allRegistered)):?>
@@ -166,71 +255,95 @@
 			</div>
 		</section>
 	<?php endif; ?>
-	<?php $teamNumber = 1;?>
-	<?php if(isset($freeTeams)): ?>
-		<section class="detailtournoi full-width m-a detailtournoi-equipeslibres-section">
-			<div class="full-width m-a display-flex-column max-width-1260">
-				<h2 class="titre2 border-full">Equipes rejoignables
-					<span class="detailtournoi-nombre-equipeslibres bg-green"><?php echo count($freeTeams);?></span>
-				</h2>
-				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
-					<?php foreach($freeTeams as $key => $team):?>
-						<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
-						<div class="detailtournoi-equipelibre overflow-hidden relative">
-							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
-								<span class="equipelibre-espace bg-green absolute absolute-0-100"><?php echo $placesLeft;?></span>
-							</h5>
-							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">
-								<?php if(count($team->getUsers()) > 0):?>
-									<div class="full-width m-a equipelibre-joueurs-container display-flex-column">
-										<?php foreach($team->getUsers() as $key => $user):?>
-											<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
-										<?php endforeach;?>
-									</div>
-								<?php else: ?>
-									<div class="full-width m-a">
-										<p class="text-center m-a">Aucun joueur dans cette équipe</p>
-									</div>
-								<?php endif; ?>
-								<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
-									<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
-									<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
-										<a>Rejoindre <?php echo $teamNumber;?></a>
-									</button>
-								<?php endif; ?>
-							</div>
-						</div>
-					<?php  $teamNumber++; endforeach; ?>
-				</div>
-			</div>
-		</section>
-	<?php endif; ?>
-	<?php if(isset($fullTeams)): ?>
+	<!-- Si le match a commencé -->
+	<?php if (is_array($tournoi->gtAllMatchs())): ?>
 		<section class="detailtournoi full-width m-a detailtournoi-equipescompletes-section">
-			<div class="full-width m-a display-flex-column max-width-1260">
-				<h2 class="titre2 border-full">Equipes complètes
-					<span class="detailtournoi-nombre-equipeslibres bg-pink"><?php echo count($fullTeams);?></span>
-				</h2>
-				<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
-					<?php foreach($fullTeams as $key => $team):?>
-						<div class="detailtournoi-equipecomplete overflow-hidden relative">
-							<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $teamNumber;?>
-								<span class="equipecomplete-espace bg-pink absolute absolute-0-100"><?php echo count($team->getUsers());?></span>
-							</h5>
-							<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">							
-								<div class="full-width m-a equipecomplete-joueurs-container display-flex-column">
-									<?php foreach($team->getUsers() as $key => $user):?>
-										<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
-									<?php endforeach;?>
-								</div>					
-							</div>						
-						</div>
-					<?php  $teamNumber++; endforeach; ?>
+			<?php $participatingTeams = $tournoi->gtParticipatingTeams(); $numberOfParticipatingTeams = count($participatingTeams); ?>
+				<div class="full-width m-a display-flex-column max-width-1260">
+					<h2 class="titre2 border-full">Equipes participantes
+						<span class="detailtournoi-nombre-equipeslibres bg-pink"><?php echo $numberOfParticipatingTeams;?></span>
+					</h2>
+					<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
+						<?php foreach($participatingTeams as $key => $team):?>
+							<div class="detailtournoi-equipecomplete overflow-hidden relative">
+								<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $tournoi->gtPublicTeamIdToPrint($team); ?>
+									<span class="equipecomplete-espace bg-pink absolute absolute-0-100"><?php echo count($team->getUsers());?></span>
+								</h5>
+								<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">							
+									<div class="full-width m-a equipecomplete-joueurs-container display-flex-column">
+										<?php foreach($team->getUsers() as $key => $user):?>
+											<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+										<?php endforeach;?>
+									</div>					
+								</div>						
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>			
+			</section>
+	<?php else: ?>
+		<?php if(isset($freeTeams)): ?>
+			<section class="detailtournoi full-width m-a detailtournoi-equipeslibres-section">
+				<div class="full-width m-a display-flex-column max-width-1260">
+					<h2 class="titre2 border-full">Equipes rejoignables
+						<span class="detailtournoi-nombre-equipeslibres bg-green"><?php echo count($freeTeams);?></span>
+					</h2>
+					<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
+						<?php foreach($freeTeams as $key => $team):?>
+							<?php $placesLeft = (int) $tournoi->getMaxPlayerPerTeam() - count($team->getUsers());?>
+							<div class="detailtournoi-equipelibre overflow-hidden relative">
+								<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $tournoi->gtPublicTeamIdToPrint($team); ?>
+									<span class="equipelibre-espace bg-green absolute absolute-0-100"><?php echo $placesLeft;?></span>
+								</h5>
+								<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">
+									<?php if(count($team->getUsers()) > 0):?>
+										<div class="full-width m-a equipelibre-joueurs-container display-flex-column">
+											<?php foreach($team->getUsers() as $key => $user):?>
+												<a class="full-width m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+											<?php endforeach;?>
+										</div>
+									<?php else: ?>
+										<div class="full-width m-a">
+											<p class="text-center m-a">Aucun joueur dans cette équipe</p>
+										</div>
+									<?php endif; ?>
+									<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
+										<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
+										<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
+											<a>Rejoindre <?php echo $teamNumber;?></a>
+										</button>
+									<?php endif; ?>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
 				</div>
-			</div>			
-		</section>
-	<?php endif; ?>
-	<!-- <section class="detailtournoi-bracket">
-		<h2 class="titre2">Resultats des rounds - Bracket</h2>
-	</section> -->
+			</section>
+		<?php endif; ?>
+		<?php if(isset($fullTeams)): ?>
+			<section class="detailtournoi full-width m-a detailtournoi-equipescompletes-section">
+				<div class="full-width m-a display-flex-column max-width-1260">
+					<h2 class="titre2 border-full">Equipes complètes
+						<span class="detailtournoi-nombre-equipeslibres bg-pink"><?php echo count($fullTeams);?></span>
+					</h2>
+					<div class="full-width detailtournoi-equipeslibres-container display-flex-row">
+						<?php foreach($fullTeams as $key => $team):?>
+							<div class="detailtournoi-equipecomplete overflow-hidden relative">
+								<h5 class="relative m-a text-center capitalize overflow-hidden">equipe <?php echo $tournoi->gtPublicTeamIdToPrint($team); ?>
+									<span class="equipecomplete-espace bg-pink absolute absolute-0-100"><?php echo count($team->getUsers());?></span>
+								</h5>
+								<div class="full-width full-height m-a display-flex-column flex-end absolute absolute-0-0">							
+									<div class="full-width m-a equipecomplete-joueurs-container display-flex-column">
+										<?php foreach($team->getUsers() as $key => $user):?>
+											<a class="m-a text-center" href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+										<?php endforeach;?>
+									</div>					
+								</div>						
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>			
+			</section>
+		<?php endif; ?>
+	<?php endif ?>
 <?php endif; ?>

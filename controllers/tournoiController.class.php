@@ -40,10 +40,14 @@ class tournoiController extends template {
 						$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
 						if(is_array($usersInTeam))
 							$teamtournament->addUsers($usersInTeam);
-						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam())
+						if($teamtournament->getTakenPlaces() < $matchedTournament->getMaxPlayerPerTeam()){
+							$matchedTournament->addFreeTeam($teamtournament);
 							$freeTeams[] = $teamtournament;
-						else
+						}
+						else{
 							$fullTeams[] = $teamtournament;
+							$matchedTournament->addFullTeam($teamtournament);
+						}
 					}
 					$v->assign("freeTeams", $freeTeams);
 					$v->assign("fullTeams", $fullTeams);
@@ -64,16 +68,17 @@ class tournoiController extends template {
 					$ttm = new teamtournamentManager();
 					$rm = new registerManager();
 					foreach ($allMatchs as $key => $m) {
-						$teamsOfMatch = $ttm->getTeamsOfMatch($m);
+						$teamsOfMatch = $ttm->getTeamsOfMatch($matchedTournament, $m);
 						if(!!$teamsOfMatch){
-							foreach ($teamsOfMatch as $key => $t) {
-								$usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+							foreach ($teamsOfMatch as $key => $teamOfMatch) {
+								$usersInTeam = $rm->getTeamTournamentUsers($teamOfMatch);
 								if(is_array($usersInTeam))
-									$teamtournament->addUsers($usersInTeam);
-								$m->addTeamTournament($t);
+									$teamOfMatch->addUsers($usersInTeam);
+								$m->addTeamTournament($teamOfMatch);
 							}
 						}
-						$matchedTournaments->addMatch($m);
+						$matchedTournament->addMatch($m);
+						// var_dump($m);
 					}
 					unset($ttm, $rm);
 				}

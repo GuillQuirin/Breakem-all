@@ -3,11 +3,12 @@ window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	// preventQuitPageEvent();
 	if (dom.init()){
+		createNextMatchs.init();
+		selectMatchWinner.init();
+		createFirstMatchs.init();
 		tournamentRegister.init();
 		tournamentUnregister.init();
-		createFirstMatchs.init();
 	};
-	
 });
 
 var dom = {
@@ -15,6 +16,8 @@ var dom = {
 		this.setDetailTournoiInfos();
 		this.setEquipesLibresSection();
 		this.setPremiersMatchsBtn();
+		this.setMatchsWinnerBtns();
+		this.setCreerProchainsMatchsBtn();
 		this.setSjeton();
 		this.setTget();
 		if(isElSoloJqueryInstance(this.getDetailTournoiInfos()) && 
@@ -29,6 +32,12 @@ var dom = {
 		}
 		this.setBtnsTeam();
 		return true;
+	},
+	setCreerProchainsMatchsBtn: function(){
+		this._prochMatchsBtn = $('#detailtournoi-btn-create-next-matchs');
+	},
+	setMatchsWinnerBtns: function(){
+		this._mWinBtns = $('.detailtournoi-btn-match-select-winner');
 	},
 	setPremiersMatchsBtn: function(){
 		this._premMatchsBtn = $('#detailtournoi-btn-create-matchs');
@@ -59,6 +68,12 @@ var dom = {
 	},
 	getPremiersMatchsBtn: function(){
 		return (isElSoloJqueryInstance(this._premMatchsBtn)) ? this._premMatchsBtn : false;
+	},
+	getCreerProchainsMatchsBtn: function(){
+		return (isElSoloJqueryInstance(this._prochMatchsBtn)) ? this._prochMatchsBtn : false;
+	},
+	getMatchsWinnerBtns: function(){
+		return (this._mWinBtns.length > 1) ? this._mWinBtns : false;
 	},
 	getSjeton: function(){
 		return this._sJeton;
@@ -242,7 +257,7 @@ var createFirstMatchs = {
 			$(this).remove();
 		});
 		var container = $('<div class="animation fadeDown full-width full-height display-flex-column fixed absolute-0-0 bg-purple createFirstMatchContainer"></div>');
-		var msg = $('<h3 class="titre4  text-center">Une fois les premiers matchs créés, le tournoi sera vérouillé et plus personne ne pourra s\'inscrire à moins que l\'un des participants ne se désiste. <br />Êtes-vous sûr de vouloir lancer la création des rencontres ?</h3>');
+		var msg = $('<h3 class="titre4  text-center">Une fois les premiers matchs créés, le tournoi sera verrouillé et plus personne ne pourra s\'inscrire à moins que l\'un des participants ne se désiste. <br />Êtes-vous sûr de vouloir lancer la création des rencontres ?</h3>');
 		var btnContainer = $('<div class="detailtournoi-creatematchs-btn-event-container full-width display-flex-row"></div>');
 		var cancelBtn = $('<button id="detailtournoi-cancel-creationpremiersmatchs" class="relative btn btn-pink "><a>Annuler</a></button>');
 		var validationBtn = $('<button id="detailtournoi-validation-creationpremiersmatchs" class="relative btn btn-pink "><a>Oui, lancer !</a></button>');
@@ -278,7 +293,106 @@ var createFirstMatchs = {
 	},
 	sendCreationRequest: function(){
 		jQuery.ajax({
-			url: 'detailtournoi/createFirstMatchs',
+			url: webpath.get()+'/detailtournoi/createFirstMatchs',
+			type: 'POST',
+			data: {
+				t: dom.getTget(),
+				sJeton: dom.getSjeton().val()
+			},
+			complete: function(xhr, textStatus) {
+				// console.log("request completed \n");
+			},
+			success: function(data, textStatus, xhr) {
+				// console.log(data);
+				var obj = tryParseData(data);
+				if(obj != false){
+					if(obj.errors){
+						popup.init(obj.errors);
+						return;
+					}
+					if(obj.success){
+						popup.init(obj.success);
+						setTimeout(function(){
+							location.reload();
+						}, 1000);
+						return;
+					}
+					
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log("request error !! : \t " + errorThrown);
+			}
+		});
+	}
+};
+var selectMatchWinner = {
+	init: function(){
+		if(!!dom.getMatchsWinnerBtns())
+			this.associateEventToBtn();
+	},
+	associateEventToBtn: function(){
+		var _this = this;
+		dom.getMatchsWinnerBtns().each(function() {
+			var mId = $(this).data('m');
+			var ttId = $(this).data('tt');
+			$(this).removeAttr('data-m');
+			$(this).removeAttr('data-tt');
+			$(this).click(function(){
+				_this.btnClick($(this), mId, ttId);
+			});
+		});
+	},
+	btnClick: function(jQbtn, m, tt){
+		jQuery.ajax({
+			url: webpath.get()+'/detailtournoi/selectWinner',
+			type: 'POST',
+			data: {
+				t: dom.getTget(),
+				sJeton: dom.getSjeton().val(),
+				mId: m,
+				ttId: tt
+			},
+			complete: function(xhr, textStatus) {
+				// console.log("request completed \n");
+			},
+			success: function(data, textStatus, xhr) {
+				var obj = tryParseData(data);
+				if(obj != false){
+					if(obj.errors){
+						popup.init(obj.errors);
+						return;
+					}
+					if(obj.success){
+						popup.init(obj.success);
+						setTimeout(function(){
+							location.reload();
+						}, 1000);
+						return;
+					}
+					
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log("request error !! : \t " + errorThrown);
+			}
+		});
+	}
+};
+var createNextMatchs = {
+	init: function(){
+		if(!!dom.getCreerProchainsMatchsBtn())
+			this.associateEventToBtn();
+	},
+	associateEventToBtn: function(){
+		var _this = this;
+		dom.getCreerProchainsMatchsBtn().click(function(e) {
+			_this.btnClicked();
+		});
+	},
+	btnClicked: function(){
+		jQuery.ajax({
+			url: webpath.get()+'/detailtournoi/createNextMatchs',
 			type: 'POST',
 			data: {
 				t: dom.getTget(),
@@ -309,4 +423,4 @@ var createFirstMatchs = {
 			}
 		});
 	}
-}
+};
