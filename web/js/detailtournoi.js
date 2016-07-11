@@ -3,12 +3,12 @@ window.addEventListener('load', function load(){
 	window.removeEventListener('load', load, false);
 	// preventQuitPageEvent();
 	if (dom.init()){
+		createNextMatchs.init();
 		selectMatchWinner.init();
 		createFirstMatchs.init();
 		tournamentRegister.init();
 		tournamentUnregister.init();
 	};
-	
 });
 
 var dom = {
@@ -17,6 +17,7 @@ var dom = {
 		this.setEquipesLibresSection();
 		this.setPremiersMatchsBtn();
 		this.setMatchsWinnerBtns();
+		this.setCreerProchainsMatchsBtn();
 		this.setSjeton();
 		this.setTget();
 		if(isElSoloJqueryInstance(this.getDetailTournoiInfos()) && 
@@ -31,6 +32,9 @@ var dom = {
 		}
 		this.setBtnsTeam();
 		return true;
+	},
+	setCreerProchainsMatchsBtn: function(){
+		this._prochMatchsBtn = $('#detailtournoi-btn-create-next-matchs');
 	},
 	setMatchsWinnerBtns: function(){
 		this._mWinBtns = $('.detailtournoi-btn-match-select-winner');
@@ -64,6 +68,9 @@ var dom = {
 	},
 	getPremiersMatchsBtn: function(){
 		return (isElSoloJqueryInstance(this._premMatchsBtn)) ? this._premMatchsBtn : false;
+	},
+	getCreerProchainsMatchsBtn: function(){
+		return (isElSoloJqueryInstance(this._prochMatchsBtn)) ? this._prochMatchsBtn : false;
 	},
 	getMatchsWinnerBtns: function(){
 		return (this._mWinBtns.length > 1) ? this._mWinBtns : false;
@@ -345,6 +352,51 @@ var selectMatchWinner = {
 				sJeton: dom.getSjeton().val(),
 				mId: m,
 				ttId: tt
+			},
+			complete: function(xhr, textStatus) {
+				// console.log("request completed \n");
+			},
+			success: function(data, textStatus, xhr) {
+				var obj = tryParseData(data);
+				if(obj != false){
+					if(obj.errors){
+						popup.init(obj.errors);
+						return;
+					}
+					if(obj.success){
+						popup.init(obj.success);
+						setTimeout(function(){
+							location.reload();
+						}, 1000);
+						return;
+					}
+					
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log("request error !! : \t " + errorThrown);
+			}
+		});
+	}
+};
+var createNextMatchs = {
+	init: function(){
+		if(!!dom.getCreerProchainsMatchsBtn())
+			this.associateEventToBtn();
+	},
+	associateEventToBtn: function(){
+		var _this = this;
+		dom.getCreerProchainsMatchsBtn().click(function(e) {
+			_this.btnClicked();
+		});
+	},
+	btnClicked: function(){
+		jQuery.ajax({
+			url: webpath.get()+'/detailtournoi/createNextMatchs',
+			type: 'POST',
+			data: {
+				t: dom.getTget(),
+				sJeton: dom.getSjeton().val()
 			},
 			complete: function(xhr, textStatus) {
 				// console.log("request completed \n");
