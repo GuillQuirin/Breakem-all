@@ -104,8 +104,8 @@ final class register{
 	public function getLink(){return $this->_link;}
 	
 	// Getters du jeu
-	public function getNomJeu(){return $this->_nomJeu;}
-	public function getImgJeu($upload=false){
+	public function _getNomJeu(){return $this->_nomJeu;}
+	public function _getImgJeu($upload=false){
 		if($upload){
 			return $this->_imgJeu;
 		}

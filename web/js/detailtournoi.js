@@ -81,8 +81,7 @@ var dom = {
 	getTget: function(){
 		return this._tGet;
 	}
-}
-
+};
 var tournamentRegister = {
 	init: function(){
 		var _this = this;
