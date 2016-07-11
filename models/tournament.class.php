@@ -296,6 +296,22 @@ final class tournament{
 	public function doesTournamentHaveWinner(){
 		return is_numeric($this->getIdWinningTeam());
 	}
+
+
+	public function resetUsersMatchsTeamsDatas(){
+		$this->_numberRegistered = false;
+		$this->_registeredList = [];
+
+		$this->_myArr = [];
+		// Données provenant de matchs
+		$this->_matchs = [];
+		$this->_minIdMatch = PHP_INT_MAX;
+		$this->_biggestMatchNumber = 0;
+		// Données provenant de teamtournament
+		$this->_fullteams = [];
+		$this->_freeteams = [];
+		$this->_minIdTeam = PHP_INT_MAX;
+	}
 }
 /*
 *
