@@ -296,6 +296,13 @@ final class tournament{
 	public function doesTournamentHaveWinner(){
 		return is_numeric($this->getIdWinningTeam());
 	}
+	public function gtWinningTeam(){
+		foreach ($this->gtAllTeams() as $key => $team) {
+			if($team->getId() == $this->getIdWinningTeam())
+				return $team;
+		}
+		return false;
+	}
 
 
 	public function resetUsersMatchsTeamsDatas(){
