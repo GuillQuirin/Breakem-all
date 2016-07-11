@@ -121,7 +121,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 									</div>
 
 									<!-- Formulaire d'ajout -->
-									<div class='index-modal admin-add-form-wrapper hidden-fade hidden'>
+									<div class='index-modal admin-add-form-wrapper hidden-fade hidden text-center'>
 									</div>
 									<!-- Fin Formulaire d'ajout -->
 
