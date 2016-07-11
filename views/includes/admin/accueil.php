@@ -19,7 +19,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
-			<li class="active admin-onglet-li" id="admin-onglet-membres">
+			<li class="admin-onglet-li" id="admin-onglet-membres">
 				<a>Membres</a>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
