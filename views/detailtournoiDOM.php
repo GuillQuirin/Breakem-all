@@ -98,8 +98,17 @@
 		</article>
 	</section>
 	<?php if ($tournoi->doesTournamentHaveWinner()): ?>
-		<section class="detailtournoi detailtournoi-winner">
-			<h3 class="titre2 border-full ta-center">Remporté par l'équipe X</h3>
+		<?php $winningTeam = $tournoi->gtWinningTeam(); ?>
+		<section class="detailtournoi detailtournoi-winner display-flex-column">
+			<h3 class="title-2 border-full ta-center m-a bg-green">Remporté par l'équipe <?php echo $tournoi->gtPublicTeamIdToPrint($winningTeam); ?></h3>
+			<div class="detailtournoi-winner-details display-flex-column">
+				<h4 class="title-4 ta-center m-a">Les membres</h4>
+				<?php foreach ($winningTeam->getUsers() as $key => $user): ?>
+					<p class="detailtournoi-winner-users">
+						<a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+					</p>
+				<?php endforeach ?>
+			</div>
 		</section>
 	<?php endif ?>
 	<section class="detailtournoi detailtournoi-matchs display-flex-column">
@@ -187,6 +196,7 @@
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
+		<!-- Cas où aucun match n'a été joué -->
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
@@ -198,13 +208,14 @@
 			<?php endif ?>
 		<?php endif; ?>
 		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
-		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed): ?>
-			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
-				<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
-			<?php else: ?>				
-				<p class="titre4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>				
-			<?php endif ?>
-		<!-- Cas où aucun match n'a été joué -->
+		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed ): ?>
+			<?php if ($tournoi->doesTournamentHaveWinner()): ?>
+				<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
+					<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
+				<?php else: ?>				
+					<p class="titre4 m-a ta-center">En attente de <?php echo $tournoi->getUserPseudo(); ?> pour lancer les prochains matchs</p>
+				<?php endif ?>
+			<?php endif ?>			
 		<?php endif; ?>
 	</section>
 	<?php if(isset($allRegistered)):?>

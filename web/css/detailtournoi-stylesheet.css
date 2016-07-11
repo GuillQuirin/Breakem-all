@@ -144,7 +144,20 @@ section:hover{
 	.detailtournoi-tournoi-regles p span.relative:hover i:after{
 		content: attr(data-title);
 	}
-
+/* #################  EQUIPE GAGNANTE ################## */
+.detailtournoi-winner{
+	padding-bottom: 20px;
+}
+.detailtournoi-winner-details{
+	margin-top: 15px;
+}
+.detailtournoi-winner-details h4{
+	padding-bottom: 10px;
+}
+.detailtournoi-winner-details p{
+	padding-bottom: 2px;
+	border-bottom: 1px solid #fff;
+}
 /* ################## JOUEURS PARTICIPANTS ################### */
 	p.aucune-place-restante{
 		background: #D92B4C;
