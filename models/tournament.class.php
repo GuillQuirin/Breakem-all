@@ -269,6 +269,15 @@ final class tournament{
 	public function gtFreeTeams(){return $this->_freeteams;}
 	public function gtFullTeams(){return $this->_fullteams;}
 	public function gtAllTeams(){return array_merge($this->gtFreeTeams(), $this->gtFullTeams());}
+	public function gtParticipatingTeams(){
+		$minimumRequiredMemberNumbersTeam = [];
+		foreach ($this->gtAllTeams() as $key => $team) {
+			if((int) $team->getTakenPlaces() >= ($this->getMaxPlayerPerTeam()/2))
+				$minimumRequiredMemberNumbersTeam[] = $team;
+		}
+		return $minimumRequiredMemberNumbersTeam;
+		// var_dump($minimumRequiredMemberNumbersTeam);
+	}
 	public function gtMatchesSortedByRank(){
 		$sortedMatches = [];
 		$min = PHP_INT_MAX;
