@@ -3,11 +3,11 @@
     <table border=0>
         <tr>
             <td>Nom : </td>
-            <td><input class="input-default" type="text" name="name"></td>
+            <td><input class="input-default nameteam" type="text" name="name" value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>"></td>
         </tr>
         <tr>
             <td>Description : </td>
-            <td><textarea  class="desc-default" rows="3" name="description"></textarea></td>
+            <td><textarea  class="desc-default" rows="3" name="description" value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
         </tr>
         <tr>
             <td>Image : </td>

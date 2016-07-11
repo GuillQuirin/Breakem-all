@@ -21,6 +21,16 @@ class creationteamController extends template{
 public function addTeamAction()
 {
 
+    if(isset($_SESSION['err_name'])){
+        $v->assign("err_name","1");
+        unset($_SESSION["err_name"]);
+    }
+
+    if(isset($_SESSION['err_desc'])){
+        $v->assign("err_desc","1");
+        unset($_SESSION["err_desc"]);
+    }
+
     $args = array(
         'name' => FILTER_SANITIZE_STRING,
         'description' => FILTER_SANITIZE_STRING,
@@ -28,6 +38,12 @@ public function addTeamAction()
     );
 
     $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+    if(strlen($filteredinputs['name']) < 2 || strlen($filteredinputs['name']) > 20 ||  $filteredinputs['name'] == "" ){
+        $_SESSION['err_name']=$filteredinputs['name'];
+    }else if(strlen($filteredinputs['description']) < 3 || strlen($filteredinputs['description']) > 20 ||  $filteredinputs['description'] == "" ){
+        $_SESSION['err_desc']=$filteredinputs['description'];
+        header('Location: '.WEBPATH.'/creationteam.php;');
+    }
     
     if (isset($_FILES['img']) && $_FILES['img']['error'] != 4) {
         $uploaddir = '/web/img/upload/';
