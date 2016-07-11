@@ -56,6 +56,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 				<div class="grid-md-12">	
 					<!-- Default Layout -->
 					<div id="admin-board" class="admin-board text-center border-regular">
+						<!-- Row -->
 						<div class="row">
 							<!-- Dashboard Title -->
 							<div class="grid-md-12 admin-board-title-wrapper">
@@ -90,6 +91,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 									<div class="grid-md-4">
 										<?php echo "<img class='border-pink' src='" . WEBPATH . "/web/img/admin-howto3.png'>";?>
 									</div>
+								</div>
 								<div class="grid-md-12">
 									<span class="display-block admin-board-section-text">En cliquant sur modifier, vous avez accès au formulaire.</span>
 									<?php echo "<img class='border-pink' src='" . WEBPATH . "/web/img/admin-howto4.png'>";?>
@@ -97,11 +99,12 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 							</div>
 							<!-- Fin Dashboard Content -->
 						</div>
+						<!-- Fin Row -->
 					</div>
 					<!-- Fin Default Layout -->
 
 					<!-- Admin Layout -->
-					<div id="admin-container">
+					<div id="admin-container" class="admin-container">
 						<!-- Admin wrapper -->
 						<div class="admin-wrapper">
 							<!-- Admin search -->
