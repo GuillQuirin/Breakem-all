@@ -285,33 +285,23 @@ var validateChoices = {
 		dom.getContainer().after(container);
 		this._sumUp = container;
 	},
+	btnClickedEventCallback: function(obj){
+		if(!!obj){
+			if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	else if(obj.success){
+	    		window.location.assign(obj.success);
+	    	}
+		}
+	},
 	loadValidationEvent: function(){
 		var _this = this;
 		var _btn = this._btn;
 		_btn.off();
-		_btn.click(function(event) {			
-			jQuery.ajax({
-				url: 'creationtournoi/finalValidation',
-				type: 'POST',
-				complete: function(xhr, textStatus) {
-					//called when complete
-				},
-				success: function(data, textStatus, xhr) {
-					var obj = tryParseData(data);
-					if(!!obj){
-						if(obj.errors){
-				    		popup.init(obj.errors);
-				    		return false;
-				    	}
-				    	else if(obj.success){
-				    		window.location.assign(obj.success);
-				    	}		
-					}
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					popup.init("request error !! : \t " + errorThrown);
-				}
-			});				
+		_btn.click(function(event) {
+			ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
 		});	
 	}
 };
