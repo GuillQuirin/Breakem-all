@@ -53,6 +53,7 @@ final class tournament{
 	// Données provenant de matchs
 	protected $_matchs = [];
 	protected $_minIdMatch = PHP_INT_MAX;
+	protected $_biggestMatchNumber = 0;
 	// Données provenant de teamtournament
 	protected $_fullteams = [];
 	protected $_freeteams = [];
@@ -193,6 +194,8 @@ final class tournament{
 		$this->_matchs[] = $m;
 		if((int) $m->getId() < $this->_minIdMatch)
 			$this->_minIdMatch = (int) $m->getId();
+		if((int) $m->getMatchNumber() > $this->_biggestMatchNumber)
+			$this->_biggestMatchNumber = (int) $m->getMatchNumber();
 	}
 
 	public function addFreeTeam(teamtournament $tt){
@@ -256,6 +259,9 @@ final class tournament{
 	}
 	public function gtRevertPublicMatchId(matchs $m){
 		return ((int) $m->getId() + $this->_minIdMatch - 1);
+	}
+	public function gtBiggestMatchNumber(){
+		return $this->_biggestMatchNumber;
 	}
 
 
