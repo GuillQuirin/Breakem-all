@@ -187,7 +187,6 @@
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
-		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
 		<?php else: ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
@@ -198,6 +197,7 @@
 				<?php endif ?>
 			<?php endif ?>
 		<?php endif; ?>
+		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
 		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed): ?>
 			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
 				<button id="detailtournoi-btn-create-next-matchs" class="relative btn btn-pink m-a"><a>Créer les prochaines rencontres !</a></button>
