@@ -201,7 +201,7 @@ class detailtournoiController extends template{
 				/* ---> On peut donc update la table match et renvoyer un success à la view */
 				$mm = new matchsManager();
 				if($mm->setMatchWinner($m, $winnerTT))
-					echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . "remporte donc le match"]);
+					echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
 				else
 					$this->echoJSONerror("error: DT_SW_4", "Impossible de définir l'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT)." comme gagnante, si le problème persiste veuillez contacter un admin");
 				exit;
