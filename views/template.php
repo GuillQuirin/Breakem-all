@@ -264,7 +264,7 @@
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
-		    <div class="footer_wrap">
+		    <div class="footer_wrap display-flex-column">
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
