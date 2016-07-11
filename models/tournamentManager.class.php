@@ -221,6 +221,16 @@ final class tournamentManager extends basesql{
 		return $sth->execute();
 	}
 
+	public function setTournamentWinner(tournament $t, teamtournament $tt){
+		$sql = "UPDATE tournament SET idWinningTeam = :ttId WHERE id=:tId";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$r = $sth->execute([
+			':ttId' => $tt->getId(),
+			':tId' => $t->getId()
+		]);
+		return $sth->execute();
+	}
+
 }
 /*
 *
