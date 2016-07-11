@@ -183,7 +183,7 @@
 					<?php endforeach ?>
 				</div>				
 				<?php if (isset($tournoi->gtMatchesSortedByRank()[$rank+1])): ?>
-					<div class="detailtournoi-rank-separator">RANK SEPARATOR</div>
+					<div class="full-width m-a detailtournoi-rank-separator"></div>
 				<?php endif ?>
 			<?php endforeach ?>
 			</div>
