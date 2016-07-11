@@ -148,6 +148,40 @@ function ajaxRequest(url, type, callback){
 	}	
 }
 
+function ajaxWithDataRequest(url, type, toSendData, callback){
+	if(url && type && callback){
+		if(toSendData.length > 0){
+			jQuery.ajax({
+			 	url: webpath.get()+"/"+url,
+			 	type: type,
+			 	data: toSendData,
+			 	success: function(result){
+			 		var obj = tryParseData(result);
+					callback(obj);
+			 	},
+			 	error: function(xhr, textStatus, errorThrown) {
+					popup.init("request error !! : \t " + errorThrown);
+				}
+			});
+		}
+		else{
+			jQuery.ajax({
+			 	url: webpath.get()+"/"+url,
+			 	type: type,
+			 	success: function(result){
+			 		var obj = tryParseData(result);
+					callback(obj);
+			 	},
+			 	error: function(xhr, textStatus, errorThrown) {
+					popup.init("request error !! : \t " + errorThrown);
+				}
+			});
+		}
+	}else{
+		console.log("Params vide sur ajaxWithDataRequest()");
+	}
+}
+
 function adaptMarginToNavHeight(jQel){
 	if(jQel instanceof jQuery){
 		var navHeight = $("#navbar").height();
