@@ -224,6 +224,9 @@ class detailtournoiController extends template{
 			else
 				$this->echoJSONerror("erreur: DT_CNM_3", "un des matchs n'a pas de vainqueur, si le problème persiste veuillez contacter un admin");
 		}
+		else
+			$this->echoJSONerror("erreur DT_CNM_8", "Ce tournoi a déjà son vainqueur !");
+
 	}
 
 
