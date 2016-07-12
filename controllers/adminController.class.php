@@ -292,7 +292,8 @@ class adminController extends template{
             echo "OK";
     }
 
-    public function insertMembresDataAction(){
+    public function insertMembresDataAction(){                       
+    
         if ( 0 < $_FILES['file']['error'] ) {
             echo 'Error: ' . $_FILES['file']['error'];
         }
@@ -301,7 +302,6 @@ class adminController extends template{
         }
 
        $args = array(
-           'id' => FILTER_VALIDATE_INT,
            'name' => FILTER_SANITIZE_STRING,
            'firstname' => FILTER_SANITIZE_STRING,
            'pseudo' => FILTER_SANITIZE_STRING,
@@ -313,15 +313,15 @@ class adminController extends template{
            'status' => FILTER_VALIDATE_INT,
            'authorize_mail_contact' => FILTER_VALIDATE_INT,
            'img' => FILTER_SANITIZE_STRING
-        );     
-        
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        );  
 
-        $pbdd = new userManager();
-        $p = new user($filteredinputs);
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-        if($pbdd->addMember($p))
-            echo "OK";
+        var_dump($filteredinputs);
+
+        $pBdd = new userManager();
+        $pBdd->mirrorObject = new user($filteredinputs);
+        $pBdd->create();
     }
 
     public function updateUserStatusAction(){

@@ -354,7 +354,18 @@ var membreModule = {
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(name){
+				allData.name = name ? name : null;
+				allData.firstname = firstname ? firstname : null;
+				allData.pseudo = pseudo ? pseudo : null;
+				allData.birthday = birthday ? birthday : null;
+				allData.description = description ? description : null;
+				allData.kind = kind ? kind : null;
+				allData.city = city ? city : null;
+				allData.email = email ? email : null;
+				allData.status = status ? status : 1;
+				allData.authorize_mail_contact = authorize_mail_contact ? authorize_mail_contact : 1;
+
+				/*if(name){
 					allData.name = name;
 				}
 				if(firstname){
@@ -383,14 +394,18 @@ var membreModule = {
 				}
 				if(authorize_mail_contact){
 					allData.authorize_mail_contact = authorize_mail_contact;
-				}
+				}*/
+
+				//Image par default
+				allData.img = "default-membre.png";
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           
 
-			        if(myImg){
-			        	//Pour l'upload coté serveur 
-			        	var file = myImg.prop('files')[0];
+			 		//Pour l'upload coté serveur 
+		        	var file = myImg.prop('files')[0];
+
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -424,6 +439,7 @@ var membreModule = {
 						type: "POST",
 						data: allData,
 						success: function(result){
+							console.log(allData);
 							console.log("Membre ajoutée.");
 							navbar.form.smoothClosing();				
 						},
