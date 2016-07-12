@@ -173,6 +173,7 @@ class template{
       setcookie(COOKIE_TOKEN, null, -1, "/");
       setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
+      echo json_encode(["connected" => false]);
     }
     // exit;
   }
