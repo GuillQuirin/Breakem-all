@@ -310,7 +310,7 @@
 									<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
 										<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
 										<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
-											<a>Rejoindre <?php echo $teamNumber;?></a>
+											<a>Rejoindre <?php echo $tournoi->gtPublicTeamIdToPrint($team);?></a>
 										</button>
 									<?php endif; ?>
 								</div>

@@ -1,15 +1,4 @@
 "use strict";
-window.addEventListener('load', function load(){
-	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache (on devrait faire ça idéalement pour tous les events utilisés une seule fois) 
-	window.removeEventListener('load', load, false);
-	if(dom.init())
-		gameTypesChoice.init();
-
-	var newdate = new Date();
-	newdate.setDate(newdate.getDate() - 36500);
-	newdate.setDate(newdate.getDate() + 36600);
-	// navbar.preventShrink = true;
-});
 
 function getDateFromInt(timestamp){
 	if(typeof timestamp == 'undefined')
@@ -94,104 +83,102 @@ function highlightTreeStep(jQelTree){
 var dom = {
 	_treeEls: [],
 	init: function(){
-		this.setTitleContainer();
-		this.setContainer();
-		this.setBtn();
-		this.setTreeSection();
-		this.setTreeGameType();
-		this.setTreeGame();
-		this.setTreePlatform();
-		this.setTreeRules();
-		this.setTreeConfirm();
-		if(!(this.getTitleContainer() instanceof jQuery)
-			|| !(this.getContainer() instanceof jQuery)
-			|| !(this.getTreeSection() instanceof jQuery)
-			|| !(this.getTreeGameType() instanceof jQuery)
-			|| !(this.getTreeGame() instanceof jQuery)
-			|| !(this.getTreePlatform() instanceof jQuery)
-			|| !(this.getTreeRules() instanceof jQuery)
-			|| !(this.getTreeConfirm() instanceof jQuery)
-			|| (this.getTitleContainer().length > 1 )
-			|| (this.getContainer().length > 1 )
-			|| (this.getTreeSection().length > 1 )
-			|| (this.getTreeGameType().length > 1 )
-			|| (this.getTreeGame().length > 1 )
-			|| (this.getTreePlatform().length > 1 )
-			|| (this.getTreeRules().length > 1 )
-			|| (this.getTreeConfirm().length > 1 )
-			|| !(this.getBtn() instanceof jQuery)){
+		dom.setTitleContainer();
+		dom.setContainer();
+		dom.setBtn();
+		dom.setTreeSection();
+		dom.setTreeGameType();
+		dom.setTreeGame();
+		dom.setTreePlatform();
+		dom.setTreeRules();
+		dom.setTreeConfirm();
+		if(!(dom.getTitleContainer() instanceof jQuery)
+			|| !(dom.getContainer() instanceof jQuery)
+			|| !(dom.getTreeSection() instanceof jQuery)
+			|| !(dom.getTreeGameType() instanceof jQuery)
+			|| !(dom.getTreeGame() instanceof jQuery)
+			|| !(dom.getTreePlatform() instanceof jQuery)
+			|| !(dom.getTreeRules() instanceof jQuery)
+			|| !(dom.getTreeConfirm() instanceof jQuery)
+			|| (dom.getTitleContainer().length > 1 )
+			|| (dom.getContainer().length > 1 )
+			|| (dom.getTreeSection().length > 1 )
+			|| (dom.getTreeGameType().length > 1 )
+			|| (dom.getTreeGame().length > 1 )
+			|| (dom.getTreePlatform().length > 1 )
+			|| (dom.getTreeRules().length > 1 )
+			|| (dom.getTreeConfirm().length > 1 )
+			|| !(dom.getBtn() instanceof jQuery)){
 			popup.init("Titre, container, bouton ou section introuvables !");
 			return false;
 		}
-		//this.setTitleContainerMargin();
-		this.setBtnMargin();
-		this._treeEls.push(this.getTreeGameType());
-		this._treeEls.push(this.getTreeGame());
-		this._treeEls.push(this.getTreePlatform());
-		this._treeEls.push(this.getTreeRules());
-		this._treeEls.push(this.getTreeConfirm());
-
-
-
+		//dom.setTitleContainerMargin();
+		dom.setBtnMargin();
+		dom._treeEls.push(dom.getTreeGameType());
+		dom._treeEls.push(dom.getTreeGame());
+		dom._treeEls.push(dom.getTreePlatform());
+		dom._treeEls.push(dom.getTreeRules());
+		dom._treeEls.push(dom.getTreeConfirm());
 		// Sert à savoir plus tard dans le JS si l'user a bien une guilde
-		this.setUserHasGuild()
+		dom.setUserHasGuild();
+		gameTypesChoice.init();
 		return true;
 	},
 	setTitleContainer: function(){
-		this._title = jQuery(".creationtournoi-title-container");
+		dom._title = jQuery(".creationtournoi-title-container");
 	},
 	setContainer: function(){
-		this._elementsContainer = jQuery(".creationtournoi-element-container");
+		dom._elementsContainer = jQuery(".creationtournoi-element-container");
 	},
 	setBtn: function(){
-		this._btn = jQuery("#creationtournoi-valider");
+		dom._btn = jQuery("#creationtournoi-valider");
 	},
 	setTreeSection: function(){
-		this._treeSec = $('.creationtournoi-tree-section');
+		dom._treeSec = $('.creationtournoi-tree-section');
 	},
 	setTreeGameType: function(){
-		this._treeGt = $('#creationtournoi-tree-gametype');
+		dom._treeGt = $('#creationtournoi-tree-gametype');
 	},
 	setTreeGame: function(){
-		this._treeG = $('#creationtournoi-tree-game');
+		dom._treeG = $('#creationtournoi-tree-game');
 	},
 	setTreePlatform: function(){
-		this._treeP = $('#creationtournoi-tree-platform');
+		dom._treeP = $('#creationtournoi-tree-platform');
 	},
 	setTreeRules: function(){
-		this._treeR = $('#creationtournoi-tree-rules');
+		dom._treeR = $('#creationtournoi-tree-rules');
 	},
 	setTreeConfirm: function(){
-		this._treeC = $('#creationtournoi-tree-confirm');
+		dom._treeC = $('#creationtournoi-tree-confirm');
 	},
 	setTitleContainerMargin: function(){
 		var navHeight = jQuery("#navbar").height();
-		this.getTitleContainer().css('margin-top', navHeight);
-		this.getTitleContainer().css('margin-bottom', navHeight/2);
+		dom.getTitleContainer().css('margin-top', navHeight);
+		dom.getTitleContainer().css('margin-bottom', navHeight/2);
 	},
 	setBtnMargin: function(){
 		var navHeight = jQuery("#navbar").height();
-		this.getBtn().css('margin-top', navHeight/2);
-		this.getBtn().css('margin-bottom', navHeight/2);
+		dom.getBtn().css('margin-top', navHeight/2);
+		dom.getBtn().css('margin-bottom', navHeight/2);
 	},
 	setUserHasGuild: function(){
 		var hInp = jQuery('#creationtournoi-userHasGuild');
 		if(hInp instanceof jQuery && hInp.length == 1)
-			this._uhg = true;
+			dom._uhg = true;
 		else
-			this._uhg = false;
+			dom._uhg = false;
 	},
-	getTitleContainer: function(){return this._title;},
-	getContainer: function(){return this._elementsContainer;},
-	getBtn: function(){return this._btn;},
-	getTreeSection: function(){return this._treeSec;},
-	getTreeGameType: function(){return this._treeGt;},
-	getTreeGame: function(){return this._treeG;},
-	getTreePlatform: function(){return this._treeP;},
-	getTreeRules: function(){return this._treeR;},
-	getTreeConfirm: function(){return this._treeC;},
-	getAllTreeEls: function(){return this._treeEls;},
-	doesUserHaveGuild: function(){return this._uhg;}
+	getTitleContainer: function(){return dom._title;},
+	getContainer: function(){return dom._elementsContainer;},
+	getBtn: function(){return dom._btn;},
+	getTreeSection: function(){return dom._treeSec;},
+	getTreeGameType: function(){return dom._treeGt;},
+	getTreeGame: function(){return dom._treeG;},
+	getTreePlatform: function(){return dom._treeP;},
+	getTreeRules: function(){return dom._treeR;},
+	getTreeConfirm: function(){return dom._treeC;},
+	getAllTreeEls: function(){return dom._treeEls;},
+	doesUserHaveGuild: function(){return dom._uhg;}
 };
 var validateChoices = {
 	_sumUp: false,
@@ -207,14 +194,14 @@ var validateChoices = {
 		}, 500);
 		loadMainElementsChoice();
 		loadTitle('Valide tes choix', '');
-		this.generateSumUp(data);
-		this.loadValidationEvent();
+		validateChoices.generateSumUp(data);
+		validateChoices.loadValidationEvent();
 	},
 	cleanDOM: function(){
-		if(this._sumUp instanceof jQuery)
-			this._sumUp.remove();
-		this._sumUp=false;
-		this._btn=false;
+		if(validateChoices._sumUp instanceof jQuery)
+			validateChoices._sumUp.remove();
+		validateChoices._sumUp=false;
+		validateChoices._btn=false;
 	},
 	generateSumUp: function(data){
 		var container = $('<div class="creationtournoi-tournoi-valid-creation display-flex-column"></div>');
@@ -279,40 +266,29 @@ var validateChoices = {
 
 		container.append(mainList);
 		var valid = $('<div class="full-width creationtournoi-validation-container display-flex-column "></div>');
-		this._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
-		valid.append(this._btn);
+		validateChoices._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
+		valid.append(validateChoices._btn);
 		container.append(valid);
 		dom.getContainer().after(container);
-		this._sumUp = container;
+		validateChoices._sumUp = container;
+	},
+	btnClickedEventCallback: function(obj){
+		if(!!obj){
+			if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	else if(obj.success){
+	    		window.location.assign(obj.success);
+	    	}
+		}
 	},
 	loadValidationEvent: function(){
-		var _this = this;
-		var _btn = this._btn;
+		var _btn = validateChoices._btn;
 		_btn.off();
-		_btn.click(function(event) {			
-			jQuery.ajax({
-				url: 'creationtournoi/finalValidation',
-				type: 'POST',
-				complete: function(xhr, textStatus) {
-					//called when complete
-				},
-				success: function(data, textStatus, xhr) {
-					var obj = tryParseData(data);
-					if(!!obj){
-						if(obj.errors){
-				    		popup.init(obj.errors);
-				    		return false;
-				    	}
-				    	else if(obj.success){
-				    		window.location.assign(obj.success);
-				    	}		
-					}
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					popup.init("request error !! : \t " + errorThrown);
-				}
-			});				
-		});	
+		_btn.click(function(event) {
+			ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
+		});
 	}
 };
 var gameversionChoice = {
@@ -324,75 +300,61 @@ var gameversionChoice = {
 	possibleTreeChoices: [],
 	treeChild: validateChoices,
 	init: function(da){
-		this.cleanDOM();
-		this.getVersions(da);
+		gameversionChoice.cleanDOM();
+		gameversionChoice.getVersions(da);
 	},
 	cleanDOM: function(){
-		this._choiceDat = false;
-		this._choice = false;
-		this._btn = false;
-		for (var i = this.possibleChoices.length - 1; i >= 0; i--) {
-			this.possibleChoices[i].remove();
+		gameversionChoice._choiceDat = false;
+		gameversionChoice._choice = false;
+		gameversionChoice._btn = false;
+		for (var i = gameversionChoice.possibleChoices.length - 1; i >= 0; i--) {
+			gameversionChoice.possibleChoices[i].remove();
 		}
-		for (var i = this.possibleTreeChoices.length - 1; i >= 0; i--) {
-			this.possibleTreeChoices[i].remove();
+		for (var i = gameversionChoice.possibleTreeChoices.length - 1; i >= 0; i--) {
+			gameversionChoice.possibleTreeChoices[i].remove();
 		}
-		if(this._currentForm instanceof jQuery)
-			this._currentForm.remove();
-		this._currentForm = false;
-		this.possibleChoices = [];
-		this.possibleTreeChoices = [];
-		this.treeChild.cleanDOM();
+		if(gameversionChoice._currentForm instanceof jQuery)
+			gameversionChoice._currentForm.remove();
+		gameversionChoice._currentForm = false;
+		gameversionChoice.possibleChoices = [];
+		gameversionChoice.possibleTreeChoices = [];
+		gameversionChoice.treeChild.cleanDOM();
 	},
-	getChoice: function(){return this._choice;},
-	getChoiceDat: function(){return this._choiceDat;},
-	getPossibleChoices: function(){return this.possibleChoices;},
+	getChoice: function(){return gameversionChoice._choice;},
+	getChoiceDat: function(){return gameversionChoice._choiceDat;},
+	getPossibleChoices: function(){return gameversionChoice.possibleChoices;},
+	getVersionsCallback: function(obj){
+		gameversionChoice.possibleChoices = [];
+	    if(!!obj){
+	    	if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	var treeContainer = dom.getTreeRules();
+	    	// On reset les choix possibles du choix de tree correspondant
+	    	resetTreeEl(treeContainer);
+	    	highlightTreeStep(treeContainer);
+	    	loadTreeElTitle(treeContainer, 'règles');
+		    for(var prop in obj.versions){
+		    	var treeDom = tree.getObjDom(treeContainer, obj.versions[prop]);
+		    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].minPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
+		    	gameversionChoice.possibleChoices.push(jQDomElem);
+		    	gameversionChoice.possibleTreeChoices.push(treeDom);
+		    	gameversionChoice.associateChoiceEvent(jQDomElem, treeDom, obj.versions[prop]);
+		    }
+		    if(gameversionChoice.getPossibleChoices().length == 0)
+		    	return false;
+		    loadMainElementsChoice(gameversionChoice.possibleChoices);
+		    loadTitle("ton mode de jeu");		    
+	    }
+	    else
+	    	popup.init("Création du DOM consoles impossible");
+	},
 	getVersions: function(da){
-		var _this = this;
-		jQuery.ajax({
-		  url: 'creationtournoi/getVersions',
-		  type: 'POST',
-		  data: {'name': da},
-		  complete: function(xhr, textStatus) {
-		    //called when complete
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	_this.possibleChoices = [];
-		    var obj = tryParseData(data);
-		    if(!!obj){
-		    	if(obj.errors){
-		    		popup.init(obj.errors);
-		    		return false;
-		    	}
-		    	var treeContainer = dom.getTreeRules();
-		    	// On reset les choix possibles du choix de tree correspondant
-		    	resetTreeEl(treeContainer);
-		    	highlightTreeStep(treeContainer);
-		    	loadTreeElTitle(treeContainer, 'règles');
-			    for(var prop in obj.versions){
-			    	var treeDom = tree.getObjDom(treeContainer, obj.versions[prop]);
-			    	var jQDomElem = getGameVersionChoiceDom(obj.versions[prop].name, obj.versions[prop].description, obj.versions[prop].maxPlayer, obj.versions[prop].minPlayer, obj.versions[prop].maxTeam, obj.versions[prop].maxPlayerPerTeam);
-			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.possibleTreeChoices.push(treeDom);
-			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.versions[prop]);
-			    }
-			    if(_this.getPossibleChoices().length == 0)
-			    	return false;
-			    loadMainElementsChoice(_this.possibleChoices);
-			    loadTitle("ton mode de jeu");
-			    
-		    }else{
-		    	popup.init("Création du DOM consoles impossible");
-		    }		    
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		   popup.init("request error !! : \t " + errorThrown);
-		  }
-		});
+		ajaxWithDataRequest('creationtournoi/getVersions', 'POST', {'name': da}, gameversionChoice.getVersionsCallback);
 	},
 	putAccordingForm: function(){
-		var _this = this;
-		var selectedJson = this.getChoiceDat();
+		var selectedJson = gameversionChoice.getChoiceDat();
 		var selectedName = selectedJson.name;
 		var selectedMinP = selectedJson.minPlayer;
 		var selectedMaxP = selectedJson.maxPlayer;
@@ -402,8 +364,8 @@ var gameversionChoice = {
 		// différencier les match en équipe de ceux en solo
 		//  Si équipe --> choix du random, et choix de guilde imposée ou pas 
 		// 	Si solo --> forcément random
-		if(this._currentForm instanceof jQuery)
-			this._currentForm.remove();
+		if(gameversionChoice._currentForm instanceof jQuery)
+			gameversionChoice._currentForm.remove();
 		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
@@ -416,12 +378,12 @@ var gameversionChoice = {
 			else
 				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Vous ne pouvez pas créer de tournoi inter-guilde à moins d\'en avoir une</label><input class="border-full" type="checkbox" disabled name="guildOnly"></div>');
 			form.append(randomAndGuildInputs);
-			_this.randomAndGuildInputEvent(randomAndGuildInputs);
+			gameversionChoice.randomAndGuildInputEvent(randomAndGuildInputs);
 		}
 		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="10"></textarea></div>');
 		var valid = $('<div class="creationtournoi-validation-container display-flex-column "></div>');
-		this._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
-		valid.append(this._btn);
+		gameversionChoice._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
+		valid.append(gameversionChoice._btn);
 		form.append(valid);
 		container.append(form);
 		dom.getContainer().after(container);
@@ -429,32 +391,30 @@ var gameversionChoice = {
 			scrollTop: (container.find('h2').offset().top/2) - (jQuery("#navbar").height()/2)
 		}, 500);
 		container.find('input[name="name"]').focus();
-		this._currentForm = container;
+		gameversionChoice._currentForm = container;
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, objDa){
-		var _this = this;
 		jQel.click(function(e) {
-			if(_this.getChoiceDat() === objDa){
-				_this.resetChoice();
+			if(gameversionChoice.getChoiceDat() === objDa){
+				gameversionChoice.resetChoice();
 			}else{
-				_this.setChoice(jQel, objDa, treeSubEl);
-				_this.putAccordingForm();
-				_this.loadValidationEvent();
+				gameversionChoice.setChoice(jQel, objDa, treeSubEl);
+				gameversionChoice.putAccordingForm();
+				gameversionChoice.loadValidationEvent();
 			}			
 		});
 		treeSubEl.click(function(e) {
-			if(_this.getChoiceDat() === objDa){
-				_this.resetChoice();
+			if(gameversionChoice.getChoiceDat() === objDa){
+				gameversionChoice.resetChoice();
 			}else{
-				_this.setChoice(jQel, objDa, treeSubEl);
-				_this.putAccordingForm();
-				_this.loadValidationEvent();
+				gameversionChoice.setChoice(jQel, objDa, treeSubEl);
+				gameversionChoice.putAccordingForm();
+				gameversionChoice.loadValidationEvent();
 			}		
 		});
 	},
 	resetChoice: function(){
-		var _this = this;
-		var allChoices = this.getPossibleChoices();
+		var allChoices = gameversionChoice.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
 			allChoices[i].removeClass('bg-black');
@@ -463,16 +423,16 @@ var gameversionChoice = {
 			allChoices[i].find('h2').addClass('inverse-border-full');
 			allChoices[i].find('p').addClass('inverse-border-full');
 		};
-		_this._choice = false;
-		_this._choiceDat = false;
-		this._currentForm.remove();
-		this._currentForm = false;
+		gameversionChoice._choice = false;
+		gameversionChoice._choiceDat = false;
+		gameversionChoice._currentForm.remove();
+		gameversionChoice._currentForm = false;
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
 	setChoice: function(jQChoice, da, treeSubEl){
-		this._choice = jQChoice;
-		this._choiceDat = da;
-		var allChoices = this.getPossibleChoices();
+		gameversionChoice._choice = jQChoice;
+		gameversionChoice._choiceDat = da;
+		var allChoices = gameversionChoice.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
 			allChoices[i].removeClass('bg-black');
@@ -537,38 +497,37 @@ var gameversionChoice = {
 		return true;
 	},
 	checkForm: function(){
-		var form = this._currentForm;
+		var form = gameversionChoice._currentForm;
 		// Checks communs à equipe et solo 
 		if(!form)
 			return false;
 
 		var _name = form.find('input[name="name"]');
-		if(_name.length != 1 || !this.isNameValid(_name))
+		if(_name.length != 1 || !gameversionChoice.isNameValid(_name))
 			return false;
 
 		var _startDate = form.find('input[name="startDate"]');
-		if(_startDate.length != 1 || !this.isDateFormatValid(_startDate))
+		if(_startDate.length != 1 || !gameversionChoice.isDateFormatValid(_startDate))
 			return false;
 
 		var _description = form.find('textarea[name="description"]');
-		if(_description.val().length > 0 && !this.isStringValid(_description))
+		if(_description.val().length > 0 && !gameversionChoice.isStringValid(_description))
 			return false;
 
 
 		// Check typiquement equipe
-		var joueursParEquipe = this.getChoiceDat().maxPlayerPerTeam;
+		var joueursParEquipe = gameversionChoice.getChoiceDat().maxPlayerPerTeam;
 		if (joueursParEquipe > 1){
 			var randomP = form.find('input[name="randomPlayerMix"]');
 			var guild = form.find('input[name="guildOnly"]');
 			if(randomP.length != 1)
 				return false
-			if(guild.length != 1 || !this.isGuildAndRandValid(randomP, guild))
+			if(guild.length != 1 || !gameversionChoice.isGuildAndRandValid(randomP, guild))
 				return false
 		};
 		return true;
 	},
 	randomAndGuildInputEvent: function(jQelContainer){
-		var _this = this;
 		var randomP = jQelContainer.find('input[name="randomPlayerMix"]');
 		var guild = jQelContainer.find('input[name="guildOnly"]');
 		guild.click(function() {
@@ -576,18 +535,27 @@ var gameversionChoice = {
 				randomP[0].checked = false;
 		});
 	},
+	loadValidationEventCallback: function(obj){
+		if(!!obj){
+			if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	gameversionChoice.cleanDOM();
+			validateChoices.init(obj);
+		}
+	},
 	loadValidationEvent: function(){
-		var _this = this;
-		var _btn = this._btn;
+		var _btn = gameversionChoice._btn;
 		_btn.off();
 		_btn.click(function(event) {
-			if (!!_this.getChoice() && !!_this.getChoiceDat() && _this.checkForm()){
-				var form = _this._currentForm;
+			if (!!gameversionChoice.getChoice() && !!gameversionChoice.getChoiceDat() && gameversionChoice.checkForm()){
+				var form = gameversionChoice._currentForm;
 				var toSend = {};
 				toSend.name = form.find('input[name="name"]').val();		
 				toSend.startDate = form.find('input[name="startDate"]').val();
 				toSend.description = form.find('textarea[name="description"]').val();
-				var joueursParEquipe = _this.getChoiceDat().maxPlayerPerTeam;
+				var joueursParEquipe = gameversionChoice.getChoiceDat().maxPlayerPerTeam;
 				if (joueursParEquipe > 1){
 					toSend.randomPlayerMix = form.find('input[name="randomPlayerMix"]')[0].checked;
 					toSend.guildOnly = form.find('input[name="guildOnly"]')[0].checked;
@@ -595,37 +563,15 @@ var gameversionChoice = {
 					toSend.randomPlayerMix = true;
 					toSend.guildOnly = false;
 				}
-				toSend.gversionName = _this.getChoiceDat().name;
-				toSend.gversionDescription = _this.getChoiceDat().description;
-				toSend.gversionMaxPlayer = _this.getChoiceDat().maxPlayer;
-				toSend.gversionMinPlayer = _this.getChoiceDat().minPlayer;
-				toSend.gversionMaxTeam = _this.getChoiceDat().maxTeam;
-				toSend.gversionMinTeam = _this.getChoiceDat().minTeam;
-				toSend.gversionMaxPlayerPerTeam = _this.getChoiceDat().maxPlayerPerTeam;
-				toSend.gversionMinPlayerPerTeam = _this.getChoiceDat().minPlayerPerTeam;
-				jQuery.ajax({
-					url: 'creationtournoi/getFinalStep',
-					type: 'POST',
-					data: toSend,
-					complete: function(xhr, textStatus) {
-						//called when complete
-					},
-					success: function(data, textStatus, xhr) {
-						var obj = tryParseData(data);
-						if(!!obj){
-							if(obj.errors){
-					    		popup.init(obj.errors);
-					    		return false;
-					    	}
-					    	_this.cleanDOM();
-							validateChoices.init(obj);
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-						popup.init("request error !! : \t " + errorThrown);
-					}
-				});
-				
+				toSend.gversionName = gameversionChoice.getChoiceDat().name;
+				toSend.gversionDescription = gameversionChoice.getChoiceDat().description;
+				toSend.gversionMaxPlayer = gameversionChoice.getChoiceDat().maxPlayer;
+				toSend.gversionMinPlayer = gameversionChoice.getChoiceDat().minPlayer;
+				toSend.gversionMaxTeam = gameversionChoice.getChoiceDat().maxTeam;
+				toSend.gversionMinTeam = gameversionChoice.getChoiceDat().minTeam;
+				toSend.gversionMaxPlayerPerTeam = gameversionChoice.getChoiceDat().maxPlayerPerTeam;
+				toSend.gversionMinPlayerPerTeam = gameversionChoice.getChoiceDat().minPlayerPerTeam;
+				ajaxWithDataRequest('creationtournoi/getFinalStep', 'POST', toSend, gameversionChoice.loadValidationEventCallback);
 			}
 		});
 	}
@@ -637,81 +583,68 @@ var consoleChoice = {
 	possibleTreeChoices: [],
 	treeChild: gameversionChoice,
 	init: function(da){
-		this.cleanDOM();
-		this.getConsoles(da);
+		consoleChoice.cleanDOM();
+		consoleChoice.getConsoles(da);
 	},
 	cleanDOM: function(){
-		this._choiceDat = false;
-		this._choice = false;
-		for (var i = this.possibleChoices.length - 1; i >= 0; i--) {
-			this.possibleChoices[i].remove();
+		consoleChoice._choiceDat = false;
+		consoleChoice._choice = false;
+		for (var i = consoleChoice.possibleChoices.length - 1; i >= 0; i--) {
+			consoleChoice.possibleChoices[i].remove();
 		}
-		for (var i = this.possibleTreeChoices.length - 1; i >= 0; i--) {
-			this.possibleTreeChoices[i].remove();
+		for (var i = consoleChoice.possibleTreeChoices.length - 1; i >= 0; i--) {
+			consoleChoice.possibleTreeChoices[i].remove();
 		}
-		this.possibleChoices = [];
-		this.possibleTreeChoices = [];
-		this.treeChild.cleanDOM();
+		consoleChoice.possibleChoices = [];
+		consoleChoice.possibleTreeChoices = [];
+		consoleChoice.treeChild.cleanDOM();
 	},
-	getChoice: function(){return this._choice;},
-	getChoiceDat: function(){return this._choiceDat;},
-	getPossibleChoices: function(){return this.possibleChoices;},
+	getChoice: function(){return consoleChoice._choice;},
+	getChoiceDat: function(){return consoleChoice._choiceDat;},
+	getPossibleChoices: function(){return consoleChoice.possibleChoices;},
+	getConsoleCallback: function(obj){
+		consoleChoice.possibleChoices = [];
+	    if(!!obj){
+	    	if(obj.errors){		    		
+	    		popup.init(obj.errors);		    		
+	    		return false;
+	    	}
+	    	var treeContainer = dom.getTreePlatform();
+	    	// On reset les choix possibles du choix de tree correspondant
+	    	resetTreeEl(treeContainer);
+	    	highlightTreeStep(treeContainer);
+	    	loadTreeElTitle(treeContainer, 'console');
+		    for(var prop in obj.platforms){
+		    	var treeDom = tree.getObjDom(treeContainer, obj.platforms[prop]);
+		    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
+		    	consoleChoice.possibleChoices.push(jQDomElem);
+		    	consoleChoice.possibleTreeChoices.push(treeDom);
+		    	consoleChoice.associateChoiceEvent(jQDomElem, treeDom, obj.platforms[prop].name);
+		    }
+		    if(consoleChoice.getPossibleChoices().length == 0)
+		    	return false;
+		    loadMainElementsChoice(consoleChoice.possibleChoices);
+		    loadTitle("ta console");
+		    
+	    }else{
+	    	popup.init("Création du DOM consoles impossible");
+	    }
+	},
 	getConsoles: function(da){
-		var _this = this;
-		jQuery.ajax({
-		  url: 'creationtournoi/getConsoles',
-		  type: 'POST',
-		  data: {'name': da},
-		  complete: function(xhr, textStatus) {
-		    //called when complete
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	_this.possibleChoices = [];
-		    var obj = tryParseData(data);
-		    if(!!obj){
-		    	if(obj.errors){		    		
-		    		popup.init(obj.errors);		    		
-		    		return false;
-		    	}
-		    	var treeContainer = dom.getTreePlatform();
-		    	// On reset les choix possibles du choix de tree correspondant
-		    	resetTreeEl(treeContainer);
-		    	highlightTreeStep(treeContainer);
-		    	loadTreeElTitle(treeContainer, 'console');
-			    for(var prop in obj.platforms){
-			    	var treeDom = tree.getObjDom(treeContainer, obj.platforms[prop]);
-			    	var jQDomElem = getElementChoiceDom(obj.platforms[prop].name, obj.platforms[prop].description, obj.platforms[prop].img);
-			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.possibleTreeChoices.push(treeDom);
-			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.platforms[prop].name);
-			    }
-			    if(_this.getPossibleChoices().length == 0)
-			    	return false;
-			    loadMainElementsChoice(_this.possibleChoices);
-			    loadTitle("ta console");
-			    
-		    }else{
-		    	popup.init("Création du DOM consoles impossible");
-		    }		    
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		    popup.init("request error !! : \t " + errorThrown);
-		  }
-		});
+		ajaxWithDataRequest('creationtournoi/getConsoles', 'POST', {'name': da}, consoleChoice.getConsoleCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
-		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			if (!!_this.getChoice() && !!da){
+			consoleChoice.setChoice(jQel, da, treeSubEl);
+			if (!!consoleChoice.getChoice() && !!da){
 				gameversionChoice.init(da);
 				var treeContainer = dom.getTreePlatform();
 				loadTreeElTitle(treeContainer, da);
 			};
 		});
 		treeSubEl.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			if (!!_this.getChoice() && !!da){
+			consoleChoice.setChoice(jQel, da, treeSubEl);
+			if (!!consoleChoice.getChoice() && !!da){
 				gameversionChoice.init(da);
 				var treeContainer = dom.getTreePlatform();
 				loadTreeElTitle(treeContainer, da);
@@ -720,9 +653,9 @@ var consoleChoice = {
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
 	setChoice: function(jQChoice, da, treeSubEl){
-		this._choice = jQChoice;
-		this._choiceDat = da;
-		var allChoices = this.getPossibleChoices();
+		consoleChoice._choice = jQChoice;
+		consoleChoice._choiceDat = da;
+		var allChoices = consoleChoice.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
 			allChoices[i].removeClass('bg-black');
@@ -748,81 +681,68 @@ var gameChoice = {
 	possibleTreeChoices: [],
 	treeChild: consoleChoice,
 	init: function(da){
-		this.cleanDOM();
-		this.getGames(da);
+		gameChoice.cleanDOM();
+		gameChoice.getGames(da);
 	},
 	cleanDOM: function(){
-		this._choiceDat = false;
-		this._choice = false;
-		for (var i = this.possibleChoices.length - 1; i >= 0; i--) {
-			this.possibleChoices[i].remove();
+		gameChoice._choiceDat = false;
+		gameChoice._choice = false;
+		for (var i = gameChoice.possibleChoices.length - 1; i >= 0; i--) {
+			gameChoice.possibleChoices[i].remove();
 		}
-		for (var i = this.possibleTreeChoices.length - 1; i >= 0; i--) {
-			this.possibleTreeChoices[i].remove();
+		for (var i = gameChoice.possibleTreeChoices.length - 1; i >= 0; i--) {
+			gameChoice.possibleTreeChoices[i].remove();
 		}
-		this.possibleChoices = [];
-		this.possibleTreeChoices = [];
-		this.treeChild.cleanDOM();
+		gameChoice.possibleChoices = [];
+		gameChoice.possibleTreeChoices = [];
+		gameChoice.treeChild.cleanDOM();
 	},
-	getChoice: function(){return this._choice;},
-	getChoiceDat: function(){return this._choiceDat;},
-	getPossibleChoices: function(){return this.possibleChoices;},
+	getChoice: function(){return gameChoice._choice;},
+	getChoiceDat: function(){return gameChoice._choiceDat;},
+	getPossibleChoices: function(){return gameChoice.possibleChoices;},
+	getGamesCallback: function(obj){
+		gameChoice.possibleChoices = [];
+	    if(!!obj){
+	    	if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	var treeContainer = dom.getTreeGame();
+	    	// On reset les choix possibles du choix de tree correspondant
+	    	resetTreeEl(treeContainer);
+	    	highlightTreeStep(treeContainer);
+	    	loadTreeElTitle(treeContainer, 'jeu');
+		    for(var prop in obj.games){
+		    	var treeDom = tree.getObjDom(treeContainer, obj.games[prop]);
+		    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
+		    	gameChoice.possibleChoices.push(jQDomElem);
+		    	gameChoice.possibleTreeChoices.push(treeDom);
+		    	gameChoice.associateChoiceEvent(jQDomElem, treeDom, obj.games[prop].name);
+		    }
+		    if(gameChoice.getPossibleChoices().length == 0)
+		    	return false;
+		    loadMainElementsChoice(gameChoice.possibleChoices);
+		    loadTitle("ton jeu");
+		    
+	    }else{
+	    	popup.init("Création du DOM gametype impossible");
+	    }
+	},
 	getGames: function(da){
-		var _this = this;
-		jQuery.ajax({
-		  url: 'creationtournoi/getGames',
-		  type: 'POST',
-		  data: {'name': da},
-		  complete: function(xhr, textStatus) {
-		    //called when complete
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	_this.possibleChoices = [];
-		    var obj = tryParseData(data);
-		    if(!!obj){
-		    	if(obj.errors){
-		    		popup.init(obj.errors);
-		    		return false;
-		    	}
-		    	var treeContainer = dom.getTreeGame();
-		    	// On reset les choix possibles du choix de tree correspondant
-		    	resetTreeEl(treeContainer);
-		    	highlightTreeStep(treeContainer);
-		    	loadTreeElTitle(treeContainer, 'jeu');
-			    for(var prop in obj.games){
-			    	var treeDom = tree.getObjDom(treeContainer, obj.games[prop]);
-			    	var jQDomElem = getElementChoiceDom(obj.games[prop].name, obj.games[prop].description, obj.games[prop].img);
-			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.possibleTreeChoices.push(treeDom);
-			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.games[prop].name);
-			    }
-			    if(_this.getPossibleChoices().length == 0)
-			    	return false;
-			    loadMainElementsChoice(_this.possibleChoices);
-			    loadTitle("ton jeu");
-			    
-		    }else{
-		    	popup.init("Création du DOM gametype impossible");
-		    }		    
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		   popup.init("request error !! : \t " + errorThrown);
-		  }
-		});
+		ajaxWithDataRequest('creationtournoi/getGames', 'POST', {'name': da}, gameChoice.getGamesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
-		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			if (!!_this.getChoice() && !!da){
+			gameChoice.setChoice(jQel, da, treeSubEl);
+			if (!!gameChoice.getChoice() && !!da){
 				consoleChoice.init(da);
 				var treeContainer = dom.getTreeGame();
 				loadTreeElTitle(treeContainer, da);
 			};
 		});
 		treeSubEl.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
-			if (!!_this.getChoice() && !!da){
+			gameChoice.setChoice(jQel, da, treeSubEl);
+			if (!!gameChoice.getChoice() && !!da){
 				consoleChoice.init(da);
 				var treeContainer = dom.getTreeGame();
 				loadTreeElTitle(treeContainer, da);
@@ -831,9 +751,9 @@ var gameChoice = {
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
 	setChoice: function(jQChoice, da, treeSubEl){
-		this._choice = jQChoice;
-		this._choiceDat = da;
-		var allChoices = this.getPossibleChoices();
+		gameChoice._choice = jQChoice;
+		gameChoice._choiceDat = da;
+		var allChoices = gameChoice.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
 			allChoices[i].removeClass('bg-black');
@@ -860,83 +780,69 @@ var gameTypesChoice = {
 	treeChild: gameChoice,
 	init: function(){
 		/*Tous les chargements d'event et autres fonctions se feront dans le success callback retour de ajax*/
-		this.cleanDOM();
-		this.getGameTypes();
+		gameTypesChoice.cleanDOM();
+		gameTypesChoice.getGameTypes();
 	},
 	cleanDOM: function(){
-		this._choiceDat = false;
-		this._choice = false;
-		for (var i = this.possibleChoices.length - 1; i >= 0; i--) {
-			this.possibleChoices[i].remove();
+		gameTypesChoice._choiceDat = false;
+		gameTypesChoice._choice = false;
+		for (var i = gameTypesChoice.possibleChoices.length - 1; i >= 0; i--) {
+			gameTypesChoice.possibleChoices[i].remove();
 		}
-		for (var i = this.possibleTreeChoices.length - 1; i >= 0; i--) {
-			this.possibleTreeChoices[i].remove();
+		for (var i = gameTypesChoice.possibleTreeChoices.length - 1; i >= 0; i--) {
+			gameTypesChoice.possibleTreeChoices[i].remove();
 		}
-		this.possibleChoices = [];
-		this.possibleTreeChoices = [];
-		this.treeChild.cleanDOM();
+		gameTypesChoice.possibleChoices = [];
+		gameTypesChoice.possibleTreeChoices = [];
+		gameTypesChoice.treeChild.cleanDOM();
 	},
-	getChoice: function(){return this._choice;},
-	getChoiceDat: function(){return this._choiceDat;},
-	getPossibleChoices: function(){return this.possibleChoices;},
+	getChoice: function(){return gameTypesChoice._choice;},
+	getChoiceDat: function(){return gameTypesChoice._choiceDat;},
+	getPossibleChoices: function(){return gameTypesChoice.possibleChoices;},
+	getGameTypesCallback: function(obj){
+		gameTypesChoice.possibleChoices = [];
+	  	gameTypesChoice.possibleTreeChoices = [];
+	    if(!!obj){
+	    	if(obj.errors){
+	    		popup.init(obj.errors);
+	    		return false;
+	    	}
+	    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
+	    	// On associe les events de choix à chaque élément de l'array
+	    	var treeContainer = dom.getTreeGameType();
+	    	// On reset les choix possibles du choix de tree correspondant
+	    	resetTreeEl(treeContainer);
+	    	highlightTreeStep(treeContainer);
+	    	loadTreeElTitle(treeContainer, 'type de jeu');
+		    for(var prop in obj.types){
+		    	// On crée le dom ds le tree correspondant à un choix et on le recupere
+		    	var treeDom = tree.getObjDom(treeContainer, obj.types[prop]);
+		    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
+		    	// Ajoute les éléments DOM principaux (pas du tree) en tant que choix possibles
+		    	gameTypesChoice.possibleChoices.push(jQDomElem);
+		    	gameTypesChoice.possibleTreeChoices.push(treeDom);
+		    	gameTypesChoice.associateChoiceEvent(jQDomElem, treeDom, obj.types[prop].name);
+		    }
+		    if(gameTypesChoice.getPossibleChoices().length == 0)
+		    	return false;
+		    loadMainElementsChoice(gameTypesChoice.possibleChoices);
+		    loadTitle("ton style de jeu");
+		}
+		else
+	    	popup.init("Création du DOM gametype impossible");
+	},
 	getGameTypes: function(){
-		var _this = this;
-		jQuery.ajax({
-		  url: 'creationtournoi/getGameTypes',
-		  type: 'POST',
-		  // data: {param1: 'value1'},
-		  complete: function(xhr, textStatus) {
-		    //called when complete
-		  },
-		  success: function(data, textStatus, xhr) {
-		  	_this.possibleChoices = [];
-		  	_this.possibleTreeChoices = [];
-		    var obj = tryParseData(data);
-		    if(!!obj){
-		    	if(obj.errors){
-		    		popup.init(obj.errors);
-		    		return false;
-		    	}
-		    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
-		    	// On associe les events de choix à chaque élément de l'array
-		    	var treeContainer = dom.getTreeGameType();
-		    	// On reset les choix possibles du choix de tree correspondant
-		    	resetTreeEl(treeContainer);
-		    	highlightTreeStep(treeContainer);
-		    	loadTreeElTitle(treeContainer, 'type de jeu');
-			    for(var prop in obj.types){
-			    	// On crée le dom ds le tree correspondant à un choix et on le recupere
-			    	var treeDom = tree.getObjDom(treeContainer, obj.types[prop]);
-			    	var jQDomElem = getElementChoiceDom(obj.types[prop].name, obj.types[prop].description, obj.types[prop].img);
-			    	// Ajoute les éléments DOM principaux (pas du tree) en tant que choix possibles
-			    	_this.possibleChoices.push(jQDomElem);
-			    	_this.possibleTreeChoices.push(treeDom);
-			    	_this.associateChoiceEvent(jQDomElem, treeDom, obj.types[prop].name);
-			    }
-			    if(_this.getPossibleChoices().length == 0)
-			    	return false;
-			    loadMainElementsChoice(_this.possibleChoices);
-			    loadTitle("ton style de jeu");
-			    
-		    }else{
-		    	popup.init("Création du DOM gametype impossible");
-		    }		    
-		  },
-		  error: function(xhr, textStatus, errorThrown) {
-		    popup.init("request error !! : \t " + errorThrown);
-		  }
-		});
+		ajaxWithDataRequest('creationtournoi/getGameTypes', 'POST', {}, gameTypesChoice.getGameTypesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
-		var _this = this;
 		jQel.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
+			gameTypesChoice.setChoice(jQel, da, treeSubEl);
 			gameChoice.init(da);
 			var treeContainer = dom.getTreeGameType();
 			loadTreeElTitle(treeContainer, da);
 		});
 		treeSubEl.click(function(e) {
-			_this.setChoice(jQel, da, treeSubEl);
+			gameTypesChoice.setChoice(jQel, da, treeSubEl);
 			gameChoice.init(da);
 			var treeContainer = dom.getTreeGameType();
 			loadTreeElTitle(treeContainer, da);
@@ -944,9 +850,9 @@ var gameTypesChoice = {
 	},
 	// Modifie le choix en cours et lui applique le css correspondant
 	setChoice: function(jQChoice, da, treeSubEl){
-		this._choice = jQChoice;
-		this._choiceDat = da;
-		var allChoices = this.getPossibleChoices();
+		gameTypesChoice._choice = jQChoice;
+		gameTypesChoice._choiceDat = da;
+		var allChoices = gameTypesChoice.getPossibleChoices();
 		for (var i = 0; i < allChoices.length; i++) {
 			allChoices[i].removeClass('box-bg-shadow');
 			allChoices[i].removeClass('bg-black');
@@ -971,5 +877,8 @@ var tree = {
 		var treeElDom = getCreatedTreeSubEl(jQelTree, obj);
 		return treeElDom;
 	},
-	getGameTypeChoices: function(){return this._gtChoices;}
+	getGameTypeChoices: function(){return tree._gtChoices;}
 };
+
+
+initAll.add(dom.init);
