@@ -88,7 +88,7 @@ var membreModule = {
 				success: function(result){			
 					console.log(result);		
 					console.log("Membre supprimée");							
-					btn.parent().parent().remove();		
+					btn.parent().parent().find(jQuery('.membre-status-g')).html("Banni");	
 
 					//Vérification si il n'y a plus de plateforme
 					jQuery.ajax({
