@@ -14,12 +14,11 @@ class userManager extends basesql{
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
-		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
-						u.description, u.kind, u.city, u.email, u.password, u.status, 
-						u.img, u.idTeam, u.isConnected, u.lastConnexion,
-						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
-					WHERE u.email=:email";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam
+				FROM user u
+				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
+				LEFT OUTER JOIN team t ON rt.idTeam = t.id
+				WHERE u.email =  :email";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -77,54 +76,6 @@ class userManager extends basesql{
 			':password' => $password
 		]);
 		return $r;
-	}
-
-	/* Ajout d'un membre */
-	public function addMember(user $p){	
-		/*$sql1 = "SELECT name FROM " . $this->table . "ORDER BY name ASC";
-		$req1 = $this->pdo->prepare($sql1, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$req1->execute();
-
-		$list = [];
-		while ($query = $req->fetch(PDO::FETCH_ASSOC)){
-			$list[] = new platform($query);
-		}
-
-		foreach($list as $listkey=>$valuelist){
-  			if($valuelist->getName() == $p->getName()){
-  				echo "Plateforme already exist.";
-  			}else{*/
-				$sql = "INSERT INTO user VALUES
-				(:id, :name, :description, :img, :firstname, :pseudo, :birthday, :kind, :city, :email, :status, :authorize_mail_contact)";
-				$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-				$sth->execute([
-					':id' => $p->getId(),
-					':name' => $p->getName(),
-					':description' => $p->getDescription(),
-					':img' => $p->getImg(),	
-					':firstname' => $p->getFirstname(),
-					':pseudo' => $p->getPseudo(),
-					':birthday' => $p->getBirthday(),
-					':kind' => $p->getKind(),
-					':city' => $p->getCity,
-					':email' => $p->getEmail(),
-					':status' => $p->getStatus(),
-					':authorize_mail_contact' => $p->getAuthorize_mail_contact(),	
-				]);
-
-				$this->columns = [];
-				$p_methods = get_class_methods($p);
-
-				foreach ($p_methods as $key => $method) {
-					if(is_numeric(strpos($method, 'get'))){
-						$col = lcfirst(str_replace('get', '', $method));
-						$this->columns[$col] = $p->$method();
-					};
-				}
-				$this->columns = array_filter($this->columns);
-				$r = $this->save();	
-  			/*}
-		}	*/			
 	}
 
 	/*OUVERTURE A CHAQUE CONNEXION*/
