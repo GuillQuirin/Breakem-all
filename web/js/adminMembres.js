@@ -335,15 +335,58 @@ var membreModule = {
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.membre-submit-add-this-form-btn');
 
-			/*
+			
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget);
-				var name = subBtn.parent().parent().find('.membre-nom-p').val();
-				var description = subBtn.parent().parent().find('.membre-description-p').val();
+				var id = subBtn.find('.membre-id-p').val();
+				var name = subBtn.find('.membre-nom-p').val();
+				var firstname = subBtn.find('.membre-prenom-p').val();
+				var birthday = subBtn.find('.membre-birthday-p').val();
+				var kind = subBtn.find('.membre-kind-p').val();
+				var description = subBtn.find('.membre-description-p').val();
+				var city = subBtn.find('.membre-city-p').val();
+				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var status = subBtn.find('.membre-status-p').val();
+				var email = subBtn.find('.membre-email-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
+				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
 
-				var myImg = subBtn.parent().parent().find('.admin-input-file > .membre-image-p');
+				var allData = {};
 
-				var allData = {name : name, description : description};
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				allData.id = id;
+
+				if(name){
+					allData.name = name;
+				}
+				if(firstname){
+					allData.firstname = firstname;
+				}
+				if(pseudo){
+					allData.pseudo = pseudo;
+				}
+				if(birthday){
+					allData.birthday = birthday;
+				}
+				if(description){
+					allData.description = description;
+				}
+				if(kind){
+					allData.kind = kind;
+				}
+				if(city){
+					allData.city = city;
+				}
+				if(email){
+					allData.email = email;
+				}
+				if(status){
+					allData.status = status;
+				}
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
+				}
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           
@@ -377,24 +420,22 @@ var membreModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.description){
+			    if(allData.pseudo && allData.email){
 			    //Insert de la platform
 					jQuery.ajax({
-						url: "admin/insertPlatformsData", 
+						url: "admin/insertMembresData", 
 						type: "POST",
 						data: allData,
 						success: function(result){
-							console.log("Platforme ajoutée.");
-							console.log(allData);
+							console.log("Membre ajoutée.");
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){
-							throw new Error("Couldn't update platform", result);
+							throw new Error("Couldn't add member", result);
 						}
 					});
 				}
 			});
-			*/
 
 		});
 		navbar.setOpenFormAll();	

@@ -288,7 +288,7 @@ var platformModule = {
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){
-							throw new Error("Couldn't update platform", result);
+							throw new Error("Couldn't add platform", result);
 						}
 					});
 				}
