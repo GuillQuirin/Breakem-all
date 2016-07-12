@@ -59,7 +59,7 @@ class game{
 			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
 				return WEBPATH."/web/img/".$this->img;
 
-			return WEBPATH."/web/img/default.jpg";	
+			return WEBPATH."/web/img/default-jeux.png";	
 		}
 	}
 	public function getIdType(){return $this->idType;}

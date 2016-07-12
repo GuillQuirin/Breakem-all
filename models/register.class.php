@@ -129,7 +129,7 @@ final class register{
 			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_img)
 				return WEBPATH."/web/img/".$this->_img;
 
-			return WEBPATH."/web/img/default.jpg";	
+			return WEBPATH."/web/img/default-membre.jpg";	
 		}
 	}
 	public function getIdTeam(){return $this->_idTeam;}

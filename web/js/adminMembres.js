@@ -171,6 +171,8 @@ var membreModule = {
 					allData.authorize_mail_contact = authorize_mail_contact;
 				}
 
+				allData.img = "default-membre.png";
+
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 
@@ -212,6 +214,7 @@ var membreModule = {
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
+						 console.log(allData);
 						var myStatus;
 						//Reload la mise a jour dans l'html
 						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
