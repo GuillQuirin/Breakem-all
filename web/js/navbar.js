@@ -945,7 +945,7 @@ var cookie = {
 	getCookieInfo : function(){
 		return cookie._cookieInfo;
 	},
-	postCookieCallback: function(){
+	postCookieCallback: function(obj){
 		cookie.getCookieInfo().slideUp();
 	},
 	postCookie : function(){

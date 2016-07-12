@@ -59,17 +59,9 @@ class template{
     return false;
   }
   public function acceptCookieAction(){
-    if(!$this->isCookieAccepted()){
-      $args = array(
-        'validation' => FILTER_SANITIZE_STRING
-      );
-      $filteredinputs = filter_input_array(INPUT_POST, $args);      
-      if($filteredinputs['validation']){
-        setcookie(AUTORISATION, 1, time()+60*60*24*30*365);
-        echo json_encode(["success"=>true]);
-        exit;
-      };
-    }; 
+    setcookie(AUTORISATION, 1, time()+(60*60*24*30), "/");
+    echo json_encode(["success"=>true]);
+    exit;
   }
 
   protected function isVisitorConnected(){
