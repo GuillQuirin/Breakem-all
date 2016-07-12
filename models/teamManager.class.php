@@ -102,6 +102,7 @@ class teamManager extends basesql{
 			':img' => $t->getImg(true),
 			':id' => $t->getId()
 		]);
+
 		$res = $req->fetchAll();
 		if(isset($res[0]))
 			return true;

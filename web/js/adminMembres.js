@@ -16,7 +16,7 @@ var membreModule = {
 		//CRUD
 		membreModule.postDataDelete();
 		membreModule.postDataUpdate();
-		//membreModule.postDataInsert();		
+		membreModule.postDataInsert();		
 	},
 
 	//Setter
@@ -128,23 +128,18 @@ var membreModule = {
 				var kind = subBtn.find('.membre-kind-p').val();
 				var description = subBtn.find('.membre-description-p').val();
 				var city = subBtn.find('.membre-city-p').val();
-				var password = subBtn.find('.membre-password-p').val();
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
-				var idTeam = subBtn.find('.membre-idTeam-p').val();
-				var nameTeam = subBtn.find('.membre-nameTeam-p').val();
-				var report = subBtn.find('.membre-report-p').val();
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
-				var mailContact = subBtn.find('.membre-mailContact-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
 				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
 
 				var allData = {};
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(id){
-					allData.id = id;
-				}
+				allData.id = id;
+
 				if(name){
 					allData.name = name;
 				}
@@ -169,30 +164,20 @@ var membreModule = {
 				if(email){
 					allData.email = email;
 				}
-				if(password){
-					allData.password = password;
-				}
 				if(status){
 					allData.status = status;
 				}
-				if(nameTeam){
-					allData.nameTeam = nameTeam;
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
 				}
-				if(idTeam){
-					allData.idTeam = idTeam;
-				}
-				if(mailContact){
-					allData.authorize_mail_contact = mailContact;
-				}
-
-				console.log(allData);
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 
-			        if(myImg){
-			        	//Pour l'upload coté serveur
-			        	var file = myImg.prop('files')[0];
+			    	//Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
+
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -227,13 +212,26 @@ var membreModule = {
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
+						var myStatus;
 						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
+						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
+						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
+						switch(status) {
+						    case -1:
+						        myStatus = "Banni";
+						        break;
+						    case 1:
+						        myStatus = "Utilisateur";
+						        break;
+						    case 3:
+						    	myStatus = "Admin";
+						    	break;
+						} 
+						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
+							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+						}
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
@@ -251,93 +249,147 @@ var membreModule = {
 			btn.parent().parent().find('.admin-add-form-wrapper').html(
 			//Formulaire
 				"<div class='index-modal-this index-modal-login align'>" +
-					
-					"<div class='grid-md-6 inscription_rapide animation fade'>" +
-						"<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-							//Title
-							"<div class='grid-md-12 form-title-wrapper'>" +
-								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>" +
-							"</div>" +
-							"<div class='grid-md-12'>" +
-							//Image							    								 
-						    	"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover membre-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +
-								"</div>" +
-								"<div class='text-center admin-input-file'>" +								 
-									"<input type='file' class='membre-image-p' name='profilpic'>" +
-								"</div>" +
-							"</div>" +
-							"<div class='grid-md-6'>" +
-								//Label
-								"<div class='grid-md-5 text-left'>" +
-									"<label for='nom'>Nom :</label>" +
-									"<label for='prenom'>Prénom :</label>" +
-									"<label for='pseudo'>Pseudo :</label>" +
-									"<label for='birthday'>Birthday :</label>" +
-									"<label for='report'>Report :</label>" +
-								"</div>" +
-								//Input
-								"<div class='grid-md-7'>" +
-								    "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text'>" +									    
-								    "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-birthday-p' name='birthday' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text'>" +	
-								"</div>" +								   
-						    "</div>" +
+							
+							"<div class='grid-md-6 inscription_rapide animation fade'>" +
+								"<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+									//Title
+									"<div class='grid-md-12 form-title-wrapper'>" +
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>" +
+									"</div>" +
+									"<div class='grid-md-6' style='height:130px;'>" +
+									//Image							    								 
+								    	"<div class='membre-form-img-size m-a'>" +																	
+											"<img class='img-cover membre-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +
+										"</div>" +
+										"<div class='text-center admin-input-file'>" +								 
+											"<input type='file' class='membre-image-p' name='profilpic'>" +
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='description'>Description :</label>" +
+											"<label for='city'>Ville :</label>" +
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+									 		"<input class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description' type='text'>" +			    
+											"<input class='input-default admin-form-input-w membre-city-p' placeholder='Ville' name='city' type='text'>" +									    
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='nom'>Nom :</label>" +
+											"<label for='prenom'>Prénom :</label>" +
+											"<label for='pseudo'>Pseudo :</label>" +
+											"<label for='birthday'>Birthday :</label>" +
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+										    "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text'>" +									    
+										    "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text'>" +
+										"</div>" +								   
+								    "</div>" +
 
-						    "<div class='grid-md-6'>" +
-							   	
-							   	"<div class='grid-md-5 text-left'>" +
-							   		//Label
-								    "<label for='kind'>Genre :</label>" +
-								    "<label for='description'>Description :</label>" +
-									"<label for='email'>Email :</label>" +
-										"<label for='team'>Team :</label>" +
-									"<label for='status'>Status :</label>" +
-								"</div>" +
+								    "<div class='grid-md-6'>" +
+									   	
+									   	"<div class='grid-md-5 text-left'>" +
+									   		//Label
+										    "<label for='kind'>Genre :</label>" +
+											"<label for='email'>Email :</label>" +
+											"<label for='mailContact'>Me contacter :</label>" +
+											"<label for='status'>Status :</label>" +
+										"</div>" +
 
-								"<div class='grid-md-7'>" +
-									//Input
-								    "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text'>" +			    
-								    "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-team-p' name='team' type='text'>" +
-								    "<select class='select-default membre-status-p' name='status'>" +
-										"<option value='-1'>Banni</option>" +
-										"<option value='1'>Utilisateur</option>" +
-										"<option value='3'>Admin</option>" +
-									"</select>" +		
-								"</div>" +							 
-						    "</div>" +
-						    //Submit
-						    "<div class='grid-md-12'>" +
-						    	"<button type='button' class='admin-form-submit membre-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-						    "</div>" +
-				  		"</form>" +
-				  	"</div>" +
-				"</div>"
+										"<div class='grid-md-7'>" +
+											//Input
+											"<select class='select-default membre-kind-p'>" +
+												"<option value='Homme'>Homme</option>" +
+												"<option value='Femme'>Femme</option>" +
+											"</select>" +
+										    "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text'>" +
+										 	"<select class='select-default membre-mailContact-p'>" +
+												"<option value='1'>Oui</option>" +
+												"<option value='0'>Non</option>" +
+											"</select>" +
+										    "<select class='select-default membre-status-p' placeholder='Status' name='status'>" +
+												"<option value='1'>Utilisateur</option>" +
+												"<option value='-1'>Banni</option>" +
+												"<option value='3'>Admin</option>" +
+											"</select>" +		
+										"</div>" +							 
+								    "</div>" +
+								    //Submit
+								    "<div class='grid-md-12'>" +
+								    	"<button type='button' class='admin-form-submit membre-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+								    "</div>" +
+						  		"</form>" +
+						  	"</div>" +
+						"</div>"
 			//Fin Formulaire
 			);
 
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.membre-submit-add-this-form-btn');
 
-			/*
+			
 			submitBtn.click(function(ev){
-				var subBtn = jQuery(ev.currentTarget);
-				var name = subBtn.parent().parent().find('.membre-nom-p').val();
-				var description = subBtn.parent().parent().find('.membre-description-p').val();
+				var subBtn = jQuery(ev.currentTarget).parent().parent();
+				var name = subBtn.find('.membre-nom-p').val();
+				var firstname = subBtn.find('.membre-prenom-p').val();
+				var birthday = subBtn.find('.membre-birthday-p').val();
+				var kind = subBtn.find('.membre-kind-p').val();
+				var description = subBtn.find('.membre-description-p').val();
+				var city = subBtn.find('.membre-city-p').val();
+				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var status = subBtn.find('.membre-status-p').val();
+				var email = subBtn.find('.membre-email-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
+				var myImg = subBtn.find('.membre-image-p');
 
-				var myImg = subBtn.parent().parent().find('.admin-input-file > .membre-image-p');
+				var allData = {};
 
-				var allData = {name : name, description : description};
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				if(name){
+					allData.name = name;
+				}
+				if(firstname){
+					allData.firstname = firstname;
+				}
+				if(pseudo){
+					allData.pseudo = pseudo;
+				}
+				if(birthday){
+					allData.birthday = birthday;
+				}
+				if(description){
+					allData.description = description;
+				}
+				if(kind){
+					allData.kind = kind;
+				}
+				if(city){
+					allData.city = city;
+				}
+				if(email){
+					allData.email = email;
+				}
+				if(status){
+					allData.status = status;
+				}
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
+				}
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           
 
 			        if(myImg){
-			        	//Pour l'upload coté serveur
+			        	//Pour l'upload coté serveur 
 			        	var file = myImg.prop('files')[0];
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
@@ -365,24 +417,22 @@ var membreModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.description){
+			    if(allData.pseudo && allData.email){
 			    //Insert de la platform
 					jQuery.ajax({
-						url: "admin/insertPlatformsData", 
+						url: "admin/insertMembresData", 
 						type: "POST",
 						data: allData,
 						success: function(result){
-							console.log("Platforme ajoutée.");
-							console.log(allData);
+							console.log("Membre ajoutée.");
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){
-							throw new Error("Couldn't update platform", result);
+							throw new Error("Couldn't add member", result);
 						}
 					});
 				}
 			});
-			*/
 
 		});
 		navbar.setOpenFormAll();	
