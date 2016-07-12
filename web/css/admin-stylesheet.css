@@ -162,6 +162,15 @@
     transition: padding .3s, margin .3s;
 }
 
+.admin-img-cover{
+    display:block;
+    height:80px;
+    width:80px;
+    margin: 0 auto;
+    object-fit:cover;
+}
+
+
 .admin-data-ihm:hover{    
     background:rgba(130, 83, 164, 0.12);
     padding:15px 0;
@@ -187,8 +196,9 @@
 }
 
 .admin-wrapper .admin-data-ihm-elem-img-wrapper.membres-img{
-    height:150px;
-    width:150px;
+    height:80px;
+    width:80px;
+    margin:0 auto;
 }
 
 /*
