@@ -528,7 +528,7 @@ body, html{
     vertical-align: baseline;
 }
 
-.typejeu-description-g{
+.typejeu-description-g, .comment-message-g{
     white-space: nowrap;
     text-transform: initial;
     overflow: hidden;
