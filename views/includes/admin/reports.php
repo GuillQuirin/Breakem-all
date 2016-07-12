@@ -1,7 +1,7 @@
 <?php
 	if(isset($listesignalement)){	
 
-		$cat = "<div class='admin-data-ihm-title align relative'>
+		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Emetteur</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Accusé</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Motif</span></div></div>
@@ -14,7 +14,7 @@
 		if(is_array($listesignalement)){			
 			foreach ($listesignalement as $ligne => $signalement) {
 				//Wrapper				
-				echo "<div class='admin-data-ihm align relative'>";
+				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";

@@ -205,7 +205,7 @@ var platformModule = {
 							//Image
 							"<div class='grid-md-12'>" +
 								"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover platform-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +										
+									"<img class='img-cover platform-img membre-form-img-size' src='' title='Plateforme' alt='Plateforme'>" +										
 								"</div>" +
 								"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' class='platform-image-p' name='profilpic'>" +

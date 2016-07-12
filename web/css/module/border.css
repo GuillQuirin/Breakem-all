@@ -25,6 +25,10 @@
 	border:0 !important;
 }
 
+.border-round{
+	border-radius:50%;
+}
+
 .border-pink{
 	border: 1px solid #D92B4C;
 }

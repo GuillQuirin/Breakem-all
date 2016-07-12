@@ -1,7 +1,7 @@
 <?php
 	if(isset($listeplatform)){	
 
-		$cat = "<div class='admin-data-ihm-title align relative'>
+		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
@@ -12,10 +12,10 @@
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {
 				//Wrapper				
-				echo "<div class='admin-data-ihm align relative'>";
+				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover platform-img-up' src='" . $platform->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" . $platform->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
 					//Fin Affichage
@@ -41,7 +41,7 @@
 									//Image
 									echo "<div class='grid-md-12'>";
 										echo "<div class='membre-form-img-size m-a'>";																	
-											echo "<img class='img-cover platform-img membre-form-img-size' src='" . $platform->getImg() . "' title='Image de profil' alt='Image de profil'>";										
+											echo "<img class='img-cover platform-img membre-form-img-size' src='" . $platform->getImg() . "' title='Plateforme' alt='Plateforme'>";										
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='platform-image-p' name='profilpic'>";
