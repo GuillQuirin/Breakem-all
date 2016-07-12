@@ -250,27 +250,29 @@ var platformModule = {
 			        if(myImg){
 			        	//Pour l'upload coté serveur
 			        	var file = myImg.prop('files')[0];
+			        	if(file){
 
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+				        	allData.img = "upload/" + file.name;
 
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
-					    jQuery.ajax({
-				            url: "admin/insertPlatformsData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result2){
-				                console.log("Image '" + file.name + "' uploadé.");			       
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
+				        	var imgData = new FormData();                  
+						    imgData.append('file', file);				    		                             
+						    jQuery.ajax({
+					            url: "admin/insertPlatformsData", 
+					            dataType: 'text',  
+					            cache: false,
+					            contentType: false,
+					            processData: false,
+					            data: imgData,                         
+					            type: 'POST',
+					            success: function(result2){
+					                console.log("Image '" + file.name + "' uploadé.");			       
+					            },
+					            error: function(result2){
+					                console.log(result2);
+					            }
+						    });
+						}
 			        }   				    
 			    } else {    	
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");

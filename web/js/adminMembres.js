@@ -324,7 +324,7 @@ var membreModule = {
 								    "</div>" +
 								    //Submit
 								    "<div class='grid-md-12'>" +
-								    	"<button type='button' class='admin-form-submit platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+								    	"<button type='button' class='admin-form-submit membre-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
 								    "</div>" +
 						  		"</form>" +
 						  	"</div>" +
@@ -337,8 +337,7 @@ var membreModule = {
 
 			
 			submitBtn.click(function(ev){
-				var subBtn = jQuery(ev.currentTarget);
-				var id = subBtn.find('.membre-id-p').val();
+				var subBtn = jQuery(ev.currentTarget).parent().parent();
 				var name = subBtn.find('.membre-nom-p').val();
 				var firstname = subBtn.find('.membre-prenom-p').val();
 				var birthday = subBtn.find('.membre-birthday-p').val();
@@ -349,14 +348,12 @@ var membreModule = {
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
 				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
-				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
+				var myImg = subBtn.find('.membre-image-p');
 
 				var allData = {};
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				allData.id = id;
-
 				if(name){
 					allData.name = name;
 				}
@@ -392,7 +389,7 @@ var membreModule = {
 			 	if (typeof FormData !== 'undefined') {				           
 
 			        if(myImg){
-			        	//Pour l'upload coté serveur
+			        	//Pour l'upload coté serveur 
 			        	var file = myImg.prop('files')[0];
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
