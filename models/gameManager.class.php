@@ -63,7 +63,11 @@ class gameManager extends basesql{
 	}
 
 	public function getAllGames(){
-		$sql = "SELECT * FROM game ORDER BY name";
+		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, t.name as nameType 
+				FROM game g 
+				INNER JOIN typegame t 
+				ON g.idType = t.id
+				ORDER BY name";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
