@@ -52,19 +52,19 @@
     margin-bottom:60px;
 }
 
-.admin-search-input::-webkit-input-placeholder, input {
+.admin-search-input::-webkit-input-placeholder, input, select {
    text-align: center;
 }
 
-.admin-search-input:-moz-placeholder, input { /* Firefox 18- */
+.admin-search-input:-moz-placeholder, input, select { /* Firefox 18- */
    text-align: center;  
 }
 
-.admin-search-input::-moz-placeholder, input {  /* Firefox 19+ */
+.admin-search-input::-moz-placeholder, input, select {  /* Firefox 19+ */
    text-align: center;  
 }
 
-.admin-search-input:-ms-input-placeholder, input {  
+.admin-search-input:-ms-input-placeholder, input, select {  
    text-align: center; 
 }
 

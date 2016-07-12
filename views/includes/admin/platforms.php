@@ -41,7 +41,7 @@
 									//Image
 									echo "<div class='grid-md-12'>";
 										echo "<div class='membre-form-img-size m-a'>";																	
-											echo "<img class='img-cover platform-img membre-form-img-size' src='" . $platform->getImg() . "' title='Image de profil' alt='Image de profil'>";										
+											echo "<img class='img-cover platform-img membre-form-img-size' src='" . $platform->getImg() . "' title='Plateforme' alt='Plateforme'>";										
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='platform-image-p' name='profilpic'>";

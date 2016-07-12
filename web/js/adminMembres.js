@@ -15,8 +15,8 @@ var membreModule = {
 
 		//CRUD
 		membreModule.postDataDelete();
-		//membreModule.postDataUpdate();
-		membreModule.postDataInsert();		
+		membreModule.postDataUpdate();
+		//membreModule.postDataInsert();		
 	},
 
 	//Setter
@@ -116,28 +116,83 @@ var membreModule = {
 		membreModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.membre-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var subBtn = updateBtn.parent().parent();
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+				var id = subBtn.find('.membre-id-p').val();
+				var name = subBtn.find('.membre-nom-p').val();
+				var firstname = subBtn.find('.membre-prenom-p').val();
+				var birthday = subBtn.find('.membre-birthday-p').val();
+				var kind = subBtn.find('.membre-kind-p').val();
+				var description = subBtn.find('.membre-description-p').val();
+				var city = subBtn.find('.membre-city-p').val();
+				var password = subBtn.find('.membre-password-p').val();
+				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var idTeam = subBtn.find('.membre-idTeam-p').val();
+				var nameTeam = subBtn.find('.membre-nameTeam-p').val();
+				var report = subBtn.find('.membre-report-p').val();
+				var status = subBtn.find('.membre-status-p').val();
+				var email = subBtn.find('.membre-email-p').val();
+				var mailContact = subBtn.find('.membre-mailContact-p').val();
+				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
+
+				var allData = {};
+
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				if(id){
+					allData.id = id;
+				}
+				if(name){
+					allData.name = name;
+				}
+				if(firstname){
+					allData.firstname = firstname;
+				}
+				if(pseudo){
+					allData.pseudo = pseudo;
+				}
+				if(birthday){
+					allData.birthday = birthday;
+				}
+				if(description){
+					allData.description = description;
+				}
+				if(kind){
+					allData.kind = kind;
+				}
+				if(city){
+					allData.city = city;
+				}
+				if(email){
+					allData.email = email;
+				}
+				if(password){
+					allData.password = password;
+				}
+				if(status){
+					allData.status = status;
+				}
+				if(nameTeam){
+					allData.nameTeam = nameTeam;
+				}
+				if(idTeam){
+					allData.idTeam = idTeam;
+				}
+				if(mailContact){
+					allData.authorize_mail_contact = mailContact;
+				}
 
 				console.log(allData);
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
-			           
-			        //Pour l'upload coté serveur
-			        var file = myImg.prop('files')[0];
 
-			        if(file){
+			        if(myImg){
+			        	//Pour l'upload coté serveur
+			        	var file = myImg.prop('files')[0];
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -145,7 +200,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
+				            url: "admin/updateMembresData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -167,11 +222,11 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
+					url: "admin/updateMembresData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
-						console.log("Plateforme mise à jour");
+						console.log("Membre mise à jour");
 						//Reload la mise a jour dans l'html
 						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
 						//updateBtn.parent().parent().find('.membre-description-g').html(description);

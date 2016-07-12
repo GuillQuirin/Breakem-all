@@ -26,9 +26,9 @@
 					//Email
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
 					//Team
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-idteam-g'>"; 
-						if($joueur->getIdTeam()){
-							echo $joueur->getIdTeam();
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-nameTeam-g'>"; 
+						if($joueur->getNameTeam()){
+							echo $joueur->getNameTeam();
 						}
 					echo "</span></div></div>";
 					//Report Number
@@ -68,7 +68,7 @@
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
 									echo "</div>";
-									echo "<div class='grid-md-12'>";
+									echo "<div class='grid-md-6' style='padding:25px 0;'>";
 									//Image							    								 
 								    	echo "<div class='membre-form-img-size m-a'>";																	
 											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
@@ -80,7 +80,20 @@
 									echo "<div class='grid-md-6'>";
 										//Label
 										echo "<div class='grid-md-5 text-left'>";
-											echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
+	 										echo "<label for='nameTeam'>Team :</label>";
+											echo "<label for='city'>Ville :</label>";
+											echo "<label for='password'>Mot de passe :</label>";
+										echo "</div>";
+										//Input
+										echo "<div class='grid-md-7'>";
+											echo "<input class='input-default admin-form-input-w membre-nameTeam-p' placeholder='Nom de team' name='nameTeam' type='text' value='" . $joueur->getNameTeam() . "'>";
+											echo "<input class='input-default admin-form-input-w membre-city-p' placeholder='Ville' name='city' type='text' value='" . $joueur->getCity() . "'>";									    
+											echo "<input class='input-default admin-form-input-w membre-password-p' placeholder='Mot de passe' name='password' type='text' value='" . $joueur->getPassword() . "'>";									    
+										echo "</div>";
+									echo "</div>";
+									echo "<div class='grid-md-6'>";
+										//Label
+										echo "<div class='grid-md-5 text-left'>";
 											echo "<label for='nom'>Nom :</label>";
 											echo "<label for='prenom'>Prénom :</label>";
 											echo "<label for='pseudo'>Pseudo :</label>";
@@ -89,11 +102,13 @@
 										echo "</div>";
 										//Input
 										echo "<div class='grid-md-7'>";
-										    echo "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text' value='" . $joueur->getName() . "'>";									    
-										    echo "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text' value='" . $joueur->getPseudo() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-birthday-p' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
+											echo "<input type='text' name='id' class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
+											echo "<input type='text' name='idTeam' class='hidden membre-idTeam-p' value='" . $joueur->getIdTeam() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text' value='" . $joueur->getName() . "'>";									    
+										    echo "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-report-p' placeholder='Signalement' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
 										echo "</div>";								   
 								    echo "</div>";
 
@@ -104,17 +119,23 @@
 										    echo "<label for='kind'>Genre :</label>";
 										    echo "<label for='description'>Description :</label>";
 											echo "<label for='email'>Email :</label>";
-	 										echo "<label for='team'>Team :</label>";
+											echo "<label for='mailContact'>Me contacter :</label>";
 											echo "<label for='status'>Status :</label>";
 										echo "</div>";
 
 										echo "<div class='grid-md-7'>";
 											//Input
-										    echo "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text' value='" . $joueur->getKind() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text' value='" . $joueur->getDescription() . "'>";			    
-										    echo "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text' value='" . $joueur->getEmail() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-team-p' name='team' type='text' value='" . $joueur->getIdTeam() . "'>";
-										    echo "<select class='select-default membre-status-p' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+											echo "<select class='select-default membre-kind-p'>";
+												echo "<option value='Homme'>Homme</option>";
+												echo "<option value='Femme'>Femme</option>";
+											echo "</select>";
+										    echo "<input class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description' type='text' value='" . $joueur->getDescription() . "'>";			    
+										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
+										 	echo "<select class='select-default membre-mailContact-p'>";
+												echo "<option value='1'>Oui</option>";
+												echo "<option value='0'>Non</option>";
+											echo "</select>";
+										    echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 												echo "<option value='-1'";
 													echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 												echo ">Banni</option>
