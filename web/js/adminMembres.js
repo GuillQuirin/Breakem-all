@@ -128,7 +128,6 @@ var membreModule = {
 				var kind = subBtn.find('.membre-kind-p').val();
 				var description = subBtn.find('.membre-description-p').val();
 				var city = subBtn.find('.membre-city-p').val();
-				var password = subBtn.find('.membre-password-p').val();
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
 				var idTeam = subBtn.find('.membre-idTeam-p').val();
 				var nameTeam = subBtn.find('.membre-nameTeam-p').val();
@@ -168,9 +167,6 @@ var membreModule = {
 				}
 				if(email){
 					allData.email = email;
-				}
-				if(password){
-					allData.password = password;
 				}
 				if(status){
 					allData.status = status;
@@ -227,13 +223,13 @@ var membreModule = {
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
-						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
-						//Si l'image uploadé existe on l'envoi dans la dom
+						/*Reload la mise a jour dans l'html
+						updateBtn.parent().parent().find('.membre-nom-g').html(name);
+						updateBtn.parent().parent().find('.membre-description-g').html(description);
+						Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
 							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
+						}	*/
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){

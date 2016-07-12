@@ -68,7 +68,7 @@
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
 									echo "</div>";
-									echo "<div class='grid-md-6' style='padding:25px 0;'>";
+									echo "<div class='grid-md-6' style='height:130px;'>";
 									//Image							    								 
 								    	echo "<div class='membre-form-img-size m-a'>";																	
 											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
@@ -82,13 +82,11 @@
 										echo "<div class='grid-md-5 text-left'>";
 	 										echo "<label for='nameTeam'>Team :</label>";
 											echo "<label for='city'>Ville :</label>";
-											echo "<label for='password'>Mot de passe :</label>";
 										echo "</div>";
 										//Input
 										echo "<div class='grid-md-7'>";
 											echo "<input class='input-default admin-form-input-w membre-nameTeam-p' placeholder='Nom de team' name='nameTeam' type='text' value='" . $joueur->getNameTeam() . "'>";
 											echo "<input class='input-default admin-form-input-w membre-city-p' placeholder='Ville' name='city' type='text' value='" . $joueur->getCity() . "'>";									    
-											echo "<input class='input-default admin-form-input-w membre-password-p' placeholder='Mot de passe' name='password' type='text' value='" . $joueur->getPassword() . "'>";									    
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='grid-md-6'>";
@@ -108,7 +106,7 @@
 										    echo "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-report-p' placeholder='Signalement' name='report' type='text' value='" . $joueur->getReportNumber() . "'>";	
+										    echo "<input class='input-default admin-form-input-w membre-report-p full-width-i' placeholder='Signalement' name='report' type='number' value='" . $joueur->getReportNumber() . "'>";	
 										echo "</div>";								   
 								    echo "</div>";
 

@@ -7,7 +7,7 @@ class adminManager extends basesql{
 
 	//Membre
 	public function getListUser(){
-		$sql="SELECT user.id, user.name, user.firstname, user.pseudo, 
+		$sql="SELECT user.id, user.name, user.firstname, user.pseudo, user.password,
 						user.birthday, user.description, user.kind, user.city, 
 						user.email, user.status, user.img, user.idTeam, user.isConnected, user.lastConnexion,
 						COUNT(id_signaled_user) as reportNumber
