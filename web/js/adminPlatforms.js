@@ -242,7 +242,7 @@ var platformModule = {
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
-				var allData = {name : name, description : description};
+				var allData = {name : name, description : description, img : "default-platform.png"};
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           
@@ -293,7 +293,7 @@ var platformModule = {
 							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
 
 								//Affichage
-								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + allData.img + "'></div></div></div>" +
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/" + allData.img + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + allData.name + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + allData.description + "</span></div></div>" +
 								//Fin Affichage
