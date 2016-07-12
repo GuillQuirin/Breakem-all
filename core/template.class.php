@@ -15,7 +15,7 @@ class template{
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
 
-    if($this->acceptCookie()){
+    if(!$this->isCookieAccepted()){
       $v->assign("popupCookie", 1);
     }
 
@@ -53,36 +53,23 @@ class template{
       }
     }
   }
-
-  protected function acceptCookie(){
-    $args = array(
-      'validation' => FILTER_SANITIZE_STRING
-    );
-    $filteredinputs = filter_input_array(INPUT_POST, $args);
-    
-    if($filteredinputs['validation']){
-      $_SESSION[AUTORISATION]=1;
-    }
-
-    //Le cookie est déjà présent
-    if(isset($_COOKIE[AUTORISATION])){
-      
-      if(isset($_SESSION[AUTORISATION]))
-        unset($_SESSION[AUTORISATION]);
-
-      return false;
-    }
-    else{
-        
-      if(isset($_SESSION[AUTORISATION]) && $_SESSION[AUTORISATION]==1){
+  private function isCookieAccepted(){
+    if( isset($_COOKIE[AUTORISATION]) && $_COOKIE[AUTORISATION]==1)
+      return true;   
+    return false;
+  }
+  public function acceptCookieAction(){
+    if(!$this->isCookieAccepted()){
+      $args = array(
+        'validation' => FILTER_SANITIZE_STRING
+      );
+      $filteredinputs = filter_input_array(INPUT_POST, $args);      
+      if($filteredinputs['validation']){
         setcookie(AUTORISATION, 1, time()+60*60*24*30*365);
-        unset($_SESSION[AUTORISATION]);
-        return false;
-      }
-    
-    }
-
-    return true;
+        echo json_encode(["success"=>true]);
+        exit;
+      };
+    }; 
   }
 
   protected function isVisitorConnected(){

@@ -161,7 +161,7 @@ function ajaxRequest(url, type, callback){
 	}	
 }
 
-function ajaxWithDataRequest(url, type, toSendData, callback){
+function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 	if(url && type && callback){
 		if(Object.keys(toSendData).length > 0){
 			jQuery.ajax({
@@ -170,10 +170,14 @@ function ajaxWithDataRequest(url, type, toSendData, callback){
 			 	data: toSendData,
 			 	success: function(result){
 			 		var obj = tryParseData(result);
-					callback(obj);
+			 		if(callback)
+						callback(obj);
 			 	},
 			 	error: function(xhr, textStatus, errorThrown) {
-					popup.init("request error !! : \t " + errorThrown);
+			 		if(failCallback)
+			 			failCallback();
+			 		else
+						popup.init("request error !! : \t " + errorThrown);
 				}
 			});
 		}
@@ -183,10 +187,14 @@ function ajaxWithDataRequest(url, type, toSendData, callback){
 			 	type: type,
 			 	success: function(result){
 			 		var obj = tryParseData(result);
-					callback(obj);
+			 		if(callback)
+						callback(obj);
 			 	},
 			 	error: function(xhr, textStatus, errorThrown) {
-					popup.init("request error !! : \t " + errorThrown);
+					if(failCallback)
+			 			failCallback();
+			 		else
+						popup.init("request error !! : \t " + errorThrown);
 				}
 			});
 		}
@@ -745,8 +753,12 @@ var register = {
 
 
 	/*### Send Form event ###*/
-	sendEvent: function(){
-		var _register = register;
+	sendEventCallback: function(obj){
+		if(obj != false){
+	    	register.treatParsedJson(obj);
+	    }
+	},
+	sendEvent: function(){		
 		var _form = register.getFormToWatch();
 		register._pseudo = _form.find("input[name='pseudo']");
 		register._cgu = _form.find("input[name='cgu']");
@@ -762,41 +774,28 @@ var register = {
 
 		register._btn.click(function(event) {
 			if (
-				_register.isEmailValid() 
-				&& _register.isPseudoValid()
-				&& _register.isPasswordValid(_register.getPassToWatch())
-				&& _register.isPasswordValid(_register.getPassCheckToWatch())
-				&& _register.doPasswordsMatch()
-				&& _register.isBirthValid()
-				&& _register.isCguAccepted()
+				register.isEmailValid() 
+				&& register.isPseudoValid()
+				&& register.isPasswordValid(register.getPassToWatch())
+				&& register.isPasswordValid(register.getPassCheckToWatch())
+				&& register.doPasswordsMatch()
+				&& register.isBirthValid()
+				&& register.isCguAccepted()
 			) {
-				jQuery.ajax({
-				  url: 'index/register',
-				  type: 'POST',
-				  data: {
-					  	pseudo  		: _register.getPseudoToWatch().val(),
-					    email			: _register.getEmailToWatch().val(),
-					    password		: _register.getPassToWatch().val(),
-					    password_check	: _register.getPassCheckToWatch().val(),
-					    day				: _register.getDayToWatch().val(),
-					    month			: _register.getMonthToWatch().val(),
-					    year			: _register.getYearToWatch().val()
-				  },
-				  complete: function(xhr, textStatus) {
-				    // console.log("request complted \n");
-				  },
-				  success: function(data, textStatus, xhr) {
-				  	var obj = tryParseData(data);
-				    if(obj != false){
-				    	_register.treatParsedJson(obj);
-				    }
-				  },
-				  error: function(xhr, textStatus, errorThrown) {
-				    console.log("request error !! : \t " + errorThrown);
-				  }
-				});
-				
-				// return true;
+				ajaxWithDataRequest(
+					'index/register', 
+					'POST', 
+					{
+						pseudo  		: register.getPseudoToWatch().val(),
+					    email			: register.getEmailToWatch().val(),
+					    password		: register.getPassToWatch().val(),
+					    password_check	: register.getPassCheckToWatch().val(),
+					    day				: register.getDayToWatch().val(),
+					    month			: register.getMonthToWatch().val(),
+					    year			: register.getYearToWatch().val()
+					},
+					register.sendEventCallback
+				);
 			};
 			event.preventDefault();
 			return false;
@@ -844,39 +843,29 @@ var connection = {
 		jQinput.focus();
 		connection.removeFailAnimationEvent(jQinput);
 	},
-	tryParseData: function(rawData){
-		try {
-			var obj = jQuery.parseJSON(rawData);
-			return obj;
-		}
-		catch(err) {
-			console.log(rawData);
-			alert("Problem during server processes \n Check console for details");
-		}
-		return false;
-	},
 	treatParsedJson: function(obj){
-		if(obj.connected){
-			location.reload();
-		}
-		else{
-			connection.highlightInput(connection._email);
-			connection.highlightInput(connection._password);
-			if(obj.errors.inputs){
-				// missing input !
-				alert("you are missing an input");
+		if(obj != false){
+			if(obj.connected){
+				location.reload();
 			}
-			else if(obj.errors.user){
-				// email and pass don't match OU BAN
-				alert(obj.errors.user);
+			else{
+				connection.highlightInput(connection._email);
+				connection.highlightInput(connection._password);
+				if(obj.errors.inputs){
+					// missing input !
+					alert("you are missing an input");
+				}
+				else if(obj.errors.user){
+					// email and pass don't match OU BAN
+					alert(obj.errors.user);
+				}
 			}
-		}
+		}		
 	},
 
 
 	/*### Send Form event ###*/
 	sendEvent: function(){
-		var _connection = connection;
 		var _form = connection.getFormToWatch();
 		var _email = _form.find("input[name='email']");
 		var _password = _form.find("input[name='password']");
@@ -887,29 +876,16 @@ var connection = {
 		connection._btn = _btn;
 
 		_btn.click(function(event) {
-			if (_connection.isEmailValid(_email) && _connection.isPasswordValid(_password)) {
-				jQuery.ajax({
-				  url: 'index/connection',
-				  type: 'POST',
-				  data: {
-				  	email: _email.val(),
-				  	password: _password.val()
-				  },
-				  complete: function(xhr, textStatus) {
-				    // console.log("request complted \n");
-				  },
-				  success: function(data, textStatus, xhr) {
-				    var obj = tryParseData(data);
-				    if(obj != false){
-				    	_connection.treatParsedJson(obj);
-				    }
-				  },
-				  error: function(xhr, textStatus, errorThrown) {
-				    console.log("request error !! : \t " + errorThrown);
-				  }
-				});
-				
-				// return true;
+			if (connection.isEmailValid(_email) && connection.isPasswordValid(_password)) {
+				ajaxWithDataRequest(
+					'index/connection', 
+					'POST', 
+					{
+						email: _email.val(),
+				  		password: _password.val()
+					},
+					connection.treatParsedJson
+				);
 			};
 			event.preventDefault();
 			return false;
@@ -941,20 +917,11 @@ var deconnection = {
 		var _deconnection = deconnection;
 		var _btn = deconnection._btn;
 		_btn.click(function(event) {
-			jQuery.ajax({
-				url: 'index/deconnection',
-				type: 'POST',
-				data: {},
-				complete: function(xhr, textStatus) {
-					location.reload();
-				},
-				success: function(data, textStatus, xhr) {
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					console.log(errorThrown);
-					alert("uh oh serv ...");
-				}
-			});
+			ajaxWithDataRequest(
+				'index/deconnection', 
+				'POST', 
+				{}
+			);
 		});
 	}
 }
@@ -978,21 +945,18 @@ var cookie = {
 	getCookieInfo : function(){
 		return cookie._cookieInfo;
 	},
-
+	postCookieCallback: function(){
+		cookie.getCookieInfo().slideUp();
+	},
 	postCookie : function(){
 		var allData = {validation : "1"};
 		cookie.getBtnCookie().on("click", function(){
-			jQuery.ajax({
-				utl: 'index/acceptCookie',
-				type: 'POST',
-				data: allData,
-				success : function(result){
-					cookie.getCookieInfo().slideUp();
-				},
-				error: function(result){
-					throw new Error("Erreur de validation cookie", result);
-				}
-			});
+			ajaxWithDataRequest(
+				'index/acceptCookie', 
+				'POST', 
+				allData,
+				cookie.postCookieCallback
+			);
 		});
 	}	
 };
@@ -1000,47 +964,55 @@ var cookie = {
 
 var contactadmin = {
 	init : function(){
+		contactadmin.clickFadeInEvent();
+		contactadmin.loadMouseUpEvent();
+		contactadmin.loadBtnClickEvent();
+	},
+	checkMessage: function(){
+		if( $("#expediteurContactAdmin").val()=="" ){
+			popup.init('Une adresse email valide est requise afin que nous puissions vous répondre');
+			return false;
+		}
+		if( $.trim($("#mess_contactAdmin")).val()=="" ){
+			popup.init('Veuillez ne pas envoyer de message vide');
+			return false;
+		}
+		return true;
+	},
+	loadBtnClickEventCallback: function(){
+		popup.init('Le message a correctement été envoyé');
+		$("#wrapperAdmin .sendOk").fadeIn();
+	},
+	loadBtnClickEventFailCallback: function(){
+		$("#wrapperAdmin .sendOk").fadeIn();
+	},
+	loadBtnClickEvent: function(){
+		//Controle des messages
+		$("#btn_contactAdmin").click(function(){
+			if(contactadmin.checkMessage()){
+				ajaxWithDataRequest(
+					'index/contactAdmin', 
+					'POST', 
+					{
+						message: $("#mess_contactAdmin").val(),
+						expediteur: $("#expediteurContactAdmin").val()
+					},
+					contactadmin.loadBtnClickEventCallback,
+					contactadmin.loadBtnClickEventFailCallback
+				);
+			}
+		});
+	},
+	clickFadeInEvent: function(){
 		//Affichages des popups
 		$("#contactAdmin").click(function(){
 			$("#wrapperAdmin").fadeIn();
 			return false;
 		});
-
-		//Controle des messages
-		$("#btn_contactAdmin").click(function(){
-			if($("#expediteurContactAdmin").val()==""){
-				alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
-			}
-			else if($.trim($("#mess_contactAdmin")).val()==""){
-				alert('Veuillez ne pas envoyer de message vide.');
-			} 
-			else{
-				$.ajax({method: "POST",
-						data:{
-							message: $("#mess_contactAdmin").val(),
-							expediteur: $("#expediteurContactAdmin").val()
-						},
-						url: "index/contactAdmin", 
-						success: function(result){
-		            		alert('Le message a correctement été envoyé.');
-		            		$("#wrapperAdmin .sendOk").fadeIn();
-		            		//$("loadGIF").css("display","none");
-		        		},
-		        		// load: function(){
-		        		// 	$("loadGIF").css("display","block");
-		        		// },
-		        		fail: function(){
-		        			$("#wrapperAdmin .sendOk").fadeIn();
-		        		}
-		        	}
-		        );
-			}
-		});
-
-		$(document).mouseup(function(e)
-		{
+	},
+	loadMouseUpEvent: function(){
+		$(document).mouseup(function(e){
 		    var container = $("#wrapperAdmin");
-
 		    if(!container.is(e.target) && container.has(e.target).length === 0) 
 		    {
 		    	$(".sendOk, .sendError").fadeOut();
