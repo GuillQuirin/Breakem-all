@@ -121,7 +121,6 @@ class adminController extends template{
     }
 
     /* PLATEFORME */
-
     public function insertPlatformsDataAction(){
         if ( 0 < $_FILES['file']['error'] ) {
             echo 'Error: ' . $_FILES['file']['error'];
@@ -130,19 +129,17 @@ class adminController extends template{
             move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
         }
 
-        $args = array(            
+        $args = array(
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING,
-            'img' => FILTER_SANITIZE_STRING           
+            'img' => FILTER_SANITIZE_STRING
         );
-        
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
 
-        $pbdd = new platformManager();
-        $p = new platform($filteredinputs);
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-        if($pbdd->addPlatform($p))
-            echo "OK";
+        $pBdd = new platformManager();
+        $pBdd->mirrorObject = new platform($filteredinputs);
+        $pBdd->create();
     }
 
     public function updatePlatformsDataAction(){
@@ -262,7 +259,7 @@ class adminController extends template{
         $userBDD->setUser($user, $newuser);
     }
 
-        public function updateMembresDataAction(){
+    public function updateMembresDataAction(){
         if ( 0 < $_FILES['file']['error'] ) {
             echo 'Error: ' . $_FILES['file']['error'];
         }
