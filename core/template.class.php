@@ -255,9 +255,9 @@ class template{
       'email'   => FILTER_VALIDATE_EMAIL,
       'password'   => FILTER_SANITIZE_STRING,
       'password_check'   => FILTER_SANITIZE_STRING,
-      'day'   => FILTER_SANITIZE_STRING,     
-      'month'   => FILTER_SANITIZE_STRING,     
-      'year'   => FILTER_SANITIZE_STRING     
+      'day'   => FILTER_VALIDATE_INT,     
+      'month'   => FILTER_VALIDATE_INT,     
+      'year'   => FILTER_VALIDATE_INT     
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     $finalArr = [];
