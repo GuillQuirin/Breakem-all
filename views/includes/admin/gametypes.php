@@ -56,7 +56,7 @@
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden typejeu-id-p' value='" . $typejeu->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w typejeu-nom-p' name='nom' type='text' value='" . $typejeu->getName() . "'>";
-										echo "<input class='input-default admin-form-input-w typejeu-description-p' name='description' type='text' value='" . $typejeu->getDescription() . "'>";
+										echo "<textarea class='input-default admin-form-input-w typejeu-description-p' name='description' type='text' >".$typejeu->getDescription()."</textarea>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

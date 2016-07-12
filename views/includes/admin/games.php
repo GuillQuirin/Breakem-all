@@ -18,8 +18,8 @@
 					//Affichage
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-nom-g'>" . $jeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" . $jeu->getYear() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-type-g'>" . $jeu->getIdType() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-type-g'>" . $jeu->getNameType() . "</span></div></div>";
 					//Fin 
 
 					//Boutton
@@ -60,9 +60,11 @@
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden jeu-id-p' value='" . $jeu->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w jeu-nom-p' name='nom' type='text' value='" . $jeu->getName() . "'>";
-										echo "<input class='input-default admin-form-input-w jeu-description-p' name='description' type='text' value='" . $jeu->getDescription() . "'>";
-										echo "<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text' value='" . $jeu->getYear() . "'>";
-										echo "<input class='input-default admin-form-input-w jeu-type-p' name='type' type='text' value='" . $jeu->getIdType() . "'>";
+										echo "<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" . $jeu->getDescription() . "</textarea>";
+										echo "<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text' value='" . date('Y', $jeu->getYear()) . "'>";
+										echo "<select>";
+										echo "<option class='input-default admin-form-input-w jeu-type-p' name='type' type='text' value='" . $jeu->getIdType() . "'>";
+										echo "</select>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

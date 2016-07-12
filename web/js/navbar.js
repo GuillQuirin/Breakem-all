@@ -912,7 +912,9 @@ var deconnection = {
 		deconnection._btn = jQuery("#nav-deconnection");
 	},
 	getBtnToWatch: function(){return deconnection._btn;},
-
+	clickEventCallback: function(){
+		location.reload();
+	},
 	clickEvent: function(){
 		var _deconnection = deconnection;
 		var _btn = deconnection._btn;
@@ -920,7 +922,8 @@ var deconnection = {
 			ajaxWithDataRequest(
 				'index/deconnection', 
 				'POST', 
-				{}
+				{},
+				deconnection.clickEventCallback
 			);
 		});
 	}

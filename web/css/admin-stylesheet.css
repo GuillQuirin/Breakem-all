@@ -527,3 +527,11 @@ body, html{
     font: inherit;
     vertical-align: baseline;
 }
+
+.typejeu-description-g, .comment-message-g{
+    white-space: nowrap;
+    text-transform: initial;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
