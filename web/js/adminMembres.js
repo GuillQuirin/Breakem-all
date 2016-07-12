@@ -16,7 +16,7 @@ var membreModule = {
 		//CRUD
 		membreModule.postDataDelete();
 		membreModule.postDataUpdate();
-		membreModule.postDataInsert();		
+		//membreModule.postDataInsert();		
 	},
 
 	//Setter
@@ -283,14 +283,16 @@ var membreModule = {
 											"<label for='nom'>Nom :</label>" +
 											"<label for='prenom'>Prénom :</label>" +
 											"<label for='pseudo'>Pseudo :</label>" +
-											"<label for='birthday'>Birthday :</label>" +
+											"<label for='password'>Mot de passe :</label>" +
+											"<label for='passwordCheck'>Validation :</label>" +											
 										"</div>" +
 										//Input
 										"<div class='grid-md-7'>" +
 										    "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text'>" +									    
 										    "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text'>" +
 										    "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text'>" +
-										    "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-password-p' placeholder='Mot de passe' name='password' type='password'>" +
+										    "<input class='input-default admin-form-input-w membre-passwordCheck-p' placeholder='Validation du mot de passe' name='passwordCheck' type='password'>" +
 										"</div>" +								   
 								    "</div>" +
 
@@ -298,6 +300,7 @@ var membreModule = {
 									   	
 									   	"<div class='grid-md-5 text-left'>" +
 									   		//Label
+									   		"<label for='birthday'>Birthday :</label>" +
 										    "<label for='kind'>Genre :</label>" +
 											"<label for='email'>Email :</label>" +
 											"<label for='mailContact'>Me contacter :</label>" +
@@ -307,8 +310,8 @@ var membreModule = {
 										"<div class='grid-md-7'>" +
 											//Input
 											"<select class='select-default membre-kind-p'>" +
-												"<option value='Homme'>Homme</option>" +
-												"<option value='Femme'>Femme</option>" +
+												"<option value='1'>Homme</option>" +
+												"<option value='0'>Femme</option>" +
 											"</select>" +
 										    "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text'>" +
 										 	"<select class='select-default membre-mailContact-p'>" +
@@ -320,6 +323,7 @@ var membreModule = {
 												"<option value='-1'>Banni</option>" +
 												"<option value='3'>Admin</option>" +
 											"</select>" +		
+											"<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text'>" +
 										"</div>" +							 
 								    "</div>" +
 								    //Submit
@@ -347,10 +351,13 @@ var membreModule = {
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
+				var password = subBtn.find('.membre-password-p').val();
+				var password_check = subBtn.find('.membre-passwordCheck-p').val();
 				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
 				var myImg = subBtn.find('.membre-image-p');
 
 				var allData = {};
+
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
@@ -364,6 +371,8 @@ var membreModule = {
 				allData.email = email ? email : null;
 				allData.status = status ? status : 1;
 				allData.authorize_mail_contact = authorize_mail_contact ? authorize_mail_contact : 1;
+				allData.password = password ? password : null;
+				allData.password_check = password_check ? password_check : null;
 
 				/*if(name){
 					allData.name = name;
@@ -413,7 +422,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/insertMembresData", 
+				            url: "admin/registerAdmin", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -435,7 +444,7 @@ var membreModule = {
 			    if(allData.pseudo && allData.email){
 			    //Insert de la platform
 					jQuery.ajax({
-						url: "admin/insertMembresData", 
+						url: "admin/registerAdmin", 
 						type: "POST",
 						data: allData,
 						success: function(result){

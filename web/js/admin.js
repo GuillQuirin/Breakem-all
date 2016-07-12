@@ -20,6 +20,7 @@ var onglet = {
 
 		//Setter
 		onglet.setAdminContainer();
+		onglet.setAdminAddWrapper();
 		onglet.setAdminBoard();
 		onglet.setAdminWrapper();
 		onglet.setAdminDataRe();
@@ -49,48 +50,62 @@ var onglet = {
 		onglet.getAdminOngletPlatforms().click(function(){
 			onglet.getAdminBoard().hide();	
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html(
+				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+			);
 			onglet.platformView();
 		});
-		//Admin
+		//Membres
 		onglet.getAdminOngletMembres().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html('');
 			onglet.membresView();
 		});
 		//Signalements
 		onglet.getAdminOngletReports().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html('');
 			onglet.reportsView();
 		});
 		//Teams
 		onglet.getAdminOngletTeams().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html('');
 			onglet.teamsView();
 		});
 		//Jeux
 		onglet.getAdminOngletGame().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html(
+				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+			);
 			onglet.gamesView();
 		});
 		//Type de Jeu
 		onglet.getAdminOngletGametype().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html(
+				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+			);
 			onglet.typegamesView();
 		});
 		//Commentaires
 		onglet.getAdminOngletComment().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html('');			
 			onglet.commentsView();
 		});
 		//Tournoi
 		onglet.getAdminOngletTournament().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
+			onglet.getAdminAddWrapper().html('');			
 			onglet.tournamentsView();
 		});
 	},
@@ -98,6 +113,9 @@ var onglet = {
 	//Setter
 	setAdminBoard : function(){
 		this._adminBoard = jQuery('#admin-board');
+	},
+	setAdminAddWrapper : function(){
+		this._adminAddWrapper = jQuery('.admin-add-wrapper');
 	},
 	setAdminContainer : function(){
 		this._adminContainer = jQuery('.admin-container');
@@ -164,6 +182,9 @@ var onglet = {
 
 
 	//Getter
+	getAdminAddWrapper : function(){
+		return this._adminAddWrapper;
+	},
 	getAdminBoard : function(){
 		return this._adminBoard;
 	},

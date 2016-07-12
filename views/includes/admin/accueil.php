@@ -117,7 +117,6 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 									</div>
 									-->
 									<div class="grid-md-3 admin-add-wrapper" style="padding:25px 0;">
-										<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>
 									</div>
 
 									<!-- Formulaire d'ajout -->

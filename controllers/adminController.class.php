@@ -292,38 +292,6 @@ class adminController extends template{
             echo "OK";
     }
 
-    public function insertMembresDataAction(){                       
-    
-        if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'];
-        }
-        else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-        }
-
-       $args = array(
-           'name' => FILTER_SANITIZE_STRING,
-           'firstname' => FILTER_SANITIZE_STRING,
-           'pseudo' => FILTER_SANITIZE_STRING,
-           'birthday' => FILTER_VALIDATE_INT,
-           'description' => FILTER_SANITIZE_STRING,
-           'kind' => FILTER_VALIDATE_INT,
-           'city' => FILTER_SANITIZE_STRING,
-           'email' => FILTER_SANITIZE_STRING,
-           'status' => FILTER_VALIDATE_INT,
-           'authorize_mail_contact' => FILTER_VALIDATE_INT,
-           'img' => FILTER_SANITIZE_STRING
-        );  
-
-        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
-
-        var_dump($filteredinputs);
-
-        $pBdd = new userManager();
-        $pBdd->mirrorObject = new user($filteredinputs);
-        $pBdd->create();
-    }
-
     public function updateUserStatusAction(){
         $args = array(
             'pseudo' => FILTER_SANITIZE_STRING,
