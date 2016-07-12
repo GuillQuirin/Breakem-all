@@ -17,8 +17,8 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-datedebut-g'>" . $tournament->getStartDate() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-datefin-g'>" . $tournament->getEndDate() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-datedebut-g'>" . date('d-m-Y', $tournament->getStartDate()) . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-datefin-g'>" . date('d-m-Y', $tournament->getEndDate()) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-nom-g'>" . $tournament->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-type-g'>" . $tournament->getTypeTournament() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-nbmatch-g'>" . $tournament->getNbMatch() . "</span></div></div>";
@@ -50,18 +50,25 @@
 									    echo "<label for='type'>Type :</label>";
 								   		echo "<label for='description'>Description :</label>";
 								   		echo "<label for='status'>Status :</label>";
-									    echo "<label for='nbmatch'>Nombre de Match :</label>";
 								   echo "</div>";
 								    //Input
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden tournament-id-p' value='" . $tournament->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w tournament-datedebut-p' name='datedebut' type='text' value='" . $tournament->getStartDate() . "'>";
-										echo "<input class='input-default admin-form-input-w tournament-datefin-p' name='datefin' type='text' value='" . $tournament->getEndDate() . "'>";
+
+										echo "<input class='input-default admin-form-input-w tournament-datedebut-p' name='datedebut' type='number' placeholder='dd' min='1' max='31' value='" . date('d',$tournament->getStartDate()) . "'>";
+										echo "<input class='input-default admin-form-input-w tournament-datedebut-p' name='datedebut' type='number' placeholder='mm' min='1' max='12' value='" . date('m',$tournament->getStartDate()) . "'>";
+										echo "<input class='input-default admin-form-input-w tournament-datedebut-p' name='datedebut' type='number' placeholder='YYYY'  min='1950' max='".date('Y')."' value='" . date('Y',$tournament->getStartDate()) . "'>";
+										
+										echo "<br>";
+
+										echo "<input class='input-default admin-form-input-w tournament-datefin-p' name='datefin' type='number' placeholder='dd' min='1' max='31' value='" . date('d',$tournament->getEndDate()) . "'>";
+										echo "<input class='input-default admin-form-input-w tournament-datefin-p' name='datefin' type='number' placeholder='mm' min='1' max='12' value='" . date('m',$tournament->getEndDate()) . "'>";
+										echo "<input class='input-default admin-form-input-w tournament-datefin-p' name='datefin' type='number' placeholder='YYYY' min='1950' max='".date('Y')."' value='" . date('Y',$tournament->getEndDate()) . "'>";
+
 										echo "<input class='input-default admin-form-input-w tournament-nom-p' name='nom' type='text' value='" . $tournament->getName() . "'>";
 										echo "<input class='input-default admin-form-input-w tournament-type-p' name='type' type='text' value='" . $tournament->getTypeTournament() . "'>";
 										echo "<input class='input-default admin-form-input-w tournament-description-p' name='description' type='text' value='" . $tournament->getDescription() . "'>";
-										echo "<input class='input-default admin-form-input-w tournament-status-p' name='status' type='text' value='" . $tournament->getStatus() . "'>";
-										echo "<input class='input-default admin-form-input-w tournament-nbmatch-p' name='nbmatch' type='text' value='" . $tournament->getNbMatch() . "'>";
+										echo "<input class='input-default admin-form-input-w tournament-status-p' name='status' type='number' min='-5' max='3' value='" . $tournament->getStatus() . "'>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 
