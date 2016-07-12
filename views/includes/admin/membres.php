@@ -99,6 +99,7 @@
 										echo "</div>";
 										//Input
 										echo "<div class='grid-md-7'>";
+											echo "<input class='membre-id-p hidden' value='" . $joueur->getId() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text' value='" . $joueur->getName() . "'>";									    
 										    echo "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text' value='" . $joueur->getFirstname() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";

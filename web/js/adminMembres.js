@@ -16,7 +16,7 @@ var membreModule = {
 		//CRUD
 		membreModule.postDataDelete();
 		membreModule.postDataUpdate();
-		//membreModule.postDataInsert();		
+		membreModule.postDataInsert();		
 	},
 
 	//Setter
@@ -121,6 +121,7 @@ var membreModule = {
 			submitBtn.on("click", function(){
 				var subBtn = updateBtn.parent().parent();
 
+				var id = subBtn.find('.membre-id-p').val();
 				var name = subBtn.find('.membre-nom-p').val();
 				var firstname = subBtn.find('.membre-prenom-p').val();
 				var birthday = subBtn.find('.membre-birthday-p').val();
@@ -137,6 +138,8 @@ var membreModule = {
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				allData.id = id;
+
 				if(name){
 					allData.name = name;
 				}
@@ -182,7 +185,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updateUser", 
+				            url: "admin/updateMembresData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -204,7 +207,7 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updateUser", 
+					url: "admin/updateMembresData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
@@ -246,72 +249,86 @@ var membreModule = {
 			btn.parent().parent().find('.admin-add-form-wrapper').html(
 			//Formulaire
 				"<div class='index-modal-this index-modal-login align'>" +
-					
-					"<div class='grid-md-6 inscription_rapide animation fade'>" +
-						"<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-							//Title
-							"<div class='grid-md-12 form-title-wrapper'>" +
-								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>" +
-							"</div>" +
-							"<div class='grid-md-12'>" +
-							//Image							    								 
-						    	"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover membre-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +
-								"</div>" +
-								"<div class='text-center admin-input-file'>" +								 
-									"<input type='file' class='membre-image-p' name='profilpic'>" +
-								"</div>" +
-							"</div>" +
-							"<div class='grid-md-6'>" +
-								//Label
-								"<div class='grid-md-5 text-left'>" +
-									"<label for='nom'>Nom :</label>" +
-									"<label for='prenom'>Prénom :</label>" +
-									"<label for='pseudo'>Pseudo :</label>" +
-									"<label for='birthday'>Birthday :</label>" +
-									"<label for='report'>Report :</label>" +
-								"</div>" +
-								//Input
-								"<div class='grid-md-7'>" +
-								    "<input class='input-default admin-form-input-w membre-nom-p' name='nom' type='text'>" +									    
-								    "<input class='input-default admin-form-input-w membre-prenom-p' name='prenom' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-pseudo-p' name='nom' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-birthday-p' name='birthday' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-report-p' name='report' type='text'>" +	
-								"</div>" +								   
-						    "</div>" +
+							
+							"<div class='grid-md-6 inscription_rapide animation fade'>" +
+								"<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+									//Title
+									"<div class='grid-md-12 form-title-wrapper'>" +
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>" +
+									"</div>" +
+									"<div class='grid-md-6' style='height:130px;'>" +
+									//Image							    								 
+								    	"<div class='membre-form-img-size m-a'>" +																	
+											"<img class='img-cover membre-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +
+										"</div>" +
+										"<div class='text-center admin-input-file'>" +								 
+											"<input type='file' class='membre-image-p' name='profilpic'>" +
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='description'>Description :</label>" +
+											"<label for='city'>Ville :</label>" +
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+									 		"<input class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description' type='text'>" +			    
+											"<input class='input-default admin-form-input-w membre-city-p' placeholder='Ville' name='city' type='text'>" +									    
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='nom'>Nom :</label>" +
+											"<label for='prenom'>Prénom :</label>" +
+											"<label for='pseudo'>Pseudo :</label>" +
+											"<label for='birthday'>Birthday :</label>" +
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+										    "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text'>" +									    
+										    "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text'>" +
+										"</div>" +								   
+								    "</div>" +
 
-						    "<div class='grid-md-6'>" +
-							   	
-							   	"<div class='grid-md-5 text-left'>" +
-							   		//Label
-								    "<label for='kind'>Genre :</label>" +
-								    "<label for='description'>Description :</label>" +
-									"<label for='email'>Email :</label>" +
-										"<label for='team'>Team :</label>" +
-									"<label for='status'>Status :</label>" +
-								"</div>" +
+								    "<div class='grid-md-6'>" +
+									   	
+									   	"<div class='grid-md-5 text-left'>" +
+									   		//Label
+										    "<label for='kind'>Genre :</label>" +
+											"<label for='email'>Email :</label>" +
+											"<label for='mailContact'>Me contacter :</label>" +
+											"<label for='status'>Status :</label>" +
+										"</div>" +
 
-								"<div class='grid-md-7'>" +
-									//Input
-								    "<input class='input-default admin-form-input-w membre-kind-p' name='kind' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-description-p' name='description' type='text'>" +			    
-								    "<input class='input-default admin-form-input-w membre-email-p' name='email' type='text'>" +
-								    "<input class='input-default admin-form-input-w membre-team-p' name='team' type='text'>" +
-								    "<select class='select-default membre-status-p' name='status'>" +
-										"<option value='-1'>Banni</option>" +
-										"<option value='1'>Utilisateur</option>" +
-										"<option value='3'>Admin</option>" +
-									"</select>" +		
-								"</div>" +							 
-						    "</div>" +
-						    //Submit
-						    "<div class='grid-md-12'>" +
-						    	"<button type='button' class='admin-form-submit membre-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-						    "</div>" +
-				  		"</form>" +
-				  	"</div>" +
-				"</div>"
+										"<div class='grid-md-7'>" +
+											//Input
+											"<select class='select-default membre-kind-p'>" +
+												"<option value='Homme'>Homme</option>" +
+												"<option value='Femme'>Femme</option>" +
+											"</select>" +
+										    "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text'>" +
+										 	"<select class='select-default membre-mailContact-p'>" +
+												"<option value='1'>Oui</option>" +
+												"<option value='0'>Non</option>" +
+											"</select>" +
+										    "<select class='select-default membre-status-p' placeholder='Status' name='status'>" +
+												"<option value='1'>Utilisateur</option>" +
+												"<option value='-1'>Banni</option>" +
+												"<option value='3'>Admin</option>" +
+											"</select>" +		
+										"</div>" +							 
+								    "</div>" +
+								    //Submit
+								    "<div class='grid-md-12'>" +
+								    	"<button type='button' class='admin-form-submit platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+								    "</div>" +
+						  		"</form>" +
+						  	"</div>" +
+						"</div>"
 			//Fin Formulaire
 			);
 
