@@ -1,7 +1,7 @@
 <?php
 	if(isset($listeplatform)){	
 
-		$cat = "<div class='admin-data-ihm-title align relative'>
+		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
@@ -12,7 +12,7 @@
 		if(is_array($listeplatform)){			
 			foreach ($listeplatform as $ligne => $platform) {
 				//Wrapper				
-				echo "<div class='admin-data-ihm align relative'>";
+				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover platform-img-up' src='" . $platform->getImg() . "'></div></div></div>";
