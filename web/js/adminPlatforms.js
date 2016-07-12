@@ -131,8 +131,9 @@ var platformModule = {
 			    if (typeof FormData !== 'undefined') {
 			           
 			        //Pour l'upload coté serveur
-			        if(myImg){
-			        	var file = myImg.prop('files')[0];
+		        	var file = myImg.prop('files')[0];
+
+			        if(myImg && file){
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
 
@@ -159,7 +160,7 @@ var platformModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    if(allData.name && allData.description){
+			    if(allData.name){
 				    //Update de la platform
 					jQuery.ajax({
 						url: "admin/updatePlatformsData", 
@@ -168,8 +169,8 @@ var platformModule = {
 						success: function(result){
 							console.log("Plateforme mise à jour");
 							//Reload la mise a jour dans l'html
-							updateBtn.parent().parent().find('.platform-nom-g').html(name);
-							updateBtn.parent().parent().find('.platform-description-g').html(description);
+							if(allData.name){ updateBtn.parent().parent().find('.platform-nom-g').html(name);}
+							if(allData.description){ updateBtn.parent().parent().find('.platform-description-g').html(description);}
 							//Si l'image uploadé existe on l'envoi dans la dom
 							if(allData.img){
 								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	

@@ -121,7 +121,6 @@ var membreModule = {
 			submitBtn.on("click", function(){
 				var subBtn = updateBtn.parent().parent();
 
-				var id = subBtn.find('.membre-id-p').val();
 				var name = subBtn.find('.membre-nom-p').val();
 				var firstname = subBtn.find('.membre-prenom-p').val();
 				var birthday = subBtn.find('.membre-birthday-p').val();
@@ -129,21 +128,15 @@ var membreModule = {
 				var description = subBtn.find('.membre-description-p').val();
 				var city = subBtn.find('.membre-city-p').val();
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
-				var idTeam = subBtn.find('.membre-idTeam-p').val();
-				var nameTeam = subBtn.find('.membre-nameTeam-p').val();
-				var report = subBtn.find('.membre-report-p').val();
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
-				var mailContact = subBtn.find('.membre-mailContact-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
 				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
 
 				var allData = {};
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(id){
-					allData.id = id;
-				}
 				if(name){
 					allData.name = name;
 				}
@@ -171,24 +164,17 @@ var membreModule = {
 				if(status){
 					allData.status = status;
 				}
-				if(nameTeam){
-					allData.nameTeam = nameTeam;
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
 				}
-				if(idTeam){
-					allData.idTeam = idTeam;
-				}
-				if(mailContact){
-					allData.authorize_mail_contact = mailContact;
-				}
-
-				console.log(allData);
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 
-			        if(myImg){
-			        	//Pour l'upload coté serveur
-			        	var file = myImg.prop('files')[0];
+			    	//Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
+
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -196,7 +182,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updateMembresData", 
+				            url: "admin/updateUser", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -218,18 +204,31 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updateMembresData", 
+					url: "admin/updateUser", 
 					type: "POST",
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
-						/*Reload la mise a jour dans l'html
-						updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						updateBtn.parent().parent().find('.membre-description-g').html(description);
-						Si l'image uploadé existe on l'envoi dans la dom
+						var myStatus;
+						//Reload la mise a jour dans l'html
+						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
+						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
+						switch(status) {
+						    case -1:
+						        myStatus = "Banni";
+						        break;
+						    case 1:
+						        myStatus = "Utilisateur";
+						        break;
+						    case 3:
+						    	myStatus = "Admin";
+						    	break;
+						} 
+						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
+						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	*/
+							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+						}
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
