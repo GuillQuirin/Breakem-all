@@ -84,12 +84,11 @@ class userManager extends basesql{
 		--> cette methode est appelée à chaque rechargement de page.
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
 		*/
-		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
-						u.description, u.kind, u.city, u.email, u.password, u.status, 
-						u.img, u.idTeam, u.isConnected, u.lastConnexion,
-						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
-					FROM ".$this->table." u, team t 
-					WHERE u.email=:email AND u.status>0";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam
+				FROM user u
+				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
+				LEFT OUTER JOIN team t ON rt.idTeam = t.id
+				WHERE u.email =  :email AND u.status > 0";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
