@@ -22,6 +22,28 @@ class teamManager extends basesql{
 		return (bool) $r[0][0];
 	}
 
+	/* RETOURNE UNE TEAM SELON L'id */
+	public function getThisTeam($id){
+		$sql = "SELECT *
+				FROM team 
+				WHERE id=:id";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':id' => $id ]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		
+		return new team($r[0]);
+	}
+
+	/* DELETE UNE TEAM */
+	public function delTeam(team $team){
+		$sql = "DELETE FROM team WHERE id=:id";
+		
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->bindValue(':id', $team->getId());
+		$sth->execute();
+	}
+
 	/*RECUPERATION TEAM SELON NOM*/
 	public function getTeamFromName(team $t){
 		$sql = "SELECT * FROM team WHERE name=:name";

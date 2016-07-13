@@ -14,7 +14,7 @@ var teamModule = {
 		teamModule.previewImg();
 
 		//CRUD
-		//teamModule.postDataDelete();
+		teamModule.postDataDelete();
 		//teamModule.postDataUpdate();
 		//teamModule.postDataInsert();		
 	},
@@ -72,27 +72,25 @@ var teamModule = {
 	postDataDelete : function(){
 		teamModule.getDeleteBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
-			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
-
-			var status = -1;
+			var id = btn.parent().parent().find(jQuery('.team-id-p')).val();	
 
 			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>";
 
-			var data = {"pseudo" : pseudo, "status" : status};			
+			var data = {"id" : id};		
 
 			//Ajax Delete Controller
 			jQuery.ajax({
-				url: "admin/updateUserStatus", 				
+				url: "admin/deleteTeam", 				
 				type: "POST",
 				data: data,
 				success: function(result){			
 					console.log(result);		
-					console.log("Membre supprimée");							
+					console.log("Team supprimée");							
 					btn.parent().parent().remove();		
 
 					//Vérification si il n'y a plus de plateforme
 					jQuery.ajax({
-					 	url: "admin/membresView",			 	
+					 	url: "admin/teamsView",			 	
 					 	success: function(result1){	
 					 		//trim pour enlever les espaces
 					 		var isEmpty = jQuery.trim(result1);	
@@ -102,12 +100,12 @@ var teamModule = {
 					 		}		     			 		
 					 	},
 					 	error: function(result1){
-					 		console.log("No data found on membre.");
+					 		console.log("No data found on team.");
 					 	}
 					});								
 				},
 			 	error: function(result){
-			 		throw new Error("Couldn't delete this membre", result);
+			 		throw new Error("Couldn't delete this team", result);
 			 	}
 			});
 		});				

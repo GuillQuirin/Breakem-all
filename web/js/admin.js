@@ -351,7 +351,7 @@ var onglet = {
 				navbar.form.admin();	
 				navbar.form.closeFormKey();
     			navbar.form.closeFormClick();
-				//Membre
+				//Team
 				teamModule.init();
 		 	},
 		 	error: function(result){

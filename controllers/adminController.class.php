@@ -105,7 +105,8 @@ class adminController extends template{
                 $js['adminComments']="adminComments";   
                 $js['adminTypeJeu']="adminTypeJeu"; 
                 $js['adminJeux']="adminJeux"; 
-                $js['adminTournoi']="adminTournoi";     
+                $js['adminTournoi']="adminTournoi"; 
+                $js['adminTeam']="adminTeam";    
                 $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       
@@ -220,6 +221,19 @@ class adminController extends template{
         // return false;
 
        header('Location: '.WEBPATH.'/admin');
+    }
+
+    public function deleteTeamAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $teamBdd = new teamManager();
+        $team = $teamBdd->getThisTeam($filteredinputs['id']);
+
+        $teamBdd->delTeam($team);
     }
 
     /* MEMBRES */
