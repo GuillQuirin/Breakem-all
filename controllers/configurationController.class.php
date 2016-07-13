@@ -126,9 +126,7 @@ class configurationController extends template{
 	      'description'   => FILTER_SANITIZE_STRING,
 	      'day'   => FILTER_SANITIZE_STRING,     
 	      'month'   => FILTER_SANITIZE_STRING,     
-	      'year'   => FILTER_SANITIZE_STRING,
-	      //'aff_naissance' => FILTER_VALIDATE_INT,     
-	      //'rss' => FILTER_VALIDATE_BOOLEAN,     
+	      'year'   => FILTER_SANITIZE_STRING,    
 	      'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
 	    );
 
