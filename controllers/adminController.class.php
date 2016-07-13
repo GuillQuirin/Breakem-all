@@ -329,6 +329,24 @@ class adminController extends template{
 
     }
 
+    public function updateReportsDataAction(){
+
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'subject' => FILTER_SANITIZE_STRING
+            );                                        
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $Bdd = new signalmentsuserManager();
+        $r = $Bdd->getIdReport($filteredinputs['id']);
+        $rMaj = new signalmentsuser($filteredinputs);
+        
+        if($Bdd->setReport($r, $rMaj))
+            echo "OK";
+    }
+
     /* TYPE GAME */
 
      public function createTypeGameByAction(){

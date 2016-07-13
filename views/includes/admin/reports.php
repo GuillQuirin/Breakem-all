@@ -17,11 +17,11 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-subject-g'>" . $signalement->getSubject() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $signalement->getDescription() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-date-g'>" . $signalement->getDate() . "</span></div></div>";	
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-subject-g'>" . $signalement->getSubject() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-description-g'>" . $signalement->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-date-g'>" . $signalement->getDate() . "</span></div></div>";	
 					//Fin Affichage
 
 					//Boutton
@@ -46,19 +46,13 @@
 										//Label
 										echo "<div class='grid-md-5 text-left'>";
 											echo "<input type='text' name='id' class='hidden report-id-p' value='" . $signalement->getId() . "'>";
-											echo "<label for='objet'>Objet :</label>";
+											echo "<label for='subject'>Motif :</label>";
 											echo "<label for='description'>Description :</label>";
-											echo "<label for='date'>Date :</label>";
-											echo "<label for='indic'>Emétteur :</label>";
-											echo "<label for='signaled'>Accusé :</label>";
 										echo "</div>";
 										//Input
 										echo "<div class='grid-md-7'>";
-										    echo "<input class='input-default admin-form-input-w report-objet-p' name='objet' type='text' value='" . $signalement->getSubject() . "'>";									    
+										    echo "<input class='input-default admin-form-input-w report-subject-p' name='subject' type='text' value='" . $signalement->getSubject() . "'>";									    
 										    echo "<input class='input-default admin-form-input-w report-description-p' name='description' type='text' value='" . $signalement->getDescription() . "'>";
-										    echo "<input class='input-default admin-form-input-w report-date-p' name='date' type='text' value='" . $signalement->getDate() . "'>";
-										    echo "<input class='input-default admin-form-input-w report-indic-p' name='indic' type='text' value='" . $signalement->getPseudo_indic_user() . "'>";
-										    echo "<input class='input-default admin-form-input-w report-signaled-p' name='signaled' type='text' value='" . $signalement->getPseudo_signaled_user() . "'>";	
 										echo "</div>";								   
 								    echo "</div>";
 
