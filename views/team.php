@@ -16,7 +16,14 @@
 	<div class="container m-a content-border team-container">
 
 		<div class="row team-content-row">
-			<div class="grid-md-8 grid-md-offset-2">				
+			<div class="grid-md-8 grid-md-offset-2">
+
+			<?php if(!isset($_idTeam)){
+				echo "<div class='btn btn-pink'>
+			<a id='creationTeam' title='Créer ma team'>Créer ma team</a>
+			</div>";
+			}?>
+
 
 			<?php   
                 if(isset($listeteam)): 
@@ -67,3 +74,33 @@
 		</div>
 	</div>
 </section>
+
+<div id="formteam" class="formteam">
+	<form class="formteam1" action="<?php echo WEBPATH.'/team/addTeam'; ?>" method="post" enctype="multipart/form-data">
+		<table border=0>
+			<tr>
+				<td>Nom : </td>
+				<td><input class="input-default nameteam" type="text" name="name" value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>"></td>
+			</tr>
+			<tr>
+				<td>Description : </td>
+				<td><textarea  class="desc-default" rows="3" name="description" value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
+			</tr>
+			<tr>
+				<td>Image : </td>
+				<td><input class="image-default" type="file" name="img"></td>
+			</tr>
+			<tr>
+				<td>Slogan : </td>
+				<td><input class="input-default" type="text" name="slogan"></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<button id='validate-form-games' type='submit' class='btn btn-pink admin-form-submit'>
+						<a>Créer ma team</a>
+					</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

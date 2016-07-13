@@ -126,22 +126,21 @@ var teamModule = {
 				var allData = {};
 
 				allData.id = id;
-				allData.img = "default-team.png";
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(status){
+				if(status)
 					allData.status = status;
-				}
-				if(name){
+				
+				if(name)
 					allData.name = name;
-				}
-				if(slogan){
+				
+				if(slogan)
 					allData.slogan = slogan;
-				}
-				if(description){
+				
+				if(description)
 					allData.description = description;
-				}
+				
 
 				console.log(allData);
 
@@ -154,7 +153,7 @@ var teamModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
@@ -205,7 +204,7 @@ var teamModule = {
 
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.team-img-up').attr('src', allData.img);	
+							updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img);	
 						}	
 						navbar.form.smoothClosing();				
 					},

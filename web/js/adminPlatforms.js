@@ -125,7 +125,16 @@ var platformModule = {
 				var description = updateBtn.parent().parent().find('.platform-description-p').val();
 				var myImg = updateBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
-				var allData = {id : id, name : name, description : description};
+				var allData = {};
+
+				allData.id = id;
+
+				if(name)
+					allData.name = name;
+				
+				if(description)
+					allData.description = description;
+				
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
@@ -135,7 +144,7 @@ var platformModule = {
 
 			        if(myImg && file){
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
@@ -173,7 +182,7 @@ var platformModule = {
 							if(allData.description){ updateBtn.parent().parent().find('.platform-description-g').html(description);}
 							//Si l'image uploadé existe on l'envoi dans la dom
 							if(allData.img){
-								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/upload/platform/" + allData.img);	
 							}	
 							navbar.form.smoothClosing();				
 						},
@@ -242,7 +251,16 @@ var platformModule = {
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
-				var allData = {name : name, description : description, img : "default-platform.png"};
+				var allData = {};
+
+				allData.img = "default-platform.png";
+				if(name){
+					allData.name = name;
+				}
+				if(description){
+					allData.description = description;
+				}
+
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           

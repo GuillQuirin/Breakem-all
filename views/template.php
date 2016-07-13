@@ -114,9 +114,7 @@
 
 											if(!empty($_idTeam))
 												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
-											
-											else
-												echo "<a href='".WEBPATH."/creationteam'>Créer ma team</a>";
+
 											
 											echo "</li>";
 										}
@@ -282,12 +280,12 @@
 					?>
 	                <li><a href="<?php echo WEBPATH.'/creationtournoi'; ?>" title="Créer mon tournoi">Créer un tournoi</a></li>
 					<li>
-						<?php 
+						<?php
 						if(!empty($_idTeam))
 							echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."' title='Ma team'>Ma team</a>";
 						else
-							echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créer ma team</a>";
-						?>	
+							echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créerm</a>";
+						?>
 					</li>
 			        <?php 
 		        }

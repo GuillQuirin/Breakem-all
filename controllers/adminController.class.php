@@ -64,8 +64,12 @@ class adminController extends template{
         $gameBDD = new gameManager();
         $listegames = $gameBDD->getAllGames();
 
+        $gametypeBDD = new typegameManager();
+        $listgametype = $gametypeBDD->getAllTypes();
+
         $v = new view();
         $v->assign("listejeu",$listegames);
+        $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/games", "templateEmpty");
     }
 
@@ -142,18 +146,19 @@ class adminController extends template{
 
 
     /* PLATEFORME */
-        public function insertPlatformsDataAction(){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
-            }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-            }
+    public function insertPlatformsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+        }
 
-            $args = array(
-                'name' => FILTER_SANITIZE_STRING,
-                'description' => FILTER_SANITIZE_STRING
-            );
+        $args = array(
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING
+        );
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
@@ -162,19 +167,20 @@ class adminController extends template{
             $pBdd->create();
         }
 
-        public function updatePlatformsDataAction(){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
-            }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-            }  
+    public function updatePlatformsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+        }  
 
-            $args = array(
-                'id' => FILTER_SANITIZE_STRING,
-                'name' => FILTER_SANITIZE_STRING,
-                'description' => FILTER_SANITIZE_STRING                   
-            );                                        
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'img' => FILTER_SANITIZE_STRING                     
+        );                                            
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
@@ -258,13 +264,13 @@ class adminController extends template{
             $teamBdd->delTeam($team);
         }
 
-        public function updateTeamsDataAction(){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
-            }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-            }  
+    public function updateTeamsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_FILES['file']['name']);
+        }  
 
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
@@ -288,29 +294,48 @@ class adminController extends template{
 
 
     /* MEMBRES */
-        //MAJ
-        public function updateMembresDataAction(){
+    public function updateUserAction(){
+         if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+        
+        $args = array(
+           'id' => FILTER_VALIDATE_INT,
+           'pseudo' => FILTER_SANITIZE_STRING, 
+           'description' => FILTER_SANITIZE_STRING,
+           'email' => FILTER_SANITIZE_STRING,
+           'status' => FILTER_VALIDATE_INT,
+ 	   'day'   => FILTER_SANITIZE_STRING,     
+           'month'   => FILTER_SANITIZE_STRING,     
+           'year'   => FILTER_SANITIZE_STRING,   
+           'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
+           'img' => FILTER_SANITIZE_STRING
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $userBDD = new userManager();
+        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
 
-            $args = array(
-               'id' => FILTER_VALIDATE_INT,
-               'pseudo' => FILTER_SANITIZE_STRING,
-               'description' => FILTER_SANITIZE_STRING,
-               'email' => FILTER_SANITIZE_STRING,
-               'status' => FILTER_VALIDATE_INT,
-               'day'   => FILTER_SANITIZE_STRING,     
-               'month'   => FILTER_SANITIZE_STRING,     
-               'year'   => FILTER_SANITIZE_STRING,   
-               'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
-            );                                     
+        $newuser = new user(array('status'=>$filteredinputs['status']));
+        
+        //Déconnexion automatique du membre banni
+        if($filteredinputs['status']==-1)
+            $userBDD->disconnecting($user);
 
+        $userBDD->setUser($user, $newuser);
+    }
 
-            if(isset($_FILES['file']['error'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    echo 'Error: ' . $_FILES['file']['error'];
-                }
-                else {                        
-                    move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
-                }  
+    public function updateMembresDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre" . $_FILES['file']['name']);
+        }  
 
                 $uploaddir = '/web/img/upload/';
                 $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getPseudo().'.jpg';
@@ -590,9 +615,6 @@ class adminController extends template{
             else
                 return null;
         }
-
-
-
 
     /* COMMENTAIRE */
 
