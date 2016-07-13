@@ -244,7 +244,7 @@ var platformModule = {
 		 		}
 		});		
 	},
-	//Delete sur le boutton Supprimer
+	//Delete sur le Bouton Supprimer
 	postDataDelete : function(i){
 		var btn = platformModule.getDeleteBtn(i);
 		

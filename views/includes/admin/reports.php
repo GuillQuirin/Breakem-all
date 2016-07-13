@@ -24,12 +24,12 @@
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-date-g'>" . $signalement->getDate() . "</span></div></div>";	
 					//Fin Affichage
 
-					//Boutton
+					//Bouton
 					echo "<div class='admin-data-ihm-btn hidden align'>";
 						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
 						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
 					echo "</div>"; 
-					//Fin Boutton
+					//Fin Bouton
 
 					//Formulaire
 					echo "<div class='index-modal platforms hidden-fade hidden'>";

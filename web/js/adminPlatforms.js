@@ -70,7 +70,7 @@ var platformModule = {
 		});
 	},
 
-	//Delete sur le boutton Supprimer
+	//Delete sur le Bouton Supprimer
 	postDataDelete : function(){		
 
 		platformModule.getDeleteBtn().on("click", function(e){
@@ -298,12 +298,12 @@ var platformModule = {
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + allData.description + "</span></div></div>" +
 								//Fin Affichage
 
-								//Boutton
+								//Bouton
 								"<div class='admin-data-ihm-btn hidden align'>" +
 									"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +
 									"<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>" +
 								"</div>" + 
-								//Fin Boutton
+								//Fin Bouton
 
 								//Formulaire
 								"<div class='index-modal platforms hidden-fade hidden'>" +
