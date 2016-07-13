@@ -22,14 +22,11 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			<li class="admin-onglet-li" id="admin-onglet-membres">
 				<a>Membres</a>
 			</li><!--
+			--><li class="admin-onglet-li" id="admin-onglet-team">		
+				<a>Teams</a>
+			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
 				<a>Plateformes</a>
-			</li><!--
-			--><li class="admin-onglet-li" id="admin-onglet-reports">		
-				<a>Signalements</a>
-			</li><!--
-			--><li class="admin-onglet-li" id="admin-onglet-team">		
-				<a>Team</a>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-games">		
 				<a>Jeux</a>
@@ -37,11 +34,14 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 			--><li class="admin-onglet-li" id="admin-onglet-gametype">		
 				<a>Types de jeu</a>
 			</li><!--
+			--><li class="admin-onglet-li" id="admin-onglet-tournament">		
+				<a>Tournois</a>
+			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-comment">		
 				<a>Commentaires</a>
 			</li><!--
-			--><li class="admin-onglet-li" id="admin-onglet-tournament">		
-				<a>Tournois</a>
+			--><li class="admin-onglet-li" id="admin-onglet-reports">		
+				<a>Signalements</a>
 			</li>
 		</ul>
 	</div>

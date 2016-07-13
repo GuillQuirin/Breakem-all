@@ -56,10 +56,10 @@ class game{
 			return $this->img;
 		}
 		else{
-			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
-				return WEBPATH."/web/img/".$this->img;
+			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/upload/jeux/".$this->img))
+				return WEBPATH."/web/img/upload/jeux/".$this->img;
 
-			return WEBPATH."/web/img/default-jeux.png";	
+			return WEBPATH."/web/img/upload/jeux/default-jeux.png";	
 		}
 	}
 	public function getIdType(){return $this->idType;}

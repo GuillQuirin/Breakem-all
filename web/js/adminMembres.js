@@ -170,9 +170,7 @@ var membreModule = {
 				if(authorize_mail_contact){
 					allData.authorize_mail_contact = authorize_mail_contact;
 				}
-
-				allData.img = "default-membre.png";
-
+				
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 
@@ -182,7 +180,7 @@ var membreModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
@@ -233,7 +231,7 @@ var membreModule = {
 						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/upload/membre/" + allData.img);	
 						}
 						navbar.form.smoothClosing();				
 					},

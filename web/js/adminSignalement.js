@@ -124,12 +124,12 @@ var signalementModule = {
 				allData.id = id;
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(subject){
+				if(subject)
 					allData.subject = subject;
-				}
-				if(description){
+				
+				if(description)
 					allData.description = description;
-				}
+				
 
 			    //Update de la report
 				jQuery.ajax({
