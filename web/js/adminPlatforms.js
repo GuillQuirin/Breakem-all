@@ -125,7 +125,16 @@ var platformModule = {
 				var description = updateBtn.parent().parent().find('.platform-description-p').val();
 				var myImg = updateBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
-				var allData = {id : id, name : name, description : description};
+				var allData = {};
+
+				allData.id = id;
+
+				if(name){
+					allData.name = name;
+				}
+				if(description){
+					allData.description = description;
+				} 
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
@@ -242,7 +251,16 @@ var platformModule = {
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
-				var allData = {name : name, description : description, img : "default-platform.png"};
+				var allData = {};
+
+				allData.img = "default-platform.png";
+				if(name){
+					allData.name = name;
+				}
+				if(description){
+					allData.description = description;
+				}
+
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           

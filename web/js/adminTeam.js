@@ -126,7 +126,6 @@ var teamModule = {
 				var allData = {};
 
 				allData.id = id;
-				allData.img = "default-team.png";
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.

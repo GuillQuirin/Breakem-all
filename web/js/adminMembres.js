@@ -170,9 +170,7 @@ var membreModule = {
 				if(authorize_mail_contact){
 					allData.authorize_mail_contact = authorize_mail_contact;
 				}
-
-				allData.img = "default-membre.png";
-
+				
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 
