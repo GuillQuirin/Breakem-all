@@ -151,10 +151,10 @@ class template{
         $this->connectedUser = $dbUser;
       }
       else if($dbUser == -1){
-        $this->echoJSONerror("user", "You have been banned");
+        $this->echoJSONerror("user", "Vous avez été banni du site.");
       }
       else{
-       $this->echoJSONerror("user", "password and email don't match");
+       $this->echoJSONerror("user", "Vos identifiants ne correpondent pas.");
       }
 
     }
@@ -246,7 +246,7 @@ class template{
 
   }
 
-  private function checkRegisterInputs(){
+  private function checkInscriptionInputs(){
     // Imposer un FILTER_VALIDATE_INT sur les day/month/year suppriment les valeurs numeriques ayant un 0 devant
     // Genre 09 --> part au carton alors que 9 passe trql
     //  --> SOLUTION --> FILTER_SANITIZE_STRING sur les chiffres attendus puis cast des valeurs en int
@@ -302,10 +302,10 @@ class template{
     return $finalArr; 
   }
 
-  public function registerAction(){
-    //  checkRegisterInputs valide les champs du formulaire d'inscription et 
+  public function inscriptionAction(){
+    //  checkInscriptionInputs valide les champs du formulaire d'inscription et 
     //    mets automatiquement fin aux process serveurs si elle trouve une erreur
-    $checkedDatas = $this->checkRegisterInputs();
+    $checkedDatas = $this->checkInscriptionInputs();
     
 
     //Token du visiteur à valider par lien sur le mail envoyant un get de l'email et du token

@@ -560,107 +560,107 @@ var navbar = {
     }
 };
 
-var register = {
+var inscription = {
 	init: function(){
-		register.setFormToWatch();
-		if(!(register.getFormToWatch() instanceof jQuery)){
+		inscription.setFormToWatch();
+		if(!(inscription.getFormToWatch() instanceof jQuery)){
 			popup.init("Manque le formulaire !");
 			return;
 		}
-		register.setPseudoToWatch();
-		if(!(register.getPseudoToWatch() instanceof jQuery)){
+		inscription.setPseudoToWatch();
+		if(!(inscription.getPseudoToWatch() instanceof jQuery)){
 			popup.init("Manque votre pseudo !");
 			return;
 		}
-		register.setEmailToWatch();
-		if(!(register.getEmailToWatch() instanceof jQuery)){
+		inscription.setEmailToWatch();
+		if(!(inscription.getEmailToWatch() instanceof jQuery)){
 			popup.init("Manque votre email !");
 			return;
 		}
-		register.setPassToWatch();
-		if(!(register.getPassToWatch() instanceof jQuery)){
+		inscription.setPassToWatch();
+		if(!(inscription.getPassToWatch() instanceof jQuery)){
 			popup.init("Manque votre mot de passe !");
 			return;
 		}
-		register.setPassCheckToWatch();
-		if(!(register.getPassCheckToWatch() instanceof jQuery)){
+		inscription.setPassCheckToWatch();
+		if(!(inscription.getPassCheckToWatch() instanceof jQuery)){
 			popup.init("Manque votre confirmation de mot de passe !");
 			return;
 		}
-		register.setCguToWatch();
-		if(!(register.getCguToWatch() instanceof jQuery)){
+		inscription.setCguToWatch();
+		if(!(inscription.getCguToWatch() instanceof jQuery)){
 			popup.init("Manque les CGU !");
 			return;
 		}
-		register.setDayToWatch();
-		if(!(register.getDayToWatch() instanceof jQuery)){
+		inscription.setDayToWatch();
+		if(!(inscription.getDayToWatch() instanceof jQuery)){
 			popup.init("Manque le jour de naissance !");
 			return;
 		}
-		register.setMonthToWatch();
-		if(!(register.getMonthToWatch() instanceof jQuery)){
+		inscription.setMonthToWatch();
+		if(!(inscription.getMonthToWatch() instanceof jQuery)){
 			popup.init("Manque le mois de naissance !");
 			return;
 		}
-		register.setYearToWatch();
-		if(!(register.getYearToWatch() instanceof jQuery)){
+		inscription.setYearToWatch();
+		if(!(inscription.getYearToWatch() instanceof jQuery)){
 			popup.init("Manque l'année de naissance !");
 			return;
 		}
-		register.sendEvent();
+		inscription.sendEvent();
 	},
 	setFormToWatch: function(){
-		register._form = jQuery("#register-form");
+		inscription._form = jQuery("#inscription-form");
 	},
 	setPseudoToWatch: function(){
-		register._pseudo = register._form.find('input[name="pseudo"]');
+		inscription._pseudo = inscription._form.find('input[name="pseudo"]');
 	},
 	setEmailToWatch: function(){
-		register._email = register._form.find('input[name="email"]');
+		inscription._email = inscription._form.find('input[name="email"]');
 	},
 	setPassToWatch: function(){
-		register._mdp = register._form.find('input[name="password"]');
+		inscription._mdp = inscription._form.find('input[name="password"]');
 	},
 	setPassCheckToWatch: function(){
-		register._mdpcheck = register._form.find('input[name="password_check"]');
+		inscription._mdpcheck = inscription._form.find('input[name="password_check"]');
 	},
 	setCguToWatch: function(){
-		register._cgu = register._form.find('input[name="cgu"]');
+		inscription._cgu = inscription._form.find('input[name="cgu"]');
 	},
 	setDayToWatch: function(){
-		register._day = register._form.find('input[name="day"]');
+		inscription._day = inscription._form.find('input[name="day"]');
 	},
 	setMonthToWatch: function(){
-		register._month = register._form.find('input[name="month"]');
+		inscription._month = inscription._form.find('input[name="month"]');
 	},
 	setYearToWatch: function(){
-		register._year = register._form.find('input[name="year"]');
+		inscription._year = inscription._form.find('input[name="year"]');
 	},
-	getFormToWatch: function(){return register._form;},
-	getPseudoToWatch: function(){return register._pseudo;},
-	getEmailToWatch: function(){return register._email;},
-	getPassToWatch: function(){return register._mdp;},
-	getPassCheckToWatch: function(){return register._mdpcheck;},
-	getCguToWatch: function(){return register._cgu;},
-	getDayToWatch: function(){return register._day;},
-	getMonthToWatch: function(){return register._month;},
-	getYearToWatch: function(){return register._year;},
+	getFormToWatch: function(){return inscription._form;},
+	getPseudoToWatch: function(){return inscription._pseudo;},
+	getEmailToWatch: function(){return inscription._email;},
+	getPassToWatch: function(){return inscription._mdp;},
+	getPassCheckToWatch: function(){return inscription._mdpcheck;},
+	getCguToWatch: function(){return inscription._cgu;},
+	getDayToWatch: function(){return inscription._day;},
+	getMonthToWatch: function(){return inscription._month;},
+	getYearToWatch: function(){return inscription._year;},
 
 	isEmailValid: function(){
-		var jQEmail = register.getEmailToWatch();
+		var jQEmail = inscription.getEmailToWatch();
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(jQEmail.val().match(mailformat) || jQEmail.val().length == 0){
 			return true;
 		}
-		register.highlightInput(jQEmail);
+		inscription.highlightInput(jQEmail);
 		console.log("email fail");
 		return false;
 	},
 	isPseudoValid: function(){
-		var jQPseudo = register.getPseudoToWatch();
+		var jQPseudo = inscription.getPseudoToWatch();
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPseudo.val().match(unauthorizedChars) || jQPseudo.val().length == 0){
-			register.highlightInput(jQPseudo);
+			inscription.highlightInput(jQPseudo);
 			console.log("peudo fail");
 			return false;
 		}
@@ -669,16 +669,16 @@ var register = {
 	isPasswordValid: function(jQPassword){
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
-			register.highlightInput(jQPassword);
+			inscription.highlightInput(jQPassword);
 			console.log("pass fail");
 			return false;
 		}
 		return true;
 	},
 	isBirthValid: function(){
-		var d = register.getDayToWatch().val();
-		var m = register.getMonthToWatch().val();
-		var y = register.getYearToWatch().val();
+		var d = inscription.getDayToWatch().val();
+		var m = inscription.getMonthToWatch().val();
+		var y = inscription.getYearToWatch().val();
 
 		if (isNaN(Number(d)))
 			return false;
@@ -710,14 +710,14 @@ var register = {
 		return true;
 	},
 	isCguAccepted: function(){
-		if(register.getCguToWatch()[0].checked){
+		if(inscription.getCguToWatch()[0].checked){
 			return true;
 		}
 		alert("Vous devez accepter les cgu !");
 		return false;
 	},
 	doPasswordsMatch: function(){
-		if(register.getPassToWatch().val() == register.getPassCheckToWatch().val())
+		if(inscription.getPassToWatch().val() == inscription.getPassCheckToWatch().val())
 			return true;
 		console.log("passwords don't match");
 		return false;
@@ -726,14 +726,14 @@ var register = {
 		jQinput.addClass('failed-input');
 		// jQinput.val('');
 		jQinput.focus();
-		register.removeFailAnimationEvent(jQinput);
+		inscription.removeFailAnimationEvent(jQinput);
 	},
 	popSuccessMsg: function(){
 		var container = $('<div class="absolute index-modal-login"></div>');
 	},
 	treatParsedJson: function(obj){
 		if(obj.success){
-			popup.init('Un email de confirmation a été envoyé à l\'adresse '+register.getEmailToWatch().val());
+			popup.init('Un email de confirmation a été envoyé à l\'adresse '+inscription.getEmailToWatch().val());
 		}
 		else{
 			if(obj.errors){
@@ -755,46 +755,46 @@ var register = {
 	/*### Send Form event ###*/
 	sendEventCallback: function(obj){
 		if(obj != false){
-	    	register.treatParsedJson(obj);
+	    	inscription.treatParsedJson(obj);
 	    }
 	},
 	sendEvent: function(){		
-		var _form = register.getFormToWatch();
-		register._pseudo = _form.find("input[name='pseudo']");
-		register._cgu = _form.find("input[name='cgu']");
-		register._btn = _form.find("button");
-		register._birth_day = _form.find("input[name='day']");
-		register._birth_month = _form.find("input[name='month']");
-		register._birth_year = _form.find("input[name='year']");
+		var _form = inscription.getFormToWatch();
+		inscription._pseudo = _form.find("input[name='pseudo']");
+		inscription._cgu = _form.find("input[name='cgu']");
+		inscription._btn = _form.find("button");
+		inscription._birth_day = _form.find("input[name='day']");
+		inscription._birth_month = _form.find("input[name='month']");
+		inscription._birth_year = _form.find("input[name='year']");
 
 		_form.submit(function(event) {
 			event.preventDefault();
 			return false;
 		});
 
-		register._btn.click(function(event) {
+		inscription._btn.click(function(event) {
 			if (
-				register.isEmailValid() 
-				&& register.isPseudoValid()
-				&& register.isPasswordValid(register.getPassToWatch())
-				&& register.isPasswordValid(register.getPassCheckToWatch())
-				&& register.doPasswordsMatch()
-				&& register.isBirthValid()
-				&& register.isCguAccepted()
+				inscription.isEmailValid() 
+				&& inscription.isPseudoValid()
+				&& inscription.isPasswordValid(inscription.getPassToWatch())
+				&& inscription.isPasswordValid(inscription.getPassCheckToWatch())
+				&& inscription.doPasswordsMatch()
+				&& inscription.isBirthValid()
+				&& inscription.isCguAccepted()
 			) {
 				ajaxWithDataRequest(
-					'index/register', 
+					'index/inscription', 
 					'POST', 
 					{
-						pseudo  		: register.getPseudoToWatch().val(),
-					    email			: register.getEmailToWatch().val(),
-					    password		: register.getPassToWatch().val(),
-					    password_check	: register.getPassCheckToWatch().val(),
-					    day				: register.getDayToWatch().val(),
-					    month			: register.getMonthToWatch().val(),
-					    year			: register.getYearToWatch().val()
+						pseudo  		: inscription.getPseudoToWatch().val(),
+					    email			: inscription.getEmailToWatch().val(),
+					    password		: inscription.getPassToWatch().val(),
+					    password_check	: inscription.getPassCheckToWatch().val(),
+					    day				: inscription.getDayToWatch().val(),
+					    month			: inscription.getMonthToWatch().val(),
+					    year			: inscription.getYearToWatch().val()
 					},
-					register.sendEventCallback
+					inscription.sendEventCallback
 				);
 			};
 			event.preventDefault();
@@ -1031,7 +1031,7 @@ var contactadmin = {
 initAll.add(connection.init);
 initAll.add(navbar.init);
 initAll.add(deconnection.init);
-initAll.add(register.init);
+initAll.add(inscription.init);
 initAll.add(checkForJustCreatedAccount);
 initAll.add(cookie.init);
 initAll.add(contactadmin.init);

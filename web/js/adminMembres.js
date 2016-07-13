@@ -441,7 +441,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/registerAdmin", 
+				           // url: "admin/registerAdmin", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -463,7 +463,7 @@ var membreModule = {
 			    if(allData.pseudo && allData.email){
 			    //Insert de la platform
 					jQuery.ajax({
-						url: "admin/registerAdmin", 
+						//url: "admin/registerAdmin", 
 						type: "POST",
 						data: allData,
 						success: function(result){
