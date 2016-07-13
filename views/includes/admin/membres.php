@@ -120,8 +120,8 @@
 										echo "<div class='grid-md-7'>";
 											//Input
 											echo "<select class='select-default membre-kind-p'>";
-												echo "<option value='Homme'>Homme</option>";
-												echo "<option value='Femme'>Femme</option>";
+												echo "<option value='0'>Homme</option>";
+												echo "<option value='1'>Femme</option>";
 											echo "</select>";
 										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
 										 	echo "<select class='select-default membre-mailContact-p'>";

@@ -15,8 +15,7 @@ var teamModule = {
 
 		//CRUD
 		teamModule.postDataDelete();
-		//teamModule.postDataUpdate();
-		//teamModule.postDataInsert();		
+		teamModule.postDataUpdate();
 	},
 
 	//Setter
@@ -33,10 +32,10 @@ var teamModule = {
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
 	setPreviewInput : function(){
-		this._previewInput = jQuery('.membre-image-p');
+		this._previewInput = jQuery('.team-image-p');
 	},
 	setImgWrapper : function(){
-		this._imgWrapper = jQuery('.membre-img');
+		this._imgWrapper = jQuery('.team-img');
 	},
 
 	//Getter
@@ -114,18 +113,35 @@ var teamModule = {
 		teamModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.team-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.team-id-p').val();
+				var status = updateBtn.parent().parent().find('.team-status-p').val();
+				var name = updateBtn.parent().parent().find('.team-name-p').val();
+				var slogan = updateBtn.parent().parent().find('.team-slogan-p').val();
+				var description = updateBtn.parent().parent().find('.team-description-p').val();
+				var myImg = updateBtn.parent().parent().find('.admin-input-file > .team-image-p');
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+				var allData = {};
+
+				allData.id = id;
+				allData.img = "default-team.png";
+
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				if(status){
+					allData.status = status;
+				}
+				if(name){
+					allData.name = name;
+				}
+				if(slogan){
+					allData.slogan = slogan;
+				}
+				if(description){
+					allData.description = description;
+				}
 
 				console.log(allData);
 
@@ -135,7 +151,7 @@ var teamModule = {
 			        //Pour l'upload coté serveur
 			        var file = myImg.prop('files')[0];
 
-			        if(file){
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -143,7 +159,7 @@ var teamModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
+				            url: "admin/updateTeamsData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -163,30 +179,41 @@ var teamModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    //Update de la membre
+			    //Update de la team
 				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
+					url: "admin/updateTeamsData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
-						console.log("Plateforme mise à jour");
+						console.log("Team mise à jour");
 						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
+						if(allData.name){ updateBtn.parent().parent().find('.team-name-g').html(name); }
+						if(allData.description){ updateBtn.parent().parent().find('.team-description-g').html(description); }
+						if(allData.slogan){ updateBtn.parent().parent().find('.team-slogan-g').html(slogan); }
+
+						if(allData.status){ 
+							if(status == 0){
+								updateBtn.parent().parent().find('.team-slogan-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.team-slogan-g > align').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}
+						}
+
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
+							updateBtn.parent().parent().find('.team-img-up').attr('src', allData.img);	
 						}	
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
-						throw new Error("Couldn't update membre", result);
+						throw new Error("Couldn't update team", result);
 					}
 				});
 			});			
 		});
-	},
-	postDataInsert : function(){
-
 	}
 };
