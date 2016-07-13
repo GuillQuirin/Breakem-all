@@ -106,15 +106,17 @@ function $_GET(param) {
 	return vars;
 }
 // Cette fonction sera utilisée dans beaucoup d'objets utilisant de l'ajax
-//  Voilà pouruqoi elle est définie en tant que fct générale
+//  Voilà pourquoi elle est définie en tant que fct générale
 function tryParseData(rawData){
-	try {
-		var obj = jQuery.parseJSON(rawData);
-		return obj;
-	}
-	catch(err) {
-		console.log(rawData);
-		alert("Problem during server processes");
+	if(rawData.trim().length!=0){
+		try {
+			var obj = jQuery.parseJSON(rawData);
+			return obj;
+		}
+		catch(err){
+			console.log(rawData);
+			alert("Problem during server processes");
+		}
 	}
 	return false;
 }
