@@ -667,10 +667,11 @@ var inscription = {
 		return true;
 	},
 	isPasswordValid: function(jQPassword){
-		var unauthorizedChars = /[^a-zA-Z-0-9]/;
-		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
+		//var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		//if(jQPassword.val().match(unauthorizedChars)){
+		if(jQPassword.val().length < 6){
 			inscription.highlightInput(jQPassword);
-			console.log("Mot de passe au mauvais format");
+			console.log("Mot de passe inférieur à 6 caractères.");
 			return false;
 		}
 		return true;
