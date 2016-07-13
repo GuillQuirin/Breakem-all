@@ -187,7 +187,7 @@
 }
 
 .admin-data-ihm-elem{
-    padding:15px;
+    padding:15px 0;
 }
 
 .admin-wrapper .admin-data-ihm-elem-img-wrapper{
@@ -528,7 +528,7 @@ body, html{
     vertical-align: baseline;
 }
 
-.typejeu-description-g, .comment-message-g{
+.typejeu-description-g, .comment-message-g, .membre-email-g{
     white-space: nowrap;
     text-transform: initial;
     overflow: hidden;
