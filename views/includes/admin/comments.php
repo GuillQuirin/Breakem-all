@@ -29,7 +29,7 @@
 					//Bouton
 					echo "<div class='admin-data-ihm-btn hidden align'>";
 						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
-						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
+						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Verrouiller</a></button>";
 					echo "</div>"; 
 					//Fin Bouton
 
