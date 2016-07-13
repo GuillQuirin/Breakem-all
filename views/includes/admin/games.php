@@ -66,7 +66,7 @@
 											if(isset($listetypejeu)){
 												if(is_array($listetypejeu)){			
 													foreach ($listetypejeu as $lignetj => $tj) {
-														if($tj->getId() == $jeu->getIdType){
+														if($tj->getId() == $jeu->getIdType()){
 															echo "<option selected value='" . $tj->getId() ."'>" . $tj->getName() . "</option>";
 														}else{
 															echo "<option value='" . $tj->getId() ."'>" . $tj->getName() . "</option>";
