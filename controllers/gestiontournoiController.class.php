@@ -167,9 +167,6 @@ class gestiontournoiController extends template{
 	      'Dday'   => FILTER_SANITIZE_STRING,     
 	      'Dmonth'   => FILTER_SANITIZE_STRING,     
 	      'Dyear'   => FILTER_SANITIZE_STRING,
-	      // 'Eday'   => FILTER_SANITIZE_STRING,     
-	      // 'Emonth'   => FILTER_SANITIZE_STRING,     
-	      // 'Eyear'   => FILTER_SANITIZE_STRING,
 	      't' => FILTER_SANITIZE_STRING
 	      
 	    );
@@ -181,35 +178,20 @@ class gestiontournoiController extends template{
 	    $filteredinputs['Dday'] = (int) $filteredinputs['Dday'];
 	    $filteredinputs['Dyear'] = (int) $filteredinputs['Dyear'];
 
-	    //Fin tournoi
-		// $filteredinputs['Emonth'] = (int) $filteredinputs['Emonth'];
-	 //    $filteredinputs['Eday'] = (int) $filteredinputs['Eday'];
-	 //    $filteredinputs['Eyear'] = (int) $filteredinputs['Eyear'];
-	    
-
-	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']) 
-	    	//|| !checkdate($filteredinputs['Emonth'], $filteredinputs['Eday'], $filteredinputs['Eyear'])
-	       )
+	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']))
 	      	$this->echoJSONerror('date', 'La date reçue a fail !');
 	    else{
 
-	      $datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
+	    	$datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
 
-	      //$datefin = DateTime::createFromFormat('j-n-Y',$filteredinputs['Eday'].'-'.$filteredinputs['Emonth'].'-'.$filteredinputs['Eyear']);
-	      
-	      if(!$datedeb /*|| !$datefin*/){
-	      	$this->echoJSONerror('date', 'La date reçue a fail !');
-	      }
+	    	if(!$datedeb)
+	      		$this->echoJSONerror('date', 'La date reçue a fail !');
 
-	      unset($filteredinputs['Dday']);
-	      unset($filteredinputs['Dmonth']);
-	      unset($filteredinputs['Dyear']);
-	      // unset($filteredinputs['Eday']);
-	      // unset($filteredinputs['Emonth']);
-	      // unset($filteredinputs['Eyear']);
+	    	unset($filteredinputs['Dday']);
+	      	unset($filteredinputs['Dmonth']);
+	      	unset($filteredinputs['Dyear']);
 
-		  $filteredinputs['startDate'] = date_timestamp_get($datedeb);
-	   	  //$filteredinputs['endDate'] = date_timestamp_get($datefin);
+		  	$filteredinputs['startDate'] = date_timestamp_get($datedeb);
 	    }  	
 
 	    return array_filter($filteredinputs);
