@@ -92,7 +92,8 @@
 										//Input
 										echo "<div class='grid-md-7'>";
 											echo "<input class='membre-id-p hidden' value='" . $joueur->getId() . "'>";
-											    echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+											
+											echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 												echo "<option value='-1'";
 													echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 												echo ">Banni</option>
@@ -103,10 +104,10 @@
 													echo ($joueur->getStatus()==3) ? " selected " : " ";
 												echo ">Administrateur</option>";
 											echo "</select>";
-											//echo "<select class='select-default membre-mailContact-p'>";
-											
+
 											echo "<input class=' select-default membre-mailContact-p checkbox input-default' type='checkbox' name='authorize_mail_contact'";
 												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? 'checked=checked>' : '>';
+											
 											echo "<textarea class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description'>".$joueur->getDescription()."</textarea>";
 										echo "</div>";								   
 								    echo "</div>";
@@ -124,7 +125,16 @@
 											//Input
 											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
 										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text' value='" . $joueur->getBirthday() . "'>";
+
+											echo "<input class='input-default admin-form-input-w membre-birthday-D' type='number' name='day' placeholder='dd' min='1' max='31'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('d', $joueur->getBirthday())."'>" : ">";
+											
+											echo "<input class='input-default admin-form-input-w membre-birthday-M' type='number' name='month' placeholder='mm' min='1' max='12'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('m', $joueur->getBirthday())."'>" : ">";
+
+											echo "<input class='input-default admin-form-input-w membre-birthday-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('Y', $joueur->getBirthday())."'>" : ">";
+
 										echo "</div>";							 
 								    echo "</div>";
 								    //Submit

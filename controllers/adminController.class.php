@@ -300,7 +300,7 @@ class adminController extends template{
                'day'   => FILTER_SANITIZE_STRING,     
                'month'   => FILTER_SANITIZE_STRING,     
                'year'   => FILTER_SANITIZE_STRING,   
-               'authorize_mail_contact' => FILTER_VALIDATE_INT
+               'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN
             );                                     
 
 
@@ -333,7 +333,7 @@ class adminController extends template{
             }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-            //var_dump($filteredinputs);
+            var_dump($filteredinputs);
             //Date de naissance
             $filteredinputs['month'] = (int) $filteredinputs['month'];
             $filteredinputs['day'] = (int) $filteredinputs['day'];
