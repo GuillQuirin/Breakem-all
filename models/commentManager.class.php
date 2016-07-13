@@ -39,11 +39,11 @@ class commentManager extends basesql{
 
 	public function getAllComment(){
 			// Sous requete SQL pour recuperer les pseudos
-		$sql="SELECT c.id, c.message, c.date, c.status,  
+		$sql="SELECT c.id, c.comment, c.date, c.status,  
 							(SELECT pseudo from user WHERE id=c.idUser) as pseudo,
-							(SELECT name from team WHERE id=c.idTeam) as NomTeam
+							(SELECT name from team WHERE id=c.idEntite) as NomTeam
 				FROM comment c
-				ORDER BY id ASC";
+				ORDER BY c.date DESC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();

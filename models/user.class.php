@@ -153,7 +153,7 @@ class user{
 			if(strlen(trim($this->img))>0 && WEBPATH."/web/img/upload/".$this->img)
 				return WEBPATH."/web/img/upload/".$this->img;
 
-			return WEBPATH."/web/img/upload/default.jpg";	
+			return WEBPATH."/web/img/upload/default-membre.png";	
 		}
 	}
 	public function getIdTeam(){return $this->idTeam;}

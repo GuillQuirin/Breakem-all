@@ -1,7 +1,7 @@
 <?php
 	if(isset($listeteam)){	
 	
-		$cat = "<div class='admin-data-ihm-title align relative'>
+		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Slogan</span></div></div>
@@ -14,17 +14,17 @@
 		if(is_array($listeteam)){			
 			foreach ($listeteam as $ligne => $team) {
 				//Wrapper				
-				echo "<div class='admin-data-ihm align relative'>";
+				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover team-img-up' src='" . $team->getImg() . "'></div></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-nom-g'>" . $team->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round team-img-up' src='" . $team->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-name-g'>" . $team->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-slogan-g'>" . $team->getSlogan() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-status-g'><div class='admin-data-ihm-elem-img-wrapper align'>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-status-g'><div class='align team-slogan-g-ht'>";
 						if($team->getStatus() == 0){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
 						}else{
-							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'></div>";
+							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}
 					echo "</div></span></div></div>";
 					//Fin Affichage
@@ -59,7 +59,7 @@
 									echo "<div class='grid-md-12'>";
 										//Label
 										echo "<div class='grid-md-4 text-left'>";
-										    echo "<label for='nom'>Nom :</label>";
+										    echo "<label for='name'>Nom :</label>";
 										    echo "<label for='slogan'>Slogan :</label>";
 										    echo "<label for='description'>Description :</label>";
 										    echo "<label for='status'>Status :</label>";
@@ -67,10 +67,13 @@
 									    //Input
 									    echo "<div class='grid-md-8'>";
 											echo "<input type='text' name='id' class='hidden team-id-p' value='" . $team->getId() . "'>";
-											echo "<input class='input-default admin-form-input-w team-nom-p' name='nom' type='text' value='" . $team->getName() . "'>";
+											echo "<input class='input-default admin-form-input-w team-name-p' name='name' type='text' value='" . $team->getName() . "'>";
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
 											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
-											echo "<input class='input-default admin-form-input-w team-status-p' name='status' type='text' value='" . $team->getStatus() . "'>";
+											echo "<select class='select-default team-status-p'>";
+												echo "<option value='0'>Vérouiller</option>";
+												echo "<option value='1'>Dévérouiller</option>";
+											echo "</select>";										
 										echo "</div>";
 									echo "</div>";
 									//Submit

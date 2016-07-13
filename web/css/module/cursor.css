@@ -2,6 +2,10 @@
 
 /* cursor disabled desactive tout les events */
 .cursor-disabled{
+  cursor: not-allowed;
+}
+
+.cursor-disabled > *{
   pointer-events: none;
 }
 

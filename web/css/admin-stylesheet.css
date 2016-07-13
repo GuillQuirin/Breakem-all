@@ -1,7 +1,32 @@
+.admin-board{
+    padding:25px 0;
+    margin: 35px 0;
+}
+
+.admin-board-section-text{
+    padding: 25px 0;
+}
+
+.admin-board-title-wrapper{
+    padding:25px 0;
+}
+
+.admin-board-title{
+    font-size: 25px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.admin-board-intro-wrapper{
+    padding:0 0 25px 0;
+}
+
 .membre-form-img-size{
     width:100px;
     height:100px;
     border-radius:50%;
+    line-height: 100px;
+    text-align: center;
 }
 
 .admin-form-submit{
@@ -27,19 +52,19 @@
     margin-bottom:60px;
 }
 
-.admin-search-input::-webkit-input-placeholder, input {
+.admin-search-input::-webkit-input-placeholder, input, select {
    text-align: center;
 }
 
-.admin-search-input:-moz-placeholder, input { /* Firefox 18- */
+.admin-search-input:-moz-placeholder, input, select { /* Firefox 18- */
    text-align: center;  
 }
 
-.admin-search-input::-moz-placeholder, input {  /* Firefox 19+ */
+.admin-search-input::-moz-placeholder, input, select {  /* Firefox 19+ */
    text-align: center;  
 }
 
-.admin-search-input:-ms-input-placeholder, input {  
+.admin-search-input:-ms-input-placeholder, input, select {  
    text-align: center; 
 }
 
@@ -137,6 +162,15 @@
     transition: padding .3s, margin .3s;
 }
 
+.admin-img-cover{
+    display:block;
+    height:80px;
+    width:80px;
+    margin: 0 auto;
+    object-fit:cover;
+}
+
+
 .admin-data-ihm:hover{    
     background:rgba(130, 83, 164, 0.12);
     padding:15px 0;
@@ -162,8 +196,9 @@
 }
 
 .admin-wrapper .admin-data-ihm-elem-img-wrapper.membres-img{
-    height:150px;
-    width:150px;
+    height:80px;
+    width:80px;
+    margin:0 auto;
 }
 
 /*
@@ -491,4 +526,12 @@ body, html{
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+}
+
+.typejeu-description-g, .comment-message-g{
+    white-space: nowrap;
+    text-transform: initial;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }

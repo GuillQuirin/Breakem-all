@@ -1,4 +1,7 @@
-
+.grid-centered{
+  float:none !important;
+  margin:2px auto !important;
+}
 
 @-ms-viewport {
   width: device-width;

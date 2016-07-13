@@ -1,4 +1,5 @@
 "use strict";
+
 var commentModule = {	
 	_this: this,
 	init: function(){

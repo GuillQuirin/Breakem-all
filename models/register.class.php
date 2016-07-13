@@ -104,8 +104,8 @@ final class register{
 	public function getLink(){return $this->_link;}
 	
 	// Getters du jeu
-	public function getNomJeu(){return $this->_nomJeu;}
-	public function getImgJeu($upload=false){
+	public function _getNomJeu(){return $this->_nomJeu;}
+	public function _getImgJeu($upload=false){
 		if($upload){
 			return $this->_imgJeu;
 		}
@@ -129,7 +129,7 @@ final class register{
 			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_img)
 				return WEBPATH."/web/img/".$this->_img;
 
-			return WEBPATH."/web/img/default.jpg";	
+			return WEBPATH."/web/img/default-membre.jpg";	
 		}
 	}
 	public function getIdTeam(){return $this->_idTeam;}

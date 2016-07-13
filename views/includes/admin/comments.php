@@ -5,6 +5,7 @@
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Statut</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Message</span></div></div>
 		</div>";
 
@@ -16,10 +17,13 @@
 				echo "<div class='admin-data-ihm align relative'>";
 
 					//Affichage
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-date-g'>" . $comment->getDate() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-date-g'>" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-pseudo-g'>" . $comment->getPseudo() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-team-g'>" . $comment->getNomTeam() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getMessage() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-team-g'>";
+						echo ($comment->getStatus()!==NULL && $comment->getStatus()==0) ? "Publié" : "Verrouillé";
+					echo "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getComment() . "</span></div></div>";
 					//Fin 
 
 					//Boutton
@@ -45,17 +49,19 @@
 									    echo "<label for='pseudo'>Pseudo :</label>";
 									    echo "<label for='NomTeam'>Team :</label>";
 									    echo "<label for='date'>Date :</label>";
+									    echo "<label for='status'>Publié :</label>";
 									    echo "<label for='message'>Message :</label>";
-									    echo "<label for='status'>Status :</label>";
 								    echo "</div>";
 								    //Input
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden comment-id-p' value='" . $comment->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-pseudo-p' name='pseudo' type='text' value='" . $comment->getPseudo() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-date-p' name='date' type='text' value='" . $comment->getDate() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-message-p' name='message' type='text' value='" . $comment->getMessage() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-status-p' name='status' type='text' value='" . $comment->getStatus() . "'>";
+										echo "<input class='input-default admin-form-input-w comment-pseudo-p' name='pseudo' type='text' value='" . $comment->getPseudo() . "' disabled>";
+										echo "<input class='input-default admin-form-input-w comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "' disabled>";
+										echo "<input class='input-default admin-form-input-w comment-date-p' name='date' type='text' value='" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "' disabled>";
+										echo "<input class='input-default admin-form-input-w comment-status-p' name='status' type='checkbox' value='" . $comment->getStatus() . "'";
+											echo ($comment->getStatus()!==NULL && $comment->getStatus()==0) ? "checked=checked" : "";
+										echo ">";
+										echo "<textarea class='input-default admin-form-input-w comment-message-p' name='message'>" . $comment->getComment() . "</textarea>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

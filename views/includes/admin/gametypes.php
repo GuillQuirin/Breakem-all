@@ -1,7 +1,7 @@
 <?php
 	if(isset($listetypejeu)){	
 
-		$cat = "<div class='admin-data-ihm-title align relative'>
+		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
@@ -12,12 +12,12 @@
 		if(is_array($listetypejeu)){			
 			foreach ($listetypejeu as $ligne => $typejeu) {
 				//Wrapper				
-				echo "<div class='admin-data-ihm align relative'>";
+				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper'><img class='img-cover typejeu-img-up' src='" . $typejeu->getImg() . "'></div></div></div>";
+					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round typejeu-img-up' src='" . $typejeu->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-nom-g'>" . $typejeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-description-g'>" . $typejeu->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='typejeu-description-g'>" . $typejeu->getDescription() . "</span></div></div>";
 					//Fin 
 
 					//Boutton
@@ -56,7 +56,7 @@
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden typejeu-id-p' value='" . $typejeu->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w typejeu-nom-p' name='nom' type='text' value='" . $typejeu->getName() . "'>";
-										echo "<input class='input-default admin-form-input-w typejeu-description-p' name='description' type='text' value='" . $typejeu->getDescription() . "'>";
+										echo "<textarea class='input-default admin-form-input-w typejeu-description-p' name='description' type='text' >".$typejeu->getDescription()."</textarea>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

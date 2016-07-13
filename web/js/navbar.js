@@ -1,26 +1,39 @@
-
 "use strict";
-window.addEventListener('load', function load(){
-	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache
-	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois)
-	window.removeEventListener('load', load, false);
-	webpath.init();
+/*
+	Pour pallier les pb de temps de chargement des scripts causant des erreurs lorsque le webpath n'est pas encore récupéré, ne plus passer par document.ready
 
-});
+	--> ajouter votre fonction à appeler de la sorte:
+		--> si c'est une méthode d'objet 
+			initAll.add(votre_objet.sa_methode)   
+			/!\ oui, oON NE MET PAS la parenthèse c'est normal
+		--> si c'est une fonction générale
+			initAll.add(votre_fonction)   
+			/!\ oui, ON NE MET PAS la parenthèse c'est normal
+
+	/!\ Ajoutez votre fonction à initAll seulement après sa définition dans votre fichier .js
+		 #### Donc à la fin de votre fichier #####
+			function ma_fonction(){
+				console.log("exemple !");	
+			}
+			// Votre fonction est désormais définie, vous pouvez l'ajouter:
+			initAll.add(ma_fonction);
+*/
+var initAll = {
+	funcListToLaunch: [],
+	add: function(func){
+		this.funcListToLaunch.push(func);
+	},
+	launch: function(){
+		for(var func in this.funcListToLaunch){
+			this.funcListToLaunch[func]();
+		}
+	}
+}
+
 function isElSoloJqueryInstance(el){
 	if(el.length == 1 && el instanceof jQuery)
 		return true;
 	return false;
-}
-function initAll(){
-	connection.init();
-	navbar.init();
-	deconnection.init();
-	register.init();
-	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
-	checkForJustCreatedAccount();
-	cookie.init();
-	contactadmin.init();
 }
 
 /**
@@ -139,13 +152,55 @@ function ajaxRequest(url, type, callback){
 		 	url: url,
 		 	type: type,
 		 	success: function(result){
-		 		result = tryParseData(result);			 					 		
+		 		result = tryParseData(result);			 		
 				callback(result);
 		 	}
 		});
 	}else{
 		console.log("Params vide sur dataShow()");
 	}	
+}
+
+function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
+	if(url && type && callback){
+		if(Object.keys(toSendData).length > 0){
+			jQuery.ajax({
+			 	url: webpath.get()+"/"+url,
+			 	type: type,
+			 	data: toSendData,
+			 	success: function(result){
+			 		var obj = tryParseData(result);
+			 		if(callback)
+						callback(obj);
+			 	},
+			 	error: function(xhr, textStatus, errorThrown) {
+			 		if(failCallback)
+			 			failCallback();
+			 		else
+						popup.init("request error !! : \t " + errorThrown);
+				}
+			});
+		}
+		else{
+			jQuery.ajax({
+			 	url: webpath.get()+"/"+url,
+			 	type: type,
+			 	success: function(result){
+			 		var obj = tryParseData(result);
+			 		if(callback)
+						callback(obj);
+			 	},
+			 	error: function(xhr, textStatus, errorThrown) {
+					if(failCallback)
+			 			failCallback();
+			 		else
+						popup.init("request error !! : \t " + errorThrown);
+				}
+			});
+		}
+	}else{
+		console.log("Params vide sur ajaxWithDataRequest()");
+	}
 }
 
 function adaptMarginToNavHeight(jQel){
@@ -169,18 +224,18 @@ function checkForJustCreatedAccount(){
 // Recuperation du webpath du server
 var webpath = {
 	init: function(){
-		this.setServerPath();
+		webpath.setServerPath();
 	},
-	get: function(){return this._path;},
+	get: function(){return webpath._path;},
 	setServerPath: function(){
 		var hiddenInp = $('#webpath');
 		if(isElSoloJqueryInstance(hiddenInp)){
-			this._path = hiddenInp.val();
+			webpath._path = hiddenInp.val();
 			hiddenInp.remove();
-			initAll();
+			initAll.launch();
 		}
 		else{
-			this._path = false;
+			webpath._path = false;
 			console.log("couldn't find webpath !");
 		}
 	}
@@ -218,40 +273,40 @@ var popup = {
 	openedPopupMsg: false,
 	animationOnGoing: false,
 	getOpenedPopupModal: function(){
-		return this.openedPopupModal;
+		return popup.openedPopupModal;
 	},
 	getOpenedPopupMsg: function(){
-		return this.openedPopupMsg;
+		return popup.openedPopupMsg;
 	},
 	setOpenedPopupModal: function(jQel){
-		this.openedPopupModal = jQel;
+		popup.openedPopupModal = jQel;
 	},
 	setOpenedPopupMsg: function(jQel){
-		this.openedPopupMsg = jQel;
+		popup.openedPopupMsg = jQel;
 	},
 	closeOldPopup: function(jQModal, jQMsg){
 		navbar.form.smoothClosing();
-		if(this.getOpenedPopupModal() instanceof jQuery){
-			var _this = this;
-			this.animationOnGoing = true;
-			this.getOpenedPopupMsg().addClass('fadeOutRight');
+		if(popup.getOpenedPopupModal() instanceof jQuery){
+			var _popup = popup;
+			popup.animationOnGoing = true;
+			popup.getOpenedPopupMsg().addClass('fadeOutRight');
 			setTimeout(function(){
-				_this.getOpenedPopupModal().empty();
-				_this.getOpenedPopupModal().remove();
-				_this.setOpenedPopupModal(false);
-				_this.setOpenedPopupMsg(false);
-				_this.animationOnGoing = false;
+				_popup.getOpenedPopupModal().empty();
+				_popup.getOpenedPopupModal().remove();
+				_popup.setOpenedPopupModal(false);
+				_popup.setOpenedPopupMsg(false);
+				_popup.animationOnGoing = false;
 				$('body').css('overflow', 'visible');
 				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
-					_this.openNewPopup(jQModal, jQMsg);
+					_popup.openNewPopup(jQModal, jQMsg);
 			},1000);
 		}
 		else
-			this.openNewPopup(jQModal, jQMsg);
+			popup.openNewPopup(jQModal, jQMsg);
 	},
 	init: function(message){		
 		if(message){
-			if(this.animationOnGoing){
+			if(popup.animationOnGoing){
 				console.log("animation popup deja en cours");
 				return;
 			}
@@ -262,7 +317,7 @@ var popup = {
 			subDiv.append(popMsg);
 			popdivContainer.append(subDiv);
 			container.append(popdivContainer);
-			this.closeOldPopup(container, popdivContainer);
+			popup.closeOldPopup(container, popdivContainer);
 		}
 		else
 			console.log("aucun contenu reçu dans popup init");
@@ -270,22 +325,21 @@ var popup = {
 	openNewPopup: function(jQModal, jQMsg){
 		$('body').css('overflow', 'hidden');
 		$('body').append(jQModal);
-		this.setOpenedPopupModal(jQModal);
-		this.setOpenedPopupMsg(jQMsg);
-		this.associateClosingEvent();
+		popup.setOpenedPopupModal(jQModal);
+		popup.setOpenedPopupMsg(jQMsg);
+		popup.associateClosingEvent();
 	},
 	associateClosingEvent: function(){
-		var _this = this;
-		this.getOpenedPopupModal().click(function(e){
+		var _popup = popup;
+		popup.getOpenedPopupModal().click(function(e){
 			if($(e.target).hasClass('index-modal-popup')){
-				_this.closeOldPopup();
+				_popup.closeOldPopup();
 			};
 		});
 	}
 }
 
 var navbar = {
-	_this: this,
     init: function(){
     	navbar.setNavbarEl();
     	navbar.setNavToggle();
@@ -312,78 +366,78 @@ var navbar = {
 
     /*##### SETTERS #####*/
     setNavbarEl: function(){
-    	this._navEl = $("#navbar");
+    	navbar._navEl = $("#navbar");
     },
     setNavToggle: function(){
-    	this._navToggle = $('#navbar-toggle');
+    	navbar._navToggle = $('#navbar-toggle');
     },
     setNavSideMenu: function(){
-    	this._navSideMenu = $('.navbar-side-menu');
+    	navbar._navSideMenu = $('.navbar-side-menu');
     },
     setNavLogin: function(){
-    	this._navLogin = $('#navbar-login');
+    	navbar._navLogin = $('#navbar-login');
     },
     setOpenFormAll: function(){
-    	this._openFormAll = $('.open-form');
+    	navbar._openFormAll = $('.open-form');
     },
     setNavInscription: function(){
-    	this._navInscription = $('#navbar-inscription');
+    	navbar._navInscription = $('#navbar-inscription');
     },
     setSearchPage: function(){
-    	this._searchPage = $('.search-page');
+    	navbar._searchPage = $('.search-page');
     },
     setSearchToggle: function(){
-    	this._searchToggle = $('.search-toggle');
+    	navbar._searchToggle = $('.search-toggle');
     },
     setIndexModal: function(){
-    	this._indexModal = $('.index-modal');
+    	navbar._indexModal = $('.index-modal');
     },
     setLoginForm: function(){
-    	this._loginForm = $('#login-form');
+    	navbar._loginForm = $('#login-form');
     },
     setSubscribeForm: function(){
-    	this._subscribeForm = $('#subscribe-form');
+    	navbar._subscribeForm = $('#subscribe-form');
     },
 
 
     /*##### GETTERS #####*/
     getNavbarEl: function(){
-    	return this._navEl;
+    	return navbar._navEl;
     },
     getNavToggle: function(){
-    	return this._navToggle;
+    	return navbar._navToggle;
     },
     getNavSideMenu: function(){
-    	return this._navSideMenu;
+    	return navbar._navSideMenu;
     },
     getSearchPage: function(){
-    	return this._searchPage;
+    	return navbar._searchPage;
     },
     getSearchToggle: function(){
-    	return this._searchToggle;
+    	return navbar._searchToggle;
     },
     getNavLogin: function(){
-    	return this._navLogin;
+    	return navbar._navLogin;
     },
     getNavInscription: function(){
-    	return this._navInscription;
+    	return navbar._navInscription;
     },
     getIndexModal: function(){
-    	return this._indexModal;
+    	return navbar._indexModal;
     },
     getLoginForm: function(){
-    	return this._loginForm;
+    	return navbar._loginForm;
     },
     getSubscribeForm: function(){
-    	return this._subscribeForm;
+    	return navbar._subscribeForm;
     },
     getOpenForm: function(){
-    	return this._openFormAll;
+    	return navbar._openFormAll;
     },
 
     preventShrink: false,
     shrink: function(force){
-    	if(!this.preventShrink){   		
+    	if(!navbar.preventShrink){   		
 	        $(window).scroll(function(){
 	            if($(window).scrollTop() > 50){
 	                navbar.getNavbarEl().removeClass('full');
@@ -399,7 +453,7 @@ var navbar = {
         navbar.getNavbarEl().addClass('shrink');
     },
     openNavbarSide : function(){
-        this.getNavToggle().on('click', function(){
+        navbar.getNavToggle().on('click', function(){
             if(navbar.getNavSideMenu().hasClass('navbar-collapse')){
                 navbar.getNavSideMenu().removeClass('navbar-collapse');
             }else{
@@ -508,105 +562,105 @@ var navbar = {
 
 var register = {
 	init: function(){
-		this.setFormToWatch();
-		if(!(this.getFormToWatch() instanceof jQuery)){
+		register.setFormToWatch();
+		if(!(register.getFormToWatch() instanceof jQuery)){
 			popup.init("Manque le formulaire !");
 			return;
 		}
-		this.setPseudoToWatch();
-		if(!(this.getPseudoToWatch() instanceof jQuery)){
+		register.setPseudoToWatch();
+		if(!(register.getPseudoToWatch() instanceof jQuery)){
 			popup.init("Manque votre pseudo !");
 			return;
 		}
-		this.setEmailToWatch();
-		if(!(this.getEmailToWatch() instanceof jQuery)){
+		register.setEmailToWatch();
+		if(!(register.getEmailToWatch() instanceof jQuery)){
 			popup.init("Manque votre email !");
 			return;
 		}
-		this.setPassToWatch();
-		if(!(this.getPassToWatch() instanceof jQuery)){
+		register.setPassToWatch();
+		if(!(register.getPassToWatch() instanceof jQuery)){
 			popup.init("Manque votre mot de passe !");
 			return;
 		}
-		this.setPassCheckToWatch();
-		if(!(this.getPassCheckToWatch() instanceof jQuery)){
+		register.setPassCheckToWatch();
+		if(!(register.getPassCheckToWatch() instanceof jQuery)){
 			popup.init("Manque votre confirmation de mot de passe !");
 			return;
 		}
-		this.setCguToWatch();
-		if(!(this.getCguToWatch() instanceof jQuery)){
+		register.setCguToWatch();
+		if(!(register.getCguToWatch() instanceof jQuery)){
 			popup.init("Manque les CGU !");
 			return;
 		}
-		this.setDayToWatch();
-		if(!(this.getDayToWatch() instanceof jQuery)){
+		register.setDayToWatch();
+		if(!(register.getDayToWatch() instanceof jQuery)){
 			popup.init("Manque le jour de naissance !");
 			return;
 		}
-		this.setMonthToWatch();
-		if(!(this.getMonthToWatch() instanceof jQuery)){
+		register.setMonthToWatch();
+		if(!(register.getMonthToWatch() instanceof jQuery)){
 			popup.init("Manque le mois de naissance !");
 			return;
 		}
-		this.setYearToWatch();
-		if(!(this.getYearToWatch() instanceof jQuery)){
+		register.setYearToWatch();
+		if(!(register.getYearToWatch() instanceof jQuery)){
 			popup.init("Manque l'année de naissance !");
 			return;
 		}
-		this.sendEvent();
+		register.sendEvent();
 	},
 	setFormToWatch: function(){
-		this._form = jQuery("#register-form");
+		register._form = jQuery("#register-form");
 	},
 	setPseudoToWatch: function(){
-		this._pseudo = this._form.find('input[name="pseudo"]');
+		register._pseudo = register._form.find('input[name="pseudo"]');
 	},
 	setEmailToWatch: function(){
-		this._email = this._form.find('input[name="email"]');
+		register._email = register._form.find('input[name="email"]');
 	},
 	setPassToWatch: function(){
-		this._mdp = this._form.find('input[name="password"]');
+		register._mdp = register._form.find('input[name="password"]');
 	},
 	setPassCheckToWatch: function(){
-		this._mdpcheck = this._form.find('input[name="password_check"]');
+		register._mdpcheck = register._form.find('input[name="password_check"]');
 	},
 	setCguToWatch: function(){
-		this._cgu = this._form.find('input[name="cgu"]');
+		register._cgu = register._form.find('input[name="cgu"]');
 	},
 	setDayToWatch: function(){
-		this._day = this._form.find('input[name="day"]');
+		register._day = register._form.find('input[name="day"]');
 	},
 	setMonthToWatch: function(){
-		this._month = this._form.find('input[name="month"]');
+		register._month = register._form.find('input[name="month"]');
 	},
 	setYearToWatch: function(){
-		this._year = this._form.find('input[name="year"]');
+		register._year = register._form.find('input[name="year"]');
 	},
-	getFormToWatch: function(){return this._form;},
-	getPseudoToWatch: function(){return this._pseudo;},
-	getEmailToWatch: function(){return this._email;},
-	getPassToWatch: function(){return this._mdp;},
-	getPassCheckToWatch: function(){return this._mdpcheck;},
-	getCguToWatch: function(){return this._cgu;},
-	getDayToWatch: function(){return this._day;},
-	getMonthToWatch: function(){return this._month;},
-	getYearToWatch: function(){return this._year;},
+	getFormToWatch: function(){return register._form;},
+	getPseudoToWatch: function(){return register._pseudo;},
+	getEmailToWatch: function(){return register._email;},
+	getPassToWatch: function(){return register._mdp;},
+	getPassCheckToWatch: function(){return register._mdpcheck;},
+	getCguToWatch: function(){return register._cgu;},
+	getDayToWatch: function(){return register._day;},
+	getMonthToWatch: function(){return register._month;},
+	getYearToWatch: function(){return register._year;},
 
 	isEmailValid: function(){
-		var jQEmail = this.getEmailToWatch();
+		var jQEmail = register.getEmailToWatch();
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(jQEmail.val().match(mailformat) || jQEmail.val().length == 0){
 			return true;
 		}
-		this.highlightInput(jQEmail);
+		register.highlightInput(jQEmail);
 		console.log("email fail");
 		return false;
 	},
 	isPseudoValid: function(){
-		var jQPseudo = this.getPseudoToWatch();
+		var jQPseudo = register.getPseudoToWatch();
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPseudo.val().match(unauthorizedChars) || jQPseudo.val().length == 0){
-			this.highlightInput(jQPseudo);
+			register.highlightInput(jQPseudo);
 			console.log("peudo fail");
 			return false;
 		}
@@ -615,16 +669,16 @@ var register = {
 	isPasswordValid: function(jQPassword){
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
-			this.highlightInput(jQPassword);
+			register.highlightInput(jQPassword);
 			console.log("pass fail");
 			return false;
 		}
 		return true;
 	},
 	isBirthValid: function(){
-		var d = this.getDayToWatch().val();
-		var m = this.getMonthToWatch().val();
-		var y = this.getYearToWatch().val();
+		var d = register.getDayToWatch().val();
+		var m = register.getMonthToWatch().val();
+		var y = register.getYearToWatch().val();
 
 		if (isNaN(Number(d)))
 			return false;
@@ -656,14 +710,14 @@ var register = {
 		return true;
 	},
 	isCguAccepted: function(){
-		if(this.getCguToWatch()[0].checked){
+		if(register.getCguToWatch()[0].checked){
 			return true;
 		}
 		alert("Vous devez accepter les cgu !");
 		return false;
 	},
 	doPasswordsMatch: function(){
-		if(this.getPassToWatch().val() == this.getPassCheckToWatch().val())
+		if(register.getPassToWatch().val() == register.getPassCheckToWatch().val())
 			return true;
 		console.log("passwords don't match");
 		return false;
@@ -672,14 +726,14 @@ var register = {
 		jQinput.addClass('failed-input');
 		// jQinput.val('');
 		jQinput.focus();
-		this.removeFailAnimationEvent(jQinput);
+		register.removeFailAnimationEvent(jQinput);
 	},
 	popSuccessMsg: function(){
 		var container = $('<div class="absolute index-modal-login"></div>');
 	},
 	treatParsedJson: function(obj){
 		if(obj.success){
-			popup.init('Un email de confirmation a été envoyé à l\'adresse '+this.getEmailToWatch().val());
+			popup.init('Un email de confirmation a été envoyé à l\'adresse '+register.getEmailToWatch().val());
 		}
 		else{
 			if(obj.errors){
@@ -699,58 +753,49 @@ var register = {
 
 
 	/*### Send Form event ###*/
-	sendEvent: function(){
-		var _this = this;
-		var _form = this.getFormToWatch();
-		this._pseudo = _form.find("input[name='pseudo']");
-		this._cgu = _form.find("input[name='cgu']");
-		this._btn = _form.find("button");
-		this._birth_day = _form.find("input[name='day']");
-		this._birth_month = _form.find("input[name='month']");
-		this._birth_year = _form.find("input[name='year']");
+	sendEventCallback: function(obj){
+		if(obj != false){
+	    	register.treatParsedJson(obj);
+	    }
+	},
+	sendEvent: function(){		
+		var _form = register.getFormToWatch();
+		register._pseudo = _form.find("input[name='pseudo']");
+		register._cgu = _form.find("input[name='cgu']");
+		register._btn = _form.find("button");
+		register._birth_day = _form.find("input[name='day']");
+		register._birth_month = _form.find("input[name='month']");
+		register._birth_year = _form.find("input[name='year']");
 
 		_form.submit(function(event) {
 			event.preventDefault();
 			return false;
 		});
 
-		this._btn.click(function(event) {
+		register._btn.click(function(event) {
 			if (
-				_this.isEmailValid() 
-				&& _this.isPseudoValid()
-				&& _this.isPasswordValid(_this.getPassToWatch())
-				&& _this.isPasswordValid(_this.getPassCheckToWatch())
-				&& _this.doPasswordsMatch()
-				&& _this.isBirthValid()
-				&& _this.isCguAccepted()
+				register.isEmailValid() 
+				&& register.isPseudoValid()
+				&& register.isPasswordValid(register.getPassToWatch())
+				&& register.isPasswordValid(register.getPassCheckToWatch())
+				&& register.doPasswordsMatch()
+				&& register.isBirthValid()
+				&& register.isCguAccepted()
 			) {
-				jQuery.ajax({
-				  url: 'index/register',
-				  type: 'POST',
-				  data: {
-					  	pseudo  		: _this.getPseudoToWatch().val(),
-					    email			: _this.getEmailToWatch().val(),
-					    password		: _this.getPassToWatch().val(),
-					    password_check	: _this.getPassCheckToWatch().val(),
-					    day				: _this.getDayToWatch().val(),
-					    month			: _this.getMonthToWatch().val(),
-					    year			: _this.getYearToWatch().val()
-				  },
-				  complete: function(xhr, textStatus) {
-				    // console.log("request complted \n");
-				  },
-				  success: function(data, textStatus, xhr) {
-				  	var obj = tryParseData(data);
-				    if(obj != false){
-				    	_this.treatParsedJson(obj);
-				    }
-				  },
-				  error: function(xhr, textStatus, errorThrown) {
-				    console.log("request error !! : \t " + errorThrown);
-				  }
-				});
-				
-				// return true;
+				ajaxWithDataRequest(
+					'index/register', 
+					'POST', 
+					{
+						pseudo  		: register.getPseudoToWatch().val(),
+					    email			: register.getEmailToWatch().val(),
+					    password		: register.getPassToWatch().val(),
+					    password_check	: register.getPassCheckToWatch().val(),
+					    day				: register.getDayToWatch().val(),
+					    month			: register.getMonthToWatch().val(),
+					    year			: register.getYearToWatch().val()
+					},
+					register.sendEventCallback
+				);
 			};
 			event.preventDefault();
 			return false;
@@ -769,25 +814,25 @@ var register = {
 /* TODO : RAJOUTER CONNECTION SUR ENTREE*/
 var connection = {
 	init: function(){
-		this.setFormToWatch();
-		if(this.getFormToWatch() instanceof jQuery){
-			this.sendEvent();
+		connection.setFormToWatch();
+		if(connection.getFormToWatch() instanceof jQuery){
+			connection.sendEvent();
 		};		
 	},
-	setFormToWatch: function(){this._form = jQuery("#login-form");},
-	getFormToWatch: function(){return this._form;},
+	setFormToWatch: function(){connection._form = jQuery("#login-form");},
+	getFormToWatch: function(){return connection._form;},
 	isEmailValid: function(jQEmail){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(jQEmail.val().match(mailformat) || jQEmail.val().length == 0){
 			return true;
 		}
-		this.highlightInput(jQEmail);
+		connection.highlightInput(jQEmail);
 		return false;
 	},
 	isPasswordValid: function(jQPassword){
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
-			this.highlightInput(jQPassword);
+			connection.highlightInput(jQPassword);
 			return false;
 		}
 		return true;
@@ -796,74 +841,51 @@ var connection = {
 		jQinput.addClass('failed-input');
 		jQinput.val('');
 		jQinput.focus();
-		this.removeFailAnimationEvent(jQinput);
-	},
-	tryParseData: function(rawData){
-		try {
-			var obj = jQuery.parseJSON(rawData);
-			return obj;
-		}
-		catch(err) {
-			console.log(rawData);
-			alert("Problem during server processes \n Check console for details");
-		}
-		return false;
+		connection.removeFailAnimationEvent(jQinput);
 	},
 	treatParsedJson: function(obj){
-		if(obj.connected){
-			location.reload();
-		}
-		else{
-			this.highlightInput(this._email);
-			this.highlightInput(this._password);
-			if(obj.errors.inputs){
-				// missing input !
-				alert("you are missing an input");
+		if(obj != false){
+			if(obj.connected){
+				location.reload();
 			}
-			else if(obj.errors.user){
-				// email and pass don't match OU BAN
-				alert(obj.errors.user);
+			else{
+				connection.highlightInput(connection._email);
+				connection.highlightInput(connection._password);
+				if(obj.errors.inputs){
+					// missing input !
+					alert("you are missing an input");
+				}
+				else if(obj.errors.user){
+					// email and pass don't match OU BAN
+					alert(obj.errors.user);
+				}
 			}
-		}
+		}		
 	},
 
 
 	/*### Send Form event ###*/
 	sendEvent: function(){
-		var _this = this;
-		var _form = this.getFormToWatch();
+		var _form = connection.getFormToWatch();
 		var _email = _form.find("input[name='email']");
 		var _password = _form.find("input[name='password']");
 		var _btn = _form.find('button');
 
-		this._email = _email;
-		this._password = _password;
-		this._btn = _btn;
+		connection._email = _email;
+		connection._password = _password;
+		connection._btn = _btn;
 
 		_btn.click(function(event) {
-			if (_this.isEmailValid(_email) && _this.isPasswordValid(_password)) {
-				jQuery.ajax({
-				  url: 'index/connection',
-				  type: 'POST',
-				  data: {
-				  	email: _email.val(),
-				  	password: _password.val()
-				  },
-				  complete: function(xhr, textStatus) {
-				    // console.log("request complted \n");
-				  },
-				  success: function(data, textStatus, xhr) {
-				    var obj = tryParseData(data);
-				    if(obj != false){
-				    	_this.treatParsedJson(obj);
-				    }
-				  },
-				  error: function(xhr, textStatus, errorThrown) {
-				    console.log("request error !! : \t " + errorThrown);
-				  }
-				});
-				
-				// return true;
+			if (connection.isEmailValid(_email) && connection.isPasswordValid(_password)) {
+				ajaxWithDataRequest(
+					'index/connection', 
+					'POST', 
+					{
+						email: _email.val(),
+				  		password: _password.val()
+					},
+					connection.treatParsedJson
+				);
 			};
 			event.preventDefault();
 			return false;
@@ -881,34 +903,28 @@ var connection = {
 }
 var deconnection = {
 	init: function(){
-		this.setBtnToWatch();
-		if(this.getBtnToWatch() instanceof jQuery){
-			this.clickEvent();			
+		deconnection.setBtnToWatch();
+		if(deconnection.getBtnToWatch() instanceof jQuery){
+			deconnection.clickEvent();			
 		};		
 	},
 	setBtnToWatch: function(){
-		this._btn = jQuery("#nav-deconnection");
+		deconnection._btn = jQuery("#nav-deconnection");
 	},
-	getBtnToWatch: function(){return this._btn;},
-
+	getBtnToWatch: function(){return deconnection._btn;},
+	clickEventCallback: function(){
+		location.reload();
+	},
 	clickEvent: function(){
-		var _this = this;
-		var _btn = this._btn;
+		var _deconnection = deconnection;
+		var _btn = deconnection._btn;
 		_btn.click(function(event) {
-			jQuery.ajax({
-				url: 'index/deconnection',
-				type: 'POST',
-				data: {},
-				complete: function(xhr, textStatus) {
-					location.reload();
-				},
-				success: function(data, textStatus, xhr) {
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					console.log(errorThrown);
-					alert("uh oh serv ...");
-				}
-			});
+			ajaxWithDataRequest(
+				'index/deconnection', 
+				'POST', 
+				{},
+				deconnection.clickEventCallback
+			);
 		});
 	}
 }
@@ -921,32 +937,29 @@ var cookie = {
 		cookie.postCookie();
 	},
 	setBtnCookie : function(){
-		this._btnCookie = jQuery('#cookieaccept');
+		cookie._btnCookie = jQuery('#cookieaccept');
 	},
 	setCookieInfo : function(){
-		this._cookieInfo = jQuery('#cookie_info');
+		cookie._cookieInfo = jQuery('#cookie_info');
 	},
 	getBtnCookie : function(){
-		return this._btnCookie;
+		return cookie._btnCookie;
 	},
 	getCookieInfo : function(){
-		return this._cookieInfo;
+		return cookie._cookieInfo;
 	},
-
+	postCookieCallback: function(obj){
+		cookie.getCookieInfo().slideUp();
+	},
 	postCookie : function(){
 		var allData = {validation : "1"};
 		cookie.getBtnCookie().on("click", function(){
-			jQuery.ajax({
-				utl: 'index/acceptCookie',
-				type: 'POST',
-				data: allData,
-				success : function(result){
-					cookie.getCookieInfo().slideUp();
-				},
-				error: function(result){
-					throw new Error("Erreur de validation cookie", result);
-				}
-			});
+			ajaxWithDataRequest(
+				'index/acceptCookie', 
+				'POST', 
+				allData,
+				cookie.postCookieCallback
+			);
 		});
 	}	
 };
@@ -954,47 +967,55 @@ var cookie = {
 
 var contactadmin = {
 	init : function(){
+		contactadmin.clickFadeInEvent();
+		contactadmin.loadMouseUpEvent();
+		contactadmin.loadBtnClickEvent();
+	},
+	checkMessage: function(){
+		if( $("#expediteurContactAdmin").val()=="" ){
+			popup.init('Une adresse email valide est requise afin que nous puissions vous répondre');
+			return false;
+		}
+		if( $.trim($("#mess_contactAdmin")).val()=="" ){
+			popup.init('Veuillez ne pas envoyer de message vide');
+			return false;
+		}
+		return true;
+	},
+	loadBtnClickEventCallback: function(){
+		popup.init('Le message a correctement été envoyé');
+		$("#wrapperAdmin .sendOk").fadeIn();
+	},
+	loadBtnClickEventFailCallback: function(){
+		$("#wrapperAdmin .sendOk").fadeIn();
+	},
+	loadBtnClickEvent: function(){
+		//Controle des messages
+		$("#btn_contactAdmin").click(function(){
+			if(contactadmin.checkMessage()){
+				ajaxWithDataRequest(
+					'index/contactAdmin', 
+					'POST', 
+					{
+						message: $("#mess_contactAdmin").val(),
+						expediteur: $("#expediteurContactAdmin").val()
+					},
+					contactadmin.loadBtnClickEventCallback,
+					contactadmin.loadBtnClickEventFailCallback
+				);
+			}
+		});
+	},
+	clickFadeInEvent: function(){
 		//Affichages des popups
 		$("#contactAdmin").click(function(){
 			$("#wrapperAdmin").fadeIn();
 			return false;
 		});
-
-		//Controle des messages
-		$("#btn_contactAdmin").click(function(){
-			if($("#expediteurContactAdmin").val()==""){
-				alert('Une adresse email valide est requise afin que nous puissions vous répondre.');
-			}
-			else if($.trim($("#mess_contactAdmin")).val()==""){
-				alert('Veuillez ne pas envoyer de message vide.');
-			} 
-			else{
-				$.ajax({method: "POST",
-						data:{
-							message: $("#mess_contactAdmin").val(),
-							expediteur: $("#expediteurContactAdmin").val()
-						},
-						url: "index/contactAdmin", 
-						success: function(result){
-		            		alert('Le message a correctement été envoyé.');
-		            		$("#wrapperAdmin .sendOk").fadeIn();
-		            		//$("loadGIF").css("display","none");
-		        		},
-		        		// load: function(){
-		        		// 	$("loadGIF").css("display","block");
-		        		// },
-		        		fail: function(){
-		        			$("#wrapperAdmin .sendOk").fadeIn();
-		        		}
-		        	}
-		        );
-			}
-		});
-
-		$(document).mouseup(function(e)
-		{
+	},
+	loadMouseUpEvent: function(){
+		$(document).mouseup(function(e){
 		    var container = $("#wrapperAdmin");
-
 		    if(!container.is(e.target) && container.has(e.target).length === 0) 
 		    {
 		    	$(".sendOk, .sendError").fadeOut();
@@ -1007,3 +1028,17 @@ var contactadmin = {
 }
 
 
+initAll.add(connection.init);
+initAll.add(navbar.init);
+initAll.add(deconnection.init);
+initAll.add(register.init);
+initAll.add(checkForJustCreatedAccount);
+initAll.add(cookie.init);
+initAll.add(contactadmin.init);
+window.addEventListener('load', function load(){
+	// Cette ligne permet la 'supression' de l'event de load pour liberer du cache
+	//(on devrait faire ça idéalement pour tous les events utilisés une seule fois)
+	window.removeEventListener('load', load, false);
+	scroll.init($(".header-scroll-down"), $('.my-content-wrapper'));
+	webpath.init();
+});

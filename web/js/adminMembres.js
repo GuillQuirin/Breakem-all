@@ -15,8 +15,8 @@ var membreModule = {
 
 		//CRUD
 		membreModule.postDataDelete();
-		//membreModule.postDataUpdate();
-		membreModule.postDataInsert();		
+		membreModule.postDataUpdate();
+		//membreModule.postDataInsert();		
 	},
 
 	//Setter
@@ -88,7 +88,7 @@ var membreModule = {
 				success: function(result){			
 					console.log(result);		
 					console.log("Membre supprimée");							
-					btn.parent().parent().remove();		
+					btn.parent().parent().find(jQuery('.membre-status-g')).html("Banni");	
 
 					//Vérification si il n'y a plus de plateforme
 					jQuery.ajax({
@@ -116,28 +116,70 @@ var membreModule = {
 		membreModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.membre-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var subBtn = updateBtn.parent().parent();
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+				var id = subBtn.find('.membre-id-p').val();
+				var name = subBtn.find('.membre-nom-p').val();
+				var firstname = subBtn.find('.membre-prenom-p').val();
+				var birthday = subBtn.find('.membre-birthday-p').val();
+				var kind = subBtn.find('.membre-kind-p').val();
+				var description = subBtn.find('.membre-description-p').val();
+				var city = subBtn.find('.membre-city-p').val();
+				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var status = subBtn.find('.membre-status-p').val();
+				var email = subBtn.find('.membre-email-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
+				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
 
-				console.log(allData);
+				var allData = {};
+
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				allData.id = id;
+
+				if(name){
+					allData.name = name;
+				}
+				if(firstname){
+					allData.firstname = firstname;
+				}
+				if(pseudo){
+					allData.pseudo = pseudo;
+				}
+				if(birthday){
+					allData.birthday = birthday;
+				}
+				if(description){
+					allData.description = description;
+				}
+				if(kind){
+					allData.kind = kind;
+				}
+				if(city){
+					allData.city = city;
+				}
+				if(email){
+					allData.email = email;
+				}
+				if(status){
+					allData.status = status;
+				}
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
+				}
+
+				allData.img = "default-membre.png";
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
-			           
-			        //Pour l'upload coté serveur
+
+			    	//Pour l'upload coté serveur
 			        var file = myImg.prop('files')[0];
 
-			        if(file){
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = "upload/" + file.name;
@@ -145,7 +187,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
+				            url: "admin/updateMembresData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -167,18 +209,32 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
+					url: "admin/updateMembresData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
-						console.log("Plateforme mise à jour");
+						console.log("Membre mise à jour");
+						 console.log(allData);
+						var myStatus;
 						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
+						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
+						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
+						switch(status) {
+						    case -1:
+						        myStatus = "Banni";
+						        break;
+						    case 1:
+						        myStatus = "Utilisateur";
+						        break;
+						    case 3:
+						    	myStatus = "Admin";
+						    	break;
+						} 
+						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
+							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/" + allData.img);	
+						}
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
@@ -189,7 +245,228 @@ var membreModule = {
 		});
 	},
 	postDataInsert : function(){
+		//Ajout du formulaire dans la dom
+		membreModule.getInsertBtn().on("click", function(e){
+			var btn = jQuery(e.currentTarget);
 
+			btn.parent().parent().find('.admin-add-form-wrapper').html(
+			//Formulaire
+				"<div class='index-modal-this index-modal-login align'>" +
+							
+							"<div class='grid-md-6 inscription_rapide animation fade'>" +
+								"<form class='membre-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+									//Title
+									"<div class='grid-md-12 form-title-wrapper'>" +
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>" +
+									"</div>" +
+									"<div class='grid-md-6' style='height:130px;'>" +
+									//Image							    								 
+								    	"<div class='membre-form-img-size m-a'>" +																	
+											"<img class='img-cover membre-img membre-form-img-size' src='' title='Image de profil' alt='Image de profil'>" +
+										"</div>" +
+										"<div class='text-center admin-input-file'>" +								 
+											"<input type='file' class='membre-image-p' name='profilpic'>" +
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='description'>Description :</label>" +
+											"<label for='city'>Ville :</label>" +
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+									 		"<input class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description' type='text'>" +			    
+											"<input class='input-default admin-form-input-w membre-city-p' placeholder='Ville' name='city' type='text'>" +									    
+										"</div>" +
+									"</div>" +
+									"<div class='grid-md-6'>" +
+										//Label
+										"<div class='grid-md-5 text-left'>" +
+											"<label for='nom'>Nom :</label>" +
+											"<label for='prenom'>Prénom :</label>" +
+											"<label for='pseudo'>Pseudo :</label>" +
+											"<label for='password'>Mot de passe :</label>" +
+											"<label for='passwordCheck'>Validation :</label>" +											
+										"</div>" +
+										//Input
+										"<div class='grid-md-7'>" +
+										    "<input class='input-default admin-form-input-w membre-nom-p' placeholder='Nom' name='nom' type='text'>" +									    
+										    "<input class='input-default admin-form-input-w membre-prenom-p' placeholder='Prénom' name='prenom' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text'>" +
+										    "<input class='input-default admin-form-input-w membre-password-p' placeholder='Mot de passe' name='password' type='password'>" +
+										    "<input class='input-default admin-form-input-w membre-passwordCheck-p' placeholder='Validation du mot de passe' name='passwordCheck' type='password'>" +
+										"</div>" +								   
+								    "</div>" +
+
+								    "<div class='grid-md-6'>" +
+									   	
+									   	"<div class='grid-md-5 text-left'>" +
+									   		//Label
+									   		"<label for='birthday'>Birthday :</label>" +
+										    "<label for='kind'>Genre :</label>" +
+											"<label for='email'>Email :</label>" +
+											"<label for='mailContact'>Me contacter :</label>" +
+											"<label for='status'>Status :</label>" +
+										"</div>" +
+
+										"<div class='grid-md-7'>" +
+											//Input
+											"<select class='select-default membre-kind-p'>" +
+												"<option value='1'>Homme</option>" +
+												"<option value='0'>Femme</option>" +
+											"</select>" +
+										    "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text'>" +
+										 	"<select class='select-default membre-mailContact-p'>" +
+												"<option value='1'>Oui</option>" +
+												"<option value='0'>Non</option>" +
+											"</select>" +
+										    "<select class='select-default membre-status-p' placeholder='Status' name='status'>" +
+												"<option value='1'>Utilisateur</option>" +
+												"<option value='-1'>Banni</option>" +
+												"<option value='3'>Admin</option>" +
+											"</select>" +		
+											"<input class='input-default admin-form-input-w membre-birthday-p' placeholder='Date de naissance' name='birthday' type='text'>" +
+										"</div>" +							 
+								    "</div>" +
+								    //Submit
+								    "<div class='grid-md-12'>" +
+								    	"<button type='button' class='admin-form-submit membre-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+								    "</div>" +
+						  		"</form>" +
+						  	"</div>" +
+						"</div>"
+			//Fin Formulaire
+			);
+
+			//Envoi dans la BDD
+			var submitBtn = btn.parent().parent().find('.membre-submit-add-this-form-btn');
+
+			
+			submitBtn.click(function(ev){
+				var subBtn = jQuery(ev.currentTarget).parent().parent();
+				var name = subBtn.find('.membre-nom-p').val();
+				var firstname = subBtn.find('.membre-prenom-p').val();
+				var birthday = subBtn.find('.membre-birthday-p').val();
+				var kind = subBtn.find('.membre-kind-p').val();
+				var description = subBtn.find('.membre-description-p').val();
+				var city = subBtn.find('.membre-city-p').val();
+				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var status = subBtn.find('.membre-status-p').val();
+				var email = subBtn.find('.membre-email-p').val();
+				var password = subBtn.find('.membre-password-p').val();
+				var password_check = subBtn.find('.membre-passwordCheck-p').val();
+				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
+				var myImg = subBtn.find('.membre-image-p');
+
+				var allData = {};
+
+
+				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
+				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
+				allData.name = name ? name : null;
+				allData.firstname = firstname ? firstname : null;
+				allData.pseudo = pseudo ? pseudo : null;
+				allData.birthday = birthday ? birthday : null;
+				allData.description = description ? description : null;
+				allData.kind = kind ? kind : null;
+				allData.city = city ? city : null;
+				allData.email = email ? email : null;
+				allData.status = status ? status : 1;
+				allData.authorize_mail_contact = authorize_mail_contact ? authorize_mail_contact : 1;
+				allData.password = password ? password : null;
+				allData.password_check = password_check ? password_check : null;
+
+				/*if(name){
+					allData.name = name;
+				}
+				if(firstname){
+					allData.firstname = firstname;
+				}
+				if(pseudo){
+					allData.pseudo = pseudo;
+				}
+				if(birthday){
+					allData.birthday = birthday;
+				}
+				if(description){
+					allData.description = description;
+				}
+				if(kind){
+					allData.kind = kind;
+				}
+				if(city){
+					allData.city = city;
+				}
+				if(email){
+					allData.email = email;
+				}
+				if(status){
+					allData.status = status;
+				}
+				if(authorize_mail_contact){
+					allData.authorize_mail_contact = authorize_mail_contact;
+				}*/
+
+				//Image par default
+				allData.img = "default-membre.png";
+
+				//Image
+			 	if (typeof FormData !== 'undefined') {				           
+
+			 		//Pour l'upload coté serveur 
+		        	var file = myImg.prop('files')[0];
+
+			        if(myImg && file){
+
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = "upload/" + file.name;
+
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);				    		                             
+					    jQuery.ajax({
+				            url: "admin/registerAdmin", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image '" + file.name + "' uploadé.");			       
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+			        }   				    
+			    } else {    	
+			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			    } 	
+
+			    if(allData.pseudo && allData.email){
+			    //Insert de la platform
+					jQuery.ajax({
+						url: "admin/registerAdmin", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log(allData);
+							console.log("Membre ajoutée.");
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't add member", result);
+						}
+					});
+				}
+			});
+
+		});
+		navbar.setOpenFormAll();	
+		navbar.form.admin();	
+		navbar.form.closeFormKey();
+        navbar.form.closeFormClick();
 	}
 };
 

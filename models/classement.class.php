@@ -51,7 +51,7 @@ class classement{
 			if(strlen(trim($this->img))!=0 && file_exists(getcwd()."/web/img/".$this->img))
 				return WEBPATH."/web/img/".$this->img;
 
-			return WEBPATH."/web/img/default.jpg";	
+			return WEBPATH."/web/img/default-membre.png";	
 		}
 	}
 	public function getSlogan(){return $this->slogan;}

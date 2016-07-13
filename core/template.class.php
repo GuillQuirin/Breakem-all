@@ -15,7 +15,7 @@ class template{
   protected function assignConnectedProperties(view $v){
     // var_dump("ASSIGNING CONNECTION PROPS");
 
-    if($this->acceptCookie()){
+    if(!$this->isCookieAccepted()){
       $v->assign("popupCookie", 1);
     }
 
@@ -53,36 +53,15 @@ class template{
       }
     }
   }
-
-  protected function acceptCookie(){
-    $args = array(
-      'validation' => FILTER_SANITIZE_STRING
-    );
-    $filteredinputs = filter_input_array(INPUT_POST, $args);
-    
-    if($filteredinputs['validation']){
-      $_SESSION[AUTORISATION]=1;
-    }
-
-    //Le cookie est déjà présent
-    if(isset($_COOKIE[AUTORISATION])){
-      
-      if(isset($_SESSION[AUTORISATION]))
-        unset($_SESSION[AUTORISATION]);
-
-      return false;
-    }
-    else{
-        
-      if(isset($_SESSION[AUTORISATION]) && $_SESSION[AUTORISATION]==1){
-        setcookie(AUTORISATION, 1, time()+60*60*24*30*365);
-        unset($_SESSION[AUTORISATION]);
-        return false;
-      }
-    
-    }
-
-    return true;
+  private function isCookieAccepted(){
+    if( isset($_COOKIE[AUTORISATION]) && $_COOKIE[AUTORISATION]==1)
+      return true;   
+    return false;
+  }
+  public function acceptCookieAction(){
+    setcookie(AUTORISATION, 1, time()+(60*60*24*30), "/");
+    echo json_encode(["success"=>true]);
+    exit;
   }
 
   protected function isVisitorConnected(){
@@ -194,6 +173,7 @@ class template{
       setcookie(COOKIE_TOKEN, null, -1, "/");
       setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
+      echo json_encode(["connected" => false]);
     }
     // exit;
   }
@@ -275,9 +255,9 @@ class template{
       'email'   => FILTER_VALIDATE_EMAIL,
       'password'   => FILTER_SANITIZE_STRING,
       'password_check'   => FILTER_SANITIZE_STRING,
-      'day'   => FILTER_SANITIZE_STRING,     
-      'month'   => FILTER_SANITIZE_STRING,     
-      'year'   => FILTER_SANITIZE_STRING     
+      'day'   => FILTER_VALIDATE_INT,     
+      'month'   => FILTER_VALIDATE_INT,     
+      'year'   => FILTER_VALIDATE_INT     
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     $finalArr = [];

@@ -105,7 +105,8 @@ class adminController extends template{
                 $js['adminComments']="adminComments";   
                 $js['adminTypeJeu']="adminTypeJeu"; 
                 $js['adminJeux']="adminJeux"; 
-                $js['adminTournoi']="adminTournoi";     
+                $js['adminTournoi']="adminTournoi"; 
+                $js['adminTeam']="adminTeam";    
                 $js['gametype']="gametype";                
                 $js['game']="game";
             $v->assign("js",$js);                                       
@@ -121,7 +122,6 @@ class adminController extends template{
     }
 
     /* PLATEFORME */
-
     public function insertPlatformsDataAction(){
         if ( 0 < $_FILES['file']['error'] ) {
             echo 'Error: ' . $_FILES['file']['error'];
@@ -130,19 +130,17 @@ class adminController extends template{
             move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
         }
 
-        $args = array(            
+        $args = array(
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING,
-            'img' => FILTER_SANITIZE_STRING           
+            'img' => FILTER_SANITIZE_STRING
         );
-        
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
 
-        $pbdd = new platformManager();
-        $p = new platform($filteredinputs);
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-        if($pbdd->addPlatform($p))
-            echo "OK";
+        $pBdd = new platformManager();
+        $pBdd->mirrorObject = new platform($filteredinputs);
+        $pBdd->create();
     }
 
     public function updatePlatformsDataAction(){
@@ -225,13 +223,67 @@ class adminController extends template{
        header('Location: '.WEBPATH.'/admin');
     }
 
+    public function deleteTeamAction(){
+        $args = array(
+            'id' => FILTER_VALIDATE_INT
+        );
+        
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
+        
+        $teamBdd = new teamManager();
+        $team = $teamBdd->getThisTeam($filteredinputs['id']);
+
+        $teamBdd->delTeam($team);
+    }
+
+    public function updateTeamsDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'slogan' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT,
+            'img' => FILTER_SANITIZE_STRING                     
+        );                                        
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $teamBdd = new teamManager();
+        $team = $teamBdd->getThisTeam($filteredinputs['id']);
+        $teamMaj = new team($filteredinputs);
+        
+        if($teamBdd->setTeam($team, $teamMaj))
+            echo "OK";
+    }
+
     /* MEMBRES */
     public function updateUserAction(){
+         if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+        
         $args = array(
-            'pseudo' => FILTER_SANITIZE_STRING,
-            'status' => FILTER_VALIDATE_INT,
-            'email' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,
+           'name' => FILTER_SANITIZE_STRING,
+           'firstname' => FILTER_SANITIZE_STRING,
+           'pseudo' => FILTER_SANITIZE_STRING,
+           'birthday' => FILTER_VALIDATE_INT,
+           'description' => FILTER_SANITIZE_STRING,
+           'kind' => FILTER_VALIDATE_INT,
+           'city' => FILTER_SANITIZE_STRING,
+           'email' => FILTER_SANITIZE_STRING,
+           'status' => FILTER_VALIDATE_INT,
+           'authorize_mail_contact' => FILTER_VALIDATE_INT,
+           'img' => FILTER_SANITIZE_STRING
         );
         
         $filteredinputs = filter_input_array(INPUT_POST, $args);
@@ -248,6 +300,38 @@ class adminController extends template{
         $userBDD->setUser($user, $newuser);
     }
 
+    public function updateMembresDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+        }  
+
+      $args = array(
+           'id' => FILTER_VALIDATE_INT,
+           'name' => FILTER_SANITIZE_STRING,
+           'firstname' => FILTER_SANITIZE_STRING,
+           'pseudo' => FILTER_SANITIZE_STRING,
+           'birthday' => FILTER_VALIDATE_INT,
+           'description' => FILTER_SANITIZE_STRING,
+           'kind' => FILTER_VALIDATE_INT,
+           'city' => FILTER_SANITIZE_STRING,
+           'email' => FILTER_SANITIZE_STRING,
+           'status' => FILTER_VALIDATE_INT,
+           'authorize_mail_contact' => FILTER_VALIDATE_INT,
+           'img' => FILTER_SANITIZE_STRING
+        );                                     
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $userBdd = new userManager();
+        $user = $userBdd->getIdUser($filteredinputs['id']);
+        $newUser = new user($filteredinputs);
+        
+        if($userBdd->setThisUser($user, $newUser))
+            echo "OK";
+    }
 
     public function updateUserStatusAction(){
         $args = array(
@@ -284,6 +368,24 @@ class adminController extends template{
 
         //$reportsBDD->getListReports());
 
+    }
+
+    public function updateReportsDataAction(){
+
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'subject' => FILTER_SANITIZE_STRING
+            );                                        
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $Bdd = new signalmentsuserManager();
+        $r = $Bdd->getIdReport($filteredinputs['id']);
+        $rMaj = new signalmentsuser($filteredinputs);
+        
+        if($Bdd->setReport($r, $rMaj))
+            echo "OK";
     }
 
     /* TYPE GAME */

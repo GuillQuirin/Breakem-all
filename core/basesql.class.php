@@ -52,7 +52,7 @@ abstract class basesql{
 		$object_methods = get_class_methods($this->mirrorObject);
 
 		foreach ($object_methods as $key => $method) {
-			if(strpos($method, 'get') !== FALSE){
+			if(strpos($method, 'get') !== FALSE && strpos($method, 'get')===0){
 				$col = lcfirst(str_replace('get', '', $method));
 				$this->columns[$col] = ($col==="img") ? $this->mirrorObject->$method(true) : $this->mirrorObject->$method();
 			};
@@ -64,7 +64,7 @@ abstract class basesql{
 	protected function save(){
 		$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 		VALUES (:".implode(",:", array_keys($this->columns)).")";
-
+		echo $sql;
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
 		foreach($this->columns as $key => $value)

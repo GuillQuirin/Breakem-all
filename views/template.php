@@ -264,7 +264,7 @@
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
-		    <div class="footer_wrap">
+		    <div class="footer_wrap display-flex-column">
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
@@ -327,6 +327,7 @@
 		} ?>
 
 		<?php echo '<script src="'.WEBPATH.'/web/js/jquery-1.12.2.min.js"></script>';?>
+		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
 		<?php 
 			if(isset($js)){ 
 				if(is_array($js)){
@@ -337,7 +338,7 @@
 					echo '<script src="'.WEBPATH.'/web/js/'.$js.'.js"></script>';
 			}
 		?>
-		<?php echo '<script src="'.WEBPATH.'/web/js/navbar.js"></script>';?>
+		
 		
 		
 	</body>

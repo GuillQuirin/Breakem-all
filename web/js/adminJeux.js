@@ -16,7 +16,6 @@ var gameModule = {
 		//CRUD
 		//gameModule.postDataDelete();
 		//gameModule.postDataUpdate();
-		//gameModule.postDataInsert();		
 	},
 
 	//Setter
@@ -187,9 +186,6 @@ var gameModule = {
 				});
 			});			
 		});
-	},
-	postDataInsert : function(){
-
 	}
 };
 

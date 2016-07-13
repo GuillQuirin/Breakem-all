@@ -200,15 +200,16 @@ class tournoiController extends template {
 		$link = $filteredinputs['t'];
 		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
 		if($link !== $_SESSION['lastTournamentChecked'])
-			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+			$this->echoJSONerror("","link different du dernier tournoi visité");
 
 		$tm = new tournamentManager();
 		$matchedTournament = $tm->getTournamentWithLink($link);
+
 		// Si le chercheur renvoie autre chose que false
 		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
 			// On vérifie l'égibilité de l'user au tournoi
 			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
-				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+				$this->echoJSONerror('', 'vous ne pouvez pas vous inscrire dans ce tournoi');
 
 			$tt = new teamtournament(['id' => $filteredinputs['ttid']]);
 			// On récupère la team visée en db
@@ -222,21 +223,22 @@ class tournoiController extends template {
 
 			// on vérifie que l'utilisateur peut bien s'inscrire ds cette team
 			if(!canUserRegisterToTeamTournament($this->getConnectedUser(), $matchedTournament, $tt))
-				$this->echoJSONerror('problème d\'équipe', 'vous ne pouvez pas vous inscrire dans cette équipe');
+				$this->echoJSONerror('', 'vous ne pouvez pas vous inscrire dans cette équipe');
 
 			// On peut désormais enregistrer l'user dans la team
-			$rm->mirrorObject = new register([
+			$register = new register([
 				'status' => 1,
 				'idTeamTournament' => $tt->getId(),
 				'idUser' => $this->getConnectedUser()->getId(),
 				'idTournament' => $matchedTournament->getId()
 			]);
-			if($rm->create() !== FALSE){
+			$rm->mirrorObject = $register;
+			if($rm->create()){
 				echo json_encode(["success" => "Vous avez été inscrit au tournoi ".$matchedTournament->getName()]);
 				return;
 			}
 			else
-				$this->echoJSONerror("enregistrement", "problème lors de votre inscription au tournoi " . $matchedTournament->getName());
+				$this->echoJSONerror("", "problème lors de votre inscription au tournoi '" . $matchedTournament->getName()."'");
 		}
 	}
 
