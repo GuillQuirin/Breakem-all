@@ -17,7 +17,7 @@
 
 					//Affichage
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg() . "'></div></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-nom-g'>" . $jeu->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-type-g'>" . $jeu->getNameType() . "</span></div></div>";
 					//Fin 
@@ -54,16 +54,28 @@
 									    echo "<label for='nom'>Nom :</label>";
 									    echo "<label for='scription'>Description :</label>";
 									    echo "<label for='year'>Année :</label>";
-									    echo "<label for='type'>Type :</label>";
+									    echo "<label for='idType'>Type :</label>";
 								    echo "</div>";
 								    //Input
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden jeu-id-p' value='" . $jeu->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w jeu-nom-p' name='nom' type='text' value='" . $jeu->getName() . "'>";
+										echo "<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value='" . $jeu->getName() . "'>";
 										echo "<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" . $jeu->getDescription() . "</textarea>";
 										echo "<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text' value='" . date('Y', $jeu->getYear()) . "'>";
-										echo "<select>";
-										echo "<option class='input-default admin-form-input-w jeu-type-p' name='type' type='text' value='" . $jeu->getIdType() . "'>";
+										echo "<select class='select-default jeu-idType-p'>";
+											if(isset($listetypejeu)){
+												if(is_array($listetypejeu)){			
+													foreach ($listetypejeu as $lignetj => $tj) {
+														if($tj->getId() == $jeu->getIdType){
+															echo "<option selected value='" . $tj->getId() ."'>" . $tj->getName() . "</option>";
+														}else{
+															echo "<option value='" . $tj->getId() ."'>" . $tj->getName() . "</option>";
+														}
+													}
+												}
+											}else{
+												echo "<option value='0'>Non disponnible</option>";
+											}
 										echo "</select>";
 									echo "</div>";
 									//Submit

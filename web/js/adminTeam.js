@@ -129,18 +129,18 @@ var teamModule = {
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
-				if(status){
+				if(status)
 					allData.status = status;
-				}
-				if(name){
+				
+				if(name)
 					allData.name = name;
-				}
-				if(slogan){
+				
+				if(slogan)
 					allData.slogan = slogan;
-				}
-				if(description){
+				
+				if(description)
 					allData.description = description;
-				}
+				
 
 				console.log(allData);
 

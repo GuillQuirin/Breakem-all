@@ -129,12 +129,12 @@ var platformModule = {
 
 				allData.id = id;
 
-				if(name){
+				if(name)
 					allData.name = name;
-				}
-				if(description){
+				
+				if(description)
 					allData.description = description;
-				} 
+				
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {

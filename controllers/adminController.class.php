@@ -57,8 +57,12 @@ class adminController extends template{
         $gameBDD = new gameManager();
         $listegames = $gameBDD->getAllGames();
 
+        $gametypeBDD = new typegameManager();
+        $listgametype = $gametypeBDD->getAllTypes();
+
         $v = new view();
         $v->assign("listejeu",$listegames);
+        $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/games", "templateEmpty");
     }
 
@@ -156,7 +160,7 @@ class adminController extends template{
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING,
             'img' => FILTER_SANITIZE_STRING                     
-        );                                        
+        );                                            
 
         $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
@@ -561,6 +565,34 @@ class adminController extends template{
         else
             return null;
     }
+
+    public function updateGamesDataAction(){
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'];
+        }
+        else {                        
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_FILES['file']['name']);
+        }  
+
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'year' => FILTER_VALIDATE_INT,
+            'idType' => FILTER_VALIDATE_INT,
+            'img' => FILTER_SANITIZE_STRING                     
+        );                                            
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $Bdd = new gameManager();
+        $game = $Bdd->getGameById($filteredinputs['id']);
+        $gameMaj = new game($filteredinputs);
+        
+        if($Bdd->setGame($game, $gameMaj))
+            echo "OK";
+    }
+
 
     /* COMMENTAIRE */
 
