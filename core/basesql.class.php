@@ -64,7 +64,7 @@ abstract class basesql{
 	protected function save(){
 		$sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($this->columns)).")
 		VALUES (:".implode(",:", array_keys($this->columns)).")";
-		echo $sql;
+
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
 		foreach($this->columns as $key => $value)

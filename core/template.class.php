@@ -60,7 +60,7 @@ class template{
   }
   public function acceptCookieAction(){
     setcookie(AUTORISATION, 1, time()+(60*60*24*30), "/");
-    echo json_encode(["success"=>true]);
+    //echo json_encode(["success"=>true]);
     exit;
   }
 
@@ -159,7 +159,7 @@ class template{
 
     }
 
-    echo json_encode($data);
+    //echo json_encode($data);
   }
 
   public function deconnectionAction(){
@@ -173,11 +173,13 @@ class template{
       setcookie(COOKIE_TOKEN, null, -1, "/");
       setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
-      echo json_encode(["connected" => false]);
+      //echo json_encode(["connected" => false]);
     }
     // exit;
   }
 
+  /*
+  Fonction inutilisée
   public function getForm(){
     return [
       "options" =>[ "method"=>"POST", "action" => "", "submit"=>"Enregistrer"],
@@ -188,11 +190,12 @@ class template{
         "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
       ]
     ];
-  }
+  }*/
 
   protected function echoJSONerror($name = '', $msg){
-    if( strlen(trim($name)) > 0)
+    if(strlen(trim($name)) > 0)
       $name = $name .' : ';
+    
     $data['errors'] = $name.$msg;
     echo json_encode($data);
     flush();
@@ -292,8 +295,10 @@ class template{
 
     else{
       $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+      
       if(!$date)
         $this->echoJSONerror('date', 'Impossible de récupérer la date.');
+      
       $finalArr['birthday'] = date_timestamp_get($date);
     }
 
@@ -320,12 +325,12 @@ class template{
     // On check l'utilisation du pseudo
     $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
     if($exist_pseudo)
-     $this->echoJSONerror('pseudo', 'Ce pseudo est déjà utilisé.');
+      $this->echoJSONerror('pseudo', 'Ce pseudo est déjà utilisé.');
 
     // On check celle de l'email
     $exist_email=$userBDD->emailExists($user->getEmail());
     if($exist_email)
-     $this->echoJSONerror('email', 'Cette adresse email est déjà utilisée.');
+      $this->echoJSONerror('email', 'Cette adresse email est déjà utilisée.');
 
     // On enregistre
     $userBDD->mirrorObject = $user;
@@ -338,7 +343,7 @@ class template{
     //Appel de la methode d'envoi du mail
     $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);
 
-    echo json_encode(['success' => true]);
+    //echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
 }
