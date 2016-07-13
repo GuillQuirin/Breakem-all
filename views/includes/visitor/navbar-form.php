@@ -20,7 +20,7 @@
 		<div id="subscribe-form" class="grid-md-4 inscription_rapide animation fadeDown">
 			<form id="inscription-form">
 			    <label for="pseudo">Pseudo :</label>
-			    <input class="input-default" type="text" id="pseudo" name="pseudo" maxlength="25" placeholder="Champ limité à 25 caractères" required>
+			    <input class="input-default" type="text" id="pseudo" name="pseudo" maxlength="15" placeholder="Champ limité à 15 caractères" required>
 
 			    <label for="email">E-mail :</label>
 			    <input class="input-default" type="email" id="email" name="email" placeholder="Un email de confirmation vous sera envoyé." required>
@@ -37,7 +37,7 @@
 					</span>
 				</p>
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu" required><label for="cgu">
-			    Vous acceptez les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> du site Break'em All</label>
+			    J'accepte les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> du site Break'em All</label>
 			   
 			    <button type="button" class="btn btn-pink index-form-submit"><a>S'inscrire et jouer</a></button>
 	  		</form>

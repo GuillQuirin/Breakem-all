@@ -154,7 +154,7 @@ class template{
         $this->echoJSONerror("user", "Vous avez été banni du site.");
       }
       else{
-       $this->echoJSONerror("user", "Vos identifiants ne correpondent pas.");
+       $this->echoJSONerror("user", "Vos identifiants ne correspondent pas.");
       }
 
     }
@@ -247,17 +247,16 @@ class template{
   }
 
   private function checkInscriptionInputs(){
-    // Imposer un FILTER_VALIDATE_INT sur les day/month/year suppriment les valeurs numeriques ayant un 0 devant
-    // Genre 09 --> part au carton alors que 9 passe trql
-    //  --> SOLUTION --> FILTER_SANITIZE_STRING sur les chiffres attendus puis cast des valeurs en int
+    // Imposer un FILTER_VALIDATE_INT sur les day/month/year afin de conserver le 0 devant, puis cast des valeurs en int
     $args = array(
       'pseudo'     => FILTER_SANITIZE_STRING,
       'email'   => FILTER_VALIDATE_EMAIL,
       'password'   => FILTER_SANITIZE_STRING,
       'password_check'   => FILTER_SANITIZE_STRING,
-      'day'   => FILTER_VALIDATE_INT,     
-      'month'   => FILTER_VALIDATE_INT,     
-      'year'   => FILTER_VALIDATE_INT     
+      'day'   => FILTER_SANITIZE_STRING,     
+      'month'   => FILTER_SANITIZE_STRING,     
+      'year'   => FILTER_SANITIZE_STRING,
+      'cgu' => FILTER_VALIDATE_BOOLEAN   
     );
     $filteredinputs = filter_input_array(INPUT_POST, $args);
     $finalArr = [];
@@ -276,12 +275,10 @@ class template{
       $finalArr['pseudo']=trim($filteredinputs['pseudo']);
 
     //Password
-    /*#############################################
-                    -----  TODO -----
-      VERIFIER UN MINIMUM LA COMPLEXITE DU PASSWORD
-    */#############################################
     if($filteredinputs['password']!==$filteredinputs['password_check'])
-      $this->echoJSONerror('password', 'votre pseudo doit faire entre 2 et 15 caracteres');
+      $this->echoJSONerror('password', 'Les mots de passe doivent être les mêmes.');
+    else if(strlen($filteredinputs['password'])<6)
+      $this->echoJSONerror('password', 'Votre mot de passe doit faire 6 caractères minimum.');
     else
       $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
@@ -291,14 +288,19 @@ class template{
     $filteredinputs['year'] = (int) $filteredinputs['year'];
     
     if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-      $this->echoJSONerror('date', 'La date reçue a fail !');
+      $this->echoJSONerror('date', 'La date reçue est incorrect.');
 
     else{
       $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
       if(!$date)
-        $this->echoJSONerror('date', 'La date reçue a fail !');
+        $this->echoJSONerror('date', 'Impossible de récupérer la date.');
       $finalArr['birthday'] = date_timestamp_get($date);
     }
+
+    //CGU
+    if(!$filteredinputs['cgu'])
+      $this->echoJSONerror('cgu', 'Vous devez valider les conditions d\'utilisation du site.');
+
     return $finalArr; 
   }
 
@@ -313,19 +315,17 @@ class template{
     $checkedDatas['token'] = $token;
 
     $user = new user($checkedDatas);
-
-    // C'est avec cet objet qu'on utilisera les fonctions d'interaction avec la base de donnees
     $userBDD = new userManager();
 
     // On check l'utilisation du pseudo
     $exist_pseudo=$userBDD->pseudoExists($user->getPseudo());
     if($exist_pseudo)
-     $this->echoJSONerror('pseudo', 'ce pseudo est déjà utilisé');
+     $this->echoJSONerror('pseudo', 'Ce pseudo est déjà utilisé.');
 
     // On check celle de l'email
     $exist_email=$userBDD->emailExists($user->getEmail());
     if($exist_email)
-     $this->echoJSONerror('email', 'cet email est déjà utilisé');
+     $this->echoJSONerror('email', 'Cette adresse email est déjà utilisée.');
 
     // On enregistre
     $userBDD->mirrorObject = $user;

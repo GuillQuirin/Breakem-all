@@ -63,7 +63,7 @@ function uploadImage(myController, data) {
             data: form_data,                         
             type: 'post',
             success: function(data){
-                console.log("Image uploadé.");
+                //console.log("Image uploadé.");
             },
             error: function(data){
                 console.log(data);
@@ -236,7 +236,7 @@ var webpath = {
 		}
 		else{
 			webpath._path = false;
-			console.log("couldn't find webpath !");
+			console.log("Couldn't find webpath !");
 		}
 	}
 };
@@ -307,7 +307,7 @@ var popup = {
 	init: function(message){		
 		if(message){
 			if(popup.animationOnGoing){
-				console.log("animation popup deja en cours");
+				console.log("Animation popup déjà en cours.");
 				return;
 			}
 			var container = $('<div class="index-modal-popup display-flex-column animation fade"></div>');
@@ -320,7 +320,7 @@ var popup = {
 			popup.closeOldPopup(container, popdivContainer);
 		}
 		else
-			console.log("aucun contenu reçu dans popup init");
+			console.log("Aucun contenu reçu dans popup init.");
 	},
 	openNewPopup: function(jQModal, jQMsg){
 		$('body').css('overflow', 'hidden');
@@ -653,7 +653,7 @@ var inscription = {
 			return true;
 		}
 		inscription.highlightInput(jQEmail);
-		console.log("email fail");
+		console.log("Le format de l'email est invalide.");
 		return false;
 	},
 	isPseudoValid: function(){
@@ -661,7 +661,7 @@ var inscription = {
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPseudo.val().match(unauthorizedChars) || jQPseudo.val().length == 0){
 			inscription.highlightInput(jQPseudo);
-			console.log("peudo fail");
+			console.log("Le pseudo ne doit contenir que des caractères alphanumériques.");
 			return false;
 		}
 		return true;
@@ -670,7 +670,7 @@ var inscription = {
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
 			inscription.highlightInput(jQPassword);
-			console.log("pass fail");
+			console.log("Mot de passe au mauvais format");
 			return false;
 		}
 		return true;
@@ -699,11 +699,11 @@ var inscription = {
 			// if they match then the date is valid
 			if ( mon == m && yr == y && day == d )
 				return true;
-			console.log("birth fail");
+			console.log("La date de naissance n'est pas valide.");
 			return false;
 		}
 		catch(e) {
-			console.log("birth fail");
+			console.log("La date de naissance est invalide.");
 			return false;
 		}
 		
@@ -719,7 +719,7 @@ var inscription = {
 	doPasswordsMatch: function(){
 		if(inscription.getPassToWatch().val() == inscription.getPassCheckToWatch().val())
 			return true;
-		console.log("passwords don't match");
+		console.log("Les mots de passe ne correspondents pas entre eux.");
 		return false;
 	},
 	highlightInput: function(jQinput){
@@ -792,7 +792,8 @@ var inscription = {
 					    password_check	: inscription.getPassCheckToWatch().val(),
 					    day				: inscription.getDayToWatch().val(),
 					    month			: inscription.getMonthToWatch().val(),
-					    year			: inscription.getYearToWatch().val()
+					    year			: inscription.getYearToWatch().val(),
+					    cgu				: inscription.getCguToWatch().val()
 					},
 					inscription.sendEventCallback
 				);
