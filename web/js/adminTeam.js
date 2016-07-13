@@ -138,7 +138,7 @@ var teamModule = {
 			        if(file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
