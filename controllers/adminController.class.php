@@ -21,8 +21,8 @@ class adminController extends template{
 
     /* Gère la vue de Membres */
     public function membresViewAction(){
-        $admin = new adminManager();
-        $listejoueurs = $admin->getListUser();  
+        $admin = new userManager();
+        $listejoueurs = $admin->getAdminListUser();  
 
         $v = new view();
         $v->assign("listejoueurs",$listejoueurs);
@@ -522,7 +522,7 @@ class adminController extends template{
             $args = array(
                 //'id' => FILTER_VALIDATE_INT,
                 'name' => FILTER_SANITIZE_STRING,
-                'description' => FILTER_SANITIZE_STRING
+                'description' => FILTER_SANITIZE_STRING,
                 'year' => FILTER_SANITIZE_STRING,
                 'idType' => FILTER_VALIDATE_INT,
             );

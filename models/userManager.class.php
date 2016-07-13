@@ -212,6 +212,7 @@ class userManager extends basesql{
 
 	
 	/*RECUPERATION DE TOUS LES USER*/
+	//Public
 	public function getAllUser(){
 		
 		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
@@ -233,6 +234,30 @@ class userManager extends basesql{
 		return (count($list) > 0) ? $list : false;
 	}
 
+	//Administration
+	public function getAdminListUser(){
+		$sql="SELECT user.id, user.name, user.firstname, user.pseudo, user.password,
+						user.birthday, user.description, user.kind, user.city, 
+						user.email, user.status, user.authorize_mail_contact,
+						user.img, user.idTeam, user.isConnected, user.lastConnexion,
+						COUNT(id_signaled_user) as reportNumber
+					FROM user 
+					LEFT JOIN signalmentsuser 
+							ON user.id = signalmentsuser.id_signaled_user 
+					GROUP BY user.id";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets user
+			$list[] = new user($query);
+
+		return $list;
+	}	
+
+
+	/*MODIFICATION DE LA TEAM */
 	public function setNewTeamId($u, $t){
 		$sql = "UPDATE user SET idTeam = :idTeam WHERE id = :id";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
