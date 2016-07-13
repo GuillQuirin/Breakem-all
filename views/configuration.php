@@ -116,7 +116,7 @@
 									<span class="index-input-default-date">
 										<input class="input-default" type="number" name="day"   placeholder="dd" min="1" max="31" value="<?php echo (isset($_birthday)) ? date('d', $_birthday) : '' ?>">
 										<input class="input-default" type="number" name="month" placeholder="mm" min="1" max="12" value="<?php echo (isset($_birthday)) ? date('m', $_birthday) : '' ?>">
-										<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="2016" value="<?php echo (isset($_birthday)) ? date('Y', $_birthday) : '' ?>">
+										<input class="input-default" type="number" name="year"  placeholder="yyyy" min="1950" max="<?php echo date('Y'); ?>" value="<?php echo (isset($_birthday)) ? date('Y', $_birthday) : '' ?>">
 									</span>
 								</td>
 							</tr>

@@ -93,7 +93,7 @@ if(isset($tournoi)){
 									<span class="index-input-default-date">
 										<input class="input-default" type="number" name="Dday"   placeholder="dd" min="1" max="31" value="<?php echo  date('d', $tournoi->getStartDate()); ?>" <?php echo $verrouillage; ?>>
 										<input class="input-default" type="number" name="Dmonth" placeholder="mm" min="1" max="12" value="<?php echo  date('m', $tournoi->getStartDate()); ?>" <?php echo $verrouillage; ?>>
-										<input class="input-default" type="number" name="Dyear"  placeholder="yyyy" min="1950" max="2016" value="<?php echo  date('Y', $tournoi->getStartDate()); ?>" <?php echo $verrouillage; ?>>
+										<input class="input-default" type="number" name="Dyear"  placeholder="yyyy" min="1950" max="<?php echo date('Y'); ?>" value="<?php echo  date('Y', $tournoi->getStartDate()); ?>" <?php echo $verrouillage; ?>>
 									</span>
 								</td>
 							</tr>
