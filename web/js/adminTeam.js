@@ -205,7 +205,7 @@ var teamModule = {
 
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.team-img-up').attr('src', allData.img);	
+							updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img);	
 						}	
 						navbar.form.smoothClosing();				
 					},
