@@ -193,7 +193,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updateMembresData", 
+				            url: "admin/updateUser", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -215,7 +215,7 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updateMembresData", 
+					url: "admin/updateUser", 
 					type: "POST",
 					data: allData,
 					success: function(result){

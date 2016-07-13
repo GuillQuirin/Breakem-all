@@ -299,7 +299,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
         }  
         
         $args = array(
@@ -308,7 +308,7 @@ class adminController extends template{
            'description' => FILTER_SANITIZE_STRING,
            'email' => FILTER_SANITIZE_STRING,
            'status' => FILTER_VALIDATE_INT,
- 	   'day'   => FILTER_SANITIZE_STRING,     
+ 	       'day'   => FILTER_SANITIZE_STRING,     
            'month'   => FILTER_SANITIZE_STRING,     
            'year'   => FILTER_SANITIZE_STRING,   
            'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
@@ -337,47 +337,27 @@ class adminController extends template{
             move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre" . $_FILES['file']['name']);
         }  
 
-                $uploaddir = '/web/img/upload/';
-                $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getPseudo().'.jpg';
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+        var_dump($filteredinputs);
+        //Date de naissance
+        $filteredinputs['month'] = (int) $filteredinputs['month'];
+        $filteredinputs['day'] = (int) $filteredinputs['day'];
+        $filteredinputs['year'] = (int) $filteredinputs['year'];
+        
+        if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+          $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+          $filteredinputs['birthday'] = date_timestamp_get($date);
+        }
 
-                define('KB', 1024);
-                define('MB', 1048576);
-                define('GB', 1073741824);
-                define('TB', 1099511627776);
-
-                if($_FILES['profilpic']['size'] < 3*MB){
-                    if($_FILES['profilpic']['error']==0){
-                        if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-                           $_SESSION['err_img_upload']=1;
-                    }
-                }
-                else
-                    $_SESSION['err_img_size']=1;
-
-                $filteredinputs['img'] = $this->getConnectedUser()->getPseudo().'.jpg';
+        $userBdd = new userManager();
+        $user = $userBdd->getIdUser($filteredinputs['id']);
+        $newUser = new user($filteredinputs);
+        
+        if($userBdd->setUser($user, $newUser)){
+            //Déconnexion automatique du membre banni
+            if($filteredinputs['status']==-1)
+                $userBDD->disconnecting($user);
             }
-
-            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-            var_dump($filteredinputs);
-            //Date de naissance
-            $filteredinputs['month'] = (int) $filteredinputs['month'];
-            $filteredinputs['day'] = (int) $filteredinputs['day'];
-            $filteredinputs['year'] = (int) $filteredinputs['year'];
-            
-            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
-              $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-              $filteredinputs['birthday'] = date_timestamp_get($date);
-            }
-
-            $userBdd = new userManager();
-            $user = $userBdd->getIdUser($filteredinputs['id']);
-            $newUser = new user($filteredinputs);
-            
-            if($userBdd->setUser($user, $newUser)){
-                //Déconnexion automatique du membre banni
-                if($filteredinputs['status']==-1)
-                    $userBDD->disconnecting($user);
-                }
         }
 
         //Bannissement
