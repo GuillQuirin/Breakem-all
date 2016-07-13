@@ -294,12 +294,15 @@ class adminController extends template{
             $args = array(
                'id' => FILTER_VALIDATE_INT,
                'pseudo' => FILTER_SANITIZE_STRING,
-               'birthday' => FILTER_VALIDATE_INT,
                'description' => FILTER_SANITIZE_STRING,
                'email' => FILTER_SANITIZE_STRING,
                'status' => FILTER_VALIDATE_INT,
+               'day'   => FILTER_SANITIZE_STRING,     
+               'month'   => FILTER_SANITIZE_STRING,     
+               'year'   => FILTER_SANITIZE_STRING,   
                'authorize_mail_contact' => FILTER_VALIDATE_INT
             );                                     
+
 
             if(isset($_FILES['file']['error'])){
                 if ( 0 < $_FILES['file']['error'] ) {
@@ -330,6 +333,16 @@ class adminController extends template{
             }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+            //var_dump($filteredinputs);
+            //Date de naissance
+            $filteredinputs['month'] = (int) $filteredinputs['month'];
+            $filteredinputs['day'] = (int) $filteredinputs['day'];
+            $filteredinputs['year'] = (int) $filteredinputs['year'];
+            
+            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+              $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+              $filteredinputs['birthday'] = date_timestamp_get($date);
+            }
 
             $userBdd = new userManager();
             $user = $userBdd->getIdUser($filteredinputs['id']);
@@ -433,7 +446,7 @@ class adminController extends template{
                 }
                 $filteredinputs['img'] = $this->getConnectedUser()->getName().'.jpg';
             }
-            var_dump($filteredinputs);
+            //var_dump($filteredinputs);
             $typegameBDD = new typegameManager();
             $typegameBDD->mirrorObject = new typegame($filteredinputs);
             if($typegameBDD->create())

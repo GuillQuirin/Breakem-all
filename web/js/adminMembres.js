@@ -124,7 +124,9 @@ var membreModule = {
 				var id = subBtn.find('.membre-id-p').val();
 				var name = subBtn.find('.membre-nom-p').val();
 				var firstname = subBtn.find('.membre-prenom-p').val();
-				var birthday = subBtn.find('.membre-birthday-p').val();
+				var day = subBtn.find('.membre-birthday-D').val();
+				var month = subBtn.find('.membre-birthday-M').val();
+				var year = subBtn.find('.membre-birthday-Y').val();
 				var kind = subBtn.find('.membre-kind-p').val();
 				var description = subBtn.find('.membre-description-p').val();
 				var city = subBtn.find('.membre-city-p').val();
@@ -149,8 +151,14 @@ var membreModule = {
 				if(pseudo){
 					allData.pseudo = pseudo;
 				}
-				if(birthday){
-					allData.birthday = birthday;
+				if(day){
+					allData.day = day;
+				}
+				if(month){
+					allData.month = month;
+				}
+				if(year){
+					allData.year = year;
 				}
 				if(description){
 					allData.description = description;
@@ -214,7 +222,8 @@ var membreModule = {
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
-						 console.log(allData);
+						console.log(allData);
+						//console.log(result);
 						var myStatus;
 						//Reload la mise a jour dans l'html
 						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
@@ -350,7 +359,9 @@ var membreModule = {
 				var subBtn = jQuery(ev.currentTarget).parent().parent();
 				var name = subBtn.find('.membre-nom-p').val();
 				var firstname = subBtn.find('.membre-prenom-p').val();
-				var birthday = subBtn.find('.membre-birthday-p').val();
+				var day = subBtn.find('.membre-birthday-D').val();
+				var month = subBtn.find('.membre-birthday-M').val();
+				var year = subBtn.find('.membre-birthday-Y').val();
 				var kind = subBtn.find('.membre-kind-p').val();
 				var description = subBtn.find('.membre-description-p').val();
 				var city = subBtn.find('.membre-city-p').val();
@@ -370,7 +381,9 @@ var membreModule = {
 				allData.name = name ? name : null;
 				allData.firstname = firstname ? firstname : null;
 				allData.pseudo = pseudo ? pseudo : null;
-				allData.birthday = birthday ? birthday : null;
+				allData.day = day ? day : null;
+				allData.month = month ? month : null;
+				allData.year = year ? year : null;
 				allData.description = description ? description : null;
 				allData.kind = kind ? kind : null;
 				allData.city = city ? city : null;
