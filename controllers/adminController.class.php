@@ -127,7 +127,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
         }
 
         $args = array(
@@ -148,7 +148,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
         }  
 
         $args = array(
@@ -241,7 +241,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_FILES['file']['name']);
         }  
 
         $args = array(
@@ -269,7 +269,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
         }  
         
         $args = array(
@@ -305,7 +305,7 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/" . $_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
         }  
 
       $args = array(
