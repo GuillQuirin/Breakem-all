@@ -223,6 +223,9 @@ var membreModule = {
 						    case -1:
 						        myStatus = "Banni";
 						        break;
+						    case 0:
+						    	myStatus = "Attente de validation";
+						    	break;
 						    case 1:
 						        myStatus = "Utilisateur";
 						        break;
