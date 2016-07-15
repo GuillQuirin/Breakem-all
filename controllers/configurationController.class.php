@@ -152,7 +152,7 @@ class configurationController extends template{
 
 		if(isset($_FILES['profilpic'])){
 
-			$uploaddir = '/web/img/upload/';
+			$uploaddir = '/web/img/upload/membre/';
 			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getPseudo().'.jpg';
 
 			define('KB', 1024);

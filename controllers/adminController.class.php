@@ -435,7 +435,7 @@ class adminController extends template{
             
             if(isset($_FILES['profilpic'])){
 
-                $uploaddir = '/web/img/';
+                $uploaddir = '/web/img/upload/typejeux/';
                 $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
 
                 define('KB', 1024);
@@ -490,7 +490,7 @@ class adminController extends template{
             
             if(isset($_FILES['profilpic'])){
 
-                $uploaddir = '/web/img/';
+                $uploaddir = '/web/img/upload/typejeux/';
                 $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
 
                 define('KB', 1024);
