@@ -112,7 +112,8 @@
 								    echo "<div class='grid-md-6'>";
 										//Label
 										echo "<div class='grid-md-5 text-left'>";
-											echo "<label for='status'>Status :</label>";
+											if($joueur->getId()!==$_id)
+												echo "<label for='status'>Status :</label>";
 											echo "<label for='mailContact'>Me contacter :</label>";
 											echo "<label for='description'>Description :</label>";	
 										echo "</div>";
@@ -120,17 +121,19 @@
 										echo "<div class='grid-md-7'>";
 											echo "<input class='membre-id-p hidden' value='" . $joueur->getId() . "'>";
 											
-											echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
-												echo "<option value='-1'";
-													echo ($joueur->getStatus()==-1) ? " selected " : " "; 
-												echo ">Banni</option>
-												<option value='1'";
-													echo ($joueur->getStatus()==1) ? " selected " : " ";
-												echo ">Utilisateur</option>
-												<option value='3'";
-													echo ($joueur->getStatus()==3) ? " selected " : " ";
-												echo ">Administrateur</option>";
-											echo "</select>";
+											if($joueur->getId()!==$_id){
+												echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
+													echo "<option value='-1'";
+														echo ($joueur->getStatus()==-1) ? " selected " : " "; 
+													echo ">Banni</option>
+													<option value='1'";
+														echo ($joueur->getStatus()==1) ? " selected " : " ";
+													echo ">Utilisateur</option>
+													<option value='3'";
+														echo ($joueur->getStatus()==3) ? " selected " : " ";
+													echo ">Administrateur</option>";
+												echo "</select>";
+											}
 
 											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
 												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? "checked=checked>" : ">";
