@@ -21,7 +21,7 @@
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-name-g'>" . $team->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-slogan-g'>" . $team->getSlogan() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-status-g'><div class='align team-status-g-ht'>";
-						if($team->getStatus() == 0){
+						if($team->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
@@ -62,7 +62,7 @@
 										    echo "<label for='name'>Nom :</label>";
 										    echo "<label for='slogan'>Slogan :</label>";
 										    echo "<label for='description'>Description :</label>";
-										    echo "<label for='status'>Vérouiller :</label>";
+										    echo "<label for='status'>Verrouiller :</label>";
 									    echo "</div>";
 									    //Input
 									    echo "<div class='grid-md-8'>";
@@ -71,8 +71,8 @@
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
 											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
 											
-											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default team-status-p' name='status' required type='checkbox' ";
-												echo ($team->getStatus()!==NULL  && $team->getStatus()==1) ? "checked=checked>" : ">";
+											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default team-status-p' id='team-status-p' name='status' required type='checkbox' ";
+												echo ($team->getStatus()!==NULL  && $team->getStatus()==-1) ? "checked=checked>" : ">";
 											echo "<label class='ajusted-checkbox-label' for='status' style='color: rgba(8,3,37,1);'>.</label></span></div>";								
 										echo "</div>";
 									echo "</div>";

@@ -130,10 +130,9 @@ var teamModule = {
 
 			submitBtn.on("click", function(){
 				var id = updateBtn.parent().parent().find('.team-id-p').val();
-				var status = updateBtn.parent().parent().find('.team-status-p').val();
-				var status = 0;
-				if(updateBtn.parent().parent().find('.team-status-p').is(':checked')){
-					status = 1;
+				var status = 1;
+				if(!jQuery('#team-status-p').is(':checked')){
+					status = -1;
 				}
 				var name = updateBtn.parent().parent().find('.team-name-p').val();
 				var slogan = updateBtn.parent().parent().find('.team-slogan-p').val();
@@ -200,6 +199,7 @@ var teamModule = {
 					data: allData,
 					success: function(result){
 						console.log("Team mise à jour");
+						console.log(result);
 						console.log(allData);
 						
 						//Reload la mise a jour dans l'html
@@ -207,7 +207,7 @@ var teamModule = {
 						if(allData.description){ updateBtn.parent().parent().find('.team-description-g').html(description); }
 						if(allData.slogan){ updateBtn.parent().parent().find('.team-slogan-g').html(slogan); }
 
-						if(allData.status == 0){
+						if(allData.status == 1){
 							updateBtn.parent().parent().find('.team-status-g-ht').html(
 								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
 							); 
