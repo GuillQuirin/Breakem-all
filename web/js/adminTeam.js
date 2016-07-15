@@ -9,8 +9,10 @@ var teamModule = {
 		teamModule.setPreviewInput();
 		teamModule.setImgWrapper();
 		teamModule.setAdminDataRe();
+		teamModule.setToggleCheck();
 
 		//Preview
+		teamModule.toggleCheck();
 		teamModule.previewImg();
 
 		//CRUD
@@ -19,6 +21,9 @@ var teamModule = {
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -39,6 +44,9 @@ var teamModule = {
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -59,6 +67,11 @@ var teamModule = {
 	},
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
+	},
+	toggleCheck : function(){
+		teamModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.team-status-p').prop("checked", !jQuery('.team-status-p').prop("checked"));
+		});
 	},
 	//Preview
 	previewImg : function(){
@@ -118,6 +131,10 @@ var teamModule = {
 			submitBtn.on("click", function(){
 				var id = updateBtn.parent().parent().find('.team-id-p').val();
 				var status = updateBtn.parent().parent().find('.team-status-p').val();
+				var status = 0;
+				if(updateBtn.parent().parent().find('.team-status-p').is(':checked')){
+					status = 1;
+				}
 				var name = updateBtn.parent().parent().find('.team-name-p').val();
 				var slogan = updateBtn.parent().parent().find('.team-slogan-p').val();
 				var description = updateBtn.parent().parent().find('.team-description-p').val();
@@ -126,6 +143,7 @@ var teamModule = {
 				var allData = {};
 
 				allData.id = id;
+				allData.status = status;
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
@@ -141,9 +159,6 @@ var teamModule = {
 				if(description)
 					allData.description = description;
 				
-
-				console.log(allData);
-
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
 			           
@@ -185,22 +200,23 @@ var teamModule = {
 					data: allData,
 					success: function(result){
 						console.log("Team mise à jour");
+						console.log(allData);
+						
 						//Reload la mise a jour dans l'html
 						if(allData.name){ updateBtn.parent().parent().find('.team-name-g').html(name); }
 						if(allData.description){ updateBtn.parent().parent().find('.team-description-g').html(description); }
 						if(allData.slogan){ updateBtn.parent().parent().find('.team-slogan-g').html(slogan); }
 
-						if(allData.status){ 
-							if(status == 0){
-								updateBtn.parent().parent().find('.team-slogan-g-ht').html(
-									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
-								); 
-							}else{
-								updateBtn.parent().parent().find('.team-slogan-g > align').html(
-									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
-								); 
-							}
+						if(allData.status == 0){
+							updateBtn.parent().parent().find('.team-status-g-ht').html(
+								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+							); 
+						}else{
+							updateBtn.parent().parent().find('.team-status-g-ht').html(
+								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+							); 
 						}
+						
 
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){

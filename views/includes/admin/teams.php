@@ -20,11 +20,11 @@
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round team-img-up' src='" . $team->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-name-g'>" . $team->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-slogan-g'>" . $team->getSlogan() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-status-g'><div class='align team-slogan-g-ht'>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize team-status-g'><div class='align team-status-g-ht'>";
 						if($team->getStatus() == 0){
-							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
-						}else{
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
+						}else{
+							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
 						}
 					echo "</div></span></div></div>";
 					//Fin Affichage
@@ -62,7 +62,7 @@
 										    echo "<label for='name'>Nom :</label>";
 										    echo "<label for='slogan'>Slogan :</label>";
 										    echo "<label for='description'>Description :</label>";
-										    echo "<label for='status'>Status :</label>";
+										    echo "<label for='status'>Vérouiller :</label>";
 									    echo "</div>";
 									    //Input
 									    echo "<div class='grid-md-8'>";
@@ -70,10 +70,10 @@
 											echo "<input class='input-default admin-form-input-w team-name-p' name='name' type='text' value='" . $team->getName() . "'>";
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
 											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
-											echo "<select class='select-default team-status-p'>";
-												echo "<option value='0'>Vérouiller</option>";
-												echo "<option value='1'>Dévérouiller</option>";
-											echo "</select>";										
+											
+											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default team-status-p' name='status' required type='checkbox' ";
+												echo ($team->getStatus()!==NULL  && $team->getStatus()==1) ? "checked=checked>" : ">";
+											echo "<label class='ajusted-checkbox-label' for='status' style='color: rgba(8,3,37,1);'>.</label></span></div>";								
 										echo "</div>";
 									echo "</div>";
 									//Submit

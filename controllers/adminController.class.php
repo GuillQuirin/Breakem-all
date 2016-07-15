@@ -272,22 +272,23 @@ class adminController extends template{
             move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_FILES['file']['name']);
         }  
 
-            $args = array(
-                'id' => FILTER_SANITIZE_STRING,
-                'name' => FILTER_SANITIZE_STRING,
-                'description' => FILTER_SANITIZE_STRING,
-                'slogan' => FILTER_SANITIZE_STRING,
-                'status' => FILTER_VALIDATE_INT                    
-            );                                        
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'slogan' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_BOOLEAN,
+            'img' => FILTER_SANITIZE_STRING                    
+        );                                        
 
-            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
-            $teamBdd = new teamManager();
-            $team = $teamBdd->getThisTeam($filteredinputs['id']);
-            $teamMaj = new team($filteredinputs);
-            
-            if($teamBdd->setTeam($team, $teamMaj))
-                echo "OK";
+        $teamBdd = new teamManager();
+        $team = $teamBdd->getThisTeam($filteredinputs['id']);
+        $teamMaj = new team($filteredinputs);
+        
+        if($teamBdd->setTeam($team, $teamMaj))
+            echo "OK";
         }
 
 

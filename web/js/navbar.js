@@ -538,7 +538,7 @@ var navbar = {
         },
         closeFormClick: function(){
         	$('.index-modal-login').on('click', function(e){
-			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.inscription_rapide form, [class*="grid-"] , select, option, .admin-input-file, input, button, label,textarea, p, a, img'))
+			    if(!$(e.target).is('.inscription_rapide') && !$(e.target).is('.relative, .toggleCheck, .inscription_rapide form, [class*="grid-"] , select, option, .admin-input-file, input, button, label,textarea, p, a, img'))
 		   			navbar.form.smoothClosing();
 			});
         },
