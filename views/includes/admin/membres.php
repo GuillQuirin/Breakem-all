@@ -132,9 +132,9 @@
 												echo ">Administrateur</option>";
 											echo "</select>";
 
-											echo "<div class='relative'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
+											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
 												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? "checked=checked>" : ">";
-											echo "<label class='ajusted-checkbox-label' for='authorize_mail_contact'>Me contacter</label></div>";
+											echo "<label class='ajusted-checkbox-label' for='authorize_mail_contact' style='color: rgba(8,3,37,1);'>.</label></span></div>";
 											
 											echo "<textarea class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description'>".$joueur->getDescription()."</textarea>";
 										echo "</div>";								   

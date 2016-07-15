@@ -334,15 +334,24 @@ class adminController extends template{
             echo 'Error: ' . $_FILES['file']['error'];
         }
         else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre" . $_FILES['file']['name']);
-        }  
+            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
+        }   
+        
+        $args = array(
+           'id' => FILTER_VALIDATE_INT,
+           'pseudo' => FILTER_SANITIZE_STRING, 
+           'description' => FILTER_SANITIZE_STRING,
+           'email' => FILTER_SANITIZE_STRING,
+           'status' => FILTER_VALIDATE_INT,
+           'day'   => FILTER_VALIDATE_INT,     
+           'month'   => FILTER_VALIDATE_INT,     
+           'year'   => FILTER_VALIDATE_INT,   
+           'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
+           'img' => FILTER_SANITIZE_STRING
+        );
 
         $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-        var_dump($filteredinputs);
         //Date de naissance
-        $filteredinputs['month'] = (int) $filteredinputs['month'];
-        $filteredinputs['day'] = (int) $filteredinputs['day'];
-        $filteredinputs['year'] = (int) $filteredinputs['year'];
         
         if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
           $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
@@ -357,6 +366,7 @@ class adminController extends template{
             //Déconnexion automatique du membre banni
             if($filteredinputs['status']==-1)
                 $userBDD->disconnecting($user);
+                header('Location : index.php');
             }
         }
 

@@ -8,6 +8,8 @@ window.addEventListener('load', function load(){
 var onglet = {
 	_this: this,
 	init : function(){
+		var myBtn = '<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>';
+
 		//Setter Onglet
 		onglet.setAdminOngletPlatforms();
 		onglet.setAdminOngletMembres();
@@ -44,14 +46,13 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletTournament(), onglet.getAdminTournamentWrapper());
 
 		onglet.getAdminContainer().hide();
-		onglet.getAdminBoard().show();
 
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){
 			onglet.getAdminBoard().hide();	
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html(
-				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+				myBtn
 			);
 			onglet.platformView();
 		});
@@ -81,7 +82,7 @@ var onglet = {
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html(
-				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+				myBtn
 			);
 			onglet.gamesView();
 		});
@@ -90,7 +91,7 @@ var onglet = {
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html(
-				'<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>'
+				myBtn
 			);
 			onglet.typegamesView();
 		});

@@ -9,9 +9,11 @@ var membreModule = {
 		membreModule.setPreviewInput();
 		membreModule.setImgWrapper();
 		membreModule.setAdminDataRe();
+		membreModule.setToggleCheck();
 
 		//Preview
 		membreModule.previewImg();
+		membreModule.toggletCheck();
 
 		//CRUD
 		membreModule.postDataDelete();
@@ -38,8 +40,14 @@ var membreModule = {
 	setImgWrapper : function(){
 		this._imgWrapper = jQuery('.membre-img');
 	},
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -60,6 +68,11 @@ var membreModule = {
 	},
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
+	},
+	toggletCheck : function(){
+		membreModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.membre-mailContact-p').prop("checked", !jQuery('.membre-mailContact-p').prop("checked"));
+		});
 	},
 	//Preview
 	previewImg : function(){
@@ -122,18 +135,17 @@ var membreModule = {
 				var subBtn = updateBtn.parent().parent();
 
 				var id = subBtn.find('.membre-id-p').val();
-				var name = subBtn.find('.membre-nom-p').val();
-				var firstname = subBtn.find('.membre-prenom-p').val();
 				var day = subBtn.find('.membre-birthday-D').val();
 				var month = subBtn.find('.membre-birthday-M').val();
 				var year = subBtn.find('.membre-birthday-Y').val();
-				var kind = subBtn.find('.membre-kind-p').val();
 				var description = subBtn.find('.membre-description-p').val();
-				var city = subBtn.find('.membre-city-p').val();
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
-				var authorize_mail_contact = subBtn.find('.membre-mailContact-p').val();
+				var authorize_mail_contact = 0;
+				if(subBtn.find('.membre-mailContact-p').is(':checked')){
+					authorize_mail_contact = 1;
+				}
 				var myImg = subBtn.find('.admin-input-file > .membre-image-p');
 
 				var allData = {};
@@ -142,42 +154,28 @@ var membreModule = {
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
 				allData.id = id;
 
-				if(name){
-					allData.name = name;
-				}
-				if(firstname){
-					allData.firstname = firstname;
-				}
-				if(pseudo){
+				if(pseudo)
 					allData.pseudo = pseudo;
-				}
-				if(day){
-					allData.day = day;
-				}
-				if(month){
-					allData.month = month;
-				}
-				if(year){
-					allData.year = year;
-				}
-				if(description){
+				
+				if(description)
 					allData.description = description;
-				}
-				if(kind){
-					allData.kind = kind;
-				}
-				if(city){
-					allData.city = city;
-				}
-				if(email){
+				
+				if(email)
 					allData.email = email;
-				}
-				if(status){
+				
+				if(status)
 					allData.status = status;
-				}
-				if(authorize_mail_contact){
-					allData.authorize_mail_contact = authorize_mail_contact;
-				}
+
+				if(day)
+					allData.day = day;
+
+				if(year)
+					allData.year = year;
+
+				if(month)
+					allData.month = month;
+					
+				allData.authorize_mail_contact = authorize_mail_contact;	
 				
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
@@ -193,7 +191,7 @@ var membreModule = {
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updateUser", 
+				            url: "admin/updateMembresData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -215,7 +213,7 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updateUser", 
+					url: "admin/updateMembresData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
