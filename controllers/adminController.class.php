@@ -366,7 +366,7 @@ class adminController extends template{
             //Déconnexion automatique du membre banni
             if($filteredinputs['status']==-1)
                 $userBDD->disconnecting($user);
-                header('Location : index.php');
+                header('Location: '.WEBPATH.'/index');
             }
         }
 
