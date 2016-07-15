@@ -73,7 +73,7 @@
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-profil.png'><span class='form-title'>Membre</span>";
 									echo "</div>";
-									echo "<div class='grid-md-6' style='height:130px;'>";
+									echo "<div class='grid-md-12'>";
 									//Image							    								 
 								    	echo "<div class='membre-form-img-size m-a'>";																	
 											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
@@ -82,7 +82,34 @@
 											echo "<input type='file' class='membre-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-									echo "<div class='grid-md-6'>";
+
+								    echo "<div class='grid-md-6'>";
+									   	
+									   	echo "<div class='grid-md-4 text-left'>";
+									   		//Label
+									   		echo "<label for='pseudo'>Pseudo :</label>";
+									   		echo "<label for='email'>Email :</label>";
+											echo "<label for='birthday'>Birthday :</label>";
+										echo "</div>";
+
+										echo "<div class='grid-md-8'>";
+											//Input
+											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
+										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
+
+											echo "<input class='input-default admin-form-input-w membre-birthday-D' type='number' name='day' placeholder='dd' min='1' max='31'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('d', $joueur->getBirthday())."'>" : ">";
+											
+											echo "<input class='input-default admin-form-input-w membre-birthday-M' type='number' name='month' placeholder='mm' min='1' max='12'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('m', $joueur->getBirthday())."'>" : ">";
+
+											echo "<input class='input-default admin-form-input-w membre-birthday-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
+											echo ($joueur->getBirthday()!==NULL) ? " value='".date('Y', $joueur->getBirthday())."'>" : ">";
+
+										echo "</div>";							 
+								    echo "</div>";
+
+								    echo "<div class='grid-md-6'>";
 										//Label
 										echo "<div class='grid-md-5 text-left'>";
 											echo "<label for='status'>Status :</label>";
@@ -105,37 +132,12 @@
 												echo ">Administrateur</option>";
 											echo "</select>";
 
-											echo "<input class=' select-default membre-mailContact-p checkbox input-default' type='checkbox' name='authorize_mail_contact'";
-												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? 'checked=checked>' : '>';
+											echo "<div class='relative'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
+												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? "checked=checked>" : ">";
+											echo "<label class='ajusted-checkbox-label' for='authorize_mail_contact'>Me contacter</label></div>";
 											
 											echo "<textarea class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description'>".$joueur->getDescription()."</textarea>";
 										echo "</div>";								   
-								    echo "</div>";
-
-								    echo "<div class='grid-md-6'>";
-									   	
-									   	echo "<div class='grid-md-5 text-left'>";
-									   		//Label
-									   		echo "<label for='pseudo'>Pseudo :</label>";
-									   		echo "<label for='email'>Email :</label>";
-											echo "<label for='birthday'>Birthday :</label>";
-										echo "</div>";
-
-										echo "<div class='grid-md-7'>";
-											//Input
-											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
-
-											echo "<input class='input-default admin-form-input-w membre-birthday-D' type='number' name='day' placeholder='dd' min='1' max='31'";
-											echo ($joueur->getBirthday()!==NULL) ? " value='".date('d', $joueur->getBirthday())."'>" : ">";
-											
-											echo "<input class='input-default admin-form-input-w membre-birthday-M' type='number' name='month' placeholder='mm' min='1' max='12'";
-											echo ($joueur->getBirthday()!==NULL) ? " value='".date('m', $joueur->getBirthday())."'>" : ">";
-
-											echo "<input class='input-default admin-form-input-w membre-birthday-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
-											echo ($joueur->getBirthday()!==NULL) ? " value='".date('Y', $joueur->getBirthday())."'>" : ">";
-
-										echo "</div>";							 
 								    echo "</div>";
 								    //Submit
 								    echo "<div class='grid-md-12'>";
