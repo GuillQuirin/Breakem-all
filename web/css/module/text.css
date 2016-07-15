@@ -8,6 +8,10 @@
 	text-align: left;
 }
 
+.underline:hover{
+	text-decoration: underline;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -71,4 +75,8 @@
 
 .green{
 	color:green;
+}
+
+.pink{
+	color:#d82a4b;
 }

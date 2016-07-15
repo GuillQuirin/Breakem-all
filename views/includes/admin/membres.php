@@ -87,7 +87,7 @@
 									   	
 									   	echo "<div class='grid-md-4 text-left'>";
 									   		//Label
-									   		echo "<label for='pseudo'>Pseudo :</label>";
+									   		echo "<a href='".WEBPATH.'/profil?pseudo='.$joueur->getPseudo()."'><label class='underline pink cursor-pointer' for='pseudo'>Pseudo :</label></a>";
 									   		echo "<label for='email'>Email :</label>";
 											echo "<label for='birthday'>Birthday :</label>";
 										echo "</div>";
