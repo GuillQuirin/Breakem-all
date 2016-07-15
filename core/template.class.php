@@ -60,7 +60,7 @@ class template{
   }
   public function acceptCookieAction(){
     setcookie(AUTORISATION, 1, time()+(60*60*24*30), "/");
-    //echo json_encode(["success"=>true]);
+    echo json_encode(["success"=>true]);
     exit;
   }
 
@@ -159,7 +159,7 @@ class template{
 
     }
 
-    //echo json_encode($data);
+    echo json_encode($data);
   }
 
   public function deconnectionAction(){
@@ -173,7 +173,7 @@ class template{
       setcookie(COOKIE_TOKEN, null, -1, "/");
       setcookie(COOKIE_EMAIL, null, -1, "/");
       session_destroy();
-      //echo json_encode(["connected" => false]);
+      echo json_encode(["connected" => false]);
     }
     // exit;
   }
@@ -343,7 +343,7 @@ class template{
     //Appel de la methode d'envoi du mail
     $this->envoiMail($user->getEmail(),'Inscription à Break-em-all‏',$contenuMail);
 
-    //echo json_encode(['success' => true]);
+    echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
 }
