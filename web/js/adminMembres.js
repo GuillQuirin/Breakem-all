@@ -218,11 +218,10 @@ var membreModule = {
 					data: allData,
 					success: function(result){
 						console.log("Membre mise à jour");
-						console.log(allData);
 						//console.log(result);
 						var myStatus;
 						//Reload la mise a jour dans l'html
-						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(name);}
+						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(pseudo);}
 						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
 						switch(status) {
 						    case -1:
