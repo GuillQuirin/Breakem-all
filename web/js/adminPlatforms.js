@@ -215,7 +215,7 @@ var platformModule = {
 							//Image
 							"<div class='grid-md-12'>" +
 								"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover platform-img membre-form-img-size' src='' title='Plateforme' alt='Plateforme'>" +										
+									"<img class='img-cover platform-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/platform/default-platform.png' title='Plateforme' alt='Plateforme'>" +										
 								"</div>" +
 								"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' class='platform-image-p' name='profilpic'>" +
@@ -271,7 +271,7 @@ var platformModule = {
 			        	if(file){
 
 				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-				        	allData.img = "upload/" + file.name;
+				        	allData.img = file.name;
 
 				        	var imgData = new FormData();                  
 						    imgData.append('file', file);				    		                             
@@ -311,7 +311,7 @@ var platformModule = {
 							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
 
 								//Affichage
-								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/" + allData.img + "'></div></div></div>" +
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + allData.name + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + allData.description + "</span></div></div>" +
 								//Fin Affichage
