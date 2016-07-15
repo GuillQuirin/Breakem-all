@@ -56,9 +56,14 @@ class gameManager extends basesql{
 	}*/
 
 	public function deleteGames(game $game){
-		$sql = "DELETE FROM game WHERE id=:id";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->bindValue(':id', $game->getId());
+		$sql1 = "UPDATE game SET idType=-1 WHERE id=:id";
+		$sth1 = $this->pdo->prepare($sql1, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
+		$sth1->bindValue(':id', $platform->getId());
+		$sth1->execute();
+
+		$sql = "DELETE FROM " .$this->table . " WHERE id=:id";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
+		$sth->bindValue(':id', $platform->getId());
 		$sth->execute();
 	}
 

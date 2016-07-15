@@ -76,7 +76,7 @@ var gameModule = {
 
 			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucun jeu enregistré pour le moment.</span></div>";
 
-			var data = {"id" : id};
+			var data = {id : id};
 
 			//Ajax Delete Controller
 			jQuery.ajax({
@@ -84,7 +84,7 @@ var gameModule = {
 				type: "POST",
 				data: data,
 				success: function(result){			
-					console.log(result);		
+					//console.log(result);		
 					console.log("Jeu supprimé");							
 					btn.parent().parent().remove();		
 

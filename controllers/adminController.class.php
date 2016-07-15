@@ -25,6 +25,7 @@ class adminController extends template{
         $listejoueurs = $admin->getAdminListUser();  
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listejoueurs",$listejoueurs);
         $v->setView("/includes/admin/membres", "templateEmpty");
     }
@@ -34,7 +35,8 @@ class adminController extends template{
         $platform = new platformManager();
         $listeplatforms = $platform->getListPlatform();        
 
-        $v = new view();       
+        $v = new view();   
+        $this->assignConnectedProperties($v);   
         $v->assign("listeplatform",$listeplatforms);
         $v->setView("/includes/admin/platforms", "templateEmpty");
     }
@@ -55,6 +57,7 @@ class adminController extends template{
         $listeteam = $team->getListTeam(-2);
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listeteam",$listeteam);
         $v->setView("/includes/admin/teams", "templateEmpty");
     }
@@ -68,6 +71,7 @@ class adminController extends template{
         $listgametype = $gametypeBDD->getAllTypes();
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listejeu",$listegames);
         $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/games", "templateEmpty");
@@ -79,6 +83,7 @@ class adminController extends template{
         $listgametype = $gametypeBDD->getAllTypes();
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/gametypes", "templateEmpty");
     }
@@ -89,6 +94,7 @@ class adminController extends template{
         $listcomment = $commentaireBDD->getAllComment();
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listecomment",$listcomment);
         $v->setView("/includes/admin/comments", "templateEmpty");
     }
@@ -99,6 +105,7 @@ class adminController extends template{
         $listtournament = $tournamentBdd->getListTournaments();
 
         $v = new view();
+        $this->assignConnectedProperties($v);
         $v->assign("listetournament",$listtournament);
         $v->setView("/includes/admin/tournaments", "templateEmpty");
     }
@@ -147,11 +154,13 @@ class adminController extends template{
 
     /* PLATEFORME */
     public function insertPlatformsDataAction(){
-        if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'];
-        }
-        else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+        if(isset($_FILES['file'])){
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                        
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+            }
         }
 
         $args = array(
@@ -168,12 +177,14 @@ class adminController extends template{
         }
 
     public function updatePlatformsDataAction(){
-        if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'];
+        if(isset($_FILES['file'])){
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                        
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+            }  
         }
-        else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
-        }  
 
         $args = array(
             'id' => FILTER_SANITIZE_STRING,
@@ -285,13 +296,13 @@ class adminController extends template{
 
         $filteredinputs = filter_input_array(INPUT_POST, $args);
 
-        print_r($filteredinputs);                                
+        //print_r($filteredinputs);                                
 
         $teamBdd = new teamManager();
         $team = $teamBdd->getThisTeam($filteredinputs['id']);
         $teamMaj = new team($filteredinputs);
 
-        print_r($teamMaj);
+        //print_r($teamMaj);
         
         if($teamBdd->setTeam($team, $teamMaj))
             echo "OK";
@@ -302,12 +313,14 @@ class adminController extends template{
 
     /* MEMBRES */
     public function updateUserAction(){
-         if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'];
+        if(isset($_FILES['file'])){
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                        
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
+            }  
         }
-        else {                        
-            move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
-        }  
         
         $args = array(
            'id' => FILTER_VALIDATE_INT,
@@ -599,7 +612,7 @@ class adminController extends template{
         public function delGameAction(){
 
             $args = array(
-                'id' => FILTER_VALIDATE_INT
+                'id' => FILTER_SANITIZE_STRING
                 //'delname' => FILTER_SANITIZE_STRING
             );
 
