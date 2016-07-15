@@ -110,7 +110,7 @@ final class register{
 			return $this->_imgJeu;
 		}
 		else{
-			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_imgJeu)
+			if(strlen(trim($this->_imgJeu))>0 && file_exists(getcwd()."/web/img/".$this->_imgJeu))
 				return WEBPATH."/web/img/".$this->_imgJeu;
 
 			return WEBPATH."/web/img/default.jpg";	
@@ -126,7 +126,7 @@ final class register{
 			return $this->_img;
 		}
 		else{
-			if(strlen(trim($this->_img))>0 && WEBPATH."/web/img/".$this->_img)
+			if(strlen(trim($this->_img))>0 && file_exists(getcwd()."/web/img/".$this->_img))
 				return WEBPATH."/web/img/".$this->_img;
 
 			return WEBPATH."/web/img/default-membre.jpg";	

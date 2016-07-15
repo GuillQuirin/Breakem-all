@@ -54,7 +54,7 @@ abstract class basesql{
 		foreach ($object_methods as $key => $method) {
 			if(strpos($method, 'get') !== FALSE && strpos($method, 'get')===0){
 				$col = lcfirst(str_replace('get', '', $method));
-				$this->columns[$col] = ($col==="img") ? $this->mirrorObject->$method(true) : $this->mirrorObject->$method();
+				$this->columns[$col] = ($col==="img" || $col==="pImg" || $col==="gameImg") ? $this->mirrorObject->$method(true) : $this->mirrorObject->$method();
 			};
 		}
 		$this->columns = array_filter($this->columns);

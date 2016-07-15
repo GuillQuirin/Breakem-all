@@ -140,7 +140,7 @@ final class tournamentManager extends basesql{
 		foreach (get_class_methods($newt) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = ($prop==="img") ? $newt->$method_name(false) : $newt->$method_name(); 
+				$data[$prop] = ($prop==="pImg" || $prop==="gameImg") ? $newt->$method_name(true) : $newt->$method_name(); 
 			}
 		}
 

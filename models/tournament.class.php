@@ -74,6 +74,8 @@ final class tournament{
 		}
 	}
 
+	/*SETTERS*/
+
 	private function setId($v){
 		$this->_id = $v;
 	}
@@ -128,6 +130,7 @@ final class tournament{
 	private function setLink($v){
 		$this->_link = $v;
 	}
+
 	// Setters de données issues de gameversion
 	private function setMaxPlayer($v){
 		$this->_maxPlayer = $v;
@@ -144,6 +147,7 @@ final class tournament{
 	private function setGvDescription($v){
 		$this->_gvDescription = $v;
 	}
+	
 	// Setters de données issues de game
 	private function setGameId($v){
 		$this->_gameId = $v;
@@ -155,8 +159,7 @@ final class tournament{
 		$this->_gameDescription = $v;
 	}
 	private function setGameImg($v){
-		if(strlen(trim($v)) > 0)
-			$this->_gameImg = "web/img/".$v;
+		$this->_gameImg = $v;
 	}
 	private function setGameYear($v){
 		$this->_gameYear = $v;
@@ -164,6 +167,7 @@ final class tournament{
 	private function setGtId($v){
 		$this->_gtId = $v;
 	}
+
 	// Setters de données issues de platform
 	private function setPId($v){
 		$this->_pId = $v;
@@ -175,13 +179,14 @@ final class tournament{
 		$this->_pDescription = $v;
 	}
 	private function setPImg($v){
-		if(strlen(trim($v)) > 0)
-			$this->_pImg = "web/img/".$v;
+		$this->_pImg = $v;
 	}
+	
 	// Setters de données issues de user
 	private function setUserPseudo($v){
 		$this->_userPseudo = $v;
 	}
+	
 	// Setters de données issues de register
 	private function setNumberRegistered($v){
 		$this->_numberRegistered = (int) $v;
@@ -210,6 +215,7 @@ final class tournament{
 	}
 
 
+	/*GETTERS*/
 	public function getId(){return $this->_id;}
 	public function getStartDate(){return $this->_startDate;}
 	public function getEndDate(){return $this->_endDate;}
@@ -226,32 +232,56 @@ final class tournament{
 	public function getGuildOnly(){return $this->_guildOnly;}
 	public function getRandomPlayerMix(){return $this->_randomPlayerMix;}
 	public function getLink(){return $this->_link;}
+
 	// Getters de données issues de gameversion
 	public function getMaxPlayer(){return $this->_maxPlayer;}
 	public function getMaxTeam(){return $this->_maxTeam;}
 	public function getMaxPlayerPerTeam(){return $this->_maxPlayerPerTeam;}
 	public function getGvName(){return $this->_gvName;}
 	public function getGvDescription(){return $this->_gvDescription;}
+
 	// Getters de données issues de game
 	public function getGameId(){return $this->_gameId;}
 	public function getGameName(){return $this->_gameName;}
 	public function getGameDescription(){return $this->_gameDescription;}
-	public function getGameImg(){return $this->_gameImg;}
+	public function getGameImg($upload=false){
+		if($upload){
+			return $this->_gameImg;
+		}
+		else{
+			if(strlen(trim($this->_gameImg))>0 && file_exists(getcwd()."/web/img/upload/jeux/".$this->_gameImg))
+				return WEBPATH."/web/img/upload/jeux/".$this->_gameImg;
+
+			return WEBPATH."/web/img/upload/jeux/default-jeux.png";	
+		}
+	}
 	public function getGameYear(){return $this->_gameYear;}
 	public function getGtId(){return $this->_gtId;}
+	
 	// Getters de données issues de platform
 	public function getPId(){return $this->_pId;}
 	public function getPName(){return $this->_pName;}
 	public function getPDescription(){return $this->_pDescription;}
-	public function getPImg(){return $this->_pImg;}
+	public function getPImg($upload=false){
+		if($upload){
+			return $this->_pImg;
+		}
+		else{
+			if(strlen(trim($this->_pImg))>0 && file_exists(getcwd()."/web/img/".$this->_pImg))
+				return WEBPATH."/web/img/".$this->_pImg;
+
+			return WEBPATH."/web/img/8.jpg";	
+		}
+	}
+	
 	// Getters de données issues de user
 	public function getUserPseudo(){return $this->_userPseudo;}
+	
 	// Getters de données issues de register
 	public function getNumberRegistered(){return (!!$this->_numberRegistered) ? $this->_numberRegistered : count($this->gtAllRegistered());}
 	public function gtAllRegistered(){return $this->_registeredList;}
-	public function returnAsArr(){
-		return $this->_myArr;
-	}
+	public function returnAsArr(){return $this->_myArr;}
+
 	// Getters des matchs
 	public function gtAllMatchs(){return (count($this->_matchs) > 0) ? $this->_matchs : false;}
 	public function gtPublicMatchIdToPrint(matchs $m){
