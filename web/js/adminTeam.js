@@ -70,7 +70,7 @@ var teamModule = {
 	},
 	toggleCheck : function(){
 		teamModule.getToggleCheck().on("click", function(ev){
-			jQuery(ev.currentTarget).find('.team-status-p').prop("checked", !jQuery('.team-status-p').prop("checked"));
+			jQuery(ev.currentTarget).find('.team-status-p').prop("checked", !jQuery(ev.currentTarget).find('.team-status-p').prop("checked"));
 		});
 	},
 	//Preview
@@ -130,9 +130,11 @@ var teamModule = {
 
 			submitBtn.on("click", function(){
 				var id = updateBtn.parent().parent().find('.team-id-p').val();
-				var status = 1;
-				if(!jQuery('#team-status-p').is(':checked')){
+				var status;
+				if(updateBtn.parent().parent().find('.team-status-p').is(':checked')){
 					status = -1;
+				}else{
+					status = 1;
 				}
 				var name = updateBtn.parent().parent().find('.team-name-p').val();
 				var slogan = updateBtn.parent().parent().find('.team-slogan-p').val();

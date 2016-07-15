@@ -71,7 +71,7 @@ var membreModule = {
 	},
 	toggletCheck : function(){
 		membreModule.getToggleCheck().on("click", function(ev){
-			jQuery(ev.currentTarget).find('.membre-mailContact-p').prop("checked", !jQuery('.membre-mailContact-p').prop("checked"));
+			jQuery(ev.currentTarget).find('.membre-mailContact-p').prop("checked", !jQuery(ev.currentTarget).find('.membre-mailContact-p').prop("checked"));
 		});
 	},
 	//Preview
