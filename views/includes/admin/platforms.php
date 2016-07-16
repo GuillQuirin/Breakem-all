@@ -5,6 +5,7 @@
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -18,6 +19,13 @@
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" . $platform->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>";
+						if($platform->getStatus() == 1){
+							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
+						}else{
+							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
+						}
+					echo "</div></span></div></div>";
 					//Fin Affichage
 
 					//Bouton
@@ -49,14 +57,20 @@
 									echo "</div>";
 									//Label
 									echo "<div class='grid-md-5 text-left'>";
-									    echo "<label for='email'>Nom :</label>";
-									    echo "<label for='email'>Description :</label>";
+									    echo "<label for='nom'>Nom :</label>";
+									    echo "<label for='description'>Description :</label>";
+									    echo "<label for='status'>Status :</label>";
 								    echo "</div>";
 								    //Input
 								    echo "<div class='grid-md-7'>";
 										echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" . $platform->getName() . "'>";
 									    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														   
+										
+										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default platform-status-p admin-checkbox-ajust' id='platform-status-p' name='status' required type='checkbox' ";
+											echo ($platform->getStatus()!==NULL  && $team->getStatus()==-1) ? "checked=checked>" : ">";
+										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
+
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

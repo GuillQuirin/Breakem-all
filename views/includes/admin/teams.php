@@ -71,9 +71,9 @@
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
 											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
 											
-											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default team-status-p' id='team-status-p' name='status' required type='checkbox' ";
+											echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust team-status-p' id='team-status-p' name='status' required type='checkbox' ";
 												echo ($team->getStatus()!==NULL  && $team->getStatus()==-1) ? "checked=checked>" : ">";
-											echo "<label class='ajusted-checkbox-label' for='status' style='color: rgba(8,3,37,1);'>.</label></span></div>";								
+											echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 										echo "</div>";
 									echo "</div>";
 									//Submit

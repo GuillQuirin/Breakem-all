@@ -6,6 +6,7 @@ class platform{
 	protected $name = null;
 	protected $description = null;
 	protected $img = null;
+	protected $status = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -30,6 +31,9 @@ class platform{
 	private function setDescription($v){
 		$this->description=$v;
 	}
+	public function setStatus($v){
+		$this->status=$v;
+	}
 	public function setImg($v){
 		$this->img = $v;
 	}
@@ -37,6 +41,7 @@ class platform{
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
+	public function getStatus(){return $this->status;}
 	public function getImg($upload=false){
 		if($upload){
 			return $this->img;
