@@ -571,10 +571,12 @@ class adminController extends template{
         } 
 
         public function getAllTypeGameAction(){
-            $tb = new typegameManager();
-            $tb->getAllTypes();
+            $tb = new typegameManager();   
+            $data = $tb->getAllTypes();  
 
-            return $tb;
+            print_r($data);
+
+            return $data;
         }
 
     /* GAMES */
