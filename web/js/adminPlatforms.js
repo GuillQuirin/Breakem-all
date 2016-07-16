@@ -18,7 +18,7 @@ var platformModule = {
 		platformModule.previewImg();
 
 		//CRUD
-		platformModule.postDataDelete();
+		//platformModule.postDataDelete();
 		platformModule.postDataUpdate();
 		platformModule.postDataInsert();		
 	},
@@ -73,7 +73,6 @@ var platformModule = {
 	},
 	toggleCheck : function(){
 		platformModule.getToggleCheck().on("click", function(ev){
-			console.log("test");
 			jQuery(ev.currentTarget).find('.platform-status-p').prop("checked", !jQuery(ev.currentTarget).find('.platform-status-p').prop("checked"));
 		});
 	},
@@ -210,7 +209,6 @@ var platformModule = {
 							}	
 
 							if(allData.status == 1){
-								console.log(updateBtn.parent().parent().find('.platform-status-g-ht'));
 								updateBtn.parent().parent().find('.platform-status-g-ht').html(
 									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
 								); 

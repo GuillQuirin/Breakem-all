@@ -32,7 +32,6 @@
 					//Bouton
 					echo "<div class='admin-data-ihm-btn hidden align'>";
 						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
-						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
 					echo "</div>"; 
 					//Fin Bouton
 
@@ -62,7 +61,7 @@
 										    echo "<label for='name'>Nom :</label>";
 										    echo "<label for='slogan'>Slogan :</label>";
 										    echo "<label for='description'>Description :</label>";
-										    echo "<label for='status'>Verrouiller :</label>";
+										    echo "<label for='status'>Désactiver :</label>";
 									    echo "</div>";
 									    //Input
 									    echo "<div class='grid-md-8'>";

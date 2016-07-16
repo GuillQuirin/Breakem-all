@@ -5,10 +5,11 @@ class game{
 	protected $id = null;
 	protected $name = null;
 	protected $description = null;
-	protected $year = null;
+	protected $release = null;
 	protected $img = null;
 	protected $idType = null;
 	protected $nameType = null;
+	protected $status = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -33,8 +34,8 @@ class game{
 	private function setDescription($v){
 		$this->description=$v;
 	}
-	private function setYear($v){
-		$this->year=$v;
+	public function setRelease($v){
+		$this->release=$v;
 	}
 	public function setIdType($v){
 		$this->idType=$v;
@@ -45,12 +46,16 @@ class game{
 	public function setImg($v){
 		$this->img=$v;
 	}
+	public function setStatus($v){
+		$this->status=$v;
+	}
 
 
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
-	public function getYear(){return $this->year;}
+	public function getRelease(){return $this->release;}
+	public function getStatus(){return $this->status;}
 	public function getImg($upload=false){
 		if($upload){
 			return $this->img;

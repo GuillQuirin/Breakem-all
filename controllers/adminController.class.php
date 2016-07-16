@@ -575,6 +575,47 @@ class adminController extends template{
 
     /* GAMES */
 
+        public function updateGamesDataAction(){
+        if(isset($_FILES['file'])){
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                        
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeu/" . $_FILES['file']['name']);
+            }  
+        }
+        
+        $args = array(
+           'id' => FILTER_VALIDATE_INT,
+           'name' => FILTER_SANITIZE_STRING,
+           'description' => FILTER_SANITIZE_STRING,
+           'status' => FILTER_VALIDATE_INT,
+           'day'   => FILTER_VALIDATE_INT,     
+           'month'   => FILTER_VALIDATE_INT,     
+           'year'   => FILTER_VALIDATE_INT,   
+           'idType' => FILTER_VALIDATE_BOOLEAN,
+           'img' => FILTER_SANITIZE_STRING
+        );
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);       
+        print_r($filteredinputs);                         
+        //Date de naissance
+        
+        if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+          $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+          $filteredinputs['release'] = date_timestamp_get($date);
+        }
+
+        $gameBdd = new gameManager();
+        $game = $gameBdd->getGameById($filteredinputs['id']);
+        $newGame = new game($filteredinputs);
+
+        print_r($newGame);
+        $gameBdd->setGame($game, $newGame);
+
+        }
+
+
         public function addGameAction()
         {
 

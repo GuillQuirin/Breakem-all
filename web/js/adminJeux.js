@@ -9,17 +9,22 @@ var gameModule = {
 		gameModule.setPreviewInput();
 		gameModule.setImgWrapper();
 		gameModule.setAdminDataRe();
+		gameModule.setToggleCheck();
 
 		//Preview
+		gameModule.toggleCheck();
 		gameModule.previewImg();
 
 		//CRUD
 		//gameModule.postDataInsert();
-		gameModule.postDataDelete();
+		//gameModule.postDataDelete();
 		gameModule.postDataUpdate();
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -40,6 +45,9 @@ var gameModule = {
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -61,6 +69,11 @@ var gameModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
+	toggleCheck : function(){
+		gameModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.jeu-status-p').prop("checked", !jQuery(ev.currentTarget).find('.jeu-status-p').prop("checked"));
+		});
+	},
 	//Preview
 	previewImg : function(){
 		gameModule.getPreviewInput().on('change', function(){
@@ -73,10 +86,11 @@ var gameModule = {
 		gameModule.getDeleteBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
 			var id = btn.parent().parent().find(jQuery('.jeu-id-p')).val();	
+			var status = -1;
 
 			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucun jeu enregistré pour le moment.</span></div>";
 
-			var data = {id : id};
+			var data = {id : id, status : status};
 
 			//Ajax Delete Controller
 			jQuery.ajax({
@@ -117,19 +131,30 @@ var gameModule = {
 			var submitBtn = updateBtn.parent().parent().find('.jeu-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.jeu-id-p').val();
-				var name = updateBtn.parent().parent().find('.jeu-name-p').val();
-				var description = updateBtn.parent().parent().find('.jeu-description-p').val();
-				var year = updateBtn.parent().parent().find('.jeu-year-p').val();
-				var idType = updateBtn.parent().parent().find('.jeu-idType-p').val();
+				var subBtn = updateBtn.parent().parent();
 
-				var myImg = updateBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
+				var id = subBtn.parent().parent().find('.jeu-id-p').val();
+				var name = subBtn.parent().parent().find('.jeu-name-p').val();
+				var description = subBtn.parent().parent().find('.jeu-description-p').val();
+				var day = subBtn.find('.jeu-release-D').val();
+				var month = subBtn.find('.jeu-release-M').val();
+				var year = subBtn.find('.jeu-release-Y').val();
+				var idType = subBtn.parent().parent().find('.jeu-idType-p').val();
+				var status;
+				if(subBtn.parent().parent().find('.jeu-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
+
+				var myImg = subBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
 
 				var allData = {};
 
 				//Vérification si ils existent, on modifie, sinon on laisse la valeur initiale.
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
 				allData.id = id;
+				allData.status = status;
 
 				if(name)
 					allData.name = name;
@@ -142,6 +167,15 @@ var gameModule = {
 
 				if(idType)
 					allData.idType = idType;
+
+				if(day)
+					allData.day = day;
+
+				if(year)
+					allData.year = year;
+
+				if(month)
+					allData.month = month;
 
 				console.log(allData);
 
@@ -185,16 +219,28 @@ var gameModule = {
 					type: "POST",
 					data: allData,
 					success: function(result){
+						console.log(result);
 						console.log("Jeu mis à jour");
 						//Reload la mise a jour dans l'html
 
 					allData.idType;
 						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
 						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
+						if(idType){ updateBtn.parent().parent().find('.jeu-idType-g').html(idType); }
+						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
 							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
 						}	
+						if(allData.status == 1){
+								updateBtn.parent().parent().find('.jeu-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.jeu-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+						}
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
@@ -251,9 +297,9 @@ var gameModule = {
 			);
 
 			//Envoi dans la BDD
-			var submitBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
+			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
 
-			submitBtn.click(function(ev){
+			subBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget);
 				var name = subBtn.parent().parent().find('.jeu-nom-p').val();
 				var description = subBtn.parent().parent().find('.jeu-description-p').val();

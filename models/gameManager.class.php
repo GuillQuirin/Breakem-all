@@ -14,7 +14,7 @@ class gameManager extends basesql{
     }
 
 	public function getGames(typegame $tg){		
-		$sql = "SELECT name, description, img FROM " . $this->table . " WHERE idType= (SELECT id FROM typegame WHERE typegame.name = :name) ORDER BY name";
+		$sql = "SELECT name, description, img, status FROM " . $this->table . " WHERE idType= (SELECT id FROM typegame WHERE typegame.name = :name) ORDER BY name";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':name' => $tg->getName()
@@ -68,7 +68,7 @@ class gameManager extends basesql{
 	}
 
 	public function getAllGames(){
-		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, t.name as nameType 
+		$sql = "SELECT g.id, g.name, g.description, g.release, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 
 				INNER JOIN typegame t 
 				ON g.idType = t.id
@@ -87,8 +87,6 @@ class gameManager extends basesql{
 	}
 
 	public function setGame(game $ancien, game $nouveau){
-
-		var_dump($ancien);
 
 		$data = [];
 
