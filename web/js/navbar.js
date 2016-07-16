@@ -985,7 +985,7 @@ var contactadmin = {
 			popup.init('Une adresse email valide est requise afin que nous puissions vous répondre');
 			return false;
 		}
-		if( $.trim($("#mess_contactAdmin")).val()=="" ){
+		if( $.trim($("#mess_contactAdmin").val())=="" ){
 			popup.init('Veuillez ne pas envoyer de message vide');
 			return false;
 		}

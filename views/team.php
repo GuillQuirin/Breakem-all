@@ -18,7 +18,7 @@
 		<div class="row team-content-row">
 			<div class="grid-md-8 grid-md-offset-2">
 
-			<?php if(!isset($_idTeam)){
+			<?php if(isset($_isConnected) && !isset($_idTeam)){
 				echo "<div class='btn btn-pink'>
 			<a id='creationTeam' title='Créer ma team'>Créer ma team</a>
 			</div>";
