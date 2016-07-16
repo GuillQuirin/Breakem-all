@@ -151,7 +151,7 @@ class detailteamController extends template{
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         if (isset($_FILES['img']) && $_FILES['img']['error'] != 4) {
-            $uploaddir = '/web/img/upload/';
+            $uploaddir = '/web/img/upload/team/';
             $name = $_FILES['img']['name'];
             
             $uploadfile = getcwd().$uploaddir.$name;
