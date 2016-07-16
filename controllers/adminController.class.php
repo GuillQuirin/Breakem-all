@@ -631,7 +631,7 @@ class adminController extends template{
 
             if (isset($_FILES['img'])) {
 
-                $uploaddir = '/web/img/';
+                $uploaddir = '/web/img/upload/jeux/';
                 $name = $_FILES['img']['name'];
 
                 $uploadfile = getcwd().$uploaddir.$name;

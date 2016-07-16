@@ -267,10 +267,10 @@ final class tournament{
 			return $this->_pImg;
 		}
 		else{
-			if(strlen(trim($this->_pImg))>0 && file_exists(getcwd()."/web/img/".$this->_pImg))
-				return WEBPATH."/web/img/".$this->_pImg;
+			if(strlen(trim($this->_pImg))>0 && file_exists(getcwd()."/web/img/upload/platform/".$this->_pImg))
+				return WEBPATH."/web/img/upload/platform/".$this->_pImg;
 
-			return WEBPATH."/web/img/8.jpg";	
+			return WEBPATH."/web/img/upload/platform/default-platform.png";	
 		}
 	}
 	

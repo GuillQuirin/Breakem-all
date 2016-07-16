@@ -110,10 +110,10 @@ final class register{
 			return $this->_imgJeu;
 		}
 		else{
-			if(strlen(trim($this->_imgJeu))>0 && file_exists(getcwd()."/web/img/".$this->_imgJeu))
-				return WEBPATH."/web/img/".$this->_imgJeu;
+			if(strlen(trim($this->_imgJeu))>0 && file_exists(getcwd()."/web/img/upload/jeux/".$this->_imgJeu))
+				return WEBPATH."/web/img/upload/jeux/".$this->_imgJeu;
 
-			return WEBPATH."/web/img/default.jpg";	
+			return WEBPATH."/web/img/upload/jeux/default-jeux.png";	
 		}
 	}
 
@@ -126,8 +126,8 @@ final class register{
 			return $this->_img;
 		}
 		else{
-			if(strlen(trim($this->_img))>0 && file_exists(getcwd()."/web/img/".$this->_img))
-				return WEBPATH."/web/img/".$this->_img;
+			if(strlen(trim($this->_img))>0 && file_exists(getcwd()."/web/img/upload/membre/".$this->_img))
+				return WEBPATH."/web/img/upload/membre/".$this->_img;
 
 			return WEBPATH."/web/img/default-membre.jpg";	
 		}
