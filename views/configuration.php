@@ -84,7 +84,7 @@
 									<span>Pseudo : </span>
 								</td>
 								<td>
-									<span class="capitalize"><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>	
+									<span id="pseudo-user" class="capitalize"><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>	
 								</td>
 							</tr>
 							<tr>						
@@ -203,6 +203,7 @@
 							</tr>
 							<tr class="text-center">
 								<td colspan="2" class="border-none configuration-form-td-submit">																	
+									<button id="delete-account" class="btn btn-pink configuration-account-delete"><a>Supprimer mon compte</a></button>
 									<button type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
 								</td>
 							</tr>	

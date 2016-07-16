@@ -207,4 +207,15 @@ class configurationController extends template{
 	    return array_filter($filteredinputs);
   	}
 
+  	public function deleteAction(){
+  		$args = array(
+            'pseudo' => FILTER_SANITIZE_STRING
+        );
+        
+        $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+        $userBDD = new userManager();
+        
+        if($this->isVisitorConnected() && $filteredinputs['pseudo']===$this->connectedUser->getPseudo())
+		    $userBDD->deleteAccount($this->connectedUser);
+  	}
 }
