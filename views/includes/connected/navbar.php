@@ -58,9 +58,9 @@
 			</ul>
 		</li>
 		<li class="navbar-menu-li">
-			<button type="button" class="search-toggle">
-			<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
-			</button>
+			<!--<button type="button" class="search-toggle">
+				<img class="icon icon-size-3 navbar-icon" src="<?php echo WEBPATH.'/web/img/icon/icon-search.png'; ?>">
+			</button>-->
 		</li>
 	</ul>
 </div>

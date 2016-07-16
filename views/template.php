@@ -201,9 +201,9 @@
 
 								<?php } ?>
 							<li class="navbar-menu-li">
-								<button type="button" class="search-toggle" style="padding:0 35px;">
-								<?php echo '<img src="'. WEBPATH . '/web/img/icon/icon-search.png">';?>
-								</button>
+								<!--<button type="button" class="search-toggle" style="padding:0 35px;">
+									<img src="<?php echo WEBPATH . '/web/img/icon/icon-search.png'; ?>">
+								</button>-->
 							</li>
 						</ul>
 					</div>
