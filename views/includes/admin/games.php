@@ -19,7 +19,7 @@
 					//Affichage
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" . date('Y', $jeu->getRelease()) . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-release-g'>" . date('Y', $jeu->getRelease()) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->getNameType() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>";
 						if($jeu->getStatus() == 1){
@@ -81,7 +81,8 @@
 										echo "<input class='input-default admin-form-input-w jeu-release-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
 										echo ($jeu->getRelease()!==NULL) ? " value='".date('Y', $jeu->getRelease())."'>" : ">";
 										
-										echo "<select class='select-default jeu-idType-p'>";
+										echo "<input type='hidden' class='jeu-nameType-p' value='" . $jeu->getNameType() . "'>";
+										echo "<select class='select-default jeu-idType-p' name='idType'>";
 											if(isset($listetypejeu)){
 												if(is_array($listetypejeu)){			
 													foreach ($listetypejeu as $lignetj => $tj) {

@@ -593,7 +593,8 @@ class adminController extends template{
            'day'   => FILTER_VALIDATE_INT,     
            'month'   => FILTER_VALIDATE_INT,     
            'year'   => FILTER_VALIDATE_INT,   
-           'idType' => FILTER_VALIDATE_BOOLEAN,
+           'idType' => FILTER_VALIDATE_INT,
+           'nameType' => FILTER_SANITIZE_STRING,
            'img' => FILTER_SANITIZE_STRING
         );
 
@@ -610,7 +611,6 @@ class adminController extends template{
         $game = $gameBdd->getGameById($filteredinputs['id']);
         $newGame = new game($filteredinputs);
 
-        print_r($newGame);
         $gameBdd->setGame($game, $newGame);
 
         }

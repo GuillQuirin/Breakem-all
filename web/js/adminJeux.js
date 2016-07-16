@@ -133,15 +133,17 @@ var gameModule = {
 			submitBtn.on("click", function(){
 				var subBtn = updateBtn.parent().parent();
 
-				var id = subBtn.parent().parent().find('.jeu-id-p').val();
-				var name = subBtn.parent().parent().find('.jeu-name-p').val();
-				var description = subBtn.parent().parent().find('.jeu-description-p').val();
+				var id = subBtn.find('.jeu-id-p').val();
+				var name = subBtn.find('.jeu-name-p').val();
+				var description = subBtn.find('.jeu-description-p').val();
 				var day = subBtn.find('.jeu-release-D').val();
 				var month = subBtn.find('.jeu-release-M').val();
 				var year = subBtn.find('.jeu-release-Y').val();
-				var idType = subBtn.parent().parent().find('.jeu-idType-p').val();
+				var idType = subBtn.find('.jeu-idType-p').val();
+				var nameType = subBtn.find('.jeu-nameType-p').val();
+
 				var status;
-				if(subBtn.parent().parent().find('.jeu-status-p').is(':checked')){
+				if(subBtn.find('.jeu-status-p').is(':checked')){
 					status = -1;
 				}else{
 					status = 1;
@@ -165,8 +167,10 @@ var gameModule = {
 				if(year)
 					allData.year = year;
 
-				if(idType)
+				if(idType && nameType){
 					allData.idType = idType;
+					allData.nameType = nameType;
+				}
 
 				if(day)
 					allData.day = day;
@@ -220,14 +224,15 @@ var gameModule = {
 					data: allData,
 					success: function(result){
 						console.log(result);
+						console.log(allData);
 						console.log("Jeu mis à jour");
 						//Reload la mise a jour dans l'html
 
 					allData.idType;
 						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
 						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
-						if(idType){ updateBtn.parent().parent().find('.jeu-idType-g').html(idType); }
-						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
+						if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
+						if(year){ updateBtn.parent().parent().find('.jeu-release-g').html(year); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
 							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
