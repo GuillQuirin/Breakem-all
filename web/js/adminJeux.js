@@ -257,12 +257,11 @@ var gameModule = {
 		jQuery.ajax({
 			url: "admin/getAllTypeGame", 
 			type: "GET",
-			success: function(result){
-				console.log(result);
+			success: function(result2){
 				console.log("Récupération des types de jeux.");
 			},
-			error: function(result){
-				console.log(result);
+			error: function(result2){
+				console.log(result2);
 				console.log("Erreur dans la récupération des types de jeux");
 			}
 		});
