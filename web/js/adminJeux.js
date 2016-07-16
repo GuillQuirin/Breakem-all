@@ -140,7 +140,7 @@ var gameModule = {
 				var month = subBtn.find('.jeu-release-M').val();
 				var year = subBtn.find('.jeu-release-Y').val();
 				var idType = subBtn.find('.jeu-idType-p').val();
-				var nameType = subBtn.find('.jeu-nameType-p').val();
+				var nameType = subBtn.find('.jeu-idType-p option:selected').text();
 
 				var status;
 				if(subBtn.find('.jeu-status-p').is(':checked')){
@@ -180,8 +180,6 @@ var gameModule = {
 
 				if(month)
 					allData.month = month;
-
-				console.log(allData);
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
