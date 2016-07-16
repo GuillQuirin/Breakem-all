@@ -1,26 +1,23 @@
 $(document).ready(function(){
-	//Redirection vers la configuration utilisateur
-	$("#configuration").click(function(){
-		window.location.href = "/esgi/Breakem-all/configuration";
+	//Pop-up de désinscription
+	$("#delete-account").click(function(){
+		if(confirm("ATTENTION: Souhaitez-vous vraiment vous désinscrire de ce site ?")){
+			$.ajax({method: "POST",
+						data:{
+							pseudo: $("#pseudo-user").text()
+						},
+						url: webpath.get()+"/configuration/delete", 
+						success: function(result){
+		            		window.location.href = webpath.get()+"/index";
+		        			//console.log(result);
+		        		},
+		        		fail: function(){
+		        			alert('La suppression de votre compte n\'a pas pu être effectuée');
+		        		}
+		        	}
+		        );
+		}
+		return false;
 	});
-
-	//Affichages des popups
-	$("#signalement").click(function(){
-		$("#formplainte").fadeIn();
-	});
-
-	$("#contact").click(function(){
-		$("#formcontact").fadeIn();
-	});
-});
-
-$(document).mouseup(function(e)
-{
-    var container = $("#formplainte, #formcontact");
-
-    if(!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.fadeOut();
-    }
 });
 

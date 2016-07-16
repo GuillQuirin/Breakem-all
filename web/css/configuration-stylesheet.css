@@ -96,6 +96,14 @@ body, html{
     width:200px;
 }
 
+.configuration-account-delete{
+    width: 200px;
+    margin-right: 50px;
+    background: #D92B4C;
+    border-color: #D92B4C; 
+    transform: skew(-8deg);
+}
+
 .configuration-form-td-submit{
     padding-top:25px !important;
 }
