@@ -266,8 +266,8 @@
 		        <div class="footer_content">
 		            <h3 class="footer_title">Break'em All</h3>
 		            <ul>
-		                <li><a href="<?php echo WEBPATH ; ?>" title="accueil">Accueil</a></li>
-		                <li><a href="<?php echo WEBPATH.'/listetournois'; ?>" title="Liste des tournois">Tournois</a></li>
+		                <li><a href="<?php echo WEBPATH.'/index' ; ?>" title="accueil">Accueil</a></li>
+		                <li><a href="<?php echo WEBPATH.'/tournoi'; ?>" title="Liste des tournois">Tournois</a></li>
 		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 		            </ul>
@@ -300,7 +300,7 @@
 		                if(isset($_isConnected))
 		                	echo "<li><a href='".WEBPATH."/profil?pseudo=".$_pseudo."' title='Acceder à ma page'>Profil</a></li>";
 		                ?>
-		                <li><a id="contactAdmin" title="Joindre les admins">Nous contacter</a></li>
+		                <li><a class="cursor-pointer" id="contactAdmin" title="Joindre les admins">Nous contacter</a></li>
 		                <li><a href="<?php echo WEBPATH.'/CGU'; ?>" title="Conditions d'utilisation">CGU</a></li>
 		                <li><a href="<?php echo WEBPATH.'/RSS'; ?>" title="Flux RSS">RSS</a></li>
 		            </ul>

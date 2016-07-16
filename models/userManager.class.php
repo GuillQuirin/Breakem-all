@@ -210,7 +210,29 @@ class userManager extends basesql{
 		return new user($query);
 	}
 
-	
+	/*SUPPRESSION DU COMPTE*/
+	public function deleteAccount(user $u){
+
+		$sql = "UPDATE ".$this->table." 
+				SET status=-1, pseudo='-1', birthday='-1', description=NULL, email='-1', img = NULL, isConnected=0  
+				WHERE id=:id 
+					AND pseudo=:pseudo 
+					AND password=:password";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		//variables obligatoires
+		$id=$u->getId();
+		$pseudo=$u->getPseudo();
+		$password=$u->getPassword();
+
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		$query->bindParam(':pseudo', $pseudo, PDO::PARAM_INT);
+		$query->bindParam(':password', $password, PDO::PARAM_INT);
+		$query->execute();
+	}
+
+
 	/*RECUPERATION DE TOUS LES USER*/
 	//Public
 	public function getAllUser(){
