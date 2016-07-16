@@ -16,7 +16,7 @@ var gameModule = {
 		gameModule.previewImg();
 
 		//CRUD
-		//gameModule.postDataInsert();
+		gameModule.postDataInsert();
 		//gameModule.postDataDelete();
 		gameModule.postDataUpdate();
 	},
@@ -253,7 +253,23 @@ var gameModule = {
 			});			
 		});
 	},
+	getAllTypeGames : function(){
+		jQuery.ajax({
+			url: "admin/getAllTypeGame", 
+			type: "GET",
+			success: function(result){
+				console.log(result);
+				console.log("Récupération des types de jeux.");
+			},
+			error: function(result){
+				console.log(result);
+				console.log("Erreur dans la récupération des types de jeux");
+			}
+		});
+	},
 	postDataInsert : function(){
+	gameModule.getAllTypeGames();
+
 	//Ajout du formulaire dans la dom
 		gameModule.getInsertBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
@@ -262,40 +278,56 @@ var gameModule = {
 				//Formulaire
 				"<div class='index-modal-this index-modal-login align'>" +
 							
-					"<div class='grid-md-4 inscription_rapide animation fade'>" +
-						"<form class='jeu-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-							//Title
-							"<div class='grid-md-12 form-title-wrapper'>" +
-								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-jeu.png'><span class='form-title'>Jeu</span>" +
-							"</div>" +
-							//Image
-							"<div class='grid-md-12'>" +
-								"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover jeu-img membre-form-img-size' src='' title='Image du jeu' alt='Image du jeu'>" +										
-								"</div>" +
-								"<div class='text-center admin-input-file'>" +								 
-									"<input type='file' class='jeu-image-p' name='profilpic'>" +
-								"</div>" +
-							"</div>" +
-							//Label
-							"<div class='grid-md-4 text-left'>" +
-							    "<label for='nom'>Nom :</label>" +
-							    "<label for='scription'>Description :</label>" +
-							    "<label for='year'>Année :</label>" +
-						    "</div>" +
-						    //Input
-						    "<div class='grid-md-8'>" +
-								"<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text'>" +
-								"<textarea class='input-default admin-form-input-w jeu-description-p' name='description'></textarea>" +
-								"<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text'>" +
-							"</div>" +
-							//Submit
-							"<div class='grid-md-12'>" + 
-						    	"<button type='button' class='admin-form-submit jeu-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
-				  			"</div>" +
-				  		"</form>" +
-				  	"</div>" +
-				"</div>"
+							"<div class='grid-md-4 inscription_rapide animation fade'>" +
+								"<form class='jeu-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
+									//Title
+									"<div class='grid-md-12 form-title-wrapper'>" +
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-jeu.png'><span class='form-title'>Jeu</span>" +
+									"</div>" +
+									//Image
+									"<div class='grid-md-12'>" +
+										"<div class='membre-form-img-size m-a'>" +																	
+											"<img class='img-cover jeu-img membre-form-img-size' src='' title='Image du jeu' alt='Image du jeu'>" +										
+										"</div>" +
+										"<div class='text-center admin-input-file'>" +								 
+											"<input type='file' class='jeu-image-p' name='profilpic'>" +
+										"</div>" +
+									"</div>" +
+									//Label
+									"<div class='grid-md-4 text-left'>" +
+									    "<label for='nom'>Nom :</label>" +
+									    "<label for='scription'>Description :</label>" +
+									    "<label for='year'>Année :</label>" +
+									    "<label for='idType'>Type :</label>" +
+									    "<label for='status'>Verrouiller :</label>" +
+								    "</div>" +
+								    //Input
+								    "<div class='grid-md-8'>" +
+										"<input type='text' name='id' class='hidden jeu-id-p' value=''>" +
+										"<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value=''>" +
+										"<textarea class='input-default admin-form-input-w jeu-description-p' name='description'></textarea>" +
+
+										"<input class='input-default admin-form-input-w jeu-release-D' type='number' name='day' placeholder='dd' min='1' max='31' value='>" +
+										
+										"<input class='input-default admin-form-input-w jeu-release-M' type='number' name='month' placeholder='mm' min='1' max='12' value=''>" +
+
+										"<input class='input-default admin-form-input-w jeu-release-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + new Date().getFullYear() + "' value=''>" +
+										
+										"<select class='select-default jeu-idType-p' name='idType'>" +
+											"<option value=''></option>" +	
+										"</select>" +
+
+										"<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox'>" +
+										"<label class='ajusted-checkbox-label' for='status'>.</label></span></div>" +								
+
+									"</div>" +
+									//Submit
+									"<div class='grid-md-12'>" + 
+								    	"<button type='button' class='admin-form-submit jeu-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+						  			"</div>" +
+						  		"</form>" +
+						  	"</div>" +
+						"</div>"
 				//Fin Formulaire
 			);
 

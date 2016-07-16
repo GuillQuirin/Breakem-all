@@ -454,6 +454,11 @@ var navbar = {
 	    navbar.getNavbarEl().removeClass('full');
         navbar.getNavbarEl().addClass('shrink');
     },
+    scrollTopDefault : function(){
+    	jQuery(window).on('beforeunload', function() {
+    		jQuery(window).scrollTop(0);
+		});
+    },
     openNavbarSide : function(){
         navbar.getNavToggle().on('click', function(){
             if(navbar.getNavSideMenu().hasClass('navbar-collapse')){
@@ -1031,7 +1036,7 @@ var contactadmin = {
 	}
 }
 
-
+initAll.add(navbar.scrollTopDefault);
 initAll.add(connection.init);
 initAll.add(navbar.init);
 initAll.add(deconnection.init);

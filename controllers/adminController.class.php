@@ -570,8 +570,12 @@ class adminController extends template{
 
         } 
 
+        public function getAllTypeGameAction(){
+            $tb = new typegameManager();
+            $tb->getAllTypes();
 
-
+            return $tb;
+        }
 
     /* GAMES */
 
@@ -581,7 +585,7 @@ class adminController extends template{
                 echo 'Error: ' . $_FILES['file']['error'];
             }
             else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeu/" . $_FILES['file']['name']);
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_FILES['file']['name']);
             }  
         }
         
