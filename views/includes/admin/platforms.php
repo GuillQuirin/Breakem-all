@@ -68,7 +68,7 @@
 									    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														   
 										
 										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default platform-status-p admin-checkbox-ajust' id='platform-status-p' name='status' required type='checkbox' ";
-											echo ($platform->getStatus()!==NULL  && $team->getStatus()==-1) ? "checked=checked>" : ">";
+											echo ($platform->getStatus()!==NULL  && $platform->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 
 									echo "</div>";

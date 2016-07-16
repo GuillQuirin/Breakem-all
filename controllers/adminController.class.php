@@ -26,6 +26,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listejoueurs",$listejoueurs);
         $v->setView("/includes/admin/membres", "templateEmpty");
     }
@@ -36,7 +37,8 @@ class adminController extends template{
         $listeplatforms = $platform->getListPlatform();        
 
         $v = new view();   
-        $this->assignConnectedProperties($v);   
+        $this->assignConnectedProperties($v); 
+          
         $v->assign("listeplatform",$listeplatforms);
         $v->setView("/includes/admin/platforms", "templateEmpty");
     }
@@ -47,6 +49,8 @@ class adminController extends template{
         $listesignalement = $report->getListReports();
 
         $v = new view();
+        $this->assignConnectedProperties($v);
+        
         $v->assign("listesignalement",$listesignalement);
         $v->setView("/includes/admin/reports", "templateEmpty");
     }
@@ -58,6 +62,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listeteam",$listeteam);
         $v->setView("/includes/admin/teams", "templateEmpty");
     }
@@ -72,6 +77,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listejeu",$listegames);
         $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/games", "templateEmpty");
@@ -84,6 +90,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listetypejeu",$listgametype);
         $v->setView("/includes/admin/gametypes", "templateEmpty");
     }
@@ -95,6 +102,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listecomment",$listcomment);
         $v->setView("/includes/admin/comments", "templateEmpty");
     }
@@ -106,6 +114,7 @@ class adminController extends template{
 
         $v = new view();
         $this->assignConnectedProperties($v);
+        
         $v->assign("listetournament",$listtournament);
         $v->setView("/includes/admin/tournaments", "templateEmpty");
     }
@@ -190,6 +199,7 @@ class adminController extends template{
             'id' => FILTER_SANITIZE_STRING,
             'name' => FILTER_SANITIZE_STRING,
             'description' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT,
             'img' => FILTER_SANITIZE_STRING                     
         );                                            
 

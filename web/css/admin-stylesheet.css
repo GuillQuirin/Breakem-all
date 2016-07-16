@@ -1,11 +1,11 @@
 .admin-checkbox-ajust{
-    width:23px;
-    bottom:0;
-    top:0;
-    margin:auto;
+    width:23px !important;
+    bottom:0 !important;
+    top:0 !important;
+    margin:auto !important;
 }
 
-.adjusted-checkbox-label{
+.ajusted-checkbox-label{
     color: rgba(8,3,37,1);
 }
 

@@ -10,8 +10,11 @@ var platformModule = {
 		platformModule.setPreviewInput();
 		platformModule.setImgWrapper();
 		platformModule.setAdminDataRe();
+		platformModule.setToggleCheck();
+
 
 		//Preview
+		platformModule.toggleCheck();
 		platformModule.previewImg();
 
 		//CRUD
@@ -21,6 +24,9 @@ var platformModule = {
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -41,6 +47,9 @@ var platformModule = {
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -61,6 +70,12 @@ var platformModule = {
 	},
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
+	},
+	toggleCheck : function(){
+		platformModule.getToggleCheck().on("click", function(ev){
+			console.log("test");
+			jQuery(ev.currentTarget).find('.platform-status-p').prop("checked", !jQuery(ev.currentTarget).find('.platform-status-p').prop("checked"));
+		});
 	},
 	//Preview
 	previewImg : function(){
@@ -123,11 +138,20 @@ var platformModule = {
 				var id = updateBtn.parent().parent().find('.platform-id-p').val();
 				var name = updateBtn.parent().parent().find('.platform-nom-p').val();
 				var description = updateBtn.parent().parent().find('.platform-description-p').val();
+
+				var status;
+				if(updateBtn.parent().parent().find('.platform-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
+
 				var myImg = updateBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
 				var allData = {};
 
 				allData.id = id;
+				allData.status = status;
 
 				if(name)
 					allData.name = name;
@@ -184,6 +208,17 @@ var platformModule = {
 							if(allData.img){
 								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/upload/platform/" + allData.img);	
 							}	
+
+							if(allData.status == 1){
+								console.log(updateBtn.parent().parent().find('.platform-status-g-ht'));
+								updateBtn.parent().parent().find('.platform-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.platform-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){
