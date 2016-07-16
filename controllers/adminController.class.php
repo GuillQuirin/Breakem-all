@@ -574,9 +574,15 @@ class adminController extends template{
             $tb = new typegameManager();   
             $data = $tb->getAllTypes();  
 
-            print_r($data);
+            $myArr = [];
 
-            return $data;
+            foreach($data as $key => $d){
+                $myArr['name'][] = $d->getName();
+                $myArr['id'][] = $d->getId();
+            } 
+
+            //print_r($myArrName);
+            echo json_encode($myArr);
         }
 
     /* GAMES */

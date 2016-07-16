@@ -254,16 +254,9 @@ var gameModule = {
 		});
 	},
 	getAllTypeGames : function(){
-		jQuery.ajax({
-			url: "admin/getAllTypeGame", 
-			type: "GET",
-			success: function(result2){
-				console.log("Récupération des types de jeux.");
-			},
-			error: function(result2){
-				console.log(result2);
-				console.log("Erreur dans la récupération des types de jeux");
-			}
+		jQuery.get("admin/getAlltypeGame", function(result){
+			var resultArr = jQuery.parseJSON(result);
+			console.log(resultArr);
 		});
 	},
 	postDataInsert : function(){
