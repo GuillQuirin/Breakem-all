@@ -59,8 +59,9 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
-		
-		$sql .= " GROUP BY t.id ORDER BY t.startDate LIMIT ".$nb;
+		$sql .= " WHERE t.idWinningTeam IS NULL";		
+		$sql .= " GROUP BY t.id ORDER BY t.startDate LIMIT 0, ".$nb;
+
 
 		$sth = $this->pdo->query($sql);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -98,6 +99,7 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
+		$sql .= " AND t.idWinningTeam IS NULL";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 		$sth = $this->pdo->query($sql);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -181,6 +183,7 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
+		$sql .= " AND t.idWinningTeam IS NULL";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 
 		$data = [];
