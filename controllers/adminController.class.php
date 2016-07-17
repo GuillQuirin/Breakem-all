@@ -628,9 +628,9 @@ class adminController extends template{
                'name' => FILTER_SANITIZE_STRING,
                'description' => FILTER_SANITIZE_STRING,
                'status' => FILTER_VALIDATE_INT,
-               'day'   => FILTER_VALIDATE_INT,     
-               'month'   => FILTER_VALIDATE_INT,     
-               'thisYear'   => FILTER_VALIDATE_INT,   
+               'day'   => FILTER_SANITIZE_STRING,     
+               'month'   => FILTER_SANITIZE_STRING,     
+               'thisYear'   => FILTER_SANITIZE_STRING,   
                'idType' => FILTER_VALIDATE_INT,
                'nameType' => FILTER_SANITIZE_STRING,
                'img' => FILTER_SANITIZE_STRING
@@ -662,6 +662,7 @@ class adminController extends template{
 
               unset($filteredinputs['month']);
               unset($filteredinputs['day']);
+              unset($filteredinputs['nameType']);
               unset($filteredinputs['thisYear']);
 
               //On check le fichier
@@ -676,9 +677,10 @@ class adminController extends template{
                           move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $oldgame->getName());
                   }  
               }
-        print_r($filteredinputs);
         $newGame = new game($filteredinputs);
 
+        print_r($game);
+        print_r($newGame);
         $gameBdd->setGame($game, $newGame);
 
         }
