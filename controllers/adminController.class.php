@@ -542,10 +542,12 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);                }  
             }
 
-            $pBdd = new typegameManager();
-            $tym =  new typegame($filteredinputs);
-            $pBdd->mirrorObject = $tym;
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $pBdd = new typegameManager();
+                $tym =  new typegame($filteredinputs);
+                $pBdd->mirrorObject = $tym;
+                $pBdd->create();
+            }
         }
 
 
