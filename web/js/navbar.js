@@ -832,7 +832,7 @@ var inscription = {
 		});
 	}
 }
-/* TODO : RAJOUTER CONNECTION SUR ENTREE*/
+
 var connection = {
 	init: function(){
 		connection.setFormToWatch();
