@@ -710,6 +710,11 @@ class adminController extends template{
                 $filteredinputs['year'] = date_timestamp_get($date);
             }
 
+            
+          unset($filteredinputs['month']);
+          unset($filteredinputs['day']);
+          unset($filteredinputs['thisYear']);
+
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
             print_r($filteredinputs);
