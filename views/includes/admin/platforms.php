@@ -64,7 +64,7 @@
 								    //Input
 								    echo "<div class='grid-md-7'>";
 										echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" . $platform->getName() . "'>";
+										echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' min='2' max='30' placeholder='Nom compris entre 2 et 30 caractères.' value='" . $platform->getName() . "' required>";
 									    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														   
 										
 										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default platform-status-p admin-checkbox-ajust' id='platform-status-p' name='status' required type='checkbox' ";
