@@ -121,10 +121,16 @@ var tournoiModule = {
 							//Reload la mise a jour dans l'html
 							if(allData.name){updateBtn.parent().parent().find('.tournament-nom-g').html(allData.name);}
 							if(allData.description){updateBtn.parent().parent().find('.tournament-description-g').html(allData.description);}
-							//Si l'image uploadé existe on l'envoi dans la dom
-							if(allData.img){
-								updateBtn.parent().parent().find('.tournament-img-up').attr('src', allData.img);	
-							}	
+							
+							if(allData.status == 1){
+								updateBtn.parent().parent().find('.tournament-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.tournament-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){

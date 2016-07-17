@@ -284,7 +284,7 @@ class adminController extends template{
 
         $platformMaj = new tournament($filteredinputs);
         //print_r($platformMaj);
-        print_r($oldplatform);
+        //print_r($oldplatform);
         
         $platformBdd->setTournament($oldplatform, $platformMaj);
     }
