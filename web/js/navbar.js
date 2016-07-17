@@ -556,7 +556,7 @@ var navbar = {
         },
         closeFormEnter : function(){
         	$(document).keyup(function(e){
-        		if(e.keyCode == 27){
+        		if(e.keyCode == 13){
         			$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
                     
                     setTimeout(function() {
