@@ -81,7 +81,7 @@
 					<!-- Si le tournoi a débuté -->
 					<?php if (is_array($tournoi->gtAllMatchs())): ?>
 						<?php $numberOfParticipatingTeams = count($tournoi->gtParticipatingTeams()); ?>
-						<p class="relative detailtournoi-jeu-victoire">Règles: <span>en <?php echo ( $numberOfParticipatingTeams%2 === 0) ? $numberOfParticipatingTeams : ((int)($numberOfParticipatingTeams+1)/2) ;?> manches</span></p>
+						<p class="relative detailtournoi-jeu-victoire">Règles: <span>en <?php echo $tournoi->gtNumberOfRoundsPlanned() ;?> manches</span></p>
 					<?php endif ?>
 					<p class="relative detailtournoi-jeu-reglesEquipe">Equipes: 
 						<span><?php 						
@@ -134,7 +134,15 @@
 			<!-- On affiche les matchs par niveau -->
 			<?php foreach ($tournoi->gtMatchesSortedByRank() as $rank => $arrayOfMatchedInRank): ?>
 				<h3 class="detailtournoi-rank-number titre2 m-a ta-center capitalize"><!-- 
-					 --><?php echo (!!getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) && $rank > 1) ? getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) : getIntInLetters($rank).' tour'; ?><!-- 
+					 --><?php echo 
+					 ( (!!getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) 
+					 					 && $rank > 1 
+					 					 && ( $rank < $tournoi->gtNumberOfRoundsPlanned() && count($arrayOfMatchedInRank) != 1 )) 
+					 	|| count($arrayOfMatchedInRank) == 1 && $rank == $tournoi->gtNumberOfRoundsPlanned()
+					 ) 
+					 ? 
+					 getRoundNameFromMatchesInRank(count($arrayOfMatchedInRank)) 
+					 : getIntInLetters($rank).' tour'; ?><!-- 
 				--></h3>
 				<div class="detailtournoi-matches-in-rank-container display-flex-row" id="detailtournoi-rank-<?php echo $rank; ?>">
 					<!-- Matchs du niveau rank -->
