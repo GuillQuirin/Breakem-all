@@ -374,11 +374,22 @@ class adminController extends template{
             //On check le fichier
             if(isset($_POST['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($_POST['img']);
                 }
                 else {    
-                    if(isset($_POST['pseudo'])){                   
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $filteredinputs['pseudo']);
+                    if(isset($_POST['pseudo']) && (strlen($_POST['pseudo'])<2 || strlen($_POST['pseudo'])>15)){
+
+                    if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
+                        unset($filteredinputs['pseudo']);
+                    else{
+                        $filteredinputs['pseudo']=trim($filteredinputs['pseudo']);
+                        $user = new user(array('pseudo' => $filteredinputs['pseudo']));
+
+                        $exist_pseudo=$userBDD->pseudoExists($filteredinputs['pseudo']);
+                        if($olduser->getPseudo()!==$filteredinputs['pseudo'] && $exist_pseudo)
+                          unset($filteredinputs['pseudo']);
+                    }                  
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo']);
                     }
                     else{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
