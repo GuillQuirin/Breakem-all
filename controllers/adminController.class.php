@@ -630,7 +630,7 @@ class adminController extends template{
                'status' => FILTER_VALIDATE_INT,
                'day'   => FILTER_VALIDATE_INT,     
                'month'   => FILTER_VALIDATE_INT,     
-               'year'   => FILTER_VALIDATE_INT,   
+               'thisYear'   => FILTER_VALIDATE_INT,   
                'idType' => FILTER_VALIDATE_INT,
                'nameType' => FILTER_SANITIZE_STRING,
                'img' => FILTER_SANITIZE_STRING
@@ -655,14 +655,14 @@ class adminController extends template{
 
 
             //On check la date
-              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
-                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-                $filteredinputs['releaseDate'] = date_timestamp_get($date);
+              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
+                $filteredinputs['year'] = date_timestamp_get($date);
               }
 
               unset($filteredinputs['month']);
               unset($filteredinputs['day']);
-              unset($filteredinputs['year']);
+              unset($filteredinputs['thisYear']);
 
               //On check le fichier
               if(isset($_FILES['file'])){
@@ -699,15 +699,15 @@ class adminController extends template{
                'status' => FILTER_VALIDATE_INT,
                'day'   => FILTER_VALIDATE_INT,     
                'month'   => FILTER_VALIDATE_INT,     
-               'year'   => FILTER_VALIDATE_INT,   
+               'thisYear'   => FILTER_VALIDATE_INT,   
                'idType' => FILTER_VALIDATE_INT,
                'nameType' => FILTER_SANITIZE_STRING,
                'img' => FILTER_SANITIZE_STRING
             );
 
-            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
-                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-                $filteredinputs['releaseDate'] = date_timestamp_get($date);
+            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
+                $filteredinputs['year'] = date_timestamp_get($date);
             }
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));

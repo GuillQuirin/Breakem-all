@@ -140,7 +140,7 @@ var gameModule = {
 				var description = subBtn.find('.jeu-description-p').val();
 				var day = subBtn.find('.jeu-releaseDate-D').val();
 				var month = subBtn.find('.jeu-releaseDate-M').val();
-				var year = subBtn.find('.jeu-releaseDate-Y').val();
+				var thisYear = subBtn.find('.jeu-releaseDate-Y').val();
 				var idType = subBtn.find('.jeu-idType-p').val();
 				var nameType = subBtn.find('.jeu-idType-p option:selected').text();
 
@@ -166,9 +166,6 @@ var gameModule = {
 				if(description)
 					allData.description = description;
 
-				if(year)
-					allData.year = year;
-
 				if(idType && nameType){
 					allData.idType = idType;
 					allData.nameType = nameType;
@@ -177,8 +174,8 @@ var gameModule = {
 				if(day)
 					allData.day = day;
 
-				if(year)
-					allData.year = year;
+				if(thisYear)
+					allData.thisYear = thisYear;
 
 				if(month)
 					allData.month = month;
@@ -232,7 +229,7 @@ var gameModule = {
 						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
 						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
 						if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
-						if(year){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(year); }
+						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
 							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
@@ -347,7 +344,7 @@ var gameModule = {
 				var description = subEvBtn.parent().parent().find('.jeu-description-p').val();
 				var day = subEvBtn.parent().parent().find('.jeu-releaseDate-D').val();
 				var month = subEvBtn.parent().parent().find('.jeu-releaseDate-M').val();
-				var year = subEvBtn.parent().parent().find('.jeu-releaseDate-Y').val();
+				var thisYear = subEvBtn.parent().parent().find('.jeu-releaseDate-Y').val();
 				var idType = subEvBtn.parent().parent().find('.jeu-idType-p').val();
 				var nameType = subEvBtn.parent().parent().find('.jeu-idType-p option:selected').text();
 
@@ -372,8 +369,8 @@ var gameModule = {
 				if(description)
 					allData.description = description;
 
-				if(year)
-					allData.year = year;
+				if(thisYear)
+					allData.thisYear = thisYear;
 
 				if(idType && nameType){
 					allData.idType = idType;
@@ -382,9 +379,6 @@ var gameModule = {
 
 				if(day)
 					allData.day = day;
-
-				if(year)
-					allData.year = year;
 
 				if(month)
 					allData.month = month;
@@ -441,7 +435,7 @@ var gameModule = {
 								//Affichage
 								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" + allData.name + "</span></div></div>" +
-								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" + allData.year + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" + allData.thisYear + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" + allData.nameType + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>" +
 							
@@ -493,7 +487,7 @@ var gameModule = {
 													
 													"<input class='input-default admin-form-input-w jeu-releaseDate-M' type='number' name='month' placeholder='mm' min='1' max='12' value='" + allData.month + "'>" +
 
-													"<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + newD.getFullYear() + "' value='" + allData.year + "'>" +
+													"<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + newD.getFullYear() + "' value='" + allData.thisYear + "'>" +
 													
 													"<input type='hidden' class='jeu-nameType-p' value='" + allData.nameType + "'>" +
 													"<select class='select-default jeu-idType-p' name='idType'>" +
