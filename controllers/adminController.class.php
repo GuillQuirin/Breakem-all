@@ -191,9 +191,10 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);                }  
             }
 
-            
-            $pBdd->mirrorObject = new platform($filteredinputs);
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $pBdd->mirrorObject = new platform($filteredinputs);
+                $pBdd->create();
+            }
         }
 
         public function updatePlatformsDataAction(){
@@ -857,11 +858,11 @@ class adminController extends template{
                 }
 
             $pBdd = new gameManager();
-            if(isset($filteredinputs['name']))
+            if(isset($filteredinputs['name'])){
                 $myNewGame = new game($filteredinputs);
-
-            $pBdd->mirrorObject = $myNewGame;
-            $pBdd->create();
+                $pBdd->mirrorObject = $myNewGame;
+                $pBdd->create();
+            }
         }
 
         public function addGameAction()
