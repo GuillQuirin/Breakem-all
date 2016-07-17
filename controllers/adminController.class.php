@@ -214,30 +214,33 @@ class adminController extends template{
                 'img' => FILTER_SANITIZE_STRING                     
             );                                            
 
-            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+            //print_r($args);
+            //print_r(trim(filter_var($_POST['id'], FILTER_SANITIZE_STRING)));
 
             $platformBdd = new platformManager();
-            $oldplatform = $platformBdd->getIdPlatform($filteredinputs['id']);
-            $platform = new platform(array('name' => trim($filteredinputs['name'])));
+            $oldplatform = $platformBdd->getIdPlatform(trim(filter_var($args['id'], FILTER_SANITIZE_STRING)));
+            $platform = new platform(array('name' => trim(filter_var($args['name'], FILTER_SANITIZE_STRING))));
 
             $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
 
             if($exist_name)
-                unset($filteredinputs['name']);
-
+                unset($args['name']);
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
+                    unset($args['img']);
                 }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);
-                    else
+                else{    
+                    if(!$exist_name && $platform->getName()!=NULL)
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $platform->getName());
+                    else if($oldplatform->getName()!==NULL)    
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $oldplatform->getName());
                 }  
             }
+
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $platformMaj = new platform($filteredinputs);
             
