@@ -627,6 +627,41 @@ class adminController extends template{
 
         }
 
+        public function insertGamesDataAction(){
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    echo 'Error: ' . $_FILES['file']['error'];
+                }
+                else {                        
+                    move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_FILES['file']['name']);
+                }
+            }
+
+            $args = array(
+               'name' => FILTER_SANITIZE_STRING,
+               'description' => FILTER_SANITIZE_STRING,
+               'status' => FILTER_VALIDATE_INT,
+               'day'   => FILTER_VALIDATE_INT,     
+               'month'   => FILTER_VALIDATE_INT,     
+               'year'   => FILTER_VALIDATE_INT,   
+               'idType' => FILTER_VALIDATE_INT,
+               'nameType' => FILTER_SANITIZE_STRING,
+               'img' => FILTER_SANITIZE_STRING
+            );
+
+            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+                $filteredinputs['releaseDate'] = date_timestamp_get($date);
+            }
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+            print_r($filteredinputs);
+
+            $pBdd = new gameManager();
+            $pBdd->mirrorObject = new game($filteredinputs);
+            $pBdd->create();
+        }
 
         public function addGameAction()
         {

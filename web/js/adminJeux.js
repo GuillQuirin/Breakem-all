@@ -12,13 +12,15 @@ var gameModule = {
 		gameModule.setToggleCheck();
 
 		//Preview
-		gameModule.toggleCheck();
 		gameModule.previewImg();
 
 		//CRUD
 		gameModule.postDataInsert();
 		//gameModule.postDataDelete();
 		gameModule.postDataUpdate();
+
+		//Toggle
+		gameModule.toggleCheck();
 	},
 
 	//Setter
@@ -260,6 +262,10 @@ var gameModule = {
 		});
 	},
 	postDataInsert : function(){
+		navbar.setOpenFormAll();	
+		navbar.form.admin();	
+		navbar.form.closeFormKey();
+        navbar.form.closeFormClick();
 
 	//Ajout du formulaire dans la dom
 		gameModule.getInsertBtn().on("click", function(e){
@@ -278,7 +284,7 @@ var gameModule = {
 									//Image
 									"<div class='grid-md-12'>" +
 										"<div class='membre-form-img-size m-a'>" +																	
-											"<img class='img-cover jeu-img membre-form-img-size' src='' title='Image du jeu' alt='Image du jeu'>" +										
+											"<img class='img-cover jeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/jeux/default-jeux.png' title='Image du jeu' alt='Image du jeu'>" +										
 										"</div>" +
 										"<div class='text-center admin-input-file'>" +								 
 											"<input type='file' class='jeu-image-p' name='profilpic'>" +
@@ -336,23 +342,23 @@ var gameModule = {
 			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
 
 			subBtn.click(function(ev){
-				var subBtn = jQuery(ev.currentTarget);
-				var name = subBtn.parent().parent().find('.jeu-nom-p').val();
-				var description = subBtn.parent().parent().find('.jeu-description-p').val();
-				var day = subBtn.parent().parent().find('.jeu-releaseDate-D').val();
-				var month = subBtn.parent().parent().find('.jeu-releaseDate-M').val();
-				var year = subBtnparent().parent().find('.jeu-releaseDate-Y').val();
-				var idType = subBtn.parent().parent().find('.jeu-idType-p').val();
-				var nameType = subBtn.find('.jeu-idType-p option:selected').text();
+				var subEvBtn = jQuery(ev.currentTarget);
+				var name = subEvBtn.parent().parent().find('.jeu-nom-p').val();
+				var description = subEvBtn.parent().parent().find('.jeu-description-p').val();
+				var day = subEvBtn.parent().parent().find('.jeu-releaseDate-D').val();
+				var month = subEvBtn.parent().parent().find('.jeu-releaseDate-M').val();
+				var year = subEvBtn.parent().parent().find('.jeu-releaseDate-Y').val();
+				var idType = subEvBtn.parent().parent().find('.jeu-idType-p').val();
+				var nameType = subEvBtn.parent().parent().find('.jeu-idType-p option:selected').text();
 
 				var status;
-				if(subBtn.parent().parent().find('.jeu-status-p').is(':checked')){
+				if(subEvBtn.parent().parent().find('.jeu-status-p').is(':checked')){
 					status = -1;
 				}else{
 					status = 1;
 				}
 
-				var myImg = subBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
+				var myImg = subEvBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
 
 				var allData = {};
 
@@ -417,13 +423,14 @@ var gameModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.description && allData.year && allData.idType){
+			    //if(allData.name && allData.description){
 			    //Insert du jeu
 					jQuery.ajax({
 						url: "admin/insertGamesData", 
 						type: "POST",
 						data: allData,
-						success: function(result){
+						success: function(result10){
+							console.log(result10);
 							console.log("Jeu ajouté.");
 							console.log(allData);
 
@@ -533,7 +540,7 @@ var gameModule = {
 							throw new Error("Couldn't add game", result);
 						}
 					});
-				}
+				//}
 			});
 
 		});
