@@ -80,7 +80,7 @@
 		<table border=0>
 			<tr>
 				<td>Nom : </td>
-				<td><input class="input-default nameteam" type="text" name="name" value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>"></td>
+				<td><input class="input-default nameteam" type="text" name="name" min='5' max='30' placeholder='Nom entre 5 et 30 caractères.' value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>" required></td>
 			</tr>
 			<tr>
 				<td>Description : </td>
