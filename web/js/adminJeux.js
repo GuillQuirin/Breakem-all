@@ -340,7 +340,7 @@ var gameModule = {
 
 			subBtn.click(function(ev){
 				var subEvBtn = jQuery(ev.currentTarget);
-				var name = subEvBtn.parent().parent().find('.jeu-nom-p').val();
+				var name = subEvBtn.parent().parent().find('.jeu-name-p').val();
 				var description = subEvBtn.parent().parent().find('.jeu-description-p').val();
 				var day = subEvBtn.parent().parent().find('.jeu-releaseDate-D').val();
 				var month = subEvBtn.parent().parent().find('.jeu-releaseDate-M').val();
@@ -424,7 +424,6 @@ var gameModule = {
 						type: "POST",
 						data: allData,
 						success: function(result10){
-							console.log(result10);
 							console.log("Jeu ajouté.");
 							console.log(allData);
 
@@ -528,6 +527,8 @@ var gameModule = {
 									);
 								});
 							});
+
+							console.log(result10);
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){

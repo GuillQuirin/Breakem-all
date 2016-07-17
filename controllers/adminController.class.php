@@ -375,12 +375,16 @@ class adminController extends template{
                'description' => FILTER_SANITIZE_STRING,
                'email' => FILTER_VALIDATE_EMAIL,
                'status' => FILTER_VALIDATE_INT,
-               'day'   => FILTER_VALIDATE_INT,     
-               'month'   => FILTER_VALIDATE_INT,     
-               'year'   => FILTER_VALIDATE_INT,   
+               'day'   => FILTER_SANITIZE_STRING,     
+               'month'   => FILTER_SANITIZE_STRING,     
+               'year'   => FILTER_SANITIZE_STRING,   
                'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
                'img' => FILTER_SANITIZE_STRING
             );
+
+            $filteredinputs['day'] = (int) $filteredinputs['day'];
+            $filteredinputs['month'] = (int) $filteredinputs['month'];
+            $filteredinputs['year'] = (int) $filteredinputs['year'];
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
             
@@ -636,6 +640,10 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
+            $filteredinputs['day'] = (int) $filteredinputs['day'];
+            $filteredinputs['month'] = (int) $filteredinputs['month'];
+            $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
+
             $filteredinputs = filter_input_array(INPUT_POST, $args);
 
             $gameBdd = new gameManager();
@@ -678,9 +686,6 @@ class adminController extends template{
                   }  
               }
         $newGame = new game($filteredinputs);
-
-        print_r($game);
-        print_r($newGame);
         $gameBdd->setGame($game, $newGame);
 
         }
@@ -699,13 +704,19 @@ class adminController extends template{
                'name' => FILTER_SANITIZE_STRING,
                'description' => FILTER_SANITIZE_STRING,
                'status' => FILTER_VALIDATE_INT,
-               'day'   => FILTER_VALIDATE_INT,     
-               'month'   => FILTER_VALIDATE_INT,     
-               'thisYear'   => FILTER_VALIDATE_INT,   
+               'day'   => FILTER_SANITIZE_STRING,     
+               'month'   => FILTER_SANITIZE_STRING,     
+               'thisYear'   => FILTER_SANITIZE_STRING,   
                'idType' => FILTER_VALIDATE_INT,
                'nameType' => FILTER_SANITIZE_STRING,
                'img' => FILTER_SANITIZE_STRING
             );
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+            $filteredinputs['day'] = (int) $filteredinputs['day'];
+            $filteredinputs['month'] = (int) $filteredinputs['month'];
+            $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
 
             if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
                 $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
@@ -713,16 +724,16 @@ class adminController extends template{
             }
 
             
-          unset($filteredinputs['month']);
-          unset($filteredinputs['day']);
-          unset($filteredinputs['thisYear']);
-
-            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
-
-            print_r($filteredinputs);
+              unset($filteredinputs['month']);
+              unset($filteredinputs['day']);
+              unset($filteredinputs['thisYear']);
+              unset($filteredinputs['nameType']);
 
             $pBdd = new gameManager();
-            $pBdd->mirrorObject = new game($filteredinputs);
+            $myNewGame = new game($filteredinputs);
+
+            $pBdd->mirrorObject = $myNewGame;
+            print_r($myNewGame);
             $pBdd->create();
         }
 
