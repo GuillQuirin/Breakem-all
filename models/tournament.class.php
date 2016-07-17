@@ -358,6 +358,22 @@ final class tournament{
 		$this->_freeteams = [];
 		$this->_minIdTeam = PHP_INT_MAX;
 	}
+
+	public function gtNumberOfRoundsPlanned(){
+		$playingTeams = count($this->gtParticipatingTeams());
+
+		$roundNumber = 0;
+		while( $playingTeams > 1){
+			if( $playingTeams % 2 === 0 ){
+				$playingTeams = $playingTeams/2;
+			}
+			else{
+				$playingTeams--;
+			}
+			$roundNumber++;
+		}
+		return $roundNumber;
+	}
 }
 /*
 *
