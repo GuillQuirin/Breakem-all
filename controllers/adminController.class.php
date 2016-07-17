@@ -695,13 +695,13 @@ class adminController extends template{
             $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
             
             $gameBdd = new gameManager();
-            $game = $gameBdd->getGameById($filteredinputs['id']);
 
             // On check l'utilisation du nom
             if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>15)
                 unset($filteredinputs['name']);
             else{
                 $filteredinputs['name']=trim($filteredinputs['name']);
+                $oldgame = new game(array('name'=>$filteredinputs['name']));
                 $exist_name=$gameBdd->isNameUsed($oldgame);
 
                 if($exist_name)
@@ -732,7 +732,8 @@ class adminController extends template{
                 }
 
             $pBdd = new gameManager();
-            $myNewGame = new game($filteredinputs);
+            if(isset($filteredinputs['name']))
+                $myNewGame = new game($filteredinputs);
 
             $pBdd->mirrorObject = $myNewGame;
             $pBdd->create();
