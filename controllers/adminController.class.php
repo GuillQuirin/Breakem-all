@@ -191,9 +191,10 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);                }  
             }
 
-            
-            $pBdd->mirrorObject = new platform($filteredinputs);
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $pBdd->mirrorObject = new platform($filteredinputs);
+                $pBdd->create();
+            }
         }
 
         public function updatePlatformsDataAction(){
@@ -371,12 +372,42 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
-            $filteredinputs['day'] = (int) $filteredinputs['day'];
-            $filteredinputs['month'] = (int) $filteredinputs['month'];
-            $filteredinputs['year'] = (int) $filteredinputs['year'];
+            //On check le fichier
+            if(isset($_POST['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    unset($_POST['img']);
+                }
+                else {    
+                    if(isset($_POST['pseudo']) && (strlen($_POST['pseudo'])<2 || strlen($_POST['pseudo'])>15)){
+
+                    if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
+                        unset($filteredinputs['pseudo']);
+                    else{
+                        $filteredinputs['pseudo']=trim($filteredinputs['pseudo']);
+                        $user = new user(array('pseudo' => $filteredinputs['pseudo']));
+
+                        $exist_pseudo=$userBDD->pseudoExists($filteredinputs['pseudo']);
+                        if($olduser->getPseudo()!==$filteredinputs['pseudo'] && $exist_pseudo)
+                          unset($filteredinputs['pseudo']);
+                    }                  
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo']);
+                    }
+                    else{
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
+                    }
+                }  
+            }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
             
+            if(isset($filteredinputs['day']))
+                $filteredinputs['day'] = (int) $filteredinputs['day'];
+            if(isset($filteredinputs['month']))
+                $filteredinputs['month'] = (int) $filteredinputs['month'];
+            if(isset($filteredinputs['year']))
+                $filteredinputs['year'] = (int) $filteredinputs['year'];
+
+            print_r($filteredinputs);
             $userBDD = new userManager();
             $olduser = $userBDD->getIdUser($filteredinputs['id']);
 
@@ -410,18 +441,6 @@ class adminController extends template{
             unset($filteredinputs['day']);
             unset($filteredinputs['year']);
 
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['pseudo']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $filteredinputs['pseudo']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
-                }  
-            }
 
             $newUser = new user($filteredinputs);
             
@@ -524,11 +543,12 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);                }  
             }
 
-            $pBdd = new typegameManager();
-            $tym =  new typegame($filteredinputs);
-            $pBdd->mirrorObject = $tym;
-            print_r($tym);
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $pBdd = new typegameManager();
+                $tym =  new typegame($filteredinputs);
+                $pBdd->mirrorObject = $tym;
+                $pBdd->create();
+            }
         }
 
 
@@ -542,7 +562,7 @@ class adminController extends template{
             );                                            
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-
+            print_r($filteredinputs);
             $bdd = new typegameManager();
             $old = $bdd->getTypeGame($filteredinputs['id']);
             
@@ -565,10 +585,13 @@ class adminController extends template{
                     unset($filteredinputs['img']);
                 }
                 else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
+                    if(isset($filteredinputs['name']))   
+                    {//move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile);
+                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
+                    }
+                    else{
+                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
+                    }
                 }  
             }
 
@@ -835,11 +858,11 @@ class adminController extends template{
                 }
 
             $pBdd = new gameManager();
-            if(isset($filteredinputs['name']))
+            if(isset($filteredinputs['name'])){
                 $myNewGame = new game($filteredinputs);
-
-            $pBdd->mirrorObject = $myNewGame;
-            $pBdd->create();
+                $pBdd->mirrorObject = $myNewGame;
+                $pBdd->create();
+            }
         }
 
         public function addGameAction()
