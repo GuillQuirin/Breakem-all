@@ -3,6 +3,22 @@
 *
 */
 class gameManager extends basesql{
+
+	public function getAllGamesName(){
+		$sql = "SELECT name FROM " . $this->table;
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new game($dataArr);
+			}
+			return $data;
+		}
+		return false;
+	}
 	
 	public function getBestGames(){        
          $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu, G.img

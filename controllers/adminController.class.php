@@ -675,6 +675,20 @@ class adminController extends template{
 
         }
 
+        public function getAllGamesNameAction(){
+            $tb = new gameManager();   
+            $data = $tb->getAllGames();  
+
+            $myArr = [];
+
+            foreach($data as $key => $d){
+                $myArr['name'][] = $d->getName();
+            } 
+
+            //print_r($myArrName);
+            echo json_encode($myArr);
+        }
+
         public function insertGamesDataAction(){
             $args = array(
                'name' => FILTER_SANITIZE_STRING,
