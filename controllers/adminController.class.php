@@ -212,14 +212,19 @@ class adminController extends template{
                 'description' => FILTER_SANITIZE_STRING,
                 'status' => FILTER_VALIDATE_INT,
                 'img' => FILTER_SANITIZE_STRING                     
-            );                                            
+            );               
 
-            //print_r($args);
-            //print_r(trim(filter_var($_POST['id'], FILTER_SANITIZE_STRING)));
+            //Pour guillaume
+            echo "id egal ";
+            echo $_POST['id'];
+            echo ";name egal ";
+            echo $_POST['name'];
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $platformBdd = new platformManager();
-            $oldplatform = $platformBdd->getIdPlatform(trim(filter_var($args['id'], FILTER_SANITIZE_STRING)));
-            $platform = new platform(array('name' => trim(filter_var($args['name'], FILTER_SANITIZE_STRING))));
+            $oldplatform = $platformBdd->getIdPlatform($filteredinputs['id']);
+            $platform = new platform(array('name' => trim($filteredinputs['name'])));
 
             $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
 

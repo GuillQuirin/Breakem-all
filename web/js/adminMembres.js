@@ -131,7 +131,12 @@ var membreModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.membre-submit-form-btn');
 
-			submitBtn.on("click", function(){
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
+
+			submitBtn.on("click", function(updateEvent){
 				var subBtn = updateBtn.parent().parent();
 
 				var id = subBtn.find('.membre-id-p').val();
@@ -249,7 +254,9 @@ var membreModule = {
 						throw new Error("Couldn't update membre", result);
 					}
 				});
-			});			
+				updateEvent.preventDefault();
+				return false;
+			});		
 		});
 	},
 	postDataInsert : function(){
