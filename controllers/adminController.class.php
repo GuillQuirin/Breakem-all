@@ -500,7 +500,7 @@ class adminController extends template{
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $bdd = new typegameManager();
-            $old = $bdd->getIdTypeGame($filteredinputs['id']);
+            $old = $bdd->getTypeGame($filteredinputs['id']);
             
 
              // On check l'utilisation du nom
