@@ -22,7 +22,7 @@
 					<?php echo ($joueur->getNameTeam()) ? "<a href='".WEBPATH."/detailteam?name=".$joueur->getNameTeam()."'>".$joueur->getNameTeam()."</a>" : "" ; ?>
 				</td>
 				<td class="page">
-					<button>
+					<button class="btn btn-pink">
 						<a href="<?php echo WEBPATH.'/profil?pseudo='.$joueur->getPseudo(); ?>">Accèder à la page du joueur</a>
 					</button>
 				</td>																			
