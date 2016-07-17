@@ -89,7 +89,7 @@ class teamController extends template{
         $dbTeam = new teamManager();
 
         //Presence du nom en BDD
-        if($dbTeam->isNameUsed($team))
+        if($dbTeam->nameExists($team))
             $this->echoJSONerror("nameused", "nom déjà utilisé");
             
         //L'user a-t-il déjà une team
