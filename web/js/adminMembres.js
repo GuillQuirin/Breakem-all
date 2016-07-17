@@ -186,6 +186,7 @@ var membreModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	file.name = allData.pseudo;
 			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
