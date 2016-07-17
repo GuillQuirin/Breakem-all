@@ -253,21 +253,30 @@ var gameModule = {
 			});			
 		});
 	},
-	getAllTypeGames : function(){
-		jQuery.ajax({
-			url: "admin/getAllTypeGame", 
-			type: "GET",
-			success: function(result2){
-				console.log("Récupération des types de jeux.");
-			},
-			error: function(result2){
-				console.log(result2);
-				console.log("Erreur dans la récupération des types de jeux");
-			}
+	getAllTypeGames : function(callback){
+		jQuery.get("admin/getAlltypeGame", function(result){
+			var resultArr = jQuery.parseJSON(result);
+			callback(resultArr);
 		});
 	},
 	postDataInsert : function(){
-	gameModule.getAllTypeGames();
+	var typeGamesObj = {};
+	var typeGamesArr = [];
+	
+	gameModule.getAllTypeGames(function(resultFromCb){
+		jQuery.each(resultFromCb.name, function(j, jfield){
+			typeGamesObj.name = jfield;
+			typeGamesArr[j] = typeGamesObj;
+		});
+
+		jQuery.each(resultFromCb.id, function(i, ifield){
+			typeGamesObj.id = ifield;
+			typeGamesArr[i] = typeGamesObj;
+		});
+
+		console.log(typeGamesArr);
+
+	});
 
 	//Ajout du formulaire dans la dom
 		gameModule.getInsertBtn().on("click", function(e){
