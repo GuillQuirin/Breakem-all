@@ -117,7 +117,7 @@ var tournoiModule = {
 						data: allData,
 						success: function(result){
 							console.log(result);
-							console.log("Plateforme mise à jour");
+							console.log("Tournoi mise à jour");
 							//Reload la mise a jour dans l'html
 							if(allData.name){updateBtn.parent().parent().find('.tournament-nom-g').html(allData.name);}
 							if(allData.description){updateBtn.parent().parent().find('.tournament-description-g').html(allData.description);}

@@ -61,6 +61,7 @@ var onglet = {
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html('');
+			onglet.getAdminAddWrapper().hide();
 			onglet.membresView();
 		});
 		//Signalements
@@ -68,6 +69,7 @@ var onglet = {
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html('');
+			onglet.getAdminAddWrapper().hide();
 			onglet.reportsView();
 		});
 		//Teams
@@ -75,6 +77,7 @@ var onglet = {
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
 			onglet.getAdminAddWrapper().html('');
+			onglet.getAdminAddWrapper().hide();
 			onglet.teamsView();
 		});
 		//Jeux
@@ -84,6 +87,7 @@ var onglet = {
 			onglet.getAdminAddWrapper().html(
 				myBtn
 			);
+			onglet.getAdminAddWrapper().show();
 			onglet.gamesView();
 		});
 		//Type de Jeu
@@ -93,20 +97,23 @@ var onglet = {
 			onglet.getAdminAddWrapper().html(
 				myBtn
 			);
+			onglet.getAdminAddWrapper().show();
 			onglet.typegamesView();
 		});
 		//Commentaires
 		onglet.getAdminOngletComment().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
-			onglet.getAdminAddWrapper().html('');			
+			onglet.getAdminAddWrapper().html('');
+			onglet.getAdminAddWrapper().hide();			
 			onglet.commentsView();
 		});
 		//Tournoi
 		onglet.getAdminOngletTournament().click(function(){
 			onglet.getAdminBoard().hide();
 			onglet.getAdminContainer().show();
-			onglet.getAdminAddWrapper().html('');			
+			onglet.getAdminAddWrapper().html('');
+			onglet.getAdminAddWrapper().hide();			
 			onglet.tournamentsView();
 		});
 	},
