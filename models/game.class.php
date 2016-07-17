@@ -5,7 +5,7 @@ class game{
 	protected $id = null;
 	protected $name = null;
 	protected $description = null;
-	protected $release = null;
+	protected $releaseDate = null;
 	protected $img = null;
 	protected $idType = null;
 	protected $nameType = null;
@@ -34,8 +34,8 @@ class game{
 	private function setDescription($v){
 		$this->description=$v;
 	}
-	public function setRelease($v){
-		$this->release=$v;
+	public function setReleaseDate($v){
+		$this->releaseDate=$v;
 	}
 	public function setIdType($v){
 		$this->idType=$v;
@@ -54,7 +54,7 @@ class game{
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
-	public function getRelease(){return $this->release;}
+	public function getReleaseDate(){return $this->releaseDate;}
 	public function getStatus(){return $this->status;}
 	public function getImg($upload=false){
 		if($upload){

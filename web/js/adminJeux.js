@@ -136,9 +136,9 @@ var gameModule = {
 				var id = subBtn.find('.jeu-id-p').val();
 				var name = subBtn.find('.jeu-name-p').val();
 				var description = subBtn.find('.jeu-description-p').val();
-				var day = subBtn.find('.jeu-release-D').val();
-				var month = subBtn.find('.jeu-release-M').val();
-				var year = subBtn.find('.jeu-release-Y').val();
+				var day = subBtn.find('.jeu-releaseDate-D').val();
+				var month = subBtn.find('.jeu-releaseDate-M').val();
+				var year = subBtn.find('.jeu-releaseDate-Y').val();
 				var idType = subBtn.find('.jeu-idType-p').val();
 				var nameType = subBtn.find('.jeu-idType-p option:selected').text();
 
@@ -230,7 +230,7 @@ var gameModule = {
 						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
 						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
 						if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
-						if(year){ updateBtn.parent().parent().find('.jeu-release-g').html(year); }
+						if(year){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(year); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
 							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
@@ -260,23 +260,6 @@ var gameModule = {
 		});
 	},
 	postDataInsert : function(){
-	var typeGamesObj = {};
-	var typeGamesArr = [];
-	
-	gameModule.getAllTypeGames(function(resultFromCb){
-		jQuery.each(resultFromCb.name, function(j, jfield){
-			typeGamesObj.name = jfield;
-			typeGamesArr[j] = typeGamesObj;
-		});
-
-		jQuery.each(resultFromCb.id, function(i, ifield){
-			typeGamesObj.id = ifield;
-			typeGamesArr[i] = typeGamesObj;
-		});
-
-		console.log(typeGamesArr);
-
-	});
 
 	//Ajout du formulaire dans la dom
 		gameModule.getInsertBtn().on("click", function(e){
@@ -304,7 +287,7 @@ var gameModule = {
 									//Label
 									"<div class='grid-md-4 text-left'>" +
 									    "<label for='nom'>Nom :</label>" +
-									    "<label for='scription'>Description :</label>" +
+									    "<label for='description'>Description :</label>" +
 									    "<label for='year'>Année :</label>" +
 									    "<label for='idType'>Type :</label>" +
 									    "<label for='status'>Verrouiller :</label>" +
@@ -315,14 +298,14 @@ var gameModule = {
 										"<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value=''>" +
 										"<textarea class='input-default admin-form-input-w jeu-description-p' name='description'></textarea>" +
 
-										"<input class='input-default admin-form-input-w jeu-release-D' type='number' name='day' placeholder='dd' min='1' max='31' value='>" +
+										"<input class='input-default admin-form-input-w jeu-releaseDate-D' type='number' name='day' placeholder='dd' min='1' max='31' value=''>" +
 										
-										"<input class='input-default admin-form-input-w jeu-release-M' type='number' name='month' placeholder='mm' min='1' max='12' value=''>" +
+										"<input class='input-default admin-form-input-w jeu-releaseDate-M' type='number' name='month' placeholder='mm' min='1' max='12' value=''>" +
 
-										"<input class='input-default admin-form-input-w jeu-release-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + new Date().getFullYear() + "' value=''>" +
+										"<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + new Date().getFullYear() + "' value=''>" +
 										
 										"<select class='select-default jeu-idType-p' name='idType'>" +
-											"<option value=''></option>" +	
+											
 										"</select>" +
 
 										"<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox'>" +
@@ -339,6 +322,16 @@ var gameModule = {
 				//Fin Formulaire
 			);
 
+			/* Fonction qui ajoute les typgames existant */
+			gameModule.getAllTypeGames(function(resultFromCb){
+				jQuery.each(resultFromCb.name, function(y, yfield){
+					jQuery('.jeu-idType-p').append(
+						"<option name='idType' value='" + resultFromCb.id[y] + "'>" + resultFromCb.name[y] + "</option>"
+					);
+				});
+			});
+		
+
 			//Envoi dans la BDD
 			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
 
@@ -346,24 +339,49 @@ var gameModule = {
 				var subBtn = jQuery(ev.currentTarget);
 				var name = subBtn.parent().parent().find('.jeu-nom-p').val();
 				var description = subBtn.parent().parent().find('.jeu-description-p').val();
-				var year = subBtn.parent().parent().find('.jeu-year-p').val();
+				var day = subBtn.parent().parent().find('.jeu-releaseDate-D').val();
+				var month = subBtn.parent().parent().find('.jeu-releaseDate-M').val();
+				var year = subBtnparent().parent().find('.jeu-releaseDate-Y').val();
+				var idType = subBtn.parent().parent().find('.jeu-idType-p').val();
+				var nameType = subBtn.find('.jeu-idType-p option:selected').text();
+
+				var status;
+				if(subBtn.parent().parent().find('.jeu-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
 
 				var allData = {};
 
-				allData.img = "default-platform.png";
+				allData.img = "default-jeux.png";
+
+				allData.status = status;
 
 				if(name)
 					allData.name = name;
-				
+
 				if(description)
 					allData.description = description;
-				
-				if(year){
+
+				if(year)
 					allData.year = year;
+
+				if(idType && nameType){
+					allData.idType = idType;
+					allData.nameType = nameType;
 				}
 
+				if(day)
+					allData.day = day;
+
+				if(year)
+					allData.year = year;
+
+				if(month)
+					allData.month = month;
 
 				//Image
 			 	if (typeof FormData !== 'undefined') {				           
@@ -379,7 +397,7 @@ var gameModule = {
 				        	var imgData = new FormData();                  
 						    imgData.append('file', file);				    		                             
 						    jQuery.ajax({
-					            url: "admin/insertPlatformsData", 
+					            url: "admin/insertGamesData", 
 					            dataType: 'text',  
 					            cache: false,
 					            contentType: false,
@@ -399,7 +417,7 @@ var gameModule = {
 			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.description && allData.year){
+			    if(allData.name && allData.description && allData.year && allData.idType){
 			    //Insert du jeu
 					jQuery.ajax({
 						url: "admin/insertGamesData", 
@@ -409,23 +427,27 @@ var gameModule = {
 							console.log("Jeu ajouté.");
 							console.log(allData);
 
-							onglet.getAdminDataRe().append(
-							//Wrapper				
-							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
+							var newD = new Date();
 
+							onglet.getAdminDataRe().append(
+							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
 								//Affichage
-								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" + webpath.get() + "/web/img/upload/jeux/" + allData.img  + "'></div></div></div>" +
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" + allData.name + "</span></div></div>" +
-								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-year-g'>" + allData.year + "</span></div></div>" +
-								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-type-g'>" + allData.type + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" + allData.year + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" + allData.nameType + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>" +
+							
+								"</div></span></div></div>" +					
+
 								//Fin 
 
-								//Boutton
+								//Bouton
 								"<div class='admin-data-ihm-btn hidden align'>" +
 									"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +
-									"<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>" +
-								"</div>" + 
-								//Fin Boutton
+			/*						"<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>" +
+			*/					"</div>" + 
+								//Fin Bouton
 
 								//Formulaire
 								"<div class='index-modal jeus hidden-fade hidden'>" +
@@ -441,7 +463,7 @@ var gameModule = {
 												//Image
 												"<div class='grid-md-12'>" +
 													"<div class='membre-form-img-size m-a'>" +																	
-														"<img class='img-cover jeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/jeux/" + allData.img + "' title='Image du jeu' alt='Image du jeu'>" +										
+														"<img class='img-cover jeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/jeux/" + allData.img +"' title='Image de profil' alt='Image de profil'>" +										
 													"</div>" +
 													"<div class='text-center admin-input-file'>" +								 
 														"<input type='file' class='jeu-image-p' name='profilpic'>" +
@@ -450,14 +472,30 @@ var gameModule = {
 												//Label
 												"<div class='grid-md-4 text-left'>" +
 												    "<label for='nom'>Nom :</label>" +
-												    "<label for='scription'>Description :</label>" +
+												    "<label for='description'>Description :</label>" +
 												    "<label for='year'>Année :</label>" +
+												    "<label for='idType'>Type :</label>" +
+												    "<label for='status'>Verrouiller :</label>" +
 											    "</div>" +
 											    //Input
 											    "<div class='grid-md-8'>" +
 													"<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value='" + allData.name + "'>" +
 													"<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" + allData.description + "</textarea>" +
-													"<input class='input-default admin-form-input-w jeu-year-p' name='year' type='text' value='" + allData.year + "'>" +
+
+													"<input class='input-default admin-form-input-w jeu-releaseDate-D' type='number' name='day' placeholder='dd' min='1' max='31' value='" + allData.day + "'>" +
+													
+													"<input class='input-default admin-form-input-w jeu-releaseDate-M' type='number' name='month' placeholder='mm' min='1' max='12' value='" + allData.month + "'>" +
+
+													"<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + newD.getFullYear() + "' value='" + allData.year + "'>" +
+													
+													"<input type='hidden' class='jeu-nameType-p' value='" + allData.nameType + "'>" +
+													"<select class='select-default jeu-idType-p' name='idType'>" +
+														
+													"</select>" +
+
+													"<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox'>" +
+													"<label class='ajusted-checkbox-label' for='status'>.</label></span></div>" +								
+
 												"</div>" +
 												//Submit
 												"<div class='grid-md-12'>" + 
@@ -471,6 +509,24 @@ var gameModule = {
 							"</div>" 
 							//Fin Wrapper
 							);
+							
+							if(allData.status == 1){
+								jQuery('.jeu-status-g-ht').append(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								);
+							}else{
+								jQuery('.jeu-status-g-ht').append(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								);
+							}
+
+							gameModule.getAllTypeGames(function(resultFromCb){
+								jQuery.each(resultFromCb.name, function(y, yfield){
+									jQuery('.jeu-idType-p').append(
+										"<option name='idType' value='" + resultFromCb.id[y] + "'>" + resultFromCb.name[y] + "</option>"
+									);
+								});
+							});
 							navbar.form.smoothClosing();				
 						},
 						error: function(result){

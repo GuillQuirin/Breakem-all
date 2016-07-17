@@ -616,7 +616,7 @@ class adminController extends template{
         
         if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
           $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-          $filteredinputs['release'] = date_timestamp_get($date);
+          $filteredinputs['releaseDate'] = date_timestamp_get($date);
         }
 
         $gameBdd = new gameManager();
