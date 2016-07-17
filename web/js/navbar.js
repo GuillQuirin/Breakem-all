@@ -115,7 +115,7 @@ function tryParseData(rawData){
 		}
 		catch(err){
 			console.log(rawData);
-			alert("Problem during server processes");
+			popup.init("Problem during server processes");
 		}
 	}
 	return false;
