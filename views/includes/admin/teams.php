@@ -66,7 +66,7 @@
 									    //Input
 									    echo "<div class='grid-md-8'>";
 											echo "<input type='text' name='id' class='hidden team-id-p' value='" . $team->getId() . "'>";
-											echo "<input class='input-default admin-form-input-w team-name-p' name='name' type='text' value='" . $team->getName() . "'>";
+											echo "<input class='input-default admin-form-input-w team-name-p' min='2' max='30' placeholder='Nom compris entre 2 et 30 caractères.'  name='name' type='text' value='" . $team->getName() . "' required>";
 											echo "<input class='input-default admin-form-input-w team-slogan-p' name='slogan' type='text' value='" . $team->getSlogan() . "'>";
 											echo "<input class='input-default admin-form-input-w team-description-p' name='description' type='text' value='" . $team->getDescription() . "'>";
 											

@@ -162,55 +162,72 @@ class adminController extends template{
 
 
     /* PLATEFORME */
-    public function insertPlatformsDataAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
+        public function insertPlatformsDataAction(){
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    echo 'Error: ' . $_FILES['file']['error'];
+                }
+                else {                        
+                    move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+                }
             }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
+
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING,
+                'description' => FILTER_SANITIZE_STRING,
+                'img' => FILTER_SANITIZE_STRING
+            );
+
+                $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+
+                $pBdd = new platformManager();
+                $pBdd->mirrorObject = new platform($filteredinputs);
+                $pBdd->create();
             }
-        }
 
-        $args = array(
-            'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,
-            'img' => FILTER_SANITIZE_STRING
-        );
-
-            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
-
-            $pBdd = new platformManager();
-            $pBdd->mirrorObject = new platform($filteredinputs);
-            $pBdd->create();
-        }
-
-    public function updatePlatformsDataAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
-            }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
-            }  
-        }
-
-        $args = array(
-            'id' => FILTER_SANITIZE_STRING,
-            'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,
-            'status' => FILTER_VALIDATE_INT,
-            'img' => FILTER_SANITIZE_STRING                     
-        );                                            
+        public function updatePlatformsDataAction(){
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'name' => FILTER_SANITIZE_STRING,
+                'description' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT,
+                'img' => FILTER_SANITIZE_STRING                     
+            );                                            
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $platformBdd = new platformManager();
-            $platform = $platformBdd->getIdPlatform($filteredinputs['id']);
+            $oldplatform = $platformBdd->getIdPlatform($filteredinputs['id']);
+            
+
+             // On check l'utilisation du nom
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+                unset($filteredinputs['name']);
+            else{
+                $filteredinputs['name']=trim($filteredinputs['name']);
+                $platform = new platform(array('name' => $filteredinputs['name']));
+
+                $exist_name=$platformBdd->isNameUsed($platform);
+                if($oldplatform->getName()!==$filteredinputs['name'] && $exist_name)
+                  unset($filteredinputs['name']);
+            }
+
+            //On check le fichier
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    $unset($filteredinputs['img']);
+                }
+                else {    
+                    if(isset($filteredinputs['name']))                    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);
+                    else
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $oldplatform->getName());
+                }  
+            }
+            print_r($filteredinputs);
             $platformMaj = new platform($filteredinputs);
             
-            if($platformBdd->setPlatform($platform, $platformMaj))
-                echo "OK";
+            $platformBdd->setPlatform($oldplatform, $platformMaj);
         }
 
         public function deletePlatformDataAction(){
@@ -248,6 +265,52 @@ class adminController extends template{
 
 
     /* TEAM */
+        public function updateTeamsDataAction(){
+            
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'name' => FILTER_SANITIZE_STRING,
+                'description' => FILTER_SANITIZE_STRING,
+                'slogan' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT,
+                'img' => FILTER_SANITIZE_STRING                    
+            );                                        
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            
+            $teamBDD = new teamManager();
+            $oldteam = $teamBDD->getThisTeam($filteredinputs['id']);
+
+            // On check l'utilisation du nom
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+                unset($filteredinputs['name']);
+            else{
+                $filteredinputs['name']=trim($filteredinputs['name']);
+                $team = new team(array('name' => $filteredinputs['name']));
+
+                $exist_name=$teamBDD->isNameUsed($team);
+                if($oldteam->getName()!==$filteredinputs['name'] && $exist_name)
+                  unset($filteredinputs['name']);
+            }
+
+            //On check le fichier
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    $unset($filteredinputs['img']);
+                }
+                else {    
+                    if(isset($filteredinputs['name']))                    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $filteredinputs['name']);
+                    else
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $oldteam->getName());
+                }  
+            }
+   
+            $teamMaj = new team($filteredinputs);
+            
+            $teamBDD->setTeam($oldteam, $teamMaj);
+        }
+
         public function updateTeamStatusAction(){
              if(!empty($_POST['checkbox_team'])){
                 $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
@@ -285,119 +348,81 @@ class adminController extends template{
             $teamBdd->delTeam($team);
         }
 
-    public function updateTeamsDataAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
-            }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_FILES['file']['name']);
-            }  
-        }
-
-        $args = array(
-            'id' => FILTER_SANITIZE_STRING,
-            'name' => FILTER_SANITIZE_STRING,
-            'description' => FILTER_SANITIZE_STRING,
-            'slogan' => FILTER_SANITIZE_STRING,
-            'status' => FILTER_VALIDATE_INT,
-            'img' => FILTER_SANITIZE_STRING                    
-        );                                        
-
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
-
-        //print_r($filteredinputs);                                
-
-        $teamBdd = new teamManager();
-        $team = $teamBdd->getThisTeam($filteredinputs['id']);
-        $teamMaj = new team($filteredinputs);
-
-        //print_r($teamMaj);
         
-        if($teamBdd->setTeam($team, $teamMaj))
-            echo "OK";
-        }
 
 
 
 
     /* MEMBRES */
-    public function updateUserAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
+        public function updateMembresDataAction(){
+                       
+            $args = array(
+               'id' => FILTER_VALIDATE_INT,
+               'pseudo' => FILTER_SANITIZE_STRING, 
+               'description' => FILTER_SANITIZE_STRING,
+               'email' => FILTER_VALIDATE_EMAIL,
+               'status' => FILTER_VALIDATE_INT,
+               'day'   => FILTER_VALIDATE_INT,     
+               'month'   => FILTER_VALIDATE_INT,     
+               'year'   => FILTER_VALIDATE_INT,   
+               'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
+               'img' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+            
+            $userBDD = new userManager();
+            $olduser = $userBDD->getIdUser($filteredinputs['id']);
+
+            // On check l'utilisation du pseudo
+            if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
+                unset($filteredinputs['pseudo']);
+            else{
+                $filteredinputs['pseudo']=trim($filteredinputs['pseudo']);
+                $user = new user(array('pseudo' => $filteredinputs['pseudo']));
+
+                $exist_pseudo=$userBDD->pseudoExists($filteredinputs['pseudo']);
+                if($olduser->getPseudo()!==$filteredinputs['pseudo'] && $exist_pseudo)
+                  unset($filteredinputs['pseudo']);
             }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
-            }  
-        }
-        
-        $args = array(
-           'id' => FILTER_VALIDATE_INT,
-           'pseudo' => FILTER_SANITIZE_STRING, 
-           'description' => FILTER_SANITIZE_STRING,
-           'email' => FILTER_SANITIZE_STRING,
-           'status' => FILTER_VALIDATE_INT,
- 	       'day'   => FILTER_SANITIZE_STRING,     
-           'month'   => FILTER_SANITIZE_STRING,     
-           'year'   => FILTER_SANITIZE_STRING,   
-           'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
-           'img' => FILTER_SANITIZE_STRING
-        );
-        
-        $filteredinputs = filter_input_array(INPUT_POST, $args);
-        
-        $userBDD = new userManager();
-        $user = $userBDD->getUser(array('pseudo'=>$filteredinputs['pseudo']));
 
-        $newuser = new user(array('status'=>$filteredinputs['status']));
-        
-        //Déconnexion automatique du membre banni
-        if($filteredinputs['status']==-1)
-            $userBDD->disconnecting($user);
+            // On check celle de l'email
+            $filteredinputs['email']=trim($filteredinputs['email']);
+            $user = new user(array('email' => $filteredinputs['email']));
+            
+            $exist_email=$userBDD->emailExists($filteredinputs['email']);
+            if($olduser->getEmail()!==$filteredinputs['email'] && $exist_email)
+              unset($filteredinputs['email']);
 
-        $userBDD->setUser($user, $newuser);
-    }
-
-    public function updateMembresDataAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
+            //On check la date
+            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+              $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+              $filteredinputs['birthday'] = date_timestamp_get($date);
             }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_FILES['file']['name']);
-            }  
-        }
-        
-        $args = array(
-           'id' => FILTER_VALIDATE_INT,
-           'pseudo' => FILTER_SANITIZE_STRING, 
-           'description' => FILTER_SANITIZE_STRING,
-           'email' => FILTER_SANITIZE_STRING,
-           'status' => FILTER_VALIDATE_INT,
-           'day'   => FILTER_VALIDATE_INT,     
-           'month'   => FILTER_VALIDATE_INT,     
-           'year'   => FILTER_VALIDATE_INT,   
-           'authorize_mail_contact' => FILTER_VALIDATE_BOOLEAN,
-           'img' => FILTER_SANITIZE_STRING
-        );
 
-        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-        //Date de naissance
-        
-        if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
-          $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-          $filteredinputs['birthday'] = date_timestamp_get($date);
-        }
+            unset($filteredinputs['month']);
+            unset($filteredinputs['day']);
+            unset($filteredinputs['year']);
 
-        $userBdd = new userManager();
-        $user = $userBdd->getIdUser($filteredinputs['id']);
-        $newUser = new user($filteredinputs);
-        
-        if($userBdd->setUser($user, $newUser)){
-            //Déconnexion automatique du membre banni
-            if($filteredinputs['status']==-1)
-                $userBDD->disconnecting($user);
+            //On check le fichier
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    $unset($filteredinputs['img']);
+                }
+                else {    
+                    if(isset($filteredinputs['pseudo']))                    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $filteredinputs['pseudo']);
+                    else
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
+                }  
+            }
+
+            $newUser = new user($filteredinputs);
+            
+            if($userBDD->setUser($olduser, $newUser)){
+                //Déconnexion automatique du membre banni
+                if($filteredinputs['status']==-1)
+                    $userBDD->disconnecting($olduser);
             }
         }
 
@@ -458,9 +483,6 @@ class adminController extends template{
             if($Bdd->setReport($r, $rMaj))
                 echo "OK";
         }
-
-
-
 
     /* TYPE GAME */
 

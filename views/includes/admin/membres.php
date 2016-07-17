@@ -94,8 +94,8 @@
 
 										echo "<div class='grid-md-8'>";
 											//Input
-											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' value='" . $joueur->getPseudo() . "'>";
-										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='text' value='" . $joueur->getEmail() . "'>";
+											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' min='2' max='15' placeholder='Pseudo entre 2 et 15 caractères' value='" . $joueur->getPseudo() . "' required>";
+										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='email' value='" . $joueur->getEmail() . "' required>";
 
 											echo "<input class='input-default admin-form-input-w membre-birthday-D' type='number' name='day' placeholder='dd' min='1' max='31'";
 											echo ($joueur->getBirthday()!==NULL) ? " value='".date('d', $joueur->getBirthday())."'>" : ">";
