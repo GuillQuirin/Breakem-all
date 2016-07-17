@@ -1,4 +1,4 @@
-<div class="grid-md-4 hidden-xs hidden-sm navbar-menu">
+<div class="grid-md-3 hidden-xs hidden-sm navbar-menu">
 	<ul class="navbar-menu-ul">		
 		<li class="navbar-menu-li">
 			<a href="<?php echo WEBPATH.'/profil?pseudo='.$_pseudo; ?>" class="">

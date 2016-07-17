@@ -77,7 +77,7 @@
 				<div class="container resultat-container m-a">
 
 					<!-- MENU -->
-					<div class="grid-md-8 hidden-xs hidden-sm navbar-menu">
+					<div class="grid-md-9 hidden-xs hidden-sm navbar-menu">
 						<ul class="navbar-menu-ul">
 							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo"><?php echo '<img src="' . WEBPATH . '/web/img/logo-nb-title.png">';?></a>
