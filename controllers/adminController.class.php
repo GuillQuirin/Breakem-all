@@ -623,39 +623,60 @@ class adminController extends template{
     /* GAMES */
 
         public function updateGamesDataAction(){
-        if(isset($_FILES['file'])){
-            if ( 0 < $_FILES['file']['error'] ) {
-                echo 'Error: ' . $_FILES['file']['error'];
+            $args = array(
+               'id' => FILTER_VALIDATE_INT,
+               'name' => FILTER_SANITIZE_STRING,
+               'description' => FILTER_SANITIZE_STRING,
+               'status' => FILTER_VALIDATE_INT,
+               'day'   => FILTER_VALIDATE_INT,     
+               'month'   => FILTER_VALIDATE_INT,     
+               'year'   => FILTER_VALIDATE_INT,   
+               'idType' => FILTER_VALIDATE_INT,
+               'nameType' => FILTER_SANITIZE_STRING,
+               'img' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+            $gameBdd = new gameManager();
+            $game = $gameBdd->getGameById($filteredinputs['id']);
+
+            // On check l'utilisation du nom
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>15)
+                unset($filteredinputs['name']);
+            else{
+              $filteredinputs['name']=trim($filteredinputs['name']);
+              $oldgame = new game(array('name' => $filteredinputs['name']));
+
+              $exist_name=$gameBdd->isNameUsed($oldgame);
+              if($oldgame->getName()!==$filteredinputs['name'] && $exist_name)
+                unset($filteredinputs['name']);
             }
-            else {                        
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_FILES['file']['name']);
-            }  
-        }
-        
-        $args = array(
-           'id' => FILTER_VALIDATE_INT,
-           'name' => FILTER_SANITIZE_STRING,
-           'description' => FILTER_SANITIZE_STRING,
-           'status' => FILTER_VALIDATE_INT,
-           'day'   => FILTER_VALIDATE_INT,     
-           'month'   => FILTER_VALIDATE_INT,     
-           'year'   => FILTER_VALIDATE_INT,   
-           'idType' => FILTER_VALIDATE_INT,
-           'nameType' => FILTER_SANITIZE_STRING,
-           'img' => FILTER_SANITIZE_STRING
-        );
 
-        $filteredinputs = filter_input_array(INPUT_POST, $args);       
-        print_r($filteredinputs);                         
-        //Date de naissance
-        
-        if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
-          $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-          $filteredinputs['releaseDate'] = date_timestamp_get($date);
-        }
 
-        $gameBdd = new gameManager();
-        $game = $gameBdd->getGameById($filteredinputs['id']);
+            //On check la date
+              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+                $filteredinputs['releaseDate'] = date_timestamp_get($date);
+              }
+
+              unset($filteredinputs['month']);
+              unset($filteredinputs['day']);
+              unset($filteredinputs['year']);
+
+              //On check le fichier
+              if(isset($_FILES['file'])){
+                  if ( 0 < $_FILES['file']['error'] ) {
+                      $unset($filteredinputs['img']);
+                  }
+                  else {    
+                      if(isset($filteredinputs['name']))                    
+                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
+                      else
+                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $oldgame->getName());
+                  }  
+              }
+        print_r($filteredinputs);
         $newGame = new game($filteredinputs);
 
         $gameBdd->setGame($game, $newGame);
