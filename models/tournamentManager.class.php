@@ -214,6 +214,16 @@ final class tournamentManager extends basesql{
 		return false;
 	}
 
+	public function getIdTournaments($id){
+		$sql = "SELECT * FROM " .$this->table . " WHERE id=:id";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':id' => $id ]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		
+		return new tournament($r[0]);
+	}
+
 	public function deleteTour(tournament $type){
 
 		//Mise à -1 de tous les jeux ayant cet idType
@@ -232,6 +242,17 @@ final class tournamentManager extends basesql{
 			':tId' => $t->getId()
 		]);
 		return $sth->execute();
+	}
+
+	public function isNameUsed(tournament $t){
+		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':name' => $t->getName()
+		]);
+		$r = $sth->fetchAll();
+
+		return (bool) $r[0][0];
 	}
 
 }
