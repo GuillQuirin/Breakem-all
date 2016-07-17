@@ -68,7 +68,7 @@ class gameManager extends basesql{
 	}
 
 	public function getAllGames(){
-		$sql = "SELECT g.id, g.name, g.description, g.release, g.img, g.idType, g.status, t.name as nameType 
+		$sql = "SELECT g.id, g.name, g.description, g.releaseDate, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 
 				INNER JOIN typegame t 
 				ON g.idType = t.id
