@@ -226,7 +226,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -303,7 +303,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -535,7 +535,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -545,7 +545,6 @@ class adminController extends template{
             $pBdd = new typegameManager();
             $tym =  new typegame($filteredinputs);
             $pBdd->mirrorObject = $tym;
-            print_r($tym);
             $pBdd->create();
         }
 
@@ -578,22 +577,16 @@ class adminController extends template{
             }
 
             //On check le fichier
-            var_dump("ok");
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
-                    var_dump("pas ok");
+                    unset($filteredinputs['img']);
                 }
                 else {    
-                    var_dump("ok 1");
                     if(isset($filteredinputs['name']))   
                     {//move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile);
-                        var_dump("ok 2");
-                        print_r($filteredinputs['name']);
                         move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
                     }
                     else{
-                        var_dump("ok 3");
                         move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
                     }
                 }  
@@ -777,7 +770,7 @@ class adminController extends template{
               //On check le fichier
               if(isset($_FILES['file'])){
                   if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
+                      unset($filteredinputs['img']);
                   }
                   else {    
                       if(isset($filteredinputs['name']))                    
@@ -853,7 +846,7 @@ class adminController extends template{
               //On check le fichier
                 if(isset($_FILES['file'])){
                   if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
+                      unset($filteredinputs['img']);
                   }
                   else {    
                       if(isset($filteredinputs['name']))                    
