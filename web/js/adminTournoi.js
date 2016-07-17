@@ -11,15 +11,18 @@ var tournoiModule = {
 		tournoiModule.setAdminDataRe();
 
 		//Preview
+		tournoiModule.toggleCheck();
 		tournoiModule.previewImg();
 
 		//CRUD
-		//tournoiModule.postDataDelete();
 		//tournoiModule.postDataUpdate();
 		//tournoiModule.postDataInsert();		
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -33,13 +36,16 @@ var tournoiModule = {
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
 	setPreviewInput : function(){
-		this._previewInput = jQuery('.membre-image-p');
+		this._previewInput = jQuery('.tournament-image-p');
 	},
 	setImgWrapper : function(){
-		this._imgWrapper = jQuery('.membre-img');
+		this._imgWrapper = jQuery('.tournament-img');
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -61,6 +67,11 @@ var tournoiModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
+	toggleCheck : function(){
+		platformModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.tournament-status-p').prop("checked", !jQuery(ev.currentTarget).find('.tournament-status-p').prop("checked"));
+		});
+	},
 	//Preview
 	previewImg : function(){
 		tournoiModule.getPreviewInput().on('change', function(){
@@ -68,64 +79,20 @@ var tournoiModule = {
     		previewUpload(this, tournoiModule.getImgWrapper());
 		});
 	},
-	//CRUD
-	postDataDelete : function(){
-		tournoiModule.getDeleteBtn().on("click", function(e){
-			var btn = jQuery(e.currentTarget);
-			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
-
-			var status = -1;
-
-			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>";
-
-			var data = {"pseudo" : pseudo, "status" : status};			
-
-			//Ajax Delete Controller
-			jQuery.ajax({
-				url: "admin/updateUserStatus", 				
-				type: "POST",
-				data: data,
-				success: function(result){			
-					console.log(result);		
-					console.log("Membre supprimée");							
-					btn.parent().parent().remove();		
-
-					//Vérification si il n'y a plus de plateforme
-					jQuery.ajax({
-					 	url: "admin/membresView",			 	
-					 	success: function(result1){	
-					 		//trim pour enlever les espaces
-					 		var isEmpty = jQuery.trim(result1);	
-					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
-					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
-					 			membre.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>");
-					 		}		     			 		
-					 	},
-					 	error: function(result1){
-					 		console.log("No data found on membre.");
-					 	}
-					});								
-				},
-			 	error: function(result){
-			 		throw new Error("Couldn't delete this membre", result);
-			 	}
-			});
-		});				
-	},
 	postDataUpdate : function(){
 		tournoiModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.tournament-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.tournament-id-p').val();
+				var pseudo = updateBtn.parent().parent().find('.tournament-pseudo-p').val();
+				var team = updateBtn.parent().parent().find('.tournament-team-p').val();
+				var report = updateBtn.parent().parent().find('.tournament-report-p').val();
+				var status = updateBtn.parent().parent().find('.tournament-status-p').val();
+				var email = updateBtn.parent().parent().find('.tournament-email-p').val();
+				var myImg = updateBtn.parent().parent().find('.admin-input-file > .tournament-image-p');
 
 				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
 
