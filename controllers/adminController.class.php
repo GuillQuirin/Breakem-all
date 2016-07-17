@@ -14,7 +14,20 @@ class adminController extends template{
 
 
 
+    private function controleNom($manager, $objet, $oldobjet=NULL){
+        $exist_name=1;
+        
+        //Contôle format
+        if(strlen($objet->getName())>=2 && strlen($objet->getName())<=30)
+            $exist_name=$manager->nameExists($objet);
+        
+        //Contrôle existence BDD -> UPDATE
+        if($oldobjet->getName()!==NULL && $oldobjet->getName()!==$objet->getName() && $exist_name==1)
+            $exist_name=1;
 
+        var_dump($exist_name);
+        return $exist_name;
+    }
 
 
 /***************************************VUES********************************/
@@ -34,7 +47,7 @@ class adminController extends template{
     /* Gère la vue de Plateforme */
     public function platformsViewAction(){
         $platform = new platformManager();
-        $listeplatforms = $platform->getListPlatform();        
+        $listeplatforms = $platform->getAdminListPlatform();        
 
         $v = new view();   
         $this->assignConnectedProperties($v); 
@@ -46,7 +59,7 @@ class adminController extends template{
     /* Gère la vue de Signalements */
     public function reportsViewAction(){
         $report = new signalmentsuserManager();
-        $listesignalement = $report->getListReports();
+        $listesignalement = $report->getAdminListReports();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -58,7 +71,7 @@ class adminController extends template{
     /* Gère la vue de Team */
     public function teamsViewAction(){
         $team = new teamManager();
-        $listeteam = $team->getListTeam(-2);
+        $listeteam = $team->getAdminListTeam();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -70,10 +83,10 @@ class adminController extends template{
     /* Gère la vue de Jeux */
     public function gamesViewAction(){
         $gameBDD = new gameManager();
-        $listegames = $gameBDD->getAllGames();
+        $listegames = $gameBDD->getAdminAllGames();
 
         $gametypeBDD = new typegameManager();
-        $listgametype = $gametypeBDD->getAllTypes();
+        $listgametype = $gametypeBDD->getAdminAllTypes();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -86,7 +99,7 @@ class adminController extends template{
     /* Gère la vue de Type de Jeu */
     public function typegamesViewAction(){
         $gametypeBDD = new typegameManager();
-        $listgametype = $gametypeBDD->getAllTypes();
+        $listgametype = $gametypeBDD->getAdminAllTypes();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -110,7 +123,7 @@ class adminController extends template{
      /* Gère la vue de Tournois */
     public function tournamentsViewAction(){
         $tournamentBdd = new tournamentManager();    
-        $listtournament = $tournamentBdd->getListTournaments();
+        $listtournament = $tournamentBdd->getAdminListTournaments();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -169,31 +182,27 @@ class adminController extends template{
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
             $pBdd = new platformManager();
+            $platform = new platform(array('name' => trim($filteredinputs['name'])));
 
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+            $exist_name = $this->controleNom($pBdd, $platform);
+
+            if($exist_name)
                 unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $platform = new platform(array('name' => $filteredinputs['name']));
-
-                $exist_name=$pBdd->isNameUsed($platform);
-                if($exist_name)
-                    unset($filteredinputs['name']);
-            }
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);                }  
             }
 
-            
-            $pBdd->mirrorObject = new platform($filteredinputs);
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $pBdd->mirrorObject = new platform($filteredinputs);
+                $pBdd->create();
+            }
         }
 
         public function updatePlatformsDataAction(){
@@ -203,38 +212,40 @@ class adminController extends template{
                 'description' => FILTER_SANITIZE_STRING,
                 'status' => FILTER_VALIDATE_INT,
                 'img' => FILTER_SANITIZE_STRING                     
-            );                                            
+            );               
+
+            //Pour guillaume
+            echo "id egal ";
+            echo $_POST['id'];
+            echo ";name egal ";
+            echo $_POST['name'];
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $platformBdd = new platformManager();
             $oldplatform = $platformBdd->getIdPlatform($filteredinputs['id']);
-            
+            $platform = new platform(array('name' => trim($filteredinputs['name'])));
 
-             // On check l'utilisation du nom
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
-                unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $platform = new platform(array('name' => $filteredinputs['name']));
+            $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
 
-                $exist_name=$platformBdd->isNameUsed($platform);
-                if($oldplatform->getName()!==$filteredinputs['name'] && $exist_name)
-                  unset($filteredinputs['name']);
-            }
+            if($exist_name)
+                unset($args['name']);
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($args['img']);
                 }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);
-                    else
+                else{    
+                    if(!$exist_name && $platform->getName()!=NULL)
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $platform->getName());
+                    else if($oldplatform->getName()!==NULL)    
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $oldplatform->getName());
                 }  
             }
+
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
             $platformMaj = new platform($filteredinputs);
             
@@ -255,6 +266,31 @@ class adminController extends template{
         }
 
     /* TOURNAMENT */
+
+        public function updateTournamentsDataAction(){
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'name' => FILTER_SANITIZE_STRING,
+                'description' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT,
+            );                                            
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+            $platformBdd = new tournamentManager();
+            $platform = new tournament(array('name' => trim($filteredinputs['name'])));
+            $oldplatform = $platformBdd->getIdTournaments($filteredinputs['id']);
+            
+            $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
+
+            if($exist_name)
+                unset($filteredinputs['name']);
+
+            $platformMaj = new tournament($filteredinputs);
+            //print_r($platformMaj);
+            //print_r($oldplatform);
+            $platformBdd->setTournament($oldplatform, $platformMaj);
+        }
 
         public function getTournamentDataAction(){
             $tm = new tournamentManager();    
@@ -287,23 +323,17 @@ class adminController extends template{
             
             $teamBDD = new teamManager();
             $oldteam = $teamBDD->getThisTeam($filteredinputs['id']);
+            $team = new team(array('name' => trim($filteredinputs['name'])));
 
-            // On check l'utilisation du nom
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+            $exist_name = $this->controleNom($teamBDD, $team, $oldteam);
+
+            if($exist_name)
                 unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $team = new team(array('name' => $filteredinputs['name']));
-
-                $exist_name=$teamBDD->isNameUsed($team);
-                if($oldteam->getName()!==$filteredinputs['name'] && $exist_name)
-                  unset($filteredinputs['name']);
-            }
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -316,30 +346,6 @@ class adminController extends template{
             $teamMaj = new team($filteredinputs);
             
             $teamBDD->setTeam($oldteam, $teamMaj);
-        }
-
-        public function updateTeamStatusAction(){
-             if(!empty($_POST['checkbox_team'])){
-                $filteredinputs = array_filter(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING));
-
-                foreach($filteredinputs['checkbox_team'] as $key => $name){
-                    $teamBDD = new teamManager();
-                    $team = $teamBDD->getTeam(array('name'=>$name));
-                    
-                    if($team->getStatus()==1)
-                        $team->setStatus(-1);
-                    else
-                        $team->setStatus(1);
-
-                    $teamupdate = new teamManager();
-                    $teamupdate->changeStatusTeam($team);
-                }    
-                
-            }
-
-            // return false;
-
-           header('Location: '.WEBPATH.'/admin');
         }
 
         public function deleteTeamAction(){
@@ -371,12 +377,41 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
-            $filteredinputs['day'] = (int) $filteredinputs['day'];
-            $filteredinputs['month'] = (int) $filteredinputs['month'];
-            $filteredinputs['year'] = (int) $filteredinputs['year'];
+            //On check le fichier
+            if(isset($_POST['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    unset($_POST['img']);
+                }
+                else {    
+                    if(isset($_POST['pseudo']) && (strlen($_POST['pseudo'])<2 || strlen($_POST['pseudo'])>15)){
+
+                    if(strlen($filteredinputs['pseudo'])<2 || strlen($filteredinputs['pseudo'])>15)
+                        unset($filteredinputs['pseudo']);
+                    else{
+                        $filteredinputs['pseudo']=trim($filteredinputs['pseudo']);
+                        $user = new user(array('pseudo' => $filteredinputs['pseudo']));
+
+                        $exist_pseudo=$userBDD->pseudoExists($filteredinputs['pseudo']);
+                        if($olduser->getPseudo()!==$filteredinputs['pseudo'] && $exist_pseudo)
+                          unset($filteredinputs['pseudo']);
+                    }                  
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo']);
+                    }
+                    else{
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
+                    }
+                }  
+            }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
             
+            if(isset($filteredinputs['day']))
+                $filteredinputs['day'] = (int) $filteredinputs['day'];
+            if(isset($filteredinputs['month']))
+                $filteredinputs['month'] = (int) $filteredinputs['month'];
+            if(isset($filteredinputs['year']))
+                $filteredinputs['year'] = (int) $filteredinputs['year'];
+
             $userBDD = new userManager();
             $olduser = $userBDD->getIdUser($filteredinputs['id']);
 
@@ -410,18 +445,6 @@ class adminController extends template{
             unset($filteredinputs['day']);
             unset($filteredinputs['year']);
 
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['pseudo']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $filteredinputs['pseudo']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
-                }  
-            }
 
             $newUser = new user($filteredinputs);
             
@@ -465,9 +488,6 @@ class adminController extends template{
             $report = $reportsBDD->getReport($filteredinputs['id']);
 
             $reportsBDD->delReport($report);
-
-            //$reportsBDD->getListReports());
-
         }
 
         public function updateReportsDataAction(){
@@ -501,34 +521,29 @@ class adminController extends template{
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-            $platformBdd = new typegameManager();
+            $typegameBdd = new typegameManager();
+            $typegame = new typegame(array('name' => trim($filteredinputs['name'])));
+            
+            $exist_name = $this->controleNom($typegameBdd, $typegame);
 
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+            if($exist_name)
                 unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $platform = new typegame(array('name' => $filteredinputs['name']));
-
-                $exist_name=$platformBdd->isNameUsed($platform);
-                if($exist_name)
-                    unset($filteredinputs['name']);
-            }
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);                }  
             }
 
-            $pBdd = new typegameManager();
-            $tym =  new typegame($filteredinputs);
-            $pBdd->mirrorObject = $tym;
-            print_r($tym);
-            $pBdd->create();
+            if(isset($filteredinputs['name'])){
+                $tym =  new typegame($filteredinputs);
+                $typegameBdd->mirrorObject = $tym;
+                $typegameBdd->create();
+            }
         }
 
 
@@ -542,40 +557,45 @@ class adminController extends template{
             );                                            
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-
-            $bdd = new typegameManager();
-            $old = $bdd->getTypeGame($filteredinputs['id']);
             
+            $typegameBdd = new typegameManager();
+            $typegame = new typegame(array('name' => trim($filteredinputs['name'])));
+            $oldtypegame = $typegameBdd->getTypeGame($filteredinputs['id']);
+            
+            $exist_name = $this->controleNom($typegameBdd, $typegame, $oldtypegame);
 
-             // On check l'utilisation du nom
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+            if($exist_name)
                 unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $typegame = new typegame(array('name' => $filteredinputs['name']));
-
-                $exist_name=$bdd->isNameUsed($typegame);
-                if($old->getName()!==$filteredinputs['name'] && $exist_name)
-                  unset($filteredinputs['name']);
-            }
 
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
+                    if(isset($filteredinputs['name']))   
+                    {//move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile);
+                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
+                    }
+                    else{
+                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
+                    }
                 }  
             }
 
             $newtg = new typegame($filteredinputs);
             
-            $bdd->setTypeGame($old, $newtg);
+            $typegameBdd->setTypeGame($oldtypegame, $newtg);
         }
+
+
+         // TEDDY
+         // ON EST OBLIGE
+
+         // D'UTILISER 
+         // CES TRUCS 
+
+         // ?
 
         public function createTypeGameByAction(){
             $args = array(
@@ -700,6 +720,62 @@ class adminController extends template{
 
     /* GAMES */
 
+        public function insertGamesDataAction(){
+            $args = array(
+               'name' => FILTER_SANITIZE_STRING,
+               'description' => FILTER_SANITIZE_STRING,
+               'status' => FILTER_VALIDATE_INT,
+               'day'   => FILTER_SANITIZE_STRING,     
+               'month'   => FILTER_SANITIZE_STRING,     
+               'thisYear'   => FILTER_SANITIZE_STRING,   
+               'idType' => FILTER_VALIDATE_INT,
+               'nameType' => FILTER_SANITIZE_STRING,
+               'img' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
+
+            $filteredinputs['day'] = (int) $filteredinputs['day'];
+            $filteredinputs['month'] = (int) $filteredinputs['month'];
+            $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
+            
+            $gameBdd = new gameManager();
+            $game = new game(array('name'=>trim($filteredinputs['name'])));
+            $exist_name = $this->controleNom($gameBdd, $game);
+
+            if($exist_name)
+                unset($filteredinputs['name']);
+
+            //On check la date
+              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
+                $filteredinputs['year'] = date_timestamp_get($date);
+              }
+
+              unset($filteredinputs['month']);
+              unset($filteredinputs['day']);
+              unset($filteredinputs['nameType']);
+              unset($filteredinputs['thisYear']);
+
+              //On check le fichier
+                if(isset($_FILES['file'])){
+                  if ( 0 < $_FILES['file']['error'] ) {
+                      unset($filteredinputs['img']);
+                  }
+                  else {    
+                      if(isset($filteredinputs['name']))                    
+                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
+                  }  
+                }
+
+            $pBdd = new gameManager();
+            if(isset($filteredinputs['name'])){
+                $myNewGame = new game($filteredinputs);
+                $pBdd->mirrorObject = $myNewGame;
+                $pBdd->create();
+            }
+        }
+
         public function updateGamesDataAction(){
             $args = array(
                'id' => FILTER_VALIDATE_INT,
@@ -721,20 +797,13 @@ class adminController extends template{
             $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
 
             $gameBdd = new gameManager();
-            $game = $gameBdd->getGameById($filteredinputs['id']);
+            $oldgame = $gameBdd->getGameById($filteredinputs['id']);
+            $game = new game(array('name' => trim($filteredinputs['name'])));
 
-            // On check l'utilisation du nom
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>15)
+            $exist_name = $this->controleNom($gameBdd, $game, $oldgame);
+
+            if($exist_name)
                 unset($filteredinputs['name']);
-            else{
-              $filteredinputs['name']=trim($filteredinputs['name']);
-              $oldgame = new game(array('name' => $filteredinputs['name']));
-
-              $exist_name=$gameBdd->isNameUsed($oldgame);
-              if($oldgame->getName()!==$filteredinputs['name'] && $exist_name)
-                unset($filteredinputs['name']);
-            }
-
 
             //On check la date
               if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
@@ -750,7 +819,7 @@ class adminController extends template{
               //On check le fichier
               if(isset($_FILES['file'])){
                   if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
+                      unset($filteredinputs['img']);
                   }
                   else {    
                       if(isset($filteredinputs['name']))                    
@@ -760,7 +829,7 @@ class adminController extends template{
                   }  
               }
             $newGame = new game($filteredinputs);
-            $gameBdd->setGame($game, $newGame);
+            $gameBdd->setGame($oldgame, $newGame);
 
         }
 
@@ -776,70 +845,6 @@ class adminController extends template{
 
             //print_r($myArrName);
             echo json_encode($myArr);
-        }
-
-        public function insertGamesDataAction(){
-            $args = array(
-               'name' => FILTER_SANITIZE_STRING,
-               'description' => FILTER_SANITIZE_STRING,
-               'status' => FILTER_VALIDATE_INT,
-               'day'   => FILTER_SANITIZE_STRING,     
-               'month'   => FILTER_SANITIZE_STRING,     
-               'thisYear'   => FILTER_SANITIZE_STRING,   
-               'idType' => FILTER_VALIDATE_INT,
-               'nameType' => FILTER_SANITIZE_STRING,
-               'img' => FILTER_SANITIZE_STRING
-            );
-
-            $filteredinputs = filter_input_array(INPUT_POST, $args);
-
-            $filteredinputs['day'] = (int) $filteredinputs['day'];
-            $filteredinputs['month'] = (int) $filteredinputs['month'];
-            $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
-            
-            $gameBdd = new gameManager();
-
-            // On check l'utilisation du nom
-            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>15)
-                unset($filteredinputs['name']);
-            else{
-                $filteredinputs['name']=trim($filteredinputs['name']);
-                $oldgame = new game(array('name'=>$filteredinputs['name']));
-                $exist_name=$gameBdd->isNameUsed($oldgame);
-
-                if($exist_name)
-                    unset($filteredinputs['name']);
-            }
-
-
-            //On check la date
-              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
-                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
-                $filteredinputs['year'] = date_timestamp_get($date);
-              }
-
-              unset($filteredinputs['month']);
-              unset($filteredinputs['day']);
-              unset($filteredinputs['nameType']);
-              unset($filteredinputs['thisYear']);
-
-              //On check le fichier
-                if(isset($_FILES['file'])){
-                  if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
-                  }
-                  else {    
-                      if(isset($filteredinputs['name']))                    
-                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
-                  }  
-                }
-
-            $pBdd = new gameManager();
-            if(isset($filteredinputs['name']))
-                $myNewGame = new game($filteredinputs);
-
-            $pBdd->mirrorObject = $myNewGame;
-            $pBdd->create();
         }
 
         public function addGameAction()

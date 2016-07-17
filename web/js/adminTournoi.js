@@ -9,17 +9,21 @@ var tournoiModule = {
 		tournoiModule.setPreviewInput();
 		tournoiModule.setImgWrapper();
 		tournoiModule.setAdminDataRe();
+		tournoiModule.setToggleCheck();
 
 		//Preview
+		tournoiModule.toggleCheck();
 		tournoiModule.previewImg();
 
 		//CRUD
-		//tournoiModule.postDataDelete();
-		//tournoiModule.postDataUpdate();
+		tournoiModule.postDataUpdate();
 		//tournoiModule.postDataInsert();		
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -33,13 +37,16 @@ var tournoiModule = {
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
 	setPreviewInput : function(){
-		this._previewInput = jQuery('.membre-image-p');
+		this._previewInput = jQuery('.tournament-image-p');
 	},
 	setImgWrapper : function(){
-		this._imgWrapper = jQuery('.membre-img');
+		this._imgWrapper = jQuery('.tournament-img');
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -61,6 +68,11 @@ var tournoiModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
+	toggleCheck : function(){
+		tournoiModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.tournament-status-p').prop("checked", !jQuery(ev.currentTarget).find('.tournament-status-p').prop("checked"));
+		});
+	},
 	//Preview
 	previewImg : function(){
 		tournoiModule.getPreviewInput().on('change', function(){
@@ -68,123 +80,64 @@ var tournoiModule = {
     		previewUpload(this, tournoiModule.getImgWrapper());
 		});
 	},
-	//CRUD
-	postDataDelete : function(){
-		tournoiModule.getDeleteBtn().on("click", function(e){
-			var btn = jQuery(e.currentTarget);
-			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
-
-			var status = -1;
-
-			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>";
-
-			var data = {"pseudo" : pseudo, "status" : status};			
-
-			//Ajax Delete Controller
-			jQuery.ajax({
-				url: "admin/updateUserStatus", 				
-				type: "POST",
-				data: data,
-				success: function(result){			
-					console.log(result);		
-					console.log("Membre supprimée");							
-					btn.parent().parent().remove();		
-
-					//Vérification si il n'y a plus de plateforme
-					jQuery.ajax({
-					 	url: "admin/membresView",			 	
-					 	success: function(result1){	
-					 		//trim pour enlever les espaces
-					 		var isEmpty = jQuery.trim(result1);	
-					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
-					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
-					 			membre.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucune team enregistré pour le moment.</span></div>");
-					 		}		     			 		
-					 	},
-					 	error: function(result1){
-					 		console.log("No data found on membre.");
-					 	}
-					});								
-				},
-			 	error: function(result){
-			 		throw new Error("Couldn't delete this membre", result);
-			 	}
-			});
-		});				
-	},
 	postDataUpdate : function(){
 		tournoiModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.tournament-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.tournament-id-p').val();
+				var name = updateBtn.parent().parent().find('.tournament-name-p').val();
+				var description = updateBtn.parent().parent().find('.tournament-description-p').val();
+				var status;
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+				if(updateBtn.parent().parent().find('.platform-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
 
-				console.log(allData);
+				var allData = {};
 
-				//Upload des images
-			    if (typeof FormData !== 'undefined') {
-			           
-			        //Pour l'upload coté serveur
-			        var file = myImg.prop('files')[0];
+				allData.id = id;
+				allData.status = status;
 
-			        if(file){
+				if(name)
+					allData.name = name;
+				
+				if(description)
+					allData.description = description;
 
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
-
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
-					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
-			        }   				    
-			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
-			    } 		
-
-			    //Update de la membre
-				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log("Plateforme mise à jour");
-						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
-						//Si l'image uploadé existe on l'envoi dans la dom
-						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update membre", result);
-					}
-				});
+			    //Update du tournoi
+			    if(allData.name || allData.description || allData.status ){
+					jQuery.ajax({
+						url: "admin/updateTournamentsData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log(result);
+							console.log("Tournoi mise à jour");
+							//Reload la mise a jour dans l'html
+							if(allData.name){updateBtn.parent().parent().find('.tournament-nom-g').html(allData.name);}
+							if(allData.description){updateBtn.parent().parent().find('.tournament-description-g').html(allData.description);}
+							
+							if(allData.status == 1){
+								updateBtn.parent().parent().find('.tournament-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.tournament-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update tournament", result);
+						}
+					});
+				}
 			});			
 		});
 	},

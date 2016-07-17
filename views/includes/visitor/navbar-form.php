@@ -11,7 +11,7 @@
 			    <input class="input-default" type="password" id="pwd1" name="password" required>			 		
 			    <a href="<?php echo WEBPATH; ?>/confirmation/lost">Mot de passe oublié ?</a>
 
-			    <button type="button" class="btn btn-pink"><a>Se connecter</a></button>
+			    <button type="submit" class="btn btn-pink"><a>Se connecter</a></button>
 	  		</form>
 	  	</div>
   	<!-- Fin Login -->
@@ -39,7 +39,7 @@
 			    <input type="checkbox" class="checkbox input-default" id="cgu" name="cgu" required><label for="cgu">
 			    J'accepte les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> du site Break'em All</label>
 			   
-			    <button type="button" class="btn btn-pink index-form-submit"><a>S'inscrire</a></button>
+			    <button type="submit" class="btn btn-pink index-form-submit"><a>S'inscrire</a></button>
 	  		</form>
 	  	</div>
 	  	<!-- Fin SF -->

@@ -17,7 +17,7 @@ class typegameManager extends basesql{
 	}
 
 	public function getAllTypes(){
-		$sql = "SELECT * FROM typegame WHERE id>0 ORDER BY name";
+		$sql = "SELECT * FROM typegame WHERE id>0 AND status>0 ORDER BY name";
 		$sth = $this->pdo->query($sql);
 
 		$typeGamesArr = [];
@@ -27,15 +27,15 @@ class typegameManager extends basesql{
 		return $typeGamesArr;
 	}
 
-	public function isNameUsed(typegame $t){
-		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-		$r = $sth->fetchAll();
+	public function getAdminAllTypes(){
+		$sql = "SELECT * FROM typegame WHERE id>0 ORDER BY name";
+		$sth = $this->pdo->query($sql);
 
-		return (bool) $r[0][0];
+		$typeGamesArr = [];
+		foreach ($sth->fetchAll(PDO::FETCH_ASSOC) as $key => $arr) {
+			$typeGamesArr[] = new typegame($arr);
+		}
+		return $typeGamesArr;
 	}
 
 	public function setTypeGame(typegame $ancien, typegame $nouveau){

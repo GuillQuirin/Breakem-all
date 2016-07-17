@@ -94,11 +94,16 @@ abstract class basesql{
 		return $r;
 	}
 
-	public function nameExists($name){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE name="' . $name.'"';
-		$r = (bool) $this->pdo->query($sql)->fetchColumn();
-
-		return $r;
+	public function nameExists($t){
+		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':name' => $t->getName()
+		]);
+		$r = $sth->fetchAll();
+		if(isset($r[0][0]))
+			return (bool) $r[0][0];
+		return false;
 	}
 
 	public function emailExists($email){		

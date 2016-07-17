@@ -361,6 +361,7 @@ var navbar = {
         navbar.form.subscribe();
         navbar.form.login();        
         navbar.form.closeFormKey();
+        //navbar.form.closeFormEnter();
         navbar.form.closeFormClick();
         navbar.menu();        
     },
@@ -552,6 +553,17 @@ var navbar = {
     		setTimeout(function() {
             	navbar.form.closeForm();			    	
         	}, 700);	
+        },
+        closeFormEnter : function(){
+        	$(document).keyup(function(e){
+        		if(e.keyCode == 13){
+        			$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
+                    
+                    setTimeout(function() {
+                    	navbar.form.closeForm();			    	
+                	}, 700);
+        		}
+        	});
         }
     },
     menu: function(){
@@ -820,7 +832,7 @@ var inscription = {
 		});
 	}
 }
-/* TODO : RAJOUTER CONNECTION SUR ENTREE*/
+
 var connection = {
 	init: function(){
 		connection.setFormToWatch();
@@ -883,6 +895,11 @@ var connection = {
 		connection._email = _email;
 		connection._password = _password;
 		connection._btn = _btn;
+
+		_form.submit(function(event) {
+			event.preventDefault();
+			return false;
+		});
 
 		_btn.click(function(event) {
 			if (connection.isEmailValid(_email) && connection.isPasswordValid(_password)) {

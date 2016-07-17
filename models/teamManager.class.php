@@ -10,18 +10,6 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
-	public function isNameUsed(team $t){
-		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
 	/* RETOURNE UNE TEAM SELON L'id */
 	public function getThisTeam($id){
 		$sql = "SELECT *
@@ -60,6 +48,19 @@ class teamManager extends basesql{
 	//Liste des teams
 	public function getListTeam($status){
 		$sql="SELECT * FROM team WHERE status >'".$status."' ORDER BY name ASC";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
+
+	public function getAdminListTeam(){
+		$sql="SELECT * FROM team ORDER BY name ASC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();

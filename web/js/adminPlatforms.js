@@ -200,6 +200,7 @@ var platformModule = {
 						data: allData,
 						success: function(result){
 							console.log("Plateforme mise à jour");
+							console.log(result);
 							//Reload la mise a jour dans l'html
 							if(allData.name){ updateBtn.parent().parent().find('.platform-nom-g').html(name);}
 							if(allData.description){ updateBtn.parent().parent().find('.platform-description-g').html(description);}
