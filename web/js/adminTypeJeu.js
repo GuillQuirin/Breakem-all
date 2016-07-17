@@ -9,17 +9,21 @@ var typegameModule = {
 		typegameModule.setPreviewInput();
 		typegameModule.setImgWrapper();
 		typegameModule.setAdminDataRe();
+		typegameModule.setToggleCheck();
 
 		//Preview
+		typegameModule.toggleCheck();
 		typegameModule.previewImg();
 
 		//CRUD
-		//typegameModule.postDataDelete();
-		//typegameModule.postDataUpdate();
+		typegameModule.postDataUpdate();
 		//typegameModule.postDataInsert();		
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -33,13 +37,16 @@ var typegameModule = {
 		this._adminDataRe = jQuery('.admin-data-re');
 	},
 	setPreviewInput : function(){
-		this._previewInput = jQuery('.membre-image-p');
+		this._previewInput = jQuery('.typejeu-image-p');
 	},
 	setImgWrapper : function(){
-		this._imgWrapper = jQuery('.membre-img');
+		this._imgWrapper = jQuery('.typejeu-img');
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -61,6 +68,11 @@ var typegameModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
+	toggleCheck : function(){
+		typegameModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.typejeu-status-p').prop("checked", !jQuery(ev.currentTarget).find('.typejeu-status-p').prop("checked"));
+		});
+	},
 	//Preview
 	previewImg : function(){
 		typegameModule.getPreviewInput().on('change', function(){
@@ -68,68 +80,37 @@ var typegameModule = {
     		previewUpload(this, typegameModule.getImgWrapper());
 		});
 	},
-	//CRUD
-	postDataDelete : function(){
-		typegameModule.getDeleteBtn().on("click", function(e){
-			var btn = jQuery(e.currentTarget);
-			var pseudo = btn.parent().parent().find(jQuery('.membre-pseudo-p')).val();	
-
-			var status = -1;
-
-			var myStr = "<div class='grid-md-12 no-platform align'><span>Aucun membre enregistré pour le moment.</span></div>";
-
-			var data = {"pseudo" : pseudo, "status" : status};			
-
-			//Ajax Delete Controller
-			jQuery.ajax({
-				url: "admin/updateUserStatus", 				
-				type: "POST",
-				data: data,
-				success: function(result){			
-					console.log(result);		
-					console.log("Membre supprimée");							
-					btn.parent().parent().remove();		
-
-					//Vérification si il n'y a plus de plateforme
-					jQuery.ajax({
-					 	url: "admin/membresView",			 	
-					 	success: function(result1){	
-					 		//trim pour enlever les espaces
-					 		var isEmpty = jQuery.trim(result1);	
-					 		//On compare si il ne reste que la div no-plateforme en comparant les 2 strings				 							 
-					 		if(isEmpty.toLowerCase() === myStr.toLowerCase()){
-					 			membre.getAdminDataRe().html("<div class='grid-md-12 no-platform align'><span>Aucun jeu enregistré pour le moment.</span></div>");
-					 		}		     			 		
-					 	},
-					 	error: function(result1){
-					 		console.log("No data found on membre.");
-					 	}
-					});								
-				},
-			 	error: function(result){
-			 		throw new Error("Couldn't delete this membre", result);
-			 	}
-			});
-		});				
-	},
 	postDataUpdate : function(){
 		typegameModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.typejeu-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.typejeu-id-p').val();
+				var name = updateBtn.parent().parent().find('.typejeu-nom-p').val();
+				var description = updateBtn.parent().parent().find('.typejeu-description-p').val();
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
+				var status;
+				if(updateBtn.parent().parent().find('.typejeu-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
 
-				console.log(allData);
+				var myImg = updateBtn.parent().parent().find('.admin-input-file > .typejeu-image-p');
+
+				var allData = {};
+
+				allData.id = id;
+				allData.status = status;
+
+				if(name)
+					allData.name = name;
+				
+				if(description)
+					allData.description = description;
+				
 
 				//Upload des images
 			    if (typeof FormData !== 'undefined') {
@@ -140,12 +121,12 @@ var typegameModule = {
 			        if(file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
+			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);				    		                             
 					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
+				            url: "admin/updateTypeGamesData", 
 				            dataType: 'text',  
 				            cache: false,
 				            contentType: false,
@@ -167,19 +148,30 @@ var typegameModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
+					url: "admin/updateTypeGamesData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
 						console.log("Plateforme mise à jour");
-						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
-						//Si l'image uploadé existe on l'envoi dans la dom
-						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
-						navbar.form.smoothClosing();				
+						console.log("Plateforme mise à jour");
+							//Reload la mise a jour dans l'html
+							if(allData.name){ updateBtn.parent().parent().find('.typejeu-nom-g').html(name);}
+							if(allData.description){ updateBtn.parent().parent().find('.typejeu-description-g').html(description);}
+							//Si l'image uploadé existe on l'envoi dans la dom
+							if(allData.img){
+								updateBtn.parent().parent().find('.typejeu-img-up').attr('src', webpath.get() + "/web/img/upload/typejeux/" + allData.img);	
+							}	
+
+							if(allData.status == 1){
+								updateBtn.parent().parent().find('.typejeu-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.typejeu-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}
+							navbar.form.smoothClosing();						
 					},
 					error: function(result){
 						throw new Error("Couldn't update membre", result);

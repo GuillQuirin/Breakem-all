@@ -443,6 +443,7 @@ var gameModule = {
 
 							gameModule.checkIfGameNameExist(allData.name, function(mybool){
 								if(mybool){
+									console.log(mybool);
 									console.log("Le nom du jeu est déjà utilisé");
 								}else{
 									onglet.getAdminDataRe().append(

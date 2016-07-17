@@ -503,6 +503,51 @@ class adminController extends template{
 
     /* TYPE GAME */
 
+       public function updateTypeGamesDataAction(){
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'name' => FILTER_SANITIZE_STRING,
+                'description' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT,
+                'img' => FILTER_SANITIZE_STRING                     
+            );                                            
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+            $bdd = new typegameManager();
+            $old = $bdd->getIdTypeGame($filteredinputs['id']);
+            
+
+             // On check l'utilisation du nom
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+                unset($filteredinputs['name']);
+            else{
+                $filteredinputs['name']=trim($filteredinputs['name']);
+                $typegame = new typegame(array('name' => $filteredinputs['name']));
+
+                $exist_name=$bdd->isNameUsed($typegame);
+                if($old->getName()!==$filteredinputs['name'] && $exist_name)
+                  unset($filteredinputs['name']);
+            }
+
+            //On check le fichier
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    $unset($filteredinputs['img']);
+                }
+                else {    
+                    if(isset($filteredinputs['name']))                    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
+                    else
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $oldplatform->getName());
+                }  
+            }
+
+            $newtg = new typegame($filteredinputs);
+            
+            $bdd->setTypeGame($old, $newtg);
+        }
+
         public function createTypeGameByAction(){
             $args = array(
                 //'id' => FILTER_VALIDATE_INT,

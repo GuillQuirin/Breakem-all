@@ -6,6 +6,7 @@ class typegame{
 	protected $name = null;
 	protected $description = null;
 	protected $img = null;
+	protected $status = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -21,6 +22,10 @@ class typegame{
 		}
 	}
 
+	private function setStatus($v){
+		$this->status=$v;
+	}
+
 	private function setId($v){
 		$this->id=$v;
 	}
@@ -34,6 +39,7 @@ class typegame{
 		$this->img = $v;
 	}
 
+	public function getStatus(){return $this->status;}
 	public function getId(){return $this->id;}
 	public function getName(){return $this->name;}
 	public function getDescription(){return $this->description;}
