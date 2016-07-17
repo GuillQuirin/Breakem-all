@@ -73,12 +73,16 @@
  	/*background-color: rgba(0, 0, 0, 1)!important;*/
  }
 
+.creationtournoi-tree-section{
+	background: linear-gradient( to bottom, #191858, #080325);
+}
 .creationtournoi-tree-container{
-	background: rgba(0, 0, 0, 1);
+	background: inherit;
 	border-radius: 0px 0px 5px 5px;
 }
 .creationtournoi-tree-maxcontainer{
 	max-width: 960px;
+	width: 100%;
 }
 .creationtournoi-tree-el{
 	height: 50px;
@@ -100,12 +104,12 @@
 	background: rgba(8,3,37,1)
 }
 .creationtournoi-tree-el:first-of-type{
-	border-radius: 0px 0px 0px 5px;
-	border-left-width: 2px;
+	/*border-radius: 0px 0px 0px 5px;*/
+	border-left-width: 0;
 }
 .creationtournoi-tree-el:last-of-type{
-	border-radius: 0px 0px 5px 0px;
-	border-right-width: 2px;
+	/*border-radius: 0px 0px 5px 0px;*/
+	border-right-width: 0;
 }
 
 .creationtournoi-tree-el-choices-container{
@@ -115,6 +119,9 @@
 	transition: height .2s, font-size 0s;
 	z-index: 2;
 	overflow: hidden;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 .creationtournoi-tree-el:hover .creationtournoi-tree-el-choices-container{
 	height: auto;
@@ -137,7 +144,6 @@
 .creationtournoi-element-container{
 	width: 97%;
 	margin: auto;
-	margin-top: 50px;
 	display: flex;
     align-items: stretch;
     justify-content: center;
@@ -206,6 +212,7 @@
 #creationtournoi-valider{
 	width: 100%;
 	max-width: 200px;
+	margin-top: 25px;
 }
 
 
@@ -305,6 +312,7 @@ p.creationtournoi-random-match{
 
 .creationtournoi-tournoi-valid-creation{
 	overflow: hidden;
+	padding-bottom: 25px;
 }
 
 .creationtournoi-valid-tournoi-name{
@@ -336,6 +344,10 @@ p.creationtournoi-random-match{
 .creationtournoi-valid-tournoi-list li span.data{
 	top: 20px;
 	right: 5px;
+}
+
+.my-content-wrapper{
+	padding: 25px 0;
 }
 
 
