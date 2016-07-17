@@ -262,19 +262,19 @@
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<div class="footer">
-		    <div class="footer_wrap display-flex-column">
-		        <div class="footer_content">
-		            <h3 class="footer_title">Break'em All</h3>
-		            <ul>
+		    <div class="footer_wrap display-flex-row">
+		        <div class="footer_content m-a display-flex-column">
+		            <h3 class="m-a footer_title">Break'em All</h3>
+		            <ul class="m-a display-flex-column">
 		                <li><a href="<?php echo WEBPATH.'/index' ; ?>" title="accueil">Accueil</a></li>
 		                <li><a href="<?php echo WEBPATH.'/tournoi'; ?>" title="Liste des tournois">Tournois</a></li>
 		                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 		            </ul>
 		        </div>
-		        <div class="footer_content">
-		            <h3 class="footer_title">Nous rejoindre</h3>
-		            <ul>
+		        <div class="footer_content m-a display-flex-column">
+		            <h3 class="m-a footer_title">Nous rejoindre</h3>
+		            <ul class="m-a display-flex-column">
 		        <?php 
 				if(isset($_isConnected)){
 					?>
@@ -293,9 +293,9 @@
 		                <li><a href="<?php echo WEBPATH.'/listejoueurs'; ?>" title="Nos joueurs">Les joueurs</a></li>
 		            </ul>
 		        </div>
-		        <div class="footer_content">
-		            <h3 class="footer_title">Help</h3>
-		            <ul>
+		        <div class="footer_content m-a display-flex-column">
+		            <h3 class="m-a footer_title">Help</h3>
+		            <ul class="m-a display-flex-column">
 		                <?php 
 		                if(isset($_isConnected))
 		                	echo "<li><a href='".WEBPATH."/profil?pseudo=".$_pseudo."' title='Acceder à ma page'>Profil</a></li>";
