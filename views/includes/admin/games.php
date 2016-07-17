@@ -19,7 +19,7 @@
 					//Affichage
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg() . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" . date('Y', $jeu->getReleaseDate()) . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->getNameType() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>";
 						if($jeu->getStatus() == 1){
@@ -73,13 +73,13 @@
 										echo "<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" . $jeu->getDescription() . "</textarea>";
 
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-D' type='number' name='day' placeholder='dd' min='1' max='31'";
-										echo ($jeu->getReleaseDate()!==NULL) ? " value='".date('d', $jeu->getReleaseDate())."'>" : ">";
+										echo ($jeu->getYear()!==NULL) ? " value='".date('d', $jeu->getYear())."'>" : ">";
 										
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-M' type='number' name='month' placeholder='mm' min='1' max='12'";
-										echo ($jeu->getReleaseDate()!==NULL) ? " value='".date('m', $jeu->getReleaseDate())."'>" : ">";
+										echo ($jeu->getYear()!==NULL) ? " value='".date('m', $jeu->getYear())."'>" : ">";
 
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
-										echo ($jeu->getReleaseDate()!==NULL) ? " value='".date('Y', $jeu->getReleaseDate())."'>" : ">";
+										echo ($jeu->getYear()!==NULL) ? " value='".date('Y', $jeu->getYear())."'>" : ">";
 										
 										echo "<input type='hidden' class='jeu-nameType-p' value='" . $jeu->getNameType() . "'>";
 										echo "<select class='select-default jeu-idType-p' name='idType'>";
