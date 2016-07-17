@@ -131,7 +131,7 @@ class adminController extends template{
     public function adminAction(){
         if($this->isVisitorConnected() && $this->isAdmin()){
             $v = new view();
-    		$this->assignConnectedProperties($v);
+            $this->assignConnectedProperties($v);
             $v->assign("css", "admin");
                 $js['admin']="admin";     
                 $js['adminPlatforms']="adminPlatforms";
@@ -163,27 +163,40 @@ class adminController extends template{
 
     /* PLATEFORME */
         public function insertPlatformsDataAction(){
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    echo 'Error: ' . $_FILES['file']['error'];
-                }
-                else {                        
-                    move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_FILES['file']['name']);
-                }
-            }
-
+            
             $args = array(
                 'name' => FILTER_SANITIZE_STRING,
                 'description' => FILTER_SANITIZE_STRING,
                 'img' => FILTER_SANITIZE_STRING
             );
 
-                $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
-                $pBdd = new platformManager();
-                $pBdd->mirrorObject = new platform($filteredinputs);
-                $pBdd->create();
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+                unset($filteredinputs['name']);
+            else{
+                $filteredinputs['name']=trim($filteredinputs['name']);
+                $platform = new platform(array('name' => $filteredinputs['name']));
+
+                $exist_name=$platformBdd->isNameUsed($platform);
+                if($exist_name)
+                    unset($filteredinputs['name']);
             }
+
+            //On check le fichier
+            if(isset($_FILES['file'])){
+                if ( 0 < $_FILES['file']['error'] ) {
+                    $unset($filteredinputs['img']);
+                }
+                else {    
+                    if(isset($filteredinputs['name']))                    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);                }  
+            }
+
+            $pBdd = new platformManager();
+            $pBdd->mirrorObject = new platform($filteredinputs);
+            $pBdd->create();
+        }
 
         public function updatePlatformsDataAction(){
             $args = array(
@@ -224,7 +237,7 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $oldplatform->getName());
                 }  
             }
-            print_r($filteredinputs);
+
             $platformMaj = new platform($filteredinputs);
             
             $platformBdd->setPlatform($oldplatform, $platformMaj);
@@ -638,7 +651,7 @@ class adminController extends template{
         
         if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year'])){
           $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-          $filteredinputs['release'] = date_timestamp_get($date);
+          $filteredinputs['releaseDate'] = date_timestamp_get($date);
         }
 
         $gameBdd = new gameManager();
