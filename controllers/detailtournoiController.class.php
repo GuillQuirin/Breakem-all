@@ -55,15 +55,20 @@ class detailtournoiController extends template{
 				// algo pour random les rencontres en prévoyant le cas où le nb d'équipe est impair
 					// ds ce cas : créer un round préliminaire pour en éliminer une.
 				$createdMatchs = $this->createMatchs($matchedTournament, 2);
+				// print_r($createdMatchs);
+				// exit;
 				if( is_array($createdMatchs) && count($createdMatchs) > 0 ){
 					foreach ($createdMatchs as $key => $createdMatch) {
+						// print_r($createdMatch);
 						$mm = new matchsManager();
 						$mm->mirrorObject = $createdMatch;
 						if($mm->create()){
 							$dbMatch = $mm->getLastCreatedMatchOfTournament($matchedTournament);
-							if(!!$dbMatch)
+							// print_r($dbMatch);
+							if($dbMatch !== false){
 								if(!$this->createMatchParticipantsOfMatch($dbMatch, $createdMatch->gtAllTeamsTournament()))
 									$this->echoJSONerror("erreur: DT_CFM_1", "Problème interne lors de la création des matchs d'ouverture");
+							}
 							else{
 								// On ne peut pas récupérer le dernier match créé et on ne peut pas relier les matchsparticipants au dernier match sans l'id nouvellement créé en db -> il faut donc supprimer le match avant d'afficher l'erreur
 								$this->echoJSONerror("erreur: DT_CFM_2", "Problème interne lors de la création des matchs d'ouverture");
@@ -132,14 +137,15 @@ class detailtournoiController extends template{
 					$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament);
 					// Savoir si tous les matchs ont donc été joués
 					$winnerTeamsArr = $this->getLastWinningTeams($matchedTournament, true);
+					// var_dump($winnerTeamsArr);
 					// Il reste des matchs à jouer dans le denrier round
 					if($winnerTeamsArr === true){
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
 						exit;
 					};
-					if( is_array($winnerTeamsArr) && count($winnerTeamsArr) === 1 ){
+					if( is_array($winnerTeamsArr) && count($winnerTeamsArr) === 1  && isset($winnerTeamsArr['end']) ){
 						$ttm = new tournamentManager();
-						if($ttm->setTournamentWinner($matchedTournament, $winnerTeamsArr[0])){
+						if($ttm->setTournamentWinner($matchedTournament, $winnerTeamsArr['end'][0])){
 							unset($ttm);
 							echo json_encode(["success" => "Le tournoi ".$matchedTournament->getName()." a donc trouvé son vainqueur"]);
 							exit;
@@ -147,12 +153,13 @@ class detailtournoiController extends template{
 						else
 							$this->echoJSONerror("erreur: DT_SW_1", "Impossible de définir le gagnant du tournoi, si le problème persiste veuilez contacter un admin");
 					}
-					else if( is_array($winnerTeamsArr) && count($winnerTeamsArr) > 1 ){
+					else if( is_array($winnerTeamsArr) && count($winnerTeamsArr) > 0 ){
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
 						exit;
 					}
-					else
+					else{
 						$this->echoJSONerror("erreur: DT_SW_2", "Aucune équipe gagnante n'a été trouvée, si le problème persiste veuillez contacter un admin");
+					}
 				}
 				else
 					$this->echoJSONerror("erreur: DT_SW_3", "Impossible de définir l'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT)." comme gagnante, si le problème persiste veuillez contacter un admin");
@@ -185,9 +192,9 @@ class detailtournoiController extends template{
 
 			$winnerTeamsArr = $this->getLastWinningTeams($matchedTournament);
 			if(!!$winnerTeamsArr){				
-				if( count($winnerTeamsArr) === 1 ){
+				if( is_array($winnerTeamsArr) && count($winnerTeamsArr) === 1 && isset($winnerTeamsArr['end'])){
 					$ttm = new tournamentManager();
-					if($ttm->setTournamentWinner($matchedTournament, $winnerTeamsArr[0])){
+					if($ttm->setTournamentWinner($matchedTournament, $winnerTeamsArr['end'][0])){
 						unset($ttm);
 						echo json_encode(["success" => "Le tournoi ".$matchedTournament->getName()." a donc trouvé son vainqueur"]);
 						exit;
@@ -272,13 +279,14 @@ class detailtournoiController extends template{
 
 				$teamIndexes = [];
 				while(count($mirrorMatchs) < $maxNumbMatch){
-					// echo "uh oh";
+					$currentTeamIndexes = [];
 					for ($i=0; $i < $teamsPerMatch; $i++) {
 						$newIndex=rand(0, $len-1);
 						while( in_array($newIndex, $teamIndexes) )
 							$newIndex=rand(0, $len-1);
 
 						$custom_key = $prekey.$newIndex;
+						$currentTeamIndexes[$custom_key] = $newIndex;
 						$teamIndexes[$custom_key] = $newIndex;
 					}
 					
@@ -288,7 +296,7 @@ class detailtournoiController extends template{
 						'idTournament' =>$t->getId(),
 						"matchNumber" => 1
 					]);
-					foreach ($teamIndexes as $key => $tInd) {
+					foreach ($currentTeamIndexes as $key => $tInd) {
 						$match->addTeamTournament($allPlayingTeams[$tInd]);
 					}
 					$mirrorMatchs[] = $match;
@@ -369,11 +377,13 @@ class detailtournoiController extends template{
 				// Ce match fait partie du dernier round à jouer -pour l'instant-
 				if($match->getMatchNumber() == $t->gtBiggestMatchNumber()){
 					// Ce match n'a pas encore de vainqueur
-					if(!($match->gtWinningTeam() instanceof teamtournament))
+					if(!($match->gtWinningTeam() instanceof teamtournament)){
 						if($returnLeftMatchesToPlay)
 							$leftMatchesToPlay[] = $match;
 						else
 							return false;
+							
+					}
 					// Il en a un
 					else
 						$winnerTeams[] = $match->gtWinningTeam();
@@ -393,9 +403,29 @@ class detailtournoiController extends template{
 							$winnerTeams[] = $teamTournament;
 					}
 				}
+				return $winnerTeams;
 			}
-			if( count($winnerTeams)%2 !== 0 && count($winnerTeams) !== 1)
-				return false;
+			// if( count($winnerTeams)%2 !== 0 && count($winnerTeams) <= 1)
+			// 	return false;
+			if( $t->gtNumberOfRoundsPlanned() == $t->gtBiggestMatchNumber() )
+				return ["end" => $winnerTeams];
+			else if($t->gtNumberOfRoundsPlanned() > $t->gtBiggestMatchNumber() && count($t->gtMatchesSortedByRank()[$t->gtBiggestMatchNumber()])===1 ){
+				// On est dans le cas où le dernier round joué n'est pas le dernier mais il n'y a eu qu'un match
+				// Il faut donc rajouter à $winnerTeams toutes les équipes ayant gagnées au round précédent
+				$matchesOfPreviousRank = $t->gtMatchesSortedByRank()[$t->gtBiggestMatchNumber()-1];
+				$teamsOfLastRank = $t->gtMatchesSortedByRank()[$t->gtBiggestMatchNumber()][0]->gtAllTeamsTournament();
+				foreach ($matchesOfPreviousRank as $key => $prevMatch) {
+					$oldWinningTeam = $prevMatch->gtWinningTeam();
+					$oldTeamDidntPlayLastRound = true;
+					foreach ($teamsOfLastRank as $key => $lastMatchTeam) {						
+						if($oldWinningTeam->getId() == $lastMatchTeam->getId())
+							$oldTeamDidntPlayLastRound =  false;
+					}
+					if( $oldTeamDidntPlayLastRound )
+						$winnerTeams[] = $oldWinningTeam;
+				}
+
+			}
 			return $winnerTeams;
 		}
 		/*
@@ -408,30 +438,51 @@ class detailtournoiController extends template{
 			$mirrorMatchs = [];
 			$prekey = "s_";
 			$teamIndexes = [];
-			while(count($mirrorMatchs) < $numberOfMatchs){
-				$teamIndexedsOfCurrentMatch = [];
-				for ($i=0; $i < $teamsPerMatch; $i++) {
-					$newIndex=rand(0, $len-1);
-					while( in_array($newIndex, $teamIndexes) )
+			if(count($arrayOfLeftTeams)%2 === 0){
+				while(count($mirrorMatchs) < $numberOfMatchs){
+					$teamIndexedsOfCurrentMatch = [];
+					for ($i=0; $i < $teamsPerMatch; $i++) {
 						$newIndex=rand(0, $len-1);
+						while( in_array($newIndex, $teamIndexes) )
+							$newIndex=rand(0, $len-1);
 
-					$custom_key = $prekey.$newIndex;
-					$teamIndexes[$custom_key] = $newIndex;
-					$teamIndexedsOfCurrentMatch[] = $newIndex;
+						$custom_key = $prekey.$newIndex;
+						$teamIndexes[$custom_key] = $newIndex;
+						$teamIndexedsOfCurrentMatch[] = $newIndex;
+					}
+					
+
+					$match = new matchs([
+						"startDate" => $t->getStartDate(),
+						'idTournament' =>$t->getId(),
+						"matchNumber" => $t->gtBiggestMatchNumber()+1
+					]);
+					foreach ($teamIndexedsOfCurrentMatch as $key => $tInd) {
+						$match->addTeamTournament($arrayOfLeftTeams[$tInd]);
+					}
+					$mirrorMatchs[] = $match;
 				}
-				
-
+				return $mirrorMatchs;
+			}
+			
+			else{
+				// On se concentrera sur les matchs binaires avec 2 teams participantes
 				$match = new matchs([
 					"startDate" => $t->getStartDate(),
 					'idTournament' =>$t->getId(),
 					"matchNumber" => $t->gtBiggestMatchNumber()+1
 				]);
-				foreach ($teamIndexedsOfCurrentMatch as $key => $tInd) {
-					$match->addTeamTournament($arrayOfLeftTeams[$tInd]);
-				}
-				$mirrorMatchs[] = $match;
+
+				$firstTeamIndex=rand(0, $len-1);
+				$secondTeamIndex=rand(0, $len-1);
+				while($secondTeamIndex === $firstTeamIndex)
+					$secondTeamIndex=rand(0, $len-1);
+
+				$match->addTeamTournament($arrayOfLeftTeams[$firstTeamIndex]);
+				$match->addTeamTournament($arrayOfLeftTeams[$secondTeamIndex]);
+
+				return [0=>$match];
 			}
-			return $mirrorMatchs;
 		}
 		/*
 		 ** @params: (tournament) $t -> instance de tournament cherché en base 
