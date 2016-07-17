@@ -361,6 +361,7 @@ var navbar = {
         navbar.form.subscribe();
         navbar.form.login();        
         navbar.form.closeFormKey();
+        navbar.form.closeFormEnter();
         navbar.form.closeFormClick();
         navbar.menu();        
     },
@@ -552,6 +553,17 @@ var navbar = {
     		setTimeout(function() {
             	navbar.form.closeForm();			    	
         	}, 700);	
+        },
+        closeFormEnter : function(){
+        	$(document).keyup(function(e){
+        		if(e.keyCode == 13){
+        			$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
+                    
+                    setTimeout(function() {
+                    	navbar.form.closeForm();			    	
+                	}, 700);
+        		}
+        	});
         }
     },
     menu: function(){

@@ -257,6 +257,40 @@ class adminController extends template{
 
     /* TOURNAMENT */
 
+    public function updateTournamentsDataAction(){
+        $args = array(
+            'id' => FILTER_SANITIZE_STRING,
+            'name' => FILTER_SANITIZE_STRING,
+            'description' => FILTER_SANITIZE_STRING,
+            'status' => FILTER_VALIDATE_INT,
+        );                                            
+
+        $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+        $platformBdd = new tournamentManager();
+        $oldplatform = $platformBdd->getIdTournaments($filteredinputs['id']);
+        
+         // On check l'utilisation du nom
+        if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>30)
+            unset($filteredinputs['name']);
+        else{
+            $filteredinputs['name']=trim($filteredinputs['name']);
+            $platform = new tournament(array('name' => $filteredinputs['name']));
+
+            $exist_name=$platformBdd->isNameUsed($platform);
+            if($oldplatform->getName()!==$filteredinputs['name'] && $exist_name)
+              unset($filteredinputs['name']);
+        }
+
+        $platformMaj = new tournament($filteredinputs);
+        //print_r($platformMaj);
+        //print_r($oldplatform);
+        
+        $platformBdd->setTournament($oldplatform, $platformMaj);
+    }
+
+
+
         public function getTournamentDataAction(){
             $tm = new tournamentManager();    
             $tournamentsArr = $tm->getListTournaments();  
