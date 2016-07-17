@@ -47,7 +47,7 @@ else{
 				<img class="configuration-header-profil-image" src="<?php echo $img; ?>" title="Image de profil" alt="Image de profil">
 
 				<div class="configuration-header-profil-right align">
-					<div class="">
+					<div class="configuration-header-profil-contain-desc">
 						<span class="configuration-header-profil-name"><?php echo (isset($pseudo)) ? $pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($description)) ? '"' . $description . '"' : 'Sans description.'; ?></span>
 						<span class="configuration-header-profil-lastconnexion">
