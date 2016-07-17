@@ -209,6 +209,13 @@ body, html{
     font-size:13px;
     padding:15px;
     color:rgba(255,255,255,.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.configuration-header-profil-contain-desc{
+    width: 100%;
 }
 
 .configuration-header-profil-left{

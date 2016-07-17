@@ -7,7 +7,8 @@ class typegameManager extends basesql{
 	public function getTypeGame($id){
 		$sql = "SELECT *
 				FROM typegame 
-				WHERE id=:id";
+				WHERE id=:id
+				AND id>0";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':id' => $id ]);
@@ -16,7 +17,7 @@ class typegameManager extends basesql{
 	}
 
 	public function getAllTypes(){
-		$sql = "SELECT * FROM typegame ORDER BY name";
+		$sql = "SELECT * FROM typegame WHERE id>0 ORDER BY name";
 		$sth = $this->pdo->query($sql);
 
 		$typeGamesArr = [];

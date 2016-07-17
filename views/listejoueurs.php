@@ -1,3 +1,13 @@
+<section class="low-height bg-cover-creationtournoi relative">
+
+	<div class="align full-height">
+		<div class="align full-height animation fadeLeft">
+			<div class="header-title admin-header-title border-full relative creationtournoi-title-container display-block">				
+					<h1 class="capitalize title header-title">Nos utilisateurs</h1>				
+			</div>	
+		</div>
+	</div> 
+</section>
 <div class="list-players">	
 	<table>
 		<thead>

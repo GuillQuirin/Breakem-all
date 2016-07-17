@@ -6,7 +6,7 @@
 				<img class="configuration-header-profil-image" src="<?php echo $_img; ?>" title="Image de profil" alt="Image de profil">
 
 				<div class="configuration-header-profil-right align">
-					<div class="">
+					<div class="configuration-header-profil-contain-desc">
 						<span class="configuration-header-profil-name"><?php echo (isset($_pseudo)) ? $_pseudo : 'Sans pseudo'; ?></span>
 						<span class="configuration-header-profil-description"><?php echo (isset($_description)) ? '"' . $_description . '"' : 'Sans description.'; ?></span>
 					</div>

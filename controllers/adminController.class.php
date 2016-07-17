@@ -157,10 +157,6 @@ class adminController extends template{
     }
 
 
-
-
-
-
     /* PLATEFORME */
         public function insertPlatformsDataAction(){
             
@@ -256,8 +252,6 @@ class adminController extends template{
             $platformBdd->deletePlatform($platform);
         }
 
-
-
     /* TOURNAMENT */
 
         public function getTournamentDataAction(){
@@ -274,8 +268,6 @@ class adminController extends template{
             }
             return;
         }
-
-
 
     /* TEAM */
         public function updateTeamsDataAction(){
@@ -360,11 +352,6 @@ class adminController extends template{
 
             $teamBdd->delTeam($team);
         }
-
-        
-
-
-
 
     /* MEMBRES */
         public function updateMembresDataAction(){
@@ -463,8 +450,6 @@ class adminController extends template{
 
             $userBDD->setUser($user, $newuser);
         }
-
-    
 
     /* SIGNALEMENT */
         public function DeleteReportsAction(){
@@ -612,7 +597,7 @@ class adminController extends template{
             );
             
             $filteredinputs = filter_input_array(INPUT_POST, $args);
-            
+                
             if(isset($_FILES['profilpic'])){
 
                 $uploaddir = '/web/img/upload/typejeux/';
@@ -685,11 +670,11 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
+
             $filteredinputs['day'] = (int) $filteredinputs['day'];
             $filteredinputs['month'] = (int) $filteredinputs['month'];
             $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
-
-            $filteredinputs = filter_input_array(INPUT_POST, $args);
 
             $gameBdd = new gameManager();
             $game = $gameBdd->getGameById($filteredinputs['id']);
@@ -730,8 +715,8 @@ class adminController extends template{
                           move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $oldgame->getName());
                   }  
               }
-        $newGame = new game($filteredinputs);
-        $gameBdd->setGame($game, $newGame);
+            $newGame = new game($filteredinputs);
+            $gameBdd->setGame($game, $newGame);
 
         }
 
@@ -750,15 +735,6 @@ class adminController extends template{
         }
 
         public function insertGamesDataAction(){
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    echo 'Error: ' . $_FILES['file']['error'];
-                }
-                else {                        
-                    move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_FILES['file']['name']);
-                }
-            }
-
             $args = array(
                'name' => FILTER_SANITIZE_STRING,
                'description' => FILTER_SANITIZE_STRING,
@@ -771,28 +747,54 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
-            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
 
             $filteredinputs['day'] = (int) $filteredinputs['day'];
             $filteredinputs['month'] = (int) $filteredinputs['month'];
             $filteredinputs['thisYear'] = (int) $filteredinputs['thisYear'];
+            
+            $gameBdd = new gameManager();
 
-            if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
-                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
-                $filteredinputs['year'] = date_timestamp_get($date);
+            // On check l'utilisation du nom
+            if(strlen($filteredinputs['name'])<2 || strlen($filteredinputs['name'])>15)
+                unset($filteredinputs['name']);
+            else{
+                $filteredinputs['name']=trim($filteredinputs['name']);
+                $oldgame = new game(array('name'=>$filteredinputs['name']));
+                $exist_name=$gameBdd->isNameUsed($oldgame);
+
+                if($exist_name)
+                    unset($filteredinputs['name']);
             }
 
-            
+
+            //On check la date
+              if(checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['thisYear'])){
+                $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['thisYear']);
+                $filteredinputs['year'] = date_timestamp_get($date);
+              }
+
               unset($filteredinputs['month']);
               unset($filteredinputs['day']);
-              unset($filteredinputs['thisYear']);
               unset($filteredinputs['nameType']);
+              unset($filteredinputs['thisYear']);
+
+              //On check le fichier
+                if(isset($_FILES['file'])){
+                  if ( 0 < $_FILES['file']['error'] ) {
+                      $unset($filteredinputs['img']);
+                  }
+                  else {    
+                      if(isset($filteredinputs['name']))                    
+                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
+                  }  
+                }
 
             $pBdd = new gameManager();
-            $myNewGame = new game($filteredinputs);
+            if(isset($filteredinputs['name']))
+                $myNewGame = new game($filteredinputs);
 
             $pBdd->mirrorObject = $myNewGame;
-            print_r($myNewGame);
             $pBdd->create();
         }
 
