@@ -8,7 +8,6 @@ var dom = {
 		dom.setSjeton();
 		dom.setTget();
 		if(isElSoloJqueryInstance(dom.getDetailTournoiInfos()) && 
-			isElSoloJqueryInstance(dom.getEquipesLibresSection()) && 
 			isElSoloJqueryInstance(dom.getSjeton()) &&
 			dom.getTget().length > 10
 		)
@@ -64,7 +63,7 @@ var dom = {
 		return (isElSoloJqueryInstance(dom._prochMatchsBtn)) ? dom._prochMatchsBtn : false;
 	},
 	getMatchsWinnerBtns: function(){
-		return (dom._mWinBtns.length > 1) ? dom._mWinBtns : false;
+		return (dom._mWinBtns.length > 0) ? dom._mWinBtns : false;
 	},
 	getSjeton: function(){
 		return dom._sJeton;
@@ -284,7 +283,7 @@ var createFirstMatchs = {
 };
 var selectMatchWinner = {
 	init: function(){
-		if(!!dom.getMatchsWinnerBtns())
+		if(dom.getMatchsWinnerBtns() != false)
 			selectMatchWinner.associateEventToBtn();
 	},
 	associateEventToBtn: function(){
@@ -298,7 +297,7 @@ var selectMatchWinner = {
 			});
 		});
 	},
-	btnClickCallback: function(){
+	btnClickCallback: function(obj){
 		if(obj != false){
 			if(obj.errors){
 				popup.init(obj.errors);
@@ -330,11 +329,11 @@ var selectMatchWinner = {
 var createNextMatchs = {
 	init: function(){
 		if(!!dom.getCreerProchainsMatchsBtn())
-			selectMatchWinner.associateEventToBtn();
+			createNextMatchs.associateEventToBtn();
 	},
 	associateEventToBtn: function(){
 		dom.getCreerProchainsMatchsBtn().click(function(e) {
-			selectMatchWinner.btnClicked();
+			createNextMatchs.btnClicked();
 		});
 	},
 	btnClickedCallback: function(obj){
