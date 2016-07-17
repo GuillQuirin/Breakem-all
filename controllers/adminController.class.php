@@ -34,7 +34,7 @@ class adminController extends template{
     /* Gère la vue de Plateforme */
     public function platformsViewAction(){
         $platform = new platformManager();
-        $listeplatforms = $platform->getListPlatform();        
+        $listeplatforms = $platform->getAdminListPlatform();        
 
         $v = new view();   
         $this->assignConnectedProperties($v); 
@@ -46,7 +46,7 @@ class adminController extends template{
     /* Gère la vue de Signalements */
     public function reportsViewAction(){
         $report = new signalmentsuserManager();
-        $listesignalement = $report->getListReports();
+        $listesignalement = $report->getAdminListReports();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -58,7 +58,7 @@ class adminController extends template{
     /* Gère la vue de Team */
     public function teamsViewAction(){
         $team = new teamManager();
-        $listeteam = $team->getListTeam(-2);
+        $listeteam = $team->getAdminListTeam();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -70,10 +70,10 @@ class adminController extends template{
     /* Gère la vue de Jeux */
     public function gamesViewAction(){
         $gameBDD = new gameManager();
-        $listegames = $gameBDD->getAllGames();
+        $listegames = $gameBDD->getAdminAllGames();
 
         $gametypeBDD = new typegameManager();
-        $listgametype = $gametypeBDD->getAllTypes();
+        $listgametype = $gametypeBDD->getAdminAllTypes();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -86,7 +86,7 @@ class adminController extends template{
     /* Gère la vue de Type de Jeu */
     public function typegamesViewAction(){
         $gametypeBDD = new typegameManager();
-        $listgametype = $gametypeBDD->getAllTypes();
+        $listgametype = $gametypeBDD->getAdminAllTypes();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -110,7 +110,7 @@ class adminController extends template{
      /* Gère la vue de Tournois */
     public function tournamentsViewAction(){
         $tournamentBdd = new tournamentManager();    
-        $listtournament = $tournamentBdd->getListTournaments();
+        $listtournament = $tournamentBdd->getAdminListTournaments();
 
         $v = new view();
         $this->assignConnectedProperties($v);
@@ -484,9 +484,6 @@ class adminController extends template{
             $report = $reportsBDD->getReport($filteredinputs['id']);
 
             $reportsBDD->delReport($report);
-
-            //$reportsBDD->getListReports());
-
         }
 
         public function updateReportsDataAction(){

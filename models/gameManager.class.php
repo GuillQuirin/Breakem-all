@@ -5,7 +5,7 @@
 class gameManager extends basesql{
 
 	public function getAllGamesName(){
-		$sql = "SELECT name FROM " . $this->table;
+		$sql = "SELECT name FROM " . $this->table." WHERE status>0 ";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();
 
@@ -23,7 +23,7 @@ class gameManager extends basesql{
 	public function getBestGames(){        
          $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu, G.img
                  FROM tournament T, gameversion GV, game G
-                 WHERE G.id = GV.idGame AND GV.id = T.idGameVersion AND G.id>0
+                 WHERE G.id = GV.idGame AND GV.id = T.idGameVersion AND G.id>0 AND G.status>0
                  LIMIT 0,3";
         $sth = $this->pdo->query($sql);
         return $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ class gameManager extends basesql{
 		$sql = "SELECT name, description, img, status 
 				FROM " . $this->table . " 
 				WHERE idType= (SELECT id FROM typegame WHERE typegame.name = :name) 
-					AND id>0 
+					AND id>0 AND status>0
 				ORDER BY name";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -88,6 +88,26 @@ class gameManager extends basesql{
 	}
 
 	public function getAllGames(){
+		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, g.status, t.name as nameType 
+				FROM game g 
+				INNER JOIN typegame t 
+				ON g.idType = t.id
+				WHERE g.id>0 AND status>0
+				ORDER BY name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new game($dataArr);
+			}
+			return $data;
+		}
+		return false;
+	}
+
+	public function getAdminAllGames(){
 		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 
 				INNER JOIN typegame t 

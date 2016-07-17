@@ -17,6 +17,17 @@ class typegameManager extends basesql{
 	}
 
 	public function getAllTypes(){
+		$sql = "SELECT * FROM typegame WHERE id>0 AND status>0 ORDER BY name";
+		$sth = $this->pdo->query($sql);
+
+		$typeGamesArr = [];
+		foreach ($sth->fetchAll(PDO::FETCH_ASSOC) as $key => $arr) {
+			$typeGamesArr[] = new typegame($arr);
+		}
+		return $typeGamesArr;
+	}
+
+	public function getAdminAllTypes(){
 		$sql = "SELECT * FROM typegame WHERE id>0 ORDER BY name";
 		$sth = $this->pdo->query($sql);
 

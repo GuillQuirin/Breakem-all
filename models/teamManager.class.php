@@ -71,6 +71,19 @@ class teamManager extends basesql{
 		return $list;
 	}
 
+	public function getAdminListTeam(){
+		$sql="SELECT * FROM team ORDER BY name ASC";
+
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC))
+			//tableau d'objets team
+			$list[] = new team($query);
+	
+		return $list;
+	}
+
 	//Liste des membres avec le nom de la team
 	public function getListMember($nameTeam){
 		$sql = "SELECT user.id, user.pseudo, user.img 

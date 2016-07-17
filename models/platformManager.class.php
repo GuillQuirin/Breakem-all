@@ -39,6 +39,19 @@ class platformManager extends basesql{
 		return $list;
 	}
 
+	public function getAdminListPlatform(){
+		$sql = "SELECT id, name, description, img, status FROM " . $this->table . " WHERE id>=0 AND status>0 ORDER BY name ASC";
+		
+		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$req->execute();
+		$list = [];
+		while ($query = $req->fetch(PDO::FETCH_ASSOC)) 
+			//user appel la classe plateform
+			$list[] = new platform($query);
+		
+		return $list;
+	}
+
 	public function deletePlatform(platform $platform){
 		$sql1 = "UPDATE gameversion SET idPlateform=-1 WHERE idPlateform=:id";
 		$sth1 = $this->pdo->prepare($sql1, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));		
