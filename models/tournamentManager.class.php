@@ -247,17 +247,6 @@ final class tournamentManager extends basesql{
 		return $sth->execute();
 	}
 
-	public function isNameUsed(tournament $t){
-		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
 }
 /*
 *

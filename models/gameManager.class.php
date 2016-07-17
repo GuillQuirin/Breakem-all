@@ -127,17 +127,6 @@ class gameManager extends basesql{
 		return false;
 	}
 
-	public function isNameUsed(game $g){
-		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $g->getName()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
 	public function setGame(game $ancien, game $nouveau){
 
 		$data = [];

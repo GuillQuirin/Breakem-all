@@ -14,18 +14,7 @@ class platformManager extends basesql{
 			return $r;
 		return false;
 	}
-
-	public function isNameUsed(platform $t){
-		$sql = "SELECT COUNT(*) FROM " . $this->table . " WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
+	
 	public function getListPlatform(){
 		$sql = "SELECT id, name, description, img, status FROM " . $this->table . " WHERE id>=0 ORDER BY name ASC";
 		
