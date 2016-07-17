@@ -227,7 +227,7 @@ var gameModule = {
 
 					allData.idType;
 						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
-						if(year){ updateBtn.parent().parent().find('.jeu-year-g').html(year); }
+						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
 						if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
 						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
 						//Si l'image uploadé existe on l'envoi dans la dom
