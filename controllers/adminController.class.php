@@ -184,7 +184,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -226,7 +226,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -303,7 +303,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -413,7 +413,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['pseudo']))                    
@@ -517,7 +517,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -562,7 +562,7 @@ class adminController extends template{
             //On check le fichier
             if(isset($_FILES['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
-                    $unset($filteredinputs['img']);
+                    unset($filteredinputs['img']);
                 }
                 else {    
                     if(isset($filteredinputs['name']))                    
@@ -750,7 +750,7 @@ class adminController extends template{
               //On check le fichier
               if(isset($_FILES['file'])){
                   if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
+                      unset($filteredinputs['img']);
                   }
                   else {    
                       if(isset($filteredinputs['name']))                    
@@ -826,7 +826,7 @@ class adminController extends template{
               //On check le fichier
                 if(isset($_FILES['file'])){
                   if ( 0 < $_FILES['file']['error'] ) {
-                      $unset($filteredinputs['img']);
+                      unset($filteredinputs['img']);
                   }
                   else {    
                       if(isset($filteredinputs['name']))                    
