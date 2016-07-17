@@ -10,18 +10,6 @@ class teamManager extends basesql{
 		parent::__construct();
 	}
 
-	/*VERIFICATION DE L'UNICITE DU NOM TEAM*/
-	public function isNameUsed(team $t){
-		$sql = "SELECT COUNT(*) FROM team WHERE name=:name";
-		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([
-			':name' => $t->getName()
-		]);
-		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
-	}
-
 	/* RETOURNE UNE TEAM SELON L'id */
 	public function getThisTeam($id){
 		$sql = "SELECT *
