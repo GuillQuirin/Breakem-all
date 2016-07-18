@@ -131,11 +131,16 @@ var membreModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.membre-submit-form-btn');
 
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
 			submitBtn.parent().parent().submit(function(enterEvent){
 				enterEvent.preventDefault();
 				return false;
 			});
 
+			//Submit : Sur le click
 			submitBtn.on("click", function(updateEvent){
 				var subBtn = updateBtn.parent().parent();
 
@@ -357,6 +362,14 @@ var membreModule = {
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.membre-submit-add-this-form-btn');
 
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
 			
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget).parent().parent();
@@ -479,6 +492,8 @@ var membreModule = {
 						}
 					});
 				}
+				ev.preventDefault();
+				return false;
 			});
 
 		});

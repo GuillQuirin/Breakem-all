@@ -85,7 +85,16 @@ var teamModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.team-submit-form-btn');
 
-			submitBtn.on("click", function(){
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
+
+			submitBtn.on("click", function(updateEvent){
 				var id = updateBtn.parent().parent().find('.team-id-p').val();
 				var status;
 				if(updateBtn.parent().parent().find('.team-status-p').is(':checked')){
@@ -187,6 +196,9 @@ var teamModule = {
 						throw new Error("Couldn't update team", result);
 					}
 				});
+				updateEvent.preventDefault();
+				return false;
+			
 			});			
 		});
 	}
