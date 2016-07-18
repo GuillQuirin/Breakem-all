@@ -273,9 +273,15 @@ class tournoiController extends template {
 		// Il y a au moins un filtre
 		else{
 			$matchedTournaments = $tm->getFilteredTournaments($filteredinputs);
-			// var_dump($matchedTournaments);
-			if(!!$matchedTournaments)
+			if(!!$matchedTournaments){
+				foreach ($matchedTournaments as $key => $t) {
+					$filledT = $this->getFullyAlimentedTournament($t, false);
+					if(!!$filledT)
+						$matchedTournaments[$key] = $filledT;
+				}
 				$v->assign("tournois", $matchedTournaments);
+			}
+				
 		}
 		$v->setView("tournamentslist");
 	}
