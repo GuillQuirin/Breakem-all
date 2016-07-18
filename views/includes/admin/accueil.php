@@ -112,7 +112,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 								<div class="row align">
 									<div class="grid-md-3 admin-search-wrapper">
 										<form id="admin-search-form">
-											<input type="text" class="admin-search-input input-default" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
+											<input type="text" class="admin-search-input input-default" autocomplete="off" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
 										</form>
 									</div>
 									

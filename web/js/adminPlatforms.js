@@ -133,7 +133,16 @@ var platformModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.platform-submit-form-btn');
 
-			submitBtn.on("click", function(){
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
+
+			submitBtn.on("click", function(updateEvent){
 				var id = updateBtn.parent().parent().find('.platform-id-p').val();
 				var name = updateBtn.parent().parent().find('.platform-nom-p').val();
 				var description = updateBtn.parent().parent().find('.platform-description-p').val();
@@ -225,6 +234,8 @@ var platformModule = {
 						}
 					});	
 				}
+				updateEvent.preventDefault();
+				return false;
 			});			
 		});
 	},
@@ -267,7 +278,7 @@ var platformModule = {
 							"</div>" +
 							//Submit
 							"<div class='grid-md-12'>" + 
-				   				"<button type='button' class='platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+				   				"<button type='submit' class='platform-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
 				  			"</div>" +
 				  		"</form>" +
 				  	"</div>" +
@@ -277,6 +288,15 @@ var platformModule = {
 
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.platform-submit-add-this-form-btn');
+
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
 
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget);
@@ -389,7 +409,7 @@ var platformModule = {
 												"</div>" +
 												//Submit
 												"<div class='grid-md-12'>" + 
-											    	"<button type='button' class='admin-form-submit platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
+											    	"<button type='submit' class='admin-form-submit platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
 									  			"</div>" +
 									  		"</form>" +
 									  	"</div>" +
@@ -406,6 +426,8 @@ var platformModule = {
 						}
 					});
 				}
+				ev.preventDefault();
+				return false;
 			});
 
 		});

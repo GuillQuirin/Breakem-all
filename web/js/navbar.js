@@ -90,6 +90,11 @@ function previewUpload(input, targetSrc) {
     }
 }
 
+//Check si un mot existe a l'intérieur d'une chaine et renvoi un bool
+function wordInString(s, word){
+    return new RegExp( '\\b' + word + '\\b', 'i').test(s);
+}
+
 
 function $_GET(param) {
 	var vars = {};
@@ -361,7 +366,6 @@ var navbar = {
         navbar.form.subscribe();
         navbar.form.login();        
         navbar.form.closeFormKey();
-        //navbar.form.closeFormEnter();
         navbar.form.closeFormClick();
         navbar.menu();        
     },
@@ -554,17 +558,13 @@ var navbar = {
             	navbar.form.closeForm();			    	
         	}, 700);	
         },
-        closeFormEnter : function(){
-        	$(document).keyup(function(e){
-        		if(e.keyCode == 13){
-        			$('.inscription_rapide').addClass('fadeOutUp').removeClass('fadeDown');	
-                    
-                    setTimeout(function() {
-                    	navbar.form.closeForm();			    	
-                	}, 700);
-        		}
-        	});
-        }
+        closeFormEnter : function(myForm){
+	        myForm.find('input').keypress(function(e) {
+	            if(e.which == 10 || e.which == 13) {
+	                myForm.submit();
+	            }
+	        });
+		}
     },
     menu: function(){
 		$('.navbar-menu-li').mouseenter(function(){

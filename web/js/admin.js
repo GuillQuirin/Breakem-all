@@ -54,6 +54,7 @@ var onglet = {
 			onglet.getAdminAddWrapper().html(
 				myBtn
 			);
+			onglet.getAdminAddWrapper().show();
 			onglet.platformView();
 		});
 		//Membres

@@ -114,7 +114,16 @@ var signalementModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.report-submit-form-btn');
 
-			submitBtn.on("click", function(){
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
+
+			submitBtn.on("click", function(updateEvent){
 				var id = updateBtn.parent().parent().find('.report-id-p').val();
 				var subject = updateBtn.parent().parent().find('.report-subject-p').val();
 				var description = updateBtn.parent().parent().find('.report-description-p').val();
@@ -148,6 +157,8 @@ var signalementModule = {
 						throw new Error("Couldn't update report", result);
 					}
 				});
+				updateEvent.preventDefault();
+				return false;
 			});			
 		});
 	}

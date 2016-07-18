@@ -58,7 +58,7 @@
 
 								    //Submit
 								    echo "<div class='grid-md-12'>";
-								    	echo "<button type='button' class='admin-form-submit report-submit-form-btn btn btn-pink'><a>Valider</a></button>";
+								    	echo "<button type='submit' class='admin-form-submit report-submit-form-btn btn btn-pink'><a>Valider</a></button>";
 								    echo "</div>";
 						  		echo "</form>";
 						  	echo "</div>";

@@ -132,7 +132,16 @@ var gameModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.jeu-submit-form-btn');
 
-			submitBtn.on("click", function(){
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
+
+			submitBtn.on("click", function(updateEvent){
 				var subBtn = updateBtn.parent().parent();
 
 				var id = subBtn.find('.jeu-id-p').val();
@@ -249,6 +258,8 @@ var gameModule = {
 						throw new Error("Couldn't update game", result);
 					}
 				});
+				updateEvent.preventDefault();
+				return false;
 			});			
 		});
 	},
@@ -329,7 +340,7 @@ var gameModule = {
 									"</div>" +
 									//Submit
 									"<div class='grid-md-12'>" + 
-								    	"<button type='button' class='admin-form-submit jeu-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
+								    	"<button type='submit' class='admin-form-submit jeu-submit-add-this-form-btn btn btn-pink'><a>Valider</a></button>" +
 						  			"</div>" +
 						  		"</form>" +
 						  	"</div>" +
@@ -346,6 +357,15 @@ var gameModule = {
 				});
 			});
 		
+
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(subBtn.parent().parent());
+
+			//Submit : Revérification
+			subBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
 
 			//Envoi dans la BDD
 			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
@@ -516,7 +536,7 @@ var gameModule = {
 														"</div>" +
 														//Submit
 														"<div class='grid-md-12'>" + 
-													    	"<button type='button' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
+													    	"<button type='submit' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
 											  			"</div>" +
 											  		"</form>" +
 											  	"</div>" +
@@ -555,6 +575,8 @@ var gameModule = {
 						}
 					});
 				}
+				ev.preventDefault();
+				return false;
 			});
 
 		});

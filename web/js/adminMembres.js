@@ -8,12 +8,17 @@ var membreModule = {
 		membreModule.setInsertBtn();
 		membreModule.setPreviewInput();
 		membreModule.setImgWrapper();
+		membreModule.setAdminSearchInput();
 		membreModule.setAdminDataRe();
 		membreModule.setToggleCheck();
+		membreModule.setAdminSearchInput();
 
 		//Preview
 		membreModule.previewImg();
 		membreModule.toggletCheck();
+
+		//Search
+		membreModule.searchMembreRequest();
 
 		//CRUD
 		membreModule.postDataDelete();
@@ -22,6 +27,9 @@ var membreModule = {
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -45,6 +53,9 @@ var membreModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -79,6 +90,53 @@ var membreModule = {
 		membreModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
     		previewUpload(this, membreModule.getImgWrapper());
+		});
+	},
+	//Search Delay
+	searchMembreValue : function(callback){
+		membreModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			membreModule.getAdminSearchInput().on('keypress', function() {
+		    	setTimeout(function(){
+		    		if(membreModule.getAdminSearchInput().val())
+		    			callback(membreModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+		    	},1);
+			});
+		}
+	},
+	//Request Search
+	searchMembreRequest : function(){
+		membreModule.searchMembreValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {pseudo : value};
+				jQuery.ajax({
+					url: "admin/getUserByPseudo", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
 		});
 	},
 	//CRUD
@@ -131,11 +189,16 @@ var membreModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.membre-submit-form-btn');
 
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
 			submitBtn.parent().parent().submit(function(enterEvent){
 				enterEvent.preventDefault();
 				return false;
 			});
 
+			//Submit : Sur le click
 			submitBtn.on("click", function(updateEvent){
 				var subBtn = updateBtn.parent().parent();
 
@@ -191,7 +254,6 @@ var membreModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	file.name = allData.pseudo;
 			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  
@@ -357,6 +419,14 @@ var membreModule = {
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.membre-submit-add-this-form-btn');
 
+			//Submit : Usage de la fonction
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
+
+			//Submit : Revérification
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
 			
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget).parent().parent();
@@ -479,6 +549,8 @@ var membreModule = {
 						}
 					});
 				}
+				ev.preventDefault();
+				return false;
 			});
 
 		});
@@ -489,7 +561,6 @@ var membreModule = {
 	}
 };
 
-//Maj user
 function setStatut(pseudo, value){
 	jQuery.ajax({
 	 	url: "admin/updateUserStatus",
