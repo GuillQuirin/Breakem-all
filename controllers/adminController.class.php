@@ -171,6 +171,25 @@ class adminController extends template{
 
 
     /* PLATEFORME */
+        public function getPlatformByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new platformManager();
+            $search = new platform($filteredinputs);
+            $data = $bdd->platformByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function insertPlatformsDataAction(){
             
             $args = array(
@@ -307,6 +326,25 @@ class adminController extends template{
         }
 
     /* TEAM */
+        public function getTeamByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new teamManager();
+            $search = new team($filteredinputs);
+            $data = $bdd->teamByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function updateTeamsDataAction(){
             
             $args = array(

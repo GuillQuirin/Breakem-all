@@ -290,10 +290,9 @@ class userManager extends basesql{
 	}
 
 	public function userByPseudo(user $u){
-		$sql = "SELECT pseudo, email, img, status FROM " .$this->table . " WHERE pseudo=:pseudo";
-
+		$sql = "SELECT pseudo FROM " .$this->table . " WHERE pseudo=:pseudo";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([ ':pseudo' => $u->getPseudo() ]);
+		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
 		return $r[0];

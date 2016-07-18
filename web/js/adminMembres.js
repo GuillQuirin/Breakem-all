@@ -18,7 +18,7 @@ var membreModule = {
 		membreModule.toggletCheck();
 
 		//Search
-		membreModule.searchMembreRequest();
+		membreModule.searchRequest();
 
 		//CRUD
 		membreModule.postDataDelete();
@@ -93,25 +93,25 @@ var membreModule = {
 		});
 	},
 	//Search Delay
-	searchMembreValue : function(callback){
+	searchValue : function(callback){
 		membreModule.getAdminSearchInput().parent().on("submit", function(ev){
 			ev.preventDefault();
 			return false;
 		});
 		if(callback){
 			membreModule.getAdminSearchInput().on('keypress', function() {
-		    	setTimeout(function(){
-		    		if(membreModule.getAdminSearchInput().val())
+				setTimeout(function(){
+					if(membreModule.getAdminSearchInput().val())
 		    			callback(membreModule.getAdminSearchInput().val());
 		    		else
 		    			callback("undefined");
-		    	},1);
+				}, 1)
 			});
 		}
 	},
 	//Request Search
-	searchMembreRequest : function(){
-		membreModule.searchMembreValue(function(value){
+	searchRequest : function(){
+		membreModule.searchValue(function(value){
 			//console.log(value);
 			if(value && value !== "undefined"){
 				var data = {pseudo : value};
@@ -120,8 +120,11 @@ var membreModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
+						//console.log(result);
+
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
+							console.log(result);
 							var userArr = jQuery.parseJSON(result);	
 							var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
 							myRDiv.addClass('hidden');

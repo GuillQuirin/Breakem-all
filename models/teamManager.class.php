@@ -246,6 +246,15 @@ class teamManager extends basesql{
 
 	}
 
+	public function teamByName(team $u){
+		$sql = "SELECT name FROM " .$this->table . " WHERE name=:name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':name' => $u->getName()]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+	
+		return $r[0];
+	}
+
 }
 
 
