@@ -22,10 +22,9 @@ class adminController extends template{
             $exist_name=$manager->nameExists($objet);
         
         //Contrôle existence BDD -> UPDATE
-        if($oldobjet->getName()!==NULL && $oldobjet->getName()!==$objet->getName() && $exist_name==1)
+        if($oldobjet!==NULL && $oldobjet->getName()!==$objet->getName() && $exist_name==1)
             $exist_name=1;
 
-        var_dump($exist_name);
         return $exist_name;
     }
 
@@ -179,7 +178,33 @@ class adminController extends template{
                 'img' => FILTER_SANITIZE_STRING
             );
 
-            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            move_uploaded_file($_FILES['file']['tmp_name'], getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
+
+            //Pré-controle car l'upload d'image ne passe pas le filter_input_array
+            $platformBdd = new platformManager();
+            $platform = new platform(array('name' => trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING))));
+
+            $exist_name = $this->controleNom($platformBdd, $platform);
+            if($exist_name)
+                unset($args['name']);
+
+            //On check le fichier
+            if(file_exists(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg")){  
+                //Nouveau nom
+                if(!$exist_name && $platform->getName()!=NULL){
+                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
+                            getcwd(). WEBPATH . "/web/img/upload/platform/".$platform->getName().".jpg");
+                    $_POST['img']=$platform->getName().".jpg";
+                    var_dump("OUUUUUAAAIIIISSS");
+                }
+                //Suppression du fichier
+                else{
+                    unlink(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
+                    var_dump("ZAAAAAAAA");
+                }
+            }
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);
 
             $pBdd = new platformManager();
             $platform = new platform(array('name' => trim($filteredinputs['name'])));
@@ -189,15 +214,6 @@ class adminController extends template{
             if($exist_name)
                 unset($filteredinputs['name']);
 
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $filteredinputs['name']);                }  
-            }
 
             if(isset($filteredinputs['name'])){
                 $pBdd->mirrorObject = new platform($filteredinputs);
@@ -205,7 +221,7 @@ class adminController extends template{
             }
         }
 
-      public function updatePlatformsDataAction(){
+        public function updatePlatformsDataAction(){
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -214,37 +230,44 @@ class adminController extends template{
                 'img' => FILTER_SANITIZE_STRING                     
             );               
 
+            move_uploaded_file($_FILES['file']['tmp_name'], getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
+
             //Pré-controle car l'upload d'image ne passe pas le filter_input_array
             $platformBdd = new platformManager();
             $oldplatform = $platformBdd->getIdPlatform(filter_var($_POST['id'], FILTER_SANITIZE_STRING));
             $platform = new platform(array('name' => trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING))));
 
             $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
-            if($exist_name){
+            if($exist_name)
                 unset($args['name']);
-                /**/
-                die("nom deja existant");
-                /**/
-            }
 
             //On check le fichier
-            if(isset($_FILES['file'])){
-                if ($_FILES['file']['error']==0) {
-                    unset($args['img']);
+            if(file_exists(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg")){  
+                //Nouveau nom
+                if(!$exist_name && $platform->getName()!=NULL){
+                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
+                            getcwd(). WEBPATH . "/web/img/upload/platform/".$platform->getName().".jpg");
+                    $_POST['img']=$platform->getName().".jpg";
+                    var_dump("OUUUUUAAAIIIISSS");
                 }
-                else{    
-                    //Nouveau nom
-                    if(!$exist_name && $platform->getName()!=NULL)
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/nouveauNom.jpg");// . $platform->getName());
-                    //Ancien nom
-                    else if($exist_name && $oldplatform->getName()!==NULL)    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/ancienNom.jpg");// . $oldplatform->getName());
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/rienDuTout.jpg");
-                }  
+                //Ancien nom
+                else if($exist_name && $oldplatform->getName()!==NULL){    
+                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
+                            getcwd(). WEBPATH . "/web/img/upload/platform/".$oldplatform->getName().".jpg");
+                    $_POST['img']=$oldplatform->getName().".jpg";
+                    var_dump("PROOOOOUUTTT");
+                }
+                //Suppression du fichier
+                else{
+                    unlink(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
+                    var_dump("ZAAAAAAAA");
+                }
             }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
+
+            if(isset($filteredinputs['name']))
+                $filteredinputs['img']=$filteredinputs['name'];
 
             $platformMaj = new platform($filteredinputs);
             
