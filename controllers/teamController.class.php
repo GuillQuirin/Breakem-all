@@ -13,6 +13,7 @@
 
 */
 class teamController extends template{
+
 	public function teamAction(){ 
 
         //Initialisation de la vue
@@ -93,7 +94,7 @@ class teamController extends template{
             $this->echoJSONerror("nameused", "nom déjà utilisé");
             
         //L'user a-t-il déjà une team
-        if(is_numeric($this->connectedUser->getIdTeam()))
+        if(!$this->isVisitorConnected() || !$this->connectedUser || $this->connectedUser->getIdTeam()!=NULL)
             $this->echoJSONerror("userhasteam", "vous avez déjà une team!");
             
         //Création team
@@ -132,8 +133,6 @@ class teamController extends template{
 
     public function addTeamAction()
     {
-
-
 
         $args = array(
             'name' => FILTER_SANITIZE_STRING,
