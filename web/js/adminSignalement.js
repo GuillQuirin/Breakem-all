@@ -10,15 +10,23 @@ var signalementModule = {
 		signalementModule.setImgWrapper();
 		signalementModule.setAdminDataRe();
 
+		signalementModule.setAdminSearchInput();
+
 		//Preview
 		signalementModule.previewImg();
 
+		//Search
+		signalementModule.searchRequest();
+
 		//CRUD
-		signalementModule.postDataDelete();
+		//signalementModule.postDataDelete();
 		signalementModule.postDataUpdate();
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -39,6 +47,9 @@ var signalementModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
 	},
@@ -59,6 +70,56 @@ var signalementModule = {
 	},
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
+	},
+	//Search Delay
+	searchValue : function(callback){
+		signalementModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			signalementModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(signalementModule.getAdminSearchInput().val())
+	    			callback(signalementModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 1)
+			});
+		}
+	},
+	//Request Search
+	searchRequest : function(){
+		signalementModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {pseudo : value};
+				jQuery.ajax({
+					url: "admin/getReportByUser", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							console.log(result);
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
+		});
 	},
 	//Preview
 	previewImg : function(){

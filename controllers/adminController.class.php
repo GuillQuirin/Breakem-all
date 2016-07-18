@@ -308,6 +308,25 @@ class adminController extends template{
 
     /* TOURNAMENT */
 
+        public function getTournamentByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new tournamentManager();
+            $search = new tournament($filteredinputs);
+            $data = $bdd->tournamentByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function updateTournamentsDataAction(){
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
@@ -556,6 +575,26 @@ class adminController extends template{
         }
 
     /* SIGNALEMENT */
+       public function getReportByUserAction(){
+            $args = array(
+                'id' => FILTER_VALIDATE_INT,
+                'pseudo' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new signalmentsuserManager();
+            $search = new signalmentsuser($filteredinputs);
+            $data = $bdd->reportByUser($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function DeleteReportsAction(){
             $args = array(
                 'id' => FILTER_VALIDATE_INT
@@ -588,6 +627,25 @@ class adminController extends template{
         }
 
     /* TYPE GAME */
+        public function getTypeGameByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new typegameManager();
+            $search = new typegame($filteredinputs);
+            $data = $bdd->typeGameByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
 
         public function insertTypeGamesDataAction(){
             
@@ -798,6 +856,24 @@ class adminController extends template{
         }
 
     /* GAMES */
+        public function getGameByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new gameManager();
+            $search = new game($filteredinputs);
+            $data = $bdd->gameByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
 
         public function insertGamesDataAction(){
             $args = array(
