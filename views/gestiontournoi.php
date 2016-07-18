@@ -27,7 +27,6 @@ if(isset($tournoi)){
 	</section>
 
 	<section class="configuration-content-wrapper my-content-wrapper">
-
 		<div class="container m-a content-border gestiontournoi-container">
 
 			<div class="row classement-content-row">
@@ -48,9 +47,12 @@ if(isset($tournoi)){
 
 					<?php 
 					if(trim($verrouillage)!=="disabled")
-						echo '<form action="gestiontournoi/update?t='.$tournoi->getLink().'" method="post" enctype="multipart/form-data">';
+						echo '<form action="gestiontournoi/update" method="post" enctype="multipart/form-data">';
 					?>
 						<table class="full-width configuration-form-table">
+							<tr>
+								<td colspan='2' id="result"></td>
+							</tr>
 							<?php 
 								if(isset($MAJ))
 									echo "<tr class='MAJ text-center'><td colspan='2'>Mise à jour correctement effectuée.</td></tr>";
@@ -125,6 +127,7 @@ if(isset($tournoi)){
 						</table>
 					<?php 
 					if(trim($verrouillage)!=="disabled"){
+						echo "<input type='hidden' name='link' value='".$_GET['t']."'>";
 						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width">';
 							echo '<a>Mettre à jour</a>';
 						echo '</button>'; 
@@ -145,7 +148,7 @@ if(isset($tournoi)){
 							?>
 						</table>
 
-						<?php if(trim($verrouillage)!=="disabled"){ ?>
+						<?php /*if(trim($verrouillage)!=="disabled"){ ?>
 							<p>Message à destination des inscrits :</p>
 							<textarea id="msg_tournament" class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
 							</textarea>
@@ -153,7 +156,8 @@ if(isset($tournoi)){
 								<a>Envoyer le mail</a>
 							</button> 
 						<?php 
-						}
+
+						}*/
 						?>
 					</div>						
 				</div>

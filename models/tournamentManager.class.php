@@ -145,7 +145,7 @@ final class tournamentManager extends basesql{
 		foreach (get_class_methods($newt) as $key => $method_name) {
 			if(is_numeric(strpos($method_name, "get"))){
 				$prop = strtolower(str_replace("get","",$method_name));
-				$data[$prop] = ($prop==="pImg" || $prop==="gameImg") ? $newt->$method_name(true) : $newt->$method_name(); 
+				$data[$prop] = ($prop==="pimg" || $prop==="gameimg") ? $newt->$method_name(true) : $newt->$method_name(); 
 			}
 		}
 
@@ -248,6 +248,16 @@ final class tournamentManager extends basesql{
 		]);
 		return $sth->execute();
 	}
+
+	public function tournamentByName(tournament $u){
+		$sql = "SELECT name FROM " .$this->table . " WHERE name=:name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':name' => $u->getName()]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+	
+		return $r[0];
+	}
+
 
 }
 /*

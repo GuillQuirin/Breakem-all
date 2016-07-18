@@ -10,10 +10,14 @@ var tournoiModule = {
 		tournoiModule.setImgWrapper();
 		tournoiModule.setAdminDataRe();
 		tournoiModule.setToggleCheck();
+		tournoiModule.setAdminSearchInput();
 
 		//Preview
 		tournoiModule.toggleCheck();
 		tournoiModule.previewImg();
+
+		//Search
+		tournoiModule.searchRequest();
 
 		//CRUD
 		tournoiModule.postDataUpdate();
@@ -21,6 +25,9 @@ var tournoiModule = {
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setToggleCheck : function(){
 		this._toggleCheck = jQuery('.toggleCheck');
 	},
@@ -44,6 +51,9 @@ var tournoiModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -67,6 +77,56 @@ var tournoiModule = {
 	},
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
+	},
+	//Search Delay
+	searchValue : function(callback){
+		tournoiModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			tournoiModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(tournoiModule.getAdminSearchInput().val())
+	    			callback(tournoiModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 1)
+			});
+		}
+	},
+	//Request Search
+	searchRequest : function(){
+		tournoiModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {name : value};
+				jQuery.ajax({
+					url: "admin/getTournamentByName", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							console.log(result);
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".tournament-name-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
+		});
 	},
 	toggleCheck : function(){
 		tournoiModule.getToggleCheck().on("click", function(ev){
