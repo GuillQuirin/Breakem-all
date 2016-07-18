@@ -339,7 +339,7 @@ var popup = {
 			};
 		});
 	}
-}
+};
 
 var navbar = {
     init: function(){
@@ -831,7 +831,7 @@ var inscription = {
 			jQInput.removeClass('failed-input');
 		});
 	}
-}
+};
 
 var connection = {
 	init: function(){
@@ -926,7 +926,7 @@ var connection = {
 			jQInput.removeClass('failed-input');
 		});
 	}
-}
+};
 var deconnection = {
 	init: function(){
 		deconnection.setBtnToWatch();
@@ -953,7 +953,7 @@ var deconnection = {
 			);
 		});
 	}
-}
+};
 
 
 var cookie = {
@@ -1051,7 +1051,7 @@ var contactadmin = {
 		    }
 		});
 	}
-}
+};
 
 initAll.add(navbar.scrollTopDefault);
 initAll.add(connection.init);

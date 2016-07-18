@@ -455,7 +455,7 @@ var gameversionChoice = {
 		if(jQel.val().match(unauthorizedChars) 
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
-			register.highlightInput(jQel);
+			inscription.highlightInput(jQel);
 			popup.init("name fail");
 			return false;
 		}
@@ -480,7 +480,7 @@ var gameversionChoice = {
 		if(jQel.val().match(unauthorizedChars)
 			|| jQel.val().length < 10 
 			|| jQel.val().length > 200){
-			register.highlightInput(jQel);
+			inscription.highlightInput(jQel);
 			popup.init("description fail");
 			return false;
 		}
