@@ -4,6 +4,7 @@
 .checkbox[type="checkbox"]:not(:checked),
 .checkbox[type="checkbox"]:checked {
 	position: absolute;
+	display:none;
 	/*left: -9999px;*/
 }
 

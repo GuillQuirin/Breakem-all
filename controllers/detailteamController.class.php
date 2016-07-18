@@ -146,13 +146,16 @@ class detailteamController extends template{
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
-        $args = array('slogan' => FILTER_SANITIZE_STRING,
+        $args = array('nameTeam' => FILTER_SANITIZE_STRING,
+                      'slogan' => FILTER_SANITIZE_STRING,
                       'description' => FILTER_SANITIZE_STRING);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
         if (isset($_FILES['img']) && $_FILES['img']['error'] != 4) {
             $uploaddir = '/web/img/upload/team/';
-            $name = $_FILES['img']['name'];
+            
+            $name = $filteredinputs['nameTeam'].'.jpg';
+
             
             $uploadfile = getcwd().$uploaddir.$name;
    
@@ -175,9 +178,11 @@ class detailteamController extends template{
         
         $team->setSlogan($filteredinputs['slogan']);
         $team->setDescription($filteredinputs['description']);
-        $team->setImg($filteredinputs['img']);
+        if(isset($_FILES['img']) && $_FILES['img']['error'] != 4){
+            $team->setImg($filteredinputs['img']);
+        }
 
-        $test = $teamBDD->updateTeam($team);    
+        $teamBDD->updateTeam($team);    
 
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   

@@ -33,6 +33,7 @@ class template{
       $v->assign("_email", $this->connectedUser->getEmail());
       $v->assign("_img", $this->connectedUser->getImg()); 
       $v->assign("_idTeam", $this->connectedUser->getIdTeam());
+      $v->assign("_NameTeam", $this->connectedUser->getNameTeam());
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       // $v->assign("_password", $this->connectedUser->getPassword());

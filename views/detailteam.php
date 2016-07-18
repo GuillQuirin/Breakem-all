@@ -33,8 +33,9 @@ else{
                     <tr>
                         <td>Image : </td>
                         <td>
-                            <input class="image-default" type=file name="img">
+                            <input class="image-default" type="file" name="img">
                         </td>
+
                     </tr>
                     <tr>
                         <td colspan=2>
@@ -43,7 +44,8 @@ else{
                             </button>
                         </td>
                     </tr>
-                </table>                
+                </table> 
+            <input type="hidden" value="<?php echo $nameteam;?>"name="nameTeam">               
             </form>
         </div>
         <div class="popup-fond"></div>

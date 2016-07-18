@@ -25,7 +25,7 @@
 
 .input-default[type=text], .input-default[type=password], .input-default[type=email], .select-default, .textarea-default{
     width: 100%;
-    padding: 8px 0;
+    padding:8px 15px;
     margin: 16px 0;
     display: inline-block;
     box-sizing: border-box;
