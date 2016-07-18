@@ -10,9 +10,11 @@ $(document).ready(function(){
 			jQuery.ajax({
 			 	url: "gestiontournoi/deleteTour",
 			 	type: "POST",
-			 	data : "link="+link,
+			 	data : {link : link},
 			 	success: function(result){
-			 		location.reload();
+			 		$("#result").html("Verrouillage du tournoi effectué.");
+			 		$("#btn-shut-down").parent().find("p").remove();
+			 		$("#btn-shut-down").remove();
 			 	},
 			 	error: function(result){
 			 		$("#result").html("Impossible de supprimer ce tournoi.");
@@ -22,7 +24,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('#btn_member_tournament').click(function(){
+	/*$('#btn_member_tournament').click(function(){
 		var link = $_GET("t");
 		var message = $('#msg_tournament').val();
 		if(message.trim()!==""){
@@ -42,5 +44,5 @@ $(document).ready(function(){
 		else
 			$("#result").html("Le message ne peut pas être vide.");
 
-	});
+	});*/
 });

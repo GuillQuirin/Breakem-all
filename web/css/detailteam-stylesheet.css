@@ -16,7 +16,7 @@
 .team-title{
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6));
     transform: skew(-8deg);
-    width:35%;
+    /*width:35%;*/
 }
 .team-title img{
     display: flex;
