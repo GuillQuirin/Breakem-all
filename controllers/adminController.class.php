@@ -577,7 +577,7 @@ class adminController extends template{
     /* SIGNALEMENT */
        public function getReportByUserAction(){
             $args = array(
-                'id' => FILTER_VALIDATE_INT
+                'id' => FILTER_VALIDATE_INT,
                 'pseudo' => FILTER_SANITIZE_STRING
             );
 
