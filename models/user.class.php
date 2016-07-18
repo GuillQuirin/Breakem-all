@@ -42,12 +42,25 @@ class user{
 		$this->id=$v;
 	}
 	public function setName($v){
-		$this->name=$v;
+		$v = trim(str_replace('  ', ' ', $v));
+		if(ctype_alpha(str_replace(' ', '', $v)))
+			$this->name=$v;
+		else{
+			$this->_errors["name"] = "Le nom ne peut contenir que des caractères alphabétiques";
+			return false;
+		}
 	}
 	public function setFirstname($v){
-		$this->firstname=$v;
+		$v = trim(str_replace('  ', ' ', $v));
+		if(ctype_alpha(str_replace(' ', '', $v)))
+			$this->firstname=$v;
+		else{
+			$this->_errors["firstname"] = "Le nom ne peut contenir que des caractères alphabétiques";
+			return false;
+		}
 	}
 	public function setPseudo($v){
+		$v = trim($v);
 		if(ctype_alnum($v))
 			$this->pseudo=$v;
 		else{
@@ -56,9 +69,15 @@ class user{
 		}
 	}
 	public function setBirthday($v){
-		$this->birthday=$v;
+		if( (int) $v > 0 )
+			$this->birthday=$v;
+		else{
+			$this->_errors["birthday"] = "La date de naissance ne respecte pas le bon format";
+			return false;
+		}
 	}
 	public function setDescription($v){
+		$v = htmlspecialchars(trim(str_replace('  ', ' ', $v)));
 		$this->description=$v;
 	}
 	public function setKind($v){
@@ -68,7 +87,12 @@ class user{
 		$this->city=$v;
 	}
 	public function setEmail($v){
-		$this->email=$v;
+		if(is_string(filter_var($v, FILTER_VALIDATE_EMAIL)))
+			$this->email=$v;
+		else{
+			$this->_errors["email"] = "L'email reçu n'est pas au bon format";
+			return false;
+		}
 	}
 	public function setPassword($v){
 		$this->password=$v;
