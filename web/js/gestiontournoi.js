@@ -24,7 +24,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('#btn_member_tournament').click(function(){
+	/*$('#btn_member_tournament').click(function(){
 		var link = $_GET("t");
 		var message = $('#msg_tournament').val();
 		if(message.trim()!==""){
@@ -44,5 +44,5 @@ $(document).ready(function(){
 		else
 			$("#result").html("Le message ne peut pas être vide.");
 
-	});
+	});*/
 });

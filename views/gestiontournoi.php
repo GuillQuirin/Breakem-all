@@ -131,7 +131,7 @@ if(isset($tournoi)){
 							?>
 						</table>
 
-						<?php if(trim($verrouillage)!=="disabled"){ ?>
+						<?php /*if(trim($verrouillage)!=="disabled"){ ?>
 							<p>Message à destination des inscrits :</p>
 							<textarea id="msg_tournament" class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
 							</textarea>
@@ -139,7 +139,8 @@ if(isset($tournoi)){
 								<a>Envoyer le mail</a>
 							</button> 
 						<?php 
-						}
+
+						}*/
 						?>
 					</div>						
 				</div>
