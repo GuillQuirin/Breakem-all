@@ -588,6 +588,25 @@ class adminController extends template{
         }
 
     /* TYPE GAME */
+        public function getTypeGameByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new typegameManager();
+            $search = new typegame($filteredinputs);
+            $data = $bdd->typeGameByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
 
         public function insertTypeGamesDataAction(){
             
@@ -798,6 +817,24 @@ class adminController extends template{
         }
 
     /* GAMES */
+        public function getGameByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new gameManager();
+            $search = new game($filteredinputs);
+            $data = $bdd->gameByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
 
         public function insertGamesDataAction(){
             $args = array(
