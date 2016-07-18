@@ -8,7 +8,7 @@ var tournamentsListDom = {
 	init: function(){
 		this.setTListContainer();
 		if(this.getTListContainer() instanceof jQuery)
-			adaptMarginToNavHeight(this.getTListContainer());
+			// adaptMarginToNavHeight(this.getTListContainer());
 		this.setTitleContainer();
 		if(this.getTitleContainer() instanceof jQuery)
 			adaptMarginToNavHeight(this.getTitleContainer());

@@ -101,8 +101,9 @@ abstract class basesql{
 			':name' => $t->getName()
 		]);
 		$r = $sth->fetchAll();
-
-		return (bool) $r[0][0];
+		if(isset($r[0][0]))
+			return (bool) $r[0][0];
+		return false;
 	}
 
 	public function emailExists($email){		

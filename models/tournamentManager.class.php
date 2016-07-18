@@ -174,7 +174,7 @@ final class tournamentManager extends basesql{
 	}
 
 	// Cette fonction est là pour la recherche de tournois à venir par critere de nom / jeu / console
-	public function getFilteredTournaments($searchArray = []){
+	public function getFilteredTournaments($searchArray = [], $limit = 20){
 		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)
 			return false;
 		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t ";		
@@ -186,8 +186,6 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
-		$sql .= " AND t.idWinningTeam IS NULL";
-		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 
 		$data = [];
 		if(isset($searchArray['nom'])){
@@ -202,8 +200,12 @@ final class tournamentManager extends basesql{
 			$sql .= " AND p.name LIKE :console ";
 			$data[':console'] = '%'.$searchArray['console'].'%';
 		}
-		// echo $sql;
-		// var_dump($data);
+
+		$sql .= " GROUP BY t.id ORDER BY t.startDate";
+		$limit = (int) $limit;
+		if($limit === 0)
+			$limit = 20;
+		$sql .= " LIMIT 0,".$limit;
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute($data);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);

@@ -10,16 +10,23 @@ var teamModule = {
 		teamModule.setImgWrapper();
 		teamModule.setAdminDataRe();
 		teamModule.setToggleCheck();
+		teamModule.setAdminSearchInput();
 
 		//Preview
 		teamModule.toggleCheck();
 		teamModule.previewImg();
+
+		//Search
+		teamModule.searchRequest();
 
 		//CRUD
 		teamModule.postDataUpdate();
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setToggleCheck : function(){
 		this._toggleCheck = jQuery('.toggleCheck');
 	},
@@ -43,6 +50,9 @@ var teamModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -70,6 +80,56 @@ var teamModule = {
 	toggleCheck : function(){
 		teamModule.getToggleCheck().on("click", function(ev){
 			jQuery(ev.currentTarget).find('.team-status-p').prop("checked", !jQuery(ev.currentTarget).find('.team-status-p').prop("checked"));
+		});
+	},
+	//Search Delay
+	searchValue : function(callback){
+		teamModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			teamModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(teamModule.getAdminSearchInput().val())
+	    			callback(teamModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 1)
+			});
+		}
+	},
+	//Request Search
+	searchRequest : function(){
+		teamModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {name : value};
+				jQuery.ajax({
+					url: "admin/getTeamByName", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							console.log(result);
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".team-name-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
 		});
 	},
 	//Preview

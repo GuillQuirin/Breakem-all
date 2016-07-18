@@ -90,6 +90,11 @@ function previewUpload(input, targetSrc) {
     }
 }
 
+//Check si un mot existe a l'intérieur d'une chaine et renvoi un bool
+function wordInString(s, word){
+    return new RegExp( '\\b' + word + '\\b', 'i').test(s);
+}
+
 
 function $_GET(param) {
 	var vars = {};
@@ -115,7 +120,7 @@ function tryParseData(rawData){
 		}
 		catch(err){
 			console.log(rawData);
-			alert("Problem during server processes");
+			popup.init("Problem during server processes");
 		}
 	}
 	return false;
@@ -339,7 +344,7 @@ var popup = {
 			};
 		});
 	}
-}
+};
 
 var navbar = {
     init: function(){
@@ -826,7 +831,7 @@ var inscription = {
 			jQInput.removeClass('failed-input');
 		});
 	}
-}
+};
 
 var connection = {
 	init: function(){
@@ -921,7 +926,7 @@ var connection = {
 			jQInput.removeClass('failed-input');
 		});
 	}
-}
+};
 var deconnection = {
 	init: function(){
 		deconnection.setBtnToWatch();
@@ -948,7 +953,7 @@ var deconnection = {
 			);
 		});
 	}
-}
+};
 
 
 var cookie = {
@@ -1046,7 +1051,7 @@ var contactadmin = {
 		    }
 		});
 	}
-}
+};
 
 initAll.add(navbar.scrollTopDefault);
 initAll.add(connection.init);

@@ -347,6 +347,78 @@ class template{
     echo json_encode(['success' => true]);
     $_SESSION['visiteur_semi_inscrit'] = time();
   }
+
+
+  /*
+   ** @params: (tournament) $t -> instance de tournament cherché en base 
+   ** @return: (tournament) $t -> instance de tournament avec toutes les infos
+   ** ##### Va chercher en base toutes les informations complémentaires du tournoi
+   **   ### -> participants
+      ### -> équipes (instances de teamtournaments)
+      ### -> matchs (instances de matchs)
+  */
+  protected function getFullyAlimentedTournament(tournament $t, $ajaxCall=true){
+    // Recuperer tous les participants
+    $rm = new registerManager();
+    $allRegistered = $rm->getTournamentParticipants($t);
+
+    // Recuperer toutes les équipes avec le nombre de places prises
+    $ttm = new teamtournamentManager();
+    $allTournTeams = $ttm->getTournamentTeams($t);
+    if(!!$allTournTeams){
+      foreach ($allTournTeams as $key => $teamtournament) {
+        $usersInTeam = $rm->getTeamTournamentUsers($teamtournament);
+        if(is_array($usersInTeam))
+          $teamtournament->addUsers($usersInTeam);
+        if($teamtournament->getTakenPlaces() < $t->getMaxPlayerPerTeam())
+          $t->addFreeTeam($teamtournament);
+        else
+          $t->addFullTeam($teamtournament);
+      }
+    }
+    else if($ajaxCall){
+      $this->echoJSONerror("erreur: DT_GFAT_1", "aucune équipe n'est créée pour ce tournoi !");
+    }
+    else{
+      echo "fdp 1";
+      return false;
+    }
+    // Recuperer tous les matchs du tournoi
+    $matchsManager = new matchsManager();
+    $allMatchs = $matchsManager->getMatchsOfTournament($t, true);
+    // S'il y a des matchs
+    if(!!$allMatchs && $allMatchs != "none"){
+      $ttm = new teamtournamentManager();
+      $rm = new registerManager();
+      foreach ($allMatchs as $key => $m) {
+        $teamsOfMatch = $ttm->getTeamsOfMatch($t, $m);
+        if(!!$teamsOfMatch){
+          foreach ($teamsOfMatch as $key => $teamOfMatch) {
+            $usersInTeam = $rm->getTeamTournamentUsers($teamOfMatch);
+            if(is_array($usersInTeam))
+              $teamOfMatch->addUsers($usersInTeam);
+            $m->addTeamTournament($teamOfMatch);
+          }
+        }
+        $t->addMatch($m);
+      }
+      unset($ttm, $rm);
+    }
+    else if($ajaxCall && $allMatchs == "none")
+      $this->echoJSONerror("erreur: DT_GFAT_1", "aucune équipe n'est créée pour ce tournoi !");
+    else if($ajaxCall === false && $allMatchs == "none"){
+      // echo "ntm zfejihezui ihfzehi"; 
+     return $t;
+    }
+    else{
+      // echo "sfout dma gueule";
+      // var_dump($allMatchs);
+      return false;
+    }
+
+    // Arrivé ici on a récupéré les matchs et leurs équipes participantes, ainsi qu'une liste de toutes les équipes. Toutes ces entités sont remplies de leurs datas correspondantes et respectives
+    return $t;
+  }
 }
 /*
 *

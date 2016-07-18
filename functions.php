@@ -25,7 +25,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
 }
-function canUserRegisterToTournament(user $u, tournament $t){
+function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented = false){
 	$rm = new registerManager();
 	// On vérifie si l'user n'est pas le créateur
 	if($u->getPseudo() === $t->getUserPseudo()){
@@ -47,6 +47,28 @@ function canUserRegisterToTournament(user $u, tournament $t){
 		unset($rm);
 		return false;
 	}
+	// On vérifie la date de début du tournoi
+	if($t->getStartDate() <= strtotime(date('Y-m-d') . ' 00:00:00'))
+		return false;
+
+	if(!$isFullyAlimented)
+		return true;
+
+	// On vérifie que les matchs n'ont pas débuté
+	if(count($t->gtAllMatchs()) > 0)
+		return false;
+
+	// On vérifie que l'user peut bien s'inscrire dans une team si le tournoi est en guilde only
+	$userCanRegisterToOneTeam = false;
+	foreach ($t->gtAllTeams() as $key => $teamT) {
+		if(canUserRegisterToTeamTournament($u, $t, $teamT)){
+			$userCanRegisterToOneTeam = true;
+			break;
+		}
+	}
+	if(!$userCanRegisterToOneTeam)
+		return false;
+
 	return true;
 }
 
@@ -73,6 +95,8 @@ function canUserRegisterToTeamTournament(user $u, tournament $t, teamtournament 
 	};
 	return true;
 }
+
+
 /*function linkHasher($data){
 	// $data has to be string / int / double
 	return password_hash($data, CRYPT_BLOWFISH);

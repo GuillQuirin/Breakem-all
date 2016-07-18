@@ -11,11 +11,15 @@ var platformModule = {
 		platformModule.setImgWrapper();
 		platformModule.setAdminDataRe();
 		platformModule.setToggleCheck();
+		platformModule.setAdminSearchInput();
 
 
 		//Preview
 		platformModule.toggleCheck();
 		platformModule.previewImg();
+
+		//Search
+		platformModule.searchRequest();
 
 		//CRUD
 		//platformModule.postDataDelete();
@@ -24,6 +28,9 @@ var platformModule = {
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setToggleCheck : function(){
 		this._toggleCheck = jQuery('.toggleCheck');
 	},
@@ -62,6 +69,9 @@ var platformModule = {
 	getAdminDataRe : function(){
 		return this._adminDataRe;
 	},
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getPreviewInput : function(){
 		return this._previewInput;
 	},
@@ -74,6 +84,56 @@ var platformModule = {
 	toggleCheck : function(){
 		platformModule.getToggleCheck().on("click", function(ev){
 			jQuery(ev.currentTarget).find('.platform-status-p').prop("checked", !jQuery(ev.currentTarget).find('.platform-status-p').prop("checked"));
+		});
+	},
+	//Search Delay
+	searchValue : function(callback){
+		platformModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			platformModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(platformModule.getAdminSearchInput().val())
+	    			callback(platformModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 1)
+			});
+		}
+	},
+	//Request Search
+	searchRequest : function(){
+		platformModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {name : value};
+				jQuery.ajax({
+					url: "admin/getPlatformByName", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							console.log(result);
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".platform-nom-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
 		});
 	},
 	//Preview

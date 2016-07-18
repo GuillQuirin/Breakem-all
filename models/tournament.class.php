@@ -374,6 +374,16 @@ final class tournament{
 		}
 		return $roundNumber;
 	}
+
+	public function isUserRegistered(user $u){
+		foreach ($this->gtAllTeams() as $key => $team) {
+			foreach ($team->getUsers() as $key => $tUser) {
+				if($tUser->getPseudo() == $u->getPseudo())
+					return true;
+			}
+		}
+		return false;
+	}
 }
 /*
 *
