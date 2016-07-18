@@ -246,6 +246,8 @@
 			<?php include $this->view; ?>
 		</div>
 
+		<!-- Footer des pages -->
+		<footer class="relative">
 		<section id="wrapperAdmin">
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
@@ -258,9 +260,6 @@
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>
-
-		<!-- Footer des pages -->
-		<footer class="relative">
 		<div class="footer">
 		    <div class="footer_wrap display-flex-row">
 		        <div class="footer_content m-a display-flex-column">

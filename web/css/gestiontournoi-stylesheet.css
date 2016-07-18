@@ -1,11 +1,9 @@
-
-
 body {
 	line-height: 1;
-	background: #201B3A;	
+	background: #080325;	
 	font-family: lato, sans-serif;
 	color: #fff;
-}
+}/*
 section{
 	transition: background .2s;
 }
@@ -14,21 +12,49 @@ section:nth-child(even){
 }
 section:hover{
 	background: rgba(255, 255, 255, 0.05);
-}
+}*/
 
 .gestiontournoi-header-profil-image{
 	max-width: 50%;
-	max-height: 1000px;
     margin: 0 auto;
     display: block;
+    margin-bottom: 25px;
+}
+.bg-cover-gestiontournoi{    
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/gestion-tournoi.jpg) center no-repeat;
+    margin:0;    
+    -webkit-background-size: cover; 
+    background-size: cover;     
 }
 
-
+.btn-gestion-tounoi{
+	margin-bottom: 15px;
+}
 
 .MAJ{
 	font-weight: bold;
 }
 
+
+.configuration-form-table{
+    margin-bottom:15px;
+}
+
+.configuration-form-table td{
+    padding:15px 25px;      
+    border:1px solid #524c7b;  
+}
+
+.configuration-form-table td:first-child{
+    width: 40%;
+}
+
+.warning{
+	color:#D92B4C;
+	font-size: 18px;
+	text-align:center;
+	margin-bottom: 10px;
+}
 
 /* ############## RESPONSIV TABLETTE(855px) ############### */
 	@media screen and (max-width: 855px) {
