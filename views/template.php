@@ -156,8 +156,10 @@
 
 					<!-- MENU TOGGLE -->
 					<div class="grid-md-12 hidden-md hidden-lg navbar-menu">
-						<?php echo '<img id="navbar-toggle-logo" src="'. WEBPATH . '/web/img/logo-nb-title.png">';?>
-						<?php echo '<img id="navbar-toggle" src="'. WEBPATH . '/web/img/icon/icon-menu.png">';?>
+						<a href="<?php echo WEBPATH.'/index'; ?>">
+							<img id="navbar-toggle-logo" src="<?php echo WEBPATH.'/web/img/logo-nb-title.png'; ?>">
+						</a>
+						<img id="navbar-toggle" src="<?php echo WEBPATH.'/web/img/icon/icon-menu.png'; ?>">
 					</div>
 					<!-- FIN MENU TOGGLE -->
 
