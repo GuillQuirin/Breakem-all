@@ -575,6 +575,25 @@ class adminController extends template{
         }
 
     /* SIGNALEMENT */
+       public function getReportByUserAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new signalmentsuserManager();
+            $search = new signalmentsuser($filteredinputs);
+            $data = $bdd->reportByUser($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function DeleteReportsAction(){
             $args = array(
                 'id' => FILTER_VALIDATE_INT
