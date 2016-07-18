@@ -391,7 +391,8 @@ class adminController extends template{
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new userManager();
-            $user = $bdd->userByPseudo($filteredinputs['pseudo']);
+            $searchUser = new user($filteredinputs);
+            $user = $bdd->userByPseudo($searchUser);
            
             if($user){
                 echo json_encode($user);
