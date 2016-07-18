@@ -115,13 +115,15 @@ var membreModule = {
 					success: function(result){	
 						var userArr = jQuery.parseJSON(result);	
 						if(userArr){
-							var valueData = onglet.getAdminDataRe().find('.membre-pseudo-g');
+							console.log(userArr);
+							//Cette Requete met trop de temps, le mieux c'est de faire une verif et de réinjecter l'html
+							/*var valueData = onglet.getAdminDataRe().find('.membre-pseudo-g');
 							console.log(valueData);
 							jQuery.each(valueData, function(z, zfield){
 								if(zfield.textContent !== userArr.pseudo){
 									zfield.offsetParent.offsetParent.remove();
 								}
-							});
+							});*/
 						
 						}else{
 							alert("L'utilisateur n'existe pas (j'ai mis une alert en attendant de comprendre le echoJsonError");
