@@ -114,14 +114,22 @@ var platformModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-						console.log(result);
 
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
-							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".platform-nom-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							var userArr = $.parseJSON(result);
+
+							//Dissimulation de tout
+							onglet.getAdminDataRe().find(".platform-nom-g").each(function(){
+								$(this).parent().parent().parent().addClass('hidden');
+							});
+
+							//On affiche les elements présents dans le tableau
+							/*userArr.forEach(function(element){
+							 	var myRDiv = onglet.getAdminDataRe().find(".platform-nom-g:not(:contains(" + element.name + "))").parent().parent().parent();
+							 	console.log(myRDiv);
+							 	myRDiv.removeClass('hidden');
+							});*/
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
