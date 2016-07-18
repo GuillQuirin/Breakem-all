@@ -116,18 +116,15 @@ class gestiontournoiController extends template{
 	    //  infos récuperées après filtre de sécurité de checkUpdateInputs()
 	    $checkedDatas = $this->checkUpdateInputs();
 
-	    $user = $this->getConnectedUser();
-
-		$filteredinputs = array_filter(filter_input_array(INPUT_GET, array('t' => FILTER_SANITIZE_STRING)));
-		$link = $filteredinputs['t'];
+		$filteredinputs = array_filter(filter_input_array(INPUT_POST, array('link' => FILTER_SANITIZE_STRING)));
 
 		$tournamentBDD = new tournamentManager();
 
 		//On vérifie que l'utilisateur est bien propriétaire du tournoi
 
-		$tournament = $tournamentBDD->getTournamentWithLink($link);
+		$tournament = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
 
-		if(!!$link && is_bool(strpos($link, 'null')) && $tournament !== false 
+		if(!!$filteredinputs['link'] && is_bool(strpos($filteredinputs['link'], 'null')) && $tournament !== false 
 				&& $tournament->getIdUserCreator()==$this->connectedUser->getId() && date('Ymd')<date('Ymd',$tournament->getStartDate())){
 
 		    $newtournament = new tournament($checkedDatas);
@@ -167,8 +164,7 @@ class gestiontournoiController extends template{
 	      'Dday'   => FILTER_SANITIZE_STRING,     
 	      'Dmonth'   => FILTER_SANITIZE_STRING,     
 	      'Dyear'   => FILTER_SANITIZE_STRING,
-	      't' => FILTER_SANITIZE_STRING
-	      
+	      'link' => FILTER_SANITIZE_STRING
 	    );
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);

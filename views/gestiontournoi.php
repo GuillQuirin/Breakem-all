@@ -27,14 +27,13 @@ if(isset($tournoi)){
 	</section>
 
 	<section class="configuration-content-wrapper my-content-wrapper">
-
 		<div class="container m-a content-border gestiontournoi-container">
 
 			<div class="row classement-content-row">
 				<div class="grid-md-12">
 					<?php 
 					if(trim($verrouillage)!=="disabled")
-						echo '<form action="gestiontournoi/update?t='.$tournoi->getLink().'" method="post" enctype="multipart/form-data">';
+						echo '<form action="gestiontournoi/update" method="post" enctype="multipart/form-data">';
 					?>
 						<table class="full-width configuration-form-table">
 							<tr>
@@ -111,6 +110,7 @@ if(isset($tournoi)){
 						</table>
 					<?php 
 					if(trim($verrouillage)!=="disabled"){
+						echo "<input type='hidden' name='link' value='".$_GET['t']."'>";
 						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width">';
 							echo '<a>Mettre à jour</a>';
 						echo '</button>'; 
