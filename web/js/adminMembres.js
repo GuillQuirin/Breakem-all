@@ -8,12 +8,17 @@ var membreModule = {
 		membreModule.setInsertBtn();
 		membreModule.setPreviewInput();
 		membreModule.setImgWrapper();
+		membreModule.setAdminSearchInput();
 		membreModule.setAdminDataRe();
 		membreModule.setToggleCheck();
+		membreModule.setAdminSearchInput();
 
 		//Preview
 		membreModule.previewImg();
 		membreModule.toggletCheck();
+
+		//Search
+		membreModule.searchMembreRequest();
 
 		//CRUD
 		membreModule.postDataDelete();
@@ -22,6 +27,9 @@ var membreModule = {
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -45,6 +53,9 @@ var membreModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -79,6 +90,51 @@ var membreModule = {
 		membreModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
     		previewUpload(this, membreModule.getImgWrapper());
+		});
+	},
+	//Search Delay
+	searchMembreValue : function(callback){
+		if(callback){
+			membreModule.getAdminSearchInput().on('change', function() {
+		    	setTimeout(function(){
+		    		callback(membreModule.getAdminSearchInput().val());
+		    	},2000);
+			});
+		}
+	},
+	//Request Search
+	searchMembreRequest : function(){
+		membreModule.searchMembreValue(function(value){
+			console.log(value);
+			if(value){
+				var data = {pseudo : value};
+				jQuery.ajax({
+					url: "admin/getUserByPseudo", 				
+					type: "POST",
+					data: data,
+					success: function(result){	
+						var userArr = jQuery.parseJSON(result);	
+						if(userArr){
+							var valueData = onglet.getAdminDataRe().find('.membre-pseudo-g');
+							console.log(valueData);
+							jQuery.each(valueData, function(z, zfield){
+								if(zfield.textContent !== userArr.pseudo){
+									zfield.offsetParent.offsetParent.remove();
+								}
+							});
+						
+						}else{
+							alert("L'utilisateur n'existe pas (j'ai mis une alert en attendant de comprendre le echoJsonError");
+						}	
+					},
+				 	error: function(result){
+						console.log(result);		
+				 		throw new Error("Couldn't find this membre", result);
+				 	}
+				});
+			}else{
+				console.log("Il n'y a pas de valeur pour l'input de rechreche");
+			}
 		});
 	},
 	//CRUD
@@ -504,7 +560,6 @@ var membreModule = {
 	}
 };
 
-//Maj user
 function setStatut(pseudo, value){
 	jQuery.ajax({
 	 	url: "admin/updateUserStatus",

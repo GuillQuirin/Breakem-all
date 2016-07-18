@@ -362,6 +362,17 @@ class adminController extends template{
         }
 
     /* MEMBRES */
+        public function getUserByPseudoAction(){
+            $args = array(
+                'pseudo' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new userManager();
+            $user = $bdd->userByPseudo($filteredinputs['pseudo']);
+            echo json_encode($user);
+        }
+
         public function updateMembresDataAction(){
                        
             $args = array(
