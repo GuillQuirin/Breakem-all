@@ -89,14 +89,12 @@ else{
 								<div class="profil-element profil-tournament-element">	
 									<?php 
 										echo '<a href="'.WEBPATH.'/tournoi?t='.$value->getLink().'">';
-										  echo '<img class="img-cover" src="' . WEBPATH . '/web/img/';
-											echo $value->getImgJeu();
-										  echo '">';
+										  echo '<img class="img-cover" src="'.$value->_getImgJeu().'">';
 										echo '</a>';
 									?>
 									<span class="profil-match-element-title-this">
 										<?php 
-											echo $value->getNomJeu();
+											echo $value->_getNomJeu();
 										?>
 									</span>
 								</div>
