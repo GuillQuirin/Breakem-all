@@ -148,6 +148,7 @@ header{
         display:none;
     }
 }
+
 #logo{
     width:100px;
     margin:0 auto;
@@ -286,6 +287,13 @@ display:block;
 @media screen and (max-width:480px) {
     #slider{
         display:none;
+    }
+    .display-flex-column-template{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
     }
 }
 
