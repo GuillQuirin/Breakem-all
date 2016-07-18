@@ -74,8 +74,8 @@ if(isset($tournoi)){
 							<tr>
 								<td><span>Description : </span></td>
 								<td>
-									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?> >
-										<?php echo $tournoi->getDescription(); ?>
+									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
+									    <?php echo $tournoi->getDescription(); ?>
 									</textarea>
 								</td>							
 							</tr>
@@ -134,12 +134,13 @@ if(isset($tournoi)){
 						echo '</form>';
 					}
 					?>
-					<div>
+					<!--<div>
 						<h3 class="configuration-form-menu-tr">Membres</h3>
 
 						<p>Liste des inscrits</p>
 						<table id="listmembers">
 							<?php 
+							/*
 								if(isset($allRegistered) and is_array($allRegistered)){
 									foreach ($allRegistered as $key => $value) {
 										echo "<tr><td><a href='".WEBPATH."/profil?pseudo=".$value->getPseudo()."'>".$value->getPseudo()."</a></td></tr>";
@@ -159,7 +160,7 @@ if(isset($tournoi)){
 
 						}*/
 						?>
-					</div>						
+					<!--</div>	-->					
 				</div>
 			</div>				
 		</div>
