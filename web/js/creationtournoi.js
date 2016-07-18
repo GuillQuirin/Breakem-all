@@ -202,6 +202,7 @@ var validateChoices = {
 			validateChoices._sumUp.remove();
 		validateChoices._sumUp=false;
 		validateChoices._btn=false;
+		loadTreeElTitle(dom.getTreeConfirm(), 'confirmation');
 	},
 	generateSumUp: function(data){
 		var container = $('<div class="creationtournoi-tournoi-valid-creation display-flex-column"></div>');
@@ -319,6 +320,7 @@ var gameversionChoice = {
 		gameversionChoice.possibleChoices = [];
 		gameversionChoice.possibleTreeChoices = [];
 		gameversionChoice.treeChild.cleanDOM();
+		loadTreeElTitle(dom.getTreeRules(), 'règles');
 	},
 	getChoice: function(){return gameversionChoice._choice;},
 	getChoiceDat: function(){return gameversionChoice._choiceDat;},
@@ -366,6 +368,9 @@ var gameversionChoice = {
 		// 	Si solo --> forcément random
 		if(gameversionChoice._currentForm instanceof jQuery)
 			gameversionChoice._currentForm.remove();
+		$('.creationtournoi-gameversion-container-form').each(function(){
+			$(this).remove();
+		});
 		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
@@ -388,7 +393,7 @@ var gameversionChoice = {
 		container.append(form);
 		dom.getContainer().after(container);
 		$('html, body').animate({
-			scrollTop: (container.find('h2').offset().top/2) - (jQuery("#navbar").height()/2)
+			scrollTop: (container.find('form h4').offset().top) - (jQuery("#navbar").height())
 		}, 500);
 		container.find('input[name="name"]').focus();
 		gameversionChoice._currentForm = container;
@@ -598,6 +603,7 @@ var consoleChoice = {
 		consoleChoice.possibleChoices = [];
 		consoleChoice.possibleTreeChoices = [];
 		consoleChoice.treeChild.cleanDOM();
+		loadTreeElTitle(dom.getTreePlatform(), 'console');
 	},
 	getChoice: function(){return consoleChoice._choice;},
 	getChoiceDat: function(){return consoleChoice._choiceDat;},

@@ -72,7 +72,7 @@
 .navbar:hover{
  	/*background-color: rgba(0, 0, 0, 1)!important;*/
  }
-
+/* ######### TREE MENU ######## */
 .creationtournoi-tree-section{
 	background: linear-gradient( to bottom, #191858, #080325);
 }
@@ -350,6 +350,31 @@ p.creationtournoi-random-match{
 	padding: 25px 0;
 }
 
+
+@media screen and (max-width: 1100px) {	
+	.creationtournoi-tree-maxcontainer{
+		flex-direction: column;
+	}
+	.creationtournoi-tree-el{
+		line-height: 50px;
+		width: 95%;
+		transition: .2s height;
+		display: block;
+		border: none;
+	}
+	.creationtournoi-tree-el-choices-container{
+		top: 0;
+		left: 0;
+		position: relative;
+		display: block;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	.creationtournoi-tree-el:hover {
+		height: auto;
+	}
+}
 
 @media screen and (max-width: 500px) {	
 	.creationtournoi-gameversion-container-form form{
