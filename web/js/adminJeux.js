@@ -536,7 +536,7 @@ var gameModule = {
 														"</div>" +
 														//Submit
 														"<div class='grid-md-12'>" + 
-													    	"<button type='button' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
+													    	"<button type='submit' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
 											  			"</div>" +
 											  		"</form>" +
 											  	"</div>" +
