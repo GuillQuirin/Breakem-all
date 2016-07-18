@@ -22,6 +22,7 @@ class user{
 	protected $rss = null;
 	protected $authorize_mail_contact = null;
 	protected $reportNumber = null;
+	private $_errors = [];
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -41,18 +42,42 @@ class user{
 		$this->id=$v;
 	}
 	public function setName($v){
-		$this->name=$v;
+		$v = trim(str_replace('  ', ' ', $v));
+		if(ctype_alpha(str_replace(' ', '', $v)))
+			$this->name=$v;
+		else{
+			$this->_errors["name"] = "Le nom ne peut contenir que des caractères alphabétiques";
+			return false;
+		}
 	}
 	public function setFirstname($v){
-		$this->firstname=$v;
+		$v = trim(str_replace('  ', ' ', $v));
+		if(ctype_alpha(str_replace(' ', '', $v)))
+			$this->firstname=$v;
+		else{
+			$this->_errors["firstname"] = "Le nom ne peut contenir que des caractères alphabétiques";
+			return false;
+		}
 	}
 	public function setPseudo($v){
-		$this->pseudo=$v;
+		$v = trim($v);
+		if(ctype_alnum($v))
+			$this->pseudo=$v;
+		else{
+			$this->_errors["pseudo"] = "Le pseudo ne peut contenir que des caractères alphanumériques";
+			return false;
+		}
 	}
 	public function setBirthday($v){
-		$this->birthday=$v;
+		if( (int) $v > 0 )
+			$this->birthday=$v;
+		else{
+			$this->_errors["birthday"] = "La date de naissance ne respecte pas le bon format";
+			return false;
+		}
 	}
 	public function setDescription($v){
+		$v = htmlspecialchars(trim(str_replace('  ', ' ', $v)));
 		$this->description=$v;
 	}
 	public function setKind($v){
@@ -62,7 +87,12 @@ class user{
 		$this->city=$v;
 	}
 	public function setEmail($v){
-		$this->email=$v;
+		if(is_string(filter_var($v, FILTER_VALIDATE_EMAIL)))
+			$this->email=$v;
+		else{
+			$this->_errors["email"] = "L'email reçu n'est pas au bon format";
+			return false;
+		}
 	}
 	public function setPassword($v){
 		$this->password=$v;
@@ -164,5 +194,11 @@ class user{
 	public function getAuthorize_mail_contact(){return $this->authorize_mail_contact;}
 	public function getRss(){return $this->rss;}
 	public function getReportNumber(){return $this->reportNumber;}
+
+	public function didCreationGoWell(){
+		if(count($this->_errors) === 0)
+			return true;
+		return $this->_error;
+	}
 	
 }
