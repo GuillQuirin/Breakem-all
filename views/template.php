@@ -217,7 +217,9 @@
 			<?php (isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
 
 		</header>
-
+		<div id="breakemall-javascript-required" class="fixed full-height full-width bg-purple display-flex-column">
+			<p class="m-a text-center title title-3 border-full">Activez javascript pour profiter du site au maximum</p>
+		</div>
 		<div class="search-page hidden-fade hidden">
 			<div class="container m-a">
 				<div class="grid-md-12">

@@ -289,7 +289,6 @@ class tournoiController extends template {
 					else{
 						if($filledT instanceof tournament){
 							if($filledT->isUserRegistered($this->getConnectedUser())){
-								echo "PUTAIN DE MERDE IL EST DEJA INSCRIT FDP";
 								$joinedTournament[] = $filledT;
 							}
 							else{
