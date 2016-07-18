@@ -93,7 +93,7 @@ var signalementModule = {
 		signalementModule.searchValue(function(value){
 			//console.log(value);
 			if(value && value !== "undefined"){
-				var data = {name : value};
+				var data = {pseudo : value};
 				jQuery.ajax({
 					url: "admin/getReportByUser", 				
 					type: "POST",
@@ -105,7 +105,7 @@ var signalementModule = {
 						if(!(wordInString(result, "undefined"))){
 							console.log(result);
 							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
+							var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
 							myRDiv.addClass('hidden');
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
