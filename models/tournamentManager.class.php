@@ -186,8 +186,6 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
-		$sql .= " AND t.idWinningTeam IS NULL";
-		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 
 		$data = [];
 		if(isset($searchArray['nom'])){
@@ -202,8 +200,8 @@ final class tournamentManager extends basesql{
 			$sql .= " AND p.name LIKE :console ";
 			$data[':console'] = '%'.$searchArray['console'].'%';
 		}
-		// echo $sql;
-		// var_dump($data);
+
+		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute($data);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
