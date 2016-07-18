@@ -375,15 +375,18 @@ class template{
           $t->addFullTeam($teamtournament);
       }
     }
-    else if($ajaxCall)
+    else if($ajaxCall){
       $this->echoJSONerror("erreur: DT_GFAT_1", "aucune équipe n'est créée pour ce tournoi !");
-    else
+    }
+    else{
+      echo "fdp 1";
       return false;
+    }
     // Recuperer tous les matchs du tournoi
     $matchsManager = new matchsManager();
-    $allMatchs = $matchsManager->getMatchsOfTournament($t);
+    $allMatchs = $matchsManager->getMatchsOfTournament($t, true);
     // S'il y a des matchs
-    if(!!$allMatchs){
+    if(!!$allMatchs && $allMatchs != "none"){
       $ttm = new teamtournamentManager();
       $rm = new registerManager();
       foreach ($allMatchs as $key => $m) {
@@ -400,10 +403,17 @@ class template{
       }
       unset($ttm, $rm);
     }
-    else if($ajaxCall)
+    else if($ajaxCall && $allMatchs == "none")
       $this->echoJSONerror("erreur: DT_GFAT_1", "aucune équipe n'est créée pour ce tournoi !");
-    else
-      return false; 
+    else if($ajaxCall === false && $allMatchs == "none"){
+      // echo "ntm zfejihezui ihfzehi"; 
+     return $t;
+    }
+    else{
+      // echo "sfout dma gueule";
+      // var_dump($allMatchs);
+      return false;
+    }
 
     // Arrivé ici on a récupéré les matchs et leurs équipes participantes, ainsi qu'une liste de toutes les équipes. Toutes ces entités sont remplies de leurs datas correspondantes et respectives
     return $t;

@@ -273,12 +273,47 @@ class tournoiController extends template {
 		// Il y a au moins un filtre
 		else{
 			$matchedTournaments = $tm->getFilteredTournaments($filteredinputs);
+			$userCanRegisterTournaments = [];
+			$closedToUserTournaments = [];
+			$ownedTournaments = [];
+			$joinedTournament = [];
 			if(!!$matchedTournaments){
 				foreach ($matchedTournaments as $key => $t) {
 					$filledT = $this->getFullyAlimentedTournament($t, false);
-					if(!!$filledT)
-						$matchedTournaments[$key] = $filledT;
+					if($t->getIdUserCreator() == $this->getConnectedUser()->getId()){
+						if(!!$filledT)
+							$ownedTournaments[] = $filledT;
+						else
+							$ownedTournaments[] = $t;
+					}
+					else{
+						if($filledT instanceof tournament){
+							if($filledT->isUserRegistered($this->getConnectedUser())){
+								echo "PUTAIN DE MERDE IL EST DEJA INSCRIT FDP";
+								$joinedTournament[] = $filledT;
+							}
+							else{
+								$matchedTournaments[$key] = $filledT;
+								if(canUserRegisterToTournament($this->getConnectedUser(), $filledT, true))
+									$userCanRegisterTournaments[] = $filledT;
+								else
+									$closedToUserTournaments[] = $filledT;
+							}							
+						}
+						else{
+							// Bcp moins précis
+							if(canUserRegisterToTournament($this->getConnectedUser(), $t))
+								$userCanRegisterTournaments[] = $t;
+							else
+								$closedToUserTournaments[] = $t;
+						}
+					}
 				}
+				// var_dump($joinedTournament);
+				$v->assign("joinedTournament", $joinedTournament);
+				$v->assign("ownedTournaments", $ownedTournaments);
+				$v->assign("userCanRegisterTournaments", $userCanRegisterTournaments);
+				$v->assign("closedToUserTournaments", $closedToUserTournaments);
 				$v->assign("tournois", $matchedTournaments);
 			}
 				

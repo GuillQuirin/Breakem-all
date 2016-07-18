@@ -3,7 +3,7 @@
 *
 */
 final class matchsManager extends basesql{
-	public function getMatchsOfTournament(tournament $t){
+	public function getMatchsOfTournament(tournament $t, $returnEvenIfEmpty = false){
 		$sql = "SELECT DISTINCT(m.id), m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber 
 		FROM matchs m ";
 		$sql .= " LEFT OUTER JOIN matchparticipants mp ON mp.idMatch = m.id";
@@ -22,10 +22,17 @@ final class matchsManager extends basesql{
 					if(count(array_filter($data)) > 0)
 						$allMatchs[] = new matchs($data);
 				}
-			}			
-			return (count($allMatchs) > 0) ? $allMatchs : false;
+			}
+			if($returnEvenIfEmpty === false)		
+				return (count($allMatchs) > 0) ? $allMatchs : false;
+			else
+				return "none";
 		}
-		return false;
+		if($returnEvenIfEmpty === false)
+			return false;
+		else
+			return "none";
+		
 	}
 
 	public function getLastCreatedMatchOfTournament(tournament $t){
