@@ -308,6 +308,25 @@ class adminController extends template{
 
     /* TOURNAMENT */
 
+        public function getTournamentByNameAction(){
+            $args = array(
+                'name' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new tournamentManager();
+            $search = new tournament($filteredinputs);
+            $data = $bdd->tournamentByName($search);
+           
+            if($data){
+                echo json_encode($data);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
+
         public function updateTournamentsDataAction(){
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
