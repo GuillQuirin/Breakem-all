@@ -96,6 +96,7 @@ section:hover{
 	.detailtournoi-description-jeu{
 		margin: 0 auto;
 		margin-top: 20px;
+		text-align:center;
 	}
 	.detailtournoi-tournoi-regles{	
 		flex-direction: column;
