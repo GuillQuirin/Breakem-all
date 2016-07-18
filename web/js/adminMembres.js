@@ -94,48 +94,48 @@ var membreModule = {
 	},
 	//Search Delay
 	searchMembreValue : function(callback){
+		membreModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
 		if(callback){
-			membreModule.getAdminSearchInput().on('change', function() {
+			membreModule.getAdminSearchInput().on('keypress', function() {
 		    	setTimeout(function(){
-		    		callback(membreModule.getAdminSearchInput().val());
-		    	},2000);
+		    		if(membreModule.getAdminSearchInput().val())
+		    			callback(membreModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+		    	},1);
 			});
 		}
 	},
 	//Request Search
 	searchMembreRequest : function(){
 		membreModule.searchMembreValue(function(value){
-			console.log(value);
-			if(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
 				var data = {pseudo : value};
 				jQuery.ajax({
 					url: "admin/getUserByPseudo", 				
 					type: "POST",
 					data: data,
-					success: function(result){	
-						var userArr = jQuery.parseJSON(result);	
-						if(userArr){
-							console.log(userArr);
-							//Cette Requete met trop de temps, le mieux c'est de faire une verif et de réinjecter l'html
-							/*var valueData = onglet.getAdminDataRe().find('.membre-pseudo-g');
-							console.log(valueData);
-							jQuery.each(valueData, function(z, zfield){
-								if(zfield.textContent !== userArr.pseudo){
-									zfield.offsetParent.offsetParent.remove();
-								}
-							});*/
-						
+					success: function(result){
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
 						}else{
-							alert("L'utilisateur n'existe pas (j'ai mis une alert en attendant de comprendre le echoJsonError");
-						}	
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
 					},
 				 	error: function(result){
-						console.log(result);		
-				 		throw new Error("Couldn't find this membre", result);
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
 				 	}
 				});
 			}else{
-				console.log("Il n'y a pas de valeur pour l'input de rechreche");
+				onglet.getAdminDataIhm().removeClass('hidden');
 			}
 		});
 	},
@@ -254,7 +254,6 @@ var membreModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	file.name = allData.pseudo;
 			        	allData.img = file.name;
 
 			        	var imgData = new FormData();                  

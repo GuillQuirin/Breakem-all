@@ -295,7 +295,7 @@ class userManager extends basesql{
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':pseudo' => $pseudo ]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-		
+	
 		return $r[0];
 	}
 }

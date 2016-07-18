@@ -205,7 +205,7 @@ class adminController extends template{
             }
         }
 
-        public function updatePlatformsDataAction(){
+      public function updatePlatformsDataAction(){
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -214,36 +214,35 @@ class adminController extends template{
                 'img' => FILTER_SANITIZE_STRING                     
             );               
 
-            //Pour guillaume
-            echo "id egal ";
-            echo $_POST['id'];
-            echo ";name egal ";
-            echo $_POST['name'];
-
-            $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-
+            //Pré-controle car l'upload d'image ne passe pas le filter_input_array
             $platformBdd = new platformManager();
-            $oldplatform = $platformBdd->getIdPlatform($filteredinputs['id']);
-            $platform = new platform(array('name' => trim($filteredinputs['name'])));
+            $oldplatform = $platformBdd->getIdPlatform(filter_var($_POST['id'], FILTER_SANITIZE_STRING));
+            $platform = new platform(array('name' => trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING))));
 
             $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
-
-            if($exist_name)
+            if($exist_name){
                 unset($args['name']);
+                /**/
+                die("nom deja existant");
+                /**/
+            }
 
             //On check le fichier
             if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
+                if ($_FILES['file']['error']==0) {
                     unset($args['img']);
                 }
                 else{    
+                    //Nouveau nom
                     if(!$exist_name && $platform->getName()!=NULL)
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $platform->getName());
-                    else if($oldplatform->getName()!==NULL)    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $oldplatform->getName());
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/nouveauNom.jpg");// . $platform->getName());
+                    //Ancien nom
+                    else if($exist_name && $oldplatform->getName()!==NULL)    
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/ancienNom.jpg");// . $oldplatform->getName());
+                    else
+                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/rienDuTout.jpg");
                 }  
             }
-
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
 
@@ -370,7 +369,14 @@ class adminController extends template{
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new userManager();
             $user = $bdd->userByPseudo($filteredinputs['pseudo']);
-            echo json_encode($user);
+           
+            if($user){
+                echo json_encode($user);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
         }
 
         public function updateMembresDataAction(){

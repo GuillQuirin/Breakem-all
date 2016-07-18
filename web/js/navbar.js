@@ -90,6 +90,11 @@ function previewUpload(input, targetSrc) {
     }
 }
 
+//Check si un mot existe a l'intérieur d'une chaine et renvoi un bool
+function wordInString(s, word){
+    return new RegExp( '\\b' + word + '\\b', 'i').test(s);
+}
+
 
 function $_GET(param) {
 	var vars = {};
