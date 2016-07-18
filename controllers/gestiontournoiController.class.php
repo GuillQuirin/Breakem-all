@@ -204,7 +204,7 @@ class gestiontournoiController extends template{
             'link' => FILTER_SANITIZE_STRING
         );
 
-        $filteredinputs = filter_input_array(INPUT_GET, $args);
+        $filteredinputs = filter_input_array(INPUT_POST, $args);
 
         $tournamentBDD = new tournamentManager();
         $tournoi = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);

@@ -37,6 +37,9 @@ if(isset($tournoi)){
 						echo '<form action="gestiontournoi/update?t='.$tournoi->getLink().'" method="post" enctype="multipart/form-data">';
 					?>
 						<table class="full-width configuration-form-table">
+							<tr>
+								<td colspan='2' id="result"></td>
+							</tr>
 							<?php 
 								if(isset($MAJ))
 									echo "<tr class='MAJ text-center'><td colspan='2'>Mise à jour correctement effectuée.</td></tr>";
