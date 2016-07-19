@@ -199,7 +199,7 @@
 					if(isset($bestGames) && !empty($bestGames) && is_array($bestGames)){
 						foreach ($bestGames as $key => $value){	
 							echo "<div class='game'>";
-								echo "<img src='".WEBPATH.'/web/img/'.$value['img']."'>";
+								echo "<img src='".WEBPATH.'/web/img/upload/jeux/'.$value['img']."'>";
 								echo "<p>".$value['name']."</p>";
 							echo "</div>";
 						}

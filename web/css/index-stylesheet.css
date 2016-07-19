@@ -246,14 +246,13 @@ hr{
 .game img{
 	width:80px;
 	transform: skew(-8deg);
-	cursor:pointer;
+	vertical-align: middle;
 }
 .game p{
 	position: absolute;
     margin-left: 90px;
     margin-top: -40px;
     text-decoration: underline;
-    cursor: pointer;
 }
 
 .categorie{
