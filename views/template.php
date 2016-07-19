@@ -91,11 +91,11 @@
 										</a>
 									</li>
 									<?php 
-										//if(isset($_isConnected)){
+										if(isset($_isConnected)){
 											echo '<li class="navbar-menu-tooltip-li">';
 												echo "<a href=" . WEBPATH. "/mestournois>Mes tournois</a>";
 											echo "</li>";
-										//}
+										}
 									?>
 									<li class="navbar-menu-tooltip-li">
 										<a href="<?php echo WEBPATH; ?>/tournoi">
