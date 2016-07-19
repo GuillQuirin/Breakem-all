@@ -132,21 +132,24 @@ class configurationController extends template{
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
 
-		//Date de naissance
-		$filteredinputs['month'] = (int) $filteredinputs['month'];
-	    $filteredinputs['day'] = (int) $filteredinputs['day'];
-	    $filteredinputs['year'] = (int) $filteredinputs['year'];
-	    
-	    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-	    	$_SESSION['fail_date']=1;
-	    else{
-	      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-	      
-	      if(!$date)
-	        $_SESSION['fail_date']=1;
+		//Date de naissance	    
+	    if(isset($filteredinputs['day']) || isset($filteredinputs['month']) || isset($filteredinputs['year'])){
 
-	      $filteredinputs['birthday'] = date_timestamp_get($date);
-	    }
+	   		$filteredinputs['month'] = (isset($filteredinputs['month'])) ? (int) $filteredinputs['month'] : "";
+		    $filteredinputs['day'] = (isset($filteredinputs['day'])) ? (int) $filteredinputs['day'] : "";
+		    $filteredinputs['year'] = (isset($filteredinputs['year'])) ? (int) $filteredinputs['year'] : "";
+	
+		    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+		    	$_SESSION['fail_date']=1;
+		    else{
+		    	$date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+		      
+		    	if(!$date)
+		    		$_SESSION['fail_date']=1;
+		    	else
+			    	$filteredinputs['birthday'] = date_timestamp_get($date);
+		    }
+		}
 
 		//IMAGE DE PROFIL
 

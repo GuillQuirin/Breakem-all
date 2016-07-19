@@ -56,8 +56,16 @@ if(isset($tournoi)){
 							<?php 
 								if(isset($MAJ))
 									echo "<tr class='MAJ text-center'><td colspan='2'>Mise à jour correctement effectuée.</td></tr>";
-								if(isset($Error))
-									echo "<tr class='MAJ text-center'><td colspan='2'>Erreur de mise à jour: Il n'est plus possible de modifier le tournoi à 48h de son lancement.</td></tr>";
+								
+								if(isset($ErrorExpiration))
+									echo "<tr class='MAJ text-center'><td colspan='2'>Erreur de mise à jour.<br>Attention: Il n'est pas possible de modifier le tournoi à 48h de son lancement.</td></tr>";
+
+								if(isset($ErrorDatas))
+									echo "<tr class='MAJ text-center'><td colspan='2'>Erreur de mise à jour.<br>Des erreurs sont survenues lors de la modification.</td></tr>";
+
+								if(isset($ErrorDate))
+									echo "<tr class='MAJ text-center'><td colspan='2'>Erreur de mise à jour.<br>La date envoyée est incorrecte.</td></tr>";
+
 								if(trim($verrouillage)==="disabled")
 									echo "<tr class='text-center'><td colspan='2'>Ce tournoi est terminé ou verrouillé</td></tr>";
 							?> 
@@ -88,7 +96,7 @@ if(isset($tournoi)){
 									</td>
 									<td>
 										<p class="warning">Attention : cette action est définitive !</p>
-										<button id="btn-shut-down" class="btn btn-pink index-header-btn-pink-width">
+										<button id="btn-shut-down" class="btn btn-pink index-header-btn-pink-width btn-config">
 											<a>Verrouiller le tournoi</a>
 										</button>
 									</td>
@@ -128,7 +136,7 @@ if(isset($tournoi)){
 					<?php 
 					if(trim($verrouillage)!=="disabled"){
 						echo "<input type='hidden' name='link' value='".$_GET['t']."'>";
-						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width">';
+						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width btn-config">';
 							echo '<a>Mettre à jour</a>';
 						echo '</button>'; 
 						echo '</form>';

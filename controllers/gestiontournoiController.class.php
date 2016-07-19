@@ -27,10 +27,10 @@ class gestiontournoiController extends template{
 
 		$args = array('t' => FILTER_SANITIZE_STRING);
 
-		$filteredinputs = array_filter(filter_input_array(INPUT_GET, $args));
+		$filteredinputs = filter_input_array(INPUT_GET, $args);
 
 		//Si lien fourni sinon redirection liste tournoi
-		if(!empty($filteredinputs) && $this->isVisitorConnected()){
+		if(isset($filteredinputs['t']) && !empty($filteredinputs) && $this->isVisitorConnected()){
 
 			$link = $filteredinputs['t'];
 
@@ -69,8 +69,14 @@ class gestiontournoiController extends template{
 					if($calling_class === "gestiontournoiController" && $calling_method === "update")
 						$v->assign("MAJ","1");
 
-					if($calling_class === "gestiontournoiController" && $calling_method === "error")
-						$v->assign("Error","1");
+					if($calling_class === "gestiontournoiController" && $calling_method === "errorExpiration")
+						$v->assign("ErrorExpiration","1");
+
+					if($calling_class === "gestiontournoiController" && $calling_method === "errorDatas")
+						$v->assign("ErrorDatas","1");
+
+					if($calling_class === "gestiontournoiController" && $calling_method === "errorDate")
+						$v->assign("ErrorDate","1");
 
 					unset($_SESSION['referer_method']);
 				}
@@ -124,8 +130,9 @@ class gestiontournoiController extends template{
 
 		$tournament = $tournamentBDD->getTournamentWithLink($filteredinputs['link']);
 
-		if(!!$filteredinputs['link'] && is_bool(strpos($filteredinputs['link'], 'null')) && $tournament !== false 
-				&& $tournament->getIdUserCreator()==$this->connectedUser->getId() && date('Ymd')<date('Ymd',$tournament->getStartDate())){
+		if(!!$filteredinputs['link'] && is_bool(strpos($filteredinputs['link'], 'null')) 
+				&& $tournament !== false && $tournament->getIdUserCreator()==$this->connectedUser->getId() 
+				&& date('Ymd')<date('Ymd',$tournament->getStartDate())){
 
 		    $newtournament = new tournament($checkedDatas);
 
@@ -139,18 +146,20 @@ class gestiontournoiController extends template{
 			$nbjours = $difference->format("%a");
 			$ecartjour = $difference->format("%R");
 
-			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null 
-				&& $ecartjour==="+" && $nbjours>="2"){
-				// On met à jour
-			    $newtournament->setStartDate($newtournament->getStartDate(), true);
-			    $tournamentBDD->setTournament($tournament, $newtournament);
-
-				$_SESSION['referer_method']="update";
-			}			
+			if($newtournament->getStartDate() != null && $tournament->getStartDate() != null){
+				if($ecartjour==="+" && $nbjours>="2"){
+					// On met à jour la date de début
+			    	$newtournament->setStartDate($newtournament->getStartDate(), true);
+				}
+				else 
+					$_SESSION['referer_method']="errorExpiration";
+			}
+			else
+				$_SESSION['referer_method']="errorDatas";
+	
+			$tournamentBDD->setTournament($tournament, $newtournament);
 		}
-		if(!isset($_SESSION['referer_method']))
-			$_SESSION['referer_method']="error";
-		
+	
 		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}
 
@@ -169,27 +178,30 @@ class gestiontournoiController extends template{
 
 		$filteredinputs = filter_input_array(INPUT_POST, $args);
 
+		$_SESSION['referer_method']="update";
+
 		//Début tournoi
-		$filteredinputs['Dmonth'] = (int) $filteredinputs['Dmonth'];
-	    $filteredinputs['Dday'] = (int) $filteredinputs['Dday'];
-	    $filteredinputs['Dyear'] = (int) $filteredinputs['Dyear'];
+		if(isset($filteredinputs['Dday']) || isset($filteredinputs['Dmonth']) || isset($filteredinputs['Dyear'])){
 
-	    if(!checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear']))
-	      	$this->echoJSONerror('date', 'La date reçue a fail !');
-	    else{
+			$filteredinputs['Dmonth'] = (isset($filteredinputs['Dmonth'])) ? (int) $filteredinputs['Dmonth'] : "";
+		    $filteredinputs['Dday'] = (isset($filteredinputs['Dday'])) ? (int) $filteredinputs['Dday'] : "";
+		    $filteredinputs['Dyear'] = (isset($filteredinputs['Dyear'])) ? (int) $filteredinputs['Dyear'] : "";
 
-	    	$datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
+		    if(checkdate($filteredinputs['Dmonth'], $filteredinputs['Dday'], $filteredinputs['Dyear'])){
+		    	$datedeb = DateTime::createFromFormat('j-n-Y',$filteredinputs['Dday'].'-'.$filteredinputs['Dmonth'].'-'.$filteredinputs['Dyear']);
 
-	    	if(!$datedeb)
-	      		$this->echoJSONerror('date', 'La date reçue a fail !');
-
-	    	unset($filteredinputs['Dday']);
-	      	unset($filteredinputs['Dmonth']);
-	      	unset($filteredinputs['Dyear']);
-
-		  	$filteredinputs['startDate'] = date_timestamp_get($datedeb);
-	    }  	
-
+		    	if($datedeb)
+		      		$filteredinputs['startDate'] = date_timestamp_get($datedeb);
+		      	else
+		    		$_SESSION['referer_method']="errorDate";
+		 		  	
+		    	unset($filteredinputs['Dday']);
+		      	unset($filteredinputs['Dmonth']);
+		      	unset($filteredinputs['Dyear']);
+		    }
+		    else
+		    	$_SESSION['referer_method']="errorDate";
+		} 	
 	    return array_filter($filteredinputs);
   	}
 
@@ -213,7 +225,7 @@ class gestiontournoiController extends template{
 
     }
 
-    public function mailMember(){
+    /*public function mailMember(){
 
     	//FILTER_SANITIZE_STRING Remove all HTML tags from a string
 	    $args = array( 'message' => FILTER_SANITIZE_STRING, 
@@ -234,6 +246,6 @@ class gestiontournoiController extends template{
 			}
  
     	}
-    }
+    }*/
 
 }

@@ -495,7 +495,7 @@ var gameversionChoice = {
 		var randPVal = randP[0].checked;
 		var guildVal = guild[0].checked;
 		if(guildVal && randPVal){
-			popupError.init("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
+			popupError.init("Les tournois entre guilde ne peuvent se faire avec des équipes aléatoires");
 			return false;
 		}
 			
