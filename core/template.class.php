@@ -155,6 +155,9 @@ class template{
       else if($dbUser == -1){
         $this->echoJSONerror("", "Vous avez été banni du site.");
       }
+      else if($dbUser == -2){
+        $this->echoJSONerror("", "Identifiants incorrects");
+      }
       else{
        $this->echoJSONerror("", "Vos identifiants ne correspondent pas.");
       }

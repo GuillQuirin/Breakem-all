@@ -32,6 +32,8 @@ class userManager extends basesql{
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 
 		if(isset($r[0])){
+			if(count(array_filter($r[0])) === 0)
+				return -2;
 			//Membre non-banni
 			if((int)$r[0]['status'] > 0){
 				$dbUser = new user($r[0]);
