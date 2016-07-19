@@ -36,6 +36,7 @@ class template{
       $v->assign("_NameTeam", $this->connectedUser->getNameTeam());
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
+      $v->assign("_totalPoints", $this->connectedUser->gtTotalPoints());
       // $v->assign("_password", $this->connectedUser->getPassword());
 
       if(!empty($this->connectedUser->getIdTeam())){

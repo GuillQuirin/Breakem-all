@@ -14,11 +14,15 @@ class userManager extends basesql{
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
 	public function tryConnect(user $user){
-		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam, SUM(mp.points) as totalPoints
 				FROM user u
 				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
-				LEFT OUTER JOIN team t ON rt.idTeam = t.id
-				WHERE u.email =  :email";
+				LEFT OUTER JOIN team t ON rt.idTeam = t.id";
+		$sql .= " INNER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= "WHERE u.email =  :email";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -84,11 +88,16 @@ class userManager extends basesql{
 		--> cette methode est appelée à chaque rechargement de page.
 		--> mais aussi après une connection sans token (puisque un reload de page est déclenché apres la connexion par email/pass)
 		*/
-		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.kind, u.city, u.email, u.password, u.status, u.img, u.idTeam, u.isConnected, u.lastConnexion, u.rss, u.authorize_mail_contact, u.token, t.name AS nameTeam, SUM(mp.points) as totalPoints
 				FROM user u
 				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
-				LEFT OUTER JOIN team t ON rt.idTeam = t.id
-				WHERE u.email =  :email AND u.status > 0";
+				LEFT OUTER JOIN team t ON rt.idTeam = t.id";
+		$sql .= " INNER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= " WHERE u.email =  :email AND u.status > 0";
+
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -122,6 +131,7 @@ class userManager extends basesql{
 	}
 
 	/* GET ID */
+	// C EST DLA MERDE CETTE FONCTION, ON PASSE JAMAIS AU GRAND JAMAIS PAR * EN SQL, TEDDYNOOOB VIRE MOI CETTE FONCTION !!!
 	public function getIdUser($id){
 		$sql = "SELECT * FROM " .$this->table . " WHERE id=:id";
 
@@ -198,10 +208,14 @@ class userManager extends basesql{
 		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
-						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam, SUM(mp.points) as totalPoints
 					FROM ".$this->table." u
-					LEFT OUTER JOIN team t ON u.idTeam = t.id
-					WHERE u.status<>0 AND " . implode(',', $data);
+					LEFT OUTER JOIN team t ON u.idTeam = t.id";
+		$sql .= " INNER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= "WHERE u.status<>0 AND " . implode(',', $data);
 
 		$query = $this->pdo->query($sql)->fetch();
 		if($query === FALSE)
@@ -240,10 +254,14 @@ class userManager extends basesql{
 		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.birthday, 
 						u.description, u.kind, u.city, u.email, u.password, u.status, 
 						u.img, u.idTeam, u.isConnected, u.lastConnexion,
-						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam
+						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam, SUM(mp.points) as totalPoints
 					FROM ".$this->table." u
-					LEFT OUTER JOIN team t ON u.idTeam = t.id
-					WHERE u.status>0
+					LEFT OUTER JOIN team t ON u.idTeam = t.id";
+		$sql .= " INNER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= "WHERE u.status>0
 						GROUP BY u.id";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -262,11 +280,15 @@ class userManager extends basesql{
 						user.birthday, user.description, user.kind, user.city, 
 						user.email, user.status, user.authorize_mail_contact,
 						user.img, user.idTeam, user.isConnected, user.lastConnexion,
-						COUNT(id_signaled_user) as reportNumber
+						COUNT(id_signaled_user) as reportNumber, SUM(mp.points) as totalPoints
 					FROM user 
 					LEFT JOIN signalmentsuser 
-							ON user.id = signalmentsuser.id_signaled_user 
-					GROUP BY user.id";
+							ON user.id = signalmentsuser.id_signaled_user";
+		$sql .= " INNER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= " GROUP BY user.id";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
