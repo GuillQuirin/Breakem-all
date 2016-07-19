@@ -335,14 +335,14 @@ class creationtournoiController extends template{
 	}
 	private function validTournoiData(tournament $t){
 		if(!(validateDate($t->getStartDate(), 'Y-m-d')))
-			$this->echoJSONerror("", "Mauvais format de date reçu: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
+			$this->echoJSONerror("", "Vous avez rentré une mauvaise date reçue: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
 
 		$d1 = DateTime::createFromFormat('Y-m-d', $t->getStartDate());
 
 		$baseDate= DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
 		$baseDateTime = $baseDate->getTimestamp();
 		if($d1->getTimestamp() < $baseDateTime)
-			$this->echoJSONerror("", "La date de debut doit etre dans le futur");
+			$this->echoJSONerror("", "La date de debut doit se trouver maintenant et +".($t->_gtMaxStartDaysInterval() / 86400) ." jours");
 		if((int) date('G') > 12 && $d1->getTimestamp() === $baseDateTime)
 			$this->echoJSONerror("", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
 		$nbJours = $t->_gtMaxStartDaysInterval() / 86400;
@@ -358,9 +358,9 @@ class creationtournoiController extends template{
 			$this->echoJSONerror("", "Le nom de votre tournoi contient des caracteres speciaux !");
 		if( strlen(trim($t->getDescription())) > 0 ){
 			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
-				$this->echoJSONerror("", "La description de votre tournoi contient des caracteres speciaux !");
-			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 15)
-				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 15 et 250 caracteres");
+				$this->echoJSONerror("", "La description de votre tournoi contient des caracteres non-autorisés !");
+			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 4)
+				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 4 et 250 caracteres");
 		}
 		
 		if( (bool)$t->getGuildOnly() ){

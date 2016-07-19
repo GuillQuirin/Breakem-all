@@ -139,8 +139,8 @@
 		background-color: rgba(8, 3, 37, 1);
 		width: 25%;
 		left: 25%;
-		height: 38%;
-		color: green;
+		height: 300px;
+		color: white;
 		z-index: 100;
 		background: rgba(8, 3, 37, 1);
 		font-size: 15px;
@@ -337,8 +337,8 @@
 		width: 25%;
 		left: 25%;
 		right: 25%;
-		height: 38%;
-		color: blue;
+		height: 270px;
+
 		z-index: 100;
 		background: rgba(8, 3, 37, 1);
 		font-size: 15px;
@@ -351,12 +351,10 @@
 	}
 
 	.formteam1 {
-		margin-left: 3%;
-		margin-right:3%;
+		margin-left: 6%;
 		font: inherit;
-		vertical-align: baseline;
-		background-color: rgba(8, 3, 37, 1);
-		width:100%
+
+
 	}
 
 	.input-default {
@@ -394,6 +392,7 @@
 
 	}
 }
+
 
 @media screen and (max-width: 770px) {
 	.bg-cover-team {
@@ -532,12 +531,12 @@
 		display: none;
 		position: fixed;
 
-		top: 25%;
+		top: 20%;
 		background-color: rgba(8, 3, 37, 1);
 		width: 25%;
 		left: 25%;
-		height: 38%;
-		color: red;
+		height: 250px;
+		color: white;
 		z-index: 100;
 		background: rgba(8, 3, 37, 1);
 		font-size: 15px;
@@ -545,9 +544,10 @@
 		border-radius: 5px;
 		padding: 30px;
 		font-family: Roboto !important;
-		font-size: 13px;
+		font-size: 0px;
 
 	}
+
 
 	.formteam1 {
 		margin-left: 6%;
@@ -572,7 +572,7 @@
 	.image-default {
 		width: 100%;
 		padding: 8px 25px;
-		margin: 16px 0;
+		margin-left:-30px;
 		display: inline-block;
 		border: 0;
 		color: white;

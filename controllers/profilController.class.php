@@ -41,10 +41,12 @@ class profilController extends template{
 
 				
 				$registerBDD = new registerManager();
-
 				$listeTournois = $registerBDD->getTournamentParticipantBy($user);
-
 				$v->assign("listeTournoi", $listeTournois);
+
+				$gameBDD = new gameManager();
+				$bestgames = $gameBDD->getMostPlayedGames($user);
+				$v->assign("listeJeux", $bestgames);
 
 				//Page publique du joueur connecté
 				if($this->isVisitorConnected() && $this->getConnectedUser()->getEmail()===$user->getEmail())

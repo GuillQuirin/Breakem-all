@@ -59,12 +59,11 @@
     display: none;
     position: fixed;
     top: 25%;
-    background-color: #27073A;
+	background-color: rgba(8, 3, 37, 1);
     width: 50%;
     left: 25%;
     color: white;
     z-index: 5;
-    border: 13px #511071 solid;
     padding: 20px;
     font-size: 15px;
 }
@@ -246,14 +245,13 @@ hr{
 .game img{
 	width:80px;
 	transform: skew(-8deg);
-	cursor:pointer;
+	vertical-align: middle;
 }
 .game p{
 	position: absolute;
     margin-left: 90px;
     margin-top: -40px;
     text-decoration: underline;
-    cursor: pointer;
 }
 
 .categorie{

@@ -5,8 +5,14 @@
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 			</h3>
-			<p class="detailtournoi-description-jeu italic">
-				<?php echo $tournoi->getGameDescription(); ?>
+			
+				<p></p>
+			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1) ? 'bg-pink title title-2': '' ?>">
+				<?php if ($tournoi->getStatus() != -1): ?>
+					<?php echo $tournoi->getGameDescription(); ?>
+				<?php else:?>
+					Ce tournoi est verrouillé
+				<?php endif ?>
 			</p>
 			<div class="detail-tournoi-main-infos align display-flex-row">
 				<div class="detail-tournoi-aside ta-center relative">
@@ -14,7 +20,7 @@
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
 					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 ): ?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
 								<div class="relative ta-right">
 									<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
@@ -48,8 +54,13 @@
 							</i>
 						</span>
 					</p>
-					<?php $restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());?>
-					<?php if ( !$tournoi->doesTournamentHaveWinner() && !$tournoi->gtAllMatchs() ): ?>
+					<?php 
+						if($tournoi->getStatus()=="-1")
+							$restant=0;
+						else
+							$restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());
+						if ( !$tournoi->doesTournamentHaveWinner() && !$tournoi->gtAllMatchs() ): 
+					?>
 						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
 							<span class="relative">
 								<?php 
@@ -108,12 +119,16 @@
 			</div>			
 		</article>
 		<div class="detailtournoi-tournament-description display-flex-column m-a">
-			<?php if (strlen(trim($tournoi->getDescription())) > 0): ?>
-				<p class="m-a text-center title-2"><?php echo trim($tournoi->getDescription()); ?></p>
-			<?php else: ?>
-				<p class="title title-3 text-center m-a">Aucune description n'a été fournie pour ce tournoi</p>
-			<?php endif ?>
-			
+			<?php 
+				if($tournoi->getStatus()=="-1")
+					echo '<p class="title title-3 text-center m-a">Ce tournoi est cloturé.</p>';
+				else{
+					if(strlen(trim($tournoi->getDescription())) > 0)
+						echo '<p class="m-a text-center title-2">'.trim($tournoi->getDescription()).'</p>';
+					else
+						echo "<p class='title title-3 text-center m-a'>Aucune description n'a été fournie pour ce tournoi</p>";
+				}
+			?>
 		</div>
 	</section>
 	<?php if ($tournoi->doesTournamentHaveWinner()): ?>
@@ -231,15 +246,17 @@
 			</div>
 		<!-- Cas où aucun match n'a été joué -->
 		<?php else: ?>
-			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ): ?>
-				<?php if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2): ?>
-					<button id="detailtournoi-btn-create-matchs" class="relative btn btn-pink m-a"><a>Créer les premières rencontres !</a></button>
-				<?php else: ?>
-					<?php $placesRestantesRequises = $tournoi->getMaxPlayer()/2 - $tournoi->getNumberRegistered();?>
-					<h3 class="title-4 border-full ta-center">Il vous faut encore <?php echo $placesRestantesRequises;?> participants pour lancer le tournoi !</h3>
-				<?php endif ?>
-			<?php endif ?>
-		<?php endif; ?>
+			<?php if (isset($_isConnected) && $tournoi->getUserPseudo() == $_pseudo ){
+					if ($tournoi->getNumberRegistered() >= $tournoi->getMaxPlayer()/2)
+						echo '<button id="detailtournoi-btn-create-matchs" class="relative btn btn-pink m-a"><a>Créer les premières rencontres !</a></button>';
+					else{
+					$placesRestantesRequises = $tournoi->getMaxPlayer()/2 - $tournoi->getNumberRegistered();
+					if($tournoi->getStatus()!="-1")
+						echo '<h3 class="title-4 border-full ta-center">Il vous faut encore '.$placesRestantesRequises.' participants pour lancer le tournoi !</h3>';
+
+					}
+				} 
+			 endif; ?>
 		<!-- Cas indépendant où le(s) premier(s) match(s) a/ont été joué(s) -->	
 		<?php if(!!$tournoi->gtAllMatchs() && $availableMatchedAllPlayed ): ?>
 			<?php if (!$tournoi->doesTournamentHaveWinner()): ?>
