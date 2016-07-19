@@ -14,6 +14,13 @@ footer{
     z-index: 2;
 }
 
+.admin-header-title{
+    margin-right:0 !important;
+}
+
+.header-title{
+    margin-right:0 !important;
+}
 /*  ######  STYLE DU MSG "JS REQUIRED" ####### */
 #breakemall-javascript-required{
     z-index: 999999;
