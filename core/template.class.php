@@ -153,10 +153,10 @@ class template{
         $this->connectedUser = $dbUser;
       }
       else if($dbUser == -1){
-        $this->echoJSONerror("user", "Vous avez été banni du site.");
+        $this->echoJSONerror("", "Vous avez été banni du site.");
       }
       else{
-       $this->echoJSONerror("user", "Vos identifiants ne correspondent pas.");
+       $this->echoJSONerror("", "Vos identifiants ne correspondent pas.");
       }
 
     }

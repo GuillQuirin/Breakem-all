@@ -786,6 +786,7 @@ var inscription = {
 				&& inscription.isBirthValid()
 				&& inscription.isCguAccepted()
 			) {
+				var modalLog = $('.index-modal-login');
 				if(isElSoloJqueryInstance(modalLog))
 					modalLog.click();
 				ajaxWithDataRequest(
@@ -845,7 +846,7 @@ var connection = {
 	},
 	highlightInput: function(jQinput){
 		jQinput.addClass('failed-input');
-		jQinput.val('');
+		// jQinput.val('');
 		jQinput.focus();
 		connection.removeFailAnimationEvent(jQinput);
 	},
@@ -853,19 +854,11 @@ var connection = {
 		if(obj != false){
 			if(obj.connected){
 				location.reload();
-			}
-			else{
-				connection.highlightInput(connection._email);
-				connection.highlightInput(connection._password);
-				if(obj.errors.inputs){
-					// missing input !
-					alert("you are missing an input");
-				}
-				else if(obj.errors.user){
-					// email and pass don't match OU BAN
-					alert(obj.errors.user);
-				}
-			}
+				return;
+			};
+			if(obj.errors){
+				popup.init(obj.errors);
+			};
 		}		
 	},
 
