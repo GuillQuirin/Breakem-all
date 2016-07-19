@@ -15,6 +15,8 @@ $(document).ready(function(){
 			 		$("#result").html("Verrouillage du tournoi effectué.");
 			 		$("#btn-shut-down").parent().find("p").remove();
 			 		$("#btn-shut-down").remove();
+			 		$("#MAJ-submit").remove();
+			 		$("input, textarea").prop("disabled","true");
 			 	},
 			 	error: function(result){
 			 		$("#result").html("Impossible de supprimer ce tournoi.");

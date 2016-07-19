@@ -15,10 +15,11 @@ section:hover{
 }*/
 
 .gestiontournoi-header-profil-image{
-	max-width: 50%;
+    max-width: 40%;
     margin: 0 auto;
     display: block;
     margin-bottom: 25px;
+    height: 400px;
 }
 .bg-cover-gestiontournoi{    
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/gestion-tournoi.jpg) center no-repeat;
@@ -29,6 +30,12 @@ section:hover{
 
 .btn-gestion-tounoi{
 	margin-bottom: 15px;
+}
+
+.btn-config{
+	width: 50%;
+    margin: 0 auto;
+    display: block;
 }
 
 .MAJ{

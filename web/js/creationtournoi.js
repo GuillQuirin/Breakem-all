@@ -374,7 +374,7 @@ var gameversionChoice = {
 		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
-		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">aaaa-mm-dd</p></div></form>');
+		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (Requis, 8-49 caractères max)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" required><p class="creationtournoi-tip">Lettres, chiffres et espaces only !</p></div><div class="form-input-group"><label for="startDate">Donne la date de son début (Requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" required/><p class="creationtournoi-tip">aaaa-mm-dd</p></div></form>');
 		// on est dans le cas équipe
 		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
 			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div>');
@@ -461,7 +461,7 @@ var gameversionChoice = {
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
 			inscription.highlightInput(jQel);
-			popupError.init("le nom du du tournoi doit être compris entre 8 et 49 caractères et ne contenir et ne pas contenir autre ques caractères alphanumériques (accentués inclus) espaces et tirets");
+			popupError.init("Le nom du tournoi doit être compris entre 8 et 49 caractères et ne contenir que des caractères alphanumériques (accents compris), espaces et/ou tirets.");
 			return false;
 		}
 		return true;
@@ -495,7 +495,7 @@ var gameversionChoice = {
 		var randPVal = randP[0].checked;
 		var guildVal = guild[0].checked;
 		if(guildVal && randPVal){
-			popupError.init("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
+			popupError.init("Les tournois entre guilde ne peuvent se faire avec des équipes aléatoires");
 			return false;
 		}
 			

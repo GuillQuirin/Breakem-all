@@ -126,6 +126,9 @@
 													echo "<option value='-1'";
 														echo ($joueur->getStatus()==-1) ? " selected " : " "; 
 													echo ">Banni</option>
+													<option value='0'";
+														echo ($joueur->getStatus()==0) ? " selected " : " "; 
+													echo ">Confirmation par email</option>
 													<option value='1'";
 														echo ($joueur->getStatus()==1) ? " selected " : " ";
 													echo ">Utilisateur</option>

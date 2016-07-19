@@ -286,7 +286,7 @@ class userManager extends basesql{
 					LEFT JOIN signalmentsuser 
 							ON user.id = signalmentsuser.id_signaled_user";
 		$sql .= " LEFT OUTER JOIN register r ";
-		$sql .= " ON r.idUser = u.id ";
+		$sql .= " ON r.idUser = user.id ";
 		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= " GROUP BY user.id";
