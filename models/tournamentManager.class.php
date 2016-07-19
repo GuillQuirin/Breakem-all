@@ -307,7 +307,7 @@ final class tournamentManager extends basesql{
 			foreach ($r as $key => $data) {
 				$alltournaments[] = new tournament($data);
 			}
-			return $alltournaments;
+			return json_encode($alltournaments);
 		}		
 		return false;
 	}

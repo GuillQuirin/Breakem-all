@@ -42,4 +42,4 @@ var tournamentsOrga = {
 	}
 };
 
-tournamentsOrga.init();
+//tournamentsOrga.init();
