@@ -252,6 +252,7 @@
 			<?php include $this->view; ?>
 		</div>
 
+
 		<!-- Footer des pages -->
 		<footer class="relative">
 		<section id="wrapperAdmin">

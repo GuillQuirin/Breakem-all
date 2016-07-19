@@ -77,6 +77,7 @@
 
 <?php 
 	if(isset($_isConnected) && !isset($_idTeam)){
+
 		?>
 			<div id="formteam" class="formteam">
 				<form class="formteam1" action="<?php echo WEBPATH.'/team/addTeam'; ?>" method="post" enctype="multipart/form-data">
