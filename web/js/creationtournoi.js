@@ -276,7 +276,7 @@ var validateChoices = {
 	btnClickedEventCallback: function(obj){
 		if(!!obj){
 			if(obj.errors){
-	    		popup.init(obj.errors);
+	    		popupError.init(obj.errors);
 	    		return false;
 	    	}
 	    	else if(obj.success){
@@ -329,7 +329,7 @@ var gameversionChoice = {
 		gameversionChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
-	    		popup.init(obj.errors);
+	    		popupError.init(obj.errors);
 	    		return false;
 	    	}
 	    	var treeContainer = dom.getTreeRules();
@@ -350,7 +350,7 @@ var gameversionChoice = {
 		    loadTitle("ton mode de jeu");		    
 	    }
 	    else
-	    	popup.init("Création du DOM consoles impossible");
+	    	popupError.init("Création du DOM consoles impossible");
 	},
 	getVersions: function(da){
 		ajaxWithDataRequest('creationtournoi/getVersions', 'POST', {'name': da}, gameversionChoice.getVersionsCallback);
@@ -461,7 +461,7 @@ var gameversionChoice = {
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
 			inscription.highlightInput(jQel);
-			popup.init("name fail");
+			popupError.init("le nom du du tournoi doit être compris entre 8 et 49 caractères et ne contenir et ne pas contenir autre ques caractères alphanumériques (accentués inclus) espaces et tirets");
 			return false;
 		}
 		return true;
@@ -469,8 +469,8 @@ var gameversionChoice = {
 	isDateFormatValid: function(jQel){
 		var unauthorizedChars = /[^\d{2}\-\d{2}\-\d{4}]/;
 		if(jQel.val().match(unauthorizedChars)){
-			popup.init("Votre date doit etre de la forme jj/mm/aaaa");
-			jQel[0].value = "";
+			popupError.init("Votre date doit etre de la forme aaaa-mm-jj");
+			// jQel[0].value = "";
 			jQel.focus();
 			return false;
 		};
@@ -483,10 +483,10 @@ var gameversionChoice = {
 		}
 		var unauthorizedChars = /[^a-zA-Z-0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/;
 		if(jQel.val().match(unauthorizedChars)
-			|| jQel.val().length < 10 
-			|| jQel.val().length > 200){
+			|| jQel.val().length < 4
+			|| jQel.val().length > 250){
 			inscription.highlightInput(jQel);
-			popup.init("description fail");
+			popupError.init("Votre description, si vous voulez en mettre une, doit faire entre 4 et 250 caractères et ne contenir que des caractères alphanumériques, signes de ponctuations (. , ! ?) ou signe =");
 			return false;
 		}
 		return true;
@@ -495,7 +495,7 @@ var gameversionChoice = {
 		var randPVal = randP[0].checked;
 		var guildVal = guild[0].checked;
 		if(guildVal && randPVal){
-			popup.init("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
+			popupError.init("Les tournois entre guilde ne peuvent se faire avec des equipes aleatoires");
 			return false;
 		}
 			
@@ -543,7 +543,7 @@ var gameversionChoice = {
 	loadValidationEventCallback: function(obj){
 		if(!!obj){
 			if(obj.errors){
-	    		popup.init(obj.errors);
+	    		popupError.init(obj.errors);
 	    		return false;
 	    	}
 	    	gameversionChoice.cleanDOM();
@@ -612,7 +612,7 @@ var consoleChoice = {
 		consoleChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){		    		
-	    		popup.init(obj.errors);		    		
+	    		popupError.init(obj.errors);		    		
 	    		return false;
 	    	}
 	    	var treeContainer = dom.getTreePlatform();
@@ -633,7 +633,7 @@ var consoleChoice = {
 		    loadTitle("ta console");
 		    
 	    }else{
-	    	popup.init("Création du DOM consoles impossible");
+	    	popupError.init("Création du DOM consoles impossible");
 	    }
 	},
 	getConsoles: function(da){
@@ -710,7 +710,7 @@ var gameChoice = {
 		gameChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
-	    		popup.init(obj.errors);
+	    		popupError.init(obj.errors);
 	    		return false;
 	    	}
 	    	var treeContainer = dom.getTreeGame();
@@ -731,7 +731,7 @@ var gameChoice = {
 		    loadTitle("ton jeu");
 		    
 	    }else{
-	    	popup.init("Création du DOM gametype impossible");
+	    	popupError.init("Création du DOM gametype impossible");
 	    }
 	},
 	getGames: function(da){
@@ -810,7 +810,7 @@ var gameTypesChoice = {
 	  	gameTypesChoice.possibleTreeChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
-	    		popup.init(obj.errors);
+	    		popupError.init(obj.errors);
 	    		return false;
 	    	}
 	    	// On récupère tous les choix, les transforme en DOM et l'ajoute à l'array
@@ -835,7 +835,7 @@ var gameTypesChoice = {
 		    loadTitle("ton style de jeu");
 		}
 		else
-	    	popup.init("Création du DOM gametype impossible");
+	    	popupError.init("Création du DOM gametype impossible");
 	},
 	getGameTypes: function(){
 		ajaxWithDataRequest('creationtournoi/getGameTypes', 'POST', {}, gameTypesChoice.getGameTypesCallback);
