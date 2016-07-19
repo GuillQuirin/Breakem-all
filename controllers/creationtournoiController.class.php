@@ -335,7 +335,7 @@ class creationtournoiController extends template{
 	}
 	private function validTournoiData(tournament $t){
 		if(!(validateDate($t->getStartDate(), 'Y-m-d')))
-			$this->echoJSONerror("", "Vous avez rentré une mauvaise date reçue: ".$t->getStartDate() . ". Format valide: aaaa-mm-dd");
+			$this->echoJSONerror("", "Vous avez rentré une mauvaise date: ' ".$t->getStartDate() . " '. Format attendu: aaaa-mm-dd");
 
 		$d1 = DateTime::createFromFormat('Y-m-d', $t->getStartDate());
 
@@ -357,8 +357,8 @@ class creationtournoiController extends template{
 		if(preg_match("/[^a-z0-9 \-éàôûîêçùèâ]/i", $t->getName()))
 			$this->echoJSONerror("", "Le nom de votre tournoi contient des caracteres speciaux !");
 		if( strlen(trim($t->getDescription())) > 0 ){
-			if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
-				$this->echoJSONerror("", "La description de votre tournoi contient des caracteres non-autorisés !");
+			// if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
+			// 	$this->echoJSONerror("", "La description de votre tournoi contient des caracteres non-autorisés !");
 			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 4)
 				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 4 et 250 caracteres");
 		}
