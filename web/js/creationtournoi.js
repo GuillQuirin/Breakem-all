@@ -461,7 +461,7 @@ var gameversionChoice = {
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
 			inscription.highlightInput(jQel);
-			popupError.init("le nom du du tournoi doit être compris entre 8 et 49 caractères et ne contenir et ne pas contenir autre ques caractères alphanumériques (accentués inclus) espaces et tirets");
+			popupError.init("Le nom du tournoi doit être compris entre 8 et 49 caractères et ne contenir que des caractères alphanumériques (accents compris), espaces et/ou tirets.");
 			return false;
 		}
 		return true;
