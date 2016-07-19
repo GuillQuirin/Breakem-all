@@ -22,7 +22,8 @@ class indexController extends template{
 
 		//Liste Tournois
 		$obj = new tournamentManager();
-		$listetournois = $obj->getUnstartedTournaments();
+		//Le paramètre par défaut vaut NULL si l'utilisateur n'est pas connecté
+		$listetournois = $obj->getUnstartedTournaments($this->connectedUser);
 		if(!!($listetournois)){
 			$v->assign("listeTournois", $listetournois);
 		}
