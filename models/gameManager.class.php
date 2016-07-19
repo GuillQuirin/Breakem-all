@@ -86,7 +86,6 @@ class gameManager extends basesql{
 		$sth->bindValue(':id', $game->getId());
 		$sth->execute();
 	}
-
 	public function getAllGames(){
 		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 
@@ -106,7 +105,6 @@ class gameManager extends basesql{
 		}
 		return false;
 	}
-
 	public function getAdminAllGames(){
 		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 
@@ -126,7 +124,6 @@ class gameManager extends basesql{
 		}
 		return false;
 	}
-
 	public function setGame(game $ancien, game $nouveau){
 
 		$data = [];
@@ -160,10 +157,7 @@ class gameManager extends basesql{
 		$id = $ancien->getId();
 		$query->bindParam(':id', $id, PDO::PARAM_INT);
 		$query->execute();
-
 	}
-
-
 	public function gameByName(game $u){
 		$sql = "SELECT name FROM " .$this->table . " WHERE name=:name";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -171,6 +165,57 @@ class gameManager extends basesql{
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
 		return $r[0];
+	}
+	/*
+	 **@params optionnal (instanceof user) (int)
+	 **@returns (array)_of_games || empty (array)
+	 ** ### Récupère les jeux les plus utilisés dans les tournois terminés 
+	 	### Ou récupère les jeux les plus joués par un user si $u instanceof user && is_numeric($u->getId())
+	*/
+	public function getMostPlayedGames($u = false, $limit = 3){
+		$limit = (int) $limit;
+		if($limit < 1)
+			$limit = 3;
+
+		$sql = "SELECT g.id, g.name, g.description, g.img, g.year, g.idType, g.status, count(g.id) as timesPlayed ";
+		$sql .= " FROM game g";
+		$sql .= " INNER JOIN gameversion gv
+				ON gv.idGame = g.id
+				AND gv.id IS NOT NULL";
+		$sql .= " INNER JOIN tournament t 
+				ON t.idGameVersion = gv.id
+				AND t.id IS NOT NULL
+				AND t.idGameVersion IS NOT NULL
+				AND t.idWinningTeam IS NOT NULL
+				AND t.status > 0";
+		if($u instanceof user && is_numeric($u->getId())){
+			$sql .= " INNER JOIN register r
+				ON r.idUser = :idUser
+				AND t.id = r.idTournament";
+		}
+		$sql .= " WHERE g.status > -1
+				GROUP BY g.id
+				ORDER BY timesPlayed DESC
+				LIMIT 0, ".$limit;
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		if($u instanceof user && is_numeric($u->getId())){
+			$sth->execute([
+				':idUser' => $u->getId()
+			]);
+		}
+		else
+			$sth->execute();
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(empty($r))
+			return [];
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new game($dataArr);
+			}
+			return $data;
+		}
+		return false;
 	}
 
 }

@@ -32,6 +32,8 @@ class userManager extends basesql{
 		// ce qui nous interesse est donc de savoir si le $r[0] existe
 
 		if(isset($r[0])){
+			if(count(array_filter($r[0])) === 0)
+				return -2;
 			//Membre non-banni
 			if((int)$r[0]['status'] > 0){
 				$dbUser = new user($r[0]);
@@ -284,7 +286,7 @@ class userManager extends basesql{
 					LEFT JOIN signalmentsuser 
 							ON user.id = signalmentsuser.id_signaled_user";
 		$sql .= " LEFT OUTER JOIN register r ";
-		$sql .= " ON r.idUser = u.id ";
+		$sql .= " ON r.idUser = user.id ";
 		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= " GROUP BY user.id";

@@ -201,9 +201,18 @@
 									<input class="input-default configuration-input-default" type="password" name="new_password_check">
 								</td>						
 							</tr>
+							<tr>
+								<td>
+									<span>Clôturer mon compte (action irréversible !)</span>
+								</td>
+								<td class="text-center">
+									<button id="delete-account" class="btn btn-pink configuration-account-delete">
+										Supprimer mon compte
+									</button>
+								</td>
+							</tr>
 							<tr class="text-center">
-								<td colspan="2" class="border-none configuration-form-td-submit">																	
-									<button id="delete-account" class="btn btn-pink configuration-account-delete"><a>Supprimer mon compte</a></button>
+								<td colspan="2" class="border-none configuration-form-td-submit">		
 									<button type="submit" class="btn btn-pink configuration-form-submit"><a>Envoyer</a></button>
 								</td>
 							</tr>	

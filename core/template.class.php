@@ -155,6 +155,9 @@ class template{
       else if($dbUser == -1){
         $this->echoJSONerror("", "Vous avez été banni du site.");
       }
+      else if($dbUser == -2){
+        $this->echoJSONerror("", "Identifiants incorrects");
+      }
       else{
        $this->echoJSONerror("", "Vos identifiants ne correspondent pas.");
       }
@@ -288,20 +291,22 @@ class template{
       $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 
     //Date de naissance
-    $filteredinputs['month'] = (int) $filteredinputs['month'];
-    $filteredinputs['day'] = (int) $filteredinputs['day'];
-    $filteredinputs['year'] = (int) $filteredinputs['year'];
-    
-    if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
-      $this->echoJSONerror('date', 'La date reçue est incorrect.');
+    if(isset($filteredinputs['day']) || isset($filteredinputs['month']) || isset($filteredinputs['year'])){
+      $filteredinputs['month'] = (isset($filteredinputs['month'])) ? (int) $filteredinputs['month'] : "";
+      $filteredinputs['day'] = (isset($filteredinputs['day'])) ? (int) $filteredinputs['day'] : "";
+      $filteredinputs['year'] = (isset($filteredinputs['year'])) ? (int) $filteredinputs['year'] : "";
+      
+      if(!checkdate($filteredinputs['month'], $filteredinputs['day'], $filteredinputs['year']))
+        $this->echoJSONerror('date', 'La date reçue est incorrect.');
 
-    else{
-      $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
-      
-      if(!$date)
-        $this->echoJSONerror('date', 'Impossible de récupérer la date.');
-      
-      $finalArr['birthday'] = date_timestamp_get($date);
+      else{
+        $date = DateTime::createFromFormat('j-n-Y',$filteredinputs['day'].'-'.$filteredinputs['month'].'-'.$filteredinputs['year']);
+        
+        if(!$date)
+          $this->echoJSONerror('date', 'Impossible de récupérer la date.');
+        else
+          $finalArr['birthday'] = date_timestamp_get($date);
+      }
     }
 
     //CGU

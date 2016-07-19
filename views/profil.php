@@ -117,18 +117,18 @@ else{
 						<span>Mes Jeux favoris</span>
 					</div>
 					<div class="text-center align">
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/heroes-of.jpg">';?>
-							<span class="profil-match-element-title-this">Heroes of the Storm</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/lol-bg.jpg">';?>
-							<span class="profil-match-element-title-this">League of Legends</span>
-						</div>
-						<div class="profil-element profil-tournament-element">	
-							<?php echo '<img class="img-cover" src="' . WEBPATH . '/web/img/mk.jpg">';?>
-							<span class="profil-match-element-title-this">Mario Kart</span>
-						</div>
+					<?php 
+						if(isset($listeJeux) && is_array($listeJeux)){
+							foreach($listeJeux as $jeu){
+								echo '<div class="profil-element profil-tournament-element">';	
+									echo '<img class="img-cover" src="' . WEBPATH . '/web/img/upload/jeux/'.$jeu->getImg().'">';
+									echo '<span class="profil-match-element-title-this">'.$jeu->getName().'</span>';
+								echo '</div>';
+							}
+						}
+						else
+							echo "<span>Aucun jeu utilisé jusqu'à présent.</span>";
+					?>
 					</div>
 				</div>
 				<!-- Fin Jeux favoris -->

@@ -80,13 +80,10 @@ select{
 	width:200px;
 }
 
-#article1{
-	width:100%;
-	margin-top:80px;
-}
 .contain_article{
-	width:765px;
-	height:270px;
+	width:100%;
+	height:100%;
+	padding: 30px 0; 
 }
 .img_article{
 	width:200px;
@@ -248,14 +245,13 @@ hr{
 .game img{
 	width:80px;
 	transform: skew(-8deg);
-	cursor:pointer;
+	vertical-align: middle;
 }
 .game p{
 	position: absolute;
     margin-left: 90px;
     margin-top: -40px;
     text-decoration: underline;
-    cursor: pointer;
 }
 
 .categorie{
