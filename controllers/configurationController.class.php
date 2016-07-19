@@ -217,5 +217,10 @@ class configurationController extends template{
         
         if($this->isVisitorConnected() && $filteredinputs['pseudo']===$this->connectedUser->getPseudo())
 		    $userBDD->deleteAccount($this->connectedUser);
+
+		setcookie(COOKIE_TOKEN, null, -1, "/");
+	    setcookie(COOKIE_EMAIL, null, -1, "/");
+		session_destroy();
+  		echo json_encode(["connected" => false]);
   	}
 }
