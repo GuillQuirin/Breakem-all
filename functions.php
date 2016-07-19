@@ -26,6 +26,8 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     return $d && $d->format($format) == $date;
 }
 function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented = false){
+	if( (int) $t->getStatus() < 0 )
+		return false;
 	$rm = new registerManager();
 	// On vérifie si l'user n'est pas le créateur
 	if($u->getPseudo() === $t->getUserPseudo()){
@@ -74,6 +76,8 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 
 // Cette fonction a besoin d'un teamtournament.class alimenté en users dedans
 function canUserRegisterToTeamTournament(user $u, tournament $t, teamtournament $tt){
+	if( (int) $t->getStatus() < 0 )
+		return false;
 	// On vérifie si le tournoi est en guilde only et que la team souhaitée ne contient pas de membres d'une autre equipe conséquemment l'user est bien dans une guilde
 	if( ((bool) $t->getGuildOnly()) && !(is_numeric($u->getIdTeam())) )
 		return false;

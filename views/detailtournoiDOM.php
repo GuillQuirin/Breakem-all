@@ -5,8 +5,14 @@
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 			</h3>
-			<p class="detailtournoi-description-jeu italic">
-				<?php echo $tournoi->getGameDescription(); ?>
+			
+				<p></p>
+			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1) ? 'bg-pink title title-2': '' ?>">
+				<?php if ($tournoi->getStatus() != -1): ?>
+					<?php echo $tournoi->getGameDescription(); ?>
+				<?php else:?>
+					Ce tournoi est verrouillé
+				<?php endif ?>
 			</p>
 			<div class="detail-tournoi-main-infos align display-flex-row">
 				<div class="detail-tournoi-aside ta-center relative">
@@ -14,7 +20,7 @@
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
 					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 ): ?>
+							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
 								<div class="relative ta-right">
 									<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>

@@ -47,8 +47,10 @@ section:hover{
 	padding: 20px;
 }
 /* ################## INFOS PRINCIPALES TOURNOI ################### */
+	.detail-tournoi-main-infos{
+		margin-top: 20px;
+	}
 	.detailtournoi-infos{
-		/*margin-top: 142px;*/
 		align-items: center;
 		justify-content: center;
 	}
@@ -99,6 +101,9 @@ section:hover{
 		margin: 0 auto;
 		margin-top: 20px;
 		text-align:center;
+	}
+	.detailtournoi-description-jeu.bg-pink{
+		padding: 10px;
 	}
 	.detailtournoi-tournoi-regles{	
 		flex-direction: column;
