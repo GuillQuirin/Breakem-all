@@ -14,8 +14,8 @@ final class matchsManager extends basesql{
 			':idTournament' => $t->getId()
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-		if(isset($r[0])){
-			$allMatchs = [];
+		$allMatchs = [];
+		if(isset($r[0])){			
 			$r[0] = array_filter($r[0]);
 			if(is_array($r[0])){
 				foreach ($r as $key => $data) {
@@ -26,12 +26,12 @@ final class matchsManager extends basesql{
 			if($returnEvenIfEmpty === false)		
 				return (count($allMatchs) > 0) ? $allMatchs : false;
 			else
-				return "none";
+				return (count($allMatchs) > 0) ? $allMatchs : "none";
 		}
 		if($returnEvenIfEmpty === false)
 			return false;
 		else
-			return "none";
+			return (count($allMatchs) > 0) ? $allMatchs : "none";
 		
 	}
 
