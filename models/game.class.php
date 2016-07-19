@@ -10,6 +10,7 @@ class game{
 	protected $idType = null;
 	protected $nameType = null;
 	protected $status = null;
+	protected $timesPlayed = null;
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
 	public function __construct(array $data){
@@ -49,6 +50,9 @@ class game{
 	public function setStatus($v){
 		$this->status=$v;
 	}
+	public function setTimesPlayed($v){
+		$this->timesPlayed= (int) $v;
+	}
 
 
 	public function getId(){return $this->id;}
@@ -69,5 +73,6 @@ class game{
 	}
 	public function getIdType(){return $this->idType;}
 	public function getNameType(){return $this->nameType;}
+	public function gtTimesPlayed(){return $this->timesPlayed;}
 	
 }
