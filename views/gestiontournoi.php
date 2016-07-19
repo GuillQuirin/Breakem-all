@@ -51,7 +51,7 @@ if(isset($tournoi)){
 					?>
 						<table class="full-width configuration-form-table">
 							<tr>
-								<td colspan='2' id="result"></td>
+								<td colspan='2' id="result" class='MAJ text-center'></td>
 							</tr>
 							<?php 
 								if(isset($MAJ))
@@ -136,7 +136,7 @@ if(isset($tournoi)){
 					<?php 
 					if(trim($verrouillage)!=="disabled"){
 						echo "<input type='hidden' name='link' value='".$_GET['t']."'>";
-						echo '<button type="submit" class="btn btn-pink index-header-btn-pink-width btn-config">';
+						echo '<button type="submit" id="MAJ-submit" class="btn btn-pink index-header-btn-pink-width btn-config">';
 							echo '<a>Mettre à jour</a>';
 						echo '</button>'; 
 						echo '</form>';
