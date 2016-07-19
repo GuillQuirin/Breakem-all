@@ -113,7 +113,7 @@ function tryParseData(rawData){
 		}
 		catch(err){
 			console.log(rawData);
-			popup.init("Problem during server processes");
+			popupError.init("Problem during server processes");
 		}
 	}
 	return false;
@@ -175,7 +175,7 @@ function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 			 		if(failCallback)
 			 			failCallback();
 			 		else
-						popup.init("request error !! : \t " + errorThrown);
+						popupError.init("request error !! : \t " + errorThrown);
 				}
 			});
 		}
@@ -192,7 +192,7 @@ function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 					if(failCallback)
 			 			failCallback();
 			 		else
-						popup.init("request error !! : \t " + errorThrown);
+						popupError.init("request error !! : \t " + errorThrown);
 				}
 			});
 		}
@@ -260,7 +260,79 @@ var scroll = {
     	}
 	}
 };
-// Suffira d'envoyer une string à popup.init et l'ob se chargera du reste 
+// Popup déstinée aux erreurs
+var popupError = {
+	openedPopupModal: false,
+	openedPopupMsg: false,
+	animationOnGoing: false,
+	getOpenedPopupModal: function(){
+		return popupError.openedPopupModal;
+	},
+	getOpenedPopupMsg: function(){
+		return popupError.openedPopupMsg;
+	},
+	setOpenedPopupModal: function(jQel){
+		popupError.openedPopupModal = jQel;
+	},
+	setOpenedPopupMsg: function(jQel){
+		popupError.openedPopupMsg = jQel;
+	},
+	closeOldPopup: function(jQModal, jQMsg){
+		// navbar.form.smoothClosing();
+		if(popupError.getOpenedPopupModal() instanceof jQuery){
+			var _popupError = popupError;
+			popupError.animationOnGoing = true;
+			popupError.getOpenedPopupMsg().addClass('fadeOutUp');
+			setTimeout(function(){
+				_popupError.getOpenedPopupModal().empty();
+				_popupError.getOpenedPopupModal().remove();
+				_popupError.setOpenedPopupModal(false);
+				_popupError.setOpenedPopupMsg(false);
+				_popupError.animationOnGoing = false;
+				// if(popup.openedPopupModal() == false)
+				// $('body').css('overflow', 'visible');
+				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
+					_popupError.openNewPopup(jQModal, jQMsg);
+			},500);
+		}
+		else
+			popupError.openNewPopup(jQModal, jQMsg);
+	},
+	init: function(message){		
+		if(message){
+			if(popupError.animationOnGoing){
+				console.log("Animation popupError déjà en cours.");
+				return;
+			}
+			var container = $('<div class="index-modal-popupError absolute-0-0 full-width full-height fixed display-flex-column animation fade"></div>');
+			var popdivContainer = $('<div class="index-popupError-msg display-flex-column animation fadeDown"></div>');
+			var subDiv = $('<div class="border-full display-flex-column"></div>')
+			var popMsg = $('<p class="title title-4">'+message+'</p>');
+			subDiv.append(popMsg);
+			popdivContainer.append(subDiv);
+			container.append(popdivContainer);
+			popupError.closeOldPopup(container, popdivContainer);
+		}
+		else
+			console.log("Aucun contenu reçu dans popupError init.");
+	},
+	openNewPopup: function(jQModal, jQMsg){
+		// $('body').css('overflow', 'hidden');
+		$('body').append(jQModal);
+		popupError.setOpenedPopupModal(jQModal);
+		popupError.setOpenedPopupMsg(jQMsg);
+		popupError.associateClosingEvent();
+	},
+	associateClosingEvent: function(){
+		var _popupError = popupError;
+		popupError.getOpenedPopupModal().click(function(e){
+			if($(e.target).hasClass('index-modal-popupError')){
+				_popupError.closeOldPopup();
+			};
+		});
+	}
+};
+// Suffira d'envoyer une string à popup.init et l'ob se chargera du reste
 var popup = {
 	openedPopupModal: false,
 	openedPopupMsg: false,
@@ -289,6 +361,7 @@ var popup = {
 				_popup.setOpenedPopupModal(false);
 				_popup.setOpenedPopupMsg(false);
 				_popup.animationOnGoing = false;
+				// if(popupError.openedPopupModal() == false)
 				$('body').css('overflow', 'visible');
 				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
 					_popup.openNewPopup(jQModal, jQMsg);
@@ -656,7 +729,7 @@ var inscription = {
 			return true;
 		}
 		inscription.highlightInput(jQEmail);
-		console.log("Le format de l'email est invalide.");
+		popupError.init("Le format de l'email est invalide.");
 		return false;
 	},
 	isPseudoValid: function(){
@@ -664,7 +737,7 @@ var inscription = {
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPseudo.val().match(unauthorizedChars) || jQPseudo.val().length == 0){
 			inscription.highlightInput(jQPseudo);
-			console.log("Le pseudo ne doit contenir que des caractères alphanumériques.");
+			popupError.init("Le pseudo ne doit contenir que des caractères alphanumériques.");
 			return false;
 		}
 		return true;
@@ -674,7 +747,7 @@ var inscription = {
 		//if(jQPassword.val().match(unauthorizedChars)){
 		if(jQPassword.val().length < 6){
 			inscription.highlightInput(jQPassword);
-			console.log("Mot de passe inférieur à 6 caractères.");
+			popupError.init("Mot de passe inférieur à 6 caractères.");
 			return false;
 		}
 		return true;
@@ -703,11 +776,11 @@ var inscription = {
 			// if they match then the date is valid
 			if ( mon == m && yr == y && day == d )
 				return true;
-			console.log("La date de naissance n'est pas valide.");
+			popupError.init("La date de naissance est invalide.");
 			return false;
 		}
 		catch(e) {
-			console.log("La date de naissance est invalide.");
+			popupError.init("La date de naissance est invalide.");
 			return false;
 		}
 		
@@ -717,13 +790,13 @@ var inscription = {
 		if(inscription.getCguToWatch()[0].checked){
 			return true;
 		}
-		alert("Vous devez accepter les cgu !");
+		popupError.init("Vous devez accepter les cgu !");
 		return false;
 	},
 	doPasswordsMatch: function(){
 		if(inscription.getPassToWatch().val() == inscription.getPassCheckToWatch().val())
 			return true;
-		console.log("Les mots de passe ne correspondents pas entre eux.");
+		popupError.init("Les mots de passe ne correspondents pas entre eux.");
 		return false;
 	},
 	highlightInput: function(jQinput){
@@ -741,16 +814,7 @@ var inscription = {
 		}
 		else{
 			if(obj.errors){
-				if(obj.errors.pseudo){
-					popup.init(obj.errors.pseudo);
-				}
-				else if(obj.errors.email){
-					popup.init(obj.errors.email);
-				}
-				else{
-					popup.init(obj.errors);
-					// ("Ton formulaire n'a pu être validé\nCheck la console pour plus de détails");
-				}			
+				popupError.init(obj.errors);		
 			}
 		}
 	},
@@ -834,12 +898,14 @@ var connection = {
 			return true;
 		}
 		connection.highlightInput(jQEmail);
+		popupError.init("Mauvais format d'email");
 		return false;
 	},
 	isPasswordValid: function(jQPassword){
 		var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
 			connection.highlightInput(jQPassword);
+			popupError.init("Le mot de passe ne doit contenir que des caractères alphanumériques.");
 			return false;
 		}
 		return true;
@@ -857,7 +923,7 @@ var connection = {
 				return;
 			};
 			if(obj.errors){
-				popup.init(obj.errors);
+				popupError.init(obj.errors);
 			};
 		}		
 	},
@@ -983,7 +1049,7 @@ var contactadmin = {
 		return true;
 	},
 	loadBtnClickEventCallback: function(){
-		popup.init('Le message a correctement été envoyé');
+		popup.init('Le message a été envoyé');
 		$("#wrapperAdmin .sendOk").fadeIn();
 	},
 	loadBtnClickEventFailCallback: function(){
