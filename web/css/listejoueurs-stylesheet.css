@@ -1,4 +1,10 @@
-
+.bg-cover-listejoueurs{
+	background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/listejoueurs.jpg) center top no-repeat;
+    margin:0;
+    padding:0;
+    -webkit-background-size: cover; 
+    background-size: cover;     
+}
 
 .list-players table{
 	width: 90%;

@@ -10,9 +10,13 @@ var gameModule = {
 		gameModule.setImgWrapper();
 		gameModule.setAdminDataRe();
 		gameModule.setToggleCheck();
+		gameModule.setAdminSearchInput();
 
 		//Preview
 		gameModule.previewImg();
+
+		//Search
+		gameModule.searchRequest();
 
 		//CRUD
 		gameModule.postDataInsert();
@@ -24,6 +28,9 @@ var gameModule = {
 	},
 
 	//Setter
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setToggleCheck : function(){
 		this._toggleCheck = jQuery('.toggleCheck');
 	},
@@ -47,6 +54,9 @@ var gameModule = {
 	},
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -74,6 +84,56 @@ var gameModule = {
 	toggleCheck : function(){
 		gameModule.getToggleCheck().on("click", function(ev){
 			jQuery(ev.currentTarget).find('.jeu-status-p').prop("checked", !jQuery(ev.currentTarget).find('.jeu-status-p').prop("checked"));
+		});
+	},
+	//Search Delay
+	searchValue : function(callback){
+		gameModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			gameModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(gameModule.getAdminSearchInput().val())
+	    			callback(gameModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 1)
+			});
+		}
+	},
+	//Request Search
+	searchRequest : function(){
+		gameModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {name : value};
+				jQuery.ajax({
+					url: "admin/getGameByName", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							console.log(result);
+							var userArr = jQuery.parseJSON(result);	
+							var myRDiv = onglet.getAdminDataRe().find(".jeu-name-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
+							myRDiv.addClass('hidden');
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
 		});
 	},
 	//Preview

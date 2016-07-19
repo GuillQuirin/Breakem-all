@@ -14,6 +14,16 @@ footer{
     z-index: 2;
 }
 
+/*  ######  STYLE DU MSG "JS REQUIRED" ####### */
+#breakemall-javascript-required{
+    z-index: 999999;
+    top: 0;
+    left: 0;
+}
+#breakemall-javascript-required p{
+    padding: 15px;
+}
+
 .footer {
     padding:25px 0 0 0;
     border-top:1px solid #ccc;

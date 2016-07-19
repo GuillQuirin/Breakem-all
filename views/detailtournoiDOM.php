@@ -1,6 +1,6 @@
 <?php if(isset($tournoi)): ?>
-	<section class="detailtournoi detailtournoi-infos flex">
-		<article class="display-flex-column">
+	<section class="detailtournoi detailtournoi-infos display-flex-column">
+		<article class="display-flex-column m-a">
 			<h3 class="titre1 border-full ta-center">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
@@ -107,6 +107,14 @@
 				</div>
 			</div>			
 		</article>
+		<div class="detailtournoi-tournament-description display-flex-column m-a">
+			<?php if (strlen(trim($tournoi->getDescription())) > 0): ?>
+				<p class="m-a text-center title-2"><?php echo trim($tournoi->getDescription()); ?></p>
+			<?php else: ?>
+				<p class="title title-3 text-center m-a">Aucune description n'a été fournie pour ce tournoi</p>
+			<?php endif ?>
+			
+		</div>
 	</section>
 	<?php if ($tournoi->doesTournamentHaveWinner()): ?>
 		<?php $winningTeam = $tournoi->gtWinningTeam(); ?>

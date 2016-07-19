@@ -75,32 +75,38 @@
 	</div>
 </section>
 
-<div id="formteam" class="formteam">
-	<form class="formteam1" action="<?php echo WEBPATH.'/team/addTeam'; ?>" method="post" enctype="multipart/form-data">
-		<table border=0>
-			<tr>
-				<td>Nom : </td>
-				<td><input class="input-default nameteam" type="text" name="name" min='5' max='30' placeholder='Nom entre 5 et 30 caractères.' value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>" required></td>
-			</tr>
-			<tr>
-				<td>Description : </td>
-				<td><textarea  class="desc-default" rows="3" name="description" value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
-			</tr>
-			<tr>
-				<td>Image : </td>
-				<td><input class="image-default" type="file" name="img"></td>
-			</tr>
-			<tr>
-				<td>Slogan : </td>
-				<td><input class="input-default" type="text" name="slogan"></td>
-			</tr>
-			<tr>
-				<td colspan=2>
-					<button id='validate-form-games' type='submit' class='btn btn-pink admin-form-submit'>
-						<a>Créer ma team</a>
-					</button>
-				</td>
-			</tr>
-		</table>
-	</form>
-</div>
+<?php 
+	if(isset($_isConnected) && !isset($_idTeam)){
+		?>
+			<div id="formteam" class="formteam">
+				<form class="formteam1" action="<?php echo WEBPATH.'/team/addTeam'; ?>" method="post" enctype="multipart/form-data">
+					<table border=0>
+						<tr>
+							<td>Nom : </td>
+							<td><input class="input-default nameteam" type="text" name="name" min='5' max='30' placeholder='Nom entre 5 et 30 caractères.' value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>" required></td>
+						</tr>
+						<tr>
+							<td>Description : </td>
+							<td><textarea  class="desc-default" rows="3" name="description" value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
+						</tr>
+						<tr>
+							<td>Image : </td>
+							<td><input class="image-default" type="file" name="img"></td>
+						</tr>
+						<tr>
+							<td>Slogan : </td>
+							<td><input class="input-default" type="text" name="slogan"></td>
+						</tr>
+						<tr>
+							<td colspan=2>
+								<button id='validate-form-games' type='submit' class='btn btn-pink admin-form-submit'>
+									<a>Créer ma team</a>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+	<?php 
+	}
+?>

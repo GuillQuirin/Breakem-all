@@ -98,6 +98,7 @@ class detailtournoiController extends template{
 
 	 ** #### Définit le vainqueur d'un match de tournoi  ####
 	 ** ########## Annonce le vainqueur du tournoi ########## 
+	 ** ###### Ajoute les points en db ######
 	*/
 	public function selectWinnerAction(){
 		$filteredinputs = $this->checkBasicInputsAndRights()['inputs'];
@@ -131,15 +132,20 @@ class detailtournoiController extends template{
 				/* ---> On peut donc update la table match et renvoyer un success à la view */
 				$mm = new matchsManager();
 				if($mm->setMatchWinner($m, $winnerTT)){
-					// Commencer par vider totalement les matchs, teams et users du tournoi
+					// Vider totalement les matchs, teams et users du tournoi
 					$matchedTournament = $this->isUserTournamentOwner($link);
 					// L'alimenter des nouvelles modifs
 					$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament);
 					// Savoir si tous les matchs ont donc été joués
 					$winnerTeamsArr = $this->getLastWinningTeams($matchedTournament, true);
-					// var_dump($winnerTeamsArr);
+
 					// Il reste des matchs à jouer dans le denrier round
 					if($winnerTeamsArr === true){
+						// Attribuer les points aux participants du matchs
+						$mpm = new matchParticipantsManager();
+						$allPoints = $this->getPointsToGiveInMatch($m);
+						if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
+							$this->echoJSONerror("erreur: DT_SW_0", "L'attribution des points a échoué");
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
 						exit;
 					};
@@ -147,6 +153,11 @@ class detailtournoiController extends template{
 						$ttm = new tournamentManager();
 						if($ttm->setTournamentWinner($matchedTournament, $winnerTeamsArr['end'][0])){
 							unset($ttm);
+							// Attribuer les points aux participants du matchs avec un plus gros coeff puisque c'est la finale
+							$mpm = new matchParticipantsManager();
+							$allPoints = $this->getPointsToGiveInMatch($m, true);
+							if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
+								$this->echoJSONerror("erreur: DT_SW_0", "L'attribution des points a échoué");
 							echo json_encode(["success" => "Le tournoi ".$matchedTournament->getName()." a donc trouvé son vainqueur"]);
 							exit;
 						}
@@ -154,15 +165,20 @@ class detailtournoiController extends template{
 							$this->echoJSONerror("erreur: DT_SW_1", "Impossible de définir le gagnant du tournoi, si le problème persiste veuilez contacter un admin");
 					}
 					else if( is_array($winnerTeamsArr) && count($winnerTeamsArr) > 0 ){
+						// Attribuer les points aux participants du matchs
+						$mpm = new matchParticipantsManager();
+						$allPoints = $this->getPointsToGiveInMatch($m);
+						if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
+							$this->echoJSONerror("erreur: DT_SW_6", "L'attribution des points a échoué");
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
 						exit;
 					}
 					else{
-						$this->echoJSONerror("erreur: DT_SW_2", "Aucune équipe gagnante n'a été trouvée, si le problème persiste veuillez contacter un admin");
+						$this->echoJSONerror("erreur: DT_SW_1", "Aucune équipe gagnante n'a été trouvée, si le problème persiste veuillez contacter un admin");
 					}
 				}
 				else
-					$this->echoJSONerror("erreur: DT_SW_3", "Impossible de définir l'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT)." comme gagnante, si le problème persiste veuillez contacter un admin");
+					$this->echoJSONerror("erreur: DT_SW_2", "Impossible de définir l'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT)." comme gagnante, si le problème persiste veuillez contacter un admin");
 				exit;
 			}
 			else
@@ -233,7 +249,6 @@ class detailtournoiController extends template{
 		}
 		else
 			$this->echoJSONerror("erreur DT_CNM_8", "Ce tournoi a déjà son vainqueur !");
-
 	}
 
 
@@ -545,5 +560,18 @@ class detailtournoiController extends template{
 				}
 			}
 			return false;
+		}
+		/*
+		 ** @params: instanceof tournament, instanceof matchs
+		 ** @returns: (array) [(int), (int)]
+		 ** #### Calcule les points à attribuer aux vainqueurs et aux perdants d'un match
+		*/
+		private function getPointsToGiveInMatch(matchs $m, $isFinal = false){
+			$coeff = ((int) $m->getMatchNumber() + ((int) $m->gtAllTeamsTournament() - 1)) / 5;
+			if($isFinal)
+				$coeff *= 2;
+			$winnerPoints = (int) (5 + 5*$coeff);
+			$losersPoints = (int) (1 + 1*$coeff);
+			return ['winner' => $winnerPoints, 'loser' => $losersPoints];
 		}
 }

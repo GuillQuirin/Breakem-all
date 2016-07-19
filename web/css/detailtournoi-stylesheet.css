@@ -24,7 +24,7 @@
 
 body {
 	line-height: 1;
-	background: #201B3A;	
+	background: #130e2f;	
 	font-family: lato, sans-serif;
 	color: #fff;
 }
@@ -37,7 +37,9 @@ section:nth-child(even){
 section:hover{
 	background: rgba(255, 255, 255, 0.05);
 }
-
+.detailtournoi{
+	padding: 20px 0;
+}
 .detailtournoi h3{
 	margin-top: 20px;
 	display: inline-block;
@@ -96,6 +98,7 @@ section:hover{
 	.detailtournoi-description-jeu{
 		margin: 0 auto;
 		margin-top: 20px;
+		text-align:center;
 	}
 	.detailtournoi-tournoi-regles{	
 		flex-direction: column;
@@ -144,6 +147,14 @@ section:hover{
 	.detailtournoi-tournoi-regles p span.relative:hover i:after{
 		content: attr(data-title);
 	}
+/* ################## DESCRIPTION TOURNOI ##################### */
+.detailtournoi-tournament-description{
+	margin-top: 20px;
+}
+.detailtournoi-tournament-description p{
+	margin-top: 10px;
+	letter-spacing: 2px;
+}
 /* #################  EQUIPE GAGNANTE ################## */
 .detailtournoi-winner{
 	padding-bottom: 20px;

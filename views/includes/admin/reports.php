@@ -17,6 +17,7 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
+					echo "<div class='grid-md-4 overflow-hidden hidden'><div class='admin-data-ihm-elem'><span class='report-accuseId-g'>" . $signalement->getId_signaled_user() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-subject-g'>" . $signalement->getSubject() . "</span></div></div>";

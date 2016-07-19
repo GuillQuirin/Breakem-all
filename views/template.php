@@ -156,8 +156,10 @@
 
 					<!-- MENU TOGGLE -->
 					<div class="grid-md-12 hidden-md hidden-lg navbar-menu">
-						<?php echo '<img id="navbar-toggle-logo" src="'. WEBPATH . '/web/img/logo-nb-title.png">';?>
-						<?php echo '<img id="navbar-toggle" src="'. WEBPATH . '/web/img/icon/icon-menu.png">';?>
+						<a href="<?php echo WEBPATH.'/index'; ?>">
+							<img id="navbar-toggle-logo" src="<?php echo WEBPATH.'/web/img/logo-nb-title.png'; ?>">
+						</a>
+						<img id="navbar-toggle" src="<?php echo WEBPATH.'/web/img/icon/icon-menu.png'; ?>">
 					</div>
 					<!-- FIN MENU TOGGLE -->
 
@@ -215,7 +217,9 @@
 			<?php (isset($_isConnected)) ? : include("views/includes/visitor/navbar-form.php");?>
 
 		</header>
-
+		<div id="breakemall-javascript-required" class="fixed full-height full-width bg-purple display-flex-column">
+			<p class="m-a text-center title title-3 border-full">Activez javascript pour profiter du site au maximum</p>
+		</div>
 		<div class="search-page hidden-fade hidden">
 			<div class="container m-a">
 				<div class="grid-md-12">
@@ -246,6 +250,8 @@
 			<?php include $this->view; ?>
 		</div>
 
+		<!-- Footer des pages -->
+		<footer class="relative">
 		<section id="wrapperAdmin">
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
@@ -258,9 +264,6 @@
 				<input type="submit" id="btn_contactAdmin" value="Envoyer">
 			</div>
 		</section>
-
-		<!-- Footer des pages -->
-		<footer class="relative">
 		<div class="footer">
 		    <div class="footer_wrap display-flex-row">
 		        <div class="footer_content m-a display-flex-column">

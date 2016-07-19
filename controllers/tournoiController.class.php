@@ -64,7 +64,7 @@ class tournoiController extends template {
 				$matchsManager = new matchsManager();
 				$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
 				// S'il y a des matchs
-				if(!!$allMatchs){
+				if(!!$allMatchs && $allMatchs != "none"){
 					$ttm = new teamtournamentManager();
 					$rm = new registerManager();
 					foreach ($allMatchs as $key => $m) {
@@ -277,46 +277,46 @@ class tournoiController extends template {
 			$closedToUserTournaments = [];
 			$ownedTournaments = [];
 			$joinedTournament = [];
-			if(!!$matchedTournaments){
-				foreach ($matchedTournaments as $key => $t) {
-					$filledT = $this->getFullyAlimentedTournament($t, false);
-					if($t->getIdUserCreator() == $this->getConnectedUser()->getId()){
-						if(!!$filledT)
-							$ownedTournaments[] = $filledT;
-						else
-							$ownedTournaments[] = $t;
-					}
-					else{
-						if($filledT instanceof tournament){
-							if($filledT->isUserRegistered($this->getConnectedUser())){
-								echo "PUTAIN DE MERDE IL EST DEJA INSCRIT FDP";
-								$joinedTournament[] = $filledT;
-							}
-							else{
-								$matchedTournaments[$key] = $filledT;
-								if(canUserRegisterToTournament($this->getConnectedUser(), $filledT, true))
-									$userCanRegisterTournaments[] = $filledT;
-								else
-									$closedToUserTournaments[] = $filledT;
-							}							
+			if(!!$matchedTournaments){								
+				if($this->isVisitorConnected()){
+					foreach ($matchedTournaments as $key => $t) {
+						$filledT = $this->getFullyAlimentedTournament($t, false);
+						if($t->getIdUserCreator() == $this->getConnectedUser()->getId()){
+							if(!!$filledT)
+								$ownedTournaments[] = $filledT;
+							else
+								$ownedTournaments[] = $t;
 						}
 						else{
-							// Bcp moins précis
-							if(canUserRegisterToTournament($this->getConnectedUser(), $t))
-								$userCanRegisterTournaments[] = $t;
-							else
-								$closedToUserTournaments[] = $t;
+							if($filledT instanceof tournament){
+								if($filledT->isUserRegistered($this->getConnectedUser())){
+									$joinedTournament[] = $filledT;
+								}
+								else{
+									$matchedTournaments[$key] = $filledT;
+									if(canUserRegisterToTournament($this->getConnectedUser(), $filledT, true))
+										$userCanRegisterTournaments[] = $filledT;
+									else
+										$closedToUserTournaments[] = $filledT;
+								}							
+							}
+							else{
+								// Bcp moins précis
+								if(canUserRegisterToTournament($this->getConnectedUser(), $t))
+									$userCanRegisterTournaments[] = $t;
+								else
+									$closedToUserTournaments[] = $t;
+							}
 						}
 					}
 				}
-				// var_dump($joinedTournament);
 				$v->assign("joinedTournament", $joinedTournament);
 				$v->assign("ownedTournaments", $ownedTournaments);
 				$v->assign("userCanRegisterTournaments", $userCanRegisterTournaments);
-				$v->assign("closedToUserTournaments", $closedToUserTournaments);
-				$v->assign("tournois", $matchedTournaments);
+				$v->assign("closedToUserTournaments", $closedToUserTournaments);				
 			}
-				
+			$v->assign("tournois", $matchedTournaments);
+			// var_dump($matchedTournaments);
 		}
 		$v->setView("tournamentslist");
 	}

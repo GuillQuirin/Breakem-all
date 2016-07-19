@@ -5,7 +5,7 @@
 	--> ajouter votre fonction à appeler de la sorte:
 		--> si c'est une méthode d'objet 
 			initAll.add(votre_objet.sa_methode)   
-			/!\ oui, oON NE MET PAS la parenthèse c'est normal
+			/!\ oui, ON NE MET PAS la parenthèse c'est normal
 		--> si c'est une fonction générale
 			initAll.add(votre_fonction)   
 			/!\ oui, ON NE MET PAS la parenthèse c'est normal
@@ -29,13 +29,11 @@ var initAll = {
 		}
 	}
 }
-
 function isElSoloJqueryInstance(el){
 	if(el.length == 1 && el instanceof jQuery)
 		return true;
 	return false;
 }
-
 /**
 *
 * Envoi l'image en ajax au controlleur
@@ -74,8 +72,6 @@ function uploadImage(myController, data) {
        alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
     }   
 }
-
-
 //Preview de l'image avant upload
 function previewUpload(input, targetSrc) {
 
@@ -89,13 +85,10 @@ function previewUpload(input, targetSrc) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
 //Check si un mot existe a l'intérieur d'une chaine et renvoi un bool
 function wordInString(s, word){
     return new RegExp( '\\b' + word + '\\b', 'i').test(s);
 }
-
-
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -125,7 +118,6 @@ function tryParseData(rawData){
 	}
 	return false;
 }
-
 // Function ajax de flemmard 
 function ajaxRequest(url, type, callback){
 	
@@ -167,7 +159,6 @@ function ajaxRequest(url, type, callback){
 		console.log("Params vide sur dataShow()");
 	}	
 }
-
 function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 	if(url && type && callback){
 		if(Object.keys(toSendData).length > 0){
@@ -209,7 +200,6 @@ function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 		console.log("Params vide sur ajaxWithDataRequest()");
 	}
 }
-
 function adaptMarginToNavHeight(jQel){
 	if(jQel instanceof jQuery){
 		var navHeight = $("#navbar").height();
@@ -218,7 +208,6 @@ function adaptMarginToNavHeight(jQel){
 	else
 		console.log("Pas reçu du dom dans adaptMarginToNavHeight");	
 }
-
 // index-creation-compte-terminee-divtodelete
 function checkForJustCreatedAccount(){
 	var div = $('#index-creation-compte-terminee-divtodelete'); 
@@ -227,7 +216,6 @@ function checkForJustCreatedAccount(){
 		popup.init("Le compte " + data + " a bien été activé");
 	}
 }
-
 // Recuperation du webpath du server
 var webpath = {
 	init: function(){
@@ -247,7 +235,6 @@ var webpath = {
 		}
 	}
 };
-
 var scroll = {
 	init : function(clickSelector, sectionSelector){
 		if(clickSelector instanceof jQuery && sectionSelector){
@@ -273,7 +260,6 @@ var scroll = {
     	}
 	}
 };
-
 // Suffira d'envoyer une string à popup.init et l'ob se chargera du reste 
 var popup = {
 	openedPopupModal: false,
@@ -345,7 +331,6 @@ var popup = {
 		});
 	}
 };
-
 var navbar = {
     init: function(){
     	navbar.setNavbarEl();
@@ -578,7 +563,6 @@ var navbar = {
 		});
     }
 };
-
 var inscription = {
 	init: function(){
 		inscription.setFormToWatch();
@@ -802,6 +786,9 @@ var inscription = {
 				&& inscription.isBirthValid()
 				&& inscription.isCguAccepted()
 			) {
+				var modalLog = $('.index-modal-login');
+				if(isElSoloJqueryInstance(modalLog))
+					modalLog.click();
 				ajaxWithDataRequest(
 					'index/inscription', 
 					'POST', 
@@ -832,7 +819,6 @@ var inscription = {
 		});
 	}
 };
-
 var connection = {
 	init: function(){
 		connection.setFormToWatch();
@@ -860,7 +846,7 @@ var connection = {
 	},
 	highlightInput: function(jQinput){
 		jQinput.addClass('failed-input');
-		jQinput.val('');
+		// jQinput.val('');
 		jQinput.focus();
 		connection.removeFailAnimationEvent(jQinput);
 	},
@@ -868,19 +854,11 @@ var connection = {
 		if(obj != false){
 			if(obj.connected){
 				location.reload();
-			}
-			else{
-				connection.highlightInput(connection._email);
-				connection.highlightInput(connection._password);
-				if(obj.errors.inputs){
-					// missing input !
-					alert("you are missing an input");
-				}
-				else if(obj.errors.user){
-					// email and pass don't match OU BAN
-					alert(obj.errors.user);
-				}
-			}
+				return;
+			};
+			if(obj.errors){
+				popup.init(obj.errors);
+			};
 		}		
 	},
 
@@ -954,8 +932,6 @@ var deconnection = {
 		});
 	}
 };
-
-
 var cookie = {
 	init : function(){
 		cookie.setBtnCookie();
@@ -989,8 +965,6 @@ var cookie = {
 		});
 	}	
 };
-
-
 var contactadmin = {
 	init : function(){
 		contactadmin.clickFadeInEvent();
@@ -1052,7 +1026,14 @@ var contactadmin = {
 		});
 	}
 };
+function removeRequireJSMsg(){
+	let jsWarning = $('#breakemall-javascript-required');
+	if(isElSoloJqueryInstance(jsWarning))
+		jsWarning.remove();
+}
 
+
+initAll.add(removeRequireJSMsg);
 initAll.add(navbar.scrollTopDefault);
 initAll.add(connection.init);
 initAll.add(navbar.init);

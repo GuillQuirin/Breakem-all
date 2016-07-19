@@ -66,7 +66,7 @@
 			      		<ul>
 			      			<li class="hover-none">
 					        	<a href="<?php echo WEBPATH.'/index'; ?>" class="navbar-logo">
-				      				<img src="web/img/logo-nb-title.png">
+				      				<img src="<?php echo WEBPATH.'/web/img/logo-nb-title.png'; ?>">
 				      			</a>
 			      			</li>		   				     
 				        </ul>
