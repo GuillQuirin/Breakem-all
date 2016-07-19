@@ -1,0 +1,14 @@
+.bg-cover-mestournois{    
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/bg-mestournois.jpg) center no-repeat;
+    margin:0;    
+    -webkit-background-size: cover; 
+    background-size: cover;     
+}
+
+.mestournois-title-container{
+	margin-right:0 !important;
+}
+
+.mestournois-title-container h1{
+	margin-right: 0 !important;
+}
