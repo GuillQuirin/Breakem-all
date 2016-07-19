@@ -83,11 +83,11 @@
 					<table border=0>
 						<tr>
 							<td>Nom : </td>
-							<td><input class="input-default nameteam" type="text" name="name" min='5' max='30' placeholder='Nom entre 5 et 30 caractères.' value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>" required></td>
+							<td><input class="input-default nameteam" type="text" name="name" min='2' max='30' placeholder='Nom entre 2 et 30 caractères.' value="<?php if(isset($err_name)){echo $_SESSION['err_name'];} ?>" required></td>
 						</tr>
 						<tr>
 							<td>Description : </td>
-							<td><textarea  class="desc-default" rows="3" name="description" value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
+							<td><textarea  class="desc-default" rows="3" name="description" placeholder='Description entre 3 et 200 caractères.' value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
 						</tr>
 						<tr>
 							<td>Image : </td>
@@ -95,7 +95,7 @@
 						</tr>
 						<tr>
 							<td>Slogan : </td>
-							<td><input class="input-default" type="text" name="slogan"></td>
+							<td><input class="input-default" type="text" name="slogan" placeholder='Slogan'></td>
 						</tr>
 						<tr>
 							<td colspan=2>

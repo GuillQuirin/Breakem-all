@@ -257,13 +257,15 @@
 		<section id="wrapperAdmin">
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
-				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
-				<p>Votre adresse email : <input type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
-				Contenu du message: <textarea id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				<p >Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
+				<p>Votre adresse email : <input class="input-default " type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
+				Contenu du message: <textarea class="desc-default" id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 				</textarea>
 				<p class="sendOk">Votre message a correctement été envoyé</p>
 				<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
-				<input type="submit" id="btn_contactAdmin" value="Envoyer">
+				<button class="btn btn-pink" type="submit" id="btn_contactAdmin" value="Envoyer">
+					<a>Envoyer</a>
+				</button>
 			</div>
 		</section>
 		<div class="footer">

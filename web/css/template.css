@@ -101,24 +101,50 @@ footer{
 #wrapperAdmin{
     display: none;
     position: fixed;
-    top: 25%;
-    background-color: #27073A;
+    top: 20%;
+    background-color: rgba(8, 3, 37, 1);
     width: 50%;
     left: 25%;
-    height: 200px;
+    height: 260px;
     color: white;
     z-index: 5;
-    border: 13px #511071 solid;
-    padding: 20px;
+
+    padding: 30px;
     font-size: 15px;
 }
 
 #wrapperAdmin textarea{
     width: 85%;
     height: 50px;
-    vertical-align: middle; 
+    vertical-align: middle;
 }
 
+.input-default {
+    width: 50px;
+    padding: 8px 25px;
+    margin: 16px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    transform: skew(-8deg);
+    background-color: #211d3b;
+    transition: background .4s, border .4s;
+    border: 0;
+    color: white;
+}
+
+.desc-default {
+    width: 50%;
+    padding: 8px 25px;
+    display: inline-block;
+    box-sizing: border-box;
+    transform: skew(-8deg);
+    background-color: #211d3b;
+    transition: background .4s, border .4s;
+    border: 0;
+    color: white;
+    margin-bottom: 3%;
+
+}
 
 header{
     display:table;
@@ -401,3 +427,53 @@ display:block;
 .loadGIF img{
     max-width: 100%;
 }*/
+
+@media screen and (max-width: 670px) {
+    #wrapperAdmin{
+        display: none;
+        position: fixed;
+        top: 15%;
+        background-color: rgba(8, 3, 37, 1);
+        width: 40%;
+        left: 25%;
+        height: 250px;
+        color: white;
+        z-index: 5;
+
+        padding: 20px;
+        font-size: 9px;
+    }
+
+    #wrapperAdmin textarea{
+        width: 85%;
+        height: 50px;
+        vertical-align: middle;
+    }
+
+    .input-default {
+        width: 100%;
+        padding: 8px 25px;
+        margin: 16px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        transform: skew(-8deg);
+        background-color: #211d3b;
+        transition: background .4s, border .4s;
+        border: 0;
+        color: white;
+    }
+
+    .desc-default {
+        width: 100%;
+        padding: 8px 25px;
+        display: inline-block;
+        box-sizing: border-box;
+        transform: skew(-8deg);
+        background-color: #211d3b;
+        transition: background .4s, border .4s;
+        border: 0;
+        color: white;
+        margin-bottom: 15px;
+
+    }
+}
