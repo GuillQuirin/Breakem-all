@@ -64,7 +64,7 @@ class tournoiController extends template {
 				$matchsManager = new matchsManager();
 				$allMatchs = $matchsManager->getMatchsOfTournament($matchedTournament);
 				// S'il y a des matchs
-				if(!!$allMatchs){
+				if(!!$allMatchs && $allMatchs != "none"){
 					$ttm = new teamtournamentManager();
 					$rm = new registerManager();
 					foreach ($allMatchs as $key => $m) {
