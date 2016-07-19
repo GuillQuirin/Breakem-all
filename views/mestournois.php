@@ -14,7 +14,7 @@
 	<div class="container m-a content-border team-container">
 
 		<div class="row team-content-row">
-
+			<span class="hidden t-user-g"><?php echo $_pseudo?></span>
 		</div>
 		
 	</div>
