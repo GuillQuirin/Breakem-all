@@ -786,6 +786,7 @@ var inscription = {
 				&& inscription.isBirthValid()
 				&& inscription.isCguAccepted()
 			) {
+				var modalLog = $('.index-modal-login');
 				if(isElSoloJqueryInstance(modalLog))
 					modalLog.click();
 				ajaxWithDataRequest(
