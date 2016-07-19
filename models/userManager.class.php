@@ -18,12 +18,11 @@ class userManager extends basesql{
 				FROM user u
 				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
 				LEFT OUTER JOIN team t ON rt.idTeam = t.id";
-		$sql .= " INNER JOIN register r ";
+		$sql .= " LEFT OUTER JOIN register r ";
 		$sql .= " ON r.idUser = u.id ";
-		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= "WHERE u.email =  :email";
-
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $user->getEmail()
@@ -92,9 +91,9 @@ class userManager extends basesql{
 				FROM user u
 				LEFT OUTER JOIN rightsteam rt ON rt.idUser = u.id
 				LEFT OUTER JOIN team t ON rt.idTeam = t.id";
-		$sql .= " INNER JOIN register r ";
+		$sql .= " LEFT OUTER JOIN register r ";
 		$sql .= " ON r.idUser = u.id ";
-		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= " WHERE u.email =  :email AND u.status > 0";
 
@@ -211,9 +210,9 @@ class userManager extends basesql{
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam, SUM(mp.points) as totalPoints
 					FROM ".$this->table." u
 					LEFT OUTER JOIN team t ON u.idTeam = t.id";
-		$sql .= " INNER JOIN register r ";
+		$sql .= " LEFT OUTER JOIN register r ";
 		$sql .= " ON r.idUser = u.id ";
-		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= "WHERE u.status<>0 AND " . implode(',', $data);
 
@@ -257,9 +256,9 @@ class userManager extends basesql{
 						u.rss, u.authorize_mail_contact, u.token, t.name as nameTeam, SUM(mp.points) as totalPoints
 					FROM ".$this->table." u
 					LEFT OUTER JOIN team t ON u.idTeam = t.id";
-		$sql .= " INNER JOIN register r ";
+		$sql .= " LEFT OUTER JOIN register r ";
 		$sql .= " ON r.idUser = u.id ";
-		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= "WHERE u.status>0
 						GROUP BY u.id";
@@ -284,9 +283,9 @@ class userManager extends basesql{
 					FROM user 
 					LEFT JOIN signalmentsuser 
 							ON user.id = signalmentsuser.id_signaled_user";
-		$sql .= " INNER JOIN register r ";
+		$sql .= " LEFT OUTER JOIN register r ";
 		$sql .= " ON r.idUser = u.id ";
-		$sql .= " INNER JOIN matchparticipants mp ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= " GROUP BY user.id";
 
