@@ -1,3 +1,7 @@
+#content{
+	min-height: 480px;
+}
+
 .tournamentslist-tournoi-element .btn{
 	max-width: 180px;
 	margin-top: 5px;
