@@ -30,6 +30,17 @@
     position: relative;
     text-align: center;
     font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.smallbtn{
+    width:80px;
+    height:30px;
 }
 
 .header-info{
@@ -176,6 +187,47 @@
 }
 .popup-comment-edit{
     display: none;
+    position: fixed;
+    top: 50%;
+    text-align: center;
+    background-color: rgba(8, 3, 37, 1);
+    width: 30%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: white;
+    z-index: 100;
+    background: rgba(8, 3, 37, 1);
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 25px;
+    font-family: Roboto !important;
+    font-size: 13px;
+}
+
+.popup-comment-edit textarea{
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+}
+
+@media screen and (max-width: 770px) {
+    .popup-comment-edit{
+        display: none;
+        position: fixed;
+        top: 50%;
+        background-color: rgba(8, 3, 37, 1);
+        width: 30%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        color: white;
+        z-index: 100;
+        background: rgba(8, 3, 37, 1);
+        font-size: 15px;
+        border-radius: 5px;
+        padding: 30px;
+        font-family: Roboto !important;
+        font-size: 13px;
+    }
 }
 
 .popup-contain h2{

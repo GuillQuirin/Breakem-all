@@ -159,14 +159,15 @@ class teamController extends template{
             define('GB', 1073741824);
             define('TB', 1099511627776);
 
+            $allowed =  array('gif','png' ,'jpg', 'jpeg');
+            $ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+            
             if ($_FILES['img']['size'] < 1 * MB) {
-                if ($_FILES['img']['error'] == 0) {
-
-                    if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
-                        die("Erreur d'upload");
+                if ($_FILES['img']['error'] == 0 && in_array($ext,$allowed)){
+                    if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
+                        $filteredinputs['img'] = $name;
                 }
             }
-            $filteredinputs['img'] = $name;
         }
 
         $filteredinputs['id_user_creator'] = $this->connectedUser->getId();

@@ -2,9 +2,8 @@
 <section class="low-height bg-cover-team relative">
     <div class="align full-height">
         <div class="align full-height animation fadeLeft">
-            <div class="header-title admin-header-title border-full relative creationtournoi-title-container display-block">                
-                    <h1 class="capitalize title header-title">Choisis ta Team</h1>             
-            </div>  
+			<span class="header-title admin-header-title border-full relative">Choisi ta team</span>
+		</div>
         </div>
     </div>      
 
@@ -88,7 +87,7 @@
 						</tr>
 						<tr>
 							<td>Description : </td>
-							<td><textarea  class="desc-default" rows="3" name="description" placeholder='Description entre 3 et 200 caractères.' value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
+							<td><textarea  class="desc-default" rows="3" name="description" placeholder='Description entre 3 et 200 caractères.' value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>" required></textarea></td>
 						</tr>
 						<tr>
 							<td>Image : </td>

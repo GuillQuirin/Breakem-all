@@ -85,13 +85,14 @@
 							<li class="navbar-menu-li navbar-menu-tournoi">
 								<a class="cursor-default">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
-									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/creationtournoi">
-											Créer 
-										</a>
-									</li>
 									<?php 
 										if(isset($_isConnected)){
+											echo '<li class="navbar-menu-tooltip-li">';
+												echo '<a href="'.WEBPATH.'/creationtournoi">';
+													echo 'Créer';
+												echo '</a>';
+											echo '</li>';
+								
 											echo '<li class="navbar-menu-tooltip-li">';
 												echo "<a href=" . WEBPATH. "/mestournois>Mes tournois</a>";
 											echo "</li>";
@@ -258,9 +259,9 @@
 		<section id="wrapperAdmin">
 			<div>
 				<h4>Contacter les administrateurs du site.</h4>
-				<p >Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
-				<p>Votre adresse email : <input class="input-default " type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail"></p>
-				Contenu du message: <textarea class="desc-default" id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
+				<p>Rappel: Pour signaler un joueur, vous devez le faire depuis sa fiche publique.</p>
+				<p>Votre adresse email : <input class="input-default " type="email" name="expediteur" id="expediteurContactAdmin" placeholder="E-mail" required></p>
+				Contenu du message: <textarea class="desc-default" id="mess_contactAdmin" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site" required>
 				</textarea>
 				<p class="sendOk">Votre message a correctement été envoyé</p>
 				<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>

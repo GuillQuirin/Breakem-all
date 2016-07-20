@@ -21,13 +21,13 @@ else{
                     <tr>
                         <td>Slogan : </td>
                         <td>
-                            <input class="input-default" type="text" name="slogan" value="<?php echo $sloganteam; ?>">
+                            <input class="input-default" type="text" name="slogan" value="<?php if(isset($sloganteam)) echo $sloganteam; ?>">
                         </td>
                     </tr>
                     <tr>
                         <td>Description : </td>
                         <td>
-                            <textarea  class="desc-default" rows="3" name="description" ><?php echo $descripteam; ?></textarea>
+                            <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($descripteam)) echo $descripteam; ?></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@ else{
                         </td>
                     </tr>
                 </table> 
-            <input type="hidden" value="<?php echo $nameteam;?>"name="nameTeam">               
+            <input type="hidden" value="<?php if(isset($nameteam)) echo $nameteam;?>"name="nameTeam">               
             </form>
         </div>
         <div class="popup-fond"></div>
@@ -68,7 +68,7 @@ else{
      <section class="relative align">
         <form action="<?php echo WEBPATH.'/detailteam/updateUserTeam'; ?>" method="POST"> 
             <div class="align relative button-team">
-                <input type="hidden" name="nameTeam" value="<?php echo $nameteam;?>">
+                <input type="hidden" name="nameTeam" value="<?php if(isset($nameteam)) echo $nameteam;?>">
                 <?php 
                     //Si le user n'est pas connecté
                     if(empty($_isConnected)){
@@ -135,7 +135,7 @@ else{
                                 </li>                     
                             </ul>   
                         </div>  
-            <?php 
+            <?php
                     endforeach;
                 endif;
             ?>
@@ -172,7 +172,7 @@ else{
                     endif;
                 ?>
             </div>
-            <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team">
+            <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team break-word">
                 Description de la team : <?php echo $description; ?>
             </div>
 
@@ -288,9 +288,13 @@ else{
     <section class="popup-comment-edit">
         <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
             <input type="hidden" name="id" value="">
-            <textarea name="comment"></textarea>
-            <input type="submit" value="Mettre à jour">
-            <input type="reset" class="cancel" value="Annuler">
+            <p>Editer mon commentaire</p>
+            <textarea name="comment" class="desc-default"></textarea>
+            <button class="btn btn-pink" type="submit" value="Mettre à jour">
+                <a>Mettre à jour</a>
+            </button>
+
+
         </form>
     </section>
         <?php

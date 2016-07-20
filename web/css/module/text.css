@@ -28,6 +28,10 @@
     font-weight: 600;
 }
 
+.break-word{
+	word-wrap: break-word;
+}
+
 .title{
 	color:#ffffff;
 	display: flex;

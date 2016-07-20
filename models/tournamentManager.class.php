@@ -54,18 +54,17 @@ final class tournamentManager extends basesql{
 		p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, 
 		u.pseudo as userPseudo, 
 		(SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered
-		FROM tournament t ";		
+		FROM tournament t 
+		LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id
+		LEFT OUTER JOIN game ga ON ga.id = gv.idGame
+		LEFT OUTER JOIN platform p ON p.id = gv.idPlateform
+		LEFT OUTER JOIN user u ON u.id = t.idUserCreator
+		LEFT OUTER JOIN register r ON r.idTournament = t.id
+		WHERE t.idWinningTeam IS NULL		
+		GROUP BY t.id ORDER BY t.startDate LIMIT 0, ".$nb;
+
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
-		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
-		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
-		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
-		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
-		$sql .= " WHERE t.idWinningTeam IS NULL";		
-		$sql .= " GROUP BY t.id ORDER BY t.startDate LIMIT 0, ".$nb;
-
-
 		$sth = $this->pdo->query($sql);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		if(isset($r[0])){

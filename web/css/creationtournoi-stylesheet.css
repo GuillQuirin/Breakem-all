@@ -293,8 +293,9 @@ p.creationtournoi-random-match{
 	margin-top: 5px;
 }
 .creationtournoi-gameversion-container-form .form-input-group input{
-	margin-top: 15px;
-	height: 25px;
+    margin: 15px auto;
+    height: 25px;
+    width: 50%;
 }
 .creationtournoi-gameversion-container-form .form-input-group textarea{
     resize: none;

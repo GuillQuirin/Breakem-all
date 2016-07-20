@@ -152,6 +152,9 @@ class template{
         $data["connected"] = true;
         $this->connectedUser = $dbUser;
       }
+      else if($dbUser == 0){
+        $this->echoJSONerror("", "Vous devez valider votre compte à l'aide de l'email de confirmation.");
+      }
       else if($dbUser == -1){
         $this->echoJSONerror("", "Vous avez été banni du site.");
       }
