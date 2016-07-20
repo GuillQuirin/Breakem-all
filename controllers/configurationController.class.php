@@ -161,9 +161,12 @@ class configurationController extends template{
 			define('MB', 1048576);
 			define('GB', 1073741824);
 			define('TB', 1099511627776);
+			
+			$allowed =  array('gif','png' ,'jpg', 'jpeg');
+            $ext = pathinfo($_FILES['profilpic']['name'], PATHINFO_EXTENSION);
 
 			if($_FILES['profilpic']['size'] < 3*MB){
-				if($_FILES['profilpic']['error']==0){
+				if($_FILES['profilpic']['error']==0 && in_array($ext,$allowed)){
 					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile)){
 					   $_SESSION['err_img_upload']=1;
 					}
