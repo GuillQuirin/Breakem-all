@@ -21,7 +21,7 @@
 	<div id="contain">
 		<div id="contain_left">
 			<div class="title_index_left">
-				<label for="title">Prochain tournoi</label>
+				<label for="title">Prochains tournois</label>
 			</div>
 			
 			<input type='hidden' id='current_page' />  
