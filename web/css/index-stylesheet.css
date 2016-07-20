@@ -192,6 +192,7 @@ input[name="search"]{
 	text-align: end;
 }
 .title_index_left{
+	text-align: center;
 	width:50%;
 	background-color: #211d3b;
 	transform: skew(-8deg);
