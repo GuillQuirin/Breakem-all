@@ -69,6 +69,10 @@
 									</div>
 									<div class='text_article'>
 										<h2 class="title-4"><?php echo $tournoi->getName(); ?></h2>
+										<?php 
+											if($tournoi->getStatus()===-1)
+												echo '<h3 class="red">VERROUILLE</h3>';
+										?>
 										<div class='tags_article'>
 											<h3><?php echo $tournoi->getDescription(); ?></h3>
 										</div>
