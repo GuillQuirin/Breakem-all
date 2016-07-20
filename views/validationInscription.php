@@ -12,7 +12,7 @@
 				<form id="login-form" method="POST" action="">	
 					<p>Mot de passe perdu ?</p>		    
 				    <label for="email">E-mail :</label>
-				    <input class="input-default" type="text" id="email" name="email">
+				    <input class="input-default" type="email" id="email" name="email" required>
 				    <input type="submit" value="Envoyer">
 				</form>
 			</div>
@@ -29,8 +29,8 @@
 		?>
 			<div style="margin-top:300px;">
 				<form id="login-form" method="POST" action="">			    
-				    <p>Nouveau mot de passe: <input type="password" name="new_password"></p>
-					<p>Resaisir le nouveau mot de passe: <input type="password" name="new_password_check">
+				    <p>Nouveau mot de passe: <input type="password" name="new_password" required></p>
+					<p>Resaisir le nouveau mot de passe: <input type="password" name="new_password_check" required>
 				    <input type="submit" value="Envoyer">
 				</form>
 			</div>

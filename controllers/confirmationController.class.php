@@ -8,6 +8,12 @@ class confirmationController extends template{
             header('Location: '.WEBPATH);
         }*/
         // $this->confirmation();
+        parent::__construct();
+
+        //Si membre déjà authentifié
+        if($this->isVisitorConnected() || ($this->connectedUser && $this->connectedUser->getStatus()>0)){
+            header('Location: ' .WEBPATH.'/index');
+        }
     }
 
 	public function checkAction(){
