@@ -5,7 +5,7 @@ class creationtournoiController extends template{
 	public function __construct(){
 		parent::__construct();
 		if(!($this->isVisitorConnected())){
-			header('Location: ' .WEBPATH.'/index');
+			header('Location: ' .WEBPATH.'/notConnected');
 		}
 	}
 
