@@ -38,6 +38,11 @@
     margin-right: auto;
 }
 
+.smallbtn{
+    width:80px;
+    height:30px;
+}
+
 .header-info{
     font-size:20px;
     color:.ffffff;
@@ -182,6 +187,46 @@
 }
 .popup-comment-edit{
     display: none;
+    position: fixed;
+    top: 25%;
+    background-color: rgba(8, 3, 37, 1);
+    width: 10%;
+    left: 25%;
+    height: 50px;
+    color: white;
+    z-index: 100;
+    background: rgba(8, 3, 37, 1);
+    font-size: 15px;
+    margin-left: 10%;
+    border-radius: 5px;
+    padding: 30px;
+    font-family: Roboto !important;
+    font-size: 13px;
+
+}
+
+@media screen and (max-width: 770px) {
+    .popup-comment-edit{
+        display: none;
+
+        position: fixed;
+
+        top: 25%;
+        background-color: rgba(8, 3, 37, 1);
+        width: 130px;
+        left: 25%;
+        height: 50px;
+        color: white;
+        z-index: 100;
+        background: rgba(8, 3, 37, 1);
+        font-size: 15px;
+        margin-left: 10%;
+        border-radius: 5px;
+        padding: 30px;
+        font-family: Roboto !important;
+        font-size: 13px;
+
+    }
 }
 
 .popup-contain h2{

@@ -289,8 +289,11 @@ else{
         <form action="<?php echo WEBPATH.'/detailteam/editComment'; ?>" method="post">
             <input type="hidden" name="id" value="">
             <textarea name="comment"></textarea>
-            <input type="submit" value="Mettre à jour">
-            <input type="reset" class="cancel" value="Annuler">
+            <button class="btn btn-pink smallbtn" type="submit" value="Mettre à jour">
+                <a>Mettre à jour</a>
+            </button>
+
+
         </form>
     </section>
         <?php
