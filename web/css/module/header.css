@@ -12,7 +12,7 @@
 	width:120px;
 	position:absolute;
 	cursor:pointer;
-	z-index:100;
+	z-index:9;
 	opacity:.4;
 }
 
