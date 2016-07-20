@@ -102,7 +102,10 @@ article{
 	margin: 40px 0;
 }
 .contain_article{
-	width:100%;
+	transform: skew(-8deg);
+	background-color: #211d3d;
+	padding:15px;
+	width:88%;
 	height:100%;
 	position: relative;
 }
@@ -128,8 +131,8 @@ article{
 }
 .date_article{
 	position: absolute;
-	right: 0;
-	top: 50%;
+	right: 50px;
+	top: 20%;
 	transform: translateY(-50%);
 }
 .date_article h3{
@@ -187,6 +190,13 @@ a.previous_link, a.next_link{
 }
 input[name="search"]{
 	text-align: end;
+}
+.title_index_left{
+	width:50%;
+	background-color: #211d3b;
+	transform: skew(-8deg);
+	padding:15px;
+	font-size:17px;
 }
 .title_index{
 	width:88%;

@@ -20,33 +20,8 @@
 <section id="container_index" class="my-content-wrapper">
 	<div id="contain">
 		<div id="contain_left">
-
-			<div class="menu_hori">
-				<ul>
-					<!--<nav class="nav_hori">
-						<ul>-->
-							<!-- Liste des types de game -->
-						 	<!--<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
-							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
-							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
-							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
-							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
-						</ul>
-					</nav>-->
-
-					<li class="tri">
-						<label>Trier par :</label>
-						<div>
-							<?php //echo $tri; ?>
-							<select class="select-default">
-								<option>Tout</option>
-								<option>Jeux</option>
-								<option>Catégorie</option>
-								<option>Meilleur joueur</option>
-							</select>
-						</div>
-					</li>
-				</ul>
+			<div class="title_index_left">
+				<label for="title">Prochain tournoi</label>
 			</div>
 			
 			<input type='hidden' id='current_page' />  
