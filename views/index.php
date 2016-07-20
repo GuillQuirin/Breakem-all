@@ -258,7 +258,7 @@
 </section>
 
 <section id="wrapperCurrentTournament">
-	<h4>Prochain tournoi....</h4>
+	<h4>Prochain tournoi d'organisé:</h4>
 	<div id="contentCurrentTournament">
 
 	</div>

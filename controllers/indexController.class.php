@@ -90,9 +90,12 @@ class indexController extends template{
 		$tournoi = $tournamentBDD->getRecentsTournaments(1)[0];
 
 		if($tournoi){
-			$contenu="<p>Date de début: Le ".date('d/m/Y \à h:i',$tournoi->getStartDate())."</p>";
+			$contenu = "<p>".strtoupper($tournoi->getGameName())."</p>";
+			$contenu.="<p><a href='".WEBPATH."/tournoi?t=".$tournoi->getLink()."'>";
+				$contenu .= "<img class='img-popup' src='".$tournoi->getGameImg()."'>";
+			$contenu .= "</a></p>";
+			$contenu.="<p>Date de début: Le ".date('d/m/Y \à h:i',$tournoi->getStartDate())."</p>";
 			$contenu.="<p>Date de fin: Le ".date('d/m/Y \à h:i',$tournoi->getEndDate())."</p>";
-			$contenu.="<p> <img class='img-popup' src='".$tournoi->getGameImg()."'></p>";
 			echo $contenu;
 		}
 		else

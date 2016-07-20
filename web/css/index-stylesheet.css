@@ -67,12 +67,13 @@
 }
 
 #contentCurrentTournament{
-	margin-left:22%;
+	width: 75%;
+    margin: 25px auto;
+    text-align: center;
 }
 
 .img-popup{
 	max-width: 45%;
-	margin-left:13%;
 	margin-top:5%;
 }
 
@@ -90,16 +91,6 @@
 		padding: 20px;
 		font-size: 13px;
 		margin-right: 20px;
-	}
-
-	#contentCurrentTournament{
-		width:200px;
-		font-size: 0px;
-	}
-
-	.img-popup{
-
-
 	}
 }
 
