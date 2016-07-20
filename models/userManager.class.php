@@ -34,14 +34,16 @@ class userManager extends basesql{
 		if(isset($r[0])){
 			if(count(array_filter($r[0])) === 0)
 				return -2;
-			//Membre non-banni
+			//Membre inscrit et authentifié
 			if((int)$r[0]['status'] > 0){
 				$dbUser = new user($r[0]);
 				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 					return $dbUser;
 			}
-			else if((int)$r[0]['status'] == 0)
+			//Membre en attente de validation
+			else if((int)$r[0]['status'] === 0)
 				return 0;
+			//Membre banni
 			else
 				return -1;
 		}
