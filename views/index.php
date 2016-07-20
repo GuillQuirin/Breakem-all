@@ -68,7 +68,6 @@
 				<ul>
 					<nav class="nav_hori page">
 						<ul id='page_navigation'>
-							
 						</ul>
 					</nav>
 				</ul>
