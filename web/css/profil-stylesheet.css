@@ -251,9 +251,9 @@ body, html{
 
 /*Contenu de la page à droite : recherche, match...*/
 #contain_right{
-    float:right;
-    width:240px;
-    margin-right:8%;
+    float: right;
+    width: 75%;
+    margin-right: 1%;
 }
 
 #contain_search{
