@@ -385,7 +385,7 @@ var gameversionChoice = {
 			form.append(randomAndGuildInputs);
 			gameversionChoice.randomAndGuildInputEvent(randomAndGuildInputs);
 		}
-		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="10"></textarea></div>');
+		form.append('<div class="form-input-group"><label for="description">Une ch\'tite description ?</label><textarea class="border-full" name="description" maxlength="250" minlength="4"></textarea></div>');
 		var valid = $('<div class="creationtournoi-validation-container display-flex-column "></div>');
 		gameversionChoice._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
 		valid.append(gameversionChoice._btn);
@@ -461,7 +461,7 @@ var gameversionChoice = {
 			|| jQel.val().length < 8
 			|| jQel.val().length > 50){
 			inscription.highlightInput(jQel);
-			popupError.init("Le nom du tournoi doit être compris entre 8 et 49 caractères et ne contenir que des caractères alphanumériques (accents compris), espaces et/ou tirets.");
+			popupError.init("Le nom du tournoi doit être compris entre 8 et 49 caractères  alphanumériques (accents compris)");
 			return false;
 		}
 		return true;
@@ -481,12 +481,10 @@ var gameversionChoice = {
 			jQel[0].value = "";
 			return true;
 		}
-		var unauthorizedChars = /[^a-zA-Z-0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/;
-		if(jQel.val().match(unauthorizedChars)
-			|| jQel.val().length < 4
+		if(jQel.val().length < 4
 			|| jQel.val().length > 250){
 			inscription.highlightInput(jQel);
-			popupError.init("Votre description, si vous voulez en mettre une, doit faire entre 4 et 250 caractères et ne contenir que des caractères alphanumériques, signes de ponctuations (. , ! ?) ou signe =");
+			popupError.init("Votre description, si fournie, doit faire entre 4 et 250 caractères");
 			return false;
 		}
 		return true;
@@ -557,9 +555,9 @@ var gameversionChoice = {
 			if (!!gameversionChoice.getChoice() && !!gameversionChoice.getChoiceDat() && gameversionChoice.checkForm()){
 				var form = gameversionChoice._currentForm;
 				var toSend = {};
-				toSend.name = form.find('input[name="name"]').val();		
+				toSend.name = form.find('input[name="name"]').val().replace(/(<([^>]+)>)/ig,"");		
 				toSend.startDate = form.find('input[name="startDate"]').val();
-				toSend.description = form.find('textarea[name="description"]').val();
+				toSend.description = form.find('textarea[name="description"]').val().replace(/(<([^>]+)>)/ig,"");
 				var joueursParEquipe = gameversionChoice.getChoiceDat().maxPlayerPerTeam;
 				if (joueursParEquipe > 1){
 					toSend.randomPlayerMix = form.find('input[name="randomPlayerMix"]')[0].checked;
