@@ -188,44 +188,45 @@
 .popup-comment-edit{
     display: none;
     position: fixed;
-    top: 25%;
+    top: 50%;
+    text-align: center;
     background-color: rgba(8, 3, 37, 1);
-    width: 10%;
-    left: 25%;
-    height: 50px;
+    width: 30%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     color: white;
     z-index: 100;
     background: rgba(8, 3, 37, 1);
     font-size: 15px;
-    margin-left: 10%;
     border-radius: 5px;
-    padding: 30px;
+    padding: 25px;
     font-family: Roboto !important;
     font-size: 13px;
+}
 
+.popup-comment-edit textarea{
+    width: 80%;
+    margin: 20px auto;
+    display: block;
 }
 
 @media screen and (max-width: 770px) {
     .popup-comment-edit{
         display: none;
-
         position: fixed;
-
-        top: 25%;
+        top: 50%;
         background-color: rgba(8, 3, 37, 1);
-        width: 130px;
-        left: 25%;
-        height: 50px;
+        width: 30%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
         color: white;
         z-index: 100;
         background: rgba(8, 3, 37, 1);
         font-size: 15px;
-        margin-left: 10%;
         border-radius: 5px;
         padding: 30px;
         font-family: Roboto !important;
         font-size: 13px;
-
     }
 }
 
