@@ -226,6 +226,8 @@ body, html{
     position:relative;
 }
 
+
+
 .configuration-header-profil-right{
     position:absolute;
     right:-170px;
@@ -391,22 +393,85 @@ hr{
 #formplainte, #formcontact{
     display: none;
     position: fixed;
+
     top: 25%;
-    background-color: #27073A;
-    width: 50%;
+    background-color: rgba(30, 3, 37, 1);
+    width: 40%;
     left: 25%;
-    height: 200px;
+    height:250px;
     color: white;
-    z-index: 5;
-    border: 13px #511071 solid;
-    padding: 20px;
+    z-index: 100;
+    background: rgba(8, 3, 37, 1);
     font-size: 15px;
+    margin-left: 5%;
+    border-radius: 5px;
+    padding: 30px;
+    font-family: Roboto !important;
+    font-size: 15px;
+
 }
 #formplainte textarea, #formcontact textarea{
     width: 85%;
     height: 50px;
-    vertical-align: middle; 
+    vertical-align: middle;
+    margin-bottom:5%;
+    margin-left:6%;
+
 }
+
+.lisignal{
+    margin-top:5%;
+    margin-bottom:2%;
+}
+
+#mess_contact{
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+@media screen and (max-width: 770px) {
+    #formplainte, #formcontact{
+        display: none;
+        position: fixed;
+
+        top: 25%;
+        background-color: rgba(30, 3, 37, 1);
+        width: 40%;
+        left: 25%;
+        height:200px;
+        color: white;
+        z-index: 100;
+        background: rgba(8, 3, 37, 1);
+        font-size: 15px;
+        margin-left: ;
+        border-radius: 5px;
+        padding: 30px;
+        font-family: Roboto !important;
+        font-size: 12px;
+
+    }
+
+    .fontnone{
+        font-size:0px;
+    }
+
+    #formplainte textarea, #formcontact textarea{
+        width: 85%;
+        height: 50px;
+        vertical-align: middle;
+        margin-bottom:7%;
+        margin-left:6%;
+
+    }
+
+    .lisignal{
+        margin-top:3px;
+        margin-bottom:3px;
+    }
+
+
+}
+
 
 .unfound_user{
     position: relative;

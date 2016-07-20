@@ -225,31 +225,35 @@ else{
 
 <section id="formplainte">
 	<div>
-		<h4>Signaler un joueur</h4>
+		<h4 class="fontnone">Signaler un joueur</h4>
 		<ul>
-			<li>Vous trouvez que ce joueur ne respecte pas les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> ?
-			<li>Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
-			<li>Selectionnez la raison de votre signalement:
+			<li class="fontnone">Vous trouvez que ce joueur ne respecte pas les <a href="<?php echo WEBPATH.'/CGU'; ?>" target="_blank">Conditions Générales</a> ?
+			<li class="fontnone">Vous pouvez avertir les administrateurs qui se chargeront d'étudier votre signalement.
+			<li class="lisgnal">Selectionnez la raison de votre signalement:
 				<input type="text" id="suj_plainte" name="subject" required>
 		</ul>
-		<p>
+		<p class="lisignal">
 			Veuillez justifier votre plainte (obligatoire):
 		</p>
 		<textarea id="mess_plainte" name="description" required></textarea>
 		<p class="sendOk">Votre message a correctement été envoyé</p>
 		<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
-		<input type="submit" id="btn_plainte" value="Envoyer">
+		<button class="btn btn-pink index-header-btn-pink-width" type="button" id="btn_plainte" >
+			<a>Envoyer</a>
+		</button>
 	</div>
 </section>
 <section id="formcontact">
 	<div>
-		<h4>Contacter le joueur</h4>
-		<p>Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
+		<h4 id="titrecontact">Contacter le joueur</h4>
+		<p id="mess" >Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
 		<textarea id="mess_contact" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
 		</textarea>
 		<p class="sendOk">Votre message a correctement été envoyé</p>
 		<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
-		<input type="submit" id="btn_contact" value="Envoyer">
+		<button class="btn btn-pink" type="submit" id="btn_contact" value="Envoyer">
+			<a>Envoyer</a>
+		<button>
 	</div>
 </section>
 	<?php
