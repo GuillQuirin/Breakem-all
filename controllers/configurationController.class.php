@@ -202,7 +202,7 @@ class configurationController extends template{
 		    if(isset($filteredinputs['new_password']) && isset($filteredinputs['new_password_check'])
 		    	&& !empty($filteredinputs['new_password']) && !empty($filteredinputs['new_password_check'])){
 		    	
-		    	if(strlen($filteredinputs['new_password'])<2 || strlen($filteredinputs['new_password'])>15)
+		    	if(strlen($filteredinputs['new_password'])<6)
 			      $_SESSION['fail_password']=1; 
 			  	else
 			  		$filteredinputs['password']=ourOwnPassHash($filteredinputs['new_password']);

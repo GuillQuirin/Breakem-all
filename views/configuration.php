@@ -58,7 +58,7 @@
 								echo '<tr class="error text-center"><td colspan="2">Cette adresse email est déjà utilisée</td></tr>';
 
 							if(isset($fail_password))
-								echo '<tr class="error text-center"><td colspan="2">Le nouveau mot de passe doit faire entre 2 et 15 caractères</td></tr>';
+								echo '<tr class="error text-center"><td colspan="2">Le nouveau mot de passe doit faire au moins 6 caractères</td></tr>';
 
 							if(isset($empty_password))
 								echo '<tr class="error text-center"><td colspan="2">Veuillez saisir votre mot de passe pour toute modification.</td></tr>';
