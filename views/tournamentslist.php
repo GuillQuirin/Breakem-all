@@ -19,7 +19,6 @@
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
-	
 	<?php if (isset($ownedTournaments)): ?>
 		<section class="tournamentslist-tournoi-owner display-flex-column">
 			<?php if (count($ownedTournaments) > 1): ?>
@@ -181,7 +180,7 @@
 			<?php endforeach; ?>
 		</div>		
 	<?php endif ?>
-	<?php if (!isset($_isConnected)): ?>
+	<?php if (!isset($_isConnected) || (isset($tournois) && ((!isset($userCanRegisterTournaments) || !isset($closedToUserTournaments) || !isset($joinedTournament)) )) ): ?>
 		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column m-a">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center"><!--
 			--><?php if (count($tournois) > 1): ?><!--
