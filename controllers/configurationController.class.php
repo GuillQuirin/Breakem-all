@@ -154,8 +154,9 @@ class configurationController extends template{
 		//IMAGE DE PROFIL
 
 		if(isset($_FILES['profilpic'])){
-
-			$uploadfile = getcwd().'/web/img/upload/membre/'.$this->getConnectedUser()->getPseudo().'.jpg';
+		
+			$uploadfile = ($_SERVER['SERVER_NAME'] == 'localhost') ? getcwd().WEBPATH : LOCALPATH;
+			$uploadfile .= '/web/img/upload/membre/'.$this->getConnectedUser()->getPseudo().'.jpg';
 
 			define('KB', 1024);
 			define('MB', 1048576);
