@@ -88,7 +88,7 @@
 									<?php 
 										if(isset($_isConnected)){
 											echo '<li class="navbar-menu-tooltip-li">';
-												echo '<a href="<?php echo WEBPATH; ?>/creationtournoi">';
+												echo '<a href="'.WEBPATH.'/creationtournoi">';
 													echo 'Créer';
 												echo '</a>';
 											echo '</li>';
