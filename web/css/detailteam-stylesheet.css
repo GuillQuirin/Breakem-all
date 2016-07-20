@@ -30,6 +30,12 @@
     position: relative;
     text-align: center;
     font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .header-info{

@@ -198,24 +198,30 @@ body, html{
 .configuration-header-profil-name{
     font-size:25px;
     font-weight: 600;
-    padding:15px;
+    padding:10px;
+    text-align: center;
 }
 
 .configuration-header-profil-name:first-letter {
     text-transform: uppercase;
 }
 
+.configuration-header-profil-description{
+    height: 50%;
+}
+
 .configuration-header-profil-description, .configuration-header-profil-lastconnexion{
-    font-size:13px;
-    padding:15px;
-    color:rgba(255,255,255,.5);
+    font-size: 13px;
+    padding: 5px 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+    word-wrap: break-word;
 }
 
 .configuration-header-profil-contain-desc{
     width: 100%;
+    height: 100%;
 }
 
 .configuration-header-profil-left{
