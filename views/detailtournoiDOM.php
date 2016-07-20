@@ -112,7 +112,7 @@
 					<p class="relative detailtournoi-jeu-date">Quand : 
 						<span><?php echo date('d-m-Y',$tournoi->getStartDate());?></span>
 					</p>
-					<p class="relative detailtournoi-jeu-organisateur">Orga : 
+					<p class="relative detailtournoi-jeu-organisateur">Organisateur : 
 						<span class="uppercase"><a href="<?php echo WEBPATH. '/profil?pseudo=' . $tournoi->getUserPseudo(); ?>"><?php echo $tournoi->getUserPseudo(); ?></a></span>
 					</p>
 				</div>

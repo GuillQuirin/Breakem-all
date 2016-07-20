@@ -367,7 +367,7 @@ display:block;
         border-color: #D92B4C;
         background-color:rgba(8,3,37,1);
         border-width: 4px;
-        max-width: 220px;
+        max-width: 300px;
     }
     .index-popupError-msg > .border-full .title{
         color: #D92B4C;
