@@ -3,8 +3,8 @@
 	
 	<div class="align full-height animation fadeLeft">
 		<span class="header-title border-full relative">Le Meilleur se cache parmi vous!
-			<div class="index-header-btn"> 			
-				<button type="button" class="btn btn-pink index-header-btn-pink-width" id="currentTournament"><a>Tournoi du moment</a></button>				
+			<div class="index-header-btn">
+				<button type="button" class="btn btn-pink index-header-btn-pink-width" id="currentTournament"><a>Tournoi du moment</a></button>
 				<button type="button" class="btn btn-pink index-header-btn-pink-width">
 					<a href="<?php echo WEBPATH.'/team'; ?>">Nos Teams</a>
 				</button>			
