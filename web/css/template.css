@@ -103,20 +103,19 @@ footer{
     position: fixed;
     top: 20%;
     background-color: rgba(8, 3, 37, 1);
-    width: 50%;
-    left: 25%;
+    width: 40%;
+    left: 50%;
+    transform: translateX(-50%);
     height: 260px;
     color: white;
-    z-index: 5;
-
-    padding: 30px;
+    z-index: 10;
+    padding: 40px;
     font-size: 15px;
 }
 
 #wrapperAdmin textarea{
-    width: 85%;
+    width: 100%;
     height: 50px;
-    vertical-align: middle;
 }
 
 .input-default {
