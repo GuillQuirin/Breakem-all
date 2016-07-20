@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<td>Description : </td>
-							<td><textarea  class="desc-default" rows="3" name="description" placeholder='Description entre 3 et 200 caractères.' value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>"></textarea></td>
+							<td><textarea  class="desc-default" rows="3" name="description" placeholder='Description entre 3 et 200 caractères.' value="<?php if(isset($err_desc)){echo $_SESSION['err_desc'];} ?>" required></textarea></td>
 						</tr>
 						<tr>
 							<td>Image : </td>
