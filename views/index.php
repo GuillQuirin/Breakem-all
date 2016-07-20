@@ -23,17 +23,16 @@
 
 			<div class="menu_hori">
 				<ul>
-					<nav class="nav_hori">
-						<ul>
+					<!--<nav class="nav_hori">
+						<ul>-->
 							<!-- Liste des types de game -->
-							<?php //echo $typeJeux; ?>
-						 	<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
+						 	<!--<li class="border_menu active_menu menu_separ"><a href="#">Equipe</a></li>
 							<li class="border_menu menu_separ"><a href="#">Solo</a></li>
 							<li class="border_menu menu_separ"><a href="#">5vs5</a></li>
 							<li class="border_menu menu_separ"><a href="#">2vs2</a></li>
 							<li class="border_menu menu_separ"><a href="#">Plus...</a></li>
 						</ul>
-					</nav>
+					</nav>-->
 
 					<li class="tri">
 						<label>Trier par :</label>
@@ -49,59 +48,54 @@
 					</li>
 				</ul>
 			</div>
-
-			<!-- Liste des tournois en cours -->
-			<?php 	
-				if(isset($listeTournois)): 
-					foreach ($listeTournois as $key => $tournoi):
-			?> 	
-						<article id='article<?php echo $key?>'>
-							<div class='contain_article'>
-								<div class='img_article'>
-									<img class="img-cover" src='<?php echo $tournoi->getGameImg(); ?>'>
-								</div>
-								<div class='date_article'>
-									<i class='icon'></i>
-									<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
-								</div>
-								<div class='text_article'>
-									<h2 class="title-4"><?php echo $tournoi->getName(); ?></h2>
-									<div class='tags_article'>
-										<h3><?php echo $tournoi->getDescription(); ?></h3>
+			
+			<input type='hidden' id='current_page' />  
+			<input type='hidden' id='show_per_page' />  
+			
+			<div id="liste-derniers-tournois">
+				<!-- Liste des tournois en cours -->
+				<?php 	
+					if(isset($listeTournois)): 
+						foreach ($listeTournois as $key => $tournoi):
+				?> 	
+							<article id='article<?php echo $key?>'>
+								<div class='contain_article'>
+									<div class='img_article'>
+										<img class="img-cover" src='<?php echo $tournoi->getGameImg(); ?>'>
 									</div>
-									<div class='btn_article'>
-										<h3 class='btn btn-pink'>
-											<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">Regarder</a>
-										<h3>
+									<div class='date_article'>
+										<i class='icon'></i>
+										<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
+									</div>
+									<div class='text_article'>
+										<h2 class="title-4"><?php echo $tournoi->getName(); ?></h2>
+										<div class='tags_article'>
+											<h3><?php echo $tournoi->getDescription(); ?></h3>
+										</div>
+										<div class='btn_article'>
+											<h3 class='btn btn-pink'>
+												<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">Regarder</a>
+											<h3>
+										</div>
 									</div>
 								</div>
-							</div>
-						</article>
-			<?php 
-					endforeach;
-				endif;
-			?>
-
+							</article>
+				<?php 
+						endforeach;
+					endif;
+				?>
+			</div>
 			<div>
 				<ul>
 					<nav class="nav_hori page">
-						<ul>
-							<!-- Pagination -->
-							<?php 
-								if(isset($pagination)):
-									//$nbpages = new tournoi($pagination);
-									$nbpages =5;
-									for($cpt=1; $cpt<=$nbpages; $cpt++):
-										echo ($cpt==1) ? '<li class="border_menu active_menu"><a href="#">1</a></li>' :
-										 '<li class="border_menu"><a href="#">'.$cpt.'</a></li>';
-									endfor;
-								endif;
-							?>
+						<ul id='page_navigation'>
+							
 						</ul>
 					</nav>
 				</ul>
 			</div>
 		</div>
+		<!-- <li class="border_menu active_menu"><a href="#">1</a></li> -->
 		<div id="contain_right">
 
 			<div id="contain_search">

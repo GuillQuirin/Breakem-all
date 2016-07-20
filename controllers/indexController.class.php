@@ -13,12 +13,6 @@ class indexController extends template{
 			$v->assign("categorie", $typeJeu);	
 		}
 
-		/*##### ON N'OUVRE PAS DEUX CONNECTIONS POUR UN MM MANAGER*/
-		//Pagination
-		$pagination = $obj->getAllTypes();
-		if(!empty($pagination)){
-			$v->assign("pagination", $pagination);
-		}
 
 		//Liste Tournois
 		$obj = new tournamentManager();
@@ -42,7 +36,6 @@ class indexController extends template{
 		}
 
 		//Meilleurs Jeux
-		$obj = new gameManager();
 		$bestGames = $obj->getBestGames();
 		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
