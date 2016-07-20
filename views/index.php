@@ -206,7 +206,8 @@
 					}
 				?>
 			</div>
-
+			<?php 
+			/*
 			<!-- Liste des catégories  -->
 			<div id="categorie">
 				<div class="title_index">
@@ -225,6 +226,8 @@
 					// endif;
 				?>
 			</div>
+			*/
+			?>
 		</div>
 	</div>
 </section>

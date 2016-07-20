@@ -1,0 +1,8 @@
+.notConnected-main{
+	min-height: 480px;
+}
+.notConnected-msg{
+	padding: 15px;
+	max-width: 480px;
+	word-spacing: 2px;
+}

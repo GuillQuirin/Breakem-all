@@ -77,7 +77,8 @@ final class tournament{
 	/*SETTERS*/
 
 	private function setId($v){
-		$this->_id = $v;
+		if((int) $v > 0)
+			$this->_id = (int) $v;
 	}
 	public function setStartDate($v, $setEndDate = false){
 		$this->_startDate = $v;
@@ -92,31 +93,35 @@ final class tournament{
 			$this->_endDate = $v;
 	}
 	private function setName($v){
-		$this->_name = trim($v);
+		$this->_name = strip_tags(trim($v));
 	}
 	private function setDescription($v){
-		$this->_description = trim($v);
+		$this->_description = strip_tags((trim($v)));
 	}
 	private function setTypeTournament($v){
-		$this->_typeTournament = $v;
+		$this->_typeTournament = (int) $v;
 	}
 	private function setStatus($v){
-		$this->_status = $v;
+		$this->_status = (int) $v;
 	}
 	private function setNbMatch($v){
-		$this->_nbMatch = $v;
+		if((int) $v > 0)
+			$this->_nbMatch = (int) $v;
 	}
 	private function setIdUserCreator($v){
-		$this->_idUserCreator = $v;
+		if((int) $v > 0)
+			$this->_idUserCreator = (int) $v;
 	}
 	private function setIdGameVersion($v){
-		$this->_idGameVersion = $v;
+		if((int) $v > 0)
+			$this->_idGameVersion = (int) $v;
 	}
 	private function setIdWinningTeam($v){
-		$this->_idWinningTeam = $v;
+		if((int) $v > 0)
+			$this->_idWinningTeam = (int) $v;
 	}
 	private function setUrlProof($v){
-		$this->_urlProof = $v;
+		$this->_urlProof = strip_tags(trim($v));
 	}
 	private function setCreationDate($v){
 		$this->_creationDate = $v;
@@ -128,63 +133,69 @@ final class tournament{
 		$this->_randomPlayerMix = (int) $v;
 	}
 	private function setLink($v){
-		$this->_link = $v;
+		$this->_link = strip_tags(trim($v));
 	}
 
 	// Setters de données issues de gameversion
 	private function setMaxPlayer($v){
-		$this->_maxPlayer = $v;
+		if((int) $v > 0)
+			$this->_maxPlayer = (int) $v;
 	}
 	private function setMaxTeam($v){
-		$this->_maxTeam = $v;
+		if((int) $v > 0)
+			$this->_maxTeam = (int) $v;
 	}
 	private function setMaxPlayerPerTeam($v){
-		$this->_maxPlayerPerTeam = $v;
+		if((int) $v > 0)
+			$this->_maxPlayerPerTeam = (int) $v;
 	}
 	private function setGvName($v){
-		$this->_gvName = $v;
+		$this->_gvName = strip_tags(trim($v));
 	}
 	private function setGvDescription($v){
-		$this->_gvDescription = $v;
+		$this->_gvDescription = strip_tags(trim($v));
 	}
 	
 	// Setters de données issues de game
 	private function setGameId($v){
-		$this->_gameId = $v;
+		if((int) $v > 0)
+			$this->_gameId = (int) $v;
 	}
 	private function setGameName($v){
-		$this->_gameName = $v;
+		$this->_gameName = strip_tags(trim($v));
 	}
 	private function setGameDescription($v){
-		$this->_gameDescription = $v;
+		$this->_gameDescription = strip_tags(trim($v));
 	}
 	private function setGameImg($v){
-		$this->_gameImg = $v;
+		$this->_gameImg = strip_tags(trim($v));
 	}
 	private function setGameYear($v){
-		$this->_gameYear = $v;
+		$this->_gameYear = strip_tags(trim($v));
 	}
 	private function setGtId($v){
-		$this->_gtId = $v;
+		if((int) $v > 0)
+			$this->_gtId = (int) $v;
 	}
 
 	// Setters de données issues de platform
 	private function setPId($v){
-		$this->_pId = $v;
+		if((int) $v > 0)
+			$this->_pId = (int) $v;
 	}
 	private function setPName($v){
-		$this->_pName = $v;
+		$this->_pName = strip_tags(trim($v));
 	}
 	private function setPDescription($v){
-		$this->_pDescription = $v;
+		$this->_pDescription = strip_tags(trim($v));
 	}
 	private function setPImg($v){
-		$this->_pImg = $v;
+		$this->_pImg = strip_tags(trim($v));
 	}
 	
 	// Setters de données issues de user
 	private function setUserPseudo($v){
-		$this->_userPseudo = $v;
+		$this->_userPseudo = strip_tags(trim($v));
 	}
 	
 	// Setters de données issues de register

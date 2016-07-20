@@ -85,13 +85,14 @@
 							<li class="navbar-menu-li navbar-menu-tournoi">
 								<a class="cursor-default">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-tournoi">
-									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/creationtournoi">
-											Créer 
-										</a>
-									</li>
 									<?php 
 										if(isset($_isConnected)){
+											echo '<li class="navbar-menu-tooltip-li">';
+												echo '<a href="'.WEBPATH.'/creationtournoi">';
+													echo 'Créer';
+												echo '</a>';
+											echo '</li>';
+								
 											echo '<li class="navbar-menu-tooltip-li">';
 												echo "<a href=" . WEBPATH. "/mestournois>Mes tournois</a>";
 											echo "</li>";

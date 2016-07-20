@@ -135,7 +135,7 @@ else{
                                 </li>                     
                             </ul>   
                         </div>  
-            <?php 
+            <?php
                     endforeach;
                 endif;
             ?>
@@ -172,7 +172,7 @@ else{
                     endif;
                 ?>
             </div>
-            <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team">
+            <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team break-word">
                 Description de la team : <?php echo $description; ?>
             </div>
 

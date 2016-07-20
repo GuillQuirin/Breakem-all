@@ -40,6 +40,8 @@ class userManager extends basesql{
 				if(ourOwnPassVerify($user->getPassword(), $dbUser->getPassword()))
 					return $dbUser;
 			}
+			else if((int)$r[0]['status'] == 0)
+				return 0;
 			else
 				return -1;
 		}

@@ -155,8 +155,7 @@ class configurationController extends template{
 
 		if(isset($_FILES['profilpic'])){
 
-			$uploaddir = '/web/img/upload/membre/';
-			$uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getPseudo().'.jpg';
+			$uploadfile = getcwd().'/web/img/upload/membre/'.$this->getConnectedUser()->getPseudo().'.jpg';
 
 			define('KB', 1024);
 			define('MB', 1048576);
@@ -165,14 +164,15 @@ class configurationController extends template{
 
 			if($_FILES['profilpic']['size'] < 3*MB){
 				if($_FILES['profilpic']['error']==0){
-					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
+					if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile)){
 					   $_SESSION['err_img_upload']=1;
+					}
+					else
+						$filteredinputs['img'] = $this->getConnectedUser()->getPseudo().'.jpg';
 				}
 			}
 			else
 				$_SESSION['err_img_size']=1;
-
-			$filteredinputs['img'] = $this->getConnectedUser()->getPseudo().'.jpg';
     	}
 
     	//Si le mdp saisi est OK

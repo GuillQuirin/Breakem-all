@@ -83,7 +83,7 @@ final class tournamentManager extends basesql{
 		return false;
 	}
 
-	public function getUnstartedTournaments(){
+	public function getUnstartedTournaments($u=NULL){
 		if((bool)$this->pdo->query('SELECT COUNT(*) FROM tournament')->fetchColumn() === false)
 			return false;
 		// Ce gros morceau de requete permet d'alimenter un tournoi des noms de sa console, son jeu et plein d'autres trucs super cool comme le nombre de joueurs/teams maximum 
@@ -93,18 +93,33 @@ final class tournamentManager extends basesql{
 		p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, 
 		u.pseudo as userPseudo, 
 		(SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered
-		FROM tournament t ";		
+		FROM tournament t
+		LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id
+		LEFT OUTER JOIN game ga ON ga.id = gv.idGame
+		LEFT OUTER JOIN platform p ON p.id = gv.idPlateform
+		LEFT OUTER JOIN user u ON u.id = t.idUserCreator
+		LEFT OUTER JOIN register r ON r.idTournament = t.id
+		WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())
+		AND t.idWinningTeam IS NULL";
+
+		//Inscrit non-admin
+		if(is_object($u) && $u->getStatus() != 3)
+			$sql .= " AND (t.status>0 OR t.idUserCreator = :id)";	
+		//Visiteur non-inscrit
+		else if(!is_object($u))
+			$sql .= " AND (t.status>0)";
+
+		$sql .= " GROUP BY t.id ORDER BY t.startDate";
+		//var_dump($sql);exit;
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
-		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
-		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
-		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
-		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
-		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
-		$sql .= " AND t.idWinningTeam IS NULL";
-		$sql .= " GROUP BY t.id ORDER BY t.startDate";
-		$sth = $this->pdo->query($sql);
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		
+		if($u instanceof user && $u->getStatus() != 3)
+			$sth->execute([':id' => $u->getId()]);
+		else
+			$sth->execute();
+
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		if(isset($r[0])){
 			$alltournaments = [];
@@ -258,7 +273,11 @@ final class tournamentManager extends basesql{
 		return $r[0];
 	}
 
-	public function getTournamentsOrganisedByUser(user $u){
+	public function getTournamentsOrganisedByUser(user $u, $limit = 10){
+		$limit = (int) $limit;
+		if( $limit < 1)
+			$limit = 10;
+
 		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t ";
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
@@ -269,6 +288,7 @@ final class tournamentManager extends basesql{
 		$sql .= " INNER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.idUserCreator = :uId";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
+		$sql .= " LIMIT 0, ".$limit;
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -285,7 +305,10 @@ final class tournamentManager extends basesql{
 		return false;
 	}
 
-	public function getTournamentsPlayedByUser(user $u){
+	public function getTournamentsPlayedByUser(user $u, $limit = 10){
+		$limit = (int) $limit;
+		if( $limit < 1)
+			$limit = 10;
 		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t ";
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
@@ -296,6 +319,7 @@ final class tournamentManager extends basesql{
 		$sql .= " INNER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE r.idUser = :uId";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
+		$sql .= " LIMIT 0, ".$limit;
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([

@@ -19,7 +19,6 @@
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
-	
 	<?php if (isset($ownedTournaments)): ?>
 		<section class="tournamentslist-tournoi-owner display-flex-column">
 			<?php if (count($ownedTournaments) > 1): ?>
@@ -181,7 +180,7 @@
 			<?php endforeach; ?>
 		</div>		
 	<?php endif ?>
-	<?php if (!isset($_isConnected)): ?>
+	<?php if (!isset($_isConnected) || (isset($tournois) && ((!isset($userCanRegisterTournaments) || !isset($closedToUserTournaments) || !isset($joinedTournament)) )) ): ?>
 		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column m-a">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center"><!--
 			--><?php if (count($tournois) > 1): ?><!--
@@ -206,7 +205,10 @@
 								<p class="title-3"><?php echo $t->getMaxTeam() . ' équipes de ' . $t->getMaxPlayerPerTeam(); ?> joueurs</p>
 							<?php else: ?>
 								<p class="title-3 capitalize">solo</p>
-							<?php endif; ?>									
+							<?php endif; ?>
+							<?php if (isset($_isConnected)): ?>
+								<p class="tournamentslist-inaccessible-p m-a text-center border-full bg-pink capitalize title-3">inaccessible</p>
+							<?php endif ?>								
 						</article>
 					</div>
 					<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></button>
