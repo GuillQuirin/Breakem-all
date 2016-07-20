@@ -2,9 +2,8 @@
 <section class="low-height bg-cover-team relative">
     <div class="align full-height">
         <div class="align full-height animation fadeLeft">
-            <div class="header-title admin-header-title border-full relative creationtournoi-title-container display-block">                
-                    <h1 class="capitalize title header-title">Choisis ta Team</h1>             
-            </div>  
+			<span class="header-title admin-header-title border-full relative">Choisi ta team</span>
+		</div>
         </div>
     </div>      
 
