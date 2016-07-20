@@ -62,7 +62,7 @@ class RSSController extends template{
 				$rss = simplexml_load_file('flux.xml'); 
 				if($rss && !empty($rss)){
 					//Affichage du contenu sur la page
-					if(is_array($rss->channel->item)){
+					if($rss->channel->item!=NULL){
 						foreach ($rss->channel->item as $item) { 
 						  echo '<div>
 						           <div>'.$item->title.' sur '.$item->game.' commençant '.$item->debDate.'</div>
