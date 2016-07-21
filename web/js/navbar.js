@@ -1093,7 +1093,7 @@ var contactadmin = {
 	}
 };
 function removeRequireJSMsg(){
-	let jsWarning = $('#breakemall-javascript-required');
+	var jsWarning = $('#breakemall-javascript-required');
 	if(isElSoloJqueryInstance(jsWarning))
 		jsWarning.remove();
 }
