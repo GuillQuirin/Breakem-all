@@ -11,7 +11,7 @@
 
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
-			<li class="admin-onglet-li" id="mestournois-onglet-organisateur">
+			<li class="admin-onglet-li active" id="mestournois-onglet-organisateur">
 				<a>Organisateur</a>
 			</li><!--
 			--><li class="admin-onglet-li" id="mestournois-onglet-participant">		
@@ -19,14 +19,15 @@
 			</li>
 		</ul>
 	</div>
+</section>
 
 <section class="team-content-wrapper my-content-wrapper">
 
-	<div class="container m-a content-border team-container">
+	<div class="container m-a border-regular mestournois-container">
 
 		<div class="row team-content-row">
 
-			<div class="grid-md-8 grid-md-offset-2">
+			<div class="grid-md-8 grid-md-offset-2 mestournois-ihm">
 
 			</div>
 			

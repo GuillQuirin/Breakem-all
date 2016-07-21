@@ -20,20 +20,26 @@ class mestournoisController extends template{
 	}
 	
     public function mestournoisOrgAction(){
+        //View
+        $v = new view();
+
         //User data
+        $this->assignConnectedProperties($v);
         $pseudo = $this->connectedUser->getPseudo();
-        $userArr = array("pseudo" => $pseudo);
+        $userTMP = new user(array("pseudo" => $pseudo));
 
         //Bdd
         $bddUser = new userManager();
         $bddTournament = new tournamentManager();
 
         //Request
-        $user = new user($userArr);
+        $user = $bddUser->userByPseudoInstance($userTMP);
         $tournamentOrg = $bddTournament->getTournamentsOrganisedByUser($user, 5);
         
         //Data
-        print_r($tournamentOrg);
+        //echo json_encode($tournamentOrg);        
+        $v->assign("tournamentOrg",$tournamentOrg);
+        $v->setView("mestournoisOrg", "templateEmpty");
     }
 
     public function mestournoisPartAction(){

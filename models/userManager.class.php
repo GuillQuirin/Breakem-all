@@ -324,4 +324,13 @@ class userManager extends basesql{
 	
 		return $r[0];
 	}
+
+	public function userByPseudoInstance(user $u){
+		$sql = "SELECT * FROM " .$this->table . " WHERE pseudo=:pseudo";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':pseudo' => $u->getPseudo()]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+	
+		return new user($r[0]);
+	}
 }
