@@ -207,8 +207,6 @@
 
 											if(!empty($_idTeam))
 												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
-
-											
 											echo "</li>";
 										}
 									?>
