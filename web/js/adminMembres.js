@@ -225,6 +225,10 @@ var membreModule = {
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
 				allData.id = id;
 
+				if(myImg){
+					allData.img = pseudo + ".jpg?lastmod=" + Date.now();
+				}
+
 				if(pseudo)
 					allData.pseudo = pseudo;
 				
@@ -253,25 +257,41 @@ var membreModule = {
 
 			    	//Pour l'upload coté serveur
 			        var file = myImg.prop('files')[0];
+			        //Je n'ai pas réussi a faire un append du pseudo pour le FormData alors je refais un appel ajax
+			        //Voir : http://stackoverflow.com/questions/21060247/send-formdata-and-string-data-together-through-jquery-ajax
+			        //Ne marche pas
+			        var pseudoObj = {"pseudo" : pseudo};
 
 			        if(myImg && file){
-
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = file.name;
-
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
-					    jQuery.ajax({
+        			    jQuery.ajax({
 				            url: "admin/updateMembresData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
+				            data: pseudoObj,   
+				            cache: false,                      
 				            type: 'POST',
 				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
+								//Si une image a été uploadé, on rajoute le src a l'objet allData
+					        	allData.img = pseudo + ".jpg?=" + Date.now();
+
+					        	var imgData = new FormData();                  
+							    imgData.append('file', file);
+							    imgData.append('pseudo', pseudo);
+
+							    jQuery.ajax({
+						            url: "admin/updateMembresData", 
+						            dataType: 'text',  
+						            cache: false,
+						            contentType: false,
+						            processData: false,
+						            data: imgData,                         
+						            type: 'POST',
+						            success: function(result2){
+						                console.log("Image uploadé.");
+						                console.log(file.name);				       
+						            },
+						            error: function(result2){
+						                console.log(result2);
+						            }
+							    });
 				            },
 				            error: function(result2){
 				                console.log(result2);
@@ -284,6 +304,7 @@ var membreModule = {
 
 			    //Update de la membre
 				jQuery.ajax({
+					cache : false,
 					url: "admin/updateMembresData", 
 					type: "POST",
 					data: allData,
@@ -294,18 +315,19 @@ var membreModule = {
 						//Reload la mise a jour dans l'html
 						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(pseudo);}
 						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
-						switch(status) {
-						    case -1:
+						console.log(allData.status);
+						switch(allData.status) {
+						    case "-1":
 						        myStatus = "Banni";
 						        break;
-						    case 0:
+						    case "0":
 						    	myStatus = "Attente de validation";
 						    	break;
-						    case 1:
+						    case "1":
 						        myStatus = "Utilisateur";
 						        break;
-						    case 3:
-						    	myStatus = "Admin";
+						    case "3":
+						    	myStatus = "Administrateur";
 						    	break;
 						} 
 						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
