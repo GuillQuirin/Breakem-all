@@ -359,8 +359,8 @@ class creationtournoiController extends template{
 		if( strlen(trim($t->getDescription())) > 0 ){
 			// if(preg_match("/[^a-z0-9 ,\.=\!éàôûîêçùèâ@\(\)\?]/i", $t->getDescription()))
 			// 	$this->echoJSONerror("", "La description de votre tournoi contient des caracteres non-autorisés !");
-			if(strlen($t->getDescription()) > 250 || strlen($t->getDescription()) < 4)
-				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 4 et 250 caracteres");
+			if(strlen($t->getDescription()) > $t->gtMaxDescriptionLength() || strlen($t->getDescription()) < 4)
+				$this->echoJSONerror("", "La description, lorsque utilisée, doit faire entre 4 et ".$t->gtMaxDescriptionLength()." caracteres");
 		}
 		
 		if( (bool)$t->getGuildOnly() ){

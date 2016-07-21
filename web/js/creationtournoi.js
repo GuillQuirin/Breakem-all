@@ -385,7 +385,7 @@ var gameversionChoice = {
 			form.append(randomAndGuildInputs);
 			gameversionChoice.randomAndGuildInputEvent(randomAndGuildInputs);
 		}
-		form.append('<div class="form-input-group"><label for="description">Une petite description ?</label><textarea class="border-full" name="description" maxlength="250" minlength="4"></textarea></div>');
+		form.append('<div class="form-input-group"><label for="description">Une petite description ?</label><textarea class="border-full" name="description" maxlength="200" minlength="4"></textarea></div>');
 		var valid = $('<div class="creationtournoi-validation-container display-flex-column "></div>');
 		gameversionChoice._btn = $('<button id="creationtournoi-valider" type="button" class="btn btn-pink"><a class="uppercase">Valider</a></button>');
 		valid.append(gameversionChoice._btn);
@@ -482,9 +482,9 @@ var gameversionChoice = {
 			return true;
 		}
 		if(jQel.val().length < 4
-			|| jQel.val().length > 250){
+			|| jQel.val().length > 200){
 			inscription.highlightInput(jQel);
-			popupError.init("Votre description, si fournie, doit faire entre 4 et 250 caractères");
+			popupError.init("Votre description, si fournie, doit faire entre 4 et 200 caractères");
 			return false;
 		}
 		return true;
