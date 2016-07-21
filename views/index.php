@@ -23,7 +23,14 @@
 			<div class="title_index_left">
 				<label for="title">Prochains tournois</label>
 			</div>
-			
+			<div>
+				<ul>
+					<nav class="nav_hori page">
+						<ul id='page_navigation'>
+						</ul>
+					</nav>
+				</ul>
+			</div>
 			<input type='hidden' id='current_page' />  
 			<input type='hidden' id='show_per_page' />  
 			
@@ -64,14 +71,6 @@
 					endif;
 				?>
 			</div>
-			<div>
-				<ul>
-					<nav class="nav_hori page">
-						<ul id='page_navigation'>
-						</ul>
-					</nav>
-				</ul>
-			</div>
 		</div>
 		<!-- <li class="border_menu active_menu"><a href="#">1</a></li> -->
 		<div id="contain_right">
@@ -82,7 +81,7 @@
 			</div>
 
 			<div class="title_index">
-				<label for="title1">Prochain match</label>
+				<label for="title1">Prochains matchs</label>
 			</div>
 			<div class="fight">
 
@@ -178,28 +177,6 @@
 					}
 				?>
 			</div>
-			<?php 
-			/*
-			<!-- Liste des catégories  -->
-			<div id="categorie">
-				<div class="title_index">
-					<label for="title3">Catégories</label>
-				</div>
-				<?php
-					// if(isset($categorie)): 
-					// 	foreach ($categorie as $key => $value):
-					// 		$catego = new typegame($value);
-				?>
-							<div class='categorie'>
-								<p><?php // echo $catego->getName(); ?></p><br>
-							</div>
-				<?php 
-					// 	endforeach;
-					// endif;
-				?>
-			</div>
-			*/
-			?>
 		</div>
 	</div>
 </section>
