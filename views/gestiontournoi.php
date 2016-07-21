@@ -82,7 +82,7 @@ if(isset($tournoi)){
 							<tr>
 								<td><span>Description : </span></td>
 								<td>
-									<textarea class="configuration-input-default textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
+									<textarea class="configuration-input-default textarea-default" name="description" maxlength="200" rows="3"placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU" <?php echo $verrouillage; ?>>
 									    <?php echo $tournoi->getDescription(); ?>
 									</textarea>
 								</td>							

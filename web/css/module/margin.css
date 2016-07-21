@@ -5,6 +5,10 @@
   margin: auto;
 }
 
+.m-a-5{
+	margin: 5px auto;
+}
+
 .m-n{
   margin:0;
 }

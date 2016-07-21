@@ -206,7 +206,7 @@ class detailteamController extends template{
         //Infos de la team
         $filteredinputs['idEntite']=intval($this->getConnectedUser()->getIdTeam());
         $filteredinputs['entite']=1; // type de contenu -> team
-        
+    
         $commentBDD = new commentManager();
         $commentBDD->mirrorObject = new comment($filteredinputs);
         $commentBDD->create();

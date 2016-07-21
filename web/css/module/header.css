@@ -3,8 +3,9 @@
 	text-transform: uppercase;
 	font-size:45px;
 	margin-right:55px;
-	padding:15px 30px;
+	padding:15px;
 	cursor:default;
+	width: 70%;
 	text-align: center;
 }
 
@@ -19,4 +20,10 @@
 .header-scroll-down:hover{
 	transition:opacity .5s;
 	opacity:1;
+}
+
+@media all and (max-width: 640px){
+    .header-title{
+        width: 80%;
+    }
 }

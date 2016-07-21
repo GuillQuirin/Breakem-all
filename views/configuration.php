@@ -125,9 +125,8 @@
 									<span>Description : </span>
 								</td>
 								<td>
-									<textarea class="configuration-textarea-description textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU">
-										<?php echo (isset($_description)) ? $_description : ''; ?>
-									</textarea>
+									<textarea class="configuration-textarea-description textarea-default" name="description" placeholder="Veuillez ne pas mettre de message pouvant offenser les autres joueurs ou ne pas respecter les CGU"><?php echo (isset($_description)) ? trim($_description) : ''; ?></textarea>
+
 								</td>							
 							</tr>
 							<tr class="text-center">
