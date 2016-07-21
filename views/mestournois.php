@@ -1,3 +1,5 @@
+<?php if(isset($_isConnected) && $_isConnected == 1){ ?>
+
 <section class="low-height bg-cover-mestournois relative">
 
 	<div class="align full-height">
@@ -6,8 +8,17 @@
 		</div>
 	</div>	 
 
-	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
-</section>
+
+	<div class="admin-onglet-wrapper">
+		<ul class="admin-onglet-ul">
+			<li class="admin-onglet-li" id="mestournois-onglet-organisateur">
+				<a>Organisateur</a>
+			</li><!--
+			--><li class="admin-onglet-li" id="mestournois-onglet-participant">		
+				<a>Participant</a>
+			</li>
+		</ul>
+	</div>
 
 <section class="team-content-wrapper my-content-wrapper">
 
@@ -15,8 +26,14 @@
 
 		<div class="row team-content-row">
 
+			<div class="grid-md-8 grid-md-offset-2">
+
+			</div>
+			
 		</div>
 		
 	</div>
 
 </section>
+
+<?php } ?>

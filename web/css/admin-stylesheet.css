@@ -316,16 +316,6 @@ body, html{
     margin-top:0;
 }
 
-.admin-onglet-wrapper{
-    position:absolute;
-    bottom:-1px; 
-    margin-left:auto;
-    margin-right:auto;
-    left:0;
-    right:0;   
-    text-align:center;
-}
-
 .admin-input-default{
 
 }
@@ -340,31 +330,9 @@ body, html{
     
 }
 
-.admin-onglet-ul{
-    transform:skew(-8deg);
-}
-
-.admin-onglet-ul li{    
-    background:rgba(130, 83, 164, 0.2);
-    cursor:pointer;
-    padding:15px 35px;
-    display:inline-block;    
-    transition: all .3s;
-}
-
 .admin-input-required{
     color:#D92B4C;
     position:absolute;
-}
-
-.admin-onglet-ul li:hover{
-    background:#080325;
-    transition:all .3s;
-}
-
-.admin-onglet-ul li.active{
-    opacity:1;
-    background:#080325;
 }
 
 .admin-form-button-wrapper{

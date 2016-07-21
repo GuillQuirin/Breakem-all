@@ -19,5 +19,24 @@ class mestournoisController extends template{
         $v->setView("mestournois", "template");
 	}
 	
+    public function mestournoisOrgAction(){
+        //User data
+        $pseudo = $this->connectedUser->getPseudo();
+        $userArr = array("pseudo" => $pseudo);
+
+        //Bdd
+        $bddUser = new userManager();
+        $bddTournament = new tournamentManager();
+
+        //Request
+        $user = new user($userArr);
+        $tournamentOrg = $bddTournament->getTournamentsOrganisedByUser($user, 5);
+        
+        //Data
+        print_r($tournamentOrg);
+    }
+
+    public function mestournoisPartAction(){
+    }
 }
 
