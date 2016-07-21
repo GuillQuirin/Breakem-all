@@ -115,7 +115,7 @@
 
 .button-team{
     width:350px;
-    margin-top:30px;
+    margin-top:75px;
     margin-bottom:30px;
 }
 
@@ -295,6 +295,13 @@
 .comment{
     margin-top:15px;
     margin-left:20px;
+}
+.contain-button{
+    text-align:right;
+    color:#7c7c7c;
+}
+.contain-button a:hover{
+    color:#d92b4c;
 }
 .team-comment{
     width:200px;

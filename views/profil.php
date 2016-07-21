@@ -248,8 +248,7 @@ else{
 	<div>
 		<h4 id="titrecontact">Contacter le joueur</h4>
 		<p id="mess" >Si vous souhaiter communiquer avec ce joueur, Breakemall.com se chargera de transmettre votre message ci-dessous</p>
-		<textarea id="mess_contact" class="desc-default" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site">
-		</textarea>
+		<textarea id="mess_contact" class="desc-default" name="msg" placeholder="Merci de ne pas mettre de message offensant ou ne respectant pas les conditions d'utilisation du site"></textarea>
 		<p class="sendOk">Votre message a correctement été envoyé</p>
 		<p class="sendError">Une erreur est survenue lors de l'envoi de votre message</p>
 		<button class="btn btn-pink" type="submit" id="btn_contact" value="Envoyer">

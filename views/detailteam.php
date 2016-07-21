@@ -27,7 +27,7 @@ else{
                     <tr>
                         <td>Description : </td>
                         <td>
-                            <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($descripteam)) echo $descripteam; ?></textarea>
+                            <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($description)) echo $description; ?></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -173,7 +173,7 @@ else{
                 ?>
             </div>
             <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team break-word">
-                Description de la team : <?php echo $description; ?>
+                Description de la team : <?php if(isset($description)) echo $description; ?>
             </div>
 
             
@@ -250,15 +250,15 @@ else{
                                                 $commentaire->getComment();
                                             ?>
                                         </div>
-                                        <div>
+                                        <div class="contain-button">
                                         <?php
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id)  
                                                 //Le mec va pas s'auto-ban
-                                                echo "<p class='cursor-pointer' id='comment-report-".$commentaire->getId()."'>Signaler</p>";
+                                                echo "<p class='cursor-pointer' id='comment-report-".$commentaire->getId()."'><a>Signaler</a></p>";
                                             
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()==$_id && time()-strtotime($commentaire->getDate())<1800)
                                                 //Commentaire modifiable à 30 min
-                                                echo "<p class='cursor-pointer' id='comment-edit-".$commentaire->getId()."'>Modifier</p>";
+                                                echo "<p class='cursor-pointer' id='comment-edit-".$commentaire->getId()."'><a>Modifier</a></p>";
                                         ?>
                                         </div>
                                     </div>
@@ -269,17 +269,24 @@ else{
                         ?>
                     </div>
                     <div class="textarea-comment">
-                        <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
-                            <h2>Rédiger un commentaire :</h2>
-                            <textarea name="comment" placeholder='Mettez votre commentaire ici !'></textarea><br>
-                            <button name='action-team-comment' type='submit' class='btn btn-pink team-comment'>
-                                <a>Envoyer votre commentaire</a>
-                            </button>
-                        </form>
-                    </div>
-                <?php
+                    <h2>Rédiger un commentaire :</h2>
+                    <?php 
+                    if(isset($_idTeam) && $_idTeam == $idteam){
+                    ?>
+                            <form action="<?php echo WEBPATH.'/detailteam/createComment'; ?>" method="post">
+                             
+                                <textarea name="comment" placeholder='Mettez votre commentaire ici !'></textarea><br>
+                                <button name='action-team-comment' type='submit' class='btn btn-pink team-comment'>
+                                    <a>Envoyer votre commentaire</a>
+                                </button>
+                            </form>
+                        </div>
+                    <?php
+                    }else{
+                        echo "Vous ne pouvez pas rédiger de commentaire car vous n'êtes pas dans cette Team";
+                    }
                 }else{
-                     echo "Connecte toi pour voir les commentaires de cette team !";
+                     echo "Connecte toi pour voir les commentaires de cette Team !";
                 }
                 ?>
             </div>
@@ -293,53 +300,8 @@ else{
             <button class="btn btn-pink" type="submit" value="Mettre à jour">
                 <a>Mettre à jour</a>
             </button>
-
-
         </form>
     </section>
-        <?php
-/*
-		//Espace commentaire: reservé aux membres de la team
-	    if(isset($_idTeam) && $_idTeam == $idteam){
-         ?>
-
-            <section class="contain align full-height">
-                <form id="MAJComment" method="POST">
-                    <?php 
-                    if(isset($listecomment) && is_array($listecomment)){
-                        echo "<table>";
-                        foreach($listecomment as $commentaire){
-
-                            echo '<tr><td>';
-                                if($commentaire->getStatus()=="0" 
-                                    && $commentaire->getIdUser()!==$_id){ //Le mec va pas s'auto-ban
-                                    echo '<img class="cursor-pointer signalement"  src="' . WEBPATH . '/web/img/alert.ico"><a/>';
-                                }
-                                
-                                if($commentaire->getStatus()=="0" 
-                                    && $commentaire->getIdUser()==$_id 
-                                    && time()-strtotime($commentaire->getDate())<1800){
-                                        echo '<img class="cursor-pointer edition"  src="' . WEBPATH . '/web/img/edit.png"><a/>';
-                                    }
-                                    echo '<p>'.$commentaire->getPseudo().'</p>';
-
-                                    echo ($commentaire->getStatus()==-1) ? 
-                                            '<p class="italic">Ce commentaire a été modéré.</p>' :
-                                            '<p class="message">'.$commentaire->getComment().'</p>';
-                                    echo '</td></tr>';
-                                
-                        }
-                        echo "</table>";
-                    }
-                    ?>
-                </form>
-            </section>
-
-    </div>
-    <?php
-        }*/
-
-        ?>
 <?php 
 } 
 ?>
