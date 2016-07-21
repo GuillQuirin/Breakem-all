@@ -10,7 +10,7 @@
 <div class="list-players">	
 	<table>
 		<thead>
-			<th>Image</th><th>Pseudo</th><th>Description</th><th>Team</th><th>Profil</th>
+			<th>Image</th><th>Pseudo</th><th class="desc">Description</th><th>Team</th><th>Profil</th>
 		</thead>
 		<tbody>
 		<?php 

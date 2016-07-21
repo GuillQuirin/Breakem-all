@@ -18,28 +18,56 @@
     background-color: #24203c;
 }
 
-.list-players table .picture{
+.picture{
 	width: 10%;
 }
-	.img-player{
-		width: 100%;
-		height: auto;
-		vertical-align: middle;
-	}
 
-.list-players table .pseudo{
+.img-player{
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+
+.pseudo{
 	width: 25%;
 }
 
-.list-players table .desc{
-	width: 40%;
+.desc{
+	width: 30%;
 }
 
-.list-players table .team{
+.team{
 	width: 15%;
 }
 
-.list-players table .page{
-	width: 10%;
+.page{
+	width: 20%;
 }
 
+.page button{
+	margin: 15px 0;
+}
+
+@media all and (max-width: 850px){
+	.header-title{
+        width: 70%;
+    }
+}
+
+@media all and (max-width: 640px){
+    .header-title{
+        width: 80%;
+    }
+	
+	.desc{
+    	display: none;
+    }
+
+	.team{
+		width: 25%;
+	}
+
+	.page{
+		width: 40%;
+	}
+}

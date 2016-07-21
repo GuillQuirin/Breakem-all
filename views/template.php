@@ -305,7 +305,7 @@
 								if(!empty($_idTeam))
 									echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."' title='Ma team'>Ma team</a>";
 								else
-									echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créerm</a>";
+									echo "<a href='".WEBPATH."/team' title='Liste des teams'>Nos team</a>";
 								?>
 							</li>
 					        <?php 

@@ -445,7 +445,7 @@ section:hover{
 	}
 
 /* ############## RESPONSIV TABLETTE(855px) ############### */
-	@media screen and (max-width: 855px) {
+	@media all and (max-width: 855px) {
 	    /* ################## INFOS PRINCIPALES TOURNOI ################### */
 			.detailtournoi-tournoi-regles p span.relative i{
 				top: 20px; left: -2vh;
@@ -477,7 +477,7 @@ section:hover{
 
 
 /* ############## RESPONSIV TABLETTE(801px) ############### */
-	@media screen and (max-width: 801px) {
+	@media all and (max-width: 801px) {
 		/* ################## INFOS PRINCIPALES TOURNOI ################### */
 			.detailtournoi-infos{
 				align-items: top;
@@ -551,7 +551,7 @@ section:hover{
 	}
 
 /* ############## RESPONSIV MOBILE(401px) ############### */
-	@media screen and (max-width: 481px) {				
+	@media all and (max-width: 481px) {				
 			.detailtournoi-tournoi-regles p{
 				border-top: 1px solid #fff;
 				padding: 20px 1vh 20px 1vh;
@@ -560,7 +560,7 @@ section:hover{
 			.detailtournoi-tournoi-regles span{
 				display: inline-block;
 				position: absolute;
-				left: 14vh;
+				left: 50%;
 			}
 			.detailtournoi-tournoi-regles p span.relative i{
 				display: none;

@@ -209,7 +209,7 @@ var validateChoices = {
 		var tournamentName = $('<h3 class="creationtournoi-valid-tournoi-name title-2">Nom du tournoi : <span class="data uppercase">'+data.name+'</span></h3>');
 		container.append(tournamentName);
 		if(data.description.length > 0){
-			var tournamentDesc = $('<p class="creationtournoi-valid-tournoi-descr">'+data.description+'</p>');
+			var tournamentDesc = $('<p class="creationtournoi-valid-tournoi-descr text-center">'+data.description+'</p>');
 			container.append(tournamentDesc);
 		};
 
@@ -371,10 +371,10 @@ var gameversionChoice = {
 		$('.creationtournoi-gameversion-container-form').each(function(){
 			$(this).remove();
 		});
-		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
+		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase text-center">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
-		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (8-49 caractères max)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" placeholder="Lettres, chiffres et espaces uniquement !" required></div><div class="form-input-group"><label for="startDate">Donne la date de son lancement (requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" placeholder="Format attendu : AAAA-MM-JJ" required/></div></form>');
+		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (8-49 caractères alphanumériques max)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" placeholder="Lettres, chiffres et espaces uniquement !" required></div><div class="form-input-group"><label for="startDate">Donne la date de son lancement (requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" placeholder="Format attendu : AAAA-MM-JJ" required/></div></form>');
 		// on est dans le cas équipe
 		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
 			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div>');

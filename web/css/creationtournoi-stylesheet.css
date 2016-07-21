@@ -322,6 +322,9 @@ p.creationtournoi-random-match{
 }
 .creationtournoi-valid-tournoi-descr{
 	margin-top: 25px;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
 }
 .creationtournoi-valid-tournoi-list{
 	width: 97.5%;
@@ -377,10 +380,27 @@ p.creationtournoi-random-match{
 	}
 }
 
+@media all and (max-width: 850px){
+	.header-title{
+        width: 70%;
+    }
+    .creationtournoi-element-container{
+    	width: 90%;
+    	margin: 0 auto;
+    }
+    .creationtournoi-gameversion-container-form .form-input-group input{
+    	width: 75%;
+    }
+}
+
 @media screen and (max-width: 500px) {	
 	.creationtournoi-gameversion-container-form form{
-		width: 95%;
+		width: 90%;
+    	margin: 50px auto 0;
 		padding: 25px 0 25px 0;
 		border-left: 0px solid #fff;
 	}
+	.creationtournoi-valid-tournoi-list li span.data{
+    	position: initial;
+    }
 }
