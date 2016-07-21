@@ -357,21 +357,6 @@ hr{
 	left:64%;
 }
 
-@media screen and (max-width: 770px) {
-	#wrapperCurrentTournament{
-	    display: none;
-	    position: fixed;
-	    top: 25%;
-	    background-color: rgba(8, 3, 37, 1);
-	    width: 30%;
-	    left: 50%;
-	    transform: translateX(-50%);
-	    z-index: 5;
-	    padding: 20px;
-	    font-size: 15px;
-	}
-}
-
 
 @media all and (max-width: 800px){
 
@@ -455,9 +440,17 @@ hr{
 
 }
 
-@media all and (max-width: 480px){
-	.index-header-btn{
-		bottom: -70%;
+@media screen and (max-width: 770px) {
+	#wrapperCurrentTournament{
+	    display: none;
+	    position: fixed;
+	    top: 25%;
+	    background-color: rgba(8, 3, 37, 1);
+	    width: 30%;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    z-index: 5;
+	    padding: 20px;
+	    font-size: 15px;
 	}
 }
-
