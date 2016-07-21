@@ -35,9 +35,6 @@
 				?> 	
 							<article id='article<?php echo $key?>'>
 								<div class='contain_article'>
-									<div class='img_article'>
-										<img class="img-cover" src='<?php echo $tournoi->getGameImg(); ?>'>
-									</div>
 									<div class='date_article'>
 										<i class='icon'></i>
 										<h3><?php echo date('d-m-Y', $tournoi->getStartDate()); ?></h3>
@@ -54,9 +51,12 @@
 										<div class='btn_article'>
 											<h3 class='btn btn-pink'>
 												<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">Regarder</a>
-											<h3>
+											</h3>
 										</div>
 									</div>
+									<div class='img_article'>
+										<img class="img-cover" src='<?php echo $tournoi->getGameImg(); ?>'>
+									</div>									
 								</div>
 							</article>
 				<?php 

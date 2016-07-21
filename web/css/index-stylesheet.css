@@ -76,21 +76,6 @@
 	margin-top:5%;
 }
 
-@media screen and (max-width: 770px) {
-	#wrapperCurrentTournament{
-	    display: none;
-	    position: fixed;
-	    top: 25%;
-	    background-color: rgba(8, 3, 37, 1);
-	    width: 30%;
-	    left: 50%;
-	    transform: translateX(-50%);
-	    z-index: 5;
-	    padding: 20px;
-	    font-size: 15px;
-	}
-}
-
 .tri{
 	float:right;
 	margin-top:-65px;
@@ -125,7 +110,6 @@ article{
 }
 .text_article{
 	width:65%;
-	margin-top:-145px;
 	float:right;
 	text-align: left;
 }
@@ -142,9 +126,12 @@ article{
 .text_article h2{
 	font-size:28px;
 }
+
 .tags_article{
 	width: 80%;
+    word-wrap: break-word;
 }
+
 .tags_article h3{
 	margin-top:15px;
 	font-size:12px;
@@ -173,7 +160,7 @@ article{
 }
 
 a.previous_link, a.next_link{
-    margin: 0 20px;
+    margin: 0 3%;
     display: inline-block;
 }
 
@@ -369,4 +356,105 @@ hr{
 	left:64%;
 }
 
+@media screen and (max-width: 770px) {
+	#wrapperCurrentTournament{
+	    display: none;
+	    position: fixed;
+	    top: 25%;
+	    background-color: rgba(8, 3, 37, 1);
+	    width: 30%;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    z-index: 5;
+	    padding: 20px;
+	    font-size: 15px;
+	}
+}
+
+@media all and (max-width: 480px){
+	//HEADER
+	.header-title{
+		/*NE ME DEMANDEZ PAS POURQUOI, 
+		SANS UNE COUCHE-CLASS DE PROTECTION,
+		LA CLASSE D'APRES NE S APPLIQUE PAS*/ 
+	}
+
+	.index-header-btn{
+		bottom: -70%;
+		right: 50%;
+    	transform: translateX(60%);
+	}
+	
+	#contain_left {
+	    width: 90%;
+	    display: block;
+	    margin: 40px auto;
+
+	}
+
+		.title_index_left{
+			margin: 0 auto;
+		}
+
+	#contain_right {
+	    width: 90%;
+	    margin: 0 auto;
+	    display: block;
+	}
+		.contain_article{
+			width: 90%;
+			margin: 0 auto;
+		}
+		.date_article{
+			position: absolute;
+		    left: 50%;
+		    right: inherit;
+		    top: 0;
+		    transform: translateX(50%);
+		}
+		.text_article{
+			width: 60%;
+			text-align: center;
+		}
+
+		.tags_article{
+			width: 100%;
+		}
+		
+		.text_article h2{
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		.btn_article .btn{
+			width: 70%;
+		}
+
+		.img_article{
+			width: 35%;
+		}
+
+	//SOCIAUX
+	#reseaux_sociaux{
+	    width: 90%;
+	    margin: 0 auto;
+	    display: block;
+	    text-align: center;
+	}
+	
+	.title_social{
+		width: 90%;
+	}
+	.fb, .tw, .st, .yo{
+		left: inherit;
+	}
+
+	.nw_social{
+		position: inherit;
+		display: inline-block;
+		width: 20%;
+		margin-left: 3%;
+	}
+
+}
 
