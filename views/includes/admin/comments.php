@@ -61,7 +61,7 @@
 										echo "<input class='input-default admin-form-input-w comment-status-p' name='status' type='checkbox' value='" . $comment->getStatus() . "'";
 											echo ($comment->getStatus()!==NULL && $comment->getStatus()==0) ? "checked=checked" : "";
 										echo ">";
-										echo "<textarea class='input-default admin-form-input-w comment-message-p' name='message'>" . $comment->getComment() . "</textarea>";
+										echo "<textarea class='input-default admin-form-input-w comment-message-p' name='message'>". $comment->getComment()."</textarea>";
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 
