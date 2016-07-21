@@ -173,44 +173,59 @@
 								<a href="<?php echo WEBPATH.'/index'; ?>" class="active">Accueil</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH; ?>/tournoi">Tournois
-									<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
-								</a>
-							</li>
-							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH; ?>/creationtournoi">Creer mon tournoi</a>
-							</li>
-							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/team">Teams</a>
+								<a class="cursor-default">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="animation fadeUpLow" id="">
+									<?php 
+										if(isset($_isConnected)){
+											echo '<li class="navbar-menu-tooltip-li">';
+												echo '<a href="'.WEBPATH.'/creationtournoi">';
+													echo 'Créer un tournoi';
+												echo '</a>';
+											echo '</li>';
+								
+											echo '<li class="navbar-menu-tooltip-li">';
+												echo "<a href=" . WEBPATH. "/mestournois>Mes tournois</a>";
+											echo "</li>";
+										}
+									?>
+									<li class="navbar-menu-tooltip-li">
+										<a href="<?php echo WEBPATH; ?>/tournoi">
+											Liste des tournois
+										</a>
+									</li>																	
+								</ul>
 							</li>
 							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH.'/listejoueurs'; ?>">Joueurs</a>
+							</li>
+							<li class="navbar-menu-li">
+								<a class="cursor-default">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<ul class="animation fadeUpLow" id="">
+									<?php 
+										if(isset($_isConnected)){
+											echo '<li class="navbar-menu-tooltip-li">';
+
+											if(!empty($_idTeam))
+												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
+
+											
+											echo "</li>";
+										}
+									?>
+									<li class="navbar-menu-tooltip-li">
+										<a href="<?php echo WEBPATH; ?>/team">
+											Liste des teams
+										</a>
+									</li>																			
+								</ul>
 							</li>
 							<li class="navbar-menu-li">
 								<a href="<?php echo WEBPATH ?>/classement">Classement
 								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
 								</a>
 							</li>
-							<?php 
-								if(isset($_isConnected)){
-									?>
-										<li class="navbar-menu-li">
-											<a href="">
-											<?php echo '<img class="icon icon-size-3 navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-profil.png">';?>
-											</a>
-										</li>
-									<?php 
-								}
-								else{
-									?>
-
-								<?php } ?>
-							<li class="navbar-menu-li">
-								<!--<button type="button" class="search-toggle" style="padding:0 35px;">
-									<img src="<?php echo WEBPATH . '/web/img/icon/icon-search.png'; ?>">
-								</button>-->
-							</li>
 						</ul>
+						<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
 					</div>
 					<!-- FIN NAVBAR SIDE -->
 

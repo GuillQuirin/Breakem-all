@@ -2,7 +2,7 @@
 <section class="low-height bg-cover-team relative">
     <div class="align full-height">
         <div class="align full-height animation fadeLeft">
-			<span class="header-title admin-header-title border-full relative">Choisi ta team</span>
+			<span class="header-title admin-header-title border-full relative">Choisis ta team</span>
 		</div>
         </div>
     </div>      
