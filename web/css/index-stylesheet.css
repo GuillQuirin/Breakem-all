@@ -398,6 +398,11 @@ hr{
 		width: 35%;
 	}
 }
+@media all and (max-width: 640px){
+    .header-title{
+        width: 80%;
+    }
+}
 
 @media screen and (max-width: 770px) {
 	#wrapperCurrentTournament{

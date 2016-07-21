@@ -21,9 +21,3 @@
 	transition:opacity .5s;
 	opacity:1;
 }
-
-@media all and (max-width: 640px){
-    .header-title{
-        width: 80%;
-    }
-}
