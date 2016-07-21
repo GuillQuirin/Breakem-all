@@ -362,7 +362,7 @@ hr{
 	margin-left:10px;
 }
 
-@media all and (max-width: 800px){
+@media all and (max-width: 850px){
 
 	.index-header-btn{
 		bottom: -100%;
@@ -397,6 +397,14 @@ hr{
 	.img_article{
 		width: 35%;
 	}
+	.header-title{
+        width: 70%;
+    }
+}
+@media all and (max-width: 640px){
+    .header-title{
+        width: 80%;
+    }
 }
 
 @media screen and (max-width: 770px) {
