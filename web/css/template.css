@@ -154,48 +154,6 @@ header{
     border-bottom: 1px solid white;  
 }
 
-@media screen and (min-width: 931px){
-    .hide{
-        display:none;
-    }
-    .logo{
-        margin-top:20px;
-    }
-}
-@media screen and (max-width: 930px){
-    #menu ul li{
-        display:none;
-    }
-    #symbol{
-        position:fixed;
-        z-index:3;
-        width:100px;
-        text-align: center;
-    }
-    .symbol{
-        color:white;
-        font-size: 30px;
-    }
-    .logo{
-        margin-top:0px;
-    }
-    #inscription_rapide{
-        margin-right:20px;
-    }
-
-}
-@media screen and (max-width:480px) {
-    #slider{
-        display:none;
-    }
-    
-    .header-title{
-        margin: 0 auto !important;
-        width: 90%;
-        padding: 15px 0 !important;
-    }
-}
-
 #logo{
     width:100px;
     margin:0 auto;
@@ -267,82 +225,7 @@ header{
     position:absolute;
 }
 
-@media screen and (min-width: 981px){
-    .hide{
-        display:none;
-    }
-    .logo{
-        margin-top:20px;
-    }
-}
 
-
-@media screen and (max-width: 980px){
-#menu_icon{cursor:pointer;}
-#menu ul{float:left;}
-#menu{display:none;}
-#menu2{display:block;width:150px;}
-#menu2  ul {
-    list-style-type:none;
-    text-align:left;
-    width:150px;
-    display:none;
-    background-color: #0a0019;
-        }
-#menu2 > ul > li {width:100px;}
-#menu2 > ul > li a{
-display:block;
-    width:100px;
-    color:white;
-    text-decoration:none;
-    padding:15px;
-    text-transform: uppercase;
-    font-family: 'helvetica';
-    color:#bfbdbd;
-    font-size: 14px;
-    position: relative;
-    height:15px;
-
-}
-#menu2 > ul > li > ul{display:none;}
-#menu2 > ul > li:hover > ul{
-    display:block;
-    margin-left:100px;
-    position:absolute;
-    margin-top:-45px;
-    background-color:#0a0019;
-    }
-
-    #symbol{
-        position:fixed;
-        z-index:3;
-        width:100px;
-        text-align: center;
-    }
-    .symbol{
-        color:white;
-        font-size: 30px;
-    }
-    .logo{
-        margin-top:0px;
-    }
-    #inscription_rapide{
-        margin-right:150px;
-    }
-
-}
-@media screen and (max-width:480px) {
-    #slider{
-        display:none;
-    }
-    .display-flex-column-template{
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        
-    }
-}
 /* #######  POPUPS ####### */
     .index-modal-login,
     .index-modal-popup{
@@ -437,18 +320,110 @@ display:block;
     display: none;
 }
 
-/* Image de chargement lors de l'envoi d'un mail
 
-.loadGIF{
-    display: none;
-    position: absolute;
-    width: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+
+@media screen and (min-width: 981px){
+    .hide{
+        display:none;
+    }
+    .logo{
+        margin-top:20px;
+    }
 }
-.loadGIF img{
-    max-width: 100%;
-}*/
+
+
+@media screen and (max-width: 980px){
+    #menu_icon{cursor:pointer;}
+    #menu ul{float:left;}
+    #menu{display:none;}
+    #menu2{display:block;width:150px;}
+    #menu2  ul {
+        list-style-type:none;
+        text-align:left;
+        width:150px;
+        display:none;
+        background-color: #0a0019;
+            }
+    #menu2 > ul > li {width:100px;}
+    #menu2 > ul > li a{
+    display:block;
+        width:100px;
+        color:white;
+        text-decoration:none;
+        padding:15px;
+        text-transform: uppercase;
+        font-family: 'helvetica';
+        color:#bfbdbd;
+        font-size: 14px;
+        position: relative;
+        height:15px;
+
+    }
+    #menu2 > ul > li > ul{display:none;}
+    #menu2 > ul > li:hover > ul{
+        display:block;
+        margin-left:100px;
+        position:absolute;
+        margin-top:-45px;
+        background-color:#0a0019;
+    }
+
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:150px;
+    }
+
+}
+
+@media screen and (min-width: 931px){
+    .hide{
+        display:none;
+    }
+    .logo{
+        margin-top:20px;
+    }
+}
+@media screen and (max-width: 930px){
+    #menu ul li{
+        display:none;
+    }
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:20px;
+    }
+}
+
+@media all and (max-width: 800px){
+    .header-title{
+        margin: 0 auto !important;
+        width: 90%;
+        padding: 15px 0 !important;
+    }
+}
 
 @media screen and (max-width: 670px) {
     #wrapperAdmin{
@@ -496,6 +471,23 @@ display:block;
         border: 0;
         color: white;
         margin-bottom: 15px;
+    }
 
+    .footer_content{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:480px) {
+    #slider{
+        display:none;
+    }
+    .display-flex-column-template{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
     }
 }

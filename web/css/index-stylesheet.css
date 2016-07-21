@@ -187,13 +187,14 @@ input[name="search"]{
 	font-size:17px;
 }
 .title_index{
-	width:88%;
-	padding:10px;
-	text-align: right;
-	background-color: #211d3b;
-	transform: skew(-8deg);
+    width: 90%;
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #211d3b;
+    transform: skew(-8deg);
 }
-.title_index,label[for='title1']{
+label[for='title1']{
 	margin-top:50px;
 }
 .fight{
@@ -371,16 +372,11 @@ hr{
 	}
 }
 
-@media all and (max-width: 480px){
-	//HEADER
-	.header-title{
-		/*NE ME DEMANDEZ PAS POURQUOI, 
-		SANS UNE COUCHE-CLASS DE PROTECTION,
-		LA CLASSE D'APRES NE S APPLIQUE PAS*/ 
-	}
+
+@media all and (max-width: 800px){
 
 	.index-header-btn{
-		bottom: -70%;
+		bottom: -100%;
 		right: 50%;
     	transform: translateX(60%);
 	}
@@ -392,47 +388,48 @@ hr{
 
 	}
 
-		.title_index_left{
-			margin: 0 auto;
-		}
+	.title_index_left{
+		margin: 0 auto;
+	}
 
 	#contain_right {
 	    width: 90%;
 	    margin: 0 auto;
 	    display: block;
 	}
-		.contain_article{
-			width: 90%;
-			margin: 0 auto;
-		}
-		.date_article{
-			position: absolute;
-		    left: 50%;
-		    right: inherit;
-		    top: 0;
-		    transform: translateX(50%);
-		}
-		.text_article{
-			width: 60%;
-			text-align: center;
-		}
 
-		.tags_article{
-			width: 100%;
-		}
-		
-		.text_article h2{
-			text-overflow: ellipsis;
-			overflow: hidden;
-		}
+	.contain_article{
+		width: 90%;
+		margin: 0 auto;
+	}
+	.date_article{
+		position: absolute;
+	    left: 50%;
+	    right: inherit;
+	    top: 0;
+	    transform: translateX(50%);
+	}
+	.text_article{
+		width: 60%;
+		text-align: center;
+	}
 
-		.btn_article .btn{
-			width: 70%;
-		}
+	.tags_article{
+		width: 100%;
+	}
+	
+	.text_article h2{
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 
-		.img_article{
-			width: 35%;
-		}
+	.btn_article .btn{
+		width: 70%;
+	}
+
+	.img_article{
+		width: 35%;
+	}
 
 	//SOCIAUX
 	#reseaux_sociaux{
@@ -456,5 +453,11 @@ hr{
 		margin-left: 3%;
 	}
 
+}
+
+@media all and (max-width: 480px){
+	.index-header-btn{
+		bottom: -70%;
+	}
 }
 

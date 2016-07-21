@@ -284,7 +284,7 @@
 		</section>
 		<div class="footer">
 		    <div class="footer_wrap display-flex-row">
-		        <div class="footer_content m-a display-flex-column">
+		        <div class="footer_content m-a-5 display-flex-column">
 		            <h3 class="m-a footer_title">Break'em All</h3>
 		            <ul class="m-a display-flex-column">
 		                <li><a href="<?php echo WEBPATH.'/index' ; ?>" title="accueil">Accueil</a></li>
@@ -293,28 +293,28 @@
 		                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 		            </ul>
 		        </div>
-		        <div class="footer_content m-a display-flex-column">
+		        <div class="footer_content m-a-5 display-flex-column">
 		            <h3 class="m-a footer_title">Nous rejoindre</h3>
 		            <ul class="m-a display-flex-column">
-		        <?php 
-				if(isset($_isConnected)){
-					?>
-	                <li><a href="<?php echo WEBPATH.'/creationtournoi'; ?>" title="Créer mon tournoi">Créer un tournoi</a></li>
-					<li>
-						<?php
-						if(!empty($_idTeam))
-							echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."' title='Ma team'>Ma team</a>";
-						else
-							echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créerm</a>";
+		        	<?php 
+					if(isset($_isConnected)){
 						?>
-					</li>
-			        <?php 
-		        }
-		        ?>
+		                <li><a href="<?php echo WEBPATH.'/creationtournoi'; ?>" title="Créer mon tournoi">Créer un tournoi</a></li>
+						<li>
+							<?php
+							if(!empty($_idTeam))
+								echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."' title='Ma team'>Ma team</a>";
+							else
+								echo "<a href='".WEBPATH."/creationteam' title='Créer sa team'>Créerm</a>";
+							?>
+						</li>
+				        <?php 
+			        }
+			        ?>
 		                <li><a href="<?php echo WEBPATH.'/listejoueurs'; ?>" title="Nos joueurs">Les joueurs</a></li>
 		            </ul>
 		        </div>
-		        <div class="footer_content m-a display-flex-column">
+		        <div class="footer_content m-a-5 display-flex-column">
 		            <h3 class="m-a footer_title">Help</h3>
 		            <ul class="m-a display-flex-column">
 		                <?php 
