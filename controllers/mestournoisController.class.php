@@ -34,7 +34,7 @@ class mestournoisController extends template{
 
         //Request
         $user = $bddUser->userByPseudoInstance($userTMP);
-        $tournamentOrg = $bddTournament->getTournamentsOrganisedByUser($user, 5);
+        $tournamentOrg = $bddTournament->getTournamentsOrganisedByUser($user, 10);
         
         //Data
         //echo json_encode($tournamentOrg);        
@@ -42,7 +42,27 @@ class mestournoisController extends template{
         $v->setView("mestournoisOrg", "templateEmpty");
     }
 
-    public function mestournoisPartAction(){
+   public function mestournoisPartAction(){
+        //View
+        $v = new view();
+
+        //User data
+        $this->assignConnectedProperties($v);
+        $pseudo = $this->connectedUser->getPseudo();
+        $userTMP = new user(array("pseudo" => $pseudo));
+
+        //Bdd
+        $bddUser = new userManager();
+        $bddTournament = new tournamentManager();
+
+        //Request
+        $user = $bddUser->userByPseudoInstance($userTMP);
+        $tournamentPart = $bddTournament->getTournamentsPlayedByUser($user, 10);
+        
+        //Data
+        //echo json_encode($tournamentOrg);        
+        $v->assign("tournamentPart",$tournamentPart);
+        $v->setView("mestournoisPart", "templateEmpty");
     }
 }
 

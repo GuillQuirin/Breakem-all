@@ -1,6 +1,6 @@
 <?php 
-	if(isset($tournamentOrg)):
-		foreach ($tournamentOrg as $key => $tournament):
+	if(isset($tournamentPart)):
+		foreach ($tournamentPart as $key => $tournament):
 		?>
 		<!-- Tournament -->
 		<div class="article-wrapper">
@@ -32,6 +32,6 @@
 		<?php
 		endforeach;
 	else:
-		echo "<span class='display-block text-center'>Vous n'organisez aucun tournoi pour le moment.</span>";
+		echo "<span class='display-block text-center'>Vous ne participez à aucun tournoi pour le moment.</span>";
 	endif;
 ?>	

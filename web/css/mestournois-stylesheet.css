@@ -20,25 +20,34 @@
 	height:150px;
 }
 
-.article-content{
-
-}
-
 .article-content-title{
-	font-size:15px;
+	font-size:25px;
+	padding:10px 0;
 }
 
 .article-content-description{
-
+	display:block;
+	padding:10px 0;
+	height:45px;
 }
 
 .article-content-btn-wrapper{
+	padding: 5px 0;
+}
 
+.article-lock{
+	vertical-align: middle;
+	padding:0 5px;
 }
 
 .article-content-btn{
-	max-width:250px;
+	max-width:150px;
 }
 
+.article-date{
+	font-size:14px;
+	padding:10px 0;
+	float:right;
+}
 
 
