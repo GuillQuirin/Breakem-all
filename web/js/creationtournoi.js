@@ -183,6 +183,7 @@ var dom = {
 var validateChoices = {
 	_sumUp: false,
 	_btn: false,
+	_processing: false,
 	init: function(data){
 		var treeContainer = dom.getTreeConfirm();
 		resetTreeEl(treeContainer);
@@ -274,6 +275,7 @@ var validateChoices = {
 		validateChoices._sumUp = container;
 	},
 	btnClickedEventCallback: function(obj){
+		validateChoices._processing = false;
 		if(!!obj){
 			if(obj.errors){
 	    		popupError.init(obj.errors);
@@ -286,9 +288,14 @@ var validateChoices = {
 	},
 	loadValidationEvent: function(){
 		var _btn = validateChoices._btn;
-		_btn.off();
+		_btn.off();		
 		_btn.click(function(event) {
-			ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
+			if(validateChoices._processing)
+				return;
+			else{
+				validateChoices._processing = true;
+				ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
+			}			
 		});
 	}
 };
@@ -297,6 +304,7 @@ var gameversionChoice = {
 	_choiceDat: false,
 	_currentForm: false,
 	_btn: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: validateChoices,
@@ -326,6 +334,7 @@ var gameversionChoice = {
 	getChoiceDat: function(){return gameversionChoice._choiceDat;},
 	getPossibleChoices: function(){return gameversionChoice.possibleChoices;},
 	getVersionsCallback: function(obj){
+		gameversionChoice._processing = false;
 		gameversionChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
@@ -353,6 +362,9 @@ var gameversionChoice = {
 	    	popupError.init("Création du DOM consoles impossible");
 	},
 	getVersions: function(da){
+		if(gameversionChoice._processing)
+			return;
+		gameversionChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getVersions', 'POST', {'name': da}, gameversionChoice.getVersionsCallback);
 	},
 	putAccordingForm: function(){
@@ -582,6 +594,7 @@ var gameversionChoice = {
 var consoleChoice = {
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: gameversionChoice,
@@ -607,6 +620,7 @@ var consoleChoice = {
 	getChoiceDat: function(){return consoleChoice._choiceDat;},
 	getPossibleChoices: function(){return consoleChoice.possibleChoices;},
 	getConsoleCallback: function(obj){
+		consoleChoice._processing = false;
 		consoleChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){		    		
@@ -635,6 +649,9 @@ var consoleChoice = {
 	    }
 	},
 	getConsoles: function(da){
+		if(consoleChoice._processing)
+			return;
+		consoleChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getConsoles', 'POST', {'name': da}, consoleChoice.getConsoleCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
@@ -681,6 +698,7 @@ var consoleChoice = {
 var gameChoice = {	
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: consoleChoice,
@@ -705,6 +723,7 @@ var gameChoice = {
 	getChoiceDat: function(){return gameChoice._choiceDat;},
 	getPossibleChoices: function(){return gameChoice.possibleChoices;},
 	getGamesCallback: function(obj){
+		gameChoice._processing = false;
 		gameChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
@@ -733,6 +752,9 @@ var gameChoice = {
 	    }
 	},
 	getGames: function(da){
+		if(gameChoice._processing)
+			return
+		gameChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getGames', 'POST', {'name': da}, gameChoice.getGamesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
@@ -779,6 +801,7 @@ var gameChoice = {
 var gameTypesChoice = {
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: gameChoice,
@@ -806,6 +829,7 @@ var gameTypesChoice = {
 	getGameTypesCallback: function(obj){
 		gameTypesChoice.possibleChoices = [];
 	  	gameTypesChoice.possibleTreeChoices = [];
+	  	gameTypesChoice._processing = false;
 	    if(!!obj){
 	    	if(obj.errors){
 	    		popupError.init(obj.errors);
@@ -836,6 +860,9 @@ var gameTypesChoice = {
 	    	popupError.init("Création du DOM gametype impossible");
 	},
 	getGameTypes: function(){
+		if(gameTypesChoice._processing)
+			return;
+		gameTypesChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getGameTypes', 'POST', {}, gameTypesChoice.getGameTypesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){

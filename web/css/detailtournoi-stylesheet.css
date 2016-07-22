@@ -54,6 +54,9 @@ section:hover{
 		align-items: center;
 		justify-content: center;
 	}
+	.detailtournoi-tournoi-nom{
+		margin-top: 15px;
+	}
 	.detailtournoi-infos article,
 	.detailtournoi-infos .detail-tournoi-aside{
 		/*padding: 0 20px 20px 20px;*/

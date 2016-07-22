@@ -1,12 +1,11 @@
 <?php if(isset($tournoi)): ?>
 	<section class="detailtournoi detailtournoi-infos display-flex-column">
 		<article class="display-flex-column m-a">
-			<h3 class="titre1 border-full ta-center">Tournoi -
+			<h3 class="title-1 border-full ta-center m-a">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
-			</h3>
-			
-				<p></p>
+			</h3>			
+			<p class="detailtournoi-tournoi-nom title-2 text-center m-a"><?php echo $tournoi->getName(); ?></p>
 			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1) ? 'bg-pink title title-2': '' ?>">
 				<?php if ($tournoi->getStatus() != -1): ?>
 					<?php echo $tournoi->getGameDescription(); ?>
