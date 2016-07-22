@@ -96,6 +96,7 @@ var tournamentRegister = {
 	},
 	setRandBtn: function(){
 		tournamentRegister._randBtn = $('.detailtournoi-btn-inscription');
+		console.log(tournamentRegister._randBtn);
 	},
 	getChoiceBtn: function(){return tournamentRegister._choiceBtn;},
 	getRandBtn: function(){return tournamentRegister._randBtn;},

@@ -74,13 +74,13 @@ section:hover{
 		width: 100%;
 		left: 0;
 	}
-	.detailtournoi-infos .detailtournoi-btn-inscription{
+	.detailtournoi-infos .btn{
 		/*height: 6vh;*/
-		width: 140px;
+		width: 135px;
 		display: block;
 		vertical-align: middle;
 		margin: 0 auto;
-		margin-top: 20px;
+		margin-top: 10px;
 	}
 	.detailtournoi-infos .tablette-only{
 		display: none;
