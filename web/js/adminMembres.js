@@ -226,7 +226,7 @@ var membreModule = {
 				allData.id = id;
 
 				if(myImg){
-					allData.img = pseudo + ".jpg?lastmod=" + Date.now();
+					allData.img = pseudo + ".jpg";
 				}
 
 				if(pseudo)
@@ -260,7 +260,7 @@ var membreModule = {
 			        //Je n'ai pas réussi a faire un append du pseudo pour le FormData alors je refais un appel ajax
 			        //Voir : http://stackoverflow.com/questions/21060247/send-formdata-and-string-data-together-through-jquery-ajax
 			        //Ne marche pas
-			        var pseudoObj = {"pseudo" : pseudo};
+			        var pseudoObj = {"myPseudo" : pseudo};
 
 			        if(myImg && file){
         			    jQuery.ajax({
@@ -270,11 +270,10 @@ var membreModule = {
 				            type: 'POST',
 				            success: function(result2){
 								//Si une image a été uploadé, on rajoute le src a l'objet allData
-					        	allData.img = pseudo + ".jpg?=" + Date.now();
+					        	allData.img = pseudo + ".jpg";
 
 					        	var imgData = new FormData();                  
 							    imgData.append('file', file);
-							    imgData.append('pseudo', pseudo);
 
 							    jQuery.ajax({
 						            url: "admin/updateMembresData", 
@@ -284,11 +283,11 @@ var membreModule = {
 						            processData: false,
 						            data: imgData,                         
 						            type: 'POST',
-						            success: function(result2){
+						            success: function(result3){
 						                console.log("Image uploadé.");
 						                console.log(file.name);				       
 						            },
-						            error: function(result2){
+						            error: function(result3){
 						                console.log(result2);
 						            }
 							    });
