@@ -388,7 +388,15 @@ class adminController extends template{
         }
 
         public function updateTeamsDataAction(){
-            
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_POST['name'] . ".jpg");
+            }  
+
+
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -408,19 +416,6 @@ class adminController extends template{
 
             if($exist_name)
                 unset($filteredinputs['name']);
-
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $filteredinputs['name']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $oldteam->getName());
-                }  
-            }
    
             $teamMaj = new team($filteredinputs);
             
