@@ -12,6 +12,7 @@ var membreModule = {
 		membreModule.setAdminDataRe();
 		membreModule.setToggleCheck();
 		membreModule.setAdminSearchInput();
+		membreModule.setDataIhm();
 
 		//Preview
 		membreModule.previewImg();
@@ -29,6 +30,9 @@ var membreModule = {
 	//Setter
 	setAdminSearchInput : function(){
 		this._adminSearchInput = jQuery('.admin-search-input');
+	},
+	setDataIhm : function(){
+		this._dataIhm = jQuery('.admin-data-ihm');
 	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
@@ -53,6 +57,9 @@ var membreModule = {
 	},
 
 	//Getter
+	getDataIhm : function(){
+		return this._dataIhm;
+	},
 	getAdminSearchInput : function(){
 		return this._adminSearchInput;
 	},
@@ -124,10 +131,34 @@ var membreModule = {
 
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
+							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							//console.log(userArr);
+							membreModule.getDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].name);
+						 		var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(:contains(" + userArr[0].pseudo + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
