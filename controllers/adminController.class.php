@@ -461,13 +461,12 @@ class adminController extends template{
         }
 
         public function updateMembresDataAction(){
-            print_r($_POST['pseudo']);
             //Upload des images
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
             else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/Dylannoobiii.jpg");
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo'] . ".jpg");
             }  
 
                        
