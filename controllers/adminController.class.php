@@ -461,6 +461,15 @@ class adminController extends template{
         }
 
         public function updateMembresDataAction(){
+            print_r($_POST['pseudo']);
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/Dylannoobiii.jpg");
+            }  
+
                        
             $args = array(
                'id' => FILTER_VALIDATE_INT,
@@ -475,8 +484,8 @@ class adminController extends template{
                'img' => FILTER_SANITIZE_STRING
             );
 
-            //On check le fichier
-            if(isset($_POST['file'])){
+            //On check le fichier (ne marche pas)
+      /*      if(isset($_POST['file'])){
                 if ( 0 < $_FILES['file']['error'] ) {
                     unset($_POST['img']);
                 }
@@ -499,7 +508,7 @@ class adminController extends template{
                         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $olduser->getPseudo());
                     }
                 }  
-            }
+            }*/
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
             

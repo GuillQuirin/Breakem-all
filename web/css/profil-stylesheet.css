@@ -1,3 +1,8 @@
+#configuration-content-wrapper.container, .content-border{
+    width: 90%;
+    padding: 35px 0;
+}
+
 .profil-title{    
     text-align: center;
     transform:skew(-8deg);    
@@ -47,7 +52,9 @@
 }
 
 #communication button{
-    margin: 10px 0;
+    margin: 10px auto;
+    width: 75%;
+    display: block;
 }
 
 .profil-match-element-center{
@@ -266,14 +273,14 @@ input[name="search"]{
     text-align: end;
 }
 .title_index{
-    width:88%;
+    width:90%;
     padding:10px;
     text-align: center;
     background-color: #211d3b;
     transform: skew(-8deg);
 }
 .title_index,label[for='title1']{
-    margin: 30px 0;
+    margin: 30px auto;
 }
 
 .team{
@@ -437,46 +444,6 @@ hr{
     margin-bottom:5%;
 }
 
-@media screen and (max-width: 770px) {
-    #formplainte, #formcontact{
-        display: none;
-        position: fixed;
-        top: 25%;
-        background-color: rgba(30, 3, 37, 1);
-        width: 40%;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        z-index: 100;
-        background: rgba(8, 3, 37, 1);
-        font-size: 15px;
-        border-radius: 5px;
-        padding: 30px;
-        font-family: Roboto !important;
-        font-size: 15px;
-    }
-
-    .fontnone{
-        font-size:0px;
-    }
-
-    #formplainte textarea, #formcontact textarea{
-        width: 85%;
-        height: 50px;
-        vertical-align: middle;
-        margin-bottom:7%;
-        margin-left:6%;
-
-    }
-
-    .lisignal{
-        margin-top:3px;
-        margin-bottom:3px;
-    }
-
-
-}
-
 
 .unfound_user{
     position: relative;
@@ -495,4 +462,31 @@ hr{
 
 .sendError, .sendOK{
     display: none;
+}
+
+@media screen and (max-width: 991px) {
+    #formplainte, #formcontact{
+        width: 70%;
+        z-index: 11;
+    }
+    
+    #formplainte textarea, #formcontact textarea{
+        width: 100%;
+        height: 80px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .fontnone{
+        font-size:0px;
+    }
+    
+    .configuration-header-profil-right{
+        position: inherit;
+    }
+    
+    #contain_right{
+        width: 100%;
+        margin-right: inherit;
+    }
 }

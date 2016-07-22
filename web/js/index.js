@@ -22,7 +22,7 @@ $(document).ready( function(){
 
 	/**** PAGINATION ****/
 
-    var show_per_page = 5;  
+    var show_per_page = 4;  
     var number_of_items = $('#liste-derniers-tournois').children().size();  
     var number_of_pages = Math.ceil(number_of_items/show_per_page);  
   

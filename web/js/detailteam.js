@@ -15,6 +15,11 @@ $(document).ready(function(){
 		$('.popup').fadeOut(500);
 	});
 
+	//Suppression de la team
+	$("button[name='action-team-dissoudre']").click(function(){
+		return confirm("ATTENTION: Souhaitez-vous vraiment vous supprimer cette team ?");
+	});
+
 	//Signalement d'un commentaire
 	$("p[id^='comment-report-']" ).on('click', function() {
 		var commentaire = $(this).prop('id').replace("comment-report-","");
@@ -54,6 +59,7 @@ $(document).ready(function(){
 	});
 
 });
+
 
 $(document).mouseup(function(e)
 {

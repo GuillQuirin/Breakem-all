@@ -156,7 +156,7 @@
   max-height:100%;
   border:none;
   transition:.3s padding-top ease,.5s transform ease;
-  z-index:-1;
+  z-index:1;
   color:#ffffff;
 }
 
@@ -165,18 +165,19 @@
   transform:translateX(100%);
 }
 
+.navbar-side-menu .navbar-menu-li{
+  line-height:70px !important;
+  text-align: left;
+  padding: 0 20px;
+}
+
 .navbar-side-menu a {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 15px;
   color:#ffffff;
-  padding: 0 35px;
   text-transform:uppercase;
   position:relative;
   font-family: "Roboto" !important;
-}
-
-.navbar-side-menu .navbar-menu-li{
-  line-height:70px !important;
 }
 
 .navbar-side-menu span{

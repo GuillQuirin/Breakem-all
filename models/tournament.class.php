@@ -7,6 +7,7 @@ final class tournament{
 	private $_maxStartDate = 86400 * 90;
 	private $_spaceBetweenDates = 86400 * 14;
 	private $_endDateWasAutoCreated = false;
+	private $_maxDescriptionLength = 200;
 
 	protected $_id;
 	protected $_startDate;
@@ -394,6 +395,10 @@ final class tournament{
 			}
 		}
 		return false;
+	}
+
+	public function gtMaxDescriptionLength(){
+		return $this->_maxDescriptionLength;
 	}
 }
 /*

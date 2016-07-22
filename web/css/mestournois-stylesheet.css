@@ -5,3 +5,49 @@
     background-size: cover;     
 }
 
+.mestournois-container{
+	padding:25px 0;
+	margin: 35px auto;
+}
+
+/* Article */
+.article-wrapper{
+	padding:15px 0;
+	margin:15px 0;
+}
+
+.article-img{
+	height:150px;
+}
+
+.article-content-title{
+	font-size:25px;
+	padding:10px 0;
+}
+
+.article-content-description{
+	display:block;
+	padding:10px 0;
+	height:45px;
+}
+
+.article-content-btn-wrapper{
+	padding: 5px 0;
+}
+
+.article-lock{
+	vertical-align: middle;
+	padding:0 5px;
+}
+
+.article-content-btn{
+	max-width:150px;
+}
+
+.article-date{
+	font-size:14px;
+	padding:10px 0;
+	float:right;
+}
+
+

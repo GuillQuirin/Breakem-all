@@ -11,7 +11,40 @@ body{
 }
 footer{
     width:100%;
-    z-index: 2;
+    z-index: 10;
+}
+
+/* onglet */
+.admin-onglet-wrapper{
+    position:absolute;
+    bottom:-1px; 
+    margin-left:auto;
+    margin-right:auto;
+    left:0;
+    right:0;   
+    text-align:center;
+}
+
+.admin-onglet-ul li:hover{
+    background:#080325;
+    transition:all .3s;
+}
+
+.admin-onglet-ul li.active{
+    opacity:1;
+    background:#080325;
+}
+
+.admin-onglet-ul{
+    transform:skew(-8deg);
+}
+
+.admin-onglet-ul li{    
+    background:rgba(130, 83, 164, 0.2);
+    cursor:pointer;
+    padding:15px 35px;
+    display:inline-block;    
+    transition: all .3s;
 }
 
 .admin-header-title{
@@ -36,7 +69,7 @@ footer{
     border-top:1px solid #ccc;
 }
 .footer .footer_wrap {
-    max-width:800px;
+   // max-width:800px;
     width: 100%;
     margin:0 auto;
     padding:0 0 50px 0;
@@ -154,42 +187,6 @@ header{
     border-bottom: 1px solid white;  
 }
 
-@media screen and (min-width: 931px){
-    .hide{
-        display:none;
-    }
-    .logo{
-        margin-top:20px;
-    }
-}
-@media screen and (max-width: 930px){
-    #menu ul li{
-        display:none;
-    }
-    #symbol{
-        position:fixed;
-        z-index:3;
-        width:100px;
-        text-align: center;
-    }
-    .symbol{
-        color:white;
-        font-size: 30px;
-    }
-    .logo{
-        margin-top:0px;
-    }
-    #inscription_rapide{
-        margin-right:20px;
-    }
-
-}
-@media screen and (max-width:480px) {
-    #slider{
-        display:none;
-    }
-}
-
 #logo{
     width:100px;
     margin:0 auto;
@@ -261,82 +258,7 @@ header{
     position:absolute;
 }
 
-@media screen and (min-width: 981px){
-    .hide{
-        display:none;
-    }
-    .logo{
-        margin-top:20px;
-    }
-}
 
-
-@media screen and (max-width: 980px){
-#menu_icon{cursor:pointer;}
-#menu ul{float:left;}
-#menu{display:none;}
-#menu2{display:block;width:150px;}
-#menu2  ul {
-    list-style-type:none;
-    text-align:left;
-    width:150px;
-    display:none;
-    background-color: #0a0019;
-        }
-#menu2 > ul > li {width:100px;}
-#menu2 > ul > li a{
-display:block;
-    width:100px;
-    color:white;
-    text-decoration:none;
-    padding:15px;
-    text-transform: uppercase;
-    font-family: 'helvetica';
-    color:#bfbdbd;
-    font-size: 14px;
-    position: relative;
-    height:15px;
-
-}
-#menu2 > ul > li > ul{display:none;}
-#menu2 > ul > li:hover > ul{
-    display:block;
-    margin-left:100px;
-    position:absolute;
-    margin-top:-45px;
-    background-color:#0a0019;
-    }
-
-    #symbol{
-        position:fixed;
-        z-index:3;
-        width:100px;
-        text-align: center;
-    }
-    .symbol{
-        color:white;
-        font-size: 30px;
-    }
-    .logo{
-        margin-top:0px;
-    }
-    #inscription_rapide{
-        margin-right:150px;
-    }
-
-}
-@media screen and (max-width:480px) {
-    #slider{
-        display:none;
-    }
-    .display-flex-column-template{
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        
-    }
-}
 /* #######  POPUPS ####### */
     .index-modal-login,
     .index-modal-popup{
@@ -431,39 +353,107 @@ display:block;
     display: none;
 }
 
-/* Image de chargement lors de l'envoi d'un mail
 
-.loadGIF{
-    display: none;
-    position: absolute;
-    width: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+
+@media screen and (min-width: 981px){
+    .hide{
+        display:none;
+    }
+    .logo{
+        margin-top:20px;
+    }
 }
-.loadGIF img{
-    max-width: 100%;
-}*/
 
-@media screen and (max-width: 670px) {
-    #wrapperAdmin{
-        display: none;
-        position: fixed;
-        top: 15%;
-        background-color: rgba(8, 3, 37, 1);
-        width: 40%;
-        left: 25%;
-        height: 250px;
-        color: white;
-        z-index: 5;
 
-        padding: 20px;
-        font-size: 9px;
+@media screen and (max-width: 980px){
+    #menu_icon{cursor:pointer;}
+    #menu ul{float:left;}
+    #menu{display:none;}
+    #menu2{display:block;width:150px;}
+    #menu2  ul {
+        list-style-type:none;
+        text-align:left;
+        width:150px;
+        display:none;
+        background-color: #0a0019;
+            }
+    #menu2 > ul > li {width:100px;}
+    #menu2 > ul > li a{
+    display:block;
+        width:100px;
+        color:white;
+        text-decoration:none;
+        padding:15px;
+        text-transform: uppercase;
+        font-family: 'helvetica';
+        color:#bfbdbd;
+        font-size: 14px;
+        position: relative;
+        height:15px;
+
+    }
+    #menu2 > ul > li > ul{display:none;}
+    #menu2 > ul > li:hover > ul{
+        display:block;
+        margin-left:100px;
+        position:absolute;
+        margin-top:-45px;
+        background-color:#0a0019;
     }
 
-    #wrapperAdmin textarea{
-        width: 85%;
-        height: 50px;
-        vertical-align: middle;
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:150px;
+    }
+
+}
+
+@media screen and (min-width: 931px){
+    .hide{
+        display:none;
+    }
+    .logo{
+        margin-top:20px;
+    }
+}
+@media screen and (max-width: 930px){
+    #menu ul li{
+        display:none;
+    }
+    #symbol{
+        position:fixed;
+        z-index:3;
+        width:100px;
+        text-align: center;
+    }
+    .symbol{
+        color:white;
+        font-size: 30px;
+    }
+    .logo{
+        margin-top:0px;
+    }
+    #inscription_rapide{
+        margin-right:20px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+
+    #wrapperAdmin{
+        width: 70%;
     }
 
     .input-default {
@@ -490,6 +480,23 @@ display:block;
         border: 0;
         color: white;
         margin-bottom: 15px;
+    }
 
+    .footer_content{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:480px) {
+    #slider{
+        display:none;
+    }
+    .display-flex-column-template{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
     }
 }
