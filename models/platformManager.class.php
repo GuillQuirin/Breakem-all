@@ -29,7 +29,7 @@ class platformManager extends basesql{
 	}
 
 	public function getAdminListPlatform(){
-		$sql = "SELECT id, name, description, img, status FROM " . $this->table . " WHERE id>=0 AND status>0 ORDER BY name ASC";
+		$sql = "SELECT id, name, description, img, status FROM " . $this->table . " WHERE id>=0 ORDER BY name ASC";
 		
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();

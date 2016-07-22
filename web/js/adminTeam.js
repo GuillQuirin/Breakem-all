@@ -11,6 +11,7 @@ var teamModule = {
 		teamModule.setAdminDataRe();
 		teamModule.setToggleCheck();
 		teamModule.setAdminSearchInput();
+		teamModule.setDataIhm();
 
 		//Preview
 		teamModule.toggleCheck();
@@ -24,6 +25,9 @@ var teamModule = {
 	},
 
 	//Setter
+	setDataIhm : function(){
+		this._dataIhm = jQuery('.admin-data-ihm');
+	},
 	setAdminSearchInput : function(){
 		this._adminSearchInput = jQuery('.admin-search-input');
 	},
@@ -50,6 +54,9 @@ var teamModule = {
 	},
 
 	//Getter
+	getDataIhm : function(){
+		return this._dataIhm;
+	},
 	getAdminSearchInput : function(){
 		return this._adminSearchInput;
 	},
@@ -111,13 +118,36 @@ var teamModule = {
 					data: data,
 					success: function(result){
 						console.log(result);
-
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
+							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".team-name-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							//console.log(userArr);
+							teamModule.getDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].name);
+						 		var myRDiv = onglet.getAdminDataRe().find(".team-name-g:not(:contains(" + userArr[0].name + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".team-name-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
