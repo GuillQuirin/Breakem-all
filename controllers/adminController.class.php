@@ -241,6 +241,14 @@ class adminController extends template{
         }
 
         public function updatePlatformsDataAction(){
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_POST['name'] . ".jpg");
+            }  
+
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -249,44 +257,12 @@ class adminController extends template{
                 'img' => FILTER_SANITIZE_STRING                     
             );               
 
-            move_uploaded_file($_FILES['file']['tmp_name'], getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
-
             //Pré-controle car l'upload d'image ne passe pas le filter_input_array
             $platformBdd = new platformManager();
             $oldplatform = $platformBdd->getIdPlatform(filter_var($_POST['id'], FILTER_SANITIZE_STRING));
             $platform = new platform(array('name' => trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING))));
 
-            $exist_name = $this->controleNom($platformBdd, $platform, $oldplatform);
-            if($exist_name)
-                unset($args['name']);
-
-            //On check le fichier
-            if(file_exists(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg")){  
-                //Nouveau nom
-                if(!$exist_name && $platform->getName()!=NULL){
-                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
-                            getcwd(). WEBPATH . "/web/img/upload/platform/".$platform->getName().".jpg");
-                    $_POST['img']=$platform->getName().".jpg";
-                    var_dump("OUUUUUAAAIIIISSS");
-                }
-                //Ancien nom
-                else if($exist_name && $oldplatform->getName()!==NULL){    
-                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
-                            getcwd(). WEBPATH . "/web/img/upload/platform/".$oldplatform->getName().".jpg");
-                    $_POST['img']=$oldplatform->getName().".jpg";
-                    var_dump("PROOOOOUUTTT");
-                }
-                //Suppression du fichier
-                else{
-                    unlink(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
-                    var_dump("ZAAAAAAAA");
-                }
-            }
-
             $filteredinputs = filter_input_array(INPUT_POST, $args);                                
-
-            if(isset($filteredinputs['name']))
-                $filteredinputs['img']=$filteredinputs['name'];
 
             $platformMaj = new platform($filteredinputs);
             
@@ -388,7 +364,15 @@ class adminController extends template{
         }
 
         public function updateTeamsDataAction(){
-            
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_POST['name'] . ".jpg");
+            }  
+
+
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -396,7 +380,7 @@ class adminController extends template{
                 'slogan' => FILTER_SANITIZE_STRING,
                 'status' => FILTER_VALIDATE_INT,
                 'img' => FILTER_SANITIZE_STRING                    
-            );                                        
+            );                                            
 
             $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
             
@@ -408,19 +392,6 @@ class adminController extends template{
 
             if($exist_name)
                 unset($filteredinputs['name']);
-
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $filteredinputs['name']);
-                    else
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $oldteam->getName());
-                }  
-            }
    
             $teamMaj = new team($filteredinputs);
             
@@ -461,13 +432,12 @@ class adminController extends template{
         }
 
         public function updateMembresDataAction(){
-            print_r($_POST['pseudo']);
             //Upload des images
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
             else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/Dylannoobiii.jpg");
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo'] . ".jpg");
             }  
 
                        

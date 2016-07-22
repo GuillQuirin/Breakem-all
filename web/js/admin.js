@@ -11,6 +11,7 @@ var onglet = {
 		var myBtn = '<button type="button" class="btn btn-pink full open-form admin-add-btn admin-btn-insert" id="admin-add-btn"><a>Ajouter</a></button>';
 
 		//Setter Onglet
+		onglet.setAdminOngletLi();
 		onglet.setAdminOngletPlatforms();
 		onglet.setAdminOngletMembres();
 		onglet.setAdminOngletReports();
@@ -25,7 +26,8 @@ var onglet = {
 		onglet.setAdminAddWrapper();
 		onglet.setAdminBoard();
 		onglet.setAdminWrapper();
-		onglet.setAdminDataRe();
+		onglet.setAdminDataRe();		
+		onglet.setAdminSearchInput();
 
 		//Ouverture des onglets
 		onglet.onClick(onglet.getAdminOngletPlatforms());
@@ -38,6 +40,9 @@ var onglet = {
 		onglet.onClick(onglet.getAdminOngletTournament());
 
 		onglet.getAdminContainer().hide();
+		onglet.getAdminOngletLi().click(function(){
+			onglet.getAdminSearchInput().val("");
+		});
 
 		//Plateforme
 		onglet.getAdminOngletPlatforms().click(function(){
@@ -115,6 +120,12 @@ var onglet = {
 	setAdminBoard : function(){
 		this._adminBoard = jQuery('#admin-board');
 	},
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
+	setAdminOngletLi : function(){
+		this._adminOngletLi = jQuery('.admin-onglet-li');
+	},
 	setAdminAddWrapper : function(){
 		this._adminAddWrapper = jQuery('.admin-add-wrapper');
 	},
@@ -157,6 +168,12 @@ var onglet = {
 
 
 	//Getter
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
+	},
+	getAdminOngletLi : function(){
+		return this._adminOngletLi;
+	},
 	getAdminAddWrapper : function(){
 		return this._adminAddWrapper;
 	},

@@ -136,7 +136,7 @@ var teamModule = {
 	previewImg : function(){
 		teamModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
-    		previewUpload(this, teamModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.team-img'));
 		});
 	},
 	postDataUpdate : function(){
@@ -195,10 +195,11 @@ var teamModule = {
 			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = file.name;
+			        	allData.img = name + ".jpg";
 
 			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
+					    imgData.append('file', file);	
+					    imgData.append('name', name);			    		                             
 					    jQuery.ajax({
 				            url: "admin/updateTeamsData", 
 				            dataType: 'text',  
@@ -246,9 +247,9 @@ var teamModule = {
 						}
 						
 
-						//Si l'image uploadé existe on l'envoi dans la dom
+						//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
 						if(allData.img){
-							updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img);	
+							updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img + "?lastmod=" + Date.now());	
 						}	
 						navbar.form.smoothClosing();				
 					},

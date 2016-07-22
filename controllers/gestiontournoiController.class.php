@@ -150,14 +150,13 @@ class gestiontournoiController extends template{
 				if($ecartjour==="+" && $nbjours>="2"){
 					// On met à jour la date de début
 			    	$newtournament->setStartDate($newtournament->getStartDate(), true);
+			    	$tournamentBDD->setTournament($tournament, $newtournament);
 				}
 				else 
 					$_SESSION['referer_method']="errorExpiration";
 			}
 			else
 				$_SESSION['referer_method']="errorDatas";
-	
-			$tournamentBDD->setTournament($tournament, $newtournament);
 		}
 	
 		header("Location: ".$_SERVER['HTTP_REFERER']."");

@@ -87,9 +87,9 @@ var membreModule = {
 	},
 	//Preview
 	previewImg : function(){
-		membreModule.getPreviewInput().on('change', function(){
+		membreModule.getPreviewInput().on('change', function(event){
 			console.log("Image changed.");
-    		previewUpload(this, membreModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.membre-img'));
 		});
 	},
 	//Search Delay
@@ -225,10 +225,6 @@ var membreModule = {
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
 				allData.id = id;
 
-				if(myImg){
-					allData.img = pseudo + ".jpg";
-				}
-
 				if(pseudo)
 					allData.pseudo = pseudo;
 				
@@ -260,26 +256,15 @@ var membreModule = {
 			        //Je n'ai pas réussi a faire un append du pseudo pour le FormData alors je refais un appel ajax
 			        //Voir : http://stackoverflow.com/questions/21060247/send-formdata-and-string-data-together-through-jquery-ajax
 			        //Ne marche pas
-			        var pseudoObj = {"pseudo" : pseudo};
 
 			        if(myImg && file){
-        			    jQuery.ajax({
-				            url: "admin/updateMembresData", 
-				            data: pseudoObj,   
-				            type: 'POST',
-				            success: function(result2){
-				            	console.log(result2);
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
 
 						//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = pseudo + ".jpg";
 
 			        	var imgData = new FormData();                  
 					    imgData.append('file', file);
+					    imgData.append('pseudo', pseudo);
 
 					    jQuery.ajax({
 				            url: "admin/updateMembresData", 
@@ -332,9 +317,9 @@ var membreModule = {
 						    	break;
 						} 
 						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
-						//Si l'image uploadé existe on l'envoi dans la dom
+						//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
 						if(allData.img){
-							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/upload/membre/" + allData.img);	
+							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/upload/membre/" + allData.img + "?lastmod=" + Date.now());	
 						}
 						navbar.form.smoothClosing();				
 					},
