@@ -17,11 +17,6 @@
 		text-align: center;
 	}
 
-	.down-center-team{
-	  	left:0;
-	  	right:0;
-	  	margin:0 auto;
-	}
 	.msg-team{
 		padding: 10px;  
 	    color:green;
@@ -211,6 +206,11 @@
 #team-header-scroll-down{
 	margin-top:-50px;
 }
+.down-center-team{
+	  	left:0;
+	  	right:0;
+	  	margin:0 auto;
+	}
 
 @media screen and (min-width: 771px) and (max-width: 1199px) {
 	.bg-cover-team {
@@ -549,8 +549,9 @@
 
 		top: 20%;
 		background-color: rgba(8, 3, 37, 1);
-		width: 25%;
-		left: 25%;
+		width: auto;
+		left: 5%;
+		right:5%;
 		height: 250px;
 		color: white;
 		z-index: 100;
