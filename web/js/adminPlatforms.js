@@ -12,6 +12,7 @@ var platformModule = {
 		platformModule.setAdminDataRe();
 		platformModule.setToggleCheck();
 		platformModule.setAdminSearchInput();
+		platformModule.setDataIhm();
 
 
 		//Preview
@@ -28,6 +29,9 @@ var platformModule = {
 	},
 
 	//Setter
+	setDataIhm : function(){
+		this._dataIhm = jQuery('.admin-data-ihm');
+	},
 	setAdminSearchInput : function(){
 		this._adminSearchInput = jQuery('.admin-search-input');
 	},
@@ -54,6 +58,9 @@ var platformModule = {
 	},
 
 	//Getter
+	getDataIhm : function(){
+		return this._dataIhm;
+	},
 	getToggleCheck : function(){
 		return this._toggleCheck;
 	},
@@ -119,7 +126,7 @@ var platformModule = {
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);
 							//console.log(userArr);
-
+							platformModule.getDataIhm().removeClass('hidden');
 							//On affiche les elements présents dans le tableau
 							if(userArr.length == 1){
 								//console.log(userArr[0].name);
@@ -162,7 +169,7 @@ var platformModule = {
 	previewImg : function(){
 		platformModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
-    		previewUpload(this, platformModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.platform-img'));
 		});
 	},
 
@@ -258,10 +265,12 @@ var platformModule = {
 
 			        if(myImg && file){
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = file.name;
+			        	allData.img = name + ".jpg";
 
 			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
+					    imgData.append('file', file);			
+					    imgData.append('name', name);
+
 					    jQuery.ajax({
 				            url: "admin/updatePlatformsData", 
 				            dataType: 'text',  
@@ -297,7 +306,7 @@ var platformModule = {
 							if(allData.description){ updateBtn.parent().parent().find('.platform-description-g').html(description);}
 							//Si l'image uploadé existe on l'envoi dans la dom
 							if(allData.img){
-								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/upload/platform/" + allData.img);	
+								updateBtn.parent().parent().find('.platform-img-up').attr('src', webpath.get() + "/web/img/upload/platform/" + allData.img + "?lastmod=" + Date.now());	
 							}	
 
 							if(allData.status == 1){

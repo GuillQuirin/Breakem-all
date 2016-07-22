@@ -225,10 +225,6 @@ var membreModule = {
 				//IMPORTANT : Ne pas mettre de ternaire de type allData.id = id ? id : ''; car on laisse la valeur initiale. On ne la change pas.
 				allData.id = id;
 
-				if(myImg){
-					allData.img = pseudo + ".jpg";
-				}
-
 				if(pseudo)
 					allData.pseudo = pseudo;
 				
