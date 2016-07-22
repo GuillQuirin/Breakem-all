@@ -78,8 +78,8 @@ function go_to_page(page_num){
     //Nombre d'élèments par page  
     var show_per_page = parseInt($('#show_per_page').val());  
   
-    start_from = page_num * show_per_page;   
-    end_on = start_from + show_per_page;  
+    var start_from = page_num * show_per_page;   
+    var end_on = start_from + show_per_page;  
 
   	$("li.border_menu").removeClass('active_menu');
   	$("li.border_menu[numberpage='"+page_num+"']").addClass('active_menu');
