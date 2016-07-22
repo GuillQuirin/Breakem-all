@@ -324,7 +324,7 @@ var gameModule = {
 						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
+							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img + "?lastmod=" + Date.now());	
 						}	
 						if(allData.status == 1){
 								updateBtn.parent().parent().find('.jeu-status-g-ht').html(
