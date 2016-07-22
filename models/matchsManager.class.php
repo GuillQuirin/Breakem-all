@@ -68,6 +68,9 @@ final class matchsManager extends basesql{
 	}
 
 	public function getNextAllMatch(tournament $t, $limit=5){
+		$limit = (int) $limit;
+		if($limit < 1)
+			$limit = 5;
 		$sql = "SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber
 		FROM matchs m 
 		WHERE m.idTournament = :idTournament
