@@ -61,11 +61,35 @@ else{
 
     <!-- Slogan -->
     <div class="slogan-title align">
-        <?php if(isset($sloganteam)) echo '"'.$sloganteam.'"'; ?>
+        <?php if(isset($sloganteam)){echo '"'.$sloganteam.'"';}else{echo '"Slogan de la Team"';} ?>
     </div>
-
+    <section>
+        <div class="msg-team text-center">
+            <?php
+                if(isset($rejoin_team))
+                    echo 'Vous avez bien rejoint la team.';
+                if(isset($exit_team))
+                    echo 'Vous avez bien quitté la team.';
+                if(isset($create_comment))
+                    echo 'Votre commentaire a bien été ajouté.';
+                ?>
+                <p id="msg-error" class="error-img"></p>
+                <?php
+                if(isset($error_create_comment))
+                    echo '<p class="error-img"> Vous ne pouvez pas envoyer un commentaire vide.</p>';
+                if(isset($modif_team) && isset($img_error)){
+                    echo '<p class="error-img"> Votre image est trop lourde. Elle doit faire moins de 1MB.</p>';
+                }else if(isset($modif_team)){
+                    echo 'Vous avez bien modifié la team.';
+                }
+                
+                    
+            ?>
+        </div>
+    </section>
     <!-- Bouton selon le user --> 
      <section class="relative align">
+        
         <form action="<?php echo WEBPATH.'/detailteam/updateUserTeam'; ?>" method="POST"> 
             <div class="align relative button-team">
                 <input type="hidden" name="nameTeam" value="<?php if(isset($nameteam)) echo $nameteam;?>">
@@ -174,50 +198,6 @@ else{
             </div>
             <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team break-word">
                 Description de la team : <?php if(isset($description)) echo $description; ?>
-            </div>
-
-            
-            <!--Récupèration du dernier match de la team -->
-            <div class="grid-md-4 team-tournoi">
-                <div class="title_index ">
-                    <label for="title3">Prochain tournoi</label>
-                </div>
-                <div class="fight">
-
-                    <!-- Tournoi à venir de la team -->
-                    <?php //echo $fight; ?>
-                    <h3>ESL</h3>
-                    <p class="date_fight">1er Avril 2016, 17h00</p>
-                    <?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-                    <?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-                    <div class="name_fight">
-                        <ul>
-                            <li>Navi</li>
-                            <li>Fnatic</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--Récupèration du dernier match de la team -->
-            <div class="grid-md-4 team-tournoi">
-                <div class="title_index ">
-                    <label for="title3">Prochain tournoi</label>
-                </div>
-                <div class="fight">
-
-                    <!-- Tournoi à venir de la team -->
-                    <?php //echo $fight; ?>
-                    <h3>ESL</h3>
-                    <p class="date_fight">1er Avril 2016, 17h00</p>
-                    <?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-                    <?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-                    <div class="name_fight">
-                        <ul>
-                            <li>Navi</li>
-                            <li>Fnatic</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 
             <div class="grid-md-10 commentaire-team">

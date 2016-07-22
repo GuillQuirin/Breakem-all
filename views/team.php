@@ -7,13 +7,18 @@
         </div>
     </div>      
 
-    <img class="icon icon-size-3 down-center header-scroll-down" id="team-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+    <img class="icon icon-size-3 down-center-team header-scroll-down" id="team-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
 </section>
 <!-- Liste des teams -->
 <section class="team-content-wrapper my-content-wrapper">
 
 	<div class="container m-a content-border team-container">
-
+		<div class="msg-team text-center">
+            <?php
+                if(isset($dissoudre_team))
+                    echo 'Vous avez bien dissous votre team<br>';
+            ?>
+        </div>
 		<div class="row team-content-row">
 			<div class="grid-md-8 grid-md-offset-2">
 

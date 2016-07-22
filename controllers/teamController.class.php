@@ -50,6 +50,12 @@ class teamController extends template{
             $v->assign("err_desc","1");
             unset($_SESSION["err_desc"]);
         }
+
+        if(isset($_SESSION['dissoudre_team'])){
+            $v->assign("dissoudre_team","1");
+            unset($_SESSION["dissoudre_team"]);
+        }
+
     }
 
     /******************* VOIR SI FONCTIONS ENCORE PERTINENTES ***************************/

@@ -62,6 +62,35 @@ class detailteamController extends template{
                 //$v->assign('idUserTeam',$userTeam->getId());
             }
 
+            //Message utilisateur
+            if(isset($_SESSION['rejoin_team'])){
+                $v->assign('rejoin_team',"1");
+                unset($_SESSION['rejoin_team']);
+            }
+            if(isset($_SESSION['exit_team'])){
+                $v->assign('exit_team',"1");
+                unset($_SESSION['exit_team']);
+            }
+            if(isset($_SESSION['modif_team'])){
+                $v->assign('modif_team',"1");
+                unset($_SESSION['modif_team']);
+            }
+            if(isset($_SESSION['img_error'])){
+                $v->assign('img_error',"1");
+                unset($_SESSION['img_error']);
+            }
+            if(isset($_SESSION['create_comment'])){
+                $v->assign('create_comment',"1");
+                unset($_SESSION['create_comment']);
+            }
+            if(isset($_SESSION['error_create_comment'])){
+                $v->assign('error_create_comment',"1");
+                unset($_SESSION['error_create_comment']);
+            }
+            if(isset($_SESSION['signaler_comment'])){
+                $v->assign('signaler_comment',"1");
+                unset($_SESSION['signaler_comment']);
+            }
             // Si $team === FALSE : soit pas de team trouvée, soit pbm de requete            
             if($team!==FALSE){
                 
@@ -94,7 +123,7 @@ class detailteamController extends template{
 	}
 
     public function updateUserTeamAction(){
- 
+        //Action lorsqu'un joueur rejoin une team
         if(isset($_POST['action-team-rejoin'])){
             $teamBDD = new teamManager();
 
@@ -108,9 +137,12 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser(),$team);
+
+            $_SESSION['rejoin_team'] = "1";
+           
             header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
-        
+        //Action lorsqu'un joueur quitte une team
         if(isset($_POST['action-team-exit'])){
             $teamBDD = new teamManager();
 
@@ -123,9 +155,10 @@ class detailteamController extends template{
             $userBDD = new userManager();
 
             $userBDD->setNewTeam($this->getConnectedUser());
+            $_SESSION['exit_team'] = "1";
             header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
         }
-
+        //Action lorsqu'un joueur dissout une team
         if(isset($_POST['action-team-dissoudre'])){
             $teamBDD = new teamManager();
 
@@ -139,10 +172,12 @@ class detailteamController extends template{
 
             $userBDD->setAllUser($team);
             $teamBDD->changeStatusTeam($team);
+            $_SESSION['dissoudre_team'] = "1";
             header("Location: ".WEBPATH."/team");
         }
     }
     
+    //Modification de la team
     public function updateTeamAction(){
         $teamBDD = new teamManager();
 
@@ -172,6 +207,8 @@ class detailteamController extends template{
                     if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
                         $filteredinputs['img'] = $name;
                 }
+            }else{
+                $_SESSION['img_error'] = "1";
             }
         }
 
@@ -179,12 +216,12 @@ class detailteamController extends template{
         
         $team->setSlogan($filteredinputs['slogan']);
         $team->setDescription($filteredinputs['description']);
-        if(isset($_FILES['img']) && $_FILES['img']['error'] != 4){
+        if(isset($_FILES['img']) && $_FILES['img']['error'] != 4 && $_FILES['img']['size'] < 1 * MB){
             $team->setImg($filteredinputs['img']);
         }
 
         $teamBDD->updateTeam($team);    
-
+        $_SESSION['modif_team'] = "1";
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }   
 
@@ -195,9 +232,14 @@ class detailteamController extends template{
         $args['comment']=trim($args['comment']);
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
 
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+
         foreach ($args as $key => $value) {
-            if(!isset($filteredinputs[$key])){      
-                die("Manque information : ".$key);
+            if(!isset($filteredinputs[$key])){
+                $_SESSION['error_create_comment'] = '1';
+                header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+                exit();
             }
         }
 
@@ -211,8 +253,8 @@ class detailteamController extends template{
         $commentBDD->mirrorObject = new comment($filteredinputs);
         $commentBDD->create();
 
-        $teamBDD = new teamManager();
-        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+        
+        $_SESSION['create_comment'] = '1';
         
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }
@@ -225,9 +267,14 @@ class detailteamController extends template{
 
         $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
         
+        $teamBDD = new teamManager();
+        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
+
         foreach ($args as $key => $value) {
             if(!isset($filteredinputs[$key])){      
-                die("Manque information : ".$key);
+                $_SESSION['error_create_comment'] = '1';
+                header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
+                exit();
             }
         }
 
@@ -238,9 +285,6 @@ class detailteamController extends template{
             && time()-strtotime($commentaire->getDate())<1800){ // Limite de 30min pour éditer le commentaire
             $commentBDD->editComment($commentaire, trim($filteredinputs['comment']));
         }
-
-        $teamBDD = new teamManager();
-        $team = $teamBDD->getTeam(array('id'=>$this->getConnectedUser()->getIdTeam()));
 
         header("Location: ".WEBPATH."/detailteam?name=".$team->getName());
     }
@@ -259,6 +303,8 @@ class detailteamController extends template{
 
         $commentBDD = new commentManager();
         $commentBDD->reportComment($commentBDD->getComment($filteredinputs['id']));
+        $this->echoJSONerror("", "Commentaire signalé.");
+        //$_SESSION['signaler_comment'] = '1';
     }
 
 }

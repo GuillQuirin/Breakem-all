@@ -23,6 +23,8 @@ $(document).ready(function(){
 				url: "detailteam/reportComment", 
 				success: function(result){
             		$("#comment-report-"+commentaire).remove();
+            		$('#msg-error').append("Le commentaire choisi a bien été signalé. Il sera traité par l'administration.");
+            		$('html, body').animate({scrollTop:0}, 'slow');
         		}
         	}
         );
