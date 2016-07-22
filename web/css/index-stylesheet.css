@@ -115,10 +115,10 @@ article{
 }
 .date_article{
 	position: absolute;
- 	left: 50%;
-    	right: inherit;
-    	top: 0;
-    	transform: translateX(50%);
+ 	left: 80%;
+    right: inherit;
+   	top: 80%;
+    transform: translateX(50%);
 }
 .date_article h3{
 	font-size:12px;
@@ -128,7 +128,6 @@ article{
 	font-size:28px;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	text-align: center;
 }
 
 .tags_article{
@@ -138,19 +137,15 @@ article{
 
 .tags_article h3{
 	margin-top:15px;
-	font-size:12px;
+	font-size:13px;
 	color:#6f686e;
 }
 .icon{
 	content: '\f073';
 }
 
-.btn_article{
-	text-align: center;
-}
-
 .btn_article .btn {
-	margin-top:20px;
+	margin-top:55px;
 	width:50%;
 	height:35px;
 }
