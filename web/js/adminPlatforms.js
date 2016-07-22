@@ -106,7 +106,7 @@ var platformModule = {
 	    			callback(platformModule.getAdminSearchInput().val());
 		    		else
 		    			callback("undefined");
-				}, 1)
+				}, 2000)
 			});
 		}
 	},

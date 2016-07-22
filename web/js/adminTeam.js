@@ -102,7 +102,7 @@ var teamModule = {
 	    			callback(teamModule.getAdminSearchInput().val());
 		    		else
 		    			callback("undefined");
-				}, 1)
+				}, 2000)
 			});
 		}
 	},
