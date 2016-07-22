@@ -87,9 +87,9 @@ var membreModule = {
 	},
 	//Preview
 	previewImg : function(){
-		membreModule.getPreviewInput().on('change', function(){
+		membreModule.getPreviewInput().on('change', function(event){
 			console.log("Image changed.");
-    		previewUpload(this, membreModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.membre-img'));
 		});
 	},
 	//Search Delay
