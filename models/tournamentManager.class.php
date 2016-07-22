@@ -276,30 +276,33 @@ final class tournamentManager extends basesql{
 		$limit = (int) $limit;
 		if( $limit < 1)
 			$limit = 10;
-
+		// var_dump($u->getId());
 		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t ";
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
-		$sql .= " INNER JOIN gameversion gv ON t.idgameVersion = gv.id";
-		$sql .= " INNER JOIN game ga ON ga.id = gv.idGame";
-		$sql .= " INNER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " INNER JOIN user u ON u.id = t.idUserCreator";
-		$sql .= " INNER JOIN register r ON r.idTournament = t.id";
+		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
+		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
+		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
+		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
+		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE t.idUserCreator = :uId";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 		$sql .= " LIMIT 0, ".$limit;
-
+		// echo $sql;
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':uId' => $u->getId()
 		]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		// var_dump($r);
+		// exit;
 		if(isset($r[0])){
 			$alltournaments = [];
 			foreach ($r as $key => $data) {
-				$alltournaments[] = new tournament($data);
+				if(count(array_filter($data)) > 0)
+					$alltournaments[] = new tournament($data);
 			}
-			return $alltournaments;
+			return (count($alltournaments) > 0) ? $alltournaments: false ;
 		}		
 		return false;
 	}
@@ -311,14 +314,15 @@ final class tournamentManager extends basesql{
 		$sql = "SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t ";
 		// On est obligé de rajouter les % sur les values des array
 		// 	les mettre dans la requete ne fonctionnant apparemment pas
-		$sql .= " INNER JOIN gameversion gv ON t.idgameVersion = gv.id";
-		$sql .= " INNER JOIN game ga ON ga.id = gv.idGame";
-		$sql .= " INNER JOIN platform p ON p.id = gv.idPlateform";
-		$sql .= " INNER JOIN user u ON u.id = t.idUserCreator";
-		$sql .= " INNER JOIN register r ON r.idTournament = t.id";
+		$sql .= " LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id";
+		$sql .= " LEFT OUTER JOIN game ga ON ga.id = gv.idGame";
+		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
+		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
+		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
 		$sql .= " WHERE r.idUser = :uId";
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";
 		$sql .= " LIMIT 0, ".$limit;
+		// echo ($sql);
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
@@ -328,13 +332,19 @@ final class tournamentManager extends basesql{
 		if(isset($r[0])){
 			$alltournaments = [];
 			foreach ($r as $key => $data) {
-				$alltournaments[] = new tournament($data);
+				if(count(array_filter($data)) > 0)
+					$alltournaments[] = new tournament($data);
 			}
-			return $alltournaments;
+			return (count($alltournaments) > 0) ? $alltournaments: false ;
 		}		
 		return false;
 	}
 }
 /*
 *
+
+
+SELECT DISTINCT(t.id), t.startDate, t.endDate, t.description, t.typeTournament, t.status, t.nbMatch, t.idUserCreator, t.idGameVersion, t.idWinningTeam, t.urlProof, t.creationDate, t.guildOnly, t.randomPlayerMix, t.name, t.link, gv.maxPlayer, gv.maxTeam, gv.maxPlayerPerTeam, gv.name as gvName, gv.description as gvDescription, ga.id as gameId, ga.name as gameName, ga.description as gameDescription, ga.img as gameImg, ga.year as gameYear, ga.idType as gtId, p.id as pId, p.name as pName, p.description as pDescription, p.img as pImg, u.pseudo as userPseudo, (SELECT COUNT(DISTINCT r.id) FROM register r WHERE r.idTournament = t.id) as numberRegistered FROM tournament t LEFT OUTER JOIN gameversion gv ON t.idgameVersion = gv.id LEFT OUTER JOIN game ga ON ga.id = gv.idGame LEFT OUTER JOIN platform p ON p.id = gv.idPlateform LEFT OUTER JOIN user u ON u.id = t.idUserCreator LEFT OUTER JOIN register r ON r.idTournament = t.id WHERE r.idUser = 8 GROUP BY t.id ORDER BY t.startDate LIMIT 0, 10
+
+
 */
