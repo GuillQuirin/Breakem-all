@@ -101,7 +101,7 @@ else{
                         <?php
                         //Si le user appartient à une autre team
                         }else{
-                            echo "Vous faites déjà parti de la team".$nameUserTeam;
+                            echo "Vous faites déjà parti de la team".$nameUserTeam.".";
                         } 
                     //Si le user n'a pas de team
                     }else{ ?>
@@ -246,7 +246,7 @@ else{
                         </div>
                     <?php
                     }else{
-                        echo "Vous ne pouvez pas rédiger de commentaire car vous n'êtes pas dans cette Team";
+                        echo "Vous ne pouvez pas rédiger de commentaire car vous n'êtes pas dans cette Team.";
                     }
                 }else{
                      echo "Connecte toi pour voir les commentaires de cette Team !";
