@@ -36,7 +36,7 @@ class indexController extends template{
 		}*/
 		
 		$mm = new matchsManager();
-		$nextMatchs = $mm->getNextMatchsOfEveryTournament(10);
+		$nextMatchs = $mm->getNextMatchsOfEveryTournament(4);
 		if(isset($nextMatchs) && is_array($nextMatchs)){
 			foreach ($nextMatchs as $key => $m) {
 				$nextMatchs[$key] = $this->getFullyAlimentedMatch($m);

@@ -124,8 +124,7 @@
 					foreach ($listeMatchs as $key => $value) {
 						echo '<div class="margin_match">';
 							echo '<img src="'.$value->gtImgJeu().'">';
-							echo $value->gtNameTournament();
-							echo ' sur <a href="'.WEBPATH.'/tournoi?t='.$value->gtLink().'">'.$value->gtNomJeu().'</a>';
+							echo '<a href="'.WEBPATH.'/tournoi?t='.$value->gtLink().'">'.$value->gtNameTournament().' sur '.$value->gtNomJeu().'</a>';
 							echo '<p class="date_match">'.date("D, d M Y H:i",$value->getStartDate()).'</p>';
 							echo '<hr>';
 						echo '</div>';
