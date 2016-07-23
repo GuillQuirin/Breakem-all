@@ -375,14 +375,33 @@ class userManager extends basesql{
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		var_dump($r);
 		if(isset($r[0]) && isset($r[1]))
 			return [ "totalMatchs" => $r[0]["stats"], "totalWonMatchs" => $r[1]["stats"] ];
+		else if(isset($r[0]) && !isset($r[1]))
+			return [ "totalMatchs" => $r[0]["stats"], "totalWonMatchs" => $r[0]["stats"] ];
 		return false;
-
 	}
 
 }
 
 /*
 *
+SELECT COUNT(DISTINCT u.id) as nbUserInFront
+FROM user u
+LEFT OUTER JOIN team t ON u.idTeam = t.id
+LEFT OUTER JOIN register r 
+ON r.idUser = u.id 
+LEFT OUTER JOIN matchparticipants mp 
+ON r.idTeamTournament = mp.idTeamTournament 
+WHERE u.status>0
+GROUP BY u.id
+
+
+
+
+SELECT COUNT(DISTINCT tt.id) as stats  FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL WHERE u.pseudo = "dylan"
+UNION  
+SELECT COUNT(DISTINCT tt.id) as stats FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL  AND m.idWinningTeam = tt.id  WHERE u.pseudo = "dylan"
+
 */

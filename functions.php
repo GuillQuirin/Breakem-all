@@ -165,3 +165,16 @@ function getRoundNameFromMatchesInRank($matchNumber){
 			return false;
 	}
 }
+
+function getVictoryRatio($won, $all){
+	if(!is_numeric($won) || !is_numeric($all))
+		return false;
+	$won = (int) $won;
+	$all = (int) $all;
+	if ($won > $all){
+		$temp = $won;
+		$won = $all;
+		$all = $temp;
+	}
+	return round((($won/$all)*100), 1);
+}
