@@ -1,3 +1,22 @@
+.new-widg{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 35px 35px 0;
+    border-color: transparent #D92B4C transparent transparent;
+    position:absolute;
+    top:0;
+    right:0;
+    cursor:default;
+}
+
+.new-widg span{
+    padding:5px 11px;
+    position:absolute;
+    transform:rotate(45deg);
+    font-size:12px;
+}
+
 .search-hidden{
     display:none;
 }
@@ -177,6 +196,13 @@
     transition: padding .3s, margin .3s;
 }
 
+.admin-new-data-ihm{
+    text-align: center;
+    margin:5px 15px;
+    background:rgba(130, 83, 164, 0.2);
+    transition: padding .3s, margin .3s;
+}
+
 .admin-img-cover{
     display:block;
     height:80px;
@@ -185,6 +211,12 @@
     object-fit:cover;
 }
 
+.admin-new-data-ihm:hover{    
+    background:rgba(130, 83, 164, 0.12);
+    padding:15px 0;
+    margin:5px 0;   
+    transition: padding .3s, margin .3s;
+}
 
 .admin-data-ihm:hover{    
     background:rgba(130, 83, 164, 0.12);
