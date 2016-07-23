@@ -19,15 +19,15 @@
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
 					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
-								<div class="relative ta-right">
-									<?php if(isset($userAlrdyRegistered)):?>
-									
-									<?php else:?>
-									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
+							<div class="relative ta-right">								
+								<?php if(isset($userAlrdyRegistered)):?>
+									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
+								<?php else:?>
+									<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
+										<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<?php endif; ?>
-								</div>
-							<?php endif; ?>
+								<?php endif; ?>
+							</div>
 						<?php else: ?>
 							<div class="relative ta-right">
 								<button class="detailtournoi-btn-gestion relative btn btn-pink">
