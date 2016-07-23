@@ -130,6 +130,11 @@
 						echo '</div>';
 					}
 				}
+				else{
+					echo '<div class="margin_match">';
+						echo "<p>Pas de prochains matchs à venir.</p>";
+					echo "</div>";
+				}
 				?>				
 			</div>
 			
@@ -146,6 +151,11 @@
 								echo "<p>".$value['name']."</p>";
 							echo "</div>";
 						}
+					}
+					else{
+						echo "<div class='game'>";
+							echo "<p>Aucun jeu utilisé jusqu'à présent.</p>";
+						echo "</div>";
 					}
 				?>
 			</div>
