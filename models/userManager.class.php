@@ -332,11 +332,26 @@ class userManager extends basesql{
 	}
 
 	public function userByPseudoInstance(user $u){
-		$sql = "SELECT * FROM " .$this->table . " WHERE pseudo=:pseudo";
+		$sql = "SELECT u.id, u.name, u.firstname, u.pseudo, u.password,
+			u.birthday, u.description, u.kind, u.city, 
+			u.email, u.status, u.authorize_mail_contact,
+			u.img, u.idTeam, u.isConnected, u.lastConnexion,
+			COUNT(id_signaled_user) as reportNumber, SUM(mp.points) as totalPoints
+		FROM user u";
+		$sql .=" LEFT JOIN signalmentsuser ";
+		$sql .= " ON u.id = signalmentsuser.id_signaled_user";
+		$sql .= " LEFT OUTER JOIN register r ";
+		$sql .= " ON r.idUser = u.id ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= " WHERE u.pseudo=:pseudo";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-	
-		return new user($r[0]);
+		return (isset($r[0])) ? new user($r[0]) : false;
 	}
 }
+
+/*
+*
+*/
