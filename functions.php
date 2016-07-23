@@ -29,11 +29,11 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 	if( (int) $t->getStatus() < 0 )
 		return false;
 	$rm = new registerManager();
-	// On vérifie si l'user n'est pas le créateur
-	if($u->getPseudo() === $t->getUserPseudo()){
-		unset($rm);
-		return false;
-	}
+	// On vérifie si l'user n'est pas le créateur (décommenter pour empêcher le créateur de s'inscrire)
+	// if($u->getPseudo() === $t->getUserPseudo()){
+	// 	unset($rm);
+	// 	return false;
+	// }
 	// On vérifie s'il reste de la place ds le tournoi pr un joueur
 	if($t->getNumberRegistered() >= (int) $t->getMaxPlayer()){
 		unset($rm);

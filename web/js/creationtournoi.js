@@ -183,6 +183,7 @@ var dom = {
 var validateChoices = {
 	_sumUp: false,
 	_btn: false,
+	_processing: false,
 	init: function(data){
 		var treeContainer = dom.getTreeConfirm();
 		resetTreeEl(treeContainer);
@@ -274,6 +275,7 @@ var validateChoices = {
 		validateChoices._sumUp = container;
 	},
 	btnClickedEventCallback: function(obj){
+		validateChoices._processing = false;
 		if(!!obj){
 			if(obj.errors){
 	    		popupError.init(obj.errors);
@@ -286,9 +288,14 @@ var validateChoices = {
 	},
 	loadValidationEvent: function(){
 		var _btn = validateChoices._btn;
-		_btn.off();
+		_btn.off();		
 		_btn.click(function(event) {
-			ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
+			if(validateChoices._processing)
+				return;
+			else{
+				validateChoices._processing = true;
+				ajaxWithDataRequest('creationtournoi/finalValidation', 'POST', {}, validateChoices.btnClickedEventCallback);
+			}			
 		});
 	}
 };
@@ -297,6 +304,7 @@ var gameversionChoice = {
 	_choiceDat: false,
 	_currentForm: false,
 	_btn: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: validateChoices,
@@ -326,6 +334,7 @@ var gameversionChoice = {
 	getChoiceDat: function(){return gameversionChoice._choiceDat;},
 	getPossibleChoices: function(){return gameversionChoice.possibleChoices;},
 	getVersionsCallback: function(obj){
+		gameversionChoice._processing = false;
 		gameversionChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
@@ -353,9 +362,18 @@ var gameversionChoice = {
 	    	popupError.init("Création du DOM consoles impossible");
 	},
 	getVersions: function(da){
+		if(gameversionChoice._processing)
+			return;
+		gameversionChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getVersions', 'POST', {'name': da}, gameversionChoice.getVersionsCallback);
 	},
 	putAccordingForm: function(){
+		var d = (new Date().getHours() >= 18) ? new Date(new Date().getTime() + (24*3600000)) : new Date();
+		var tDay = (d.getDate() < 10) ? "0"+d.getDate() : d.getDate();
+		var tMonth = (d.getMonth()+1 < 10) ? "0"+(d.getMonth()+1): (d.getMonth()+1);
+		var tYear = d.getFullYear();
+		var inputMinValue = tYear+"-"+tMonth+"-"+tDay;
+		// console.log(inputMinValue);
 		var selectedJson = gameversionChoice.getChoiceDat();
 		var selectedName = selectedJson.name;
 		var selectedMinP = selectedJson.minPlayer;
@@ -374,7 +392,7 @@ var gameversionChoice = {
 		var container = $('<div class="creationtournoi-gameversion-container-form"><h2 class="title title-1 uppercase text-center">'+selectedName+'</h2><h3 class="title title-2 capitalize">'+gameChoice.getChoiceDat()+' - <span style="margin-left: 5px;" class="uppercase">'+ consoleChoice.getChoiceDat()+'</span></h3><div class="creationtournoi-separator"></div><p class="title title-4 capitalize">Joueurs: '+selectedMinP+' - '+selectedMaxP+'</p><p class="title title-4 capitalize">Equipes: '+selectedMinT+' - '+selectedMaxT+'</p><p class="title title-4">'+selectedMaxPPT+' par équipe max</p><div>');
 		if(parseInt(selectedMaxPPT) == 1)
 			container.append('<p class="creationtournoi-random-match title title-4">Rencontres aléatoires</p>');
-		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (8-49 caractères alphanumériques max)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" placeholder="Lettres, chiffres et espaces uniquement !" required></div><div class="form-input-group"><label for="startDate">Donne la date de son lancement (requis)</label><input class="border-full" type="date" class="datepicker" name="startDate" placeholder="Format attendu : AAAA-MM-JJ" required/></div></form>');
+		var form = $('<form><h4 class="title title-4 capitalize">ton tournoi</h4><div class="form-input-group"><label for="name">Nomme le (8-49 caractères alphanumériques max)</label><input class="border-full" type="text" name="name" maxlength="50" minlength="8" placeholder="Lettres, chiffres et espaces uniquement !" required></div><div class="form-input-group"><label for="startDate">Donne la date de son lancement (requis)</label><input class="border-full" type="date" class="datepicker" min="'+inputMinValue+'" value="'+inputMinValue+'" name="startDate" placeholder="Format attendu : AAAA-MM-JJ" required/></div></form>');
 		// on est dans le cas équipe
 		if (parseInt(selectedJson.maxPlayerPerTeam) > 1){
 			var randomAndGuildInputs = $('<div class="form-input-group"><label for="randomPlayerMix">Activer l\'affectation d\'équipe aléatoire</label><input class="border-full" type="checkbox" name="randomPlayerMix"></div>');
@@ -582,6 +600,7 @@ var gameversionChoice = {
 var consoleChoice = {
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: gameversionChoice,
@@ -607,6 +626,7 @@ var consoleChoice = {
 	getChoiceDat: function(){return consoleChoice._choiceDat;},
 	getPossibleChoices: function(){return consoleChoice.possibleChoices;},
 	getConsoleCallback: function(obj){
+		consoleChoice._processing = false;
 		consoleChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){		    		
@@ -635,6 +655,9 @@ var consoleChoice = {
 	    }
 	},
 	getConsoles: function(da){
+		if(consoleChoice._processing)
+			return;
+		consoleChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getConsoles', 'POST', {'name': da}, consoleChoice.getConsoleCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
@@ -681,6 +704,7 @@ var consoleChoice = {
 var gameChoice = {	
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: consoleChoice,
@@ -705,6 +729,7 @@ var gameChoice = {
 	getChoiceDat: function(){return gameChoice._choiceDat;},
 	getPossibleChoices: function(){return gameChoice.possibleChoices;},
 	getGamesCallback: function(obj){
+		gameChoice._processing = false;
 		gameChoice.possibleChoices = [];
 	    if(!!obj){
 	    	if(obj.errors){
@@ -733,6 +758,9 @@ var gameChoice = {
 	    }
 	},
 	getGames: function(da){
+		if(gameChoice._processing)
+			return
+		gameChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getGames', 'POST', {'name': da}, gameChoice.getGamesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){
@@ -779,6 +807,7 @@ var gameChoice = {
 var gameTypesChoice = {
 	_choice: false,
 	_choiceDat: false,
+	_processing: false,
 	possibleChoices: [],
 	possibleTreeChoices: [],
 	treeChild: gameChoice,
@@ -806,6 +835,7 @@ var gameTypesChoice = {
 	getGameTypesCallback: function(obj){
 		gameTypesChoice.possibleChoices = [];
 	  	gameTypesChoice.possibleTreeChoices = [];
+	  	gameTypesChoice._processing = false;
 	    if(!!obj){
 	    	if(obj.errors){
 	    		popupError.init(obj.errors);
@@ -836,6 +866,9 @@ var gameTypesChoice = {
 	    	popupError.init("Création du DOM gametype impossible");
 	},
 	getGameTypes: function(){
+		if(gameTypesChoice._processing)
+			return;
+		gameTypesChoice._processing = true;
 		ajaxWithDataRequest('creationtournoi/getGameTypes', 'POST', {}, gameTypesChoice.getGameTypesCallback);
 	},
 	associateChoiceEvent: function(jQel, treeSubEl, da){

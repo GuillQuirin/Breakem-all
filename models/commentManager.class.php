@@ -98,4 +98,41 @@ class commentManager extends basesql{
 		return $r;
 	}
 
+	public function setComment(comment $ancien, comment $nouveau){
+
+		var_dump($ancien);
+
+		$data = [];
+
+		foreach (get_class_methods($nouveau) as $key => $method_name) {
+			if(is_numeric(strpos($method_name, "get"))){
+				$prop = strtolower(str_replace("get","",$method_name));
+				$data[$prop] = ($prop==="img") ? $nouveau->$method_name(true) : $nouveau->$method_name(); 
+			}
+		}
+
+		$data = array_filter($data);
+
+		$compteur=0;
+
+		$sql = "UPDATE ".$this->table." SET ";
+			foreach ($data as $key => $value) {
+				if($compteur!=0) 
+					$sql.=", ";
+				$sql.=" ".$key."=:".$key."";
+				$compteur++;
+			}
+		$sql.=" WHERE id=:id";
+
+		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+
+		//ATTENTION: on précise la référence de $value avec &
+		foreach ($data as $key => &$value)
+			$query->bindParam(':'.$key, $value);
+	
+		$id = $ancien->getId();
+		$query->bindParam(':id', $id, PDO::PARAM_INT);
+		$query->execute();
+
+	}
 }

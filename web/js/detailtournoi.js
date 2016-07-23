@@ -73,6 +73,7 @@ var dom = {
 	}
 };
 var tournamentRegister = {
+	_processing: false,
 	init: function(){
 		tournamentRegister.setRandBtn();
 		// Event du cas où le tournoi est à l'inscription random
@@ -100,9 +101,10 @@ var tournamentRegister = {
 	getChoiceBtn: function(){return tournamentRegister._choiceBtn;},
 	getRandBtn: function(){return tournamentRegister._randBtn;},
 	loadRandRegisterCallback: function(obj){
+		tournamentRegister._processing = false;
 		if(obj != false){
 			if(obj.errors){
-				console.log(obj.errors);
+				popupError.init(obj.errors);
 
 				return;
 			}
@@ -114,6 +116,9 @@ var tournamentRegister = {
 	},
 	loadRandRegisterEvent: function(){
 		tournamentRegister.getRandBtn().click(function(event){
+			if(tournamentRegister._processing)
+				return;
+			tournamentRegister._processing = true;
 			ajaxWithDataRequest(
 				'tournoi/randRegister', 
 				'POST', 
@@ -172,6 +177,7 @@ var tournamentRegister = {
 	}
 };
 var tournamentUnregister = {
+	_processing: false,
 	init: function(){
 		tournamentUnregister.setBtn();
 		if(isElSoloJqueryInstance(tournamentUnregister.getBtn()))
@@ -184,9 +190,10 @@ var tournamentUnregister = {
 		return tournamentUnregister._btn;
 	},
 	loadEventCallback: function(obj){
+		tournamentUnregister._processing = false;
 		if(obj != false){
 			if(obj.errors){
-				console.log(obj.errors);
+				popupError.init(obj.errors);
 				return;
 			}else{
 				console.log(obj);
@@ -199,6 +206,9 @@ var tournamentUnregister = {
 	},
 	loadEvent: function(){
 		tournamentUnregister.getBtn().click(function(event){
+			if(tournamentUnregister._processing)
+				return;
+			tournamentUnregister._processing = true;
 			ajaxWithDataRequest(
 				'tournoi/unregister', 
 				'POST', 
@@ -212,6 +222,7 @@ var tournamentUnregister = {
 	}
 };
 var createFirstMatchs = {
+	_processing: false,
 	init: function(){
 		if(!dom.getPremiersMatchsBtn())
 			return false;
@@ -222,7 +233,7 @@ var createFirstMatchs = {
 			$(this).remove();
 		});
 		var container = $('<div class="animation fadeDown full-width full-height display-flex-column fixed absolute-0-0 bg-purple createFirstMatchContainer"></div>');
-		var msg = $('<h3 class="titre4  text-center">Une fois les premiers matchs créés, le tournoi sera verrouillé et plus personne ne pourra s\'inscrire à moins que l\'un des participants ne se désiste. <br />Êtes-vous sûr de vouloir lancer la création des rencontres ?</h3>');
+		var msg = $('<h3 class="titre4  text-center">Une fois les premiers matchs créés, le tournoi sera verrouillé et plus personne ne pourra s\'inscrire. <br />Êtes-vous sûr de vouloir lancer la création des rencontres ?</h3>');
 		var btnContainer = $('<div class="detailtournoi-creatematchs-btn-event-container full-width display-flex-row"></div>');
 		var cancelBtn = $('<button id="detailtournoi-cancel-creationpremiersmatchs" class="relative btn btn-pink "><a>Annuler</a></button>');
 		var validationBtn = $('<button id="detailtournoi-validation-creationpremiersmatchs" class="relative btn btn-pink "><a>Oui, lancer !</a></button>');
@@ -255,6 +266,7 @@ var createFirstMatchs = {
 		});
 	},
 	sendCreationRequestCallback: function(obj){
+		createFirstMatchs._processing = false;
 		if(obj != false){
 			if(obj.errors){
 				popup.init(obj.errors);
@@ -270,6 +282,9 @@ var createFirstMatchs = {
 		}
 	},
 	sendCreationRequest: function(){
+		if(createFirstMatchs._processing)
+			return;
+		createFirstMatchs._processing = true;
 		ajaxWithDataRequest(
 			'detailtournoi/createFirstMatchs', 
 			'POST', 
@@ -282,6 +297,7 @@ var createFirstMatchs = {
 	}
 };
 var selectMatchWinner = {
+	_processing: false,
 	init: function(){
 		if(dom.getMatchsWinnerBtns() != false)
 			selectMatchWinner.associateEventToBtn();
@@ -298,6 +314,7 @@ var selectMatchWinner = {
 		});
 	},
 	btnClickCallback: function(obj){
+		selectMatchWinner._processing = false;
 		if(obj != false){
 			if(obj.errors){
 				popup.init(obj.errors);
@@ -313,6 +330,9 @@ var selectMatchWinner = {
 		}
 	},
 	btnClick: function(jQbtn, m, tt){
+		if(selectMatchWinner._processing)
+			return;
+		selectMatchWinner._processing = true;
 		ajaxWithDataRequest(
 			'detailtournoi/selectWinner', 
 			'POST', 
@@ -327,6 +347,7 @@ var selectMatchWinner = {
 	}
 };
 var createNextMatchs = {
+	_processing: false,
 	init: function(){
 		if(!!dom.getCreerProchainsMatchsBtn())
 			createNextMatchs.associateEventToBtn();
@@ -337,6 +358,7 @@ var createNextMatchs = {
 		});
 	},
 	btnClickedCallback: function(obj){
+		createNextMatchs._processing = false;
 		if(obj != false){
 			if(obj.errors){
 				popup.init(obj.errors);
@@ -352,6 +374,9 @@ var createNextMatchs = {
 		}
 	},
 	btnClicked: function(){
+		if(createNextMatchs._processing)
+			return;
+		createNextMatchs._processing = true;
 		ajaxWithDataRequest(
 			'detailtournoi/createNextMatchs', 
 			'POST', 

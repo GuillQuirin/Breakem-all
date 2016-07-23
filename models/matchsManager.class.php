@@ -67,10 +67,37 @@ final class matchsManager extends basesql{
 		return $sth->execute();
 	}
 
-	public function getNextAllMatch(tournament $t, $limit=5){
+	/*Ne récupère qu'un match maxi / tournoi */
+	public function getNextMatchsOfEveryTournament($limit=5){
+		// pas fonctionnelle encore
+		$limit = (int) $limit;
+		if($limit < 1)
+			$limit = 5;
+		$sql = "SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber
+			FROM matchs m";
+		$sql .= "LEFT OUTER JOIN tournament t 
+			ON t.id = m.idTournament";
+		$sql .= "GROUP BY t.id
+			ORDER BY m.id DESC
+			LIMIT 0, 5";
+
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		// print_r($r);
+		if(isset($r[0])){
+			$r[0] = array_filter($r[0]);
+			if(is_array($r[0]))
+				return new matchs($r[0]);
+		}
+		return false;
+	}
+	public function getNextMatchs($limit=5){
+		$limit = (int) $limit;
+		if($limit < 1)
+			$limit = 5;
 		$sql = "SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber
 		FROM matchs m 
-		WHERE m.idTournament = :idTournament
 		ORDER BY m.id DESC
 		LIMIT 0,".$limit;
 
@@ -88,4 +115,22 @@ final class matchsManager extends basesql{
 }
 /*
 *
+
+SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, m.startDate, m.matchNumber
+FROM matchs m 
+LEFT OUTER JOIN tournament t 
+ON t.id = m.idTournament
+LEFT OUTER JOIN matchparticipants mp
+ON m.id = mp.idMatch
+LEFT OUTER JOIN teamtournament tt
+ON tt.id = mp.idTeamTournament
+LEFT OUTER JOIN register r
+ON r.idTeamTournament = tt.id
+LEFT OUTER JOIN user u
+ON u.id = r.idUser
+GROUP BY t.id
+ORDER BY m.id ASC, m.matchNumber
+LIMIT 0, 5
+
+
 */

@@ -2,7 +2,7 @@
 $(document).ready(function () {
 	$(".formteam1").submit(function () {
 
-		if ($.trim($(".nameteam").val()) == "" || $.trim($(".nameteam").val()).length < 2 || $.trim($(".nameteam").val()).length > 10) {
+		if ($.trim($(".nameteam").val()) == "" || $.trim($(".nameteam").val()).length < 2 || $.trim($(".nameteam").val()).length > 20) {
 			alert("Veuillez entrer un nom de team compris entre 2 et 20 caractères.");
 			return false;
 		}

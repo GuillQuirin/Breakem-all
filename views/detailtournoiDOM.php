@@ -1,12 +1,11 @@
 <?php if(isset($tournoi)): ?>
 	<section class="detailtournoi detailtournoi-infos display-flex-column">
 		<article class="display-flex-column m-a">
-			<h3 class="titre1 border-full ta-center">Tournoi -
+			<h3 class="title-1 border-full ta-center m-a">Tournoi -
 				<span class="capitalize"><?php echo $tournoi->getGameName(); ?></span>
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
-			</h3>
-			
-				<p></p>
+			</h3>			
+			<p class="detailtournoi-tournoi-nom title-2 text-center m-a"><?php echo $tournoi->getName(); ?></p>
 			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1) ? 'bg-pink title title-2': '' ?>">
 				<?php if ($tournoi->getStatus() != -1): ?>
 					<?php echo $tournoi->getGameDescription(); ?>
@@ -20,20 +19,27 @@
 					<figcaption class="ta-center italic">Pour les gamers sur <?php echo $tournoi->getPName();?> seulement !</figcaption>
 					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
-							<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
-								<div class="relative ta-right">
-									<?php if(isset($userAlrdyRegistered)):?>
+							<div class="relative ta-right">								
+								<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
-									<?php else:?>
-									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
+								<?php else:?>
+									<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
+										<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<?php endif; ?>
-								</div>
-							<?php endif; ?>
+								<?php endif; ?>
+							</div>
 						<?php else: ?>
 							<div class="relative ta-right">
-								<button class="detailtournoi-btn-inscription relative btn btn-pink">
+								<button class="detailtournoi-btn-gestion relative btn btn-pink">
 									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
-								</button>
+								</button>								
+								<?php if ($tournoi->isUserRegistered($_user)): ?>
+									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
+								<?php else: ?>
+									<?php if ($tournoi->getStatus() > 0): ?>
+									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
+									<?php endif ?>
+								<?php endif ?>								
 							</div>
 						<?php endif; ?>
 					<?php endif; ?>

@@ -134,7 +134,7 @@ class tournoiController extends template {
 			$rm = new registerManager();
 			// On vérifie l'égibilité de l'user au tournoi
 			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
-				$this->echoJSONerror('tournoi', 'vous ne pouvez pas vous inscrire dans ce tournoi');
+				$this->echoJSONerror('','Vous ne pouvez pas vous inscrire dans ce tournoi');
 			$ttm = new teamtournamentManager();
 			$allTournTeams = $ttm->getTournamentTeams($matchedTournament);
 

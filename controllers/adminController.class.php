@@ -1048,6 +1048,23 @@ class adminController extends template{
         }
 
     /* COMMENTAIRE */
+     public function updateCommentsDataAction(){
+     
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'comment' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT
+            );                                            
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            
+            $bdd = new commentManager();
+            $old = $bdd->getComment($filteredinputs['id']);
+
+            $maj = new comment($filteredinputs);
+            
+            $bdd->setComment($old, $maj);
+        }
     public function getCommentByPseudoAction(){
             $args = array(
                 'pseudo' => FILTER_SANITIZE_STRING
