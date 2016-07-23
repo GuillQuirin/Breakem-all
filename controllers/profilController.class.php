@@ -32,8 +32,8 @@ class profilController extends template{
 						$v->assign($col, $user->$method());	
 					};
 				}
-				$v->assign("totalPoints",$user->gtTotalPoints());
 
+				//Team
 				if($user->getIdTeam()!==null){
 					$teamBDD = new teamManager();
 					$team = $teamBDD->getTeam(array('id' => $user->getIdTeam()));
@@ -41,11 +41,26 @@ class profilController extends template{
 					$v->assign("nameTeamProfil", $team->getName());
 				}
 
+				//Statistiques
+				$stats = $userBDD->getTotalMatchsAndVictoriesByPseudo($user);
 				
+				if(isset($stats["totalMatchs"]))
+					$v->assign("totalMatchs",(int)$stats["totalMatchs"]);
+				
+				if(isset($stats["totalWonMatchs"]))
+					$v->assign("totalWonMatchs",(int)$stats["totalWonMatchs"]);
+
+				if(isset($stats["totalMatchs"]) && isset($stats["totalWonMatchs"]))
+					$v->assign("ratio",number_format(((int)$stats["totalWonMatchs"]) / ((int)$stats["totalMatchs"]),2));
+
+				$v->assign("totalPoints",$user->gtTotalPoints());
+
+				//Liste des tournois
 				$registerBDD = new registerManager();
 				$listeTournois = $registerBDD->getLastPlayedTournaments($user);
 				$v->assign("listeTournoi", $listeTournois);
 
+				//Liste des jeux
 				$gameBDD = new gameManager();
 				$bestgames = $gameBDD->getMostPlayedGames($user);
 				$v->assign("listeJeux", $bestgames);
