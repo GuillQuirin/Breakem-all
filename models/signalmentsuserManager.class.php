@@ -111,7 +111,7 @@ class signalmentsuserManager extends basesql{
 					(SELECT pseudo from user WHERE pseudo LIKE ?) as pseudo_signaled_user
 				FROM signalmentsuser s";		
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute(["%".$u->getPseudo_signaled_user()."%"]);
+		$sth->execute(["%".$u->gtPseudo_signaled_user()."%"]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
 		return $r;
