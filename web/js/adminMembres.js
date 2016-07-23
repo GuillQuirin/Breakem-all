@@ -123,7 +123,7 @@ var membreModule = {
 			if(value && value !== "undefined"){
 				var data = {pseudo : value};
 				jQuery.ajax({
-					url: "admin/getUserByPseudo", 				
+					url: "classement/getUserByPseudo", 				
 					type: "POST",
 					data: data,
 					success: function(result){
