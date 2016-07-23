@@ -182,10 +182,10 @@ class adminController extends template{
            
             if($data){
                 echo json_encode($data);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -285,10 +285,10 @@ class adminController extends template{
            
             if($data){
                 echo json_encode($data);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -345,10 +345,10 @@ class adminController extends template{
            
             if($data){
                 echo json_encode($data);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -413,10 +413,10 @@ class adminController extends template{
            
             if($user){
                 echo json_encode($user);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -554,10 +554,10 @@ class adminController extends template{
             
             if($signalement){
                 echo json_encode($signalement);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -606,10 +606,10 @@ class adminController extends template{
            
             if($data){
                 echo json_encode($data);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -732,7 +732,7 @@ class adminController extends template{
                 if($_FILES['profilpic']['size'] < 1*MB){
                     if($_FILES['profilpic']['error']==0){
                         if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-                           die("Erreur d'upload");
+                           $this->echoJSONerror("","Erreur d'upload");
                     }
                 }
                 $filteredinputs['img'] = $this->getConnectedUser()->getName().'.jpg';
@@ -787,7 +787,7 @@ class adminController extends template{
                 if($_FILES['profilpic']['size'] < 1*MB){
                     if($_FILES['profilpic']['error']==0){
                         if(!move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile))
-                           die("Erreur d'upload");
+                           $this->echoJSONerror("","Erreur d'upload");
                     }
                 }
                 $filteredinputs['img'] = $this->getConnectedUser()->getName().'.jpg';
@@ -843,10 +843,10 @@ class adminController extends template{
            
             if($data){
                 echo json_encode($data);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 
@@ -1002,7 +1002,7 @@ class adminController extends template{
                     if ($_FILES['img']['error'] == 0) {
 
                         if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile))
-                            die("Erreur d'upload");
+                            $this->echoJSONerror("","Erreur d'upload");
                     }
                 }
                 $filteredinputs['img'] = $name;
@@ -1064,10 +1064,10 @@ class adminController extends template{
            
             if($user){
                 echo json_encode($user);
-                die();
+                die;
             }else{
                 echo "undefined";
-                die();
+                die;
             }   
         }
 

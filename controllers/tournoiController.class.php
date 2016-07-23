@@ -36,7 +36,10 @@ class tournoiController extends template {
 						$u->setPseudo($registered->getPseudo());
 						$u = $um->userByPseudoInstance($u);
 						$stats = $um->getTotalMatchsAndVictoriesByPseudo($u);
+						// var_dump($stats);
+						// echo $u->getPseudo();
 						if(is_array($stats)){
+							// echo " : " . $stats["totalMatchs"] . " : " . $stats["totalWonMatchs"] . "<br>";
 							$u->setTotalMatchs($stats["totalMatchs"]);
 							$u->setTotalWonMatchs($stats["totalWonMatchs"]);
 						}

@@ -44,11 +44,9 @@ BODY{
 }
 
 #login-form{
-    margin-top:15%;
-    margin-left:38%;
-
-    width: 25%;
+    width: 40%;
     background-color: #080325;
+    margin: 0 auto;
 }
 
 .input-default{
@@ -74,17 +72,8 @@ BODY{
 }
 
 @media screen and (max-width: 770px){
-
-#mdp{
-    font-size:0px;
-}
-
-#login-form{
-        margin-top:110px;
-        margin-left:23%;
-
-        width: 150px;
-        background-color: #080325;
-}
+    #login-form{
+        width: 70%;
+    }
 
 }
