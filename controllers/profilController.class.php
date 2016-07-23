@@ -43,7 +43,7 @@ class profilController extends template{
 
 				
 				$registerBDD = new registerManager();
-				$listeTournois = $registerBDD->getTournamentParticipantBy($user);
+				$listeTournois = $registerBDD->getLastPlayedTournaments($user);
 				$v->assign("listeTournoi", $listeTournois);
 
 				$gameBDD = new gameManager();
