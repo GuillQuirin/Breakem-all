@@ -55,7 +55,7 @@ class signalmentsuser{
 	public function getDescription(){return $this->description;}
 	public function getDate(){return $this->date;}
 	public function getId_indic_user(){return $this->id_indic_user;}
-	public function getPseudo_indic_user(){return $this->pseudo_indic_user;}
+	public function gtPseudo_indic_user(){return $this->pseudo_indic_user;}
 	public function getId_signaled_user(){return $this->id_signaled_user;}
-	public function getPseudo_signaled_user(){return $this->pseudo_signaled_user;}
+	public function gtPseudo_signaled_user(){return $this->pseudo_signaled_user;}
 }
