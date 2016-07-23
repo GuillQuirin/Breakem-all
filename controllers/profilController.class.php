@@ -50,7 +50,7 @@ class profilController extends template{
 				if(isset($stats["totalWonMatchs"]))
 					$v->assign("totalWonMatchs",(int)$stats["totalWonMatchs"]);
 
-				if(isset($stats["totalMatchs"]) && isset($stats["totalWonMatchs"]))
+				if(isset($stats["totalMatchs"]) && isset($stats["totalWonMatchs"]) && $stats["totalMatchs"]!=0)
 					$v->assign("ratio",number_format(((int)$stats["totalWonMatchs"]) / ((int)$stats["totalMatchs"]),2));
 
 				$v->assign("totalPoints",$user->gtTotalPoints());
