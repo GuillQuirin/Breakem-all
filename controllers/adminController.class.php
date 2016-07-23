@@ -1054,9 +1054,10 @@ class adminController extends template{
             );
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
-            $bdd = new signalmentsuserManager();
-            $searchUser = new signalementsuser($filteredinputs);
+            $bdd = new commentManager();
+            $searchUser = new comment($filteredinputs);
             $user = $bdd->commentByPseudo($searchUser);
+            print_r($user);
            
             if($user){
                 echo json_encode($user);

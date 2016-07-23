@@ -15,7 +15,6 @@ var commentModule = {
 
 		//Preview
 		commentModule.toggleCheck();
-		commentModule.previewImg();
 
 		//Search
 		commentModule.searchRequest();
@@ -95,7 +94,7 @@ var commentModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-
+						console.log(result);
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);
@@ -204,18 +203,13 @@ var commentModule = {
 		commentModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.comment-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.membre-id-p').val();
+				var pseudo = updateBtn.parent().parent().find('.membre-pseudo-p').val();
+				var status = updateBtn.parent().parent().find('.membre-status-p').val();
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
 
 				console.log(allData);
 
