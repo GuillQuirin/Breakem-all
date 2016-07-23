@@ -20,7 +20,7 @@
 					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->getNameType() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->gtNameType() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>";
 						if($jeu->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
@@ -81,7 +81,7 @@
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
 										echo ($jeu->getYear()!==NULL) ? " value='".date('Y', $jeu->getYear())."'>" : ">";
 										
-										echo "<input type='hidden' class='jeu-nameType-p' value='" . $jeu->getNameType() . "'>";
+										echo "<input type='hidden' class='jeu-nameType-p' value='" . $jeu->gtNameType() . "'>";
 										echo "<select class='select-default jeu-idType-p' name='idType'>";
 											if(isset($listetypejeu)){
 												if(is_array($listetypejeu)){			

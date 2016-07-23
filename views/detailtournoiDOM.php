@@ -284,10 +284,20 @@
 					<span class="detailtournoi-nombre-participants bg-pink"><?php echo $cntReg;?></span>
 				</h2>
 				<div class="flex detailtournoi-liste-participants">
-				<?php foreach ($allRegistered as $key => $user): ?>			
+				<?php foreach ($allRegistered as $key => $user): ?>
 					<div class="detailtournoi-participant relative flex">
-						<p class="detailtournoi-participant-pseudo"><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a><span class="absolute detailtournoi-stats-joueur">XX victoires, XX%win</span></p>
-						<p class="detailtournoi-participant-points absolute">XXXX points</p>
+						<p class="detailtournoi-participant-pseudo"><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo(); ?>"><?php echo $user->getPseudo();?></a>
+							<span class="absolute detailtournoi-stats-joueur">
+							<?php if ($user->gtTotalMatchs() > 0): ?>
+								<?php echo $user->gtTotalMatchs() . " matchs, "; ?>
+								<?php $ratio = round(($user->gtTotalWonMatchs() / $user->gtTotalMatchs())*100, 1); ?>
+								<?php echo $ratio ?>% victoires 
+							<?php else: ?>
+								Aucune victoire
+							<?php endif ?>
+							</span>
+							</p>
+						<p class="detailtournoi-participant-points absolute"><?php echo $user->gtTotalPoints(); ?> points</p>
 					</div>
 				<?php endforeach; ?>				
 				</div>
