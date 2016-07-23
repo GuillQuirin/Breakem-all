@@ -17,35 +17,18 @@ else{
         <div class="popup-contain">
             <h2>Modifie ta Team</h2>
             <form class="formteam" action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
-		        <table>
-                    <tr>
-                        <td>Slogan : </td>
-                        <td>
-                            <input class="input-default" type="text" name="slogan" value="<?php if(isset($sloganteam)) echo $sloganteam; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Description : </td>
-                        <td>
-                            <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($description)) echo $description; ?></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Image : </td>
-                        <td>
-                            <input class="image-default" type="file" name="img">
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td colspan=2>
-                            <button id='action-team-modif' type='submit' class='btn btn-pink admin-form-submit'>
-                                <a>Modifier ma team</a>
-                            </button>
-                        </td>
-                    </tr>
-                </table> 
-            <input type="hidden" value="<?php if(isset($nameteam)) echo $nameteam;?>"name="nameTeam">               
+		        <div>
+                    <p>Slogan <input class="input-default" type="text" name="slogan" value="<?php if(isset($sloganteam)) echo $sloganteam; ?>"></p>
+                    <p>Description : <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($description)) echo $description; ?></textarea>
+                        </p>
+                    <p>Image : <input class="image-default" type="file" name="img"></p>
+                    <p>
+                        <button id='action-team-modif' type='submit' class='btn btn-pink admin-form-submit'>
+                            <a>Modifier ma team</a>
+                        </button>
+                    </p>
+                </div> 
+                <input type="hidden" value="<?php if(isset($nameteam)) echo $nameteam;?>"name="nameTeam">               
             </form>
         </div>
         <div class="popup-fond"></div>
@@ -168,7 +151,7 @@ else{
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
         <div class=" container m-a content-border team-container">
-            <div class="liste_member grid-md-4">
+            <div class="liste_member">
                 <?php   
                     if(isset($listemember)): 
                         foreach ($listemember as $key => $user):
@@ -196,7 +179,7 @@ else{
                     endif;
                 ?>
             </div>
-            <div class="grid-md-offset-2 grid-xs-offset-5 grid-sm-offset-3 description-team break-word">
+            <div class="grid-md-10 description-team break-word">
                 Description de la team : <?php if(isset($description)) echo $description; ?>
             </div>
 
