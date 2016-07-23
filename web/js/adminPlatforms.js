@@ -351,9 +351,6 @@ var platformModule = {
 							"</div>" +
 							//Image
 							"<div class='grid-md-12'>" +
-								"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover platform-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/platform/default-platform.png' title='Plateforme' alt='Plateforme'>" +										
-								"</div>" +
 								"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' class='platform-image-p' name='profilpic'>" +
 								"</div>" +
@@ -424,10 +421,11 @@ var platformModule = {
 			        	if(file){
 
 				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-				        	allData.img = file.name;
+				        	allData.img = name + ".jpg";
 
 				        	var imgData = new FormData();                  
-						    imgData.append('file', file);				    		                             
+						    imgData.append('file', file);
+						    imgData.append('name', name);				    		                             
 						    jQuery.ajax({
 					            url: "admin/insertPlatformsData", 
 					            dataType: 'text',  
@@ -464,7 +462,7 @@ var platformModule = {
 							"<div class='grid-md-10 admin-new-data-ihm align relative grid-centered'>" +
 
 								//Affichage
-								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "?lastmod=" + Date.now() +"'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + allData.name + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + allData.description + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>" +

@@ -190,14 +190,19 @@ class adminController extends template{
         }
 
         public function insertPlatformsDataAction(){
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_POST['name'] . ".jpg");
+            }  
             
             $args = array(
                 'name' => FILTER_SANITIZE_STRING,
                 'description' => FILTER_SANITIZE_STRING,
                 'img' => FILTER_SANITIZE_STRING
             );
-
-            move_uploaded_file($_FILES['file']['tmp_name'], getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
 
             //Pré-controle car l'upload d'image ne passe pas le filter_input_array
             $platformBdd = new platformManager();
@@ -206,22 +211,6 @@ class adminController extends template{
             $exist_name = $this->controleNom($platformBdd, $platform);
             if($exist_name)
                 unset($args['name']);
-
-            //On check le fichier
-            if(file_exists(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg")){  
-                //Nouveau nom
-                if(!$exist_name && $platform->getName()!=NULL){
-                    rename( getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg", 
-                            getcwd(). WEBPATH . "/web/img/upload/platform/".$platform->getName().".jpg");
-                    $_POST['img']=$platform->getName().".jpg";
-                    var_dump("OUUUUUAAAIIIISSS");
-                }
-                //Suppression du fichier
-                else{
-                    unlink(getcwd(). WEBPATH . "/web/img/upload/platform/loadedFile.jpg");
-                    var_dump("ZAAAAAAAA");
-                }
-            }
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);
 
