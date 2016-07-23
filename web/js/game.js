@@ -37,7 +37,7 @@
 		 	}
 		});
 	}
-});*/
+});
 
 function deleteGame(id){
 	if(confirm("Souhaitez vous supprimer ce jeu ?")){
@@ -54,4 +54,4 @@ function deleteGame(id){
 		 	}
 		});
 	}
-}
+}*/
