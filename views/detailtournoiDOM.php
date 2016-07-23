@@ -290,7 +290,7 @@
 							<span class="absolute detailtournoi-stats-joueur">
 							<?php if ($user->gtTotalMatchs() > 0): ?>
 								<?php echo $user->gtTotalMatchs() . " matchs, "; ?>
-								<?php $ratio = round(($user->gtTotalWonMatchs() / $user->gtTotalMatchs())*100, 1); ?>
+								<?php $ratio = getVictoryRatio($user->gtTotalWonMatchs(), $user->gtTotalMatchs()); ?>
 								<?php echo $ratio ?>% victoires 
 							<?php else: ?>
 								Aucun match
