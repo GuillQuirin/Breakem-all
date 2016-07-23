@@ -229,9 +229,6 @@ section:hover{
 		left: 142px;
 		top: calc(50% - .75vh);
 	}
-	.detailtournoi-participant-points:after{
-		content: " points";
-	}
 	.detailtournoi-btn-fichejoueur{
 		height: 5vh;
 		width: 12vh;
@@ -328,7 +325,7 @@ section:hover{
 	}
 	img.detailtournoi-match-team-separator{
 		max-width: 50px;
-		/*cursor: pointer;*/
+		max-height: 40px;
 	}
 	.detailtournoi-match:hover img.detailtournoi-match-team-separator{
 		animation: wiggle .2s alternate;

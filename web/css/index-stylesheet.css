@@ -235,12 +235,17 @@ label[for='title1']{
 	font-size:12px;
 }
 .margin_match{
-	margin-top:25px;
-	cursor: pointer;
+	width: 75%;
+    margin: 5px auto;
+    word-wrap: break-word;
+    text-align: center;
 }
 #match img{
-	width:50px;
-	transform: skew(-8deg);
+    max-width: 40%;
+    height: auto;
+    transform: skew(-8deg);
+    display: block;
+    margin: 0 auto;
 }
 #match img[name="img2"]{
 	margin-left:22px;
@@ -255,9 +260,11 @@ label[for='title1']{
 	background-color: #201c3a;
 }
 .date_match{
-	float:right;
-	color:#6f686e;
-	margin-top:10px;
+    float: right;
+    color: #6f686e;
+    margin: 10px auto;
+    display: block;
+    width: 100%;
 }
 .versus{
 	position: absolute;
@@ -277,15 +284,16 @@ hr{
 	margin-top:20px;
 }
 .game img{
-	width:80px;
-	transform: skew(-8deg);
-	vertical-align: middle;
+    max-width: 40%;
+    transform: skew(-8deg);
+    margin: 0 auto;
+    display: block;
 }
 .game p{
-	position: absolute;
-    margin-left: 90px;
-    margin-top: -40px;
-    text-decoration: underline;
+	text-align: center;
+    margin: 10px auto;
+    display: block;
+    text-transform: uppercase;
 }
 
 .categorie{

@@ -77,12 +77,18 @@ final class matchsManager extends basesql{
 		$limit = (int) $limit;
 		if($limit < 1)
 			$limit = 5;
-		$sql = "SELECT id, idWinningTeam, proof, idTournament, startdate, MAX(matchnumber) as matchNumber"; 
-		$sql .= " FROM matchs";
-		// IS NULL = match pas encore joué   &  IS NOT NULL = déjà joués
-		$sql .= " WHERE idWinningTeam IS NULL";
-		$sql .= " GROUP BY idtournament order by startdate";
-		$sql .= " LIMIT 0, 5";
+		$sql = "SELECT m.id, m.idWinningTeam, m.proof, m.idTournament, t.name as nameTournament, 
+					m.startdate, MAX(m.matchnumber) as matchNumber, t.link, g.img as imgJeu, g.name as nomJeu
+	 			FROM matchs m
+	 				LEFT OUTER JOIN tournament t ON t.id = m.idTournament
+	 				LEFT OUTER JOIN gameversion gv ON gv.id = t.idGameVersion
+	 				LEFT OUTER JOIN game g ON g.id = gv.idGame
+				WHERE m.idWinningTeam IS NULL 
+					AND t.id IS NOT NULL 
+	    			AND gv.id IS NOT NULL
+	    			AND g.id IS NOT NULL
+	 			GROUP BY m.idtournament order by m.startdate
+				LIMIT 0, 5";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute();

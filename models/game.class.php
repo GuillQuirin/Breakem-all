@@ -72,7 +72,7 @@ class game{
 		}
 	}
 	public function getIdType(){return $this->idType;}
-	public function getNameType(){return $this->nameType;}
+	public function gtNameType(){return $this->nameType;}
 	public function gtTimesPlayed(){return $this->timesPlayed;}
 	
 }

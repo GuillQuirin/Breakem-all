@@ -12,7 +12,7 @@ $(document).ready(function(){
 		        			//console.log(result);
 		        		},
 		        		fail: function(){
-		        			alert('La suppression de votre compte n\'a pas pu être effectuée');
+		        			popup.error('La suppression de votre compte n\'a pas pu être effectuée');
 		        		}
 		        	}
 		        );

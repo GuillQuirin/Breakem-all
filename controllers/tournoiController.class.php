@@ -27,8 +27,25 @@ class tournoiController extends template {
 				$rm = new registerManager();
 				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
 				// Ne les envoyer ds la vue s'il y en a
-				if(!!$allRegistered)
-					$v->assign("allRegistered", $allRegistered);
+
+				if(!!$allRegistered){
+					$users = [];
+					$um = new userManager();
+					foreach ($allRegistered as $key => $registered) {
+						$u = new user([]);
+						$u->setPseudo($registered->getPseudo());
+						$u = $um->userByPseudoInstance($u);
+						$stats = $um->getTotalMatchsAndVictoriesByPseudo($u);
+						if(is_array($stats)){
+							$u->setTotalMatchs($stats["totalMatchs"]);
+							$u->setTotalWonMatchs($stats["totalWonMatchs"]);
+						}
+						$users[] = $u;
+					}
+					if(count($users) > 0)
+						$v->assign("allRegistered", $users);
+				}
+					
 
 				// Recuperer toutes les équipes avec le nombre de places prises
 				$ttm = new teamtournamentManager();
@@ -95,13 +112,8 @@ class tournoiController extends template {
 	        $v->setView("templatefail", "templatefail");
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois
-		else{
-			$v->assign("css", "tournoi");
-			$v->assign("js", "tournoi");
-			$v->assign("title", "Tournois");
-			$v->assign("content", "Liste principaux tournois jeux vidéos");
-			$v->setView("tournoiDOM");
-		}
+		else
+			header('Location: ' .WEBPATH.'/tournoi/list');
 	}
 	// Destiné à de l'AJAX
 	public function randRegisterAction(){
@@ -242,7 +254,7 @@ class tournoiController extends template {
 		}
 	}
 
-	public function searchAction(){
+	public function listAction(){
 		$args = array(
             'nom' => FILTER_SANITIZE_STRING,
             'jeu' => FILTER_SANITIZE_STRING,

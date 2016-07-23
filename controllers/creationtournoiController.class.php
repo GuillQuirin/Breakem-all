@@ -325,7 +325,7 @@ class creationtournoiController extends template{
 	// 			--> Si non : elle renvoie false
 	private function getDbVersionIfExists(gameversion $gv){
 		if(!isset($_SESSION['availableGV_ids']))
-			die("fdp");
+			$this->echoJSONerror("", "Aucun type de jeux n'a été précédemment sélectionné");
 		$gvm = new gameversionManager();
 		$validVersions = $gvm->getChoosableVersions();
 		foreach ($validVersions as $key => $obj) {
