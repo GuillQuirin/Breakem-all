@@ -561,18 +561,17 @@ class adminController extends template{
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new signalmentsuserManager();
-            $data = $bdd->reportByPseudo($filteredinputs);
+            $signalement = $bdd->reportByPseudo($filteredinputs);
             
-            print_r($data);
-
-            if($data){
-                echo json_encode($data);
+            if($signalement){
+                echo json_encode($signalement);
                 die();
             }else{
                 echo "undefined";
                 die();
             }   
         }
+
 
         public function DeleteReportsAction(){
             $args = array(
@@ -1048,7 +1047,7 @@ class adminController extends template{
         }
 
     /* COMMENTAIRE */
-     public function updateCommentsDataAction(){
+        public function updateCommentsDataAction(){
      
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
@@ -1065,7 +1064,7 @@ class adminController extends template{
             
             $bdd->setComment($old, $maj);
         }
-    public function getCommentByPseudoAction(){
+        public function getCommentByPseudoAction(){
             $args = array(
                 'pseudo' => FILTER_SANITIZE_STRING
             );
