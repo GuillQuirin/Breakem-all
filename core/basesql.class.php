@@ -18,7 +18,7 @@ abstract class basesql{
 			try{
 				self::$openedConnection = new PDO($dsn,DBUSER,DBPWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 			}catch(Exception $e){
-				die("Erreur SQL : ".$e->getMessage());
+				error_log("[#### ERREURSQL #### [\r\n".$e->getMessage())."\r\n]\r\n";
 			}
 		}
 
