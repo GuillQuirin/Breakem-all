@@ -102,7 +102,7 @@ final class tournamentManager extends basesql{
 		AND t.idWinningTeam IS NULL";
 
 		//Inscrit non-admin
-		if(is_object($u) && $u->getStatus() != 3)
+		if($u instanceof user && $u->getStatus() != 3)
 			$sql .= " AND (t.status>0 OR t.idUserCreator = :id)";	
 		//Visiteur non-inscrit
 		else if(!is_object($u))
@@ -234,6 +234,9 @@ final class tournamentManager extends basesql{
 	}
 
 	public function getIdTournaments($id){
+		$id = (int) $id;
+		if( $id = 0)
+			return false;
 		$sql = "SELECT * FROM " .$this->table . " WHERE id=:id";
 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
