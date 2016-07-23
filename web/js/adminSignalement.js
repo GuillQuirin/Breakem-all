@@ -99,7 +99,7 @@ var signalementModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-						console.log(result);
+						//console.log(result);
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);
@@ -123,10 +123,10 @@ var signalementModule = {
 						 				fullStringContains += ":contains(" + fieldArr.pseudo + ")";
 					 			});
 
-					 			console.log(fullStringContains);
+					 			//console.log(fullStringContains);
 					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
 					 			var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(" + fullStringContains + ")").parent().parent().parent();
-					 			console.log(myRDiv);
+					 			//console.log(myRDiv);
 					 			myRDiv.addClass('hidden');
 					 		}							
 						}else{
@@ -134,7 +134,7 @@ var signalementModule = {
 						}
 					},
 				 	error: function(result){
-						console.log(result);	
+						//console.log(result);	
 						onglet.getAdminDataIhm().removeClass('hidden');
 				 	}
 				});
@@ -146,7 +146,7 @@ var signalementModule = {
 	//Preview
 	previewImg : function(){
 		signalementModule.getPreviewInput().on('change', function(){
-			console.log("Image changed.");
+			//console.log("Image changed.");
     		previewUpload(this, signalementModule.getImgWrapper());
 		});
 	},
@@ -166,7 +166,7 @@ var signalementModule = {
 				type: "POST",
 				data: data,
 				success: function(result){					
-					console.log("Signalement supprimée");							
+					//console.log("Signalement supprimée");							
 					btn.parent().parent().remove();		
 
 					//Vérification si il n'y a plus de plateforme
@@ -181,7 +181,7 @@ var signalementModule = {
 					 		}		     			 		
 					 	},
 					 	error: function(result1){
-					 		console.log("No data found on report.");
+					 		//console.log("No data found on report.");
 					 	}
 					});								
 				},
@@ -229,9 +229,9 @@ var signalementModule = {
 					type: "POST",
 					data: allData,
 					success: function(result){
-						console.log("Signalement mis à jour");
+						//console.log("Signalement mis à jour");
 						//Reload la mise a jour dans l'html
-						console.log(allData);
+						//console.log(allData);
 						if(allData.subject){ updateBtn.parent().parent().find('.report-subject-g').html(subject); }
 						if(allData.description){ updateBtn.parent().parent().find('.report-description-g').html(description); }
 						navbar.form.smoothClosing();				
@@ -254,7 +254,7 @@ function setStatut(pseudo, value){
 	 	type: "POST",
 	 	data : "pseudo="+pseudo+"&status="+value,
 	 	succes: function(result){
-	 		console.log(result);
+	 		//console.log(result);
 	 	},
 	 	error: function(result){
 	 		alert("non");
