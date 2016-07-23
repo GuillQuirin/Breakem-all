@@ -19,7 +19,7 @@ var signalementModule = {
 		signalementModule.searchRequest();
 
 		//CRUD
-		//signalementModule.postDataDelete();
+		signalementModule.postDataDelete();
 		//signalementModule.postDataUpdate();
 	},
 
@@ -99,6 +99,7 @@ var signalementModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
+						console.log(result);
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);

@@ -561,9 +561,10 @@ class adminController extends template{
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new signalmentsuserManager();
-            $search = new signalmentsuser($filteredinputs);
-            $data = $bdd->reportByPseudo($search);
-           
+            $data = $bdd->reportByPseudo($filteredinputs);
+            
+            print_r($data);
+
             if($data){
                 echo json_encode($data);
                 die();

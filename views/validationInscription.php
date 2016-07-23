@@ -8,14 +8,18 @@
 	}
 	else if(isset($pwdlost)){
 		?>
-			<div style="margin-top:300px;">
-				<form id="login-form" method="POST" action="">	
-					<p>Mot de passe perdu ?</p>		    
-				    <label for="email">E-mail :</label>
-				    <input class="input-default" type="email" id="email" name="email" required>
-				    <input type="submit" value="Envoyer">
+
+			<table id="login-form">
+				<form  method="POST" action="">
+					<tr>
+					<td><p><span id="mdp">Mot de passe perdu ?</span><labelfor="email">E-mail :</label><input class="input-default" type="email" id="email" name="email" required></p></td>
+					</tr>
+					<td>
+				    <button class="btn btn-pink" type="submit" value="Envoyer"><a class="lienb">Envoyer</a></button>
+					</td>
 				</form>
-			</div>
+			</table>
+
 		<?php 
 	}
 	else if(isset($envoi)){
