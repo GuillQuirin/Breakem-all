@@ -32,6 +32,8 @@ class profilController extends template{
 						$v->assign($col, $user->$method());	
 					};
 				}
+				$v->assign("totalPoints",$user->gtTotalPoints());
+
 				if($user->getIdTeam()!==null){
 					$teamBDD = new teamManager();
 					$team = $teamBDD->getTeam(array('id' => $user->getIdTeam()));
@@ -81,7 +83,8 @@ class profilController extends template{
 
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
-				die("Manque information : ".$key);
+				$this->echoJSONerror("","Il manque un champ.");
+				/***** ANCIEN DIE ***/
 			}
 		}
 
@@ -99,7 +102,8 @@ class profilController extends template{
 	      $contenuMail.="<div>".$filteredinputs['message']."</div>";
 	      $contenuMail.="<div>Si vous ne souhaitez plus recevoir de mails de la part des autres joueurs, vous pouvez décocher l'option dans 'Mon Compte'</div>";
 
-		$this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail);
+		if($this->envoiMail($destinataire->getEmail(), 'Un joueur vous a contacté.', $contenuMail))		
+			echo json_encode(["success" => "Mail envoyé"]);
 	}
 
 	public function reportAction(){
