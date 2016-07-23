@@ -106,12 +106,12 @@ class signalmentsuserManager extends basesql{
 
 	}
 
-	public function reportByUser(signalmentsuser $u){
-		$sql ="SELECT c.id, c.date, c.comment, c.status, c.idUser, c.idEntite, u.pseudo
-			   FROM comment c
+	public function reportByPseudo(signalmentsuser $u){
+		$sql ="SELECT s.id, s.subject, s.description, s.date, s.id_indic_user, s.id_signaled_user, u.pseudo
+			   FROM signalmentsuser s
 			   LEFT OUTER JOIN user u
-			   ON c.idUser = u.id
-			   AND c.idUser IS NOT NULL
+			   ON s.id_signaled_user = u.id
+			   AND s.id_signaled_user IS NOT NULL
 			   WHERE u.pseudo LIKE ?";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute(["%".$u->gtPseudo_signaled_user()."%"]);

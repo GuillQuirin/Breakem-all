@@ -99,14 +99,35 @@ var signalementModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-						console.log(result);
-
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
-							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(:contains(" + userArr.pseudo + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							var userArr = jQuery.parseJSON(result);
+							//console.log(userArr);
+							onglet.getAdminDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].pseudo);
+						 		var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(:contains(" + userArr[0].pseudo + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".report-accuse-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
