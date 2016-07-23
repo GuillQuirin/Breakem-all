@@ -38,7 +38,7 @@ $name_page = $route["c"];
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
-
+$routeExists = false;
 if(file_exists($path_controller)){
 	require_once($path_controller);
 	$controller = new $name_controller;
@@ -46,13 +46,10 @@ if(file_exists($path_controller)){
 
 	if(method_exists($controller, $name_action)){
 		$controller->$name_action($route["args"]);
-	}	//LoadFailController
-	else{
-		require_once("controllers/LoadFailController.class.php");
-		new LoadFailController();
+		$routeExists = true;
 	}
-
-}else{
+}
+if(!$routeExists){
 	require_once("controllers/LoadFailController.class.php");
 	new LoadFailController();
 }
