@@ -18,8 +18,8 @@
 
 					//Affichage
 					echo "<div class='grid-md-4 overflow-hidden hidden'><div class='admin-data-ihm-elem'><span class='report-accuseId-g'>" . $signalement->getId_signaled_user() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-emetteur-g'>" . $signalement->getPseudo_indic_user() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-accuse-g'>" . $signalement->getPseudo_signaled_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-emetteur-g'>" . $signalement->gtPseudo_indic_user() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-accuse-g'>" . $signalement->gtPseudo_signaled_user() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-subject-g'>" . $signalement->getSubject() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='report-description-g'>" . $signalement->getDescription() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize report-date-g'>" . $signalement->getDate() . "</span></div></div>";	
@@ -27,8 +27,8 @@
 
 					//Bouton
 					echo "<div class='admin-data-ihm-btn hidden align'>";
-						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
-						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
+/*						echo "<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>";
+*/						echo "<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>";
 					echo "</div>"; 
 					//Fin Bouton
 

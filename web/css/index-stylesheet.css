@@ -98,7 +98,6 @@ article{
 	width:30%;
 	height:auto;
 	transform: skew(-8deg);
-	background-color: #160962;
 }
 .img_article img{
 	max-width:100%;
@@ -118,7 +117,6 @@ article{
  	left: 80%;
     right: inherit;
    	top: 80%;
-    transform: translateX(50%);
 }
 .date_article h3{
 	font-size:12px;

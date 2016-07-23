@@ -31,11 +31,11 @@ if(isset($tournoi)){
 
 			<div class="row classement-content-row">
 				<div class="grid-md-12">
-					<button type="submit" class="btn btn-pink btn-gestion-tounoi index-header-btn-pink-width">'
+					<span type="submit" class="btn btn-pink btn-gestion-tounoi index-header-btn-pink-width">'
 						<a href="<?php echo WEBPATH.'/tournoi?t='.$tournoi->getLink(); ?>">
 							Revenir sur le tournoi
 						</a>
-					</button>
+					</span>
 					<div class="configuration-header-profil-wrapper">
 						<div class="configuration-header-profil-left">
 							

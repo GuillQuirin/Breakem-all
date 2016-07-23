@@ -556,15 +556,15 @@ class adminController extends template{
     /* SIGNALEMENT */
        public function getReportByUserAction(){
             $args = array(
-                'id' => FILTER_VALIDATE_INT,
                 'pseudo' => FILTER_SANITIZE_STRING
             );
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new signalmentsuserManager();
-            $search = new signalmentsuser($filteredinputs);
-            $data = $bdd->reportByUser($search);
-           
+            $data = $bdd->reportByPseudo($filteredinputs);
+            
+            print_r($data);
+
             if($data){
                 echo json_encode($data);
                 die();
@@ -1048,6 +1048,23 @@ class adminController extends template{
         }
 
     /* COMMENTAIRE */
+     public function updateCommentsDataAction(){
+     
+            $args = array(
+                'id' => FILTER_SANITIZE_STRING,
+                'comment' => FILTER_SANITIZE_STRING,
+                'status' => FILTER_VALIDATE_INT
+            );                                            
+
+            $filteredinputs = array_filter(filter_input_array(INPUT_POST, $args));
+            
+            $bdd = new commentManager();
+            $old = $bdd->getComment($filteredinputs['id']);
+
+            $maj = new comment($filteredinputs);
+            
+            $bdd->setComment($old, $maj);
+        }
     public function getCommentByPseudoAction(){
             $args = array(
                 'pseudo' => FILTER_SANITIZE_STRING
@@ -1057,7 +1074,6 @@ class adminController extends template{
             $bdd = new commentManager();
             $searchUser = new comment($filteredinputs);
             $user = $bdd->commentByPseudo($searchUser);
-            print_r($user);
            
             if($user){
                 echo json_encode($user);

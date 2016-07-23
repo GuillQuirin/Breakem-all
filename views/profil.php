@@ -209,9 +209,9 @@ else{
 								echo "</span>";
 							}
 							else if(isset($myAccount)){
-								echo '<button type="button" class="btn btn-pink">';
+								echo '<span type="button" class="btn btn-pink">';
 									echo '<a href="'.WEBPATH.'/configuration" id="configuration">Configurer mon compte</a>';
-								echo '</button>';
+								echo '</span>';
 							}
 						?>
 						</div>

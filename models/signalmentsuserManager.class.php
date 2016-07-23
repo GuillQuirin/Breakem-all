@@ -106,14 +106,21 @@ class signalmentsuserManager extends basesql{
 
 	}
 
-	public function reportByUser(signalmentsuser $u){
-		$sql="SELECT s.id
-					(SELECT pseudo from user WHERE pseudo LIKE ?) as pseudo_signaled_user
-				FROM signalmentsuser s";		
+	public function reportByPseudo($searchArray = []){
+		$sql ="SELECT u.pseudo, u.id, s.date, s.description, s.subject, s.id_indic_user, s.id_signaled_user
+      			FROM signalement s";
+
+      	$data = [];
+		$sql .= " LEFT OUTER JOIN user u ON s.id_signaled_user = u.id";
+		if(isset($searchArray['pseudo'])){
+			$sql .= " AND u.pseudo LIKE :pseudo";
+			$data[':pseudo'] = '%' .$searchArray['pseudo'].'%';
+		};
+      			
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute(["%".$u->getPseudo_signaled_user()."%"]);
+		$sth->execute($data);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-	
+
 		return $r;
 	}
 }

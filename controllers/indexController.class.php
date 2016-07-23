@@ -40,7 +40,13 @@ class indexController extends template{
 		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
 		}
-		
+		/* #####  GUILLAUME C PR TOI MON COCHON ###### */
+		// $mm = new matchsManager();
+		// $nextMatchs = $mm->getNextMatchsOfEveryTournament(10);
+		// foreach ($nextMatchs as $key => $m) {
+		// 	$nextMatchs[$key] = $this->getFullyAlimentedMatch($m);
+		// }
+		// var_dump($nextMatchs);
 		$v->setView("index");
 	}
 
