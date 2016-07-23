@@ -1048,6 +1048,24 @@ class adminController extends template{
         }
 
     /* COMMENTAIRE */
+    public function getCommentByPseudoAction(){
+            $args = array(
+                'pseudo' => FILTER_SANITIZE_STRING
+            );
+
+            $filteredinputs = filter_input_array(INPUT_POST, $args);  
+            $bdd = new signalmentsuserManager();
+            $searchUser = new signalementsuser($filteredinputs);
+            $user = $bdd->commentByPseudo($searchUser);
+           
+            if($user){
+                echo json_encode($user);
+                die();
+            }else{
+                echo "undefined";
+                die();
+            }   
+        }
 
         public function delCommentAction(){
             $args = array(
