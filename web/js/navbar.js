@@ -307,7 +307,7 @@ var popupError = {
 			var container = $('<div class="index-modal-popupError absolute-0-0 full-width full-height fixed display-flex-column animation fade"></div>');
 			var popdivContainer = $('<div class="index-popupError-msg display-flex-column animation fadeDown"></div>');
 			var subDiv = $('<div class="border-full display-flex-column"></div>')
-			var popMsg = $('<p class="title title-4">'+message+'</p>');
+			var popMsg = $('<p class="title title-4 text-center">'+message+'</p>');
 			subDiv.append(popMsg);
 			popdivContainer.append(subDiv);
 			container.append(popdivContainer);

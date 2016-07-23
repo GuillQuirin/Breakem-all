@@ -32,12 +32,14 @@
 							<div class="relative ta-right">
 								<button class="detailtournoi-btn-gestion relative btn btn-pink">
 									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
-								</button>
+								</button>								
 								<?php if ($tournoi->isUserRegistered($_user)): ?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else: ?>
+									<?php if ($tournoi->getStatus() > 0): ?>
 									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
-								<?php endif ?>
+									<?php endif ?>
+								<?php endif ?>								
 							</div>
 						<?php endif; ?>
 					<?php endif; ?>
