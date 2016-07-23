@@ -67,7 +67,7 @@ final class matchsManager extends basesql{
 		return $sth->execute();
 	}
 
-	public function getNextAllMatch(tournament $t, $limit=5){
+	public function getNextMatchs(tournament $t, $limit=5){
 		$limit = (int) $limit;
 		if($limit < 1)
 			$limit = 5;

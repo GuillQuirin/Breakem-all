@@ -17,11 +17,19 @@
 	display:none;
 }
 
-.display-flex{
-	display:flex;
+.display-flex{ 
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
 }
 
-.display-flex-column{
+.display-flex-column{ 
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
   display: flex;
   align-items: center;
   justify-content: center;

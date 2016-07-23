@@ -382,7 +382,7 @@ hr{
 	}
 
 	.text_article{
-		width: 60%;
+		width: 70%;
 	}
 
 	.btn_article .btn{
@@ -390,7 +390,7 @@ hr{
 	}
 
 	.img_article{
-		width: 35%;
+		width: 25%;
 	}
 	.header-title{
         width: 70%;
@@ -400,10 +400,31 @@ hr{
     .header-title{
         width: 80%;
     }
+    .text_article h2{
+    	font-size:18px;
+    }
 }
 
 @media screen and (max-width: 770px) {
 	#wrapperCurrentTournament{
 	    width: 60%;
+	}
+}
+
+@media screen and (max-width: 350px){
+	.index-header-btn{
+		bottom:-65%;
+	}
+	.date_article{
+		left:67%;
+	}
+
+	.nw_social{
+		height:100px;
+		width:17%;
+		font-size:9px;
+	}
+	.nw_social img{
+		width:25px;
 	}
 }

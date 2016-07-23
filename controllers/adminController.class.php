@@ -664,6 +664,14 @@ class adminController extends template{
 
 
        public function updateTypeGamesDataAction(){
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $_POST['name'] . ".jpg");
+            }  
+
             $args = array(
                 'id' => FILTER_SANITIZE_STRING,
                 'name' => FILTER_SANITIZE_STRING,
@@ -678,26 +686,26 @@ class adminController extends template{
             $typegame = new typegame(array('name' => trim($filteredinputs['name'])));
             $oldtypegame = $typegameBdd->getTypeGame($filteredinputs['id']);
             
-            $exist_name = $this->controleNom($typegameBdd, $typegame, $oldtypegame);
+            /*$exist_name = $this->controleNom($typegameBdd, $typegame, $oldtypegame);
 
             if($exist_name)
-                unset($filteredinputs['name']);
+                unset($filteredinputs['name']);*/
 
             //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['name']))   
-                    {//move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile);
-                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
-                    }
-                    else{
-                        move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
-                    }
-                }  
-            }
+            // if(isset($_FILES['file'])){
+            //     if ( 0 < $_FILES['file']['error'] ) {
+            //         unset($filteredinputs['img']);
+            //     }
+            //     else {    
+            //         if(isset($filteredinputs['name']))   
+            //         {//move_uploaded_file($_FILES['profilpic']['tmp_name'], $uploadfile);
+            //             move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);
+            //         }
+            //         else{
+            //             move_uploaded_file($_FILES['file']['tmp_name'], getcwd() . WEBPATH . "/web/img/upload/typejeux/" . $old->getName());
+            //         }
+            //     }  
+            // }
 
             $newtg = new typegame($filteredinputs);
             
@@ -911,6 +919,14 @@ class adminController extends template{
         }
 
         public function updateGamesDataAction(){
+           //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_POST['name'] . ".jpg");
+            }  
+
             $args = array(
                'id' => FILTER_VALIDATE_INT,
                'name' => FILTER_SANITIZE_STRING,
@@ -950,18 +966,6 @@ class adminController extends template{
               unset($filteredinputs['nameType']);
               unset($filteredinputs['thisYear']);
 
-              //On check le fichier
-              if(isset($_FILES['file'])){
-                  if ( 0 < $_FILES['file']['error'] ) {
-                      unset($filteredinputs['img']);
-                  }
-                  else {    
-                      if(isset($filteredinputs['name']))                    
-                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
-                      else
-                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $oldgame->getName());
-                  }  
-              }
             $newGame = new game($filteredinputs);
             $gameBdd->setGame($oldgame, $newGame);
 

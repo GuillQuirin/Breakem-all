@@ -252,7 +252,7 @@ class teamManager extends basesql{
 		$sth->execute([$u->getName()."%"]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
-		return $r[0];
+		return $r;
 	}
 
 }

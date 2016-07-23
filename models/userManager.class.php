@@ -7,9 +7,15 @@ class userManager extends basesql{
 
 	/*VERIFICATION EXISTENCE COMPTE*/
 	public function userMailExists(user $user){
-		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email='".$user->getEmail()."'";
-		$query = (bool) $this->pdo->query($sql)->fetch();
-		return $query;
+		$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE email=':email'";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([
+			':email' => $user->getEmail()
+		]);
+		$r = $sth->fetchAll();
+		if(isset($r[0][0]))
+			return (bool) $r[0][0];
+		return false;
 	}
 
 	/*VERIFICATION VALIDITE IDENTIFIANTS DE CONNEXION*/
@@ -322,7 +328,7 @@ class userManager extends basesql{
 		$sth->execute([ $u->getPseudo()."%"]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
-		return $r[0];
+		return $r;
 	}
 
 	public function userByPseudoInstance(user $u){

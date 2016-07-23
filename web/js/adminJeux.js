@@ -99,7 +99,7 @@ var gameModule = {
 	    			callback(gameModule.getAdminSearchInput().val());
 		    		else
 		    			callback("undefined");
-				}, 1)
+				}, 2000)
 			});
 		}
 	},
@@ -114,14 +114,36 @@ var gameModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-						console.log(result);
-
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
+							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".jeu-name-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							//console.log(userArr);
+							onglet.getAdminDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].name);
+						 		var myRDiv = onglet.getAdminDataRe().find(".jeu-name-g:not(:contains(" + userArr[0].name + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".jeu-name-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
@@ -140,7 +162,7 @@ var gameModule = {
 	previewImg : function(){
 		gameModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
-    		previewUpload(this, gameModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.jeu-img'));
 		});
 	},
 	//CRUD
@@ -258,10 +280,11 @@ var gameModule = {
 			        if(file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = file.name;
+			        	allData.img = name + ".jpg";
 
 			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
+					    imgData.append('file', file);	
+					    imgData.append('name', name);			    		                             
 					    jQuery.ajax({
 				            url: "admin/updateGamesData", 
 				            dataType: 'text',  
@@ -301,7 +324,7 @@ var gameModule = {
 						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
 						//Si l'image uploadé existe on l'envoi dans la dom
 						if(allData.img){
-							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img);	
+							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img + "?lastmod=" + Date.now());	
 						}	
 						if(allData.status == 1){
 								updateBtn.parent().parent().find('.jeu-status-g-ht').html(

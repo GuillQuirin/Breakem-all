@@ -1,3 +1,14 @@
+<div>
+	<ul>
+		<nav class="nav_hori page">
+			<ul id='page_navigation'>
+			</ul>
+		</nav>
+	</ul>
+</div>
+<input type='hidden' id='current_page' />  
+<input type='hidden' id='show_per_page' /> 
+<div id="liste-derniers-tournois">
 <?php 
 	if(isset($tournamentOrg)):
 		foreach ($tournamentOrg as $key => $tournament):
@@ -35,3 +46,4 @@
 		echo "<span class='display-block text-center'>Vous n'organisez aucun tournoi pour le moment.</span>";
 	endif;
 ?>	
+</div>

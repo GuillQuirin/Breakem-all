@@ -88,7 +88,7 @@ var typegameModule = {
 	previewImg : function(){
 		typegameModule.getPreviewInput().on('change', function(){
 			console.log("Image changed.");
-    		previewUpload(this, typegameModule.getImgWrapper());
+    		previewUpload(this, jQuery(this).parent().parent().find('.typejeu-img'));
 		});
 	},
 	postDataUpdate : function(){
@@ -138,13 +138,14 @@ var typegameModule = {
 			        //Pour l'upload coté serveur
 			        var file = myImg.prop('files')[0];
 
-			        if(file){
+			        if(myImg && file){
 
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = file.name;
+			        	allData.img = name + ".jpg";
 
 			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
+					    imgData.append('file', file);	
+					    imgData.append('name', name);			    		                             
 					    jQuery.ajax({
 				            url: "admin/updateTypeGamesData", 
 				            dataType: 'text',  
@@ -172,13 +173,14 @@ var typegameModule = {
 					type: "POST",
 					data: allData,
 					success: function(result){
+						console.log(result);
 							console.log("Plateforme mise à jour");
 							//Reload la mise a jour dans l'html
 							if(allData.name){ updateBtn.parent().parent().find('.typejeu-nom-g').html(name);}
 							if(allData.description){ updateBtn.parent().parent().find('.typejeu-description-g').html(description);}
 							//Si l'image uploadé existe on l'envoi dans la dom
 							if(allData.img){
-								updateBtn.parent().parent().find('.typejeu-img-up').attr('src', webpath.get() + "/web/img/upload/typejeux/" + allData.img);	
+								updateBtn.parent().parent().find('.typejeu-img-up').attr('src', webpath.get() + "/web/img/upload/typejeux/" + allData.img + "?lastmod=" + Date.now());	
 							}	
 
 							if(allData.status == 1){
@@ -214,7 +216,7 @@ var typegameModule = {
 	    			callback(typegameModule.getAdminSearchInput().val());
 		    		else
 		    			callback("undefined");
-				}, 1)
+				}, 2000)
 			});
 		}
 	},
@@ -229,14 +231,36 @@ var typegameModule = {
 					type: "POST",
 					data: data,
 					success: function(result){
-						console.log(result);
-
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
-							console.log(result);
+							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
-							var myRDiv = onglet.getAdminDataRe().find(".typejeu-nom-g:not(:contains(" + userArr.name + "))").parent().parent().parent();
-							myRDiv.addClass('hidden');
+							//console.log(userArr);
+							onglet.getAdminDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].name);
+						 		var myRDiv = onglet.getAdminDataRe().find(".typejeu-nom-g:not(:contains(" + userArr[0].name + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.name + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".typejeu-nom-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
 						}else{
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
@@ -340,7 +364,8 @@ var typegameModule = {
 				        	allData.img = file.name;
 
 				        	var imgData = new FormData();                  
-						    imgData.append('file', file);				    		                             
+						    imgData.append('file', file);			
+						    imgData.append('name', name);	    		                             
 						    jQuery.ajax({
 					            url: "admin/insertTypeGamesData", 
 					            dataType: 'text',  
