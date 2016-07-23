@@ -4,16 +4,26 @@
 */
 final class registerManager extends basesql{
 
-	public function getTournamentParticipantBy(user $user){
+	public function getLastPlayedTournaments(user $user, $limit=3){
+		$limit = ( ((int) $limit) < 1 ) ? 3 : ((int) $limit);
 
-		$sql = "SELECT r.idTournament, g.name as nomJeu, g.img as imgJeu, t.link
-				FROM register r 
-				LEFT OUTER JOIN tournament t ON t.id = r.idTournament 
-				LEFT OUTER JOIN gameversion gv ON t.idGameVersion = gv.id 
-				LEFT OUTER JOIN game g ON gv.idGame = g.id ";
-
-		$sql .="WHERE r.idUser=:idUser ORDER BY r.idTournament DESC LIMIT 0,3";	
-
+		$sql = "SELECT DISTINCT r.idTournament, g.name as nomJeu, g.img as imgJeu, t.link";
+		$sql .= " FROM register r ";
+		$sql .= " LEFT OUTER JOIN tournament t ";
+		$sql .= " ON t.id = r.idTournament ";
+		$sql .= " LEFT OUTER JOIN gameversion gv ";
+		$sql .= " ON t.idGameVersion = gv.id ";
+		$sql .= " LEFT OUTER JOIN game g ";
+		$sql .= " ON gv.idGame = g.id";
+		$sql .= " LEFT OUTER JOIN matchs m ";
+		$sql .= " ON m.idTournament = t.id";
+		$sql .= " AND m.idWinningTeam IS NOT NULL";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp";
+		$sql .= " ON mp.idMatch = m.id";
+		$sql .= " WHERE r.idUser= :idUser";
+		$sql .= " AND r.idTournament = m.idTournament";
+		$sql .= " ORDER BY m.startDate";
+		$sql .= " DESC LIMIT 0,".$limit;
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':idUser' => $user->getId()
