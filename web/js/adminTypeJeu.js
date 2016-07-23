@@ -292,9 +292,6 @@ var typegameModule = {
 							"</div>" +
 							//Image
 							"<div class='grid-md-12'>" +
-								"<div class='membre-form-img-size m-a'>" +																	
-									"<img class='img-cover typejeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/typejeux/default-typejeux.png' title='Type de jeu' alt='Type de jeu'>" +										
-								"</div>" +
 								"<div class='text-center admin-input-file'>" +								 
 									"<input type='file' class='typejeu-image-p' name='profilpic'>" +
 								"</div>" +
@@ -318,6 +315,11 @@ var typegameModule = {
 				"</div>"
 				//Fin Formulaire
 			);
+
+			navbar.setOpenFormAll();	
+			navbar.form.admin();	
+			navbar.form.closeFormKey();
+	        navbar.form.closeFormClick();
 
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.typejeu-submit-add-this-form-btn');
@@ -361,7 +363,7 @@ var typegameModule = {
 			        	if(file){
 
 				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-				        	allData.img = file.name;
+				        	allData.img = name + ".jpg";
 
 				        	var imgData = new FormData();                  
 						    imgData.append('file', file);			
@@ -403,58 +405,15 @@ var typegameModule = {
 							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
 
 								//Affichage
-								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round typejeu-img-up' src='" + webpath.get() + "/web/img/upload/typejeux/" + allData.img + "'></div></div></div>" +
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round typejeu-img-up' src='" + webpath.get() + "/web/img/upload/typejeux/" + allData.img + "?lasmod=" + Date.now() + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-nom-g'>" + allData.name + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='typejeu-description-g'>" + allData.description + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align typejeu-status-g-ht'>" +
 									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>" +
-								"</div></span></div></div>" +							//Fin Affichage
+								"</div></span></div></div>" +							
+								//New
+								"<div class='new-widg'><span>New</span></div>" +
 
-								//Bouton
-								"<div class='admin-data-ihm-btn hidden align'>" +
-									"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +
-								"</div>" + 
-								//Fin Bouton
-
-								//Formulaire
-								"<div class='index-modal platforms hidden-fade hidden'>" +
-
-									"<div class='index-modal-this index-modal-login align'>" +
-										
-										"<div class='grid-md-4 inscription_rapide animation fade'>" +
-											"<form class='typejeu-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-												//Title
-												"<div class='grid-md-12 form-title-wrapper'>" +
-													"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-plateforme.png'><span class='form-title'>Plateforme</span>" +
-												"</div>" +
-												//Image
-												"<div class='grid-md-12'>" +
-													"<div class='membre-form-img-size m-a'>" +																	
-														"<img class='img-cover typejeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/typejeux/" + allData.img + "' title='Type de jeu' alt='Type de jeu'>" +										
-													"</div>" +
-													"<div class='text-center admin-input-file'>" +								 
-														"<input type='file' class='typejeu-image-p' name='profilpic'>" +
-													"</div>" +
-												"</div>" +
-												//Label
-												"<div class='grid-md-5 text-left'>" +
-												    "<label for='email'>Nom :</label>" +
-												    "<label for='email'>Description :</label>" +
-											    "</div>" +
-											    //Input
-											    "<div class='grid-md-7'>" +
-													"<input class='input-default admin-form-input-w typejeu-nom-p' name='nom' type='text' value='" + allData.name + "'>" +
-												    "<textarea class='input-default admin-form-input-w typejeu-description-p' name='description' type='text'>" + allData.description + "</textarea>" +							    														   
-												"</div>" +
-												//Submit
-												"<div class='grid-md-12'>" + 
-											    	"<button type='submit' class='admin-form-submit typejeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-									  			"</div>" +
-									  		"</form>" +
-									  	"</div>" +
-									"</div>" +
-								"</div>" +
-								//Fin Formulaire
 							"</div>" 
 							//Fin Wrapper
 							);
@@ -468,12 +427,11 @@ var typegameModule = {
 				ev.preventDefault();
 				return false;
 			});
-
+			navbar.setOpenFormAll();	
+			navbar.form.admin();	
+			navbar.form.closeFormKey();
+	        navbar.form.closeFormClick();
 		});
-		navbar.setOpenFormAll();	
-		navbar.form.admin();	
-		navbar.form.closeFormKey();
-        navbar.form.closeFormClick();
 	}
 };
 

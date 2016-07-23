@@ -615,6 +615,13 @@ class adminController extends template{
 
 
         public function insertTypeGamesDataAction(){
+            //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $_POST['name'] . ".jpg");
+            }  
             
             $args = array(
                 'name' => FILTER_SANITIZE_STRING,
@@ -632,16 +639,6 @@ class adminController extends template{
 
             if($exist_name)
                 unset($filteredinputs['name']);
-
-            //On check le fichier
-            if(isset($_FILES['file'])){
-                if ( 0 < $_FILES['file']['error'] ) {
-                    unset($filteredinputs['img']);
-                }
-                else {    
-                    if(isset($filteredinputs['name']))                    
-                        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $filteredinputs['name']);                }  
-            }
 
             if(isset($filteredinputs['name'])){
                 $tym =  new typegame($filteredinputs);
