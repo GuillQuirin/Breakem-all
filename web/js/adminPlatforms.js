@@ -167,9 +167,10 @@ var platformModule = {
 	},
 	//Preview
 	previewImg : function(){
-		platformModule.getPreviewInput().on('change', function(){
+		platformModule.getPreviewInput().on("change", function(e){
+			console.log("test");
 			console.log("Image changed.");
-    		previewUpload(this, jQuery(this).parent().parent().find('.platform-img'));
+    		previewUpload(jQuery(e.currentTarget), jQuery(e.currentTarget).parent().parent().find('.platform-img'));
 		});
 	},
 
@@ -335,7 +336,7 @@ var platformModule = {
 	postDataInsert : function(){
 
 		//Ajout du formulaire dans la dom
-		platformModule.getInsertBtn().on("click", function(e){
+		platformModule.getInsertBtn().click(function(e){
 			var btn = jQuery(e.currentTarget);
 
 			btn.parent().parent().find('.admin-add-form-wrapper').html(
@@ -379,7 +380,8 @@ var platformModule = {
 
 			navbar.setOpenFormAll();	
 			navbar.form.admin();
-			platformModule.previewImg();	
+
+			admin.ihmElemHover();
 			navbar.form.closeFormKey();
 	        navbar.form.closeFormClick();
 
@@ -459,61 +461,20 @@ var platformModule = {
 
 							onglet.getAdminDataRe().append(
 							//Wrapper				
-							"<div class='grid-md-10 admin-data-ihm align relative grid-centered'>" +
+							"<div class='grid-md-10 admin-new-data-ihm align relative grid-centered'>" +
 
 								//Affichage
 								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" + allData.name + "</span></div></div>" +
 								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" + allData.description + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>" +
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>" +
+								"</div></span></div></div>" +
 								//Fin Affichage
 
-								//Bouton
-								"<div class='admin-data-ihm-btn hidden align'>" +
-									"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +
-									"<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>" +
-								"</div>" + 
-								//Fin Bouton
+								//New
+								"<div class='new-widg'><span>New</span></div>"
 
-								//Formulaire
-								"<div class='index-modal platforms hidden-fade hidden'>" +
-
-									"<div class='index-modal-this index-modal-login align'>" +
-										
-										"<div class='grid-md-4 inscription_rapide animation fade'>" +
-											"<form class='platform-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-												//Title
-												"<div class='grid-md-12 form-title-wrapper'>" +
-													"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-plateforme.png'><span class='form-title'>Plateforme</span>" +
-												"</div>" +
-												//Image
-												"<div class='grid-md-12'>" +
-													"<div class='membre-form-img-size m-a'>" +																	
-														"<img class='img-cover platform-img membre-form-img-size' src='" + webpath.get() + "/web/img/" + allData.img + "' title='Plateforme' alt='Plateforme'>" +										
-													"</div>" +
-													"<div class='text-center admin-input-file'>" +								 
-														"<input type='file' class='platform-image-p' name='profilpic'>" +
-													"</div>" +
-												"</div>" +
-												//Label
-												"<div class='grid-md-5 text-left'>" +
-												    "<label for='email'>Nom :</label>" +
-												    "<label for='email'>Description :</label>" +
-											    "</div>" +
-											    //Input
-											    "<div class='grid-md-7'>" +
-													"<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' value='" + allData.name + "'>" +
-												    "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" + allData.description + "</textarea>" +							    														   
-												"</div>" +
-												//Submit
-												"<div class='grid-md-12'>" + 
-											    	"<button type='submit' class='admin-form-submit platform-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-									  			"</div>" +
-									  		"</form>" +
-									  	"</div>" +
-									"</div>" +
-								"</div>" +
-								//Fin Formulaire
-							"</div>" 
 							//Fin Wrapper
 							);
 							navbar.form.smoothClosing();				

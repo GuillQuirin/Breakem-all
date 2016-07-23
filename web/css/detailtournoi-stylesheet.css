@@ -325,7 +325,7 @@ section:hover{
 	}
 	img.detailtournoi-match-team-separator{
 		max-width: 50px;
-		/*cursor: pointer;*/
+		max-height: 40px;
 	}
 	.detailtournoi-match:hover img.detailtournoi-match-team-separator{
 		animation: wiggle .2s alternate;
