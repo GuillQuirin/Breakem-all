@@ -565,7 +565,7 @@ class adminController extends template{
             
             if($signalement){
                 echo json_encode($signalement);
-                die
+                die;
             }else{
                 echo "undefined";
                 die;

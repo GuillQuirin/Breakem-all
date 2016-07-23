@@ -214,7 +214,7 @@ class user{
 		return $this->_error;
 	}
 
-	// "gt" n'est pas une faute d'orthographe c'est fait EXPRES pour eviter que le create, ou update de basesql ne rajotue ce champ dans la requete (ce qui fera evidemment tout planter)
+	// "gt" n'est pas une faute d'orthographe c'est fait EXPRES pour eviter que le create, ou update de basesql ne rajoute ce champ dans la requete (ce qui fera evidemment tout planter)
 	public function gtTotalPoints(){
 		return $this->totalPoints;
 	}
