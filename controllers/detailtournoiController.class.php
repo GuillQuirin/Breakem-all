@@ -307,7 +307,7 @@ class detailtournoiController extends template{
 					
 
 					$match = new matchs([
-						"startDate" => $t->getStartDate(),
+						"startDate" => time(),
 						'idTournament' =>$t->getId(),
 						"matchNumber" => 1
 					]);
@@ -323,7 +323,7 @@ class detailtournoiController extends template{
 				// On se concentrera sur les matchs binaires avec 2 teams participantes
 				$numberOfTeamsToEliminate = $num%$teamsPerMatch;
 				$match = new matchs([
-					"startDate" => $t->getStartDate(),
+					"startDate" => time(),
 					'idTournament' =>$t->getId(),
 					"matchNumber" => 1
 				]);
@@ -468,7 +468,7 @@ class detailtournoiController extends template{
 					
 
 					$match = new matchs([
-						"startDate" => $t->getStartDate(),
+						"startDate" => time(),
 						'idTournament' =>$t->getId(),
 						"matchNumber" => $t->gtBiggestMatchNumber()+1
 					]);
@@ -483,7 +483,7 @@ class detailtournoiController extends template{
 			else{
 				// On se concentrera sur les matchs binaires avec 2 teams participantes
 				$match = new matchs([
-					"startDate" => $t->getStartDate(),
+					"startDate" => time(),
 					'idTournament' =>$t->getId(),
 					"matchNumber" => $t->gtBiggestMatchNumber()+1
 				]);
