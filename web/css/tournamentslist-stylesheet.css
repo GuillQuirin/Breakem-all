@@ -64,7 +64,8 @@ section.tournamentslist-tournoi{
 	margin-top: 5px;
 	border-radius: 100%;
 	border: 2px solid #ccc;
-	max-height: 175px
+	max-height: 175px;
+	max-width: 150px;
 }
 .tournamentslist-tournoi-element aside figcaption{
 	margin-top: 5px;
@@ -72,6 +73,7 @@ section.tournamentslist-tournoi{
 .tournamentslist-tournoi-element article{
 	flex-direction: column-reverse;
 	max-width: 275px;
+	width: 47.5%;
 }
 .tournamentslist-p-over-statement{
 	padding: 5px;
