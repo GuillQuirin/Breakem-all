@@ -556,14 +556,13 @@ class adminController extends template{
     /* SIGNALEMENT */
        public function getReportByUserAction(){
             $args = array(
-                'id' => FILTER_VALIDATE_INT,
                 'pseudo' => FILTER_SANITIZE_STRING
             );
 
             $filteredinputs = filter_input_array(INPUT_POST, $args);  
             $bdd = new signalmentsuserManager();
             $search = new signalmentsuser($filteredinputs);
-            $data = $bdd->reportByUser($search);
+            $data = $bdd->reportByPseudo($search);
            
             if($data){
                 echo json_encode($data);

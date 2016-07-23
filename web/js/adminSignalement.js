@@ -20,7 +20,7 @@ var signalementModule = {
 
 		//CRUD
 		//signalementModule.postDataDelete();
-		signalementModule.postDataUpdate();
+		//signalementModule.postDataUpdate();
 	},
 
 	//Setter
