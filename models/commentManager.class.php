@@ -84,4 +84,18 @@ class commentManager extends basesql{
 		$sth->execute();
 	}
 
+	public function commentByPseudo(comment $u){
+		$sql ="SELECT c.id, c.date, c.comment, c.status, c.idUser, c.idEntite
+			   FROM comment c
+			   LEFT OUTER JOIN user u
+			   ON c.idUser = u.id
+			   AND c.idUser IS NOT NULL
+			   WHERE u.pseudo = :pseudo";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute(["%".$u->getPseudo()."%"]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		return $r;
+	}
+
 }

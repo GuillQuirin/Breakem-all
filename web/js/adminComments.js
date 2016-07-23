@@ -10,17 +10,28 @@ var commentModule = {
 		commentModule.setPreviewInput();
 		commentModule.setImgWrapper();
 		commentModule.setAdminDataRe();
+		commentModule.setToggleCheck();
+		commentModule.setAdminSearchInput();
 
 		//Preview
-		commentModule.previewImg();
+		commentModule.toggleCheck();
+
+		//Search
+		commentModule.searchRequest();
 
 		//CRUD
 		//commentModule.postDataDelete();
-		//commentModule.postDataUpdate();
+		commentModule.postDataUpdate();
 		//commentModule.postDataInsert();		
 	},
 
 	//Setter
+	setToggleCheck : function(){
+		this._toggleCheck = jQuery('.toggleCheck');
+	},
+	setAdminSearchInput : function(){
+		this._adminSearchInput = jQuery('.admin-search-input');
+	},
 	setDeleteBtn : function(){
 		this._deleteBtn = jQuery('.admin-btn-delete');
 	},
@@ -41,8 +52,14 @@ var commentModule = {
 	},
 
 	//Getter
+	getToggleCheck : function(){
+		return this._toggleCheck;
+	},
 	getUpdateBtn : function(){
 		return this._updateBtn;
+	},
+	getAdminSearchInput : function(){
+		return this._adminSearchInput;
 	},
 	getInsertBtn : function(){
 		return this._insertBtn;
@@ -62,14 +79,83 @@ var commentModule = {
 	getInsertValidationBtn : function(){
 		return this._insertValidationBtn;
 	},
-	//Preview
-	previewImg : function(){
-		commentModule.getPreviewInput().on('change', function(){
-			console.log("Image changed.");
-    		previewUpload(this, commentModule.getImgWrapper());
+	toggleCheck : function(){
+		commentModule.getToggleCheck().on("click", function(ev){
+			jQuery(ev.currentTarget).find('.comment-status-p').prop("checked", !jQuery(ev.currentTarget).find('.comment-status-p').prop("checked"));
+		});
+	},
+	searchRequest : function(){
+		commentModule.searchValue(function(value){
+			//console.log(value);
+			if(value && value !== "undefined"){
+				var data = {pseudo : value};
+				jQuery.ajax({
+					url: "admin/getCommentByPseudo", 				
+					type: "POST",
+					data: data,
+					success: function(result){
+						console.log(result);
+						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
+						if(!(wordInString(result, "undefined"))){
+							var userArr = jQuery.parseJSON(result);
+							//console.log(userArr);
+							commentModule.getDataIhm().removeClass('hidden');
+							//On affiche les elements présents dans le tableau
+							if(userArr.length == 1){
+								//console.log(userArr[0].name);
+						 		var myRDiv = onglet.getAdminDataRe().find(".comment-pseudo-g:not(:contains(" + userArr[0].pseudo + "))").parent().parent().parent();
+						 		myRDiv.addClass('hidden');
+						 	}else if(userArr.length > 1){
+						 		//Création d'une string
+						 		var fullStringContains = "";
+						 		//Pour chaque element du tableau on ajoute un contains String
+						 		//GAFFE A LA VIRGULE 
+						 		jQuery.each(userArr, function(indexArr, fieldArr){
+						 			console.log(indexArr);
+						 			if(indexArr !== userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + "),";
+						 			else if (indexArr == userArr.length-1)
+						 				fullStringContains += ":contains(" + fieldArr.pseudo + ")";
+					 			});
+
+					 			console.log(fullStringContains);
+					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
+					 			var myRDiv = onglet.getAdminDataRe().find(".comment-pseudo-g:not(" + fullStringContains + ")").parent().parent().parent();
+					 			console.log(myRDiv);
+					 			myRDiv.addClass('hidden');
+					 		}							
+						}else{
+							onglet.getAdminDataIhm().removeClass('hidden');
+						}
+					},
+				 	error: function(result){
+						console.log(result);	
+						onglet.getAdminDataIhm().removeClass('hidden');
+				 	}
+				});
+			}else{
+				onglet.getAdminDataIhm().removeClass('hidden');
+			}
 		});
 	},
 	//CRUD
+	//Search Delay
+	searchValue : function(callback){
+		commentModule.getAdminSearchInput().parent().on("submit", function(ev){
+			ev.preventDefault();
+			return false;
+		});
+		if(callback){
+			commentModule.getAdminSearchInput().on('keypress', function() {
+				setTimeout(function(){
+					if(commentModule.getAdminSearchInput().val())
+	    			callback(commentModule.getAdminSearchInput().val());
+		    		else
+		    			callback("undefined");
+				}, 2000)
+			});
+		}
+	},
 	postDataDelete : function(){
 		commentModule.getDeleteBtn().on("click", function(e){
 			var btn = jQuery(e.currentTarget);
@@ -117,18 +203,13 @@ var commentModule = {
 		commentModule.getUpdateBtn().on("click", function(e){
 			var updateBtn = jQuery(e.currentTarget);
 
-			var submitBtn = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-submit-form-btn');
+			var submitBtn = updateBtn.parent().parent().find('.comment-submit-form-btn');
 
 			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-pseudo-p').val();
-				var team = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-team-p').val();
-				var report = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-report-p').val();
-				var status = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-status-p').val();
-				var email = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .membre-email-p').val();
-				var myImg = updateBtn.parent().parent().find('.inscription_rapide > .membre-form > .admin-input-file > .membre-image-p');
+				var id = updateBtn.parent().parent().find('.membre-id-p').val();
+				var pseudo = updateBtn.parent().parent().find('.membre-pseudo-p').val();
+				var status = updateBtn.parent().parent().find('.membre-status-p').val();
 
-				var allData = {"id" : id, "pseudo" : pseudo, "team" : team, "report" : report, "status" : status, "email" : email};
 
 				console.log(allData);
 
