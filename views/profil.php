@@ -121,7 +121,7 @@ else{
 						if(isset($listeJeux) && is_array($listeJeux)){
 							foreach($listeJeux as $jeu){
 								echo '<div class="profil-element profil-tournament-element">';	
-									echo '<img class="img-cover" src="' . WEBPATH . '/web/img/upload/jeux/'.$jeu->getImg().'">';
+									echo '<img class="img-cover" src="'.$jeu->getImg().'">';
 									echo '<span class="profil-match-element-title-this">'.$jeu->getName().'</span>';
 								echo '</div>';
 							}
