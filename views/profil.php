@@ -81,12 +81,12 @@ else{
 					<div class="profil-title profil-tournament-title">	
 						<span>Derniers Tournois joués</span>
 					</div>
-					<div class="text-center align">
+					<div class="text-center display-flex-row">
 					<?php 
 						if(isset($listeTournoi) && is_array($listeTournoi)){
 							foreach ($listeTournoi as $key => $value) {
 								?>
-								<div class="profil-element profil-tournament-element">	
+								<div class="m-a profil-element profil-tournament-element">	
 									<?php 
 										echo '<a href="'.WEBPATH.'/tournoi?t='.$value->getLink().'">';
 										  echo '<img class="img-cover" src="'.$value->_getImgJeu().'">';
@@ -116,11 +116,11 @@ else{
 					<div class="profil-title profil-tournament-title">	
 						<span>Mes Jeux favoris</span>
 					</div>
-					<div class="text-center align">
+					<div class="text-center display-flex-row">
 					<?php 
 						if(isset($listeJeux) && is_array($listeJeux)){
 							foreach($listeJeux as $jeu){
-								echo '<div class="profil-element profil-tournament-element">';	
+								echo '<div class="m-a profil-element profil-tournament-element">';	
 									echo '<img class="img-cover" src="'.$jeu->getImg().'">';
 									echo '<span class="profil-match-element-title-this">'.$jeu->getName().'</span>';
 								echo '</div>';
