@@ -325,7 +325,7 @@ class userManager extends basesql{
 	public function userByPseudo(user $u){
 		$sql = "SELECT pseudo FROM " .$this->table . " WHERE pseudo LIKE ?";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([ $u->getPseudo()."%"]);
+		$sth->execute(["%".$u->getPseudo()."%"]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 	
 		return $r;

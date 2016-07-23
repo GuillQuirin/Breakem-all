@@ -27,9 +27,15 @@ $(document).ready(function(){
 				data:{id: commentaire},
 				url: "detailteam/reportComment", 
 				success: function(result){
-            		$("#comment-report-"+commentaire).remove();
-            		$('#msg-error').append("Le commentaire choisi a bien été signalé. Il sera traité par l'administration.");
-            		$('html, body').animate({scrollTop:0}, 'slow');
+					var objJson = tryParseData(result);
+		            if(!objJson.errors){
+            			$("#comment-report-"+commentaire).remove();
+            			$('#msg-error').html("Le commentaire choisi a bien été signalé. Il sera traité par l'administration.");
+            			$('html, body').animate({scrollTop:0}, 'slow');
+            		}
+            		else
+            			$('#msg-error').html("Impossible de signaler ce commentaire.");
+            				
         		}
         	}
         );
@@ -38,7 +44,7 @@ $(document).ready(function(){
 	//Rédaction d'un commentaire
 	$("button[name='action-comment-write']").click(function(){
 		if($.trim($(this).parent().find('textarea').val())==""){
-			console.log("Message non vide obligatoire");
+			popup.init("Message non vide obligatoire");
 			return false;
 		}
 	});

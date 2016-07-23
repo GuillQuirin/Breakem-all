@@ -281,7 +281,7 @@ function deleteComment(id){
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
