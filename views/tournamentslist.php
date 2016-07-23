@@ -211,7 +211,7 @@
 							<?php endif ?>								
 						</article>
 					</div>
-span					<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></span>
+					<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></span>
 				</div>
 			<?php endforeach; ?>
 		</div>		
