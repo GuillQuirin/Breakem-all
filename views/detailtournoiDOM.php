@@ -30,9 +30,9 @@
 							</div>
 						<?php else: ?>
 							<div class="relative ta-right">
-								<button class="detailtournoi-btn-gestion relative btn btn-pink">
+								<span class="detailtournoi-btn-gestion relative btn btn-pink">
 									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
-								</button>								
+								</span>								
 								<?php if ($tournoi->isUserRegistered($_user)): ?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else: ?>
