@@ -69,7 +69,7 @@ function uploadImage(myController, data) {
 	    });
 
     } else {    	
-       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+       popup.error("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
     }   
 }
 //Preview de l'image avant upload
@@ -1093,9 +1093,9 @@ var contactadmin = {
 	}
 };
 function removeRequireJSMsg(){
-	var jsWarning = $('#breakemall-javascript-required');
-	if(isElSoloJqueryInstance(jsWarning))
-		jsWarning.remove();
+	var loading = $('#loading-page');
+	if(isElSoloJqueryInstance(loading))
+		loading.remove();
 }
 
 

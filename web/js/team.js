@@ -3,12 +3,12 @@ $(document).ready(function () {
 	$(".formteam1").submit(function () {
 
 		if ($.trim($(".nameteam").val()) == "" || $.trim($(".nameteam").val()).length < 2 || $.trim($(".nameteam").val()).length > 20) {
-			alert("Veuillez entrer un nom de team compris entre 2 et 20 caractères.");
+			popup.error("Veuillez entrer un nom de team compris entre 2 et 20 caractères.");
 			return false;
 		}
 
 		if ($.trim($(".desc-default").val()) == "" || $.trim($(".desc-default").val()).length < 3 || $.trim($(".desc-default").val()).length > 200) {
-			alert("Veuillez entrer une description comprise entre 3 et 200 caractères.");
+			popup.error("Veuillez entrer une description comprise entre 3 et 200 caractères.");
 			return false;
 		}
 
@@ -64,8 +64,8 @@ var teamcreation = {
 			return obj;
 		}
 		catch (err) {
-			console.log(rawData);
-			alert("Problem during server processes \n Check console for details");
+			//console.log(rawData);
+			popup.error("Problem during server processes \n Check console for details");
 		}
 		return false;
 	},
@@ -80,15 +80,15 @@ var teamcreation = {
 			if (obj.errors.nameused) {
 				// Le nom est déjà pris en base
 				this.highlightInput(this._name);
-				alert("Nom de team déjà pris");
+				popup.error("Nom de team déjà pris");
 			}
 			else if (obj.errors.userhasteam) {
 				// L'utilisateur a déjà une team!
-				alert("Vous êtes déjà dans une équipe");
+				popup.error("Vous êtes déjà dans une équipe");
 			}
 			else if (obj.errors.creation) {
 				// La création de la team a échoué
-				alert("La création de la team a échoué, contactez un admin");
+				popup.error("La création de la team a échoué, contactez un admin");
 			}
 		}
 	},

@@ -377,6 +377,12 @@ var platformModule = {
 				//Fin Formulaire
 			);
 
+			navbar.setOpenFormAll();	
+			navbar.form.admin();
+			platformModule.previewImg();	
+			navbar.form.closeFormKey();
+	        navbar.form.closeFormClick();
+
 			//Envoi dans la BDD
 			var submitBtn = btn.parent().parent().find('.platform-submit-add-this-form-btn');
 
@@ -522,9 +528,5 @@ var platformModule = {
 			});
 
 		});
-		navbar.setOpenFormAll();	
-		navbar.form.admin();	
-		navbar.form.closeFormKey();
-        navbar.form.closeFormClick();
 	}
 };

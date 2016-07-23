@@ -17,7 +17,7 @@
 .team-title{
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6));
     transform: skew(-8deg);
-    /*width:35%;*/
+    width:70%;
 }
 .team-title img{
     display: flex;
@@ -156,7 +156,7 @@
     position: relative;
     margin: 0 auto;
     width: 30%;
-    padding: 10px;
+    padding: 30px;
     top: 50%;
     transform: translateY(-50%);
     background: #080325;
@@ -219,7 +219,7 @@
 
 .image-default{
     width: 100%;
-    padding: 8px 25px;
+    padding: 8px 8px;
     margin: 16px 0;
     display: inline-block;
     border: 0;
@@ -236,6 +236,7 @@
     transition: background .4s, border .4s;
     border: 0;
     color: white;
+    margin-top:10px;
 }
 
 /*Fin du popup */

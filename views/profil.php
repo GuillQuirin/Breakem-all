@@ -121,7 +121,7 @@ else{
 						if(isset($listeJeux) && is_array($listeJeux)){
 							foreach($listeJeux as $jeu){
 								echo '<div class="profil-element profil-tournament-element">';	
-									echo '<img class="img-cover" src="' . WEBPATH . '/web/img/upload/jeux/'.$jeu->getImg().'">';
+									echo '<img class="img-cover" src="'.$jeu->getImg().'">';
 									echo '<span class="profil-match-element-title-this">'.$jeu->getName().'</span>';
 								echo '</div>';
 							}
@@ -160,30 +160,25 @@ else{
 					</div>
 				    <div id="statistiques" class="fight">
 						<ul>
-							<li>Matchs gagnés: 78
-							<li>Matchs perdus: 92
-							<li>Ratio : 0.78
-							<li>Points : 1072
+							<li>Score de tournoi: <?php echo isset($totalPoints) ? $totalPoints : '0'; ?> point(s)
 						</ul>
 					</div>
-
+					<!--
 					<div class="title_index">
 						<label for="title1">Dernier match</label>
 					</div>
 					<div class="fight">
-
-						<?php //echo $fight; ?>
 						<h3>ESL</h3>
-						<p class="date_fight">1er Avril 2016, 17h00</p>
-						<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-						<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-						<div class="name_fight">
+						<p class="date_fight">1er Avril 2016, 17h00</p>-->
+						<?php //echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
+						<?php //echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
+					<!--	<div class="name_fight">
 							<ul>
 								<li>Navi</li>
 								<li>Fnatic</li>
 							</ul>
 						</div>
-					</div>
+					</div>-->
 			
 					<!-- Boutons Contact / Report / Config -->
 					<div id="game">

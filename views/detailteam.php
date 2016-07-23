@@ -19,9 +19,9 @@ else{
             <form class="formteam" action="<?php echo WEBPATH.'/detailteam/updateTeam'; ?>" method="POST" enctype="multipart/form-data">
 		        <div>
                     <p>Slogan <input class="input-default" type="text" name="slogan" value="<?php if(isset($sloganteam)) echo $sloganteam; ?>"></p>
-                    <p>Description : <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($description)) echo $description; ?></textarea>
+                    <p>Description  <textarea  class="desc-default" rows="3" name="description" ><?php if(isset($description)) echo $description; ?></textarea>
                         </p>
-                    <p>Image : <input class="image-default" type="file" name="img"></p>
+                    <p>Image  <input class="image-default" type="file" name="img"></p>
                     <p>
                         <button id='action-team-modif' type='submit' class='btn btn-pink admin-form-submit'>
                             <a>Modifier ma team</a>
@@ -101,7 +101,7 @@ else{
                         <?php
                         //Si le user appartient à une autre team
                         }else{
-                            echo "Vous faites déjà parti de la team".$nameUserTeam;
+                            echo "Vous faites déjà parti de la team".$nameUserTeam.".";
                         } 
                     //Si le user n'a pas de team
                     }else{ ?>
@@ -246,7 +246,7 @@ else{
                         </div>
                     <?php
                     }else{
-                        echo "Vous ne pouvez pas rédiger de commentaire car vous n'êtes pas dans cette Team";
+                        echo "Vous ne pouvez pas rédiger de commentaire car vous n'êtes pas dans cette Team.";
                     }
                 }else{
                      echo "Connecte toi pour voir les commentaires de cette Team !";
