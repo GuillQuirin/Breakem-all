@@ -59,9 +59,9 @@
 								    //Input
 								    echo "<div class='grid-md-8'>";
 										echo "<input type='text' name='id' class='hidden comment-id-p' value='" . $comment->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w comment-pseudo-p' name='pseudo' type='text' value='" . $comment->getPseudo() . "' disabled>";
-										echo "<input class='input-default admin-form-input-w comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "' disabled>";
-										echo "<input class='input-default admin-form-input-w comment-date-p' name='date' type='text' value='" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "' disabled>";
+										echo "<input class='input-default admin-form-input-w input-disabled comment-pseudo-p' name='pseudo' type='text' value='" . $comment->getPseudo() . "' disabled>";
+										echo "<input class='input-default admin-form-input-w input-disabled comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "' disabled>";
+										echo "<input class='input-default admin-form-input-w input-disabled comment-date-p' name='date' type='text' value='" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "' disabled>";
 										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default comment-status-p admin-checkbox-ajust' id='comment-status-p' name='status' required type='checkbox' ";
 											echo ($comment->getStatus()!==NULL  && $comment->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								

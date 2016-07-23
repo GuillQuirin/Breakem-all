@@ -205,68 +205,58 @@ var commentModule = {
 
 			var submitBtn = updateBtn.parent().parent().find('.comment-submit-form-btn');
 
-			submitBtn.on("click", function(){
-				var id = updateBtn.parent().parent().find('.membre-id-p').val();
-				var pseudo = updateBtn.parent().parent().find('.membre-pseudo-p').val();
-				var status = updateBtn.parent().parent().find('.membre-status-p').val();
+			navbar.form.closeFormEnter(submitBtn.parent().parent());
 
+			submitBtn.parent().parent().submit(function(enterEvent){
+				enterEvent.preventDefault();
+				return false;
+			});
 
-				console.log(allData);
+			submitBtn.on("click", function(updateEvent){
+				var id = updateBtn.parent().parent().find('.comment-id-p').val();
+				var comment = updateBtn.parent().parent().find('.comment-message-p').val();
+				
+				var status;
+				if(updateBtn.parent().parent().find('.comment-status-p').is(':checked')){
+					status = -1;
+				}else{
+					status = 1;
+				}
 
-				//Upload des images
-			    if (typeof FormData !== 'undefined') {
-			           
-			        //Pour l'upload coté serveur
-			        var file = myImg.prop('files')[0];
+				var allData = {};
 
-			        if(file){
+				allData.id = id;
+				allData.status = status;
+				if(comment){
+					allData.comment = comment;
+				}
 
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = "upload/" + file.name;
-
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);				    		                             
-					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
-			        }   				    
-			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
-			    } 		
-
-			    //Update de la membre
+			    //Update de la comment
 				jQuery.ajax({
-					url: "admin/updatePlatformsData", 
+					url: "admin/updateCommentsData", 
 					type: "POST",
 					data: allData,
 					success: function(result){
-						console.log("Plateforme mise à jour");
+						console.log("Commentaire mise à jour");
 						//Reload la mise a jour dans l'html
-						//updateBtn.parent().parent().find('.membre-nom-g').html(name);
-						//updateBtn.parent().parent().find('.membre-description-g').html(description);
-						//Si l'image uploadé existe on l'envoi dans la dom
-						if(allData.img){
-							updateBtn.parent().parent().find('.membre-img-up').attr('src', allData.img);	
-						}	
+						if(allData.comment){updateBtn.parent().parent().find('.comment-message-g').html(allData.comment);}
+						if(allData.status == 1){
+							updateBtn.parent().parent().find('.platform-status-g-ht').html(
+								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+							); 
+						}else{
+							updateBtn.parent().parent().find('.platform-status-g-ht').html(
+								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+							); 
+						}						
 						navbar.form.smoothClosing();				
 					},
 					error: function(result){
 						throw new Error("Couldn't update membre", result);
 					}
 				});
+				updateEvent.preventDefault();
+				return false;
 			});			
 		});
 	},
