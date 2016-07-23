@@ -1093,9 +1093,9 @@ var contactadmin = {
 	}
 };
 function removeRequireJSMsg(){
-	var jsWarning = $('#breakemall-javascript-required');
-	if(isElSoloJqueryInstance(jsWarning))
-		jsWarning.remove();
+	var loading = $('#loading-page');
+	if(isElSoloJqueryInstance(loading))
+		loading.remove();
 }
 
 
