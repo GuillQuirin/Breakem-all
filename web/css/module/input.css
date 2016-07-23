@@ -86,6 +86,21 @@
     resize:none;
 }
 
+.input-disabled{
+    cursor: not-allowed;
+    background:#161326 !important;
+}
+
+.input-disabled:hover{
+    background:#161326 !important;
+    border-color:inherit;
+    color:white !important;
+}
+
+.input-disabled > *{
+    pointer-events:none;
+}
+
 /*.input-required::after{
     position:absolute;
     content:"*";
