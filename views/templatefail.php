@@ -78,8 +78,9 @@
 		<div id="background">
 		</div>
 		<div id="fail">
-			<h1>FAIL</h1>
-			<h2>Aucune page n'a pu être trouvée</h2>
+			<h1>&laquo; Are you Sure ? &raquo;</h1>
+			<img class="img-fail" src="<?php echo WEBPATH.'/web/img/404.png';?>">
+			<h2>Dommage, 404 Hits, tu n'as plus aucune vie.</h2>
 			<a href=<?php echo WEBPATH.'/index'; ?>>Retour à l'accueil</a>
 		</div>
 	</body>
