@@ -13,7 +13,7 @@ function getTypeGame(id){
 		 		$("#typegameForm #img").prop('src',type.img);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
@@ -32,7 +32,7 @@ $("#TGformsubmit").click(function(){
 	var src = $("#typegameForm #img").prop('src');
 
 	if(!id){
-		alert("Veuillez selectionner un type de jeu ou en créer un.");
+		popupError.init("Veuillez selectionner un type de jeu ou en créer un.");
 		return false;
 	}
 	
@@ -46,7 +46,7 @@ $("#TGformsubmit").click(function(){
 		 		console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
@@ -60,7 +60,7 @@ $("#TGformsubmit").click(function(){
 		 		console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
@@ -77,7 +77,7 @@ function deleteTypeGame(id){
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
