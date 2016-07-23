@@ -349,9 +349,65 @@ class userManager extends basesql{
 		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 		return (isset($r[0])) ? new user($r[0]) : false;
+
 	}
+
+	public function getTotalMatchsAndVictoriesByPseudo(user $u){
+		$sql = "SELECT COUNT(DISTINCT tt.id) as stats "; 
+		$sql .= " FROM user u";
+		$sql .= " INNER JOIN register r";
+		$sql .= " ON r.idUser = u.id";
+		$sql .= " INNER JOIN teamtournament tt";
+		$sql .= " ON tt.id = r.idTeamTournament";
+		$sql .= " INNER JOIN matchs m";
+		$sql .= " ON m.idWinningTeam IS NOT NULL";
+		$sql .= " WHERE u.pseudo = :pseudo";
+		$sql .= " UNION ";
+		$sql .= " SELECT COUNT(DISTINCT tt.id) as stats FROM user u";
+		$sql .= " INNER JOIN register r";
+		$sql .= " ON r.idUser = u.id";
+		$sql .= " INNER JOIN teamtournament tt";
+		$sql .= " ON tt.id = r.idTeamTournament";
+		$sql .= " INNER JOIN matchs m";
+		$sql .= " ON m.idWinningTeam IS NOT NULL ";
+		$sql .= " AND m.idWinningTeam = tt.id ";
+		$sql .= " WHERE u.pseudo = :pseudo";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute([ ':pseudo' => $u->getPseudo()]);
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0]) && isset($r[1]))
+			return [ "totalMatchs" => $r[0]["stats"], "totalWonMatchs" => $r[1]["stats"] ];
+		return false;
+
+	}
+
 }
 
 /*
 *
+SELECT COUNT(DISTINCT tt.id) as totalMatchs FROM user u
+INNER JOIN register r
+ON r.idUser = u.id
+INNER JOIN teamtournament tt
+ON tt.id = r.idTeamTournament
+INNER JOIN matchs m
+ON m.idWinningTeam IS NOT NULL 
+WHERE u.pseudo = "dylan"
+
+UNION
+
+SELECT COUNT(DISTINCT tt.id) as totalWonMatchs FROM user u
+INNER JOIN register r
+ON r.idUser = u.id
+INNER JOIN teamtournament tt
+ON tt.id = r.idTeamTournament
+INNER JOIN matchs m
+ON m.idWinningTeam IS NOT NULL 
+AND m.idWinningTeam = tt.id 
+WHERE u.pseudo = "dylan"
+
+
+
+SELECT COUNT(DISTINCT tt.id) as totalMatchs FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL WHERE u.pseudo = "dylan" UNION SELECT COUNT(DISTINCT tt.id) as totalWonMatchs FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL AND m.idWinningTeam = tt.id WHERE u.pseudo = "dylan"
+
 */

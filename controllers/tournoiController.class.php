@@ -34,7 +34,13 @@ class tournoiController extends template {
 					foreach ($allRegistered as $key => $registered) {
 						$u = new user([]);
 						$u->setPseudo($registered->getPseudo());
-						$users[] = $um->userByPseudoInstance($u);
+						$u = $um->userByPseudoInstance($u);
+						$stats = $um->getTotalMatchsAndVictoriesByPseudo($u);
+						if(is_array($stats)){
+							$u->setTotalMatchs($stats["totalMatchs"]);
+							$u->setTotalWonMatchs($stats["totalWonMatchs"]);
+						}
+						$users[] = $u;
 					}
 					if(count($users) > 0)
 						$v->assign("allRegistered", $users);

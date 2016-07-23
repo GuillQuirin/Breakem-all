@@ -23,6 +23,8 @@ class user{
 	protected $authorize_mail_contact = null;
 	protected $reportNumber = null;
 	protected $totalPoints = null;
+	protected $totalMatchs = null;
+	protected $totalWonMatchs = null;
 	private $_errors = [];
 
 	//Permet d'exécuter le construct du parent c'est-à-dire basesql
@@ -145,6 +147,13 @@ class user{
 	public function setTotalPoints($v){
 		$this->totalPoints = (int) $v;
 	}
+	public function setTotalMatchs($v){
+		$this->totalMatchs = (int) $v;
+	}
+	public function setTotalWonMatchs($v){
+		$this->totalWonMatchs = (int) $v;
+	}
+
 
 	public function getId(){return $this->id;}
 	public function getName(){return	$this->name;}
@@ -208,6 +217,12 @@ class user{
 	// "gt" n'est pas une faute d'orthographe c'est fait EXPRES pour eviter que le create, ou update de basesql ne rajotue ce champ dans la requete (ce qui fera evidemment tout planter)
 	public function gtTotalPoints(){
 		return $this->totalPoints;
+	}
+	public function gtTotalMatchs(){
+		return $this->totalMatchs;
+	}
+	public function gtTotalWonMatchs(){
+		return $this->totalWonMatchs;
 	}
 	
 }
