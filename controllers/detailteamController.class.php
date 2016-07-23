@@ -123,7 +123,7 @@ class detailteamController extends template{
 	}
 
     public function updateUserTeamAction(){
-        //Action lorsqu'un joueur rejoin une team
+        //Action lorsqu'un joueur rejoint une team
         if(isset($_POST['action-team-rejoin'])){
             $teamBDD = new teamManager();
 
@@ -297,13 +297,13 @@ class detailteamController extends template{
 
         foreach ($args as $key => $value) {
             if(!isset($filteredinputs[$key])){      
-                die("Manque information : ".$key);
+                $this->echoJSONerror("","Il manque un champ.");
             }
         }
 
         $commentBDD = new commentManager();
         $commentBDD->reportComment($commentBDD->getComment($filteredinputs['id']));
-        $this->echoJSONerror("", "Commentaire signalé.");
+        echo json_encode(["success" => "Signalement effectué."]);
         //$_SESSION['signaler_comment'] = '1';
     }
 

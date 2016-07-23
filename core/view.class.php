@@ -20,10 +20,10 @@ class view{
 			if ( file_exists($path_template) ) {
 				$this->template=$path_template;
 			}else{
-				die("Le template n'existe pas");
+				header('Location: '.WEBPATH.'/404');
 			}
 		}else{
-			die("La vue n'existe pas");
+			header('Location: '.WEBPATH.'/404');
 		}
 	}
 
