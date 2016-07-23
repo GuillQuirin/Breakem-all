@@ -851,6 +851,15 @@ class adminController extends template{
         }
 
         public function insertGamesDataAction(){
+           //Upload des images
+            if ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'];
+            }
+            else {                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_POST['name'] . ".jpg");
+            }  
+
+
             $args = array(
                'name' => FILTER_SANITIZE_STRING,
                'description' => FILTER_SANITIZE_STRING,
@@ -886,17 +895,7 @@ class adminController extends template{
               unset($filteredinputs['day']);
               unset($filteredinputs['nameType']);
               unset($filteredinputs['thisYear']);
-
-              //On check le fichier
-                if(isset($_FILES['file'])){
-                  if ( 0 < $_FILES['file']['error'] ) {
-                      unset($filteredinputs['img']);
-                  }
-                  else {    
-                      if(isset($filteredinputs['name']))                    
-                          move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $filteredinputs['name']);
-                  }  
-                }
+              
 
             $pBdd = new gameManager();
             if(isset($filteredinputs['name'])){
@@ -961,7 +960,7 @@ class adminController extends template{
 
         public function getAllGamesNameAction(){
             $tb = new gameManager();   
-            $data = $tb->getAllGames();  
+            $data = $tb->getAllGamesAdmin();  
 
             $myArr = [];
 

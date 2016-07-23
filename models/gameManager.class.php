@@ -86,6 +86,25 @@ class gameManager extends basesql{
 		$sth->bindValue(':id', $game->getId());
 		$sth->execute();
 	}
+
+	public function getAllGamesAdmin(){
+		$sql = "SELECT *  
+			FROM game
+			WHERE id>0
+			ORDER BY name";
+		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$sth->execute();
+		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(isset($r[0])){
+			$data = [];
+			foreach ($r as $key => $dataArr) {
+				$data[] = new game($dataArr);
+			}
+			return $data;
+		}
+		return false;	
+	}
+
 	public function getAllGames(){
 		$sql = "SELECT g.id, g.name, g.description, g.year, g.img, g.idType, g.status, t.name as nameType 
 				FROM game g 

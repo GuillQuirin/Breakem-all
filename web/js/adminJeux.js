@@ -354,7 +354,9 @@ var gameModule = {
 	},
 	checkIfGameNameExist : function(name, callback){
 		jQuery.get("admin/getAllGamesName", function(result){
+			console.log(result);
 			var resultArr = jQuery.parseJSON(result);
+			console.log(resultArr.name);
 			var boo = false;
 			jQuery.each(resultArr.name, function(igamename, fieldgamename){
 				if(fieldgamename == name){
@@ -386,9 +388,6 @@ var gameModule = {
 									"</div>" +
 									//Image
 									"<div class='grid-md-12'>" +
-										"<div class='membre-form-img-size m-a'>" +																	
-											"<img class='img-cover jeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/jeux/default-jeux.png' title='Image du jeu' alt='Image du jeu'>" +										
-										"</div>" +
 										"<div class='text-center admin-input-file'>" +								 
 											"<input type='file' class='jeu-image-p' name='profilpic'>" +
 										"</div>" +
@@ -399,7 +398,6 @@ var gameModule = {
 									    "<label for='description'>Description :</label>" +
 									    "<label for='year'>Année :</label>" +
 									    "<label for='idType'>Type :</label>" +
-									    "<label for='status'>Verrouiller :</label>" +
 								    "</div>" +
 								    //Input
 								    "<div class='grid-md-8'>" +
@@ -417,9 +415,6 @@ var gameModule = {
 											
 										"</select>" +
 
-										"<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox'>" +
-										"<label class='ajusted-checkbox-label' for='status'>.</label></span></div>" +								
-
 									"</div>" +
 									//Submit
 									"<div class='grid-md-12'>" + 
@@ -431,6 +426,11 @@ var gameModule = {
 				//Fin Formulaire
 			);
 
+			navbar.setOpenFormAll();	
+			navbar.form.admin();
+			navbar.form.closeFormKey();
+	        navbar.form.closeFormClick();
+
 			/* Fonction qui ajoute les typgames existant */
 			gameModule.getAllTypeGames(function(resultFromCb){
 				jQuery.each(resultFromCb.name, function(y, yfield){
@@ -441,6 +441,10 @@ var gameModule = {
 			});
 		
 
+			//Envoi dans la BDD
+			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
+
+
 			//Submit : Usage de la fonction
 			navbar.form.closeFormEnter(subBtn.parent().parent());
 
@@ -449,9 +453,6 @@ var gameModule = {
 				enterEvent.preventDefault();
 				return false;
 			});
-
-			//Envoi dans la BDD
-			var subBtn = btn.parent().parent().find('.jeu-submit-add-this-form-btn');
 
 			subBtn.click(function(ev){
 				var subEvBtn = jQuery(ev.currentTarget);
@@ -463,12 +464,7 @@ var gameModule = {
 				var idType = subEvBtn.parent().parent().find('.jeu-idType-p').val();
 				var nameType = subEvBtn.parent().parent().find('.jeu-idType-p option:selected').text();
 
-				var status;
-				if(subEvBtn.parent().parent().find('.jeu-status-p').is(':checked')){
-					status = -1;
-				}else{
-					status = 1;
-				}
+				var status = 1;
 
 				var myImg = subEvBtn.parent().parent().find('.admin-input-file > .jeu-image-p');
 
@@ -507,10 +503,11 @@ var gameModule = {
 			        	if(file){
 
 				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-				        	allData.img = file.name;
+				        	allData.img = name + ".jpg";
 
 				        	var imgData = new FormData();                  
-						    imgData.append('file', file);				    		                             
+						    imgData.append('file', file);
+						    imgData.append('name', name);				    		                             
 						    jQuery.ajax({
 					            url: "admin/insertGamesData", 
 					            dataType: 'text',  
@@ -544,112 +541,32 @@ var gameModule = {
 
 							var newD = new Date();
 
-							gameModule.checkIfGameNameExist(allData.name, function(mybool){
-								if(mybool){
-									console.log(mybool);
-									console.log("Le nom du jeu est déjà utilisé");
-								}else{
-									onglet.getAdminDataRe().append(
-									"<div class='grid-md-10 admin-data-ihm align relative grid-centered' id='" + allData.name + "'>" +
-										//Affichage
-										"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" + webpath.get() + "/web/img/upload/platform/" + allData.img + "'></div></div></div>" +
-										"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-name-g'>" + allData.name + "</span></div></div>" +
-										"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" + allData.thisYear + "</span></div></div>" +
-										"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" + allData.nameType + "</span></div></div>" +
-										"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-status-g'><div class='align jeu-status-g-ht'>" +
-									
-										"</div></span></div></div>" +					
+				
+							onglet.getAdminDataRe().append(
+							"<div class='grid-md-10 admin-data-ihm align relative grid-centered' id='" + allData.name + "'>" +
+								//Affichage
+								"<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" + webpath.get() + "/web/img/upload/jeux/" + allData.img + "?lastmod=" + Date.now() + "'></div></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-name-g'>" + allData.name + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" + allData.thisYear + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" + allData.nameType + "</span></div></div>" +
+								"<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>" +
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>" +
+								"</div></span></div></div>" +							
+								//New
+								"<div class='new-widg'><span>New</span></div>" +
+								
+							"</div>" 
+							//Fin Wrapper
+							);
 
-										//Fin 
-
-										//Bouton
-										"<div class='admin-data-ihm-btn hidden align'>" +
-											"<button class='admin-btn-default btn btn-yellow full admin-btn-modify open-form' type='button'><a>Modifier</a></button>" +
-					/*						"<button class='admin-btn-default btn btn-white full admin-btn-delete' type='button'><a>Supprimer</a></button>" +
-					*/					"</div>" + 
-										//Fin Bouton
-
-										//Formulaire
-										"<div class='index-modal jeus hidden-fade hidden'>" +
-
-											"<div class='index-modal-this index-modal-login align'>" +
-												
-												"<div class='grid-md-4 inscription_rapide animation fade'>" +
-													"<form class='jeu-form admin-form' enctype='multipart/form-data' accept-charset='utf-8'>" +
-														//Title
-														"<div class='grid-md-12 form-title-wrapper'>" +
-															"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-jeu.png'><span class='form-title'>Jeu</span>" +
-														"</div>" +
-														//Image
-														"<div class='grid-md-12'>" +
-															"<div class='membre-form-img-size m-a'>" +																	
-																"<img class='img-cover jeu-img membre-form-img-size' src='" + webpath.get() + "/web/img/upload/jeux/" + allData.img +"' title='Image de profil' alt='Image de profil'>" +										
-															"</div>" +
-															"<div class='text-center admin-input-file'>" +								 
-																"<input type='file' class='jeu-image-p' name='profilpic'>" +
-															"</div>" +
-														"</div>" +
-														//Label
-														"<div class='grid-md-4 text-left'>" +
-														    "<label for='nom'>Nom :</label>" +
-														    "<label for='description'>Description :</label>" +
-														    "<label for='year'>Année :</label>" +
-														    "<label for='idType'>Type :</label>" +
-														    "<label for='status'>Verrouiller :</label>" +
-													    "</div>" +
-													    //Input
-													    "<div class='grid-md-8'>" +
-															"<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value='" + allData.name + "'>" +
-															"<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" + allData.description + "</textarea>" +
-
-															"<input class='input-default admin-form-input-w jeu-releaseDate-D' type='number' name='day' placeholder='dd' min='1' max='31' value='" + allData.day + "'>" +
-															
-															"<input class='input-default admin-form-input-w jeu-releaseDate-M' type='number' name='month' placeholder='mm' min='1' max='12' value='" + allData.month + "'>" +
-
-															"<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='" + newD.getFullYear() + "' value='" + allData.thisYear + "'>" +
-															
-															"<input type='hidden' class='jeu-nameType-p' value='" + allData.nameType + "'>" +
-															"<select class='select-default jeu-idType-p' name='idType'>" +
-																
-															"</select>" +
-
-															"<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox'>" +
-															"<label class='ajusted-checkbox-label' for='status'>.</label></span></div>" +								
-
-														"</div>" +
-														//Submit
-														"<div class='grid-md-12'>" + 
-													    	"<button type='submit' class='admin-form-submit jeu-submit-form-btn btn btn-pink'><a>Valider</a></button>" +
-											  			"</div>" +
-											  		"</form>" +
-											  	"</div>" +
-											"</div>" +
-										"</div>" +
-										//Fin Formulaire
-									"</div>" 
-									//Fin Wrapper
+							gameModule.getAllTypeGames(function(resultFromCb){
+								jQuery.each(resultFromCb.name, function(y, yfield){
+									jQuery.find('#' + allData.name).find('.jeu-idType-g-ht').append(
+										"<option name='idType' value='" + resultFromCb.id[y] + "'>" + resultFromCb.name[y] + "</option>"
 									);
-									
-									if(allData.status == 1){
-										jQuery.find('#' + allData.name).find('.jeu-status-g-ht').append(
-											"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
-										);
-									}else{
-										jQuery.find('#' + allData.name).find('.jeu-status-g-ht').append(
-											"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
-										);
-									}
-
-									gameModule.getAllTypeGames(function(resultFromCb){
-										jQuery.each(resultFromCb.name, function(y, yfield){
-											jQuery.find('#' + allData.name).find('.jeu-idType-g-ht').append(
-												"<option name='idType' value='" + resultFromCb.id[y] + "'>" + resultFromCb.name[y] + "</option>"
-											);
-										});
-									});
-
-								}
+								});
 							});
+
 							
 							navbar.form.smoothClosing();				
 						},

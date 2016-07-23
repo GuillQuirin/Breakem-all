@@ -377,8 +377,6 @@ var platformModule = {
 
 			navbar.setOpenFormAll();	
 			navbar.form.admin();
-
-			admin.ihmElemHover();
 			navbar.form.closeFormKey();
 	        navbar.form.closeFormClick();
 
@@ -398,12 +396,15 @@ var platformModule = {
 				var subBtn = jQuery(ev.currentTarget);
 				var name = subBtn.parent().parent().find('.platform-nom-p').val();
 				var description = subBtn.parent().parent().find('.platform-description-p').val();
+				var status = 1;
 
 				var myImg = subBtn.parent().parent().find('.admin-input-file > .platform-image-p');
 
 				var allData = {};
 
 				allData.img = "default-platform.png";
+				allData.status = status;
+
 				if(name){
 					allData.name = name;
 				}
@@ -471,8 +472,8 @@ var platformModule = {
 								//Fin Affichage
 
 								//New
-								"<div class='new-widg'><span>New</span></div>"
-
+								"<div class='new-widg'><span>New</span></div>" +
+							"</div>"
 							//Fin Wrapper
 							);
 							navbar.form.smoothClosing();				
