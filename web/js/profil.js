@@ -13,7 +13,7 @@ $(document).ready(function(){
 	//Controle des messages
 	$("#btn_plainte").click(function(){
 		if( $.trim($("#mess_plainte").val())=="" || $.trim($("#suj_plainte").val())==""){
-			alert('Veuillez justifier votre signalement.');
+			popup.error('Veuillez justifier votre signalement.');
 		}
 		else{
 	        $.ajax({method: "POST",
@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 	$("#btn_contact").click(function(){
 		if($.trim($("#mess_contact").val())==""){
-			alert('Veuillez ne pas envoyer un message vide.');
+			popup.error('Veuillez ne pas envoyer un message vide.');
 		}
 		else{
 	        $.ajax({method: "POST",
@@ -47,7 +47,11 @@ $(document).ready(function(){
 						},
 						url: "profil/contact", 
 						success: function(result){
-		            		$("#formcontact .sendOk").fadeIn();
+							var objJson = tryParseData(result);
+		            		if(!objJson.errors)
+		            			$("#formcontact .sendOk").fadeIn();
+		        			else
+		        				$("#formcontact .sendError").fadeIn();
 		        		},
 		        		fail: function(){
 		        			$("#formcontact .sendError").fadeIn();
