@@ -27,8 +27,19 @@ class tournoiController extends template {
 				$rm = new registerManager();
 				$allRegistered = $rm->getTournamentParticipants($matchedTournament);
 				// Ne les envoyer ds la vue s'il y en a
-				if(!!$allRegistered)
-					$v->assign("allRegistered", $allRegistered);
+
+				if(!!$allRegistered){
+					$users = [];
+					$um = new userManager();
+					foreach ($allRegistered as $key => $registered) {
+						$u = new user([]);
+						$u->setPseudo($registered->getPseudo());
+						$users[] = $um->userByPseudoInstance($u);
+					}
+					if(count($users) > 0)
+						$v->assign("allRegistered", $users);
+				}
+					
 
 				// Recuperer toutes les équipes avec le nombre de places prises
 				$ttm = new teamtournamentManager();
