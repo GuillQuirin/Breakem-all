@@ -49,7 +49,7 @@
 									<p class="tournamentslist-p-over-statement m-a text-center title title-5 bg-pink">Fini</p>
 								</article>
 							</div>
-							<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Gérer</a></button>
+							<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Gérer</a></span>
 						</div>
 					<?php else: ?>
 						<div class="tournamentslist-tournoi-element relative display-flex-row">
@@ -70,7 +70,7 @@
 									<?php endif; ?>
 								</article>
 							</div>
-							<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Gérer</a></button>	
+							<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Gérer</a></span>	
 						</div>
 					<?php endif ?>
 					
@@ -106,7 +106,7 @@
 								<p class="tournamentslist-left-places title-4 bg-green"><?php echo ($restant > 1) ? $restant.' places restantes' : $restant.' place restante';?> </p>
 							</article>
 						</div>
-						<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></button>	
+						<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></span>	
 					</div>
 				</div>
 			<?php endforeach; ?>
@@ -174,7 +174,7 @@
 									<?php endif; ?>									
 								</article>
 							</div>
-							<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></button>
+							<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></span>
 						</div>
 				</div>
 			<?php endforeach; ?>
@@ -211,7 +211,7 @@
 							<?php endif ?>								
 						</article>
 					</div>
-					<button type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></button>
+span					<span type="button" class="btn btn-pink"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>">Voir</a></span>
 				</div>
 			<?php endforeach; ?>
 		</div>		

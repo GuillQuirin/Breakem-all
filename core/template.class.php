@@ -423,7 +423,23 @@ class template{
     // Arrivé ici on a récupéré les matchs et leurs équipes participantes, ainsi qu'une liste de toutes les équipes. Toutes ces entités sont remplies de leurs datas correspondantes et respectives
     return $t;
   }
+
+  protected function getFullyAlimentedMatch(matchs $m){
+    $ttm = new teamtournamentManager();
+    $rm = new registerManager();
+    $teamsOfMatch = $ttm->getTeamsOfMatch(null, $m);
+    if(!!$teamsOfMatch){
+      foreach ($teamsOfMatch as $key => $teamOfMatch) {
+        $usersInTeam = $rm->getTeamTournamentUsers($teamOfMatch);
+        if(is_array($usersInTeam))
+          $teamOfMatch->addUsers($usersInTeam);
+        $m->addTeamTournament($teamOfMatch);
+      }
+    }
+    unset($ttm, $rm);
+    return $m;
+  }
 }
-/*
+/*  
 *
 */
