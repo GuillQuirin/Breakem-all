@@ -293,7 +293,7 @@
 								<?php $ratio = round(($user->gtTotalWonMatchs() / $user->gtTotalMatchs())*100, 1); ?>
 								<?php echo $ratio ?>% victoires 
 							<?php else: ?>
-								Aucune victoire
+								Aucun match
 							<?php endif ?>
 							</span>
 							</p>
