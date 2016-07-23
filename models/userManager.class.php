@@ -385,29 +385,4 @@ class userManager extends basesql{
 
 /*
 *
-SELECT COUNT(DISTINCT tt.id) as totalMatchs FROM user u
-INNER JOIN register r
-ON r.idUser = u.id
-INNER JOIN teamtournament tt
-ON tt.id = r.idTeamTournament
-INNER JOIN matchs m
-ON m.idWinningTeam IS NOT NULL 
-WHERE u.pseudo = "dylan"
-
-UNION
-
-SELECT COUNT(DISTINCT tt.id) as totalWonMatchs FROM user u
-INNER JOIN register r
-ON r.idUser = u.id
-INNER JOIN teamtournament tt
-ON tt.id = r.idTeamTournament
-INNER JOIN matchs m
-ON m.idWinningTeam IS NOT NULL 
-AND m.idWinningTeam = tt.id 
-WHERE u.pseudo = "dylan"
-
-
-
-SELECT COUNT(DISTINCT tt.id) as totalMatchs FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL WHERE u.pseudo = "dylan" UNION SELECT COUNT(DISTINCT tt.id) as totalWonMatchs FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL AND m.idWinningTeam = tt.id WHERE u.pseudo = "dylan"
-
 */
