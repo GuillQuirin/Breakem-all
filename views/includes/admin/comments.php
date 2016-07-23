@@ -5,8 +5,8 @@
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Statut</span></div></div>
 			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Message</span></div></div>
+			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Statut</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -20,6 +20,7 @@
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-date-g'>" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-pseudo-g'>" . $comment->getPseudo() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-team-g'>" . $comment->getNomTeam() . "</span></div></div>";
+					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getComment() . "</span></div></div>";
 					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-status-g'><div class='align comment-status-g-ht'>";
 						if($comment->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
@@ -27,7 +28,6 @@
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'>";
 						}
 					echo "</div></span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getComment() . "</span></div></div>";
 					//Fin 
 
 					//Bouton

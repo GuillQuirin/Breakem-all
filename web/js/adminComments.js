@@ -98,8 +98,9 @@ var commentModule = {
 						//Check si dans le controlleur j'ai renvoyé un json ou un undefined
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);
+							console.log(userArr);
 							//console.log(userArr);
-							commentModule.getDataIhm().removeClass('hidden');
+							onglet.getAdminDataIhm().removeClass('hidden');
 							//On affiche les elements présents dans le tableau
 							if(userArr.length == 1){
 								//console.log(userArr[0].name);
