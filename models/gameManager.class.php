@@ -24,7 +24,7 @@ class gameManager extends basesql{
          $sql = "SELECT G.name, COUNT(DISTINCT(T.idGameVersion)) as nb_util_jeu, G.img
                  FROM tournament T, gameversion GV, game G
                  WHERE G.id = GV.idGame AND GV.id = T.idGameVersion AND G.id>0 AND G.status>0
-                 LIMIT 0,3";
+                 LIMIT 0,1";
         $sth = $this->pdo->query($sql);
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }

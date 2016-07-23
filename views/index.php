@@ -83,10 +83,8 @@
 			<div class="title_index">
 				<label for="title1">Prochains matchs</label>
 			</div>
+			<!--
 			<div class="fight">
-
-				<!-- Match à venir -->
-				<?php //echo $fight; ?>
 				<h3>ESL</h3>
 				<p class="date_fight">1er Avril 2016, 17h00</p>
 				<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
@@ -98,73 +96,48 @@
 					</ul>
 				</div>
 			</div>
+			
 			<div class="tab">
 				<ul>
 					<nav class="tab_hori">
 						<ul>
-							<!-- Liste des jeux -->
-							<li class=" active_tab"><a href="#">Tous</a></li>
+							
+							<li class=" active_tab"><a href="#">Tous</a></li>-->
 							<?php 
+							/*
 							if(isset($listeJeux) && is_array($listeJeux)){
 								foreach($listeJeux as $jeu){
 									echo '<li class=""><a>'.$jeu->getName().'</a></li>';
 								}
-							}
+							}*/
 							?>
-						</ul>
+						<!--</ul>
 					</nav>
 				</ul>
-			</div>
+			</div>-->
 
 			<!-- Liste des matchs -->
 			<div id="match">
-				<?php //echo $listematchs; ?>
-				<div id="match1" class="margin_match">
-					<div class="statut">En cours</div>
-					<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-					<div class="versus">VS</div>
-					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-					<p class="date_match">20 Janvier 2016, 20h00</p>
-					<hr>
-				</div>
-				<div id="match2" class="margin_match">
-					<div class="statut">A venir</div>
-					<?php echo '<img src="' . WEBPATH . '/web/img/fnatic.jpg">';?>
-					<div class="versus">VS</div>
-					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
-					<p class="date_match">20 Janvier 2016, 20h00</p>
-					<hr>
-				</div>
-				<div id="match3" class="margin_match">
-					<div class="statut">30 : 90</div>
-					<?php echo '<img src="' . WEBPATH . '/web/img/ehome.jpg">';?>
-					<div class="versus">VS</div>
-					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
-					<p class="date_match">20 Janvier 2016, 20h00</p>
-					<hr>
-				</div>
-				<div id="match4" class="margin_match">
-					<div class="statut">60 : 90</div>
-					<?php echo '<img src="' . WEBPATH . '/web/img/navi.jpg">';?>
-					<div class="versus">VS</div>
-					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/virtus.jpg">';?>
-					<p class="date_match">20 Janvier 2016, 20h00</p>
-					<hr>
-				</div>
-				<div id="match5" class="margin_match">
-					<div class="statut">120 : 10</div>
-					<?php echo '<img src="' . WEBPATH . '/web/img/virtus.jpg">';?>
-					<div class="versus">VS</div>
-					<?php echo '<img name="img2" src="' . WEBPATH . '/web/img/secret.jpg">';?>
-					<p class="date_match">20 Janvier 2016, 20h00</p>
-					<hr>
-				</div>
+				<?php 
+				if(isset($listeMatchs) && is_array($listeMatchs)){
+					//var_dump($listeMatchs);
+					foreach ($listeMatchs as $key => $value) {
+						echo '<div class="margin_match">';
+							echo '<img src="'.$value->gtImgJeu().'">';
+							echo $value->gtNameTournament();
+							echo ' sur <a href="'.WEBPATH.'/tournoi?t='.$value->gtLink().'">'.$value->gtNomJeu().'</a>';
+							echo '<p class="date_match">'.date("D, d M Y H:i",$value->getStartDate()).'</p>';
+							echo '<hr>';
+						echo '</div>';
+					}
+				}
+				?>				
 			</div>
 			
-			<!-- Classement des 3 premiers jeux -->
+			<!-- Classement du jeu le plus utilisé -->
 			<div id="game">
 				<div class="title_index">
-					<label for="title2">Jeux les plus utlisés</label>
+					<label for="title2">Jeu le plus utlisé</label>
 				</div>
 				<?php 
 					if(isset($bestGames) && !empty($bestGames) && is_array($bestGames)){

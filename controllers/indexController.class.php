@@ -28,25 +28,29 @@ class indexController extends template{
 			unset($_SESSION['compte_validé']);
 		}
 
-		//Liste des jeux
-		$obj = new gameManager();
+		//Liste des matchs à venir
+		/*$obj = new gameManager();
 		$listejeux = $obj->getAllGames();
 		if(!!($listejeux)){
 			$v->assign("listeJeux", $listejeux);
+		}*/
+		
+		$mm = new matchsManager();
+		$nextMatchs = $mm->getNextMatchsOfEveryTournament(10);
+		if(isset($nextMatchs) && is_array($nextMatchs)){
+			foreach ($nextMatchs as $key => $m) {
+				$nextMatchs[$key] = $this->getFullyAlimentedMatch($m);
+			}
+			$v->assign("listeMatchs", $nextMatchs);
 		}
 
-		//Meilleurs Jeux
+		//Jeu le plus utilisé
+		$obj = new gameManager();
 		$bestGames = $obj->getBestGames();
 		if(isset($bestGames) && !empty($bestGames) && $bestGames[0]['nb_util_jeu']!=0){
 			$v->assign("bestGames", $bestGames);
 		}
-		/* #####  GUILLAUME C PR TOI MON COCHON ###### */
-		// $mm = new matchsManager();
-		// $nextMatchs = $mm->getNextMatchsOfEveryTournament(10);
-		// foreach ($nextMatchs as $key => $m) {
-		// 	$nextMatchs[$key] = $this->getFullyAlimentedMatch($m);
-		// }
-		// var_dump($nextMatchs);
+
 		$v->setView("index");
 	}
 

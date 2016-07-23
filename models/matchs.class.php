@@ -7,9 +7,13 @@ final class matchs{
 	private $_idWinningTeam;
 	private $_proof;
 	private $_idTournament;
+	private $_nameTournament;
 	private $_startDate;
 	private $_matchNumber;
 	private $_teamstournament = [];
+	private $_link;
+	private $_nomJeu;
+	private $_imgJeu;
 
 	public function __construct(array $data){
 		$this->hydrate($data);
@@ -21,7 +25,9 @@ final class matchs{
 			if ( method_exists($this, $method) ){
 				$this->$method($value);
 				$method2 = 'get'.ucfirst($key);
-				$this->_myArr[$key] = $this->$method2();
+				if(method_exists($this, $method2)){
+					$this->_myArr[$key] = $this->$method2();
+				}
 			}
 		}
 	}
@@ -38,11 +44,23 @@ final class matchs{
 	public function setIdTournament($v){
 		$this->_idTournament = $v;
 	}
+	public function setNameTournament($v){
+		$this->_nameTournament = $v;
+	}
 	public function setStartDate($v){
 		$this->_startDate = $v;
 	}
 	public function setMatchNumber($v){
 		$this->_matchNumber = $v;
+	}
+	public function setNomJeu($v){
+		$this->_nomJeu = $v;
+	}
+	public function setImgJeu($v){
+		$this->_imgJeu = $v;
+	}
+	public function setLink($v){
+		$this->_link = $v;
 	}
 	public function addTeamTournament(teamtournament $tt){
 		$this->_teamstournament[] = $tt;
@@ -78,6 +96,29 @@ final class matchs{
 		return (count($losingTeams) > 0) ? $losingTeams : false;
 	}
 
+	public function gtNameTournament(){
+		return $this->_nameTournament;
+	}
+	public function gtNomJeu(){
+		return $this->_nomJeu;
+	}
+
+	public function gtImgJeu($upload=false){
+		
+		if($upload){
+			return $this->_imgJeu;
+		}
+		else{
+			if(strlen(trim($this->_imgJeu))>0 && file_exists(getcwd()."/web/img/upload/jeux/".$this->_imgJeu))
+				return WEBPATH."/web/img/upload/jeux/".$this->_imgJeu;
+
+			return WEBPATH."/web/img/upload/jeux/default-jeux.png";	
+		}
+	}
+
+	public function gtLink(){
+		return $this->_link;
+	}
 }
 /*
 *
