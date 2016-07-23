@@ -101,7 +101,7 @@ else{
                         <?php
                         //Si le user appartient à une autre team
                         }else{
-                            echo "Vous faites déjà parti de la team".$nameUserTeam.".";
+                            echo "Vous faites déjà parti de la team ".$nameUserTeam.".";
                         } 
                     //Si le user n'a pas de team
                     }else{ ?>
@@ -113,77 +113,76 @@ else{
         </form>
     </section>
 
-    
-    <section >
-        <div class="grid-md-4 grid-md-offset-8 grid-xs-offset-1 contain-member ">
-            <div class="title_index">
-                <!-- Récupération de tous les membres de la team -->
-                <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
-            </div>
-            <?php   
-                if(isset($listemember)): 
-                    foreach ($listemember as $key => $user):
-            ?>  
-                        <div class="liste_member"> 
-                            <ul class="grid-md-12 team-select-ul">  
-                                <li>
-                                    <img src='<?php echo $user->getImg(); ?>'>
-                                    <ul class="pseudo_member pseudo">
-                                        <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
-                                            <?php echo $user->getPseudo(); ?></a>
-                                        </span>
-                                        <?php 
-                                        if($idcreator == $user->getId()){ ?>
-                                            <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
-                                        <?php  
-                                        } ?>
-                                    </ul>
-                                    
-                                </li>                     
-                            </ul>   
-                        </div>  
-            <?php
-                    endforeach;
-                endif;
-            ?>
-        </div>
-    </section>
+
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
-        <div class=" container m-a content-border team-container">
-            <div class="liste_member">
+        <div class="container m-a content-border team-container">
+            <div class="grid-md-3 grid-md-offset-9 contain-member ">
+                <div class="title_index">
+                    <!-- Récupération de tous les membres de la team -->
+                    <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
+                </div>
                 <?php   
                     if(isset($listemember)): 
                         foreach ($listemember as $key => $user):
-                            if($idcreator == $user->getId()){ ?>
-                                <div class="leader_member"> 
-                                    <div class="title_index">
-                                        <label for="title-leader">Leader </label>
-                                    </div>
-                                    <ul class="grid-md-12 team-select-ul">  
-                                        <li>
-                                            <img src='<?php echo $user->getImg(); ?>'>
-                                        </li>                 
-                                        <li>
-                                            <ul class="pseudo pseudo-leader">
-                                                <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
-                                                    <?php echo $user->getPseudo(); ?></a>
-                                                </span>
-                                            </ul>
-                                        </li>    
-                                    </ul>   
-                                </div>  
-                <?php 
-                            }
+                ?>  
+                            <div class="liste_member"> 
+                                <ul class="grid-md-12 team-select-ul">  
+                                    <li>
+                                        <img src='<?php echo $user->getImg(); ?>'>
+                                        <ul class="pseudo_member pseudo">
+                                            <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
+                                                <?php echo $user->getPseudo(); ?></a>
+                                            </span>
+                                            <?php 
+                                            if($idcreator == $user->getId()){ ?>
+                                                <img class="crown" src="<?php echo WEBPATH.'/web/img/crown.png';?>">
+                                            <?php  
+                                            } ?>
+                                        </ul>
+                                        
+                                    </li>                     
+                                </ul>   
+                            </div>  
+                <?php
                         endforeach;
                     endif;
                 ?>
+            </div>  
+            <div class="grid-md-10 description-team" >
+                <div class="liste_member">
+                    <?php   
+                        if(isset($listemember)): 
+                            foreach ($listemember as $key => $user):
+                                if($idcreator == $user->getId()){ ?>
+                                    <div class="leader_member"> 
+                                        <div class="title_index">
+                                            <label for="title-leader">Leader </label>
+                                        </div>
+                                        <ul class="grid-md-12 team-select-ul">  
+                                            <li>
+                                                <img src='<?php echo $user->getImg(); ?>'>
+                                            </li>                 
+                                            <li>
+                                                <ul class="pseudo pseudo-leader">
+                                                    <span><a href="<?php echo WEBPATH.'/profil?pseudo='.$user->getPseudo();?>">
+                                                        <?php echo $user->getPseudo(); ?></a>
+                                                    </span>
+                                                </ul>
+                                            </li>    
+                                        </ul>   
+                                    </div>  
+                    <?php 
+                                }
+                            endforeach;
+                        endif;
+                    ?>
+                </div>
+                <div class="text-descrip break-word">
+                    Description de la team : <?php if(isset($description)) echo $description; ?>
+                </div>
             </div>
-            <div class="grid-md-10 description-team break-word">
-                Description de la team : <?php if(isset($description)) echo $description; ?>
-            </div>
-
-            <div class="grid-md-10 commentaire-team">
+            <div class="grid-md-7 commentaire-team">
                 <div class="title_index">
                     <label for="title3">Commentaire</label>
                 </div>
@@ -217,7 +216,7 @@ else{
                                         <?php
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()!==$_id)  
                                                 //Le mec va pas s'auto-ban
-                                                echo "<p class='cursor-pointer' id='comment-report-".$commentaire->getId()."'><a>Signaler</a></p>";
+                                                echo "<p class='cursor- pointer' id='comment-report-".$commentaire->getId()."'><a>Signaler</a></p>";
                                             
                                             if($commentaire->getStatus()=="0" && $commentaire->getIdUser()==$_id && time()-strtotime($commentaire->getDate())<1800)
                                                 //Commentaire modifiable à 30 min
