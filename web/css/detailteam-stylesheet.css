@@ -66,9 +66,8 @@
     width:75%;
 }
 .description-team{  
-    margin-top:60px;
+    position: absolute;
     font-size:19px;
-    width:460px;
     margin-bottom: 100px;
 }
 .liste_member{
@@ -109,7 +108,7 @@
     width:85%;
 }
 .title_index{
-    width:88%;
+    width:100%;
     padding:10px;
     text-align: right;
     background-color: #211d3b;
@@ -119,7 +118,7 @@
 .pseudo_member{
     margin-top:-50px;
     margin-bottom:50px;
-    margin-left:150px;
+    margin-left:95px;
     font-size:20px;
 }
 
@@ -238,9 +237,16 @@
     color: white;
     margin-top:10px;
 }
-
 /*Fin du popup */
 
+.text-descrip{
+    margin-left:150px;
+}
+
+.commentaire-team{
+    position: relative;
+    margin-top:-400px;
+}
 .commentaire-team img{
     width:100px;
 }
@@ -296,11 +302,12 @@ img.edition, img.signalement{
 }
 
 @media screen and (min-width: 1150px){
+    /*
     .contain-member{
         position: relative;
-        margin-bottom: -335px;
+        margin-bottom: -999999999999999999999999999999999999px;
         margin-top: 50px;
-    }
+    }*/
 }
 
 @media screen and (max-width: 991px) {
@@ -313,12 +320,12 @@ img.edition, img.signalement{
     .team-title img{
         max-width: 50%;
     }
+    /*
     .contain-member .title_index{
         margin-top:15px;
-    }
+    }*/
     .commentaire-team{
-        position: relative;
-        margin-top:100px;
+        margin-top:0px;
     }
     .liste_member{
         display: inline-block;
@@ -331,12 +338,23 @@ img.edition, img.signalement{
         margin-top:250px;
     }*/
     .contain-text-comment{
-        width:auto;
-        
+        width:auto; 
     }
     .crown{
         margin-left: 60px;
     }
+    .liste_member{
+        display: block;
+        width: 100%;
+    }
+    .text-descrip{
+        margin-left: 0px;
+        margin-top:10px;
+    }
+    .leader_member{
+        width:80%;
+    }
+
 }
 
 @media screen and (max-width: 770px) {
@@ -360,6 +378,9 @@ img.edition, img.signalement{
     .popup-contain{
         width: 80%;
     }
+    
+
+
 }
 
 @media screen and (max-width: 450px) {
@@ -371,7 +392,7 @@ img.edition, img.signalement{
         font-size:14px;
     }
     .crown{
-        margin-left: 0;
+        margin-left: 60px;
     }
     .team-title{
         width: 70%;
