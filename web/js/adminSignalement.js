@@ -257,7 +257,7 @@ function setStatut(pseudo, value){
 	 		//console.log(result);
 	 	},
 	 	error: function(result){
-	 		alert("non");
+	 		popupError.init("non");
 	 	}
 	});
 }
@@ -276,7 +276,7 @@ function deleteReport(id){
 		 		//console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}

@@ -41,11 +41,11 @@ class gameversionManager extends basesql{
 
 	public function getChoosableVersions(){
 		if(!isset($_SESSION['availableGV_ids']) || !is_array($_SESSION['availableGV_ids']))
-			die("Tu n'as pas choisi ta console !");
+			$this->echoJSONerror("","Tu n'as pas choisi ta console !");
 
 		$l = count($_SESSION['availableGV_ids']);
 		if($l < 1 )
-			die("Tu n'as pas choisi ta console !");
+			$this->echoJSONerror("","Tu n'as pas choisi ta console !");
 		$l--;
 
 		$sql = "SELECT * FROM " . $this->table . " WHERE ";

@@ -103,7 +103,7 @@ else{
 						}
 						else{
 							echo '<div class="profil-element profil-tournament-element">';
-								echo 'Pas de tournoi participé.';
+								echo "Ce joueur n'a pas encore participé à un tournoi.";
 							echo '</div>';
 						}
 					?>

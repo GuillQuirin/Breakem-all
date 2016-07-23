@@ -23,9 +23,14 @@ $(document).ready(function(){
 						},
 						url: "profil/report", 
 						success: function(result){
-		            		$("#formplainte .sendOK").fadeIn();$
-		            		$("#formplainte").fadeOut();
-		            		$("#gestionplainte").html('<p id="signalementnope">Vous avez déjà signalé ce joueur</p>');
+							var objJson = tryParseData(result);
+		            		if(!objJson.errors){
+								$("#formplainte .sendOK").fadeIn();$
+		            			$("#formplainte").fadeOut();
+		            			$("#gestionplainte").html('<p id="signalementnope">Vous avez déjà signalé ce joueur</p>');
+		            		}
+		        			else
+		        				$("#formplainte .sendError").fadeIn();
 		        		},
 		        		fail: function(){
 		        			$("#formplainte .sendError").fadeIn();

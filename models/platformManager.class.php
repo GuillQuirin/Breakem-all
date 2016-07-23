@@ -104,7 +104,7 @@ class platformManager extends basesql{
 	public function platformByName(platform $u){
 		$sql = "SELECT name FROM " .$this->table . " WHERE name LIKE ?";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sth->execute([$u->getName()."%"]);
+		$sth->execute(["%".$u->getName()."%"]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 		return $r;

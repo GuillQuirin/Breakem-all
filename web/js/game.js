@@ -5,12 +5,11 @@
 	var src = $("#typegameForm #img").prop('src');
 
 	if(!id){
-		alert("Veuillez selectionner un type de jeu ou en créer un.");
+		popupError.init("Veuillez selectionner un type de jeu ou en créer un.");
 		return false;
 	}
 	
 	if(id!=="-1"){ // Update
-		console.log("MAJ");
 		jQuery.ajax({
 		 	url: "admin/updateTypeGameBy",
 		 	type: "POST",
@@ -19,12 +18,11 @@
 		 		console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
 	else{ // New
-		console.log("Creation");
 		jQuery.ajax({
 		 	url: "admin/createTypeGameBy",
 		 	type: "POST",
@@ -33,11 +31,11 @@
 		 		console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
-});*/
+});
 
 function deleteGame(id){
 	if(confirm("Souhaitez vous supprimer ce jeu ?")){
@@ -50,8 +48,8 @@ function deleteGame(id){
 		 		console.log(result);
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	}
-}
+}*/

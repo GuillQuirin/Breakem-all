@@ -154,7 +154,7 @@ var platformModule = {
 		        navbar.form.closeFormClick();		
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 	

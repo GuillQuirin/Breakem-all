@@ -290,7 +290,7 @@ var platformModule = {
 					    });
 			        }			    
 			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
 			    if(allData.name){
@@ -444,7 +444,7 @@ var platformModule = {
 						}
 			        }   				    
 			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
 			    if(allData.name && allData.description){

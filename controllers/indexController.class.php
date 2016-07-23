@@ -74,7 +74,7 @@ class indexController extends template{
 		*/
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
-				die("Manque information : ".$key);
+				$this->echoJSONerror("","Il manque un champ.");
 			}
 		}	
 

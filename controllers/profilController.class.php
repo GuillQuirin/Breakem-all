@@ -84,7 +84,6 @@ class profilController extends template{
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
 				$this->echoJSONerror("","Il manque un champ.");
-				/***** ANCIEN DIE ***/
 			}
 		}
 
@@ -115,7 +114,7 @@ class profilController extends template{
 
 		foreach ($args as $key => $value) {
 			if(!isset($filteredinputs[$key])){      
-				die("Manque information : ".$key);
+				$this->echoJSONerror("","Il manque un champ.");
 			}
 		}
 		$filteredinputs['id_indic_user'] = $this->getConnectedUser()->getId();
@@ -130,5 +129,6 @@ class profilController extends template{
 		$plainteBDD = new signalmentsuserManager();
 		$plainteBDD->mirrorObject = new signalmentsuser($filteredinputs);
 		$plainteBDD->create();
+		echo json_encode(["success" => "Signalement effectué"]);
 	}
 }

@@ -291,7 +291,7 @@ var onglet = {
 				signalementModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 
@@ -319,7 +319,7 @@ var onglet = {
 				teamModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 
@@ -347,7 +347,7 @@ var onglet = {
 				gameModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 
@@ -375,7 +375,7 @@ var onglet = {
 				typegameModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 
@@ -403,7 +403,7 @@ var onglet = {
 				commentModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 
@@ -431,7 +431,7 @@ var onglet = {
 				tournoiModule.init();
 		 	},
 		 	error: function(result){
-		 		alert("non");
+		 		popupError.init("non");
 		 	}
 		});
 

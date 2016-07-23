@@ -303,7 +303,7 @@ var gameModule = {
 					    });
 			        }   				    
 			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
 			    //Update de la membre
@@ -529,7 +529,7 @@ var gameModule = {
 						}
 			        }   				    
 			    } else {    	
-			       alert("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
+			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
 			    if(allData.name && allData.day && allData.month && allData.thisYear){
