@@ -50,15 +50,16 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 		return false;
 	}
 	// On vérifie la date de début du tournoi
-	if($t->getStartDate() <= strtotime(date('Y-m-d') . ' 00:00:00'))
+	if($t->getStartDate() <= strtotime(date('Y-m-d') . ' 00:00:00')){
 		return false;
-
-	if(!$isFullyAlimented)
+	}
+	if($isFullyAlimented == false)
 		return true;
 
 	// On vérifie que les matchs n'ont pas débuté
-	if(count($t->gtAllMatchs()) > 0)
+	if(count($t->gtAllMatchs()) > 0 && $t->isUserRegistered($u)){
 		return false;
+	}
 
 	// On vérifie que l'user peut bien s'inscrire dans une team si le tournoi est en guilde only
 	$userCanRegisterToOneTeam = false;
@@ -68,8 +69,9 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 			break;
 		}
 	}
-	if(!$userCanRegisterToOneTeam)
+	if(!$userCanRegisterToOneTeam){	
 		return false;
+	}
 
 	return true;
 }
