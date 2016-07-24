@@ -266,6 +266,7 @@ section:hover{
 		overflow: hidden;
 		left: calc(50%);
 		transition: all .2s;
+		margin-top:-15px;
 	}
 	.detailtournoi-participant:hover .detailtournoi-stats-joueur{
 		height: 20px;
