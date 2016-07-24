@@ -288,9 +288,9 @@ class template{
 
     //Password
     if($filteredinputs['password']!==$filteredinputs['password_check'])
-      $this->echoJSONerror('password', 'Les mots de passe doivent être les mêmes.');
-    else if(strlen($filteredinputs['password'])<6)
-      $this->echoJSONerror('password', 'Votre mot de passe doit faire 6 caractères minimum.');
+      $this->echoJSONerror('password', 'Les mots de passe doivent être identique.');
+    else if(strlen($filteredinputs['password'])<6 || strlen($filteredinputs['password'])>18)
+      $this->echoJSONerror('password', 'Votre mot de passe doit entre 6 et 18 caractères caractères minimum.');
     else
       $finalArr['password']=ourOwnPassHash($filteredinputs['password']);
 

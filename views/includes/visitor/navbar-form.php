@@ -25,7 +25,7 @@
 			    <input class="input-default" type="email" id="email" name="email" placeholder="Un email de confirmation vous sera envoyé." required>
 
 			    <label for="pwd1">Mot de passe : </label>
-			    <input class="input-default" type="password" id="pwd1" name="password" placeholder="6 caractères minimums" required>
+			    <input class="input-default" type="password" id="pwd1" name="password" placeholder="6 à 18 caractères maximum" required>
 			    <label for="pwd2">Confirmation mot de passe : </label>
 			    <input class="input-default" type="password" id="pwd2" name="password_check" required>
 				<p id="naissance">Date de naissance:
