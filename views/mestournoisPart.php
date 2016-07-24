@@ -27,6 +27,15 @@
 						<span class="display-block"><span class="article-content-title"><?php echo $tournament->getName(); ?><span class="article-date"><?php echo date('d-m-Y', $tournament->getStartDate()); ?></span></span></span>
 						<?php //if($tournament->getStatus()===-1){echo '<span class="red">VERROUILLE</span>';}?>
 						<span class="article-content-description"><?php echo $tournament->getDescription(); ?></span>
+						<?php
+							if($tournament->getEndDate() >= strtotime(date('Y-m-d H:i:s')) && $tournament->getStartDate() <= strtotime(date('Y-m-d H:i:s'))){
+								echo "<span class='mestournois-status green'>EN COURS</span>";
+							}elseif($tournament->getIdWinningTeam() !== NULL){
+								echo "<span class='mestournois-status red'>TERMINÉ</span>"; 
+							}elseif($tournament->getStartDate() > strtotime(date('Y-m-d H:i:s'))){
+								echo "<span class='mestournois-status'>A VENIR</span>"; 
+							}		
+						?>
 						<div class='article-content-btn-wrapper'>
 							<?php if($tournament->getStatus()===-1){
 								echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-lock.png'><span class='article-lock'>Tournoi Vérouillé</span>";

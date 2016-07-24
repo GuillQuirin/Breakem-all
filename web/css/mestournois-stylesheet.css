@@ -5,6 +5,11 @@
     background-size: cover;     
 }
 
+.mestournois-status{
+	font-size:15px;
+	padding:10px 0;
+}
+
 .mestournois-container{
 	padding:25px 0;
 	margin: 35px auto;
