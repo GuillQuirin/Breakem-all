@@ -81,7 +81,7 @@ abstract class basesql{
 	}
 
 	public function idExists($id){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id=":id"';
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE id=:id';
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':id' => $id
@@ -93,12 +93,16 @@ abstract class basesql{
 	}
 
 	public function pseudoExists($pseudo){
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo=":pseudo"';
+		// print_r( $pseudo );
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE pseudo=:pseudo';
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':pseudo' => $pseudo
 		]);
+		// print_r($sql);
+		// exit;
 		$r = $sth->fetchAll();
+		// var_dump($r);
 		if(isset($r[0][0]))
 			return (bool) $r[0][0];
 		return false;
@@ -117,7 +121,7 @@ abstract class basesql{
 	}
 
 	public function emailExists($email){		
-		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE email=":email"'; 
+		$sql = 'SELECT COUNT(*) FROM ' . $this->table . ' WHERE email=:email'; 
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([
 			':email' => $email
