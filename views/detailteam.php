@@ -117,7 +117,7 @@ else{
     
     <section class="my-content-wrapper team-content-wrapper align full-height">
         <div class="container m-a content-border team-container">
-            <div class="grid-md-3 grid-md-offset-9 contain-member ">
+            <div class="grid-md-3 ontain-member ">
                 <div class="title_index">
                     <!-- Récupération de tous les membres de la team -->
                     <label for="title1">Membres : <?php if(isset($listemember)) echo count($listemember);else echo "Aucun membre dans cette team" ?></label>
@@ -149,7 +149,7 @@ else{
                     endif;
                 ?>
             </div>  
-            <div class="grid-md-10 description-team" >
+            <div class="grid-md-7 grid-md-offset-3 description-team" >
                 <div class="liste_member">
                     <?php   
                         if(isset($listemember)): 
@@ -179,10 +179,10 @@ else{
                     ?>
                 </div>
                 <div class="text-descrip break-word">
-                    Description de la team : <?php if(isset($description)) echo $description; ?>
+                    Description de la team :<br><br> <?php if(isset($description)) echo $description; ?>
                 </div>
             </div>
-            <div class="grid-md-7 commentaire-team">
+            <div class="grid-md-5 grid-md-offset-1 commentaire-team">
                 <div class="title_index">
                     <label for="title3">Commentaire</label>
                 </div>

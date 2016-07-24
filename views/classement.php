@@ -1,4 +1,100 @@
-<section class="middle-height bg-cover-classement relative">
+<section class="low-height bg-cover-classement relative">
+
+	<div class="align full-height">
+		<div class="align full-height animation fadeLeft">
+			<span class="header-title admin-header-title border-full relative">Classement</span>	
+		</div>
+	</div>	 
+
+	<img class="icon icon-size-3 down-center header-scroll-down" id="classement-header-scroll-down" src="web/img/icon/icon-scrollDown.png"> 
+
+	</section>
+
+	<section class="admin-content-wrapper my-content-wrapper">
+
+		<div class="container m-a classement-container">
+
+			<div class="row classement-content-row">
+				<div class="grid-md-12">	
+
+					<!-- Admin Layout -->
+					<div id="admin-container" class="admin-container">
+						<!-- Admin wrapper -->
+						<div class="admin-wrapper">
+							<!-- Admin search -->
+							<div class="admin-navbar">		
+								<div class="row align">
+									<div class="grid-md-3 admin-search-wrapper">
+										<form id="admin-search-form">
+											<input type="text" class="admin-search-input input-default" autocomplete="off" id="admin-search-input" name="admin-search-input" placeholder="Rechercher">
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- Fin admin search -->
+
+							<!-- Admin title -->
+							<div class='admin-data-ihm-title align'>
+							</div>
+							<!-- Fin admin title -->
+
+							<!-- Admin Data -->
+							<div class="admin-data-re">
+								<?php if(isset($userData)){
+										$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
+											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
+											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
+											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Points</span></div></div>
+										</div>";
+
+										echo $cat;
+
+									foreach ($userData as $key => $joueur) {
+										//Wrapper				
+										echo "<div class='grid-md-10 classement-data-ihm align relative grid-centered'>";
+
+											//Affichage
+											//Image
+											//Je met un timestamp après l'image pour ne pas la sauvegarder dans le cache si jamais on la modifie (fichier avec le meme nom) voir : http://stackoverflow.com/questions/728616/disable-cache-for-some-images
+											echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round membre-img-up' src='" .$joueur->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";						
+											//Pseudo
+											//var_dump($joueur->getImg());
+											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."</a></span></div></div>";						
+											//Team
+											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-nameTeam-g'>"; 
+												if($joueur->getNameTeam()){
+													echo "<a href='".WEBPATH."/detailteam?name=".$joueur->getNameTeam()."'>".$joueur->getNameTeam()."</a>";
+												}
+											echo "</span></div></div>";
+											//Points
+											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-point-g'>".$joueur->gtTotalPoints()."</span></div></div>";						
+
+											//Fin Affichage
+											//Fin Bouton
+										echo "</div>";
+										//Fin Wrapper
+									}
+								}else{
+									echo "<div class='grid-md-12 no-platform align'><span>Aucun joueur enregistré pour le moment.</span></div>";								}
+								?>
+							</div>
+							<!-- Fin admin Data -->
+
+						</div>
+						<!-- Fin admin wrapper -->
+					</div>
+					<!-- Fin Admin Layout -->					
+
+				</div>
+			</div>				
+		</div>
+
+</section>
+
+
+
+<!-- <section class="middle-height bg-cover-classement relative">
 	
 	<div class="align full-height">
 		<div class="classement-header-left text-center animation fadeLeft">
@@ -9,20 +105,10 @@
 				<span>Classement</span>			
 			</div>
 			<div class="classement-header-left-sub">
-				<span>Découvrez les meilleurs joueurs et équipes de vos jeux préférés!</span>
+				<span>Découvrez les meilleurs joueurs de vos jeux préférés!</span>
 			</div>
 			<div class="">
-				<select type="text" class="select-default classement-select-default classement-select-game">
-					<option>Jeux</option>
-					<option>SSBB</option>
-					<option>CS</option>					
-					<option>DOTA</option>
-				</select>
-				<select type="text" class="select-default classement-select-default">					
-					<option>Team</option>
-					<option>Solo</option>					
-					<option>Recherche avancé</option>
-				</select>				
+							
 			</div>				
 		</div>
 		<div class="classement-header-right animation fadeRight">
@@ -90,7 +176,6 @@
 		<div class="row classement-content-row">
 			<div class="grid-md-8 grid-md-offset-2">				
 
-			<!-- debut tab -->
 				
 			<div class="classement-select background-wrapper shadow-bottom-full">	
 				<ul class="grid-md-12 classement-select-ul">	
@@ -212,7 +297,6 @@
 				</ul>																						
 			</div>	
 
-			<!-- FIN tab -->	
 
 			<div class="grid-md-2 grid-md-offset-4">
 				<button type="button" class="btn btn-pink"><a>Voir plus</a></button>											
@@ -228,3 +312,4 @@
 </section>
 
 
+ -->

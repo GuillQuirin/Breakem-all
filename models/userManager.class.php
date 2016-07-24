@@ -373,7 +373,7 @@ class userManager extends basesql{
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($r);
+		//var_dump($r);
 		if(isset($r[0]) && isset($r[1]))
 			return [ "totalMatchs" => $r[0]["stats"], "totalWonMatchs" => $r[1]["stats"] ];
 		else if(isset($r[0]) && !isset($r[1]))
