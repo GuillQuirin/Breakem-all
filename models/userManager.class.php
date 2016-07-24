@@ -273,7 +273,7 @@ class userManager extends basesql{
 		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= "WHERE u.status>0
-						GROUP BY u.id";
+						GROUP BY u.id ORDER BY totalPoints DESC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();

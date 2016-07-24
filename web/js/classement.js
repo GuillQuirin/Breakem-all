@@ -14,7 +14,10 @@ var tournoiModule = {
 		tournoiModule.setDataIhm();
 
 		//Search
-		tournoiModule.searchRequest();		
+		tournoiModule.searchRequest();
+
+		//Pagination
+		pagi();		
 	},
 
 	//Setter
@@ -147,13 +150,13 @@ function pagi(){
     $('#liste-derniers-classement').children().css('display', 'none');  
   
     //and show the first n (show_per_page) elements  
-    $('#liste-derniers-classement').children().slice(0, show_per_page).css('display', 'block'); 
+    $('#liste-derniers-classement').children().slice(0, show_per_page).css('display', 'flex'); 
 }
 
 
 function previous(){  
   
-    new_page = parseInt($('#current_page').val()) - 1;  
+    var new_page = parseInt($('#current_page').val()) - 1;  
     //if there is an item before the current active link run the function  
     if($('.active_page').prev('.page_link').length==true){  
         go_to_page(new_page);  
@@ -162,7 +165,7 @@ function previous(){
 }  
   
 function next(){  
-    new_page = parseInt($('#current_page').val()) + 1;  
+    var new_page = parseInt($('#current_page').val()) + 1;  
     //if there is an item after the current active link run the function  
     if($('.active_page').next('.page_link').length==true){  
         go_to_page(new_page);  
@@ -180,7 +183,7 @@ function go_to_page(page_num){
   	$("li.border_menu[numberpage='"+page_num+"']").addClass('active_menu');
 
     //hide all children elements of content div, get specific items and show them  
-    $('#liste-derniers-classement').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');  
+    $('#liste-derniers-classement').children().css('display', 'none').slice(start_from, end_on).css('display', 'flex');  
   
     /*get the page link that has longdesc attribute of the current page and add active_page class to it 
     and remove that class from previously active page link*/  

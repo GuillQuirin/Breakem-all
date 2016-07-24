@@ -10,7 +10,8 @@ class classementController extends template{
 		$v->assign("userData", $userData);
 
 		$this->assignConnectedProperties($v);
-		$v->assign("css", "admin");
+        $v->assign("css", "admin");
+		//$v->assign("css", "classement");
 		$v->assign("js", "classement");
 		$v->assign("title", "Tous les podiums !");
 		$v->assign("content", "Les résultats en ligne !");
