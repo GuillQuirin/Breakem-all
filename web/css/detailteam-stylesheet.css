@@ -293,6 +293,7 @@
 .crown{
     width:50px !important;
     margin-top:-50px;
+    margin-left:90px;
 }
 .crown img{
     margin-right:25px;
@@ -354,6 +355,8 @@ img.edition, img.signalement{
     .text-descrip{
         margin-left: 0px;
         margin-top:10px;
+        text-align: center;
+        padding: 10px;
     }
     .leader_member{
         width:80%;
@@ -382,7 +385,9 @@ img.edition, img.signalement{
     .popup-contain{
         width: 80%;
     }
-    
+    .text-descrip{
+        width:100%;
+    }
 
 
 }
@@ -396,7 +401,7 @@ img.edition, img.signalement{
         font-size:14px;
     }
     .crown{
-        margin-left: 60px;
+        margin-left: 75px;
     }
     .team-title{
         width: 70%;
@@ -406,6 +411,7 @@ img.edition, img.signalement{
         position: relative;
 
     }*/
+
     .commentaire-team img{
         width:55px;
     }
@@ -438,6 +444,6 @@ img.edition, img.signalement{
     }
     .pseudo_member{
         margin-bottom: 40px;
-        margin-left:75px;
+        margin-left:65px;
     }
 }

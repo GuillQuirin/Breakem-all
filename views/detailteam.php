@@ -179,7 +179,7 @@ else{
                     ?>
                 </div>
                 <div class="text-descrip break-word">
-                    Description de la team :<br> <?php if(isset($description)) echo $description; ?>
+                    Description de la team :<br><br> <?php if(isset($description)) echo $description; ?>
                 </div>
             </div>
             <div class="grid-md-5 grid-md-offset-1 commentaire-team">
