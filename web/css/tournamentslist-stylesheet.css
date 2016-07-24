@@ -1,8 +1,33 @@
 #content{
 	min-height: 480px;
 }
-
-.tournamentslist-tournoi-element .btn{
+.tournamentslist-form-container{
+	margin-top: 30px;
+}
+.tournamentslist-form-container  .btn{
+	max-width: 185px;
+	margin-top: 10px;
+}
+.tournamentslist-input-grp{
+	max-height: 125px;
+	max-width: 200px;
+}
+.tournamentslist-inputs-container{
+	justify-content: space-between;
+	max-width: 700px;
+}
+.tournamentslist-input-grp{
+	padding: 0 10px;
+	border-bottom: 1px solid #ccc;
+}
+.tournamentslist-input-grp > label{
+	width: auto;
+	background: transparent;
+}
+section.tournamentslist-tournoi {	
+	align-items: flex-start;
+}
+.tournamentslist-send-input{
 	max-width: 180px;
 	margin-top: 5px;
 }
@@ -17,22 +42,22 @@ section.tournamentslist-tournoi > div{
 	padding: 15px 15px;
 }
 section.tournamentslist-tournoi > div:nth-of-type(odd){
-	padding: 15px 0;
+	padding: 15px 0 40px 0;
 	background: linear-gradient( to bottom, rgb(8,3,37), #2F0A2C);
 }
 .tournamentslist-tournoi-element{
-	margin-top: 40px;
+	margin-top: 55px;
 	max-width: 450px;
 	padding: 15px 5px; 
 	max-height: 250px;
 }
 
-div > .tournamentslist-tournoi-element:first-of-type{
+div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:first-of-type{
 	border-top: 2px solid #ccc;
 }
-div > .tournamentslist-tournoi-element:last-of-type{
+div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:last-child{
 	border-bottom: 2px solid #ccc;
-	padding-bottom: 30px;
+	padding-bottom: 80px;
 }
 section.tournamentslist-tournoi-owner > h3{
 	word-spacing: 5px;
@@ -44,6 +69,9 @@ section.tournamentslist-tournoi{
 	background: linear-gradient( to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .1));
 }
 
+.tournamentslist-closedToUser-tournaments-container{
+	padding-bottom: 40px;
+}
 
 .tournamentslist-number-fetched-tournaments{
 	margin-top: 15px;

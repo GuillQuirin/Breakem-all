@@ -361,7 +361,7 @@ section:hover{
 		.detailtournoi-creatematchs-btn-event-container{
 			padding: 10px 0;
 		}
-		.detailtournoi-creatematchs-btn-event-container button{
+		.btn{
 			margin: 0 5px;
 			max-width: 280px;
 		}

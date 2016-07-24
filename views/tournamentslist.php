@@ -3,7 +3,11 @@
 			<?php if(isset($tournois)): ?>
 				Liste des tournois
 			<?php else: ?>
-				Aucun tournoi ne correspond à votre recherche
+				<?php if (isset($notournamentsnotget)): ?>
+					<?php echo $notournamentsnotget; ?>
+				<?php else: ?>
+					Aucun tournoi ne correspond à votre recherche				
+				<?php endif ?>
 			<?php endif; ?>
 		</h2>
 		<?php if(isset($tournois)): ?>
@@ -79,10 +83,31 @@
 		</section>
 	<?php endif ?>
 
+	<section class="tournamentslist-form-container display-flex-column full-width">
+		<p class="text-center m-a capitalize title-2">filtres</p>
+		<form class="m-a display-flex-column full-width" method="get" action="">
+			<div class="full-width tournamentslist-inputs-container m-a display-flex-row">
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="nom">nom</label>
+					<input class="input-default" name="nom" type="text" value="<?php echo (isset($search_nom)) ? $search_nom : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="jeu">jeu</label>
+					<input class="input-default" name="jeu" type="text" value="<?php echo (isset($search_jeu)) ? $search_jeu : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="console">console</label>
+					<input class="input-default" name="console" type="text" value="<?php echo (isset($search_console)) ? $search_console : ''?>">
+				</div>
+			</div>
+			<input type="submit" class="tournamentslist-send-input input-default" value="Chercher"></input>
+		</form>				
+	</section>
+
 <?php if(isset($tournois) || (isset($userCanRegisterTournaments) || isset($closedToUserTournaments) || isset($joinedTournament) ) ): ?>
 	<section class="tournamentslist-tournoi display-flex-row">
 	<?php if (isset($userCanRegisterTournaments)): ?>
-		<div class="tournamentslist-accessible-tournaments-container display-flex-column m-a">
+		<div class="tournamentslist-accessible-tournaments-container display-flex-column">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center">Tournois accessibles</h3>
 			<?php foreach ($userCanRegisterTournaments as $key => $t): ?>
 				<div class="tournamentslist-tournoi-element relative display-flex-row">
@@ -113,7 +138,7 @@
 		</div>		
 	<?php endif ?>
 	<?php if (isset($closedToUserTournaments)): ?>
-		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column m-a">
+		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center"><!--
 			--><?php if (count($closedToUserTournaments) > 1): ?><!--
 				-->Tournois fermés<!--
@@ -146,7 +171,7 @@
 		</div>		
 	<?php endif ?>
 	<?php if (isset($joinedTournament)): ?>
-		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column m-a">
+		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column ">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center"><!--
 			--><?php if (count($joinedTournament) > 1): ?><!--
 				-->Tournois rejoints<!--
@@ -180,7 +205,10 @@
 			<?php endforeach; ?>
 		</div>		
 	<?php endif ?>
-	<?php if (!isset($_isConnected) || (isset($tournois) && ((!isset($userCanRegisterTournaments) || !isset($closedToUserTournaments) || !isset($joinedTournament)) )) ): ?>
+	<?php if (!isset($_isConnected) 
+		|| 
+		(	isset($tournois) 
+			&& ((!isset($userCanRegisterTournaments) && !isset($closedToUserTournaments) && !isset($joinedTournament)) )) ): ?>
 		<div class="tournamentslist-closedToUser-tournaments-container display-flex-column m-a">
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center"><!--
 			--><?php if (count($tournois) > 1): ?><!--
