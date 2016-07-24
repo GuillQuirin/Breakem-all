@@ -162,11 +162,13 @@ function ajaxRequest(url, type, callback){
 function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 	if(url && type && callback){
 		if(Object.keys(toSendData).length > 0){
+			requestUserNotice.notice(true);
 			jQuery.ajax({
 			 	url: webpath.get()+"/"+url,
 			 	type: type,
 			 	data: toSendData,
 			 	success: function(result){
+			 		requestUserNotice.notice(false);
 			 		var obj = tryParseData(result);
 			 		if(callback)
 						callback(obj);
@@ -637,6 +639,7 @@ var navbar = {
     }
 };
 var inscription = {
+	processing: false,
 	init: function(){
 		inscription.setFormToWatch();
 		if(!(inscription.getFormToWatch() instanceof jQuery)){
@@ -721,7 +724,16 @@ var inscription = {
 	getDayToWatch: function(){return inscription._day;},
 	getMonthToWatch: function(){return inscription._month;},
 	getYearToWatch: function(){return inscription._year;},
-
+	cleanInputs: function(){
+		inscription.getPseudoToWatch().val("");
+		inscription.getEmailToWatch().val("");
+		inscription.getPassToWatch().val("");
+		inscription.getPassCheckToWatch().val("");
+		inscription.getCguToWatch().prop("checked", false);
+		inscription.getDayToWatch().val("");
+		inscription.getMonthToWatch().val("");
+		inscription.getYearToWatch().val("");
+	},
 	isEmailValid: function(){
 		var jQEmail = inscription.getEmailToWatch();
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -805,23 +817,19 @@ var inscription = {
 		jQinput.focus();
 		inscription.removeFailAnimationEvent(jQinput);
 	},
-	popSuccessMsg: function(){
-		var container = $('<div class="absolute index-modal-login"></div>');
-	},
 	treatParsedJson: function(obj){
 		if(obj.success){
+			inscription.cleanInputs();
 			popup.init('Un email de confirmation a été envoyé à l\'adresse '+inscription.getEmailToWatch().val());
 		}
 		else{
-			if(obj.errors){
-				popupError.init(obj.errors);		
-			}
+			if(obj.errors)
+				popupError.init(obj.errors);
 		}
 	},
-
-
 	/*### Send Form event ###*/
 	sendEventCallback: function(obj){
+		inscription.processing = false;
 		if(obj != false){
 	    	inscription.treatParsedJson(obj);
 	    }
@@ -839,7 +847,6 @@ var inscription = {
 			event.preventDefault();
 			return false;
 		});
-
 		inscription._btn.click(function(event) {
 			if (
 				inscription.isEmailValid() 
@@ -850,6 +857,10 @@ var inscription = {
 				&& inscription.isBirthValid()
 				&& inscription.isCguAccepted()
 			) {
+				if(inscription.processing == true)
+					return;
+				inscription.processing = true;
+				// Recommenter pour empecher le fade automatique à l'envoi
 				var modalLog = $('.index-modal-login');
 				if(isElSoloJqueryInstance(modalLog))
 					modalLog.click();
@@ -872,9 +883,7 @@ var inscription = {
 			event.preventDefault();
 			return false;
 		});
-
 	},
-
 	/*### Remove Animation on keyup event ###*/
 	removeFailAnimationEvent: function(jQInput){
 		// Le one() permet de ne declencher l'event (keyup ici) qu'une seule fois puis de le supprimer automatiquement
@@ -884,6 +893,7 @@ var inscription = {
 	}
 };
 var connection = {
+	processing: false,
 	init: function(){
 		connection.setFormToWatch();
 		if(connection.getFormToWatch() instanceof jQuery){
@@ -917,6 +927,7 @@ var connection = {
 		connection.removeFailAnimationEvent(jQinput);
 	},
 	treatParsedJson: function(obj){
+		connection.processing = false;
 		if(obj != false){
 			if(obj.connected){
 				location.reload();
@@ -945,8 +956,11 @@ var connection = {
 			return false;
 		});
 
-		_btn.click(function(event) {
+		_btn.click(function(event) {			
 			if (connection.isEmailValid(_email) && connection.isPasswordValid(_password)) {
+				if(connection.processing == true)
+					return;
+				connection.processing = true;
 				ajaxWithDataRequest(
 					'index/connection', 
 					'POST', 
@@ -1090,6 +1104,47 @@ var contactadmin = {
            		$("#expediteurContactAdmin").val("");
 		    }
 		});
+	}
+};
+var requestUserNotice = {
+	nbRequest: 0,
+	currentPopup: false,
+	notice: function(adding){
+		if(adding == true && requestUserNotice.nbRequest > 0)
+			requestUserNotice.nbRequest++;
+		else if(adding == true && requestUserNotice.nbRequest == 0){
+			requestUserNotice.nbRequest++;
+			requestUserNotice.popNotice();
+		}
+		else if(adding == false && requestUserNotice.nbRequest > 1)
+			requestUserNotice.nbRequest--;
+		else if(adding == false && requestUserNotice.nbRequest == 1){			
+			requestUserNotice.nbRequest--;
+			requestUserNotice.fadeNotice();
+		}
+	},
+	popNotice: function(){
+		if($('#ajaxLoading-notice').length > 0 || !!requestUserNotice.currentPopup){
+			console.log("popup already there");
+			return;
+		}
+		var container = $('<div id="ajaxLoading-notice" data-creatime="" class="animation quick-1 display-flex-column full-width fade fixed bg-purple"></div>');
+		var domi = $('<div class="cssload-loader"><div class="cssload-inner cssload-one"></div><div class="cssload-inner cssload-two"></div><div class="cssload-inner cssload-three"></div></div>');
+		var msg = $('<p class="absolute title-6 text-center">En attente du serveur</p>');
+		container.append(domi);
+		container.append(msg);
+		$('body').append(container);
+		requestUserNotice.currentPopup = container;
+	},
+	fadeNotice: function(){
+		if(!!requestUserNotice.currentPopup && isElSoloJqueryInstance(requestUserNotice.currentPopup)){
+			requestUserNotice.currentPopup.removeClass('fade');
+			requestUserNotice.currentPopup.addClass('fadeOut');
+			setTimeout(function(){
+				requestUserNotice.currentPopup.remove();
+				requestUserNotice.currentPopup = false;
+			}, 200);
+		}
 	}
 };
 function removeRequireJSMsg(){
