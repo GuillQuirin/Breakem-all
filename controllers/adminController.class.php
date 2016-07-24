@@ -194,8 +194,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/platform/" . $_POST['name'] . ".jpg";                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
             
             $args = array(
@@ -234,8 +235,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/platform/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/platform/" . $_POST['name'] . ".jpg";                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
             $args = array(
@@ -357,8 +359,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/team/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/team/" . $_POST['name'] . ".jpg";                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
 
@@ -425,8 +428,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/membre/" . $_POST['pseudo'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/membre/" . $_POST['pseudo'] . ".jpg";                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
                        
@@ -619,8 +623,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/typejeux/" . $_POST['name'] . ".jpg";               
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
             
             $args = array(
@@ -653,8 +658,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/typejeux/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/typejeux/" . $_POST['name'] . ".jpg";                  
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
             $args = array(
@@ -718,9 +724,8 @@ class adminController extends template{
             
             if(isset($_FILES['profilpic'])){
 
-                $uploaddir = '/web/img/upload/typejeux/';
-                $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
-
+                $uploadfile = LOCALPATH.'/web/img/upload/typejeux/'.$this->getConnectedUser()->getId().'.jpg';
+                
                 define('KB', 1024);
                 define('MB', 1048576);
                 define('GB', 1073741824);
@@ -773,8 +778,7 @@ class adminController extends template{
                 
             if(isset($_FILES['profilpic'])){
 
-                $uploaddir = '/web/img/upload/typejeux/';
-                $uploadfile = getcwd().$uploaddir.$this->getConnectedUser()->getId().'.jpg';
+                $uploadfile = LOCALPATH.'/web/img/upload/typejeux/'.$this->getConnectedUser()->getId().'.jpg';
 
                 define('KB', 1024);
                 define('MB', 1048576);
@@ -852,8 +856,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_POST['name'] . ".jpg");
+            else { 
+                $uploadfile = LOCALPATH."/web/img/upload/jeux/" . $_POST['name'] . ".jpg";               
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
 
@@ -907,8 +912,9 @@ class adminController extends template{
             if ( 0 < $_FILES['file']['error'] ) {
                 echo 'Error: ' . $_FILES['file']['error'];
             }
-            else {                  
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . WEBPATH . "/web/img/upload/jeux/" . $_POST['name'] . ".jpg");
+            else {
+                $uploadfile = LOCALPATH."/web/img/upload/jeux/" . $_POST['name'] . ".jpg";               
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
             }  
 
             $args = array(
@@ -984,11 +990,7 @@ class adminController extends template{
 
             if (isset($_FILES['img'])) {
 
-                $uploaddir = '/web/img/upload/jeux/';
-                $name = $_FILES['img']['name'];
-
-                $uploadfile = getcwd().$uploaddir.$name;
-                //var_dump($uploadfile);
+                $uploadfile = LOCALPATH.'/web/img/upload/jeux/'.$_FILES['img']['name'].'.jpg';
 
                 define('KB', 1024);
                 define('MB', 1048576);
@@ -1002,7 +1004,7 @@ class adminController extends template{
                             $this->echoJSONerror("","Erreur d'upload");
                     }
                 }
-                $filteredinputs['img'] = $name;
+                $filteredinputs['img'] = $_FILES['img']['name'];
             }
 
             $gameBDD = new gameManager();
