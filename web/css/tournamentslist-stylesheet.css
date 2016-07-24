@@ -8,6 +8,9 @@
 	max-width: 185px;
 	margin-top: 10px;
 }
+.tournamentslist-tournoi-element .btn{
+	max-width: 145px;
+}
 .tournamentslist-input-grp{
 	max-height: 125px;
 	max-width: 200px;
