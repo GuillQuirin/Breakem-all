@@ -279,7 +279,7 @@ var popupError = {
 	setOpenedPopupMsg: function(jQel){
 		popupError.openedPopupMsg = jQel;
 	},
-	closeOldPopup: function(jQModal, jQMsg){
+	closeOldPopup: function(jQModal, jQMsg, callback){
 		// navbar.form.smoothClosing();
 		if(popupError.getOpenedPopupModal() instanceof jQuery){
 			var _popupError = popupError;
@@ -293,14 +293,22 @@ var popupError = {
 				_popupError.animationOnGoing = false;
 				// if(popup.openedPopupModal() == false)
 				// $('body').css('overflow', 'visible');
-				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
-					_popupError.openNewPopup(jQModal, jQMsg);
+				if(jQModal instanceof jQuery && jQMsg instanceof jQuery){
+					if(callback)
+						_popupError.openNewPopup(jQModal, jQMsg, callback);
+					else
+						_popupError.openNewPopup(jQModal, jQMsg);
+				}
 			},500);
 		}
-		else
-			popupError.openNewPopup(jQModal, jQMsg);
+		else{
+			if(callback)
+				popupError.openNewPopup(jQModal, jQMsg, callback);
+			else
+				popupError.openNewPopup(jQModal, jQMsg);
+		}
 	},
-	init: function(message){		
+	init: function(message, callback){		
 		if(message){
 			if(popupError.animationOnGoing){
 				console.log("Animation popupError déjà en cours.");
@@ -313,23 +321,30 @@ var popupError = {
 			subDiv.append(popMsg);
 			popdivContainer.append(subDiv);
 			container.append(popdivContainer);
-			popupError.closeOldPopup(container, popdivContainer);
+			if(callback)
+				popupError.closeOldPopup(container, popdivContainer, callback);
+			else
+				popupError.closeOldPopup(container, popdivContainer);
 		}
 		else
 			console.log("Aucun contenu reçu dans popupError init.");
 	},
-	openNewPopup: function(jQModal, jQMsg){
+	openNewPopup: function(jQModal, jQMsg, callback){
 		// $('body').css('overflow', 'hidden');
 		$('body').append(jQModal);
 		popupError.setOpenedPopupModal(jQModal);
 		popupError.setOpenedPopupMsg(jQMsg);
-		popupError.associateClosingEvent();
+		if(callback)
+			popupError.associateClosingEvent(callback);
+		else
+			popupError.associateClosingEvent();
 	},
-	associateClosingEvent: function(){
+	associateClosingEvent: function(callback){
 		var _popupError = popupError;
 		popupError.getOpenedPopupModal().click(function(e){
 			if($(e.target).hasClass('index-modal-popupError')){
 				_popupError.closeOldPopup();
+				callback();
 			};
 		});
 	}
@@ -757,11 +772,11 @@ var inscription = {
 	isPasswordValid: function(jQPassword){
 		//var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		//if(jQPassword.val().match(unauthorizedChars)){
-		if(jQPassword.val().length < 6){
-			inscription.highlightInput(jQPassword);
-			popupError.init("Mot de passe inférieur à 6 caractères.");
-			return false;
-		}
+		// if(jQPassword.val().length < 6 || jQPassword.val().length > 18){
+		// 	inscription.highlightInput(jQPassword);
+		// 	popupError.init("Le mot de passe doit faire entre 6 et 18 caractères.");
+		// 	return false;
+		// }
 		return true;
 	},
 	isBirthValid: function(){
@@ -817,6 +832,11 @@ var inscription = {
 		jQinput.focus();
 		inscription.removeFailAnimationEvent(jQinput);
 	},
+	clickedErrorCallback: function(){
+		setTimeout(function(){
+			navbar.getNavInscription().click();
+		}, 500);		
+	},
 	treatParsedJson: function(obj){
 		if(obj.success){
 			inscription.cleanInputs();
@@ -824,7 +844,7 @@ var inscription = {
 		}
 		else{
 			if(obj.errors)
-				popupError.init(obj.errors);
+				popupError.init(obj.errors, inscription.clickedErrorCallback);
 		}
 	},
 	/*### Send Form event ###*/
@@ -912,10 +932,15 @@ var connection = {
 		return false;
 	},
 	isPasswordValid: function(jQPassword){
-		var unauthorizedChars = /[^a-zA-Z-0-9]/;
-		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
-			connection.highlightInput(jQPassword);
-			popupError.init("Le mot de passe ne doit contenir que des caractères alphanumériques.");
+		// var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		// if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
+		// 	connection.highlightInput(jQPassword);
+		// 	popupError.init("Le mot de passe ne doit contenir que des caractères alphanumériques.");
+		// 	return false;
+		// }
+		if(jQPassword.val().length < 6 || jQPassword.val().length > 18){
+			inscription.highlightInput(jQPassword);
+			popupError.init("Le mot de passe doit faire entre 6 et 18 caractères.");
 			return false;
 		}
 		return true;
