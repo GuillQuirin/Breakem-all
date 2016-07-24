@@ -126,13 +126,42 @@ p.tournamentslist-inaccessible-p{
 		padding: 15px 5px; 
 		max-height: 500px;
 	}
+	.tournamentslist-tournoi-element p,
+	.tournamentslist-tournoi-element h2{
+		text-align: center;
+	}
 	.tournamentslist-tournoi-element figcaption{
 		text-align: center;
 	}
 	.tournamentslist-tournoi-element aside{
+		margin-top: 20px;
 		width: 100%;
 	}
 	.tournamentslist-tournoi-element article{
 		margin-top: 10px;
+		width: 100%;
+	}
+	
+}
+
+
+@media screen and (max-width: 380px) {
+	.tournamentslist-tournoi-element{
+		height: auto;
+		width: 100%;
+	}
+	.tournamentslist-tournoi-element article p,
+	.tournamentslist-tournoi-element article h2{
+		margin-top: 10px;
+	}
+	.tournamentslist-tournoi > div:last-child .tournamentslist-tournoi-element:last-of-type{
+		padding-bottom: 60px;
+	}
+}
+
+
+@media screen and (max-width: 340px) {
+	div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:last-child{
+		
 	}
 }

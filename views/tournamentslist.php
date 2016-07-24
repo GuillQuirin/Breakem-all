@@ -111,7 +111,7 @@
 			<h3 class="tournamentslist-bigdiv-title title title-1 m-a text-center">Tournois accessibles</h3>
 			<?php foreach ($userCanRegisterTournaments as $key => $t): ?>
 				<div class="tournamentslist-tournoi-element relative display-flex-row">
-					<div class="tournamentslist-tournoi-element relative display-flex-row">
+					<div class="relative display-flex-row">
 						<div class="relative display-flex-row full-width">
 							<aside class="full-height relative display-flex-column m-a">
 								<p class="m-a text-center title-7 italic"><?php echo $t->getName(); ?></p>
@@ -181,7 +181,7 @@
 			--></h3>
 			<?php foreach ($joinedTournament as $key => $t): ?>
 				<div class="tournamentslist-tournoi-element relative display-flex-row">
-					<div class="tournamentslist-tournoi-element relative display-flex-row">
+					<div class="relative display-flex-row">
 							<div class="relative display-flex-row full-width">
 								<aside class="full-height relative display-flex-column m-a">
 									<p class="m-a text-center title-7 italic"><?php echo $t->getName(); ?></p>
