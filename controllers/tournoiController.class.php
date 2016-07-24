@@ -116,7 +116,13 @@ class tournoiController extends template {
 		}
 		// Pas de get connu reçu, on affiche la page par défaut des tournois
 		else
-			header('Location: ' .WEBPATH.'/tournoi/list');
+		{
+			$v->assign("css", "404");
+			$v->assign("js", "404");
+			$v->assign("title", "Erreur 404");
+	        $v->assign("content", "Erreur 404, <a href='".WEBPATH."/index'>Retour à l'accueil</a>.");
+	        $v->setView("templatefail", "templatefail");
+		}
 	}
 	// Destiné à de l'AJAX
 	public function randRegisterAction(){
@@ -285,11 +291,7 @@ class tournoiController extends template {
 
 		$matchedTournaments = false;
 		if( count($filteredinputs) == 0){
-			// $tournois contiendra un array rempli d'objets tournament
 			$matchedTournaments = $tm->getFilteredTournaments();
-			// Si des tournois ont été trouvés
-			// var_dump($tournois);
-			// var_dump($matchedTournaments);
 			if(!!$matchedTournaments &&  !$this->isVisitorConnected())
 				$v->assign("tournois", $matchedTournaments);
 			else if($matchedTournaments == false &&  !$this->isVisitorConnected())
@@ -319,10 +321,8 @@ class tournoiController extends template {
 					{
 						if($filledT instanceof tournament)
 						{
-							if($filledT->isUserRegistered($this->getConnectedUser())){
-								// var_dump("sisi la mif");
+							if($filledT->isUserRegistered($this->getConnectedUser()))
 								$joinedTournament[] = $filledT;
-							}
 							else{
 								$matchedTournaments[$key] = $filledT;
 								if(canUserRegisterToTournament($this->getConnectedUser(), $filledT, true))
@@ -345,17 +345,13 @@ class tournoiController extends template {
 			$v->assign("joinedTournament", $joinedTournament);
 			$v->assign("ownedTournaments", $ownedTournaments);
 			$v->assign("userCanRegisterTournaments", $userCanRegisterTournaments);
-			$v->assign("closedToUserTournaments", $closedToUserTournaments);	
-			// $v->setView("tournamentslist");
-			// return;
-		}
+			$v->assign("closedToUserTournaments", $closedToUserTournaments);		}
 		if(count($filteredinputs) > 0){
 			foreach ($filteredinputs as $key => $value) {
 				$v->assign("search_".$key, strip_tags($value));
 			}
 		}		
 		$v->assign("tournois", $matchedTournaments);
-		// var_dump($matchedTournaments);
 		$v->setView("tournamentslist");
 	}
 

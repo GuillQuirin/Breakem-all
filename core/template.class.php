@@ -86,7 +86,8 @@ class template{
       COOKIE_TOKEN   => FILTER_SANITIZE_STRING
     );
     $filteredcookies = filter_input_array(INPUT_COOKIE, $args);
-
+    // var_dump($filteredcookies); 
+    // var_dump($_SESSION);
     $requiredCookiesReceived = true;
     foreach ($args as $key => $value) {
       if(!isset($filteredcookies[$key])){

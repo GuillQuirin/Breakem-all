@@ -21,7 +21,6 @@
 			<form id="inscription-form">
 			    <label for="pseudo">Pseudo :</label>
 			    <input class="input-default" type="text" id="pseudo" name="pseudo" maxlength="15" placeholder="Champ limité à 15 caractères" required>
-
 			    <label for="email">E-mail :</label>
 			    <input class="input-default" type="email" id="email" name="email" placeholder="Un email de confirmation vous sera envoyé." required>
 
