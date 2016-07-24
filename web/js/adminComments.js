@@ -242,11 +242,11 @@ var commentModule = {
 						//Reload la mise a jour dans l'html
 						if(allData.comment){updateBtn.parent().parent().find('.comment-message-g').html(allData.comment);}
 						if(allData.status == 1){
-							updateBtn.parent().parent().find('.platform-status-g-ht').html(
+							updateBtn.parent().parent().find('.comment-status-g-ht').html(
 								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
 							); 
 						}else{
-							updateBtn.parent().parent().find('.platform-status-g-ht').html(
+							updateBtn.parent().parent().find('.comment-status-g-ht').html(
 								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
 							); 
 						}						

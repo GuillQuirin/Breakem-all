@@ -130,24 +130,7 @@
 								</ul>
 							</li>							
 							<li class="navbar-menu-li navbar-menu-classement">
-								<a href="<?php echo WEBPATH ?>/classement">Classement<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
-								<ul class="navbar-menu-tooltip animation fadeUpLow" id="navbar-menu-tooltip-classement">
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Meilleur joueur 
-										</a>
-									</li>
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Meilleur team
-										</a>
-									</li>
-									<li class="navbar-menu-tooltip-li">
-										<a>
-											Classement total
-										</a>
-									</li>																								
-								</ul>
+								<a href="<?php echo WEBPATH ?>/classement">Classement</a>
 							</li>								   			   				    
 						</ul>
 					</div>
