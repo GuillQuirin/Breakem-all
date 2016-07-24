@@ -143,7 +143,7 @@ class detailtournoiController extends template{
 					if($winnerTeamsArr === true){
 						// Attribuer les points aux participants du matchs
 						$mpm = new matchParticipantsManager();
-						$allPoints = $this->getPointsToGiveInMatch($m);
+						$allPoints = $this->getPointsToGiveInMatch($m, $matchedTournament);
 						if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
 							$this->echoJSONerror("erreur: DT_SW_0", "L'attribution des points a échoué");
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
@@ -155,7 +155,7 @@ class detailtournoiController extends template{
 							unset($ttm);
 							// Attribuer les points aux participants du matchs avec un plus gros coeff puisque c'est la finale
 							$mpm = new matchParticipantsManager();
-							$allPoints = $this->getPointsToGiveInMatch($m, true);
+							$allPoints = $this->getPointsToGiveInMatch($m, $matchedTournament, true);
 							if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
 								$this->echoJSONerror("erreur: DT_SW_0", "L'attribution des points a échoué");
 							echo json_encode(["success" => "Le tournoi ".$matchedTournament->getName()." a donc trouvé son vainqueur"]);
@@ -167,7 +167,7 @@ class detailtournoiController extends template{
 					else if( is_array($winnerTeamsArr) && count($winnerTeamsArr) > 0 ){
 						// Attribuer les points aux participants du matchs
 						$mpm = new matchParticipantsManager();
-						$allPoints = $this->getPointsToGiveInMatch($m);
+						$allPoints = $this->getPointsToGiveInMatch($m, $matchedTournament);
 						if(!$mpm->setPointsOfTeamTournamentInMatch($m, $allPoints['winner'], $allPoints['loser']))
 							$this->echoJSONerror("erreur: DT_SW_6", "L'attribution des points a échoué");
 						echo json_encode(["success"=>"L'équipe ".$matchedTournament->gtPublicTeamIdToPrint($winnerTT) . " remporte donc le match"]);
@@ -566,8 +566,9 @@ class detailtournoiController extends template{
 		 ** @returns: (array) [(int), (int)]
 		 ** #### Calcule les points à attribuer aux vainqueurs et aux perdants d'un match
 		*/
-		private function getPointsToGiveInMatch(matchs $m, $isFinal = false){
-			$coeff = ((int) $m->getMatchNumber() + ((int) $m->gtAllTeamsTournament() - 1)) / 5;
+		private function getPointsToGiveInMatch(matchs $m, tournament $t, $isFinal = false){
+			$registeredCoeff = (count($t->gtAllRegistered()) / count($t->gtParticipatingTeams())) + 1;
+			$coeff = ( $registeredCoeff + (int) $m->getMatchNumber() + ((int) $m->gtAllTeamsTournament() - 1)) / 5;
 			if($isFinal)
 				$coeff *= 2;
 			$winnerPoints = (int) (5 + 5*$coeff);
