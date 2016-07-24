@@ -1,11 +1,33 @@
 #content{
 	min-height: 480px;
 }
-
+.tournamentslist-form-container{
+	margin-top: 30px;
+}
+.tournamentslist-form-container  .btn{
+	max-width: 185px;
+	margin-top: 10px;
+}
+.tournamentslist-input-grp{
+	max-height: 125px;
+	max-width: 200px;
+}
+.tournamentslist-inputs-container{
+	justify-content: space-between;
+	max-width: 700px;
+}
+.tournamentslist-input-grp{
+	padding: 0 10px;
+	border-bottom: 1px solid #ccc;
+}
+.tournamentslist-input-grp > label{
+	width: auto;
+	background: transparent;
+}
 section.tournamentslist-tournoi {	
 	align-items: flex-start;
 }
-.tournamentslist-tournoi-element .btn{
+.tournamentslist-send-input{
 	max-width: 180px;
 	margin-top: 5px;
 }

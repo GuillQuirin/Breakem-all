@@ -349,6 +349,11 @@ class tournoiController extends template {
 			// $v->setView("tournamentslist");
 			// return;
 		}
+		if(count($filteredinputs) > 0){
+			foreach ($filteredinputs as $key => $value) {
+				$v->assign("search_".$key, strip_tags($value));
+			}
+		}		
 		$v->assign("tournois", $matchedTournaments);
 		// var_dump($matchedTournaments);
 		$v->setView("tournamentslist");

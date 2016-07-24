@@ -83,6 +83,27 @@
 		</section>
 	<?php endif ?>
 
+	<section class="tournamentslist-form-container display-flex-column full-width">
+		<p class="text-center m-a capitalize title-2">filtres</p>
+		<form class="m-a display-flex-column full-width" method="get" action="">
+			<div class="full-width tournamentslist-inputs-container m-a display-flex-row">
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="nom">nom</label>
+					<input class="input-default" name="nom" type="text" value="<?php echo (isset($search_nom)) ? $search_nom : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="jeu">jeu</label>
+					<input class="input-default" name="jeu" type="text" value="<?php echo (isset($search_jeu)) ? $search_jeu : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="console">console</label>
+					<input class="input-default" name="console" type="text" value="<?php echo (isset($search_console)) ? $search_console : ''?>">
+				</div>
+			</div>
+			<input type="submit" class="tournamentslist-send-input input-default" value="Chercher"></input>
+		</form>				
+	</section>
+
 <?php if(isset($tournois) || (isset($userCanRegisterTournaments) || isset($closedToUserTournaments) || isset($joinedTournament) ) ): ?>
 	<section class="tournamentslist-tournoi display-flex-row">
 	<?php if (isset($userCanRegisterTournaments)): ?>
