@@ -14,12 +14,11 @@
 }
 .nav_hori li{
 	display:inline-block;
-	width:100px;
-	height:25px;
-	padding:3px;
+	width:auto;
+	height:auto;
+	padding:5px;
 	text-align:center;
-	line-height: 25px;
-	margin-left:-1px;
+	margin:0 10px;
 	transform: skew(-8deg);
 	transition: background .4s, border .4s;
 	cursor:pointer;

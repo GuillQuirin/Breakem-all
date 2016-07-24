@@ -40,6 +40,17 @@
 
 							<!-- Admin Data -->
 							<div class="admin-data-re">
+								<div class="text-center">
+									<ul>
+										<nav class="nav_hori page">
+											<ul id='page_navigation'>
+											</ul>
+										</nav>
+									</ul>
+								</div>
+								<input type='hidden' id='current_page' />  
+								<input type='hidden' id='show_per_page' /> 
+								<div id="liste-derniers-classement">
 								<?php if(isset($userData)){
 										$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
 											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
@@ -78,6 +89,7 @@
 								}else{
 									echo "<div class='grid-md-12 no-platform align'><span>Aucun joueur enregistré pour le moment.</span></div>";								}
 								?>
+								</div>
 							</div>
 							<!-- Fin admin Data -->
 

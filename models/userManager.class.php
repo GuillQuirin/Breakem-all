@@ -287,17 +287,19 @@ class userManager extends basesql{
 
 	//Administration
 	public function getAdminListUser(){
-
-		$sql="SELECT DISTINCT user.id, user.name, user.firstname, user.pseudo, user.password,
+		$sql="SELECT user.id, user.name, user.firstname, user.pseudo, user.password,
 						user.birthday, user.description, user.kind, user.city, 
 						user.email, user.status, user.authorize_mail_contact,
 						user.img, user.idTeam, user.isConnected, user.lastConnexion,
-						COUNT(signalmentsuser.id_signaled_user) as reportNumber, SUM(mp.points) as totalPoints
-				FROM user
-				LEFT OUTER JOIN signalmentsuser ON user.id = signalmentsuser.id_signaled_user
-				LEFT OUTER JOIN register r ON r.idUser = user.id 
-				LEFT OUTER JOIN matchparticipants mp ON r.idTeamTournament = mp.idTeamTournament 
-				GROUP BY user.id";
+						COUNT(id_signaled_user) as reportNumber, SUM(mp.points) as totalPoints
+					FROM user 
+					LEFT JOIN signalmentsuser 
+							ON user.id = signalmentsuser.id_signaled_user";
+		$sql .= " LEFT OUTER JOIN register r ";
+		$sql .= " ON r.idUser = user.id ";
+		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
+		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
+		$sql .= " GROUP BY user.id";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -308,7 +310,6 @@ class userManager extends basesql{
 
 		return $list;
 	}	
-
 
 	/*MODIFICATION DE LA TEAM */
 	public function setNewTeamId($u, $t){

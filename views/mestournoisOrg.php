@@ -1,4 +1,4 @@
-<div>
+<div class="text-center">
 	<ul>
 		<nav class="nav_hori page">
 			<ul id='page_navigation'>
