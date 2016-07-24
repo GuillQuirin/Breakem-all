@@ -78,7 +78,7 @@
 												}
 											echo "</span></div></div>";
 											//Points
-											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-point-g'>".$joueur->gtTotalPoints()."</span></div></div>";						
+											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-point-g orange'>".$joueur->gtTotalPoints()."</span></div></div>";						
 
 											//Fin Affichage
 											//Fin Bouton
