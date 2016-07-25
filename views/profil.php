@@ -160,7 +160,7 @@ else{
 					</div>
 				    <div id="statistiques" class="fight">
 						<ul>
-							<li>Score de tournoi: <?php echo isset($totalPoints) ? $totalPoints : '0'; ?> point(s)
+							<li class="orange">Score de tournoi: <?php echo isset($totalPoints) ? $totalPoints : '0'; ?> point(s)
 							<li>Matchs gagnés: <?php echo isset($totalWonMatchs) ? $totalWonMatchs : '0'; ?> match(s)
 							<li>Matchs joués: <?php echo isset($totalMatchs) ? $totalMatchs : '0'; ?> match(s)
 							<li>Ratio: <?php echo isset($ratio) ? $ratio : '0'; ?>
