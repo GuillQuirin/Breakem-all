@@ -126,7 +126,7 @@ var platformModule = {
 						if(!(wordInString(result, "undefined"))){
 							var userArr = jQuery.parseJSON(result);
 							//console.log(userArr);
-							//platformModule.getDataIhm().removeClass('hidden');
+							platformModule.getDataIhm().removeClass('hidden');
 							//On affiche les elements présents dans le tableau
 							if(userArr.length == 1){
 								//console.log(userArr[0].name);

@@ -119,7 +119,7 @@ var gameModule = {
 							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
 							//console.log(userArr);
-							//onglet.getAdminDataIhm().removeClass('hidden');
+							onglet.getAdminDataIhm().removeClass('hidden');
 							//On affiche les elements présents dans le tableau
 							if(userArr.length == 1){
 								//console.log(userArr[0].name);
