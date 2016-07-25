@@ -299,7 +299,7 @@ class tournoiController extends template {
 		}
 		else
 			$matchedTournaments = $tm->getFilteredTournaments($filteredinputs);
-		
+		$keysToRemove = [];
 		$userCanRegisterTournaments = [];
 		$closedToUserTournaments = [];
 		$ownedTournaments = [];
@@ -316,6 +316,7 @@ class tournoiController extends template {
 							$ownedTournaments[] = $filledT;
 						else
 							$ownedTournaments[] = $t;
+						$keysToRemove[] = $key;
 					}
 					else
 					{
@@ -329,7 +330,8 @@ class tournoiController extends template {
 									$userCanRegisterTournaments[] = $filledT;
 								else
 									$closedToUserTournaments[] = $filledT;
-							}							
+							}
+							$keysToRemove[] = $key;						
 						}
 						else
 						{
@@ -338,6 +340,7 @@ class tournoiController extends template {
 								$userCanRegisterTournaments[] = $t;
 							else
 								$closedToUserTournaments[] = $t;
+							$keysToRemove[] = $key;
 						}
 					}
 				}
@@ -350,8 +353,17 @@ class tournoiController extends template {
 			foreach ($filteredinputs as $key => $value) {
 				$v->assign("search_".$key, strip_tags($value));
 			}
+		}
+		if(count($keysToRemove) > 0){
+			foreach ($keysToRemove as $key => $tKey) {
+				$matchedTournaments[$tKey] = null;
+			}
+		}
+		if(is_array($matchedTournaments)){
+			$matchedTournaments = array_filter($matchedTournaments);
+			if(count($matchedTournaments) > 0)
+				$v->assign("tournois", $matchedTournaments);
 		}		
-		$v->assign("tournois", $matchedTournaments);
 		$v->setView("tournamentslist");
 	}
 
