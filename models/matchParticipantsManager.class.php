@@ -33,20 +33,6 @@ final class matchParticipantsManager extends basesql{
 			return (int) $r[0]['totalPoints'];
 		return false;
 	}
-
-	public function getUsersByPointRank($numberOfPlayers = 20){
-		$numberOfPlayers = (int) $numberOfPlayers;
-
-		$sql = "SELECT SUM(points) as totalPoints, u.id, u.name, u.firstname, u.pseudo, u.birthday, u.description, u.email, u.isConnected, u.lastConnexion FROM matchParticipants mp";
-		$sql.= " INNER JOIN register r
-				ON r.idTeamTournament = mp.idTeamTournament";
-		$sql .= " LEFT OUTER JOIN user u ON u.id = r.idUser";
-		// Décommenter cette ligne pour ne pas voir les bannis dans le classement
-		// $sql .= " AND u.status > 0 ";
-		$sql .=  " GROUP BY r.idUser";
-		$sql .= " ORDER BY totalPoints DESC";
-		$sql .= " LIMIT 0,".$numberOfPlayers;
-	}
 }
 /*
 *

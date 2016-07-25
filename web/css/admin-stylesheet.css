@@ -19,6 +19,13 @@
     cursor:default;
 }
 
+
+.nav_hori{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .new-widg span{
     padding:5px 11px;
     position:absolute;

@@ -273,7 +273,7 @@ class userManager extends basesql{
 		$sql .= " LEFT OUTER JOIN matchparticipants mp ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= "WHERE u.status>0
-						GROUP BY u.id";
+						GROUP BY u.id ORDER BY totalPoints DESC";
 
 		$req = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$req->execute();
@@ -352,25 +352,31 @@ class userManager extends basesql{
 	}
 
 	public function getTotalMatchsAndVictoriesByPseudo(user $u){
-		$sql = "SELECT COUNT(DISTINCT tt.id) as stats "; 
-		$sql .= " FROM user u";
-		$sql .= " INNER JOIN register r";
-		$sql .= " ON r.idUser = u.id";
+		$sql = "SELECT COUNT(m.id) as stats"; 
+		$sql .= " FROM matchs m";
+		$sql .= " INNER JOIN matchparticipants mp";
+		$sql .= " ON mp.idMatch = m.id";
 		$sql .= " INNER JOIN teamtournament tt";
-		$sql .= " ON tt.id = r.idTeamTournament";
-		$sql .= " INNER JOIN matchs m";
-		$sql .= " ON m.idWinningTeam IS NOT NULL";
-		$sql .= " WHERE u.pseudo = :pseudo";
+		$sql .= " ON tt.id = mp.idTeamTournament";
+		$sql .= " INNER JOIN register r";
+		$sql .= " ON r.idTeamTournament = tt.id";
+		$sql .= " INNER JOIN user u";
+		$sql .= " ON r.idUser = u.id";
+		$sql .= " AND u.pseudo = :pseudo";
+		$sql .= " WHERE m.idWinningTeam IS NOT NULL";
 		$sql .= " UNION ";
-		$sql .= " SELECT COUNT(DISTINCT tt.id) as stats FROM user u";
-		$sql .= " INNER JOIN register r";
-		$sql .= " ON r.idUser = u.id";
+		$sql .= " SELECT COUNT(m.id) as stats"; 
+		$sql .= " FROM matchs m";
+		$sql .= " INNER JOIN matchparticipants mp";
+		$sql .= " ON mp.idMatch = m.id";
 		$sql .= " INNER JOIN teamtournament tt";
-		$sql .= " ON tt.id = r.idTeamTournament";
-		$sql .= " INNER JOIN matchs m";
-		$sql .= " ON m.idWinningTeam IS NOT NULL ";
-		$sql .= " AND m.idWinningTeam = tt.id ";
-		$sql .= " WHERE u.pseudo = :pseudo";
+		$sql .= " ON tt.id = mp.idTeamTournament";
+		$sql .= " INNER JOIN register r";
+		$sql .= " ON r.idTeamTournament = tt.id";
+		$sql .= " INNER JOIN user u";
+		$sql .= " ON r.idUser = u.id";
+		$sql .= " AND u.pseudo = :pseudo";
+		$sql .= " WHERE m.idWinningTeam = tt.id";
 		$sth = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$sth->execute([ ':pseudo' => $u->getPseudo()]);
 		$r = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -386,21 +392,6 @@ class userManager extends basesql{
 
 /*
 *
-SELECT COUNT(DISTINCT u.id) as nbUserInFront
-FROM user u
-LEFT OUTER JOIN team t ON u.idTeam = t.id
-LEFT OUTER JOIN register r 
-ON r.idUser = u.id 
-LEFT OUTER JOIN matchparticipants mp 
-ON r.idTeamTournament = mp.idTeamTournament 
-WHERE u.status>0
-GROUP BY u.id
-
-
-
-
-SELECT COUNT(DISTINCT tt.id) as stats  FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL WHERE u.pseudo = "dylan"
-UNION  
-SELECT COUNT(DISTINCT tt.id) as stats FROM user u INNER JOIN register r ON r.idUser = u.id INNER JOIN teamtournament tt ON tt.id = r.idTeamTournament INNER JOIN matchs m ON m.idWinningTeam IS NOT NULL  AND m.idWinningTeam = tt.id  WHERE u.pseudo = "dylan"
-
 */
+
+

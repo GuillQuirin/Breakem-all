@@ -75,10 +75,10 @@
 		<!-- <li class="border_menu active_menu"><a href="#">1</a></li> -->
 		<div id="contain_right">
 
-			<div id="contain_search">
+			<!-- <div id="contain_search">
 				<label for="search">Rechercher :</label>
 			    <input class="input-default" type="text" name="search" placeholder="Tournois, teams, joueurs">
-			</div>
+			</div> -->
 
 			<div class="title_index">
 				<label for="title1">Prochains matchs</label>

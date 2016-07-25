@@ -162,11 +162,13 @@ function ajaxRequest(url, type, callback){
 function ajaxWithDataRequest(url, type, toSendData, callback, failCallback){
 	if(url && type && callback){
 		if(Object.keys(toSendData).length > 0){
+			requestUserNotice.notice(true);
 			jQuery.ajax({
 			 	url: webpath.get()+"/"+url,
 			 	type: type,
 			 	data: toSendData,
 			 	success: function(result){
+			 		requestUserNotice.notice(false);
 			 		var obj = tryParseData(result);
 			 		if(callback)
 						callback(obj);
@@ -277,7 +279,7 @@ var popupError = {
 	setOpenedPopupMsg: function(jQel){
 		popupError.openedPopupMsg = jQel;
 	},
-	closeOldPopup: function(jQModal, jQMsg){
+	closeOldPopup: function(jQModal, jQMsg, callback){
 		// navbar.form.smoothClosing();
 		if(popupError.getOpenedPopupModal() instanceof jQuery){
 			var _popupError = popupError;
@@ -291,14 +293,22 @@ var popupError = {
 				_popupError.animationOnGoing = false;
 				// if(popup.openedPopupModal() == false)
 				// $('body').css('overflow', 'visible');
-				if(jQModal instanceof jQuery && jQMsg instanceof jQuery)
-					_popupError.openNewPopup(jQModal, jQMsg);
+				if(jQModal instanceof jQuery && jQMsg instanceof jQuery){
+					if(callback)
+						_popupError.openNewPopup(jQModal, jQMsg, callback);
+					else
+						_popupError.openNewPopup(jQModal, jQMsg);
+				}
 			},500);
 		}
-		else
-			popupError.openNewPopup(jQModal, jQMsg);
+		else{
+			if(callback)
+				popupError.openNewPopup(jQModal, jQMsg, callback);
+			else
+				popupError.openNewPopup(jQModal, jQMsg);
+		}
 	},
-	init: function(message){		
+	init: function(message, callback){		
 		if(message){
 			if(popupError.animationOnGoing){
 				console.log("Animation popupError déjà en cours.");
@@ -311,23 +321,30 @@ var popupError = {
 			subDiv.append(popMsg);
 			popdivContainer.append(subDiv);
 			container.append(popdivContainer);
-			popupError.closeOldPopup(container, popdivContainer);
+			if(callback)
+				popupError.closeOldPopup(container, popdivContainer, callback);
+			else
+				popupError.closeOldPopup(container, popdivContainer);
 		}
 		else
 			console.log("Aucun contenu reçu dans popupError init.");
 	},
-	openNewPopup: function(jQModal, jQMsg){
+	openNewPopup: function(jQModal, jQMsg, callback){
 		// $('body').css('overflow', 'hidden');
 		$('body').append(jQModal);
 		popupError.setOpenedPopupModal(jQModal);
 		popupError.setOpenedPopupMsg(jQMsg);
-		popupError.associateClosingEvent();
+		if(callback)
+			popupError.associateClosingEvent(callback);
+		else
+			popupError.associateClosingEvent();
 	},
-	associateClosingEvent: function(){
+	associateClosingEvent: function(callback){
 		var _popupError = popupError;
 		popupError.getOpenedPopupModal().click(function(e){
 			if($(e.target).hasClass('index-modal-popupError')){
 				_popupError.closeOldPopup();
+				callback();
 			};
 		});
 	}
@@ -637,6 +654,7 @@ var navbar = {
     }
 };
 var inscription = {
+	processing: false,
 	init: function(){
 		inscription.setFormToWatch();
 		if(!(inscription.getFormToWatch() instanceof jQuery)){
@@ -721,7 +739,16 @@ var inscription = {
 	getDayToWatch: function(){return inscription._day;},
 	getMonthToWatch: function(){return inscription._month;},
 	getYearToWatch: function(){return inscription._year;},
-
+	cleanInputs: function(){
+		inscription.getPseudoToWatch().val("");
+		inscription.getEmailToWatch().val("");
+		inscription.getPassToWatch().val("");
+		inscription.getPassCheckToWatch().val("");
+		inscription.getCguToWatch().prop("checked", false);
+		inscription.getDayToWatch().val("");
+		inscription.getMonthToWatch().val("");
+		inscription.getYearToWatch().val("");
+	},
 	isEmailValid: function(){
 		var jQEmail = inscription.getEmailToWatch();
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -745,11 +772,11 @@ var inscription = {
 	isPasswordValid: function(jQPassword){
 		//var unauthorizedChars = /[^a-zA-Z-0-9]/;
 		//if(jQPassword.val().match(unauthorizedChars)){
-		if(jQPassword.val().length < 6){
-			inscription.highlightInput(jQPassword);
-			popupError.init("Mot de passe inférieur à 6 caractères.");
-			return false;
-		}
+		// if(jQPassword.val().length < 6 || jQPassword.val().length > 18){
+		// 	inscription.highlightInput(jQPassword);
+		// 	popupError.init("Le mot de passe doit faire entre 6 et 18 caractères.");
+		// 	return false;
+		// }
 		return true;
 	},
 	isBirthValid: function(){
@@ -805,23 +832,24 @@ var inscription = {
 		jQinput.focus();
 		inscription.removeFailAnimationEvent(jQinput);
 	},
-	popSuccessMsg: function(){
-		var container = $('<div class="absolute index-modal-login"></div>');
+	clickedErrorCallback: function(){
+		setTimeout(function(){
+			navbar.getNavInscription().click();
+		}, 500);		
 	},
 	treatParsedJson: function(obj){
 		if(obj.success){
+			inscription.cleanInputs();
 			popup.init('Un email de confirmation a été envoyé à l\'adresse '+inscription.getEmailToWatch().val());
 		}
 		else{
-			if(obj.errors){
-				popupError.init(obj.errors);		
-			}
+			if(obj.errors)
+				popupError.init(obj.errors, inscription.clickedErrorCallback);
 		}
 	},
-
-
 	/*### Send Form event ###*/
 	sendEventCallback: function(obj){
+		inscription.processing = false;
 		if(obj != false){
 	    	inscription.treatParsedJson(obj);
 	    }
@@ -839,7 +867,6 @@ var inscription = {
 			event.preventDefault();
 			return false;
 		});
-
 		inscription._btn.click(function(event) {
 			if (
 				inscription.isEmailValid() 
@@ -850,6 +877,10 @@ var inscription = {
 				&& inscription.isBirthValid()
 				&& inscription.isCguAccepted()
 			) {
+				if(inscription.processing == true)
+					return;
+				inscription.processing = true;
+				// Recommenter pour empecher le fade automatique à l'envoi
 				var modalLog = $('.index-modal-login');
 				if(isElSoloJqueryInstance(modalLog))
 					modalLog.click();
@@ -872,9 +903,7 @@ var inscription = {
 			event.preventDefault();
 			return false;
 		});
-
 	},
-
 	/*### Remove Animation on keyup event ###*/
 	removeFailAnimationEvent: function(jQInput){
 		// Le one() permet de ne declencher l'event (keyup ici) qu'une seule fois puis de le supprimer automatiquement
@@ -884,6 +913,7 @@ var inscription = {
 	}
 };
 var connection = {
+	processing: false,
 	init: function(){
 		connection.setFormToWatch();
 		if(connection.getFormToWatch() instanceof jQuery){
@@ -902,10 +932,15 @@ var connection = {
 		return false;
 	},
 	isPasswordValid: function(jQPassword){
-		var unauthorizedChars = /[^a-zA-Z-0-9]/;
-		if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
-			connection.highlightInput(jQPassword);
-			popupError.init("Le mot de passe ne doit contenir que des caractères alphanumériques.");
+		// var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		// if(jQPassword.val().match(unauthorizedChars) || jQPassword.val().length == 0){
+		// 	connection.highlightInput(jQPassword);
+		// 	popupError.init("Le mot de passe ne doit contenir que des caractères alphanumériques.");
+		// 	return false;
+		// }
+		if(jQPassword.val().length < 6 || jQPassword.val().length > 18){
+			inscription.highlightInput(jQPassword);
+			popupError.init("Le mot de passe doit faire entre 6 et 18 caractères.");
 			return false;
 		}
 		return true;
@@ -917,6 +952,7 @@ var connection = {
 		connection.removeFailAnimationEvent(jQinput);
 	},
 	treatParsedJson: function(obj){
+		connection.processing = false;
 		if(obj != false){
 			if(obj.connected){
 				location.reload();
@@ -945,8 +981,11 @@ var connection = {
 			return false;
 		});
 
-		_btn.click(function(event) {
+		_btn.click(function(event) {			
 			if (connection.isEmailValid(_email) && connection.isPasswordValid(_password)) {
+				if(connection.processing == true)
+					return;
+				connection.processing = true;
 				ajaxWithDataRequest(
 					'index/connection', 
 					'POST', 
@@ -1090,6 +1129,47 @@ var contactadmin = {
            		$("#expediteurContactAdmin").val("");
 		    }
 		});
+	}
+};
+var requestUserNotice = {
+	nbRequest: 0,
+	currentPopup: false,
+	notice: function(adding){
+		if(adding == true && requestUserNotice.nbRequest > 0)
+			requestUserNotice.nbRequest++;
+		else if(adding == true && requestUserNotice.nbRequest == 0){
+			requestUserNotice.nbRequest++;
+			requestUserNotice.popNotice();
+		}
+		else if(adding == false && requestUserNotice.nbRequest > 1)
+			requestUserNotice.nbRequest--;
+		else if(adding == false && requestUserNotice.nbRequest == 1){			
+			requestUserNotice.nbRequest--;
+			requestUserNotice.fadeNotice();
+		}
+	},
+	popNotice: function(){
+		if($('#ajaxLoading-notice').length > 0 || !!requestUserNotice.currentPopup){
+			console.log("popup already there");
+			return;
+		}
+		var container = $('<div id="ajaxLoading-notice" data-creatime="" class="animation quick-1 display-flex-column full-width fade fixed bg-purple"></div>');
+		var domi = $('<div class="cssload-loader"><div class="cssload-inner cssload-one"></div><div class="cssload-inner cssload-two"></div><div class="cssload-inner cssload-three"></div></div>');
+		var msg = $('<p class="absolute title-6 text-center">En attente du serveur</p>');
+		container.append(domi);
+		container.append(msg);
+		$('body').append(container);
+		requestUserNotice.currentPopup = container;
+	},
+	fadeNotice: function(){
+		if(!!requestUserNotice.currentPopup && isElSoloJqueryInstance(requestUserNotice.currentPopup)){
+			requestUserNotice.currentPopup.removeClass('fade');
+			requestUserNotice.currentPopup.addClass('fadeOut');
+			setTimeout(function(){
+				requestUserNotice.currentPopup.remove();
+				requestUserNotice.currentPopup = false;
+			}, 200);
+		}
 	}
 };
 function removeRequireJSMsg(){

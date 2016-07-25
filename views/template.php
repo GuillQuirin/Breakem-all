@@ -99,7 +99,7 @@
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/tournoi">
+										<a href="<?php echo WEBPATH; ?>/tournoi/list">
 											Liste
 										</a>
 									</li>																	
@@ -172,7 +172,7 @@
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/tournoi">
+										<a href="<?php echo WEBPATH; ?>/tournoi/list">
 											Liste des tournois
 										</a>
 									</li>																	
@@ -281,7 +281,7 @@
 			            <h3 class="m-a footer_title">Break'em All</h3>
 			            <ul class="m-a display-flex-column">
 			                <li><a href="<?php echo WEBPATH.'/index' ; ?>" title="accueil">Accueil</a></li>
-			                <li><a href="<?php echo WEBPATH.'/tournoi'; ?>" title="Liste des tournois">Tournois</a></li>
+			                <li><a href="<?php echo WEBPATH.'/tournoi/list'; ?>" title="Liste des tournois">Tournois</a></li>
 			                <li><a href="<?php echo WEBPATH.'/team'; ?>" title="Ensemble des teams">Teams</a></li>
 			                <li><a href="<?php echo WEBPATH.'/classement'; ?>" title="Podium du site">Classement</a></li>
 			            </ul>
