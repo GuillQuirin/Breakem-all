@@ -134,7 +134,7 @@ var membreModule = {
 							//console.log(result);
 							var userArr = jQuery.parseJSON(result);	
 							//console.log(userArr);
-							onglet.getAdminDataIhm().removeClass('hidden');
+							//onglet.getAdminDataIhm().removeClass('hidden');
 							//On affiche les elements présents dans le tableau
 							if(userArr.length == 1){
 								//console.log(userArr[0].name);
@@ -157,14 +157,15 @@ var membreModule = {
 					 			//Finnalement on ajout la string au find, puis on ajoute la classe hidden
 					 			var myRDiv = onglet.getAdminDataRe().find(".membre-pseudo-g:not(" + fullStringContains + ")").parent().parent().parent();
 					 			console.log(myRDiv);
-					 			myRDiv.addClass('hidden');
 					 		}							
 						}else{
+							//adminError.highlightInput(membreModule.getAdminSearchInput());
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
 					},
 				 	error: function(result){
-						console.log(result);	
+						console.log(result);
+						adminError.popup("Impossible de récupérer les membres");	
 						onglet.getAdminDataIhm().removeClass('hidden');
 				 	}
 				});

@@ -5,6 +5,43 @@ window.addEventListener('load', function load(){
 	onglet.init();
 });
 
+//Animation des erreurs
+var adminError = {
+	popup: function(msg){
+		jQuery('body').append(
+		'<div class="index-modal-popup display-flex-column animation fade">'+
+			'<div class="index-popup-msg display-flex-column animation fadeRight">'+
+				'<div class="border-full display-flex-column">'+
+					'<p class="title title-4">'+msg+'</p>'+
+				'</div>'+
+			'</div>'+
+		'</div>'
+		);
+		//Kill la fonction pour ne l'appeler qu'une fois
+		//adminError.popup = function(){};
+		adminError.popupClose();
+	},
+	popupClose : function(){
+		var myPopup = jQuery('body').find('.index-modal-popup');
+		myPopup.on("click", function(){
+			myPopup.remove();
+		});
+	},
+	highlightInput: function(input){
+		input.addClass('failed-input');
+		// input.val('');
+		input.focus();
+		adminError.removeFailAnimationEvent(input);
+	},
+	/*### Remove Animation on keyup event ###*/
+	removeFailAnimationEvent: function(input){
+		// Le one() permet de ne declencher l'event (keyup ici) qu'une seule fois puis de le supprimer automatiquement
+		input.one('keyup', function() {
+			input.removeClass('failed-input');
+		});
+	}
+};
+
 var onglet = {
 	_this: this,
 	init : function(){
