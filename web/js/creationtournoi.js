@@ -17,12 +17,18 @@ function preventQuitPageEvent(){
 	  return 'Are you sure you want to leave?';
 	};
 }
+function getImgName(imgUrl){
+	var name = imgUrl.split("/");
+	var name = name[name.length - 1];	
+	var name = name.split(".");
+	return name[0];
+}
 function getElementChoiceDom(titre, description, urlImg){
-	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="'+urlImg+'" alt="'+urlImg+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
+	var elemDOM = $('<div class="relative creationtournoi-element-choice border-full"><img class="border-regular" src="'+urlImg+'" alt="'+getImgName(urlImg)+'" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+titre+'</h2><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+description+'</p></div></div>');
 	return elemDOM;
 }
 function getGameVersionChoiceDom(name, descri, maxP, minP, maxT, maxPt){
-	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="web/img/footer.jpg" alt="default-bgimg" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>joueurs minimum: '+minP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
+	var elDOM = $('<div class="relative creationtournoi-element-choice creationtournoi-gameversion-choice border-full"><img class="absolute border-regular" src="'+webpath.get()+'/web/img/footer.jpg" alt="breakem-all tournaments" /><h2 class="absolute title title-2 uppercase inverse-border-full">'+name+'</h2><ul><li>joueurs maximum: '+maxP+'</li><li>joueurs minimum: '+minP+'</li><li>équipes maximum: '+maxT+'</li><li>joueurs par équipe maximum: '+maxPt+'</li></ul><div class="align absolute creationtournoi-element-choice-description"><p class="inverse-border-full">'+descri+'</p></div></div>');
 	return elDOM;
 }
 function loadMainElementsChoice(arrayJqDOM){
