@@ -1,6 +1,14 @@
 #content{
 	min-height: 480px;
 }
+
+.bg-cover-tournamentslist{    
+    background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/tournoi.jpg) center no-repeat;
+    margin:0;    
+    -webkit-background-size: cover; 
+    background-size: cover;     
+}
+
 .tournamentslist-form-container{
 	margin-top: 30px;
 }
@@ -78,9 +86,12 @@ section.tournamentslist-tournoi{
 
 .tournamentslist-number-fetched-tournaments{
 	margin-top: 15px;
+	letter-spacing: 1px;
+	font-style: italic;
 }
 .tournamentslist-number-fetched-tournaments-accesible{
 	margin-top: 5px;
+	padding: 5px;
 }
 .tournamentslist-number-fetched-tournaments-accesible-none{
 	padding: 5px;

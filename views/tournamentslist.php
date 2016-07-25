@@ -1,21 +1,29 @@
+	<section class="low-height bg-cover-tournamentslist relative">
+		<div class="align full-height">
+			<div class="align full-height animation fadeLeft">
+				<div class="header-title admin-header-title border-full relative tournamentslist-title-container display-block">
+					<h1 class="title">
+						<?php if(isset($tournois)): ?>
+							Liste des tournois
+						<?php else: ?>
+							<?php if (isset($notournamentsnotget)): ?>
+								<?php echo $notournamentsnotget; ?>
+							<?php else: ?>
+								Aucun tournoi ne correspond à votre recherche				
+							<?php endif ?>
+						<?php endif; ?>
+					</h1>
+				</div>	
+			</div>
+		</div>
+	</section>	
 	<div class="tournamentslist-title-container display-flex-column">
-		<h2 class="title title-2 m-a text-center">
-			<?php if(isset($tournois)): ?>
-				Liste des tournois
-			<?php else: ?>
-				<?php if (isset($notournamentsnotget)): ?>
-					<?php echo $notournamentsnotget; ?>
-				<?php else: ?>
-					Aucun tournoi ne correspond à votre recherche				
-				<?php endif ?>
-			<?php endif; ?>
-		</h2>
 		<?php if(isset($tournois)): ?>
 			<?php $count = count($tournois); ?>
 			<p class="tournamentslist-number-fetched-tournaments m-a text-center title-4"><?php echo ($count > 1) ? $count. ' tournois correspondent' : $count . ' tournoi correspond';  ?> à votre recherche</p>
 			<?php if(isset($userCanRegisterTournaments)): ?>
 				<?php $count = count($userCanRegisterTournaments); ?>
-				<p class="tournamentslist-number-fetched-tournaments-accesible m-a text-center italic title-7"><?php echo ($count > 1) ? $count. ' tournois vous sont accessibles' : $count . 'tournoi vous est accessible';  ?></p>
+				<p class="tournamentslist-number-fetched-tournaments-accesible m-a text-center italic title-7 bg-green"><?php echo ($count > 1) ? $count. ' tournois vous sont accessibles' : $count . 'tournoi vous est accessible';  ?></p>
 			<?php else: ?>
 				<?php if (!isset($ownedTournaments) && isset($_isConnected) ): ?>
 					<p class="tournamentslist-number-fetched-tournaments-accesible tournamentslist-number-fetched-tournaments-accesible-none m-a text-center italic title-7 bg-pink">Aucun tournoi ne vous est accessible</p>
@@ -23,6 +31,26 @@
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
+	<section class="tournamentslist-form-container display-flex-column full-width">
+		<p class="text-center m-a capitalize title-2">filtres</p>
+		<form class="m-a display-flex-column full-width" method="get" action="">
+			<div class="full-width tournamentslist-inputs-container m-a display-flex-row">
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="nom">nom</label>
+					<input class="input-default" name="nom" type="text" value="<?php echo (isset($search_nom)) ? $search_nom : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="jeu">jeu</label>
+					<input class="input-default" name="jeu" type="text" value="<?php echo (isset($search_jeu)) ? $search_jeu : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="console">console</label>
+					<input class="input-default" name="console" type="text" value="<?php echo (isset($search_console)) ? $search_console : ''?>">
+				</div>
+			</div>
+			<input type="submit" class="tournamentslist-send-input input-default" value="Chercher"></input>
+		</form>				
+	</section>
 	<?php if (isset($ownedTournaments)): ?>
 		<section class="tournamentslist-tournoi-owner display-flex-column">
 			<?php if (count($ownedTournaments) > 1): ?>
@@ -82,28 +110,6 @@
 			</div>
 		</section>
 	<?php endif ?>
-
-	<section class="tournamentslist-form-container display-flex-column full-width">
-		<p class="text-center m-a capitalize title-2">filtres</p>
-		<form class="m-a display-flex-column full-width" method="get" action="">
-			<div class="full-width tournamentslist-inputs-container m-a display-flex-row">
-				<div class="m-a tournamentslist-input-grp display-flex-column">
-					<label class="input-default capitalize" for="nom">nom</label>
-					<input class="input-default" name="nom" type="text" value="<?php echo (isset($search_nom)) ? $search_nom : ''?>">
-				</div>
-				<div class="m-a tournamentslist-input-grp display-flex-column">
-					<label class="input-default capitalize" for="jeu">jeu</label>
-					<input class="input-default" name="jeu" type="text" value="<?php echo (isset($search_jeu)) ? $search_jeu : ''?>">
-				</div>
-				<div class="m-a tournamentslist-input-grp display-flex-column">
-					<label class="input-default capitalize" for="console">console</label>
-					<input class="input-default" name="console" type="text" value="<?php echo (isset($search_console)) ? $search_console : ''?>">
-				</div>
-			</div>
-			<input type="submit" class="tournamentslist-send-input input-default" value="Chercher"></input>
-		</form>				
-	</section>
-
 <?php if(isset($tournois) || (isset($userCanRegisterTournaments) || isset($closedToUserTournaments) || isset($joinedTournament) ) ): ?>
 	<section class="tournamentslist-tournoi display-flex-row">
 	<?php if (isset($userCanRegisterTournaments)): ?>

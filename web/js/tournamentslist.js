@@ -5,8 +5,9 @@ var tournamentsListDom = {
 			// adaptMarginToNavHeight(tournamentsListDom.getTListContainer());
 		}
 		tournamentsListDom.setTitleContainer();
-		if(tournamentsListDom.getTitleContainer() instanceof jQuery)
-			adaptMarginToNavHeight(tournamentsListDom.getTitleContainer());
+		if(tournamentsListDom.getTitleContainer() instanceof jQuery){
+			// adaptMarginToNavHeight(tournamentsListDom.getTitleContainer());
+		}
 	},
 	setTListContainer: function(){
 		tournamentsListDom._tContainer = $('section.tournamentslist-tournoi');
