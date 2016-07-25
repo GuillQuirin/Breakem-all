@@ -152,6 +152,9 @@ class tournoiController extends template {
 		$matchedTournament = $tm->getTournamentWithLink($link);
 		// Si le chercheur renvoie autre chose que false
 		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+			$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament);
+				if(!!$matchedTournament->gtAllMatchs())
+					$this->echoJSONerror("", "Le tournoi a débuté, vous ne pouvez plus vous désinscrire.");
 			$rm = new registerManager();
 			// On vérifie l'égibilité de l'user au tournoi
 			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
@@ -228,6 +231,9 @@ class tournoiController extends template {
 
 		// Si le chercheur renvoie autre chose que false
 		if(!!$link && is_bool(strpos($link, 'null')) && $matchedTournament !== false){
+			$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament);
+				if(!!$matchedTournament->gtAllMatchs())
+					$this->echoJSONerror("", "Le tournoi a débuté, vous ne pouvez plus vous désinscrire.");
 			// On vérifie l'égibilité de l'user au tournoi
 			if(!canUserRegisterToTournament($this->getConnectedUser(), $matchedTournament))
 				$this->echoJSONerror('', 'vous ne pouvez pas vous inscrire dans ce tournoi');
@@ -392,7 +398,10 @@ class tournoiController extends template {
 		$matchedTournament = $tm->getTournamentWithLink($link);
 		if(!!$matchedTournament){
 			$rm = new registerManager();			
-			if($rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser())){
+			if($rm->isUserRegisteredForTournament($matchedTournament, $this->getConnectedUser())){				
+				$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament);
+				if(!!$matchedTournament->gtAllMatchs())
+					$this->echoJSONerror("", "Le tournoi a débuté, vous ne pouvez plus vous désinscrire.");
 				if($rm->deleteRegisteredFromTournament($matchedTournament, $this->getConnectedUser()))
 					echo json_encode(["success" => true]);
 				else
