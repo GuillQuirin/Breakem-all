@@ -841,7 +841,7 @@ var inscription = {
 	treatParsedJson: function(obj){
 		if(obj.success){
 			inscription.cleanInputs();
-			popup.init('Un email de confirmation a été envoyé à l\'adresse '+inscription.getEmailToWatch().val());
+			popup.init('Un email de confirmation a été envoyé à votre adresse email '+inscription.getEmailToWatch().val());
 		}
 		else{
 			if(obj.errors)
