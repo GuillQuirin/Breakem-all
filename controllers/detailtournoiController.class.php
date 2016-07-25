@@ -250,8 +250,55 @@ class detailtournoiController extends template{
 		else
 			$this->echoJSONerror("erreur DT_CNM_8", "Ce tournoi a déjà son vainqueur !");
 	}
+	/*
+	 ** /!\ AjaxOnly /!\
+	 ** @params: $_POST:  
+	 		(string) 't': lien($_get) du tournoi visité
+	 		(string) 'sJeton': jeton créé à chaque reload de page (anti CSRF)
+	 		(string) 'pseudo': pseudo de l'user à kicker du tournoi
 
+	 ** #### Kick un utilisateur inscrit au tournoi ####
+	*/
+	public function kickUserAction(){
+		$filteredinputs = $this->checkBasicInputsAndRights()['inputs'];
+		$link = $filteredinputs['t'];
+		$args = array(
+            'pseudo' => FILTER_SANITIZE_STRING
+		);
+		$additionnalRequiredPosts = filter_input_array(INPUT_POST, $args);
+		$additionnalRequiredPosts = array_filter($additionnalRequiredPosts);
+		foreach ($args as $key => $value) {
+			if(!isset($additionnalRequiredPosts[$key]))
+				$this->echoJSONerror("","manque: " . $key);
+    	}		
+		$filteredinputs = array_merge($filteredinputs, $additionnalRequiredPosts);
+		$matchedTournament = $this->isUserTournamentOwner($link);
+		if(!($matchedTournament instanceof tournament) )
+			$this->echoJSONerror("erreur DT_KU_0", "Impossible d'agir sur ce tournoi");
 
+		if(is_numeric($matchedTournament->getIdWinningTeam()))
+			$this->echoJSONerror("", "Impossible d'agir sur un tournoi fini");
+
+		$matchedTournament = $this->getFullyAlimentedTournament($matchedTournament, true, true);
+		if(!!$matchedTournament->gtAllMatchs())
+			$this->echoJSONerror("", "Impossible d'agir sur un tournoi déjà débuté");
+
+		$um = new userManager();
+		$u = new user(['pseudo' => trim($additionnalRequiredPosts['pseudo'])]);
+		$u = $um->userByPseudoInstance($u);
+		if(!($u instanceof user) )
+			$this->echoJSONerror("", "Cet utilisateur n'existe pas");
+
+		if(!$matchedTournament->isUserRegistered($u))
+			$this->echoJSONerror("", "Cet utilisateur n'est pas inscrit à votre tournoi");
+
+		$rm = new registerManager();
+		if($rm->deleteRegisteredFromTournament($matchedTournament, $u))
+			echo json_encode(["success" => "l'utilisateur ".$u->getPseudo(). " a bien été supprimé du tournoi"]);
+		else
+			$this->echoJSONerror("erreur DT_KU_1", "Impossible de kick " .$u->getPseudo(). " du tournoi");
+		exit;
+	}		
 
 
 	/* ####  Méthodes privées censées seulement être utilisées par les public de cette classe et un peu aussi pour DR(m)Y #### */
@@ -554,7 +601,7 @@ class detailtournoiController extends template{
 					return $matchedTournament;
 				}
 				// Si l'user est super admin
-				else if( (int) $this->getConnectedUser()->getId() > 2){
+				else if( (int) $this->getConnectedUser()->getStatus() > 2){
 					unset($tm);
 					return $matchedTournament;
 				}

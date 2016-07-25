@@ -37,6 +37,7 @@ class template{
       $v->assign("_rss", $this->connectedUser->getRss());
       $v->assign("_authorize_mail_contact", $this->connectedUser->getAuthorize_mail_contact());
       $v->assign("_totalPoints", $this->connectedUser->gtTotalPoints());
+      $v->assign("_status", $this->connectedUser->getStatus());
       // $v->assign("_password", $this->connectedUser->getPassword());
 
       if(!empty($this->connectedUser->getIdTeam())){
@@ -367,7 +368,7 @@ class template{
       ### -> équipes (instances de teamtournaments)
       ### -> matchs (instances de matchs)
   */
-  protected function getFullyAlimentedTournament(tournament $t, $ajaxCall=true){
+  protected function getFullyAlimentedTournament(tournament $t, $ajaxCall=true, $noMatches = false){
     // Recuperer tous les participants
     $rm = new registerManager();
     $allRegistered = $rm->getTournamentParticipants($t);
@@ -414,7 +415,7 @@ class template{
     }
     else{
       if($allMatchs == "none"){
-        if($ajaxCall)
+        if($ajaxCall && $noMatches == false)
           $this->echoJSONerror("erreur: T_GTAT_2", "aucun match n'est créé pour ce tournoi !");
         else
           return $t;

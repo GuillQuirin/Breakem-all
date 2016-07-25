@@ -146,7 +146,7 @@ class tournoiController extends template {
 		$link = $filteredinputs['t'];
 		// On vérifie que l'user tente de bien de s'inscrire au tournoi qu'il a visité
 		if($link !== $_SESSION['lastTournamentChecked'])
-			$this->echoJSONerror("tournoi","link different du dernier tournoi visité");
+			$this->echoJSONerror("tournoi","Lien different du dernier tournoi visité");
 
 		$tm = new tournamentManager();
 		$matchedTournament = $tm->getTournamentWithLink($link);

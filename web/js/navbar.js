@@ -344,7 +344,8 @@ var popupError = {
 		popupError.getOpenedPopupModal().click(function(e){
 			if($(e.target).hasClass('index-modal-popupError')){
 				_popupError.closeOldPopup();
-				callback();
+				if(callback)
+					callback();
 			};
 		});
 	}

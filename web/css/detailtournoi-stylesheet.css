@@ -178,6 +178,12 @@ section:hover{
 	border-bottom: 1px solid #fff;
 }
 /* ################## JOUEURS PARTICIPANTS ################### */
+	.detailtournoi-participant .detailtournoi-kick-btn{
+		max-width: 100px;
+	    position: absolute;
+	    top: calc(50% - 20px);
+	    right: 10px;
+	}
 	p.aucune-place-restante{
 		background: #D92B4C;
 	}
@@ -519,7 +525,7 @@ section:hover{
 				top: calc(50% - .75vh);
 			}
 			.detailtournoi-participant-points:after{
-				content: " points";
+				/*content: " points";*/
 			}
 			.detailtournoi-stats-joueur{
 				display: inline-block;
