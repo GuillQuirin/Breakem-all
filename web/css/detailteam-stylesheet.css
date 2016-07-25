@@ -87,7 +87,7 @@
 }
 
 .pseudo-leader{
-    margin-left:25px;
+    margin-left:10px;
     margin-top:15px;
 }
 .pseudo a{
@@ -240,8 +240,8 @@
 /*Fin du popup */
 
 .text-descrip{
-    margin-left:150px;
-    width:50%;
+    margin-left:110px;
+    max-width:50%;
 }
 
 .commentaire-team{
@@ -311,7 +311,7 @@ img.edition, img.signalement{
         margin-top: 50px;
     }*/
     .contain-text-comment{
-        width:auto;
+        max-width: 115%;
     }
 }
 
@@ -343,7 +343,7 @@ img.edition, img.signalement{
         margin-top:250px;
     }*/
     .contain-text-comment{
-        width:auto; 
+        max-width:55%; 
     }
     .crown{
         margin-left: 60px;
@@ -357,6 +357,7 @@ img.edition, img.signalement{
         margin-top:10px;
         text-align: center;
         padding: 10px;
+        max-width:100%;
     }
     .leader_member{
         width:80%;
@@ -426,6 +427,7 @@ img.edition, img.signalement{
     }
     .team-comment{
         margin-left:0px;
+        width:185px;
     }
     .liste_member{
         display: block;
