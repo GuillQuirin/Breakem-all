@@ -69,10 +69,11 @@
 							$restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());
 						if ( !$tournoi->doesTournamentHaveWinner() && !$tournoi->gtAllMatchs() ): 
 					?>
-						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
+						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">reste :
 							<span class="relative">
 								<?php 
-								echo $restant;
+								echo $restant . ' place';
+								echo ($restant > 1) ? 's':'';
 							 	?>
 							</span>
 						</p>
