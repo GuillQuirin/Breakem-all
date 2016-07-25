@@ -399,7 +399,7 @@ var gameversionChoice = {
 			if(dom.doesUserHaveGuild())
 				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Activer le mode "tournoi inter-guildes"</label><input class="border-full" type="checkbox" name="guildOnly"></div>');
 			else
-				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Vous ne pouvez pas créer de tournoi inter-guilde à moins d\'en avoir une</label><input class="border-full" type="checkbox" disabled name="guildOnly"></div>');
+				randomAndGuildInputs.append('<div class="form-input-group"><label for="guildOnly">Vous ne pouvez pas créer de tournoi inter-teams à moins d\'en avoir une</label><input class="border-full" type="checkbox" disabled name="guildOnly"></div>');
 			form.append(randomAndGuildInputs);
 			gameversionChoice.randomAndGuildInputEvent(randomAndGuildInputs);
 		}
