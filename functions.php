@@ -50,7 +50,7 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 		return false;
 	}
 	// On vérifie la date de début du tournoi
-	if($t->getStartDate() <= strtotime(date('Y-m-d') . ' 00:00:00')){
+	if($t->getStartDate()+$t->_gtMaxIntervalBetweenDates() <= strtotime(date('Y-m-d') . ' 00:00:00')){
 		return false;
 	}
 	if($isFullyAlimented == false)

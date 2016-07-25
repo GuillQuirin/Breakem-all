@@ -117,7 +117,7 @@ section:hover{
 	}
 	.detailtournoi-tournoi-regles p{
 		border-top: 1px solid #fff;
-		padding: 1vh;
+		padding: 18px;
 		display: block;
 	}
 	.detailtournoi-tournoi-regles span{
@@ -129,16 +129,16 @@ section:hover{
 		cursor: default;
 	}
 	.detailtournoi-tournoi-regles p span.relative i{
-		top: -2vh; left: calc(100%);
+		top: -18px; left: calc(100%);
 		background: #D92B4C;
 		z-index: 2;
 		border-radius: 5px;
 		display: block;
 		width: 0vh;
-		height: 4vh;
+		height: 36px;
 		padding: 0;
 		overflow: hidden;
-		padding: 1vh 3vh 1vh 4vh;
+		padding: 12px 3vh 12px 4vh;
 		opacity: 0;
 		transition: all .2s;
 	}
@@ -178,6 +178,12 @@ section:hover{
 	border-bottom: 1px solid #fff;
 }
 /* ################## JOUEURS PARTICIPANTS ################### */
+	.detailtournoi-participant .detailtournoi-kick-btn{
+		max-width: 100px;
+	    position: absolute;
+	    top: calc(50% - 20px);
+	    right: 10px;
+	}
 	p.aucune-place-restante{
 		background: #D92B4C;
 	}
@@ -510,7 +516,7 @@ section:hover{
 				margin-top: 8vh;
 			}
 			.detailtournoi-participants h2{
-				padding-bottom: 1vh;
+				padding-bottom: 12px;
 				border-bottom: 1px solid #fff;
 				display: inline-block;
 			}
@@ -519,7 +525,7 @@ section:hover{
 				top: calc(50% - .75vh);
 			}
 			.detailtournoi-participant-points:after{
-				content: " points";
+				/*content: " points";*/
 			}
 			.detailtournoi-stats-joueur{
 				display: inline-block;
@@ -555,7 +561,7 @@ section:hover{
 	@media all and (max-width: 481px) {				
 			.detailtournoi-tournoi-regles p{
 				border-top: 1px solid #fff;
-				padding: 20px 1vh 20px 1vh;
+				padding: 20px 12px 20px 12px;
 				display: block;
 			}
 			.detailtournoi-tournoi-regles span{
@@ -595,7 +601,7 @@ section:hover{
 			}
 
 			.detailtournoi-commentaires h2{
-				padding-bottom: 1vh;
+				padding-bottom: 12px;
 				border-bottom: 1px solid #fff;
 				display: block;
 				text-align: center;

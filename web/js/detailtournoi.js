@@ -5,6 +5,7 @@ var dom = {
 		dom.setPremiersMatchsBtn();
 		dom.setMatchsWinnerBtns();
 		dom.setCreerProchainsMatchsBtn();
+		dom.setKickParticipantsBtns();
 		dom.setSjeton();
 		dom.setTget();
 		if(isElSoloJqueryInstance(dom.getDetailTournoiInfos()) && 
@@ -22,6 +23,11 @@ var dom = {
 		createFirstMatchs.init();
 		tournamentRegister.init();
 		tournamentUnregister.init();
+		if(!!dom.getKickParticipantsBtns())
+			kickPlayer.init();
+	},
+	setKickParticipantsBtns: function(){
+		dom._kickBtns = $('.detailtournoi-kick-btn');
 	},
 	setCreerProchainsMatchsBtn: function(){
 		dom._prochMatchsBtn = $('#detailtournoi-btn-create-next-matchs');
@@ -70,7 +76,10 @@ var dom = {
 	},	
 	getTget: function(){
 		return dom._tGet;
-	}
+	},
+	getKickParticipantsBtns: function(){
+		return (dom._kickBtns.length > 0) ? dom._kickBtns : false;
+	},
 };
 var tournamentRegister = {
 	_processing: false,
@@ -388,5 +397,41 @@ var createNextMatchs = {
 		);
 	}
 };
-
+var kickPlayer = {
+	_processing: false,
+	init: function(){
+		kickPlayer.associateEvents();
+	},
+	associateEvents: function(){
+		dom.getKickParticipantsBtns().each(function() {
+			var pseudo = $(this).data('pseudo');
+			$(this).removeAttr('data-pseudo');
+			$(this).click(function(event) {
+				kickPlayer.sendEvent(pseudo);
+			});
+		});
+	},
+	sendEventCallback: function(obj){
+		kickPlayer._processing = false;
+		if(obj.success){
+			popup.init(obj.success);
+			setTimeout(function(){
+				location.reload();
+			}, 1000);
+		}
+		else if(obj.errors)
+			popup.init(obj.errors);
+	},
+	sendEvent: function(_s){
+		if(kickPlayer._processing)
+			return;
+		kickPlayer._processing = true;
+		var toSendData = {
+			t: dom.getTget(),
+			sJeton: dom.getSjeton().val(),
+			pseudo: _s
+		};
+		ajaxWithDataRequest("detailtournoi/kickUser", "POST", toSendData, kickPlayer.sendEventCallback);
+	}
+};
 initAll.add(dom.init);

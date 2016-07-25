@@ -1,10 +1,11 @@
 <?php
+//Messages d'erreur pour debug
+ini_set('display_errors', 0); 
+error_reporting(0);
+
 date_default_timezone_set('Europe/Paris');
 setlocale(LC_TIME, 'fr_FR');
 
-//Messages d'erreur pour debug
-ini_set('display_errors', 1); 
-error_reporting(E_ALL | E_STRICT);
 
 require_once "conf.inc.php";
 require_once "functions.php";

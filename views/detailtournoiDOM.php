@@ -6,9 +6,11 @@
 				<input id="sJeton" type="hidden" name="sJeton" value="<?php echo $_SESSION['sJeton'];?>">
 			</h3>			
 			<p class="detailtournoi-tournoi-nom title-2 text-center m-a"><?php echo $tournoi->getName(); ?></p>
-			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1) ? 'bg-pink title title-2': '' ?>">
-				<?php if ($tournoi->getStatus() != -1): ?>
+			<p class="detailtournoi-description-jeu italic <?php echo ($tournoi->getStatus() == -1 || (isset($_isConnected) && !canUserRegisterToTournament($_user, $tournoi, true) && !$tournoi->isUserRegistered($_user))) ? 'bg-pink title title-2': '' ?>">
+				<?php if ($tournoi->getStatus() != -1 && isset($_isConnected) && (canUserRegisterToTournament($_user, $tournoi, true) || $tournoi->isUserRegistered($_user))): ?>
 					<?php echo $tournoi->getGameDescription(); ?>
+				<?php elseif (isset($_isConnected) && !canUserRegisterToTournament($_user, $tournoi, true) && !$tournoi->isUserRegistered($_user)): ?>
+					Il est nécessaire de faire partie d'une team pour s'inscrire à ce tournoi			
 				<?php else:?>
 					Ce tournoi est verrouillé
 				<?php endif ?>
@@ -23,7 +25,7 @@
 								<?php if(isset($userAlrdyRegistered)):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else:?>
-									<?php if((int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1): ?>
+									<?php if( (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1 && isset($_isConnected) && canUserRegisterToTournament($_user, $tournoi, true) ): ?>
 										<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<?php endif; ?>
 								<?php endif; ?>
@@ -36,7 +38,7 @@
 								<?php if ($tournoi->isUserRegistered($_user)): ?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else: ?>
-									<?php if ($tournoi->getStatus() > 0): ?>
+									<?php if ($tournoi->getStatus() > 0 ): ?>
 									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<?php endif ?>
 								<?php endif ?>								
@@ -67,10 +69,11 @@
 							$restant = ((int) $tournoi->getMaxPlayer()) - ((int) $tournoi->getNumberRegistered());
 						if ( !$tournoi->doesTournamentHaveWinner() && !$tournoi->gtAllMatchs() ): 
 					?>
-						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">places restantes:
+						<p class="relative detailtournoi-jeu-mode capitalize bg-<?php if($restant > 0) echo 'green'; else echo 'pink'; ?>">reste :
 							<span class="relative">
 								<?php 
-								echo $restant;
+								echo $restant . ' place';
+								echo ($restant > 1) ? 's':'';
 							 	?>
 							</span>
 						</p>
@@ -295,6 +298,9 @@
 							<?php else: ?>
 								Aucun match
 							<?php endif ?>
+							<?php if ( isset($_isConnected) && $user->getPseudo() != $_pseudo && $tournoi->gtAllMatchs() == false && ($_status > 2 || $_pseudo == $tournoi->getUserPseudo())): ?>
+								<div class="detailtournoi-kick-btn btn btn-pink" data-pseudo="<?php echo $user->getPseudo(); ?>"><a>kick</a></div>
+							<?php endif ?>				
 							</span>
 							</p>
 						<p class="detailtournoi-participant-points absolute"><?php echo $user->gtTotalPoints(); ?> points</p>
@@ -356,7 +362,7 @@
 											<p class="text-center m-a">Aucun joueur dans cette équipe</p>
 										</div>
 									<?php endif; ?>
-									<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
+									<?php if( isset($_isConnected) && !((bool)$tournoi->getRandomPlayerMix()) && canUserRegisterToTournament($_user, $tournoi, true) && canUserRegisterToTeamTournament($_user, $tournoi, $team) ):?>
 										<input type="hidden" class="equipelibre-tt-id" value="<?php echo $team->getId() ;?>" name="ttId">
 										<button class="equipelibre-btn-inscription relative btn btn-green inverse-border-full">
 											<a>Rejoindre <?php echo $tournoi->gtPublicTeamIdToPrint($team);?></a>

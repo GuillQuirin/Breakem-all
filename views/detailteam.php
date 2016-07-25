@@ -184,7 +184,7 @@ else{
             </div>
             <div class="grid-md-5 grid-md-offset-1 commentaire-team">
                 <div class="title_index">
-                    <label for="title3">Commentaire</label>
+                    <label for="title3">Commentaires</label>
                 </div>
 
                 <?php
