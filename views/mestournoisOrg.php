@@ -35,7 +35,6 @@
 							}elseif($tournament->getStartDate() > strtotime(date('Y-m-d H:i:s'))){
 								echo "<span class='mestournois-status'>A VENIR</span>"; 
 							}		
-							echo strtotime(date('Y-m-d H:i:s'));
 						?>
 						<div class='article-content-btn-wrapper'>
 							<?php if($tournament->getStatus()===-1){

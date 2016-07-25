@@ -81,14 +81,6 @@
 							</tr>
 							<tr>						
 								<td>
-									<span>Pseudo : </span>
-								</td>
-								<td>
-									<span id="pseudo-user" class="capitalize"><?php echo (isset($_pseudo)) ? $_pseudo : 'Pseudo inexistant'; ?></span>	
-								</td>
-							</tr>
-							<tr>						
-								<td>
 									<span>Email : </span>
 								</td>
 								<td class="configuration-form-email">
