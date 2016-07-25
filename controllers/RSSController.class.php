@@ -17,7 +17,7 @@ class RSSController extends template{
 		$xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
 			$xml .= '<channel>'; 
 				$xml .= '<title>Break\'em All</title>';
-				$xml .= '<link>http://breakem-all.com/</link>';
+				$xml .= '<link>http://www.breakem-all.com/</link>';
 				$xml .= '<description>Site de tournois communautaires.</description>';
 				$xml .= '<language>fr-fr</language>';
 				$xml .= '<category>Jeux Video</category>';

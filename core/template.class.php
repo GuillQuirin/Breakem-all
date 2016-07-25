@@ -348,7 +348,7 @@ class template{
     $userBDD->mirrorObject = $user;
     $userBDD->create();
 
-    $contenuMail = "<h1>Bienvenue sur <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
+    $contenuMail = "<h1>Bienvenue sur <a href=\"http://www.breakem-all.com\">Break-em-all.com</a></h1>";
       $contenuMail.="<div>Il ne vous reste plus qu'à valider votre adresse mail en cliquant sur le lien ci-dessous</div>";
       $contenuMail.="<a href=\"".WEBPATH."/confirmation/check?token=".$user->getToken()."&email=".htmlspecialchars($user->getEmail())."\">Valider mon inscription</a>";
 

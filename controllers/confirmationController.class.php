@@ -66,7 +66,7 @@ class confirmationController extends template{
             $newuser->setToken($token);
             
             $userBDD->setUser($user,$newuser);
-            $contenuMail = "<h1>Ceci est un message de récupération de mot de passe sur le site <a href=\"http://breakem-all.com\">Break-em-all.com</a></h1>";
+            $contenuMail = "<h1>Ceci est un message de récupération de mot de passe sur le site <a href=\"http://www.breakem-all.com\">Break-em-all.com</a></h1>";
               $contenuMail.="<div>Vous pouvez le modifier en cliquant sur le lien ci-dessous</div>";
               $contenuMail.="<a href=\"".WEBPATH."/confirmation/lost?token=".$newuser->getToken()."\">Récupérer mon compte</a>";
               $contenuMail.="<h2>Attention: si vous n'avez jamais effectué la demande, ignorez ce message</h2>";
