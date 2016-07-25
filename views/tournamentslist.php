@@ -1,4 +1,4 @@
-	<section class="low-height bg-cover-tournamentslist relative">
+	<section class="low-height bg-cover-tournamentslist relative full-width">
 		<div class="align full-height">
 			<div class="align full-height animation fadeLeft">
 				<div class="header-title admin-header-title border-full relative tournamentslist-title-container display-block">
@@ -272,7 +272,7 @@
 		|| 
 		(	isset($tournois) 
 			&& ((!isset($userCanRegisterTournaments) && !isset($closedToUserTournaments) && !isset($joinedTournament)) )) ): ?>
-		<div class="tournamentslist-closedToUser-tournaments-container display-flex-row m-a">			
+		<div id="no-filtrable-tournaments" class="tournamentslist-closedToUser-tournaments-container display-flex-row m-a">			
 			<?php foreach ($tournois as $key => $t): ?>
 				<div class="tournamentslist-tournoi-element relative display-flex-row">
 					<div class="relative display-flex-row full-width">

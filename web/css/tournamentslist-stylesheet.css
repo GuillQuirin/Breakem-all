@@ -2,13 +2,20 @@
 	min-height: 480px;
 }
 
-.bg-cover-tournamentslist{    
+.bg-cover-tournamentslist{
+	overflow: hidden;
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.7), rgba(255, 255, 255, 0.2)), url(../img/tournoi.jpg) center no-repeat;
     margin:0;    
     -webkit-background-size: cover; 
     background-size: cover;     
 }
-
+#no-filtrable-tournaments{
+	justify-content: space-between;
+	padding: 10px;
+}
+#no-filtrable-tournaments .tournamentslist-tournoi-element{
+	border-bottom: 1px solid #ccc;
+}
 .tournamentslist-form-container{
 	margin-top: 30px;
 }
@@ -60,7 +67,7 @@ section.tournamentslist-tournoi > div:nth-of-type(odd){
 	margin-top: 55px;
 	max-width: 450px;
 	padding: 15px 5px; 
-	max-height: 250px;
+	max-height: 300px;
 }
 
 div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:first-of-type{
@@ -174,5 +181,10 @@ p.tournamentslist-inaccessible-p{
 @media screen and (max-width: 340px) {
 	div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:last-child{
 		
+	}
+}
+@media screen and (max-width: 900px) {
+	#no-filtrable-tournaments{
+		justify-content: center;
 	}
 }
