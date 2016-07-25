@@ -116,7 +116,7 @@
 				<h3 class="tournamentslist-bigdiv-title tournamentslist-owner-title title title-1 m-a text-center capitalize">votre tournoi</h3>
 			<?php endif ?>
 			
-			<div class="m-a display-flex-column">
+			<div class="m-a display-flex-row">
 				<?php foreach ($ownedTournaments as $key => $t): ?>
 					<?php if ($t->doesTournamentHaveWinner()): ?>
 						<div class="tournamentslist-tournoi-element relative display-flex-row">
@@ -124,7 +124,7 @@
 								<aside class="full-height relative display-flex-column m-a">
 									<p class="m-a text-center title-7 italic"><?php echo $t->getName(); ?></p>
 									<img class="m-a text-center full-width" src="<?php echo $t->getGameImg(); ?>" alt="">
-									<figcaption class="m-a title-7 italic">Le <?php echo date('d-m-Y', $t->getStartDate()) . ' par <a href="'. WEBPATH. '/profil?pseudo=' . $t->getUserPseudo().'">' . $t->getUserPseudo() .'</a>'; ?></figcaption>
+									<figcaption class="m-a title-7 italic bg-green">Le <?php echo date('d-m-Y', $t->getStartDate()) . ' par <a href="'. WEBPATH. '/profil?pseudo=' . $t->getUserPseudo().'">' . $t->getUserPseudo() .'</a>'; ?></figcaption>
 								</aside>
 								<article class="m-a display-flex-column">
 									<h2 class="m-a text-center title title-1 capitalize"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>"><?php echo $t->getGameName(); ?></a></h2>
@@ -146,7 +146,7 @@
 								<aside class="full-height relative display-flex-column m-a">
 									<p class="m-a text-center title-7 italic"><?php echo $t->getName(); ?></p>
 									<img class="m-a text-center full-width" src="<?php echo $t->getGameImg(); ?>" alt="">
-									<figcaption class="m-a title-7 italic">Le <?php echo date('d-m-Y', $t->getStartDate()) . ' par <a href="'. WEBPATH. '/profil?pseudo=' . $t->getUserPseudo().'">' . $t->getUserPseudo() .'</a>'; ?></figcaption>
+									<figcaption class="m-a title-7 italic bg-green">Le <?php echo date('d-m-Y', $t->getStartDate()) . ' par <a href="'. WEBPATH. '/profil?pseudo=' . $t->getUserPseudo().'">' . $t->getUserPseudo() .'</a>'; ?></figcaption>
 								</aside>
 								<article class="m-a display-flex-column">
 									<h2 class="m-a text-center title title-1 capitalize"><a href="<?php echo WEBPATH.'/tournoi?t=' .$t->getLink();?>"><?php echo $t->getGameName(); ?></a></h2>

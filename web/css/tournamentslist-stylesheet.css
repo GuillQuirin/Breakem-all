@@ -47,7 +47,7 @@ section.tournamentslist-tournoi {
 }
 section.tournamentslist-tournoi-owner{
 	padding: 20px 0;
-	/*background: linear-gradient( to right, rgb(8,3,37), #D92B4C);*/
+	background: linear-gradient( to bottom, rgb(8,3,37), rgba(255, 255, 255, .1));
 }
 section.tournamentslist-tournoi > div{
 	padding: 15px 15px;
