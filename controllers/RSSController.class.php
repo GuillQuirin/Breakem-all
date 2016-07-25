@@ -9,7 +9,7 @@ class RSSController extends template{
 		$v->assign("content", "Fiche de l'utilisateur");
 
 		$tournoiBDD = new tournamentManager();
-		$listtournoi = $tournoiBDD->getRecentsTournaments(5);
+		$listtournoi = $tournoiBDD->getRecentsTournaments();
 
 		//Rédaction du fichier
 
@@ -51,9 +51,9 @@ class RSSController extends template{
 		$xml .= '</rss>';
 
 		//Ecriture dans le fichier
-		$fichier = fopen(LOCALPATH."/flux.xml", 'w');
+		$fichier = fopen(LOCALPATH."/flux.xml", 'w+');
 		if(isset($fichier) && $fichier){
-			fputs($fichier, $xml);
+			fwrite($fichier, $xml);
 			fclose($fichier);
 		}
 		//$v->setView("blank","templateEmpty");
