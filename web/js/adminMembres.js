@@ -159,7 +159,7 @@ var membreModule = {
 					 			console.log(myRDiv);
 					 		}							
 						}else{
-							//adminError.highlightInput(membreModule.getAdminSearchInput());
+							adminError.highlightInput(membreModule.getAdminSearchInput());
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
 					},

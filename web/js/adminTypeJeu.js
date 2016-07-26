@@ -267,6 +267,7 @@ var typegameModule = {
 					 			myRDiv.addClass('hidden');
 					 		}							
 						}else{
+							adminError.highlightInput(membreModule.getAdminSearchInput());
 							onglet.getAdminDataIhm().removeClass('hidden');
 						}
 					},
