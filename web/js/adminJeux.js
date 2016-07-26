@@ -541,7 +541,7 @@ var gameModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(adminError.isNameValid(nameEl) && adminError.isBirthValid(thisYear, month, day)){
+			    if(adminError.isBirthValid(thisYear, month, day)){
 			    //Insert du jeu
 					jQuery.ajax({
 						url: "admin/insertGamesData", 
