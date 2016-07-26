@@ -2,6 +2,11 @@
     z-index:1000 !important;
 }
 
+.classement-rank-g{
+    background: #d82a4b;
+    padding: 5px 10px;
+}
+
 .bg-cover-classement{
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
     background: linear-gradient(0deg, rgba(22, 9, 98, 0.3), rgba(22, 9, 98, 0.6)), url(../img/classement.jpg) center top no-repeat;
