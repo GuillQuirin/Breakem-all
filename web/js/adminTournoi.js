@@ -174,6 +174,7 @@ var tournoiModule = {
 			submitBtn.on("click", function(){
 				var id = updateBtn.parent().parent().find('.tournament-id-p').val();
 				var name = updateBtn.parent().parent().find('.tournament-name-p').val();
+				var nameEl = updateBtn.parent().parent().find('.tournament-name-p');
 				var description = updateBtn.parent().parent().find('.tournament-description-p').val();
 				var status;
 
@@ -195,7 +196,7 @@ var tournoiModule = {
 					allData.description = description;
 
 			    //Update du tournoi
-			    if(allData.name){
+			    if(adminError.isNameValid(nameEl)){
 					jQuery.ajax({
 						url: "admin/updateTournamentsData", 
 						type: "POST",

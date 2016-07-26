@@ -194,6 +194,7 @@ var teamModule = {
 					status = 1;
 				}
 				var name = updateBtn.parent().parent().find('.team-name-p').val();
+				var nameEl = updateBtn.parent().parent().find('.team-name-p');
 				var slogan = updateBtn.parent().parent().find('.team-slogan-p').val();
 				var description = updateBtn.parent().parent().find('.team-description-p').val();
 				var myImg = updateBtn.parent().parent().find('.admin-input-file > .team-image-p');
@@ -255,42 +256,44 @@ var teamModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    //Update de la team
-				jQuery.ajax({
-					url: "admin/updateTeamsData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log("Team mise à jour");
-						console.log(result);
-						console.log(allData);
-						
-						//Reload la mise a jour dans l'html
-						if(allData.name){ updateBtn.parent().parent().find('.team-name-g').html(name); }
-						if(allData.description){ updateBtn.parent().parent().find('.team-description-g').html(description); }
-						if(allData.slogan){ updateBtn.parent().parent().find('.team-slogan-g').html(slogan); }
+			    if(adminError.isNameValid(nameEl)){
+				    //Update de la team
+					jQuery.ajax({
+						url: "admin/updateTeamsData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log("Team mise à jour");
+							console.log(result);
+							console.log(allData);
+							
+							//Reload la mise a jour dans l'html
+							if(allData.name){ updateBtn.parent().parent().find('.team-name-g').html(name); }
+							if(allData.description){ updateBtn.parent().parent().find('.team-description-g').html(description); }
+							if(allData.slogan){ updateBtn.parent().parent().find('.team-slogan-g').html(slogan); }
 
-						if(allData.status == 1){
-							updateBtn.parent().parent().find('.team-status-g-ht').html(
-								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
-							); 
-						}else{
-							updateBtn.parent().parent().find('.team-status-g-ht').html(
-								"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
-							); 
+							if(allData.status == 1){
+								updateBtn.parent().parent().find('.team-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+								); 
+							}else{
+								updateBtn.parent().parent().find('.team-status-g-ht').html(
+									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+								); 
+							}
+							
+
+							//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
+							if(allData.img){
+								updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img + "?lastmod=" + Date.now());	
+							}	
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update team", result);
 						}
-						
-
-						//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
-						if(allData.img){
-							updateBtn.parent().parent().find('.team-img-up').attr('src', webpath.get() + "/web/img/upload/team/" + allData.img + "?lastmod=" + Date.now());	
-						}	
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update team", result);
-					}
-				});
+					});
+				}
 				updateEvent.preventDefault();
 				return false;
 			

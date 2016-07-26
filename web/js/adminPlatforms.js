@@ -236,6 +236,7 @@ var platformModule = {
 			submitBtn.on("click", function(updateEvent){
 				var id = updateBtn.parent().parent().find('.platform-id-p').val();
 				var name = updateBtn.parent().parent().find('.platform-nom-p').val();
+				var nameEl = updateBtn.parent().parent().find('.platform-nom-p');
 				var description = updateBtn.parent().parent().find('.platform-description-p').val();
 
 				var status;
@@ -299,7 +300,7 @@ var platformModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    if(allData.name){
+			    if(adminError.isNameValid(nameEl)){
 				    //Update de la platform
 					jQuery.ajax({
 						url: "admin/updatePlatformsData", 
@@ -401,6 +402,7 @@ var platformModule = {
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget);
 				var name = subBtn.parent().parent().find('.platform-nom-p').val();
+				var nameEl = subBtn.parent().parent().find('.platform-nom-p');
 				var description = subBtn.parent().parent().find('.platform-description-p').val();
 				var status = 1;
 
@@ -458,7 +460,7 @@ var platformModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.description){
+			    if(adminError.isNameValid(nameEl)){
 			    //Insert de la platform
 					jQuery.ajax({
 						url: "admin/insertPlatformsData", 

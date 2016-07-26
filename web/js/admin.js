@@ -16,6 +16,55 @@ var adminError = {
 		popupError.init("Le format de l'email est invalide.");
 		return false;
 	},
+	isBirthValid: function(y, m, d){
+
+		if (isNaN(Number(d)))
+			return false;
+		if (isNaN(Number(m)))
+			return false;
+		if (isNaN(Number(y)))
+			return false;
+		
+		try {
+			// create the date object with the values sent in (month is zero based)
+			var dt = new Date(y,m-1,d,0,0,0,0);
+
+			// get the month, day, and year from the object we just created 
+			var mon = dt.getMonth() + 1;
+			var day = dt.getDate();
+			var yr  = dt.getYear() + 1900;
+
+			// if they match then the date is valid
+			if ( mon == m && yr == y && day == d )
+				return true;
+			popupError.init("La date de naissance est invalide.");
+			return false;
+		}
+		catch(e) {
+			popupError.init("La date de naissance est invalide.");
+			return false;
+		}
+		
+		return true;
+	},
+	isPseudoValid: function(input){
+		var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		if(input.val().match(unauthorizedChars) || input.val().length == 0){
+			inscription.highlightInput(input);
+			popupError.init("Le pseudo ne doit contenir que des caractères alphanumériques.");
+			return false;
+		}
+		return true;
+	},
+	isNameValid: function(input){
+		var unauthorizedChars = /[^a-zA-Z-0-9]/;
+		if(input.val().match(unauthorizedChars) || input.val().length == 0){
+			inscription.highlightInput(input);
+			popupError.init("Le nom ne doit contenir que des caractères alphanumériques.");
+			return false;
+		}
+		return true;
+	},
 	popup: function(msg){
 		jQuery('body').append(
 		'<div class="index-modal-popup display-flex-column animation fade">'+

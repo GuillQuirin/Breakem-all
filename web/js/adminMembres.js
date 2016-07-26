@@ -243,6 +243,8 @@ var membreModule = {
 				var year = subBtn.find('.membre-birthday-Y').val();
 				var description = subBtn.find('.membre-description-p').val();
 				var pseudo = subBtn.find('.membre-pseudo-p').val();
+				var pseudoEl = subBtn.find('.membre-pseudo-p');
+				var emailEl = subBtn.find('.membre-email-p');
 				var status = subBtn.find('.membre-status-p').val();
 				var email = subBtn.find('.membre-email-p').val();
 				var authorize_mail_contact = 0;
@@ -326,47 +328,49 @@ var membreModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    //Update de la membre
-				jQuery.ajax({
-					cache : false,
-					url: "admin/updateMembresData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log("Membre mise à jour");
-						//console.log(result);
-						var myStatus;
-						//Reload la mise a jour dans l'html
-						if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(pseudo);}
-						if(allData.email){ subBtn.find('.membre-email-g').html(email);}
-						console.log(allData.status);
-						switch(allData.status) {
-						    case "-1":
-						        myStatus = "Banni";
-						        break;
-						    case "0":
-						    	myStatus = "Attente de validation";
-						    	break;
-						    case "1":
-						        myStatus = "Utilisateur";
-						        break;
-						    case "3":
-						    	myStatus = "Administrateur";
-						    	break;
-						} 
-						if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
-						//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
-						if(allData.img){
-							subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/upload/membre/" + allData.img + "?lastmod=" + Date.now());	
+			    if(adminError.isPseudoValid(pseudoEl) && adminError.isEmailValid(emailEl) &&  adminError.isBirthValid(year, month, day)){
+				    //Update de la membre
+					jQuery.ajax({
+						cache : false,
+						url: "admin/updateMembresData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log("Membre mise à jour");
+							//console.log(result);
+							var myStatus;
+							//Reload la mise a jour dans l'html
+							if(allData.pseudo){ subBtn.find('.membre-pseudo-g').html(pseudo);}
+							if(allData.email){ subBtn.find('.membre-email-g').html(email);}
+							console.log(allData.status);
+							switch(allData.status) {
+							    case "-1":
+							        myStatus = "Banni";
+							        break;
+							    case "0":
+							    	myStatus = "Attente de validation";
+							    	break;
+							    case "1":
+							        myStatus = "Utilisateur";
+							        break;
+							    case "3":
+							    	myStatus = "Administrateur";
+							    	break;
+							} 
+							if(allData.status){ subBtn.find('.membre-status-g').html(myStatus);}
+							//Si l'image uploadé existe on l'envoi dans la dom, le Date.now() sert a ne pas cacher l'image du meme nom!!!! ASTUCE DE DINGUE
+							if(allData.img){
+								subBtn.find('.membre-img-up').attr('src', webpath.get() + "/web/img/upload/membre/" + allData.img + "?lastmod=" + Date.now());	
+							}
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update membre", result);
 						}
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update membre", result);
-					}
-				});
-				updateEvent.preventDefault();
-				return false;
+					});
+					updateEvent.preventDefault();
+					return false;
+				}
 			});		
 		});
 	},

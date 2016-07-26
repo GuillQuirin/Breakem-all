@@ -229,6 +229,7 @@ var gameModule = {
 
 				var id = subBtn.find('.jeu-id-p').val();
 				var name = subBtn.find('.jeu-name-p').val();
+				var nameEl = subBtn.find('.jeu-name-p');
 				var description = subBtn.find('.jeu-description-p').val();
 				var day = subBtn.find('.jeu-releaseDate-D').val();
 				var month = subBtn.find('.jeu-releaseDate-M').val();
@@ -311,41 +312,43 @@ var gameModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    //Update de la membre
-				jQuery.ajax({
-					url: "admin/updateGamesData", 
-					type: "POST",
-					data: allData,
-					success: function(result){
-						console.log(result);
-						console.log(allData);
-						console.log("Jeu mis à jour");
-						//Reload la mise a jour dans l'html
+			    if(adminError.isNameValid(nameEl) && adminError.isBirthValid(thisYear, month, day)){
+				    //Update de la membre
+					jQuery.ajax({
+						url: "admin/updateGamesData", 
+						type: "POST",
+						data: allData,
+						success: function(result){
+							console.log(result);
+							console.log(allData);
+							console.log("Jeu mis à jour");
+							//Reload la mise a jour dans l'html
 
-					allData.idType;
-						if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
-						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
-						if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
-						if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
-						//Si l'image uploadé existe on l'envoi dans la dom
-						if(allData.img){
-							updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img + "?lastmod=" + Date.now());	
-						}	
-						if(allData.status == 1){
-								updateBtn.parent().parent().find('.jeu-status-g-ht').html(
-									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
-								); 
-							}else{
-								updateBtn.parent().parent().find('.jeu-status-g-ht').html(
-									"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
-								); 
+						allData.idType;
+							if(name){ updateBtn.parent().parent().find('.jeu-name-g').html(name); }
+							if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
+							if(nameType){ updateBtn.parent().parent().find('.jeu-idType-g').html(nameType); }
+							if(thisYear){ updateBtn.parent().parent().find('.jeu-releaseDate-g').html(thisYear); }
+							//Si l'image uploadé existe on l'envoi dans la dom
+							if(allData.img){
+								updateBtn.parent().parent().find('.jeu-img-up').attr('src', webpath.get() + "/web/img/upload/jeux/" + allData.img + "?lastmod=" + Date.now());	
+							}	
+							if(allData.status == 1){
+									updateBtn.parent().parent().find('.jeu-status-g-ht').html(
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-unlock.png'>"
+									); 
+								}else{
+									updateBtn.parent().parent().find('.jeu-status-g-ht').html(
+										"<img class='icon icon-size-4' src='" + webpath.get() + "/web/img/icon/icon-lock.png'>"
+									); 
+							}
+							navbar.form.smoothClosing();				
+						},
+						error: function(result){
+							throw new Error("Couldn't update game", result);
 						}
-						navbar.form.smoothClosing();				
-					},
-					error: function(result){
-						throw new Error("Couldn't update game", result);
-					}
-				});
+					});
+				}
 				updateEvent.preventDefault();
 				return false;
 			});			
@@ -462,6 +465,7 @@ var gameModule = {
 			subBtn.click(function(ev){
 				var subEvBtn = jQuery(ev.currentTarget);
 				var name = subEvBtn.parent().parent().find('.jeu-name-p').val();
+				var nameEl = subEvBtn.parent().parent().find('.jeu-name-p');
 				var description = subEvBtn.parent().parent().find('.jeu-description-p').val();
 				var day = subEvBtn.parent().parent().find('.jeu-releaseDate-D').val();
 				var month = subEvBtn.parent().parent().find('.jeu-releaseDate-M').val();
@@ -537,7 +541,7 @@ var gameModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 	
 
-			    if(allData.name && allData.day && allData.month && allData.thisYear){
+			    if(adminError.isNameValid(nameEl) && adminError.isBirthValid(thisYear, month, day)){
 			    //Insert du jeu
 					jQuery.ajax({
 						url: "admin/insertGamesData", 
