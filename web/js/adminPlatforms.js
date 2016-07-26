@@ -300,7 +300,7 @@ var platformModule = {
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
 			    } 		
 
-			    if(adminError.isNameValid(nameEl)){
+			    if(name){
 				    //Update de la platform
 					jQuery.ajax({
 						url: "admin/updatePlatformsData", 
