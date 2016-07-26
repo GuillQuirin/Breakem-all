@@ -22,7 +22,7 @@
 					<?php if( isset($_isConnected) && !$tournoi->doesTournamentHaveWinner() ): ?>
 						<?php if($tournoi->getUserPseudo() !== $_pseudo):?>
 							<div class="relative ta-right">								
-								<?php if(isset($userAlrdyRegistered)):?>
+								<?php if(isset($userAlrdyRegistered) && $tournoi->gtAllMatchs() == false):?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else:?>
 									<?php if( (int) $tournoi->getMaxPlayer() - (int) $tournoi->getNumberRegistered() > 0 && $tournoi->getStatus() > -1 && isset($_isConnected) && canUserRegisterToTournament($_user, $tournoi, true) ): ?>
@@ -35,10 +35,10 @@
 								<span class="detailtournoi-btn-gestion relative btn btn-pink">
 									<a href="<?php echo WEBPATH.'/gestiontournoi?t='.$tournoi->getLink(); ?>">Gérer</a>
 								</span>								
-								<?php if ($tournoi->isUserRegistered($_user)): ?>
+								<?php if ($tournoi->isUserRegistered($_user) && $tournoi->gtAllMatchs() == false): ?>
 									<button class="detailtournoi-btn-desinscription relative btn btn-pink"><a>Quitter</a></button>
 								<?php else: ?>
-									<?php if ($tournoi->getStatus() > 0 ): ?>
+									<?php if ($tournoi->getStatus() > 0 && $tournoi->gtAllMatchs() == false): ?>
 									<button class="detailtournoi-btn-inscription<?php echo ((bool)$tournoi->getRandomPlayerMix()) ? '' : '-choisie ' ?> relative btn btn-green"><a>Rejoindre</a></button>
 									<?php endif ?>
 								<?php endif ?>								

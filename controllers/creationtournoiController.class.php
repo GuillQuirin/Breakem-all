@@ -343,7 +343,7 @@ class creationtournoiController extends template{
 		$baseDate= DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
 		$baseDateTime = $baseDate->getTimestamp();
 		if($d1->getTimestamp() < $baseDateTime)
-			$this->echoJSONerror("", "La date de debut doit se trouver maintenant et +".($t->_gtMaxStartDaysInterval() / 86400) ." jours");
+			$this->echoJSONerror("", "La date de debut doit se trouver entre maintenant et +".($t->_gtMaxStartDaysInterval() / 86400) ." jours");
 		if((int) date('G') >= 18 && $d1->getTimestamp() === $baseDateTime)
 			$this->echoJSONerror("", "Il n'est plus possible de créer de tournois pour le jour même passé 18h");
 		$nbJours = $t->_gtMaxStartDaysInterval() / 86400;

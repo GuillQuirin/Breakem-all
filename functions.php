@@ -57,7 +57,7 @@ function canUserRegisterToTournament(user $u, tournament $t, $isFullyAlimented =
 		return true;
 
 	// On vérifie que les matchs n'ont pas débuté
-	if(count($t->gtAllMatchs()) > 0 && $t->isUserRegistered($u)){
+	if(is_array($t->gtAllMatchs()) && count($t->gtAllMatchs()) > 0 && $t->isUserRegistered($u)){
 		return false;
 	}
 

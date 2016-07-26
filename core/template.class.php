@@ -188,20 +188,6 @@ class template{
     // exit;
   }
 
-  /*
-  Fonction inutilisée
-  public function getForm(){
-    return [
-      "options" =>[ "method"=>"POST", "action" => "", "submit"=>"Enregistrer"],
-      "struct" => [
-        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
-        "password"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password", "placeholder" => "Votre Mot de passe", "required"=>1],
-        "password2"=>[ "label" => "Votre Mot de passe", "type" => "password", "id" => "password2", "placeholder" => "Votre Mot de passe", "required"=>1],
-        "title"=>[ "label" => "Votre titre", "type" => "text", "id" => "title", "placeholder" => "Votre titre", "required"=>1],
-      ]
-    ];
-  }*/
-
   protected function echoJSONerror($name = '', $msg){
     if(strlen(trim($name)) > 0)
       $name = $name .' : ';
@@ -309,8 +295,18 @@ class template{
         
         if(!$date)
           $this->echoJSONerror('date', 'Impossible de récupérer la date.');
-        else
-          $finalArr['birthday'] = date_timestamp_get($date);
+        else{
+          $curTime = time();
+          $sixteenYears = $curTime - (3600 * 24 * 365 * 18);
+          $timestamp = date_timestamp_get($date);
+          // var_dump($timestamp);
+          // var_dump($sixteenYears);
+          if($timestamp > $curTime)
+            $this->echoJSONerror('', "Vous n'êtes sûrement pas encore né dans le futur");
+          else if($sixteenYears < $timestamp)
+            $this->echoJSONerror('', "Vous devez avoir plus de dix-huit ans pour vous incrire");
+          $finalArr['birthday'] = $timestamp;
+        }
       }
     }
 
