@@ -67,7 +67,7 @@ section.tournamentslist-tournoi > div:nth-of-type(odd){
 	margin-top: 55px;
 	max-width: 450px;
 	padding: 15px 5px; 
-	max-height: 300px;
+	max-height: 350px;
 }
 
 div.tournamentslist-tournoi-element > .tournamentslist-tournoi-element:first-of-type{
@@ -81,7 +81,9 @@ section.tournamentslist-tournoi-owner > h3{
 	word-spacing: 5px;
 	letter-spacing: 2px;
 }
-
+section.tournamentslist-tournoi-owner .tournamentslist-tournoi-element{
+	border-bottom: 1px solid #D92B4C;
+}
 section.tournamentslist-tournoi{
 	padding: 20px 0;
 	background: linear-gradient( to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .1));
