@@ -7,3 +7,5 @@ web/js/polyfills/html5/datepicker.js
 web/img/upload/membre/user1.jpg
 web/img/upload/team/suitcase.png
 web/img/upload/team/TeamDeLaMort.jpg
+controllers/adminController.class.old.php
+web/js/adminMembres.old.js
