@@ -10,6 +10,7 @@ setlocale(LC_TIME, 'fr_FR');
 require_once "conf.inc.php";
 require_once "functions.php";
 
+header("Access-Control-Allow-Origin: ".str_replace('www.', '', WEBPATH));
 cleanTimedOutSession();
 /*var_dump($_SERVER);
 flush();
