@@ -199,7 +199,7 @@ final class tournamentManager extends basesql{
 		$sql .= " LEFT OUTER JOIN platform p ON p.id = gv.idPlateform";
 		$sql .= " LEFT OUTER JOIN user u ON u.id = t.idUserCreator";
 		$sql .= " LEFT OUTER JOIN register r ON r.idTournament = t.id";
-		$sql .= " WHERE t.startDate > UNIX_TIMESTAMP(LOCALTIME())";
+		$sql .= " WHERE t.endDate > UNIX_TIMESTAMP(LOCALTIME())";
 
 		$data = [];
 		if(isset($searchArray['nom'])){
@@ -213,6 +213,10 @@ final class tournamentManager extends basesql{
 		if(isset($searchArray['console'])){
 			$sql .= " AND p.name LIKE :console ";
 			$data[':console'] = '%'.$searchArray['console'].'%';
+		}
+		if(isset($searchArray['createur'])){
+			$sql .= " AND u.pseudo LIKE :createur ";
+			$data[':createur'] = '%'.$searchArray['createur'].'%';
 		}
 
 		$sql .= " GROUP BY t.id ORDER BY t.startDate";

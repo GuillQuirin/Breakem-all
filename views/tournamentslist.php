@@ -47,8 +47,9 @@
 				<p class="tournamentslist-number-fetched-tournaments-accesible m-a text-center italic title-7 bg-green"><?php echo ($availCount > 1) ? $availCount. ' tournois vous sont accessibles' : $availCount . 'tournoi vous est accessible';  ?></p>
 			<?php else: ?>
 				<?php if ( $count > 0 && ( 
-						(!isset($ownedTournaments) || (isset($ownedTournaments) && count($ownedTournaments) == 0)) 
-					|| (!isset($joinedTournament) || (isset($joinedTournament) && count($joinedTournament) == 0)) 
+						( !isset($ownedTournaments) || ( isset($ownedTournaments) && count($ownedTournaments) == 0 ) ) 
+						|| ( !isset($joinedTournament) || ( isset($joinedTournament) && count($joinedTournament) == 0 ) ) 
+						&& $count != count($ownedTournaments)
 					)
 
 				): ?>
@@ -67,10 +68,10 @@
 
 			<?php if(isset($joinedTournament)): ?>
 				<?php $availCount = count($joinedTournament); ?>
-				<p class="tournamentslist-number-fetched-tournaments-accesible m-a text-center italic title-7 bg-green">Vous participez à <?php echo ($availCount > 1) ? $availCount. ' tournois' : $availCount. ' tournoi' ;  ?></p>
+				<p class="tournamentslist-number-fetched-tournaments-accesible m-a text-center italic title-7 bg-green">Vous participez à <?php echo ($availCount > 1) ? $availCount. ' tournois en cours' : $availCount. ' tournoi en cours' ;  ?></p>
 			<?php else: ?>
-				<?php if ( $count > 0): ?>
-					<p class="tournamentslist-number-fetched-tournaments-accesible tournamentslist-number-fetched-tournaments-accesible-none m-a text-center italic title-7 bg-pink">Vous n'êtes inscrit à aucun des tournois</p>					
+				<?php if ( $count > 0 && $count != count($ownedTournaments)) : ?>
+					<p class="tournamentslist-number-fetched-tournaments-accesible tournamentslist-number-fetched-tournaments-accesible-none m-a text-center italic title-7 bg-pink">Vous n'êtes inscrit à aucun des tournois en cours</p>					
 				<?php endif ?>
 			<?php endif; ?>
 
@@ -80,9 +81,8 @@
 			<?php else: ?>
 				<?php if ( $count > 0): ?>
 				<?php if (isset($userCanRegisterTournaments) || isset($ownedTournaments) || isset($joinedTournament)): ?>
-					
-				<?php endif ?>
 					<p class="tournamentslist-number-fetched-tournaments-accesible tournamentslist-number-fetched-tournaments-accesible-none m-a text-center italic title-7 bg-green">Aucun tournoi ne vous est fermé</p>
+				<?php endif ?>
 				<?php endif ?>				
 			<?php endif; ?>
 
@@ -103,6 +103,10 @@
 				<div class="m-a tournamentslist-input-grp display-flex-column">
 					<label class="input-default capitalize" for="console">console</label>
 					<input class="input-default" name="console" type="text" value="<?php echo (isset($search_console)) ? $search_console : ''?>">
+				</div>
+				<div class="m-a tournamentslist-input-grp display-flex-column">
+					<label class="input-default capitalize" for="createur">createur</label>
+					<input class="input-default" name="createur" type="text" value="<?php echo (isset($search_createur)) ? $search_createur : ''?>">
 				</div>
 			</div>
 			<input type="submit" class="tournamentslist-send-input input-default" value="Chercher"></input>

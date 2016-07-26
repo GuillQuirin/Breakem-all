@@ -273,7 +273,8 @@ class tournoiController extends template {
 		$args = array(
             'nom' => FILTER_SANITIZE_STRING,
             'jeu' => FILTER_SANITIZE_STRING,
-            'console' => FILTER_SANITIZE_STRING
+            'console' => FILTER_SANITIZE_STRING,
+            'createur' => FILTER_SANITIZE_STRING
 		);
 		$filteredinputs = filter_input_array(INPUT_GET, $args);
 		if(!empty($filteredinputs) && count($filteredinputs)>0){
