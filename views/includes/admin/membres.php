@@ -90,6 +90,8 @@
 										//Input
 									//Label
 										echo "<div class='align'>";
+											echo "<input class='hidden membre-id-p' value='" . $joueur->getId() . "'>";
+
 											echo "<a href='".WEBPATH.'/profil?pseudo='.$joueur->getPseudo()."'><label class='underline pink cursor-pointer' for='pseudo'>Pseudo</label></a>";
 											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' min='2' max='15' placeholder='Pseudo entre 2 et 15 caractères' value='" . $joueur->getPseudo() . "' required>";
 										echo "</div>";
