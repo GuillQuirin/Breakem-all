@@ -47,7 +47,7 @@ abstract class basesql{
 		if(!$calling_class || !$calling_method)
 			return false;
 
-		$this->table = get_class($this->mirrorObject);	
+		$this->table = strtolower(get_class($this->mirrorObject));	
 		$this->columns = [];
 		$object_methods = get_class_methods($this->mirrorObject);
 
@@ -66,8 +66,7 @@ abstract class basesql{
 		VALUES (:".implode(",:", array_keys($this->columns)).")";
 
 		$query = $this->pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-
-		foreach($this->columns as $key => $value)
+		foreach($this->columns as $key => $value) 
 			$data[$key] = $value;
 
 		return $query->execute($data);
