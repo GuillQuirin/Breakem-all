@@ -11,6 +11,7 @@ require_once "conf.inc.php";
 require_once "functions.php";
 
 header("Access-Control-Allow-Origin: ".str_replace('www.', '', WEBPATH));
+header("Access-Control-Allow-Origin: ".WEBPATH);
 cleanTimedOutSession();
 /*var_dump($_SERVER);
 flush();
