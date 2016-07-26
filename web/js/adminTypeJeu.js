@@ -344,7 +344,6 @@ var typegameModule = {
 			submitBtn.click(function(ev){
 				var subBtn = jQuery(ev.currentTarget);
 				var name = subBtn.parent().parent().find('.typejeu-nom-p').val();
-				var name = subBtn.parent().parent().find('.typejeu-nom-p');
 				var description = subBtn.parent().parent().find('.typejeu-description-p').val();
 				var status = 1;
 
