@@ -109,7 +109,6 @@ var typegameModule = {
 			submitBtn.on("click", function(updateEvent){
 				var id = updateBtn.parent().parent().find('.typejeu-id-p').val();
 				var name = updateBtn.parent().parent().find('.typejeu-nom-p').val();
-				var name = updateBtn.parent().parent().find('.typejeu-nom-p');
 				var description = updateBtn.parent().parent().find('.typejeu-description-p').val();
 
 				var status;
