@@ -223,7 +223,7 @@ var teamModule = {
 			        var file = myImg.prop('files')[0];
 
 			        if(myImg && file){
-
+			        	if(file.type == ("image/jpeg")){
 			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 			        	allData.img = name + ".jpg";
 
@@ -246,6 +246,9 @@ var teamModule = {
 				                console.log(result2);
 				            }
 					    });
+					}else{
+						adminError.popup("Merci d'uploader une image au format jpeg");
+					}
 			        }   				    
 			    } else {    	
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");

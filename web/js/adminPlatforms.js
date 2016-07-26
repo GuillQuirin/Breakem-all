@@ -265,29 +265,34 @@ var platformModule = {
 		        	var file = myImg.prop('files')[0];
 
 			        if(myImg && file){
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = name + ".jpg";
 
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);			
-					    imgData.append('name', name);
+			        	if(file.type == ("image/jpeg")){
+				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+				        	allData.img = name + ".jpg";
 
-					    jQuery.ajax({
-				            url: "admin/updatePlatformsData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
+				        	var imgData = new FormData();                  
+						    imgData.append('file', file);			
+						    imgData.append('name', name);
+
+						    jQuery.ajax({
+					            url: "admin/updatePlatformsData", 
+					            dataType: 'text',  
+					            cache: false,
+					            contentType: false,
+					            processData: false,
+					            data: imgData,                         
+					            type: 'POST',
+					            success: function(result2){
+					                console.log("Image uploadé.");
+					                console.log(file.name);				       
+					            },
+					            error: function(result2){
+					                console.log(result2);
+					            }
+						    });
+						}else{
+							adminError.popup("Merci d'uploader une image au format jpeg");
+						}
 			        }			    
 			    } else {    	
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
@@ -420,6 +425,7 @@ var platformModule = {
 			        	//Pour l'upload coté serveur
 			        	var file = myImg.prop('files')[0];
 			        	if(file){
+			        		if(file.type == ("image/jpeg")){
 
 				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
 				        	allData.img = name + ".jpg";
@@ -442,6 +448,9 @@ var platformModule = {
 					                console.log(result2);
 					            }
 						    });
+							}else{
+								adminError.popup("Merci d'uploader une image au format jpeg");
+							}
 						}
 			        }   				    
 			    } else {    	

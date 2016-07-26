@@ -2,11 +2,11 @@
 	if(isset($listecomment)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Message</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Statut</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Date</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Message</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Statut</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -17,11 +17,11 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-date-g'>" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-pseudo-g'>" . $comment->getPseudo() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-team-g'>" . $comment->getNomTeam() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getComment() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-status-g'><div class='align comment-status-g-ht'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-date-g'>" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-pseudo-g'>" . $comment->getPseudo() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-team-g'>" . $comment->getNomTeam() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='comment-message-g'>" . $comment->getComment() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize comment-status-g'><div class='align comment-status-g-ht'>";
 						if($comment->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
@@ -48,25 +48,32 @@
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-comment.png'><span class='form-title'>Commentaire</span>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-4 text-left'>";
-									    echo "<label for='pseudo'>Pseudo :</label>";
-									    echo "<label for='NomTeam'>Team :</label>";
-									    echo "<label for='date'>Date :</label>";
-									    echo "<label for='status'>Publié :</label>";
-									    echo "<label for='message'>Message :</label>";
-								    echo "</div>";
-								    //Input
-								    echo "<div class='grid-md-8'>";
+
+								    echo "<div class='grid-md-12'>";
+								    echo "<div class='align'>";
+								    	echo "<label for='pseudo'>Pseudo</label>";
 										echo "<input type='text' name='id' class='hidden comment-id-p' value='" . $comment->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w input-disabled comment-pseudo-p' name='pseudo' type='text' value='" . $comment->getPseudo() . "' disabled>";
-										echo "<input class='input-default admin-form-input-w input-disabled comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "' disabled>";
-										echo "<input class='input-default admin-form-input-w input-disabled comment-date-p' name='date' type='text' value='" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "' disabled>";
-										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default comment-status-p admin-checkbox-ajust' id='comment-status-p' name='status' required type='checkbox' ";
-											echo ($comment->getStatus()!==NULL  && $comment->getStatus()==-1) ? "checked=checked>" : ">";
-										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
+									echo "</div>";
 
-										echo "<textarea class='input-default admin-form-input-w comment-message-p' name='message'>". $comment->getComment()."</textarea>";
+									echo "<div class='align'>";
+										echo "<label for='NomTeam'>Team</label>";
+										echo "<input class='input-default admin-form-input-w input-disabled comment-NomTeam-p' name='NomTeam' type='text' value='" . $comment->getNomTeam() . "' disabled>";
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='date'>Date</label>";
+										echo "<input class='input-default admin-form-input-w input-disabled comment-date-p' name='date' type='text' value='" . date('d-m-Y \à H\hi',strtotime($comment->getDate())) . "' disabled>";
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='message'>Message :</label>";
+										echo "<textarea class='admin-textarea input-default admin-form-input-w comment-message-p' name='message'>". $comment->getComment()."</textarea>";
+									echo "</div>";
+
+										echo "<div class='relative'><span class='toggleCheck'><label for='status'>Publié</label><input class='checkbox input-default comment-status-p admin-checkbox-ajust' id='comment-status-p' name='status' required type='checkbox' ";
+											echo ($comment->getStatus()!==NULL  && $comment->getStatus()==-1) ? "checked=checked>" : ">";
+										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";	
 									echo "</div>";
 									//Submit
 									echo "<div class='grid-md-12'>"; 

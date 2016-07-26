@@ -17,7 +17,7 @@ var tournoiModule = {
 		tournoiModule.searchRequest();
 
 		//Pagination
-		pagi();		
+		//pagi();		
 	},
 
 	//Setter

@@ -2,11 +2,11 @@
 	if(isset($listejeu)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Année</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>			
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Année</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Type</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>			
 		</div>";
 
 		echo $cat;
@@ -17,11 +17,11 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->gtNameType() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round jeu-img-up' src='" . $jeu->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-name-g'>" . $jeu->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-releaseDate-g'>" . date('Y', $jeu->getYear()) . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='jeu-idType-g'>" . $jeu->gtNameType() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize jeu-status-g'><div class='align jeu-status-g-ht'>";
 						if($jeu->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
@@ -51,27 +51,30 @@
 									echo "</div>";
 									//Image
 									echo "<div class='grid-md-12'>";
-										echo "<div class='membre-form-img-size m-a'>";																	
+										echo "<div class='membre-form-img-size m-a hidden-xs'>";																	
 											echo "<img class='img-cover jeu-img membre-form-img-size' src='" . $jeu->getImg() . "' title='Image de profil' alt='Image de profil'>";										
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='jeu-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-4 text-left'>";
-									    echo "<label for='nom'>Nom :</label>";
-									    echo "<label for='scription'>Description :</label>";
-									    echo "<label for='year'>Année :</label>";
-									    echo "<label for='idType'>Type :</label>";
-									    echo "<label for='status'>Verrouiller :</label>";
-								    echo "</div>";
+	
 								    //Input
-								    echo "<div class='grid-md-8'>";
+								    echo "<div class='grid-md-12'>";
+
+								    echo "<div class='align'>";
+								    	echo "<label for='nom'>Nom</label>";
 										echo "<input type='text' name='id' class='hidden jeu-id-p' value='" . $jeu->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w jeu-name-p' name='name' type='text' value='" . $jeu->getName() . "'>";
-										echo "<textarea class='input-default admin-form-input-w jeu-description-p' name='description'>" . $jeu->getDescription() . "</textarea>";
+									echo "</div>";
 
+									echo "<div class='align'>";
+										echo "<label for='scription'>Description</label>";
+										echo "<textarea class='admin-textarea input-default admin-form-input-w jeu-description-p' name='description'>" . $jeu->getDescription() . "</textarea>";
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='year'>Année</label>";
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-D' type='number' name='day' placeholder='dd' min='1' max='31'";
 										echo ($jeu->getYear()!==NULL) ? " value='".date('d', $jeu->getYear())."'>" : ">";
 										
@@ -80,7 +83,10 @@
 
 										echo "<input class='input-default admin-form-input-w jeu-releaseDate-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
 										echo ($jeu->getYear()!==NULL) ? " value='".date('Y', $jeu->getYear())."'>" : ">";
-										
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='idType'>Type</label>";
 										echo "<input type='hidden' class='jeu-nameType-p' value='" . $jeu->gtNameType() . "'>";
 										echo "<select class='select-default jeu-idType-p' name='idType'>";
 											if(isset($listetypejeu)){
@@ -97,8 +103,9 @@
 												echo "<option value='0'>Non disponnible</option>";
 											}
 										echo "</select>";
+									echo "</div>";
 
-										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox' ";
+										echo "<div class='relative'><span class='toggleCheck'><label for='status'>Verrouiller</label><input class='checkbox input-default admin-checkbox-ajust jeu-status-p' id='jeu-status-p' name='status' required type='checkbox' ";
 											echo ($jeu->getStatus()!==NULL  && $jeu->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 

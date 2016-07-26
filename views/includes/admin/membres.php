@@ -2,12 +2,12 @@
 	if(isset($listejoueurs)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Mail</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Report</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
 
 		</div>";
 
@@ -21,22 +21,22 @@
 					//Affichage
 					//Image
 					//Je met un timestamp après l'image pour ne pas la sauvegarder dans le cache si jamais on la modifie (fichier avec le meme nom) voir : http://stackoverflow.com/questions/728616/disable-cache-for-some-images
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round membre-img-up' src='" .$joueur->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";						
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round membre-img-up' src='" .$joueur->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";						
 					//Pseudo
 					//var_dump($joueur->getImg());
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'>".$joueur->getPseudo()."</span></div></div>";						
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'>".$joueur->getPseudo()."</span></div></div>";						
 					//Email
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-email-g'>" .$joueur->getEmail(). "</span></div></div>";						
 					//Team
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-nameTeam-g'>"; 
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-nameTeam-g'>"; 
 						if($joueur->getNameTeam()){
 							echo $joueur->getNameTeam();
 						}
 					echo "</span></div></div>";
 					//Report Number
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-reportnumber-g'>" .$joueur->getReportNumber(). "</span></div></div>";
 					//Status
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize membre-status-g'>";
 						echo "<span class='capitalize membre-status-g'>";
 						switch ($joueur->getStatus()) {
 						    case -1:
@@ -76,7 +76,7 @@
 									echo "</div>";
 									echo "<div class='grid-md-12'>";
 									//Image							    								 
-								    	echo "<div class='membre-form-img-size m-a'>";																	
+								    	echo "<div class='membre-form-img-size m-a hidden-xs'>";																	
 											echo "<img class='img-cover membre-img membre-form-img-size' src='" . $joueur->getImg() . "' title='Image de profil' alt='Image de profil'>";
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
@@ -84,20 +84,21 @@
 										echo "</div>";
 									echo "</div>";
 
-								    echo "<div class='grid-md-6'>";
-									   	
-									   	echo "<div class='grid-md-4 text-left'>";
-									   		//Label
-									   		echo "<a href='".WEBPATH.'/profil?pseudo='.$joueur->getPseudo()."'><label class='underline pink cursor-pointer' for='pseudo'>Pseudo :</label></a>";
-									   		echo "<label for='email'>Email :</label>";
-											echo "<label for='birthday'>Birthday :</label>";
-										echo "</div>";
-
-										echo "<div class='grid-md-8'>";
-											//Input
+									//Resp
+							
+									echo "<div class='grid-md-6'>";
+										//Input
+									//Label
+										echo "<div class='align'>";
+											echo "<a href='".WEBPATH.'/profil?pseudo='.$joueur->getPseudo()."'><label class='underline pink cursor-pointer' for='pseudo'>Pseudo</label></a>";
 											echo "<input class='input-default admin-form-input-w membre-pseudo-p' placeholder='pseudo' name='pseudo' type='text' min='2' max='15' placeholder='Pseudo entre 2 et 15 caractères' value='" . $joueur->getPseudo() . "' required>";
+										echo "</div>";
+										echo "<div class='align'>";
+											echo "<label for='email'>Email</label>";
 										    echo "<input class='input-default admin-form-input-w membre-email-p' placeholder='Email' name='email' type='email' value='" . $joueur->getEmail() . "' required>";
-
+									    echo "</div>";
+									    echo "<div class='align'>";
+										    echo "<label for='birthday'>Birthday</label>";
 											echo "<input class='input-default admin-form-input-w membre-birthday-D' type='number' name='day' placeholder='dd' min='1' max='31'";
 											echo ($joueur->getBirthday()!==NULL) ? " value='".date('d', $joueur->getBirthday())."'>" : ">";
 											
@@ -106,23 +107,15 @@
 
 											echo "<input class='input-default admin-form-input-w membre-birthday-Y' type='number' name='year' placeholder='yyyy' min='1950' max='".date('Y')."'";
 											echo ($joueur->getBirthday()!==NULL) ? " value='".date('Y', $joueur->getBirthday())."'>" : ">";
+										echo "</div>";
 
-										echo "</div>";							 
-								    echo "</div>";
+									echo "</div>";							 
+							
 
 								    echo "<div class='grid-md-6'>";
-										//Label
-										echo "<div class='grid-md-5 text-left'>";
-											if($joueur->getId()!==$_id)
-												echo "<label for='status'>Status :</label>";
-											echo "<label for='mailContact'>Me contacter :</label>";
-											echo "<label for='description'>Description :</label>";	
-										echo "</div>";
-										//Input
-										echo "<div class='grid-md-7'>";
-											echo "<input class='membre-id-p hidden' value='" . $joueur->getId() . "'>";
-											
+											echo "<div class='align'>";
 											if($joueur->getId()!==$_id){
+												echo "<label for='status'>Status</label>";
 												echo "<select class='select-default membre-status-p' placeholder='Status' name='status_".$joueur->getPseudo()."' onChange=setStatut('".$joueur->getPseudo()."',this.value)>";
 													echo "<option value='-1'";
 														echo ($joueur->getStatus()==-1) ? " selected " : " "; 
@@ -138,13 +131,19 @@
 													echo ">Administrateur</option>";
 												echo "</select>";
 											}
+											echo "</div>";
+												
+											echo "<div class='align'>";
+											echo "<label for='description'>Description</label>";	
+											echo "<textarea class='input-default admin-form-input-w admin-textarea membre-description-p' placeholder='Description' name='description'>".$joueur->getDescription()."</textarea>";
+											echo "</div>";
 
-											echo "<div class='relative'><span class='toggleCheck'><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
-												echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? "checked=checked>" : ">";
-											echo "<label class='ajusted-checkbox-label' for='authorize_mail_contact' style='color: rgba(8,3,37,1);'>.</label></span></div>";
-											
-											echo "<textarea class='input-default admin-form-input-w membre-description-p' placeholder='Description' name='description'>".$joueur->getDescription()."</textarea>";
-										echo "</div>";								   
+											echo "<div class='text-left'>";
+												echo "<div class='relative'><span class='toggleCheck'><label for='mailContact'>Me contacter</label><input style='width:23px;bottom:0;top:0;margin:auto;' class='checkbox input-default membre-mailContact-p' name='authorize_mail_contact' required type='checkbox' ";
+													echo ($joueur->getAuthorize_mail_contact()!==NULL  && $joueur->getAuthorize_mail_contact()==1) ? "checked=checked>" : ">";
+												echo "<label class='ajusted-checkbox-label' for='authorize_mail_contact' style='color: rgba(8,3,37,1);'>.</label></span></div>";
+											echo "</div>";
+															   
 								    echo "</div>";
 								    //Submit
 								    echo "<div class='grid-md-12'>";

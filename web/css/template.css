@@ -14,6 +14,20 @@ footer{
     z-index: 10;
 }
 
+.navbarside-hover-a{
+    cursor:pointer;
+}
+
+.navbarside-hover-a:hover{
+    color:#d82a4b;
+}
+
+#navbarside-span{
+    position:initial;
+    opacity:1;
+    padding-left:5px;
+}
+
 /* onglet */
 .admin-onglet-wrapper{
     position:absolute;

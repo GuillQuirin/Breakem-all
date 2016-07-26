@@ -7,6 +7,15 @@ window.addEventListener('load', function load(){
 
 //Animation des erreurs
 var adminError = {
+	isEmailValid: function(input){
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if(input.val().match(mailformat) || input.val().length == 0){
+			return true;
+		}
+		inscription.highlightInput(input);
+		popupError.init("Le format de l'email est invalide.");
+		return false;
+	},
 	popup: function(msg){
 		jQuery('body').append(
 		'<div class="index-modal-popup display-flex-column animation fade">'+

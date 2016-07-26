@@ -151,62 +151,77 @@
 
 					<!-- NAVBAR SIDE -->
 					<div class="navbar-side-menu hidden-md hidden-lg navbar-collapse">
-						<ul class="navbar-menu-ul">
-							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH.'/index'; ?>" class="active">Accueil</a>
+						<ul class="navbar-menu-ul" style="overflow-y:scroll;">
+							<li class="navbar-menu-li align">
+							<?php (isset($_isConnected)) ? include("views/includes/connected/navbarside.php") : include("views/includes/visitor/navbarside.php");?>
 							</li>
 							<li class="navbar-menu-li">
-								<a class="cursor-default">Tournois<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
+								<a href="<?php echo WEBPATH.'/index'; ?>" class="active navbarside-hover-a">Accueil</a>
+							</li>
+							<li class="navbar-menu-li">
 								<ul class="animation fadeUpLow" id="">
 									<?php 
 										if(isset($_isConnected)){
 											echo '<li class="navbar-menu-tooltip-li">';
-												echo '<a href="'.WEBPATH.'/creationtournoi">';
+												echo '<a href="'.WEBPATH.'/creationtournoi" class="navbarside-hover-a">';
 													echo 'Créer un tournoi';
 												echo '</a>';
 											echo '</li>';
 								
 											echo '<li class="navbar-menu-tooltip-li">';
-												echo "<a href=" . WEBPATH. "/mestournois>Mes tournois</a>";
+												echo "<a href='" . WEBPATH. "/mestournois' class='navbarside-hover-a'>Mes tournois</a>";
 											echo "</li>";
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/tournoi/list">
+										<a class="navbarside-hover-a" href="<?php echo WEBPATH; ?>/tournoi/list">
 											Liste des tournois
 										</a>
 									</li>																	
 								</ul>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH.'/listejoueurs'; ?>">Joueurs</a>
+								<a class="navbarside-hover-a" href="<?php echo WEBPATH.'/listejoueurs'; ?>">Joueurs</a>
 							</li>
 							<li class="navbar-menu-li">
-								<a class="cursor-default">Teams<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="' . WEBPATH . '/web/img/icon/icon-down.png">';?></a>
 								<ul class="animation fadeUpLow" id="">
 									<?php 
 										if(isset($_isConnected)){
 											echo '<li class="navbar-menu-tooltip-li">';
 
 											if(!empty($_idTeam))
-												echo "<a href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
+												echo "<a class='navbarside-hover-a' href='".WEBPATH."/detailteam?name=".$_nameTeam."'>Ma team</a>";
 											echo "</li>";
 										}
 									?>
 									<li class="navbar-menu-tooltip-li">
-										<a href="<?php echo WEBPATH; ?>/team">
+										<a class="navbarside-hover-a" href="<?php echo WEBPATH; ?>/team">
 											Liste des teams
 										</a>
 									</li>																			
 								</ul>
 							</li>
 							<li class="navbar-menu-li">
-								<a href="<?php echo WEBPATH ?>/classement">Classement
-								<?php echo '<img class="icon icon-size-1-demi navbar-icon" src="'. WEBPATH . '/web/img/icon/icon-down.png">';?>
+								<a class="navbarside-hover-a" href="<?php echo WEBPATH ?>/classement">Classement
+								</a>
+							</li>
+							<li class="navbar-menu-li">
+								<?php 
+								if(isset($_isAdmin) && $_isAdmin == 1){
+								?>
+									<a class="navbarside-hover-a" href="<?php echo WEBPATH.'/admin'; ?>">
+										Administration
+									</a>
+								<?php
+								}
+								?>
+							</li>
+							<li class="navbar-menu-li">
+								<a class="nav-deconnection navbarside-hover-a">
+									Deconnexion
 								</a>
 							</li>
 						</ul>
-						<?php (isset($_isConnected)) ? include("views/includes/connected/navbar.php") : include("views/includes/visitor/navbar.php");?>
 					</div>
 					<!-- FIN NAVBAR SIDE -->
 

@@ -18,12 +18,12 @@
 			<div class="row">
 				<!-- Image wrapper -->
 				<div class="grid-md-2">
-					<div class='article-img'><img class="img-cover" src='<?php echo $tournament->getGameImg(); ?>'></div>
+					<div class='article-img'><img class="img-cover mestournois-resp-img" src='<?php echo $tournament->getGameImg(); ?>'></div>
 				</div>
 				<!-- Fin Image Wrapper -->
 				<!-- Content wrapper -->
 				<div class="grid-md-8">
-					<div class='article-content'>
+					<div class='article-content grid-md-12 grid-xs-6 grid-centered'>
 						<span class="display-block"><span class="article-content-title"><?php echo $tournament->getName(); ?><span class="article-date"><?php echo date('d-m-Y', $tournament->getStartDate()); ?></span></span></span>
 						<?php //if($tournament->getStatus()===-1){echo '<span class="red">VERROUILLE</span>';}?>
 						<span class="article-content-description"><?php echo $tournament->getDescription(); ?></span>

@@ -2,10 +2,10 @@
 	if(isset($listetypejeu)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -16,10 +16,10 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round typejeu-img-up' src='" . $typejeu->getImg() . "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-nom-g'>" . $typejeu->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='typejeu-description-g'>" . $typejeu->getDescription() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-status-g'><div class='align typejeu-status-g-ht'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round typejeu-img-up' src='" . $typejeu->getImg() . "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-nom-g'>" . $typejeu->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='typejeu-description-g'>" . $typejeu->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize typejeu-status-g'><div class='align typejeu-status-g-ht'>";
 						if($typejeu->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
@@ -47,26 +47,28 @@
 									echo "</div>";
 									//Image
 									echo "<div class='grid-md-12'>";
-										echo "<div class='membre-form-img-size m-a'>";																	
+										echo "<div class='membre-form-img-size m-a hidden-xs'>";																	
 											echo "<img class='img-cover typejeu-img membre-form-img-size' src='" . $typejeu->getImg() . "' title='Image de profil' alt='Image de profil'>";										
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='typejeu-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-4 text-left'>";
-									    echo "<label for='nom'>Nom :</label>";
-									    echo "<label for='description'>Description :</label>";
-									    echo "<label for='status'>Status :</label>";
-								    echo "</div>";
+
 								    //Input
-								    echo "<div class='grid-md-8'>";
+								    echo "<div class='grid-md-12'>";
+								    echo "<div class='align'>";
+								    	echo "<label for='nom'>Nom</label>";
 										echo "<input type='text' name='id' class='hidden typejeu-id-p' value='" . $typejeu->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w typejeu-nom-p' name='nom' type='text' value='" . $typejeu->getName() . "'>";
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='description'>Description</label>";
 										echo "<textarea class='input-default admin-form-input-w typejeu-description-p' name='description' type='text' >".$typejeu->getDescription()."</textarea>";
+									echo "</div>";
 									
-										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default typejeu-status-p admin-checkbox-ajust' id='typejeu-status-p' name='status' required type='checkbox' ";
+										echo "<div class='relative'><span class='toggleCheck'><label for='status'>Status</label><input class='checkbox input-default typejeu-status-p admin-checkbox-ajust' id='typejeu-status-p' name='status' required type='checkbox' ";
 											echo ($typejeu->getStatus()!==NULL  && $typejeu->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 

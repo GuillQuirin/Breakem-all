@@ -140,28 +140,33 @@ var typegameModule = {
 
 			        if(myImg && file){
 
-			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = name + ".jpg";
+			        	if(file.type == ("image/jpeg")){
 
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);	
-					    imgData.append('name', name);			    		                             
-					    jQuery.ajax({
-				            url: "admin/updateTypeGamesData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result2){
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
-				            },
-				            error: function(result2){
-				                console.log(result2);
-				            }
-					    });
+				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+				        	allData.img = name + ".jpg";
+
+				        	var imgData = new FormData();                  
+						    imgData.append('file', file);	
+						    imgData.append('name', name);			    		                             
+						    jQuery.ajax({
+					            url: "admin/updateTypeGamesData", 
+					            dataType: 'text',  
+					            cache: false,
+					            contentType: false,
+					            processData: false,
+					            data: imgData,                         
+					            type: 'POST',
+					            success: function(result2){
+					                console.log("Image uploadé.");
+					                console.log(file.name);				       
+					            },
+					            error: function(result2){
+					                console.log(result2);
+					            }
+						    });
+						}else{
+							adminError.popup("Merci d'uploader une image au format jpeg");
+						}
 			        }   				    
 			    } else {    	
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
@@ -353,41 +358,43 @@ var typegameModule = {
 					allData.description = description;
 				}
 
+				//Upload des images
+			    if (typeof FormData !== 'undefined') {
+			           
+			        //Pour l'upload coté serveur
+			        var file = myImg.prop('files')[0];
 
-				//Image
-			 	if (typeof FormData !== 'undefined') {				           
+			        if(myImg && file){
+			        	if(file.type == ("image/jpeg")){
+			        	//Si une image a été uploadé, on rajoute le src a l'objet allData
+			        	allData.img = name + ".jpg";
 
-			        if(myImg){
-			        	//Pour l'upload coté serveur
-			        	var file = myImg.prop('files')[0];
-			        	if(file){
-
-				        	//Si une image a été uploadé, on rajoute le src a l'objet allData
-				        	allData.img = name + ".jpg";
-
-				        	var imgData = new FormData();                  
-						    imgData.append('file', file);			
-						    imgData.append('name', name);	    		                             
-						    jQuery.ajax({
-					            url: "admin/insertTypeGamesData", 
-					            dataType: 'text',  
-					            cache: false,
-					            contentType: false,
-					            processData: false,
-					            data: imgData,                         
-					            type: 'POST',
-					            success: function(result2){
-					                console.log("Image '" + file.name + "' uploadé.");			       
-					            },
-					            error: function(result2){
-					                console.log(result2);
-					            }
-						    });
+			        	var imgData = new FormData();                  
+					    imgData.append('file', file);	
+					    imgData.append('name', name);			    		                             
+					    jQuery.ajax({
+				            url: "admin/insertTypeGamesData", 
+				            dataType: 'text',  
+				            cache: false,
+				            contentType: false,
+				            processData: false,
+				            data: imgData,                         
+				            type: 'POST',
+				            success: function(result2){
+				                console.log("Image uploadé.");
+				                console.log(file.name);				       
+				            },
+				            error: function(result2){
+				                console.log(result2);
+				            }
+					    });
+						}else{
+							adminError.popup("Merci d'uploader une image au format jpeg");
 						}
 			        }   				    
 			    } else {    	
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
-			    } 	
+			    } 		
 
 			    if(allData.name && allData.description){
 			    //Insert de la platform

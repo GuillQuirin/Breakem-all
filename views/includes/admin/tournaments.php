@@ -2,10 +2,10 @@
 	if(isset($listetournament)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>		
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Début</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Fin</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>		
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Début</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Fin</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -16,10 +16,10 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-name-g'>" . $tournament->getName() . "</span></div></div>";				
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-datedebut-g'>" . date('d-m-Y', $tournament->getStartDate()) . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-datefin-g'>" . date('d-m-Y', $tournament->getEndDate()) . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-status-g'><div class='align tournament-status-g-ht'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-name-g'>" . $tournament->getName() . "</span></div></div>";				
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-datedebut-g'>" . date('d-m-Y', $tournament->getStartDate()) . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='tournament-datefin-g'>" . date('d-m-Y', $tournament->getEndDate()) . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize tournament-status-g'><div class='align tournament-status-g-ht'>";
 						if($tournament->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
@@ -45,18 +45,21 @@
 									echo "<div class='grid-md-12 form-title-wrapper'>";
 										echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-tournament.png'><span class='form-title'>Tournoi</span>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-4 text-left'>";
-									    echo "<label for='nom'>Nom :</label>";
-								   		echo "<label for='description'>Description :</label>";
-								   		echo "<label for='status'>Status :</label>";
-								   echo "</div>";
-								    //Input
-								    echo "<div class='grid-md-8'>";
+
+								    echo "<div class='grid-md-12'>";
+
+								    echo "<div class='align'>";
+								    	echo "<label for='nom'>Nom</label>";
 										echo "<input type='text' name='id' class='hidden tournament-id-p' value='" . $tournament->getId() . "'>";
 										echo "<input class='input-default admin-form-input-w tournament-name-p' name='name' type='text' value='" . $tournament->getName() . "'>";
+									echo "</div>";
+
+									echo "<div class='align'>";
+										echo "<label for='description'>Description</label>";
 										echo "<input class='input-default admin-form-input-w tournament-description-p' name='description' type='text' value='" . $tournament->getDescription() . "'>";
-										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default tournament-status-p admin-checkbox-ajust' id='tournament-status-p' name='status' required type='checkbox' ";
+									echo "</div>";
+
+										echo "<div class='relative'><span class='toggleCheck'><label for='status'>Status</label><input class='checkbox input-default tournament-status-p admin-checkbox-ajust' id='tournament-status-p' name='status' required type='checkbox' ";
 											echo ($tournament->getStatus()!==NULL  && $tournament->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 									echo "</div>";

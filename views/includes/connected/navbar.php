@@ -44,7 +44,7 @@
 				}
 				?>							
 				<li class="navbar-menu-tooltip-li">
-					<a id="nav-deconnection">
+					<a class="nav-deconnection">
 						Deconnexion
 					</a>
 				</li>

@@ -2,10 +2,10 @@
 	if(isset($listeplatform)){	
 
 		$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
-			<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Image</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Nom</span></div></div>
+			<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Description</span></div></div>
+			<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Status</span></div></div>
 		</div>";
 
 		echo $cat;
@@ -16,10 +16,10 @@
 				echo "<div class='grid-md-10 admin-data-ihm align relative grid-centered'>";
 
 					//Affichage
-					echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" . $platform->getImg() . "?lastmod=" . date('Y-m-d H:i:s') ."'></div></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
-					echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round platform-img-up' src='" . $platform->getImg() . "?lastmod=" . date('Y-m-d H:i:s') ."'></div></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-nom-g'>" . $platform->getName() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='platform-description-g'>" . $platform->getDescription() . "</span></div></div>";
+					echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='capitalize platform-status-g'><div class='align platform-status-g-ht'>";
 						if($platform->getStatus() == 1){
 							echo "<img class='icon icon-size-4' src='" . WEBPATH . "/web/img/icon/icon-unlock.png'>";
 						}else{
@@ -48,26 +48,27 @@
 									echo "</div>";
 									//Image
 									echo "<div class='grid-md-12'>";
-										echo "<div class='membre-form-img-size m-a'>";																	
+										echo "<div class='membre-form-img-size m-a hidden-xs'>";																	
 											echo "<img class='img-cover platform-img membre-form-img-size' src='" . $platform->getImg() . "' title='Plateforme' alt='Plateforme'>";										
 										echo "</div>";
 										echo "<div class='text-center admin-input-file'>";								 
 											echo "<input type='file' class='platform-image-p' name='profilpic'>";
 										echo "</div>";
 									echo "</div>";
-									//Label
-									echo "<div class='grid-md-5 text-left'>";
-									    echo "<label for='nom'>Nom :</label>";
-									    echo "<label for='description'>Description :</label>";
-									    echo "<label for='status'>Status :</label>";
-								    echo "</div>";
-								    //Input
-								    echo "<div class='grid-md-7'>";
-										echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
-										echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' min='2' max='30' placeholder='Nom compris entre 2 et 30 caractères.' value='" . $platform->getName() . "' required>";
-									    echo "<textarea class='input-default admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														   
-										
-										echo "<div class='relative'><span class='toggleCheck'><input class='checkbox input-default platform-status-p admin-checkbox-ajust' id='platform-status-p' name='status' required type='checkbox' ";
+
+								    echo "<div class='grid-md-12'>";
+								    	echo "<div class='align'>";
+									    	echo "<label for='nom'>Nom</label>";
+											echo "<input type='text' name='id' class='hidden platform-id-p' value='" . $platform->getId() . "'>";
+											echo "<input class='input-default admin-form-input-w platform-nom-p' name='nom' type='text' min='2' max='30' placeholder='Nom compris entre 2 et 30 caractères.' value='" . $platform->getName() . "' required>";
+										echo "</div>";
+
+										echo "<div class='align'>";
+											echo "<label for='description'>Description</label>";
+										    echo "<textarea class='input-default admin-textarea admin-form-input-w platform-description-p' name='description' type='text'>" . $platform->getDescription() . "</textarea>";							    														   
+										echo "</div>";
+
+										echo "<div class='relative'><span class='toggleCheck'><label for='status'>Status</label><input class='checkbox input-default platform-status-p admin-checkbox-ajust' id='platform-status-p' name='status' required type='checkbox' ";
 											echo ($platform->getStatus()!==NULL  && $platform->getStatus()==-1) ? "checked=checked>" : ">";
 										echo "<label class='ajusted-checkbox-label' for='status'>.</label></span></div>";								
 

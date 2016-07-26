@@ -20,28 +20,36 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 	<div class="admin-onglet-wrapper">
 		<ul class="admin-onglet-ul">
 			<li class="admin-onglet-li" id="admin-onglet-membres">
-				<a>Membres</a>
+				<a class='hidden-xs hidden-sm'>Membres</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-profil.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-team">		
-				<a>Teams</a>
+				<a class="hidden-xs hidden-sm">Teams</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-team.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-platforms">		
-				<a>Plateformes</a>
+				<a class="hidden-xs hidden-sm">Plateformes</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-plateforme.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-games">		
-				<a>Jeux</a>
+				<a class="hidden-xs hidden-sm">Jeux</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-jeu.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-gametype">		
-				<a>Types de jeu</a>
+				<a class="hidden-xs hidden-sm">Types de jeu</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-typejeu.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-tournament">		
-				<a>Tournois</a>
+				<a class="hidden-xs hidden-sm">Tournois</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-tournament.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-comment">		
-				<a>Commentaires</a>
+				<a class="hidden-xs hidden-sm">Commentaires</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-comment.png'>";?>
 			</li><!--
 			--><li class="admin-onglet-li" id="admin-onglet-reports">		
-				<a>Signalements</a>
+				<a class="hidden-xs hidden-sm">Signalements</a>
+				<?php echo "<img class='icon icon-size-4 hidden-md hidden-lg' src='" . WEBPATH . "/web/img/icon/icon-report.png'>";?>
 			</li>
 		</ul>
 	</div>
@@ -94,7 +102,7 @@ if(isset($_isAdmin) && $_isAdmin == 1){
 								</div>
 								<div class="grid-md-12">
 									<span class="display-block admin-board-section-text">En cliquant sur modifier, vous avez accès au formulaire.</span>
-									<?php echo "<img class='border-pink' src='" . WEBPATH . "/web/img/admin-howto4.png'>";?>
+									<?php echo "<img class='border-pink' style='max-width:500px;' src='" . WEBPATH . "/web/img/admin-howto4.png'>";?>
 								</div>
 							</div>
 							<!-- Fin Dashboard Content -->

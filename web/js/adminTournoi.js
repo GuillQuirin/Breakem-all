@@ -194,7 +194,7 @@ var tournoiModule = {
 					allData.description = description;
 
 			    //Update du tournoi
-			    if(allData.name || allData.description || allData.status ){
+			    if(allData.name){
 					jQuery.ajax({
 						url: "admin/updateTournamentsData", 
 						type: "POST",

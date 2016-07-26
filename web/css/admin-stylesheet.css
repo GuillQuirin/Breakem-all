@@ -1,3 +1,6 @@
+.index-modal-login{
+    z-index:1000 !important;
+}
 
 .bg-cover-classement{
     /*background: linear-gradient(0deg, rgba(0,0,255,0.3), rgba(2,173,231,0.5)), url(../img/banner-bg.jpg) center top no-repeat;*/
@@ -5,6 +8,24 @@
     margin:0;
     -webkit-background-size: cover; 
     background-size: cover;     
+}
+
+.classement-pseudo-g:hover{
+    color: #d82a4b;
+}
+
+.classement-team-g:hover{
+    color :#d82a4b;
+}
+
+.classement-img-cover{
+    display:block;
+    width:50px;
+    margin: 0 auto;
+}
+
+.admin-add-wrapper{
+    min-width:180px;
 }
 
 .new-widg{
@@ -178,7 +199,7 @@
     margin:0 5px;
     /*padding:10px 25px;*/
     transform:skew(-8deg);
-    z-index:10000;
+    z-index:20;
     cursor: pointer;
     box-shadow: 1px 1px 5px 0px #656565;
 }
@@ -567,11 +588,19 @@ body, html{
     margin-left:30%;
 }
 
+.admin-textarea{
+    padding: 0 10px !important;
+}
+
 .formgame1{
     margin-left:6%;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+}
+
+.admin-form label{
+    display:inline-block;
 }
 
 .typejeu-description-g, .comment-message-g, .membre-email-g{
@@ -580,4 +609,16 @@ body, html{
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+}
+
+@media screen and (max-width: 600px) {
+   .admin-data-ihm-elem-img-wrapper{
+    height: 50px !important;
+    width:50px !important;
+   }
+
+   .admin-img-cover{
+    height: 50px !important;
+    width:50px !important;
+   }
 }

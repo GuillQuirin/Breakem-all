@@ -53,32 +53,44 @@
 								<div id="liste-derniers-classement">
 								<?php if(isset($userData)){
 									$cat = "<div class='grid-md-10 admin-data-ihm-title align relative grid-centered'>
-											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
-											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
-											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
-											<div class='grid-md-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Points</span></div></div>
+											<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Rank</span></div></div>
+											<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Avatar</span></div></div>
+											<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Pseudo</span></div></div>
+											<div class='grid-md-4 grid-sm-4 hidden-xs'><div class='admin-data-ihm-elem'><span class='capitalize'>Team</span></div></div>
+											<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><span class='capitalize'>Points</span></div></div>
 										</div>";
 
 										echo $cat;
 									foreach ($userData as $key => $joueur) {
+										//Classement en partant de 1
+										$i = $key + 1;
 										//Wrapper				
 										echo "<div class='grid-md-10 classement-data-ihm align relative grid-centered'>";
 
 											//Affichage
+											echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'>"; 
+											if($i == 1){
+											echo "<div class='admin-data-ihm-elem-img-wrapper membres-img align'><img class='classement-img-cover membre-img-up' src='" .WEBPATH. "/web/img/classement-crown1.png'></div>";
+											}elseif($i == 2){
+												echo "<div class='admin-data-ihm-elem-img-wrapper membres-img align'><img class='classement-img-cover membre-img-up' src='" .WEBPATH. "/web/img/classement-crown2.png'></div>";
+											}else{
+												echo "<span class='classement-rank-g'>".$i."</span>";
+											}
+											echo "</div></div>";
 											//Image
 											//Je met un timestamp après l'image pour ne pas la sauvegarder dans le cache si jamais on la modifie (fichier avec le meme nom) voir : http://stackoverflow.com/questions/728616/disable-cache-for-some-images
-											echo "<div class='grid-md-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round membre-img-up' src='" .$joueur->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";						
+											echo "<div class='grid-md-4 grid-sm-4 grid-xs-4'><div class='admin-data-ihm-elem'><div class='admin-data-ihm-elem-img-wrapper membres-img'><img class='admin-img-cover border-round membre-img-up' src='" .$joueur->getImg(). "?lastmod=" . date('Y-m-d H:i:s') . "'></div></div></div>";						
 											//Pseudo
 											//var_dump($joueur->getImg());
-											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."</a></span></div></div>";						
+											echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-pseudo-g classement-pseudo-g'><a href='".WEBPATH."/profil?pseudo=".$joueur->getPseudo()."'>".$joueur->getPseudo()."</a></span></div></div>";						
 											//Team
-											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-nameTeam-g'>"; 
+											echo "<div class='grid-md-4 grid-sm-4 hidden-xs overflow-hidden'><div class='admin-data-ihm-elem'><span class='classement-team-g'>"; 
 												if($joueur->getNameTeam()){
 													echo "<a href='".WEBPATH."/detailteam?name=".$joueur->getNameTeam()."'>".$joueur->getNameTeam()."</a>";
 												}
 											echo "</span></div></div>";
 											//Points
-											echo "<div class='grid-md-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-point-g orange'>".$joueur->gtTotalPoints()."</span></div></div>";						
+											echo "<div class='grid-md-4 grid-sm-4 grid-xs-4 overflow-hidden'><div class='admin-data-ihm-elem'><span class='membre-point-g orange'>".$joueur->gtTotalPoints()."</span></div></div>";						
 
 											//Fin Affichage
 											//Fin Bouton

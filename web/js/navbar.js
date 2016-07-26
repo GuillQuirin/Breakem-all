@@ -458,13 +458,13 @@ var navbar = {
     	navbar._navSideMenu = $('.navbar-side-menu');
     },
     setNavLogin: function(){
-    	navbar._navLogin = $('#navbar-login');
+    	navbar._navLogin = $('.navbar-login');
     },
     setOpenFormAll: function(){
     	navbar._openFormAll = $('.open-form');
     },
     setNavInscription: function(){
-    	navbar._navInscription = $('#navbar-inscription');
+    	navbar._navInscription = $('.navbar-inscription');
     },
     setSearchPage: function(){
     	navbar._searchPage = $('.search-page');
@@ -1019,7 +1019,7 @@ var deconnection = {
 		};		
 	},
 	setBtnToWatch: function(){
-		deconnection._btn = jQuery("#nav-deconnection");
+		deconnection._btn = jQuery(".nav-deconnection");
 	},
 	getBtnToWatch: function(){return deconnection._btn;},
 	clickEventCallback: function(){

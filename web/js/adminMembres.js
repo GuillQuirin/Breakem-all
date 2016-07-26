@@ -289,32 +289,38 @@ var membreModule = {
 			        //Voir : http://stackoverflow.com/questions/21060247/send-formdata-and-string-data-together-through-jquery-ajax
 			        //Ne marche pas
 
+
 			        if(myImg && file){
+			        	console.log(file.type);
+			        	if(file.type == ("image/jpeg")){
 
-						//Si une image a été uploadé, on rajoute le src a l'objet allData
-			        	allData.img = pseudo + ".jpg";
+							//Si une image a été uploadé, on rajoute le src a l'objet allData
+				        	allData.img = pseudo + ".jpg";
 
-			        	var imgData = new FormData();                  
-					    imgData.append('file', file);
-					    imgData.append('pseudo', pseudo);
+				        	var imgData = new FormData();                  
+						    imgData.append('file', file);
+						    imgData.append('pseudo', pseudo);
 
-					    jQuery.ajax({
-				            url: "admin/updateMembresData", 
-				            dataType: 'text',  
-				            cache: false,
-				            contentType: false,
-				            processData: false,
-				            data: imgData,                         
-				            type: 'POST',
-				            success: function(result3){
-				            	console.log("result3", result3);
-				                console.log("Image uploadé.");
-				                console.log(file.name);				       
-				            },
-				            error: function(result3){
-				                console.log(result2);
-				            }
-				        });
+						    jQuery.ajax({
+					            url: "admin/updateMembresData", 
+					            dataType: 'text',  
+					            cache: false,
+					            contentType: false,
+					            processData: false,
+					            data: imgData,                         
+					            type: 'POST',
+					            success: function(result3){
+					            	console.log("result3", result3);
+					                console.log("Image uploadé.");
+					                console.log(file.name);				       
+					            },
+					            error: function(result3){
+					                console.log(result2);
+					            }
+					        });
+						}else{
+							adminError.popup("Merci d'uploader une image au format jpeg");
+						}
 			        }   				    
 			    } else {    	
 			       popupError.init("Votre navigateur ne supporte pas FormData API! Utiliser IE 10 ou au dessus!");
