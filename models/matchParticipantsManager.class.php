@@ -4,7 +4,7 @@
 */
 final class matchParticipantsManager extends basesql{
 	public function setPointsOfTeamTournamentInMatch(matchs $m, $pointsWinner, $pointsLoser){
-		$sql = "UPDATE matchParticipants SET points = CASE
+		$sql = "UPDATE matchparticipants SET points = CASE
 		    WHEN idTeamTournament = (SELECT idWinningTeam FROM matchs WHERE matchs.id = :mId) THEN :pointsWinner
 		    ELSE :pointsLoser
 		    END";
@@ -19,7 +19,7 @@ final class matchParticipantsManager extends basesql{
 	}
 
 	public function getTotalPointsOfUser(user $u){
-		$sql = "SELECT SUM(points) as totalPoints FROM matchParticipants mp";
+		$sql = "SELECT SUM(points) as totalPoints FROM matchparticipants mp";
 		$sql .= " INNER JOIN register r ";
 		$sql .= " ON r.idTeamTournament = mp.idTeamTournament ";
 		$sql .= " AND r.idUser = :uId ";
